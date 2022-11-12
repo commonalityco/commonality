@@ -1,0 +1,9 @@
+{
+  "name": "@commonalityco/types",
+  "version": "1.0.0",
+  "devDependencies": {},
+  "types": "src/types.ts",
+  "main": "src/types.ts",
+  "license": "MIT",
+  "private": true
+}
