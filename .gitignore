@@ -19,7 +19,7 @@ node_modules
 .pnp.*
 .npm
 web_modules/
-
+coverage
 # blitz
 /.blitz/
 /.next/
