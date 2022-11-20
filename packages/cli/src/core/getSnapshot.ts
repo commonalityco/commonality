@@ -1,20 +1,16 @@
 import fs from 'fs-extra';
 import path from 'path';
-import lastCommit from 'git-last-commit';
 import { getPackages } from './getPackages';
 import { LocalPackage, LocalViolation } from '@commonalityco/types';
 import { getConstraintViolations } from './getConstraintViolations';
+import { getTags } from './getTags';
+import { execa } from 'execa';
 
-const getLastCommit = (): Promise<lastCommit.Commit> =>
-  new Promise((resolve, reject) => {
-    return lastCommit.getLastCommit((err, commit) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(commit);
-      }
-    });
-  });
+const getCurrentBranch = async () => {
+  const { stdout } = await execa('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
+  console.log({ stdout });
+  return stdout?.toString()?.replace(/[\n\r\s]+$/, '') || '';
+};
 
 export const getSnapshot = async (
   rootDirectory: string,
@@ -24,6 +20,7 @@ export const getSnapshot = async (
   branch: string;
   packages: LocalPackage[];
   violations: LocalViolation[];
+  tags: string[];
 }> => {
   const configFilePath = path.join(
     rootDirectory,
@@ -37,12 +34,15 @@ export const getSnapshot = async (
 
   const violations = getConstraintViolations(packages, configFile);
 
-  const lastCommit = await getLastCommit();
+  const currentBranch = await getCurrentBranch();
+
+  const tags = await getTags({ packageDirectories, rootDirectory });
 
   return {
-    branch: lastCommit.branch,
+    branch: currentBranch,
     projectId: configFile.project,
     packages,
     violations,
+    tags,
   };
 };

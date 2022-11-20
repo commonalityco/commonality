@@ -1,12 +1,13 @@
 import { getConstraintViolations } from './getConstraintViolations';
 import { expect } from '@jest/globals';
-import { Config } from '@commonalityco/types';
+import { Config, LocalPackage } from '@commonalityco/types';
 
-describe('getConstraintViolations', () => {
+describe.only('getConstraintViolations', () => {
   describe('when a dependency does contain the allowed tags', () => {
-    const packages = [
+    const packages: LocalPackage[] = [
       {
         name: '@scope/foo',
+        version: '1.0.0',
         path: 'packages/foo',
         tags: ['tag-one'],
         dependencies: [
@@ -20,6 +21,7 @@ describe('getConstraintViolations', () => {
       },
       {
         name: '@scope/bar',
+        version: '1.0.0',
         path: 'packages/bar',
         tags: ['tag-two'],
         dependencies: [],
@@ -31,7 +33,7 @@ describe('getConstraintViolations', () => {
       project: '123',
       constraints: [
         {
-          tag: 'tag-one',
+          tags: ['tag-one'],
           allow: ['tag-two'],
         },
       ],
@@ -45,9 +47,10 @@ describe('getConstraintViolations', () => {
   });
 
   describe('when a dependency does not contain the allowed tags', () => {
-    const packages = [
+    const packages: LocalPackage[] = [
       {
         name: '@scope/foo',
+        version: '1.0.0',
         path: 'packages/foo',
         tags: ['tag-one'],
         dependencies: [
@@ -61,18 +64,19 @@ describe('getConstraintViolations', () => {
       },
       {
         name: '@scope/bar',
+        version: '1.0.0',
         path: 'packages/bar',
         tags: ['tag-three'],
-        dependencies: {},
-        devDependencies: {},
-        peerDependencies: {},
+        dependencies: [],
+        devDependencies: [],
+        peerDependencies: [],
       },
     ];
     const config: Config = {
       project: '123',
       constraints: [
         {
-          tag: 'tag-one',
+          tags: ['tag-one'],
           allow: ['tag-two'],
         },
       ],
@@ -83,18 +87,19 @@ describe('getConstraintViolations', () => {
 
       expect(violations).toEqual([
         {
-          constraint: { tag: 'tag-one', allow: ['tag-two'] },
-          source: '@scope/foo',
-          target: '@scope/bar',
+          constraintTags: ['tag-one'],
+          allowedTags: ['tag-two'],
+          sourceName: '@scope/foo',
+          targetName: '@scope/bar',
           targetTags: ['tag-three'],
-          path: 'packages/bar',
+          path: 'packages/foo',
         },
       ]);
     });
   });
 
   describe('when a dependency does not have tags defined', () => {
-    const packages = [
+    const packages: LocalPackage[] = [
       {
         name: '@scope/foo',
         version: '1.0.0',
@@ -123,7 +128,7 @@ describe('getConstraintViolations', () => {
       project: '123',
       constraints: [
         {
-          tag: 'tag-one',
+          tags: ['tag-one'],
           allow: ['tag-two'],
         },
       ],
@@ -134,13 +139,51 @@ describe('getConstraintViolations', () => {
 
       expect(violations).toEqual([
         {
-          constraint: { tag: 'tag-one', allow: ['tag-two'] },
-          source: '@scope/foo',
-          target: '@scope/bar',
-          path: 'packages/bar',
+          constraintTags: ['tag-one'],
+          allowedTags: ['tag-two'],
+          sourceName: '@scope/foo',
+          targetName: '@scope/bar',
+          path: 'packages/foo',
           targetTags: [],
         },
       ]);
+    });
+  });
+
+  describe('when there are no constraints defined', () => {
+    const packages: LocalPackage[] = [
+      {
+        name: '@scope/foo',
+        version: '1.0.0',
+        path: 'packages/foo',
+        tags: ['tag-one'],
+        dependencies: [
+          {
+            name: '@scope/bar',
+            version: '*',
+          },
+        ],
+        devDependencies: [],
+        peerDependencies: [],
+      },
+      {
+        name: '@scope/bar',
+        version: '1.0.0',
+        path: 'packages/bar',
+        tags: [],
+        dependencies: [],
+        devDependencies: [],
+        peerDependencies: [],
+      },
+    ];
+    const config: Config = {
+      project: '123',
+    };
+
+    it('returns no violations', async () => {
+      const violations = getConstraintViolations(packages, config);
+
+      expect(violations).toEqual([]);
     });
   });
 });

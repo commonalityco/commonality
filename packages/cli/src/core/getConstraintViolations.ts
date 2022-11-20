@@ -14,7 +14,7 @@ export const getConstraintViolations = (
 
   for (const constraint of config?.constraints || []) {
     const packagesWithConstraint = packages.filter((pkg) =>
-      pkg.tags.includes(constraint.tag)
+      intersection(pkg.tags, constraint.tags)
     );
 
     for (const packageWithConstraint of packagesWithConstraint) {
@@ -22,6 +22,7 @@ export const getConstraintViolations = (
         tree: packageWithConstraint,
         leave(node: {
           name: string;
+          path: string;
           children: Array<typeof packageWithConstraint>;
         }) {
           if (!node.children.length) {
@@ -33,11 +34,12 @@ export const getConstraintViolations = (
               continue;
             } else {
               violations.push({
-                source: node.name,
-                target: child.name,
+                path: node.path,
+                sourceName: node.name,
+                targetName: child.name,
+                constraintTags: constraint.tags || [],
+                allowedTags: constraint.allow || [],
                 targetTags: child.tags,
-                path: child.path,
-                constraint,
               });
             }
           }
@@ -61,7 +63,7 @@ export const getConstraintViolations = (
             return allDependencyNames.includes(pkg.name);
           });
 
-          return { name: node.name, children };
+          return { name: node.name, children, path: node.path };
         },
         getChildren(node: { children: Array<typeof packageWithConstraint> }) {
           return node.children;

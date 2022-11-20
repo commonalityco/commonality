@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { LocalPackage } from '@commonalityco/types';
+import { getPackageType } from './getPackageType';
 
 export const getPackages = async ({
   packageDirectories,
@@ -53,6 +54,11 @@ export const getPackages = async ({
         path: directory,
         version: packageJson.version,
         tags: [],
+        type: getPackageType([
+          ...formattedDependencies,
+          ...formattedDevDependencies,
+          ...formattedPeerDependencies,
+        ]),
         devDependencies: formattedDevDependencies,
         dependencies: formattedDependencies,
         peerDependencies: formattedPeerDependencies,
@@ -67,6 +73,11 @@ export const getPackages = async ({
       path: directory,
       version: packageJson.version,
       tags: pkgConfig.tags,
+      type: getPackageType([
+        ...formattedDependencies,
+        ...formattedDevDependencies,
+        ...formattedPeerDependencies,
+      ]),
       devDependencies: formattedDevDependencies,
       dependencies: formattedDependencies,
       peerDependencies: formattedPeerDependencies,

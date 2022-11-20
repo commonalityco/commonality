@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "packageManager": "pnpm@7.15.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "prettier": "^2.7.1"
+    "@changesets/cli": "^2.25.2",
+    "prettier": "^2.7.1",
+    "turbo": "latest"
   }
 }

@@ -1,29 +1,45 @@
+export enum PackageType {
+  NODE = 'NODE',
+  REACT = 'REACT',
+  NEXT = 'NEXT',
+}
+
+export type LocalDependency = { name: string; version: string };
+
 export type LocalPackage = {
   path: string;
   name: string;
   version: string;
   tags: string[];
-  dependencies: Array<{ name: string; version: string }>;
-  devDependencies: Array<{ name: string; version: string }>;
-  peerDependencies: Array<{ name: string; version: string }>;
+  type: string;
+  dependencies: LocalDependency[];
+  devDependencies: LocalDependency[];
+  peerDependencies: LocalDependency[];
 };
 
 export type Config = {
   project: string;
-  constraints: Array<{
-    tag: string;
+  constraints?: Array<{
+    tags: string[];
     allow: string[];
   }>;
 };
 
 export type PackageConfig = {
-  tags: string[];
+  tags?: string[];
 };
 
 export type LocalViolation = {
-  constraint: { tag: string; allow: string[] };
+  /** The path to the package with violation relative to the root of the monorepo */
   path: string;
-  source: string;
-  target: string;
+  /** The name of dependent */
+  sourceName: string;
+  /** The name of dependency */
+  targetName: string;
+  /** The tags to which the constraint is applied to */
+  constraintTags: string[];
+  /** The tags allowed by the constraint */
+  allowedTags: string[];
+  /** The tags found in the dependency's configuration file */
   targetTags: string[];
 };

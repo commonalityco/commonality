@@ -54,17 +54,13 @@ export const constraintValidateAction = async () => {
     console.log(chalk.green('No violations found'));
   } else {
     for (const violation of violations) {
-      // console.log(
-      //   chalk.red(
-      //     `Violation: ${violation.source} -> ${violation.target} at ${violation.path}`
-      //   )
-      // );
-
-      console.log(chalk.underline(`${violation.source} → ${violation.target}`));
+      console.log(
+        chalk.underline(`${violation.sourceName} → ${violation.targetName}`)
+      );
       console.log(chalk.dim(violation.path));
 
       console.log(
-        `Expected: ${chalk.green(JSON.stringify(violation.constraint.allow))}`
+        `Expected: ${chalk.green(JSON.stringify(violation.constraintTags))}`
       );
       console.log(`Found: ${chalk.red(JSON.stringify(violation.targetTags))}`);
       console.log('');
