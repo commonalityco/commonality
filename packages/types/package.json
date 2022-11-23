@@ -4,7 +4,6 @@
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "build": "tsup-node",
     "dev": "tsup-node --watch"
