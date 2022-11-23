@@ -1,6 +1,9 @@
 {
   "name": "@commonalityco/cli",
   "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "commonality": "./dist/index.mjs"
   },
