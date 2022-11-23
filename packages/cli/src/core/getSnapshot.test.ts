@@ -1,9 +1,15 @@
 import mock from 'mock-fs';
 import lastCommit from 'git-last-commit';
 import { getSnapshot } from './getSnapshot';
+import * as getCurrentBranch from './getCurrentBranch';
+import { PackageType } from '@commonalityco/types';
 
 describe('getSnapshot', () => {
   beforeEach(() => {
+    jest
+      .spyOn(getCurrentBranch, 'getCurrentBranch')
+      .mockResolvedValue('my-branch');
+
     mock({
       'root/.commonality/config.json': JSON.stringify({ project: '123' }),
       'root/apps/app-foo/package.json': JSON.stringify({
@@ -65,6 +71,7 @@ describe('getSnapshot', () => {
         name: '@scope/app-foo',
         tags: ['tag-one'],
         version: '1.0.0',
+        type: PackageType.NODE,
         dependencies: [
           {
             name: 'bar',
@@ -80,6 +87,7 @@ describe('getSnapshot', () => {
         tags: ['tag-two'],
         version: '2.0.0',
         dependencies: [],
+        type: PackageType.NODE,
         devDependencies: [
           {
             name: 'bar',

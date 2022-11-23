@@ -17,7 +17,7 @@ importers:
       '@babel/core': ^7.18.6
       '@babel/preset-env': ^7.19.4
       '@babel/preset-typescript': ^7.18.6
-      '@commonalityco/types': workspace:*
+      '@commonalityco/types': '*'
       '@jest/globals': ^29.2.1
       '@swc/core': ^1.3.8
       '@swc/jest': ^0.2.23
@@ -112,7 +112,12 @@ importers:
       tsup: 6.4.0_@swc+core@1.3.14
 
   packages/types:
-    specifiers: {}
+    specifiers:
+      tsup: ^6.3.0
+      typescript: ^4.9.3
+    devDependencies:
+      tsup: 6.4.0_typescript@4.9.3
+      typescript: 4.9.3
 
 packages:
 
@@ -5791,6 +5796,42 @@ packages:
       - ts-node
     dev: true
 
+  /tsup/6.4.0_typescript@4.9.3:
+    resolution: {integrity: sha512-4OlbqIK/SF+cJp0mMqPM2pKULvgj/1S2Gm3I1aFoFGIryUOyIqPZBoqKkqVQT6uFtWJ5AHftIv0riXKfHox1zQ==}
+    engines: {node: '>=14'}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': ^1
+      postcss: ^8.4.12
+      typescript: ^4.1.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      bundle-require: 3.1.2_esbuild@0.15.13
+      cac: 6.7.14
+      chokidar: 3.5.3
+      debug: 4.3.4
+      esbuild: 0.15.13
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      postcss-load-config: 3.1.4
+      resolve-from: 5.0.0
+      rollup: 3.2.5
+      source-map: 0.8.0-beta.0
+      sucrase: 3.28.0
+      tree-kill: 1.2.2
+      typescript: 4.9.3
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
+    dev: true
+
   /tty-table/4.1.6:
     resolution: {integrity: sha512-kRj5CBzOrakV4VRRY5kUWbNYvo/FpOsz65DzI5op9P+cHov3+IqPbo1JE1ZnQGkHdZgNFDsrEjrfqqy/Ply9fw==}
     engines: {node: '>=8.0.0'}
@@ -5898,6 +5939,12 @@ packages:
     resolution: {integrity: sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==}
     dependencies:
       is-typedarray: 1.0.0
+    dev: true
+
+  /typescript/4.9.3:
+    resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
     dev: true
 
   /unbox-primitive/1.0.2:

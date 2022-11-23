@@ -1,14 +1,17 @@
 import { getPackages } from './getPackages';
 import mock from 'mock-fs';
+import { PackageType } from '@commonalityco/types';
 
 describe('getPackages', () => {
   describe('when all projects have a commonality.json file', () => {
     beforeEach(() => {
+      console.log('');
       mock({
         'root/packages/foo/package.json': JSON.stringify({
           name: '@scope/foo',
           dependencies: {
             foo: '^1.0.0',
+            next: '^13.0.0',
           },
           devDependencies: {
             bar: '^1.0.0',
@@ -36,10 +39,15 @@ describe('getPackages', () => {
           name: '@scope/foo',
           path: 'packages/foo',
           tags: ['tag-one'],
+          type: PackageType.NEXT,
           dependencies: [
             {
               name: 'foo',
               version: '^1.0.0',
+            },
+            {
+              name: 'next',
+              version: '^13.0.0',
             },
           ],
           devDependencies: [
@@ -61,6 +69,7 @@ describe('getPackages', () => {
 
   describe('when all projects do not have a commonality.json file', () => {
     beforeEach(() => {
+      console.log('');
       mock({
         'root/packages/foo/package.json': JSON.stringify({
           name: '@scope/foo',
@@ -90,6 +99,7 @@ describe('getPackages', () => {
           name: '@scope/foo',
           path: 'packages/foo',
           tags: [],
+          type: PackageType.NODE,
           dependencies: [
             {
               name: 'foo',

@@ -4,13 +4,7 @@ import { getPackages } from './getPackages';
 import { LocalPackage, LocalViolation } from '@commonalityco/types';
 import { getConstraintViolations } from './getConstraintViolations';
 import { getTags } from './getTags';
-import { execa } from 'execa';
-
-const getCurrentBranch = async () => {
-  const { stdout } = await execa('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
-  console.log({ stdout });
-  return stdout?.toString()?.replace(/[\n\r\s]+$/, '') || '';
-};
+import { getCurrentBranch } from './getCurrentBranch';
 
 export const getSnapshot = async (
   rootDirectory: string,

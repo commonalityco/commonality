@@ -48,17 +48,20 @@ export const getPackages = async ({
       }
     );
 
+    const allDeps = [
+      ...formattedDependencies,
+      ...formattedDevDependencies,
+      ...formattedPeerDependencies,
+    ];
+    const type = getPackageType(allDeps);
+
     if (!fs.pathExistsSync(packageConfigPath)) {
       packagesWithTags.push({
         name: packageJson.name,
         path: directory,
         version: packageJson.version,
         tags: [],
-        type: getPackageType([
-          ...formattedDependencies,
-          ...formattedDevDependencies,
-          ...formattedPeerDependencies,
-        ]),
+        type,
         devDependencies: formattedDevDependencies,
         dependencies: formattedDependencies,
         peerDependencies: formattedPeerDependencies,
