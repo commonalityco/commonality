@@ -16,7 +16,11 @@ export const publish = program
   .name('publish')
   .description('Create and upload a snapshot of your monorepo')
   .action(async () => {
-    await ensureAuth();
+    const publishKey = process.env.COMMONALITY_PUBLISH_KEY;
+
+    if (!publishKey) {
+      await ensureAuth();
+    }
 
     const rootDirectory = await getRootDirectory();
 
@@ -38,12 +42,35 @@ export const publish = program
     ).start();
 
     try {
+      const getAuthorizationHeaders = ():
+        | {
+            'X-API-KEY': string;
+          }
+        | { authorization: string }
+        | Record<never, never> => {
+        const accessToken = config.get('accessToken');
+
+        if (publishKey) {
+          return {
+            'X-API-KEY': publishKey,
+          };
+        } else if (accessToken) {
+          return {
+            authorization: `Bearer ${accessToken}`,
+          };
+        } else {
+          return {};
+        }
+      };
+
+      const authorizationHeaders = getAuthorizationHeaders();
+
       const result = await fetch('http://localhost:3000/api/cli/publish', {
         method: 'POST',
         body: JSON.stringify(snapshot),
         headers: {
           'Content-Type': 'application/json',
-          authorization: `Bearer ${config.get('accessToken')}`,
+          ...authorizationHeaders,
         },
       });
 
