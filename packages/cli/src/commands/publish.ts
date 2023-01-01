@@ -66,14 +66,19 @@ export const publish = program
 
       const authorizationHeaders = getAuthorizationHeaders();
 
-      const result = await fetch('http://localhost:3000/api/cli/publish', {
-        method: 'POST',
-        body: JSON.stringify(snapshot),
-        headers: {
-          'Content-Type': 'application/json',
-          ...authorizationHeaders,
-        },
-      });
+      const result = await fetch(
+        `${
+          process.env.COMMONALITY_API_ORIGIN || 'https://app.commonality.co'
+        }/api/cli/publish`,
+        {
+          method: 'POST',
+          body: JSON.stringify(snapshot),
+          headers: {
+            'Content-Type': 'application/json',
+            ...authorizationHeaders,
+          },
+        }
+      );
 
       if (!result.ok) {
         spinner.stopAndPersist({
