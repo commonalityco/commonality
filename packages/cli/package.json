@@ -4,6 +4,9 @@
   "bin": {
     "commonality": "./dist/index.mjs"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup-node",
     "dev": "tsup-node --watch",
