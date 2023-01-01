@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.0.4
+
+### Patch Changes
+
+- 29af66d: Point to production publishing URL
+
 ## 0.0.3
 
 ### Patch Changes
