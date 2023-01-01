@@ -25,6 +25,7 @@ export const publish = program
     const rootDirectory = await getRootDirectory();
 
     if (!rootDirectory) {
+      console.log(chalk.red('Unable to deterimine root directory'));
       return;
     }
 

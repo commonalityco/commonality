@@ -8,8 +8,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "version": "changeset version",
-    "release": "pnpm run build && changeset publish"
+    "changesets:version": "changeset version",
+    "changesets:release": "pnpm run build && changeset publish"
   },
   "keywords": [],
   "author": "",
