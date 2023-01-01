@@ -3,19 +3,23 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "packageManager": "pnpm@7.15.0",
+  "packageManager": "pnpm@7.21.0",
+  "contributors": [
+    "Alec Ortega <alec@commonality.co> (https://github.com/alecortega)"
+  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "changesets:version": "changeset version",
-    "changesets:release": "pnpm run build && changeset publish"
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:release": "pnpm run build && changeset publish"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@changesets/cli": "^2.25.2",
+    "@changesets/cli": "^2.26.0",
     "prettier": "^2.7.1",
     "turbo": "latest"
   }

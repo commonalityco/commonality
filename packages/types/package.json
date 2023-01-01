@@ -1,9 +1,6 @@
 {
   "name": "@commonalityco/types",
   "version": "0.0.1",
-  "publishConfig": {
-    "access": "public"
-  },
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "license": "MIT",

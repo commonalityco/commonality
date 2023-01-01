@@ -1,13 +1,9 @@
 {
   "name": "@commonalityco/cli",
-  "version": "0.0.1",
-  "publishConfig": {
-    "access": "public"
-  },
+  "version": "0.0.2",
   "bin": {
     "commonality": "./dist/index.mjs"
   },
-  "packageManager": "pnpm@7.15.0",
   "scripts": {
     "build": "tsup-node",
     "dev": "tsup-node --watch",
