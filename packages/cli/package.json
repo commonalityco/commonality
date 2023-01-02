@@ -19,6 +19,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@commonalityco/errors": "workspace:*",
     "async-retry": "^1.3.3",
     "chalk": "^5.1.2",
     "commander": "^9.4.1",
@@ -35,7 +36,7 @@
     "lodash.intersection": "^4.4.0",
     "lodash.keyby": "^4.6.0",
     "lodash.uniq": "^4.5.0",
-    "node-fetch": "^3.2.10",
+    "node-fetch": "^3.3.0",
     "node-watch": "^0.7.3",
     "open": "^8.4.0",
     "ora": "^6.1.2",

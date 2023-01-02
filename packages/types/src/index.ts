@@ -43,3 +43,7 @@ export type LocalViolation = {
   /** The tags found in the dependency's configuration file */
   targetTags: string[];
 };
+
+export type SnapshotResult = {
+  url: string;
+};

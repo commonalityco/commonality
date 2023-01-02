@@ -1,8 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import { getPackages } from './getPackages';
-import { LocalPackage, LocalViolation } from '@commonalityco/types';
-import { getConstraintViolations } from './getConstraintViolations';
+import { LocalPackage } from '@commonalityco/types';
 import { getTags } from './getTags';
 import { getCurrentBranch } from './getCurrentBranch';
 
@@ -13,7 +12,6 @@ export const getSnapshot = async (
   projectId: string;
   branch: string;
   packages: LocalPackage[];
-  violations: LocalViolation[];
   tags: string[];
 }> => {
   const configFilePath = path.join(
@@ -26,8 +24,6 @@ export const getSnapshot = async (
 
   const packages = await getPackages({ packageDirectories, rootDirectory });
 
-  const violations = getConstraintViolations(packages, configFile);
-
   const currentBranch = await getCurrentBranch();
 
   const tags = await getTags({ packageDirectories, rootDirectory });
@@ -36,7 +32,6 @@ export const getSnapshot = async (
     branch: currentBranch,
     projectId: configFile.project,
     packages,
-    violations,
     tags,
   };
 };
