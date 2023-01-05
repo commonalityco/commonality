@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.0.6
+
+### Patch Changes
+
+- 1c0b0d9: Publish owners for packages and improve CLI ux
+- Updated dependencies [1c0b0d9]
+  - @commonalityco/codeowners@0.0.2
+
 ## 0.0.5
 
 ### Patch Changes
