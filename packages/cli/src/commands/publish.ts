@@ -99,7 +99,7 @@ export const actionHandler = async (
       spinner.succeed('Successfully published snapshot');
 
       const resultData = (await result.json()) as SnapshotResult;
-      console.log({ resultData });
+
       console.log(`View your graph at ${chalk.bold.blue(resultData.url)}`);
     }
   } catch (error) {

@@ -33,15 +33,14 @@ export const loginAction = async () => {
       }
     )
     .json<DeviceCodeResponse>();
-  console.log({ data });
+
   open(data.verification_uri_complete);
 
   console.log(
     chalk.bold('Verification code: '),
     chalk.blueBright(data.user_code)
   );
-  console.log();
-  console.log(chalk.dim(data.verification_uri_complete));
+
   const verificationSpinner = ora('Waiting for verification...').start();
 
   const requestTokenResponse = await got
