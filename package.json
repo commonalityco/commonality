@@ -15,7 +15,7 @@
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:release": "pnpm run build && changeset publish",
-    "commonality:publish": "commonality publish"
+    "commonality:publish": "pnpm exec commonality publish"
   },
   "keywords": [],
   "author": "",
