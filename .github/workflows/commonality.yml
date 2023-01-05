@@ -33,5 +33,11 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: DEBUG
+        run: cd node_modules/.bin && ls -la
+
       - name: Publish
         run: pnpm run commonality:publish
