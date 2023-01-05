@@ -23,7 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "@changesets/cli": "^2.26.0",
-    "@commonalityco/cli": "latest",
+    "@commonalityco/cli": "workspace:*",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "turbo": "latest"
