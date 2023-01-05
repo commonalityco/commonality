@@ -36,7 +36,7 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Install Built Commonality Binary
+      - name: Install Commonality CLI
         run: pnpm install --frozen-lockfile
 
       - name: Publish
