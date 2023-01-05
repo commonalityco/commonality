@@ -1,0 +1,4 @@
+{
+    "jest.rootPath": "./packages/codeowners",
+    "jest.jestCommandLine": "pnpm run test:watch"
+}

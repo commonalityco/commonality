@@ -11,6 +11,10 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      TURBO_REMOTE_ONLY: true
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -24,6 +28,9 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           run_install: true
+
+      - name: Build
+        run: pnpm run build
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
