@@ -33,4 +33,21 @@ describe('getCodeOwners', () => {
       });
     });
   });
+
+  describe('when there is no CODEOWNERS file', () => {
+    beforeEach(() => {
+      console.log('');
+      mock({
+        'yarn.lock': '',
+      });
+    });
+
+    afterEach(mock.restore);
+
+    it('returns an empty object', () => {
+      const ownership = getCodeOwners({ rootDirectory: './' });
+
+      expect(ownership).toEqual({});
+    });
+  });
 });
