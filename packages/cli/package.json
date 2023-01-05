@@ -1,8 +1,9 @@
 {
   "name": "@commonalityco/cli",
   "version": "0.0.5",
+  "type": "module",
   "bin": {
-    "commonality": "./dist/index.mjs"
+    "commonality": "./dist/index.js"
   },
   "description": "Commonality is a toolchain that helps you scale your monorepo from one to hundeds of developers.",
   "repository": "https://github.com/commonalityco/commonalityco",
@@ -15,10 +16,11 @@
   "scripts": {
     "build": "tsup-node",
     "dev": "tsup-node --watch",
-    "test:watch": "jest --watch",
-    "test": "jest"
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "dependencies": {
+    "@commonalityco/codeowners": "workspace:*",
     "@commonalityco/errors": "workspace:*",
     "async-retry": "^1.3.3",
     "chalk": "^5.1.2",
@@ -26,16 +28,21 @@
     "configstore": "^6.0.0",
     "cosmiconfig": "^7.0.1",
     "execa": "^6.1.0",
+    "fast-glob": "^3.2.12",
     "find-up": "^6.3.0",
     "fs-extra": "^10.1.0",
     "get-port": "^6.1.2",
     "git-last-commit": "^1.0.1",
     "glob": "^8.0.3",
     "globby": "^13.1.2",
+    "got": "^12.5.3",
+    "ignore": "^5.2.4",
+    "is-glob": "^4.0.3",
     "lodash.groupby": "^4.6.0",
     "lodash.intersection": "^4.4.0",
     "lodash.keyby": "^4.6.0",
     "lodash.uniq": "^4.5.0",
+    "micromatch": "^4.0.5",
     "node-fetch": "^3.3.0",
     "node-watch": "^0.7.3",
     "open": "^8.4.0",
@@ -54,9 +61,11 @@
     "@swc/core": "^1.3.8",
     "@swc/jest": "^0.2.23",
     "@tsconfig/node-lts": "^18.12.1",
+    "@tsconfig/node-lts-strictest-esm": "^18.12.1",
     "@types/async-retry": "^1.4.5",
     "@types/configstore": "^6.0.0",
     "@types/fs-extra": "^9.0.13",
+    "@types/is-glob": "^4.0.2",
     "@types/jest": "^29.2.0",
     "@types/lodash.groupby": "^4.6.7",
     "@types/lodash.intersection": "^4.4.7",

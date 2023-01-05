@@ -3,14 +3,12 @@ import { Command } from 'commander';
 import path from 'path';
 import fs from 'fs-extra';
 import chalk from 'chalk';
-
-import type { Config, PackageConfig } from '@commonalityco/types';
+import type { Config } from '@commonalityco/types';
 import { getPackages } from '../../core/getPackages';
 import { getPackageManager } from '../../core/getPackageManager';
 import { getWorkspaces } from '../../core/getWorkspaces';
 import { getPackageDirectories } from '../../core/getPackageDirectories';
 import { getConstraintViolations } from '../../core/getConstraintViolations';
-import groupBy from 'lodash.groupby';
 
 const program = new Command();
 

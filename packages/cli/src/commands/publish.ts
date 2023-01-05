@@ -9,7 +9,7 @@ import chalk from 'chalk';
 import { ensureAuth } from '../core/ensureAuth';
 import { config } from '../core/config';
 import ora from 'ora';
-import { SnapshotResult } from '@commonalityco/types';
+import type { SnapshotResult } from '@commonalityco/types';
 import {
   InvalidSnapshotError,
   UnauthorizedError,
@@ -72,7 +72,7 @@ export const actionHandler = async (
 
     const result = await fetch(
       `${
-        process.env.COMMONALITY_API_ORIGIN || 'https://app.commonality.co'
+        process.env['COMMONALITY_API_ORIGIN'] || 'https://app.commonality.co'
       }/api/cli/publish`,
       {
         method: 'POST',
@@ -96,20 +96,15 @@ export const actionHandler = async (
           throw new Error('Failed to publish snapshot');
       }
     } else {
-      spinner.stopAndPersist({
-        symbol: chalk.green('✔'),
-        text: chalk.green('Successfully published snapshot'),
-      });
+      spinner.succeed('Successfully published snapshot');
 
       const resultData = (await result.json()) as SnapshotResult;
-
+      console.log({ resultData });
       console.log(`View your graph at ${chalk.bold.blue(resultData.url)}`);
     }
   } catch (error) {
-    spinner.stopAndPersist({
-      symbol: chalk.red('✖'),
-      text: chalk.red('Failed to publish snapshot'),
-    });
+    spinner.fail('Failed to publish snapshot');
+
     const isKnownError =
       error instanceof InvalidSnapshotError ||
       error instanceof UnauthorizedError ||
@@ -129,6 +124,6 @@ export const publish = program
   .option(
     '--publishKey <key>',
     'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_PUBLISH_KEY environment variable.',
-    process.env.COMMONALITY_PUBLISH_KEY
+    process.env['COMMONALITY_PUBLISH_KEY']
   )
   .action(actionHandler);

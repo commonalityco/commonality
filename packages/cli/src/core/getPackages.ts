@@ -1,7 +1,8 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { LocalPackage } from '@commonalityco/types';
+import type { LocalPackage } from '@commonalityco/types';
 import { getPackageType } from './getPackageType';
+import { getOwnersForPath } from '@commonalityco/codeowners';
 
 export const getPackages = async ({
   packageDirectories,
@@ -55,6 +56,8 @@ export const getPackages = async ({
     ];
     const type = getPackageType(allDeps);
 
+    const owners = getOwnersForPath({ path: directory, rootDirectory });
+
     if (!fs.pathExistsSync(packageConfigPath)) {
       packagesWithTags.push({
         name: packageJson.name,
@@ -65,6 +68,7 @@ export const getPackages = async ({
         devDependencies: formattedDevDependencies,
         dependencies: formattedDependencies,
         peerDependencies: formattedPeerDependencies,
+        owners,
       });
       continue;
     }
@@ -84,6 +88,7 @@ export const getPackages = async ({
       devDependencies: formattedDevDependencies,
       dependencies: formattedDependencies,
       peerDependencies: formattedPeerDependencies,
+      owners,
     });
   }
 

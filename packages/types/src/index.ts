@@ -15,6 +15,8 @@ export type LocalPackage = {
   dependencies: LocalDependency[];
   devDependencies: LocalDependency[];
   peerDependencies: LocalDependency[];
+  /** The CODEOWNERS that match the path of this package */
+  owners: string[];
 };
 
 export type Config = {

@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import { getPackages } from './getPackages';
-import { LocalPackage } from '@commonalityco/types';
+import type { LocalPackage } from '@commonalityco/types';
 import { getTags } from './getTags';
 import { getCurrentBranch } from './getCurrentBranch';
 

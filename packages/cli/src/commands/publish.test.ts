@@ -26,10 +26,8 @@ describe('publish', () => {
   const responseUrl =
     'https://app.commonality.co/commonality/monorepo/root/main';
 
-  const oraStopAndPersist = jest.fn();
-  const oraStart = jest
-    .fn()
-    .mockReturnValue({ stopAndPersist: oraStopAndPersist });
+  const oraSucceed = jest.fn();
+  const oraStart = jest.fn().mockReturnValue({ succeed: oraSucceed });
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -114,7 +112,7 @@ describe('publish', () => {
         const errorFn = jest.fn();
         await actionHandler(undefined, { error: errorFn } as any);
 
-        expect(oraStopAndPersist).toHaveBeenCalled();
+        expect(oraSucceed).toHaveBeenCalled();
       });
 
       it(`exits with the message for ${InvalidSnapshotError.name}`, async () => {
@@ -141,7 +139,7 @@ describe('publish', () => {
         const errorFn = jest.fn();
         await actionHandler(undefined, { error: errorFn } as any);
 
-        expect(oraStopAndPersist).toHaveBeenCalled();
+        expect(oraSucceed).toHaveBeenCalled();
       });
 
       it(`exits with the message for ${GenericError.name}`, async () => {

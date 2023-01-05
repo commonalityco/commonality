@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { PackageConfig } from '@commonalityco/types';
+import type { PackageConfig } from '@commonalityco/types';
 import uniq from 'lodash.uniq';
 
 export const getTags = async ({
