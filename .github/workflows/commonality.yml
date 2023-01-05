@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       COMMONALITY_PUBLISH_KEY: ${{ secrets.COMMONALITY_PUBLISH_KEY }}
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      TURBO_REMOTE_ONLY: true
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
