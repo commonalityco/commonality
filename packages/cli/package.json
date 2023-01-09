@@ -15,6 +15,7 @@
   },
   "scripts": {
     "build": "tsup-node",
+    "lint": "eslint ./src --fix",
     "dev": "tsup-node --watch",
     "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
@@ -73,10 +74,14 @@
     "@types/lodash.uniq": "^4.5.7",
     "@types/mock-fs": "^4.13.1",
     "@types/prompts": "^2.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
     "ava": "^5.0.1",
     "cross-env": "^7.0.3",
+    "eslint": "^8.0.1",
     "jest": "^29.2.1",
     "mock-fs": "^5.1.4",
-    "tsup": "^6.3.0"
+    "tsup": "^6.3.0",
+    "typescript": "*"
   }
 }
