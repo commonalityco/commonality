@@ -1,8 +1,5 @@
 {
   "pipeline": {
-    "start": {
-      "outputs": []
-    },
     "build": {
       "outputs": ["dist/**"],
       "dependsOn": ["^build"]
