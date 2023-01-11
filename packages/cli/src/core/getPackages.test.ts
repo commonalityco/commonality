@@ -1,6 +1,7 @@
 import { getPackages } from './getPackages';
 import mock from 'mock-fs';
 import { PackageType } from '@commonalityco/types';
+import { describe, expect, beforeEach } from '@jest/globals';
 
 describe('getPackages', () => {
   describe('when all projects have a commonality.json file', () => {
@@ -8,6 +9,7 @@ describe('getPackages', () => {
       console.log('');
       mock({
         'root/packages/foo/package.json': JSON.stringify({
+          version: '1.0.0',
           name: '@scope/foo',
           dependencies: {
             foo: '^1.0.0',
@@ -36,6 +38,8 @@ describe('getPackages', () => {
 
       expect(packages).toEqual([
         {
+          version: '1.0.0',
+          owners: [],
           name: '@scope/foo',
           path: 'packages/foo',
           tags: ['tag-one'],
@@ -72,6 +76,7 @@ describe('getPackages', () => {
       console.log('');
       mock({
         'root/packages/foo/package.json': JSON.stringify({
+          version: '1.0.0',
           name: '@scope/foo',
           dependencies: {
             foo: '^1.0.0',
@@ -96,7 +101,9 @@ describe('getPackages', () => {
 
       expect(packages).toEqual([
         {
+          version: '1.0.0',
           name: '@scope/foo',
+          owners: [],
           path: 'packages/foo',
           tags: [],
           type: PackageType.NODE,

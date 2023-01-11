@@ -69,6 +69,7 @@ describe('getSnapshot', () => {
       {
         path: 'apps/app-foo',
         name: '@scope/app-foo',
+        owners: [],
         tags: ['tag-one'],
         version: '1.0.0',
         type: PackageType.NODE,
@@ -84,6 +85,7 @@ describe('getSnapshot', () => {
       {
         path: 'packages/pkg-foo',
         name: '@scope/pkg-foo',
+        owners: [],
         tags: ['tag-two'],
         version: '2.0.0',
         dependencies: [],
