@@ -1,7 +1,3 @@
-import { getConstraintViolations } from './getConstraintViolations';
-import { expect } from '@jest/globals';
-import { Config, LocalPackage } from '@commonalityco/types';
-
 describe('getConstraintViolations', () => {
   it.skip('returns no violations', () => {
     console.log();
