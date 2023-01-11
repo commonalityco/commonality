@@ -1,7 +1,7 @@
 import { readFileSync, lstatSync } from 'fs-extra';
 import { sync as globSync } from 'fast-glob';
-import { getIsTeam } from './get-is-team';
-import { getIsEmail } from './get-is-email';
+import { getIsTeam } from './get-is-team.js';
+import { getIsEmail } from './get-is-email.js';
 
 const isValidOwner = (owner: string) => {
 	const isTeamHandle = getIsTeam(owner);
@@ -34,7 +34,9 @@ export const getCodeOwners = ({ rootDirectory }: { rootDirectory: string }) => {
 	const linesWithParts = lines.map((line) => line.split(/\s+/));
 
 	const globalOwners = linesWithParts
-		.filter((lineWithParts) => lineWithParts.every(isValidOwner))
+		.filter((lineWithParts) =>
+			lineWithParts.every((lintWithPart) => isValidOwner(lintWithPart))
+		)
 		.flat();
 
 	const linesWithoutGlobalOwners = linesWithParts.filter((lineWithParts) => {

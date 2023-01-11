@@ -1,10 +1,10 @@
 {
-  "extends": "@tsconfig/node-lts/tsconfig.json",
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+	"extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
+	"include": [
+		"**/*.ts",
+		"**/*.tsx"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }

@@ -1,5 +1,6 @@
-import { getCodeOwners } from './get-code-owners';
-import { getOwnersForPath } from './get-owners-for-path';
+/* eslint-disable @typescript-eslint/naming-convention */
+import { getCodeOwners } from './get-code-owners.js';
+import { getOwnersForPath } from './get-owners-for-path.js';
 
 jest.mock('./getCodeOwners');
 

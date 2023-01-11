@@ -1,5 +1,5 @@
 import { isMatch } from 'micromatch';
-import { getCodeOwners } from './get-code-owners';
+import { getCodeOwners } from './get-code-owners.js';
 
 export const getOwnersForPath = ({
 	path,
