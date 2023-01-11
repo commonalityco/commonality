@@ -1,15 +1,12 @@
 {
   "pipeline": {
-    "start": {
-      "outputs": []
-    },
     "build": {
       "outputs": ["dist/**"],
       "dependsOn": ["^build"]
     },
     "test": {
       "outputs": ["coverage/**"],
-      "dependsOn": []
+      "dependsOn": ["^build"]
     },
     "test:watch": {
       "cache": false

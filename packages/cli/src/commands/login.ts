@@ -81,7 +81,7 @@ export const loginAction = async () => {
   //   retries: 100,
   // }
 
-  var expires = new Date();
+  const expires = new Date();
   expires.setSeconds(expires.getSeconds() + requestTokenResponse.expires_in);
 
   config.set('accessToken', requestTokenResponse.access_token);

@@ -1,4 +1,4 @@
-import { findUp } from 'find-up';
+import findUp from 'find-up';
 import path from 'path';
 import { Lockfile } from '../constants/Lockfile';
 

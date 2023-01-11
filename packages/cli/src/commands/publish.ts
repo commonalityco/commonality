@@ -1,7 +1,7 @@
 import { getSnapshot } from './../core/getSnapshot';
 import { getRootDirectory } from './../core/getRootDirectory';
 import { Command } from 'commander';
-import fetch from 'node-fetch';
+import got, { HTTPError } from 'got';
 import { getPackageManager } from '../core/getPackageManager';
 import { getWorkspaces } from '../core/getWorkspaces';
 import { getPackageDirectories } from '../core/getPackageDirectories';
@@ -10,11 +10,6 @@ import { ensureAuth } from '../core/ensureAuth';
 import { config } from '../core/config';
 import ora from 'ora';
 import type { SnapshotResult } from '@commonalityco/types';
-import {
-  InvalidSnapshotError,
-  UnauthorizedError,
-  GenericError,
-} from '@commonalityco/errors';
 
 const program = new Command();
 
@@ -46,75 +41,53 @@ export const actionHandler = async (
     `Publishing ${snapshot.packages.length} packages...`
   ).start();
 
-  try {
-    const getAuthorizationHeaders = ():
-      | {
-          'X-API-KEY': string;
-        }
-      | { authorization: string }
-      | Record<never, never> => {
-      const accessToken = config.get('accessToken');
-
-      if (options.publishKey) {
-        return {
-          'X-API-KEY': options.publishKey,
-        };
-      } else if (accessToken) {
-        return {
-          authorization: `Bearer ${accessToken}`,
-        };
-      } else {
-        return {};
+  const getAuthorizationHeaders = ():
+    | {
+        'X-API-KEY': string;
       }
-    };
+    | { authorization: string }
+    | Record<never, never> => {
+    const accessToken = config.get('accessToken');
 
-    const authorizationHeaders = getAuthorizationHeaders();
-
-    const result = await fetch(
-      `${
-        process.env['COMMONALITY_API_ORIGIN'] || 'https://app.commonality.co'
-      }/api/cli/publish`,
-      {
-        method: 'POST',
-        body: JSON.stringify(snapshot),
-        headers: {
-          'Content-Type': 'application/json',
-          ...authorizationHeaders,
-        },
-      }
-    );
-
-    if (!result.ok) {
-      switch (result.status) {
-        case 400:
-          throw new InvalidSnapshotError();
-        case 403:
-          throw new UnauthorizedError();
-        case 500:
-          throw new GenericError();
-        default:
-          throw new Error('Failed to publish snapshot');
-      }
+    if (options.publishKey) {
+      return {
+        'X-API-KEY': options.publishKey,
+      };
+    } else if (accessToken) {
+      return {
+        authorization: `Bearer ${accessToken}`,
+      };
     } else {
-      spinner.succeed('Successfully published snapshot');
-
-      const resultData = (await result.json()) as SnapshotResult;
-
-      console.log(`View your graph at ${chalk.bold.blue(resultData.url)}`);
+      return {};
     }
+  };
+
+  const authorizationHeaders = getAuthorizationHeaders();
+
+  try {
+    const result = await got
+      .post(
+        `${
+          process.env['COMMONALITY_API_ORIGIN'] || 'https://app.commonality.co'
+        }/api/cli/publish`,
+        {
+          json: {
+            snapshot,
+          },
+          headers: authorizationHeaders,
+        }
+      )
+      .json<SnapshotResult>();
+
+    spinner.succeed('Successfully published snapshot');
+
+    console.log(`View your graph at ${chalk.bold.blue(result.url)}`);
   } catch (error) {
     spinner.fail('Failed to publish snapshot');
 
-    const isKnownError =
-      error instanceof InvalidSnapshotError ||
-      error instanceof UnauthorizedError ||
-      error instanceof GenericError;
-
-    if (isKnownError) {
+    if (error instanceof HTTPError) {
       action.error(error.message);
     }
-
-    action.error('Failed to publish snapshot');
   }
 };
 
