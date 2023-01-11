@@ -4,9 +4,7 @@ import { getCodeOwners } from './getCodeOwners';
 describe('getCodeOwners', () => {
   describe('when the file is at the root of the repo', () => {
     beforeEach(() => {
-      console.log('');
       mock({
-        'yarn.lock': '',
         CODEOWNERS: `@global-team-one @global-team-two\n@global-team-three\n\n#This is a comment\npackages/ @team-one @team-two \n docs/*  docs@example.com`,
       });
     });
@@ -35,15 +33,6 @@ describe('getCodeOwners', () => {
   });
 
   describe('when there is no CODEOWNERS file', () => {
-    beforeEach(() => {
-      console.log('');
-      mock({
-        'yarn.lock': '',
-      });
-    });
-
-    afterEach(mock.restore);
-
     it('returns an empty object', () => {
       const ownership = getCodeOwners({ rootDirectory: './' });
 
