@@ -3,7 +3,9 @@ import { expect } from '@jest/globals';
 import { Config, LocalPackage } from '@commonalityco/types';
 
 describe('getConstraintViolations', () => {
-  it.skip('returns no violations', () => {});
+  it.skip('returns no violations', () => {
+    console.log();
+  });
   // describe('when a dependency does contain the allowed tags', () => {
   //   const packages: LocalPackage[] = [
   //     {
