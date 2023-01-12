@@ -1,7 +1,7 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import { Lockfile } from '../constants/foo.js';
-import { PackageManager } from '../constants/bar.js';
+import { Lockfile } from '../constants/lockfile.js';
+import { PackageManager } from '../constants/package-manager.js';
 
 export const getPackageManager = async (
 	rootDirectory: string

@@ -2,7 +2,7 @@
 import { PackageType } from '@commonalityco/types';
 import { describe, expect, jest, it } from '@jest/globals';
 import { HTTPError } from 'got';
-import { PackageManager } from '../constants/bar.js';
+import { PackageManager } from '../constants/package-manager.js';
 
 const { getRootDirectory } = await import('../core/get-root-directory.js');
 const { getPackageManager } = await import('../core/get-package-manager.js');
