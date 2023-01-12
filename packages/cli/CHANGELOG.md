@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.0.7
+
+### Patch Changes
+
+- ffc4586: Convert to ESM
+- Updated dependencies [ffc4586]
+  - @commonalityco/codeowners@0.0.3
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @commonalityco/types
 
+## 0.0.3
+
+### Patch Changes
+
+- ffc4586: Convert to ESM
+
 ## 0.0.2
 
 ### Patch Changes
