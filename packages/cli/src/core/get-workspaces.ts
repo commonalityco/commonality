@@ -1,7 +1,7 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import yaml from 'read-yaml-file';
-import { type PackageJson } from '@commonalityco/types';
+import type { PackageJson } from '@commonalityco/types';
+import yaml from 'yaml';
 import { PackageManager } from '../constants/package-manager.js';
 
 export const getWorkspaces = async (
@@ -26,9 +26,11 @@ export const getWorkspaces = async (
 			throw new Error('No pnpm-workspace.yaml file found');
 		}
 
-		const workspacesFile = await yaml<{ packages: string[] }>(
-			workspaceFilePath
-		);
+		const yamlFile = fs.readFileSync(workspaceFilePath, 'utf8');
+
+		const workspacesFile = (await yaml.parse(yamlFile)) as {
+			packages: string[];
+		};
 
 		if (!workspacesFile?.packages) {
 			throw new Error(

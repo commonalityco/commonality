@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import mock from 'mock-fs';
 import { PackageType } from '@commonalityco/types';
-import { describe, expect, beforeEach } from '@jest/globals';
+import { describe, expect, beforeEach, afterEach, it } from '@jest/globals';
 import { getPackages } from './get-packages.js';
 
 describe('getPackages', () => {
 	describe('when all projects have a commonality.json file', () => {
 		beforeEach(() => {
-			console.log('');
 			mock({
 				'root/packages/foo/package.json': JSON.stringify({
 					version: '1.0.0',
@@ -74,7 +73,6 @@ describe('getPackages', () => {
 
 	describe('when all projects do not have a commonality.json file', () => {
 		beforeEach(() => {
-			console.log('');
 			mock({
 				'root/packages/foo/package.json': JSON.stringify({
 					version: '1.0.0',

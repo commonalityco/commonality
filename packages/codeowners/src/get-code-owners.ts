@@ -1,5 +1,5 @@
-import { readFileSync, lstatSync } from 'fs-extra';
-import { sync as globSync } from 'fast-glob';
+import fs from 'fs-extra';
+import glob from 'glob';
 import { getIsTeam } from './get-is-team.js';
 import { getIsEmail } from './get-is-email.js';
 
@@ -11,21 +11,22 @@ const isValidOwner = (owner: string) => {
 };
 
 export const getCodeOwners = ({ rootDirectory }: { rootDirectory: string }) => {
-	const filePaths = globSync(['CODEOWNERS'], {
+	const filePaths = glob.sync('CODEOWNERS', {
 		cwd: rootDirectory,
-		deep: 2,
 	});
+
 	const filePath = filePaths[0];
 
 	if (!filePath) {
 		return {};
 	}
 
-	if (lstatSync(filePath).isDirectory()) {
+	if (fs.lstatSync(filePath).isDirectory()) {
 		throw new Error(`Found CODEOWNERS but it's a directory: ${filePath}`);
 	}
 
-	const lines = readFileSync(filePath)
+	const lines = fs
+		.readFileSync(filePath)
 		.toString()
 		.split(/\r\n|\r|\n/)
 		.map((line) => line.trim())

@@ -1,6 +1,6 @@
 import process from 'node:process';
 import path from 'node:path';
-import findUp from 'find-up';
+import { findUp } from 'find-up';
 import { Lockfile } from '../constants/lockfile.js';
 
 export const getRootDirectory = async (cwd = process.cwd()) => {

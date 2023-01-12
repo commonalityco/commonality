@@ -4,7 +4,7 @@ export enum PackageType {
 	NEXT = 'NEXT',
 }
 
-export type LocalDependency = { name: string; version: string };
+export type LocalDependency = {name: string; version: string};
 
 export type LocalPackage = {
 	path: string;

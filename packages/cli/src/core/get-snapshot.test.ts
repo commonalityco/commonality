@@ -1,16 +1,27 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import mock from 'mock-fs';
-import lastCommit from 'git-last-commit';
 import { PackageType } from '@commonalityco/types';
-import { getSnapshot } from './get-snapshot.js';
-import * as getCurrentBranch from './get-current-branch.js';
+import {
+	describe,
+	expect,
+	beforeEach,
+	afterEach,
+	it,
+	jest,
+} from '@jest/globals';
+
+const { getCurrentBranch } = await import('./get-current-branch.js');
+
+jest.unstable_mockModule('./get-current-branch.js', () => ({
+	getCurrentBranch: jest
+		.fn<typeof getCurrentBranch>()
+		.mockResolvedValue('my-branch'),
+}));
+
+const { getSnapshot } = await import('./get-snapshot.js');
 
 describe('getSnapshot', () => {
 	beforeEach(() => {
-		jest
-			.spyOn(getCurrentBranch, 'getCurrentBranch')
-			.mockResolvedValue('my-branch');
-
 		mock({
 			'root/.commonality/config.json': JSON.stringify({ project: '123' }),
 			'root/apps/app-foo/package.json': JSON.stringify({
@@ -39,10 +50,6 @@ describe('getSnapshot', () => {
 	afterEach(mock.restore);
 
 	it('returns the correct branch', async () => {
-		jest.spyOn(lastCommit, 'getLastCommit').mockImplementation((fn) => {
-			fn(undefined as any, { branch: 'my-branch' } as any);
-		});
-
 		const snapshot = await getSnapshot('root', [
 			'apps/app-foo',
 			'packages/pkg-foo',

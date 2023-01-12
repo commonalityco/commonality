@@ -1,5 +1,5 @@
 import path from 'node:path';
-import globby from 'globby';
+import { globby } from 'globby';
 import fs from 'fs-extra';
 
 export const getPackageDirectories = async (

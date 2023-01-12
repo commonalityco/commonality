@@ -1,4 +1,4 @@
-import { isMatch } from 'micromatch';
+import micromatch from 'micromatch';
 import { getCodeOwners } from './get-code-owners.js';
 
 export const getOwnersForPath = ({
@@ -16,8 +16,7 @@ export const getOwnersForPath = ({
 
 	for (const glob of globs) {
 		const ownersForGlob = owners[glob];
-
-		if (isMatch(path, glob) && ownersForGlob) {
+		if (micromatch.isMatch(path, glob) && ownersForGlob) {
 			ownersForPath.push(...ownersForGlob);
 		}
 	}

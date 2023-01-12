@@ -51,37 +51,42 @@ export const getPackages = async ({
 		const owners = getOwnersForPath({ path: directory, rootDirectory });
 
 		if (!fs.pathExistsSync(packageConfigPath)) {
-			packagesWithTags.push({
-				name: packageJson.name,
-				path: directory,
-				version: packageJson.version,
-				tags: [],
-				type,
-				devDependencies: formattedDevDependencies,
-				dependencies: formattedDependencies,
-				peerDependencies: formattedPeerDependencies,
-				owners,
-			});
+			if (packageJson.name) {
+				packagesWithTags.push({
+					name: packageJson.name,
+					path: directory,
+					version: packageJson.version ?? '',
+					tags: [],
+					type,
+					devDependencies: formattedDevDependencies,
+					dependencies: formattedDependencies,
+					peerDependencies: formattedPeerDependencies,
+					owners,
+				});
+			}
+
 			continue;
 		}
 
 		const pkgConfig = fs.readJSONSync(packageConfigPath) as PackageConfig;
 
-		packagesWithTags.push({
-			name: packageJson.name,
-			path: directory,
-			version: packageJson.version,
-			tags: pkgConfig.tags ?? [],
-			type: getPackageType([
-				...formattedDependencies,
-				...formattedDevDependencies,
-				...formattedPeerDependencies,
-			]),
-			devDependencies: formattedDevDependencies,
-			dependencies: formattedDependencies,
-			peerDependencies: formattedPeerDependencies,
-			owners,
-		});
+		if (packageJson.name) {
+			packagesWithTags.push({
+				name: packageJson.name,
+				path: directory,
+				version: packageJson.version ?? '',
+				tags: pkgConfig.tags ?? [],
+				type: getPackageType([
+					...formattedDependencies,
+					...formattedDevDependencies,
+					...formattedPeerDependencies,
+				]),
+				devDependencies: formattedDevDependencies,
+				dependencies: formattedDependencies,
+				peerDependencies: formattedPeerDependencies,
+				owners,
+			});
+		}
 	}
 
 	return packagesWithTags;

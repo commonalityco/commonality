@@ -6,5 +6,14 @@
 	],
 	"exclude": [
 		"node_modules"
-	]
+	],
+	"compilerOptions": {
+		"module": "Node16",
+		"target": "ESNext",
+		"moduleResolution": "Node16",
+		"esModuleInterop": true,
+		"typeRoots": [
+			"./node_modules/@types"
+		]
+	}
 }

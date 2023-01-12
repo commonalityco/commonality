@@ -1,6 +1,6 @@
 import process from 'node:process';
 import { Command } from 'commander';
-import got, { HTTPError } from 'got';
+import * as got from 'got';
 import chalk from 'chalk';
 import ora from 'ora';
 import type { SnapshotResult } from '@commonalityco/types';
@@ -68,10 +68,10 @@ export const actionHandler = async (
 	const authorizationHeaders = getAuthorizationHeaders();
 
 	try {
-		const result = await got
+		const result = await got.got
 			.post(
 				`${
-					process.env.COMMONALITY_API_ORIGIN ?? 'https://app.commonality.co'
+					process.env['COMMONALITY_API_ORIGIN'] ?? 'https://app.commonality.co'
 				}/api/cli/publish`,
 				{
 					json: {
@@ -88,7 +88,7 @@ export const actionHandler = async (
 	} catch (error: unknown) {
 		spinner.fail('Failed to publish snapshot');
 
-		if (error instanceof HTTPError) {
+		if (error instanceof got.HTTPError) {
 			action.error(error.message);
 		}
 	}
@@ -100,6 +100,6 @@ export const publish = program
 	.option(
 		'--publishKey <key>',
 		'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_PUBLISH_KEY environment variable.',
-		process.env.COMMONALITY_PUBLISH_KEY
+		process.env['COMMONALITY_PUBLISH_KEY']
 	)
 	.action(actionHandler);

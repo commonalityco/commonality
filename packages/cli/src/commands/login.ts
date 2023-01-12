@@ -23,7 +23,9 @@ const authOrigin = 'https://commonality-production.us.auth0.com';
 export const loginAction = async () => {
 	const data = await got
 		.post(
-			`${process.env.COMMONALITY_AUTH_ORIGIN ?? authOrigin}/oauth/device/code`,
+			`${
+				process.env['COMMONALITY_AUTH_ORIGIN'] ?? authOrigin
+			}/oauth/device/code`,
 			{
 				headers: { 'content-type': 'application/x-www-form-urlencoded' },
 				form: {
@@ -44,27 +46,30 @@ export const loginAction = async () => {
 	const verificationSpinner = ora('Waiting for verification...').start();
 
 	const requestTokenResponse = await got
-		.post(`${process.env.COMMONALITY_AUTH_ORIGIN ?? authOrigin}/oauth/token`, {
-			hooks: {
-				afterResponse: [
-					async (response, retryWithMergedOptions) => {
-						if (response.statusCode !== 200) {
-							await retryWithMergedOptions({});
-						}
+		.post(
+			`${process.env['COMMONALITY_AUTH_ORIGIN'] ?? authOrigin}/oauth/token`,
+			{
+				hooks: {
+					afterResponse: [
+						(response, retryWithMergedOptions) => {
+							if (response.statusCode !== 200) {
+								retryWithMergedOptions({});
+							}
 
-						return response;
-					},
-				],
-			},
-			form: {
-				grant_type: 'urn:ietf:params:oauth:grant-type:device_code',
-				device_code: data.device_code,
-				client_id: clientId,
-			},
-			retry: {
-				limit: 100,
-			},
-		})
+							return response;
+						},
+					],
+				},
+				form: {
+					grant_type: 'urn:ietf:params:oauth:grant-type:device_code',
+					device_code: data.device_code,
+					client_id: clientId,
+				},
+				retry: {
+					limit: 100,
+				},
+			}
+		)
 		.json<{
 			access_token: string;
 			expires_in: number;
