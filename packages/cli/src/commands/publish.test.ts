@@ -1,65 +1,24 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { PackageType } from '@commonalityco/types';
-import { describe, expect, jest, it } from '@jest/globals';
-import { HTTPError } from 'got';
-import { PackageManager } from '../constants/package-manager.js';
-
-const { getRootDirectory } = await import('../core/get-root-directory.js');
-const { getPackageManager } = await import('../core/get-package-manager.js');
-const { getWorkspaces } = await import('../core/get-workspaces.js');
-const { getPackageDirectories } = await import(
-	'../core/get-package-directories.js'
-);
-const { getSnapshot } = await import('../core/get-snapshot.js');
-
-jest.unstable_mockModule('../core/ensure-auth.js', () => ({
-	ensureAuth: jest.fn<typeof ensureAuth>().mockResolvedValue(true),
-}));
-
-jest.unstable_mockModule('../core/get-package-manager.js', () => ({
-	getPackageManager: jest
-		.fn<typeof getPackageManager>()
-		.mockResolvedValue(PackageManager.PNPM),
-}));
-
-jest.unstable_mockModule('../core/get-root-directory.js', () => ({
-	getRootDirectory: jest
-		.fn<typeof getRootDirectory>()
-		.mockResolvedValue('/root'),
-}));
-
-jest.unstable_mockModule('../core/get-workspaces.js', () => ({
-	getWorkspaces: jest
-		.fn<typeof getWorkspaces>()
-		.mockResolvedValue(['packages/**', 'apps/**']),
-}));
-
-jest.unstable_mockModule('../core/get-package-directories.js', () => ({
-	getPackageDirectories: jest
-		.fn<typeof getPackageDirectories>()
-		.mockResolvedValue(['packages/foo', 'apps/bar']),
-}));
-
-jest.unstable_mockModule('../core/get-snapshot.js', () => ({
-	getSnapshot: jest.fn<typeof getSnapshot>().mockResolvedValue({
-		projectId: '123',
-		branch: 'feature-branch',
-		packages: [
-			{
-				name: '@scope/foo',
-				path: 'packages/foo',
-				version: '1.0.0',
-				tags: [],
-				type: PackageType.NODE,
-				dependencies: [],
-				devDependencies: [],
-				peerDependencies: [],
-				owners: [],
-			},
-		],
-		tags: ['app', 'library'],
-	}),
-}));
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import type { Server } from 'node:http';
+import {
+	describe,
+	expect,
+	jest,
+	it,
+	afterAll,
+	beforeAll,
+	beforeEach,
+} from '@jest/globals';
+import { execa } from 'execa';
+import {
+	createMockAuthServer,
+	mockAuthServerSpy,
+} from '../test/create-mock-auth-server.js';
+import { createMockServer } from '../test/create-mock-server.js';
+import { config } from '../core/config.js';
+import { getCurrentBranch } from '../core/get-current-branch.js';
 
 const oraSucceed = jest.fn();
 const oraFail = jest.fn();
@@ -70,39 +29,92 @@ jest.unstable_mockModule('ora', () => ({
 	}),
 }));
 
-const responseUrl = 'https://app.commonality.co/commonality/monorepo/root/main';
-
-jest.unstable_mockModule('got', () => ({
-	HTTPError,
-	post: jest.fn().mockReturnValue({
-		json: jest.fn<any>().mockResolvedValue({ url: responseUrl }),
-	} as any),
-}));
-
-const { ensureAuth } = await import('../core/ensure-auth.js');
-const { actionHandler } = await import('./publish.js');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const binaryPath = path.resolve(__dirname, `../../dist/index.js`);
 
 describe('publish', () => {
-	describe('when the published data is valid', () => {
-		describe('when authenticating with a publish key', () => {
-			it('should not call ensureAuth', async () => {
-				await actionHandler(
-					{
-						error: jest.fn(),
-					} as any,
-					{ publishKey: '123' }
-				);
+	let server: Server;
+	let serverAddress: string;
+	let authServer: Server;
+	let authServerAddress: string;
 
-				expect(ensureAuth).not.toHaveBeenCalled();
+	beforeAll(async () => {
+		const mockServer = await createMockServer();
+		const mockAuthServer = await createMockAuthServer();
+
+		server = mockServer.server;
+		serverAddress = mockServer.url;
+
+		authServer = mockAuthServer.server;
+		authServerAddress = mockAuthServer.url;
+	});
+
+	afterAll(() => {
+		server.close();
+		authServer.close();
+	});
+
+	beforeEach(() => {
+		config.clear();
+		jest.clearAllMocks();
+	});
+
+	describe('when the published data is valid', () => {
+		describe('when authenticating with a passed publish key', () => {
+			it('should not call the auth API', async () => {
+				await execa(binaryPath, ['publish', '--publishKey', '123'], {
+					env: {
+						COMMONALITY_API_ORIGIN: serverAddress,
+						COMMONALITY_AUTH_ORIGIN: authServerAddress,
+					},
+				});
+
+				expect(mockAuthServerSpy).not.toHaveBeenCalled();
+			});
+		});
+
+		describe('when authenticating with a env var publish key', () => {
+			it('should not call the auth API', async () => {
+				await execa(binaryPath, ['publish'], {
+					env: {
+						COMMONALITY_API_ORIGIN: serverAddress,
+						COMMONALITY_AUTH_ORIGIN: authServerAddress,
+						COMMONALITY_PUBLISH_KEY: '123',
+					},
+				});
+
+				expect(mockAuthServerSpy).not.toHaveBeenCalled();
 			});
 		});
 
 		describe('when authenticating with an access token', () => {
-			it('should call ensureAuth', async () => {
-				await actionHandler({ error: jest.fn() } as any, undefined);
+			it('should call the auth API', async () => {
+				await execa(binaryPath, ['publish'], {
+					env: {
+						COMMONALITY_API_ORIGIN: serverAddress,
+						COMMONALITY_AUTH_ORIGIN: authServerAddress,
+					},
+				});
 
-				expect(ensureAuth).toHaveBeenCalled();
+				expect(mockAuthServerSpy).toHaveBeenCalled();
 			});
+		});
+
+		it('should output the published view url', async () => {
+			const { stdout } = await execa(binaryPath, ['publish'], {
+				env: {
+					COMMONALITY_API_ORIGIN: serverAddress,
+					COMMONALITY_AUTH_ORIGIN: authServerAddress,
+				},
+			});
+
+			const currentBranch = await getCurrentBranch();
+
+			expect(stdout).toEqual(
+				expect.stringContaining(
+					`https://app.commonality.co/monorepo/root/${currentBranch}`
+				)
+			);
 		});
 	});
 });

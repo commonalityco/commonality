@@ -17,8 +17,8 @@
 		"build": "tsup-node",
 		"lint": "xo ./src --fix",
 		"dev": "tsup-node --watch",
-		"test:watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch",
-		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+		"test:watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch --silent=false --verbose",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --silent=false"
 	},
 	"dependencies": {
 		"@commonalityco/codeowners": "workspace:*",
@@ -54,6 +54,9 @@
 		"@tsconfig/node-lts-strictest-esm": "^18.12.1",
 		"@types/configstore": "^6.0.0",
 		"@types/fs-extra": "^11.0.1",
+		"@types/koa": "^2.13.5",
+		"@types/koa-bodyparser": "^4.3.10",
+		"@types/koa-router": "^7.4.4",
 		"@types/lodash.groupby": "^4.6.7",
 		"@types/lodash.intersection": "^4.4.7",
 		"@types/lodash.keyby": "^4.6.7",
@@ -62,7 +65,9 @@
 		"@types/node": "^18.11.18",
 		"@types/prompts": "^2.4.2",
 		"cross-env": "^7.0.3",
+		"http": "0.0.1-security",
 		"jest": "^29.3.1",
+		"jest-mock-server": "^0.1.0",
 		"mock-fs": "^5.2.0",
 		"ts-jest": "^29.0.4",
 		"tsup": "^6.5.0",

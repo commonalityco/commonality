@@ -58,3 +58,10 @@ export type PackageJson = {
 	devDependencies?: Record<string, string>;
 	peerDependencies?: Record<string, string>;
 };
+
+export type SnapshotData = {
+	projectId: string;
+	branch: string;
+	packages: LocalPackage[];
+	tags: string[];
+};
