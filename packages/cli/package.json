@@ -17,8 +17,8 @@
 		"build": "tsup-node",
 		"lint": "xo ./src --fix",
 		"dev": "tsup-node --watch",
-		"test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
-		"test": "NODE_OPTIONS=--experimental-vm-modules jest"
+		"test:watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch",
+		"test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
 	},
 	"dependencies": {
 		"@commonalityco/codeowners": "workspace:*",

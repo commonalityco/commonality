@@ -131,6 +131,7 @@ importers:
       '@types/jest': ^29.2.5
       '@types/micromatch': ^4.0.2
       '@types/mock-fs': ^4.13.1
+      cross-env: ^7.0.3
       fast-glob: ^3.2.12
       fs-extra: ^11.1.0
       glob: ^8.0.3
@@ -153,6 +154,7 @@ importers:
       '@types/jest': 29.2.5
       '@types/micromatch': 4.0.2
       '@types/mock-fs': 4.13.1
+      cross-env: 7.0.3
       jest: 29.3.1
       mock-fs: 5.2.0
       ts-jest: 29.0.4_p6ekqnroyms5nhqbfxosryz7rm

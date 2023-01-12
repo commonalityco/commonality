@@ -2,7 +2,7 @@ import path from 'node:path';
 import fs from 'fs-extra';
 import type { PackageJson } from '@commonalityco/types';
 import yaml from 'yaml';
-import { PackageManager } from '../constants/package-manager.js';
+import { PackageManager } from '../constants/bar.js';
 
 export const getWorkspaces = async (
 	rootDirectory: string,
