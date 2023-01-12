@@ -25,13 +25,13 @@ const mockCommonalityApi: RequestListener = (request, response) => {
 				body.push(chunk);
 			})
 			.on('end', () => {
-				const parsedBody = JSON.parse(Buffer.concat(body).toString()) as {
-					snapshot: SnapshotData;
-				};
+				const parsedBody = JSON.parse(
+					Buffer.concat(body).toString()
+				) as SnapshotData;
 
 				response.end(
 					JSON.stringify({
-						url: `https://app.commonality.co/monorepo/root/${parsedBody.snapshot.branch}`,
+						url: `https://app.commonality.co/monorepo/root/${parsedBody.branch}`,
 					})
 				);
 				// At this point, `body` has the entire request body stored in it as a string

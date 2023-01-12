@@ -18,7 +18,6 @@ export const actionHandler = async (
 	options: { publishKey?: string },
 	action: Command
 ) => {
-	console.log({ options, pk: options.publishKey });
 	if (!options.publishKey) {
 		await ensureAuth();
 	}
@@ -75,9 +74,7 @@ export const actionHandler = async (
 					process.env['COMMONALITY_API_ORIGIN'] ?? 'https://app.commonality.co'
 				}/api/cli/publish`,
 				{
-					json: {
-						snapshot,
-					},
+					json: snapshot,
 					headers: authorizationHeaders,
 				}
 			)
