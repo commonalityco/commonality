@@ -4,7 +4,7 @@ export enum PackageType {
 	NEXT = 'NEXT',
 }
 
-export type LocalDependency = {name: string; version: string};
+export type LocalDependency = { name: string; version: string };
 
 export type LocalPackage = {
 	path: string;
@@ -57,4 +57,11 @@ export type PackageJson = {
 	dependencies?: Record<string, string>;
 	devDependencies?: Record<string, string>;
 	peerDependencies?: Record<string, string>;
+};
+
+export type SnapshotData = {
+	projectId: string;
+	branch: string;
+	packages: LocalPackage[];
+	tags: string[];
 };

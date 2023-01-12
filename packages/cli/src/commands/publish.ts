@@ -15,13 +15,11 @@ import { getRootDirectory } from '../core/get-root-directory.js';
 const program = new Command();
 
 export const actionHandler = async (
-	action: Command,
-	options: { publishKey?: string } = {}
+	options: { publishKey?: string },
+	action: Command
 ) => {
-	const validPublishKey =
-		options.publishKey ?? process.env['COMMONALITY_PUBLISH_KEY'];
-
-	if (!validPublishKey) {
+	console.log({ options, pk: options.publishKey });
+	if (!options.publishKey) {
 		await ensureAuth();
 	}
 
@@ -53,9 +51,9 @@ export const actionHandler = async (
 		| Record<never, never> => {
 		const accessToken = config.get('accessToken') as string;
 
-		if (validPublishKey) {
+		if (options.publishKey) {
 			return {
-				'X-API-KEY': validPublishKey,
+				'X-API-KEY': options.publishKey,
 			};
 		}
 
@@ -102,6 +100,7 @@ export const publish = program
 	.description('Create and upload a snapshot of your monorepo')
 	.option(
 		'--publishKey <key>',
-		'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_PUBLISH_KEY environment variable.'
+		'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_PUBLISH_KEY environment variable.',
+		process.env['COMMONALITY_PUBLISH_KEY']
 	)
 	.action(actionHandler);

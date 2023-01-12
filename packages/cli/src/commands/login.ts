@@ -76,13 +76,6 @@ export const loginAction = async () => {
 			token_type: string;
 		}>();
 
-	// {
-	//   factor: 1,
-	//   minTimeout: data.interval * 1000,
-	//   maxTimeout: data.interval * 1000,
-	//   retries: 100,
-	// }
-
 	const expires = new Date();
 	expires.setSeconds(expires.getSeconds() + requestTokenResponse.expires_in);
 

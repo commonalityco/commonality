@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import type { Config, LocalPackage } from '@commonalityco/types';
+import type { Config, SnapshotData } from '@commonalityco/types';
 import { getPackages } from './get-packages.js';
 import { getTags } from './get-tags.js';
 import { getCurrentBranch } from './get-current-branch.js';
@@ -8,12 +8,7 @@ import { getCurrentBranch } from './get-current-branch.js';
 export const getSnapshot = async (
 	rootDirectory: string,
 	packageDirectories: string[]
-): Promise<{
-	projectId: string;
-	branch: string;
-	packages: LocalPackage[];
-	tags: string[];
-}> => {
+): Promise<SnapshotData> => {
 	const configFilePath = path.join(
 		rootDirectory,
 		'.commonality',
