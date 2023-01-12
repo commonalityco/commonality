@@ -18,7 +18,10 @@ export const actionHandler = async (
 	action: Command,
 	options: { publishKey?: string } = {}
 ) => {
-	if (!options.publishKey) {
+	const validPublishKey =
+		options.publishKey ?? process.env['COMMONALITY_PUBLISH_KEY'];
+
+	if (!validPublishKey) {
 		await ensureAuth();
 	}
 
@@ -50,9 +53,9 @@ export const actionHandler = async (
 		| Record<never, never> => {
 		const accessToken = config.get('accessToken') as string;
 
-		if (options.publishKey) {
+		if (validPublishKey) {
 			return {
-				'X-API-KEY': options.publishKey,
+				'X-API-KEY': validPublishKey,
 			};
 		}
 
@@ -99,7 +102,6 @@ export const publish = program
 	.description('Create and upload a snapshot of your monorepo')
 	.option(
 		'--publishKey <key>',
-		'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_PUBLISH_KEY environment variable.',
-		process.env['COMMONALITY_PUBLISH_KEY']
+		'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_PUBLISH_KEY environment variable.'
 	)
 	.action(actionHandler);
