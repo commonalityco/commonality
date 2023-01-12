@@ -1,149 +1,108 @@
-import * as ensureAuth from '../core/ensureAuth';
-import * as getRootDirectory from '../core/getRootDirectory';
-import { actionHandler } from './publish';
-import * as getPackageManager from '../core/getPackageManager';
-import * as getWorkspaces from '../core/getWorkspaces';
-import * as getPackageDirectories from '../core/getPackageDirectories';
-import * as getSnapshot from '../core/getSnapshot';
-import { PackageManager } from '../constants/PackageManager';
+/* eslint-disable @typescript-eslint/naming-convention */
 import { PackageType } from '@commonalityco/types';
-import ora from 'ora';
-import got from 'got';
+import { describe, expect, jest, it } from '@jest/globals';
+import { HTTPError } from 'got';
+import { PackageManager } from '../constants/package-manager.js';
 
-jest.mock('got');
-jest.mock('ora');
+const { getRootDirectory } = await import('../core/get-root-directory.js');
+const { getPackageManager } = await import('../core/get-package-manager.js');
+const { getWorkspaces } = await import('../core/get-workspaces.js');
+const { getPackageDirectories } = await import(
+	'../core/get-package-directories.js'
+);
+const { getSnapshot } = await import('../core/get-snapshot.js');
+
+jest.unstable_mockModule('../core/ensure-auth.js', () => ({
+	ensureAuth: jest.fn<typeof ensureAuth>().mockResolvedValue(true),
+}));
+
+jest.unstable_mockModule('../core/get-package-manager.js', () => ({
+	getPackageManager: jest
+		.fn<typeof getPackageManager>()
+		.mockResolvedValue(PackageManager.PNPM),
+}));
+
+jest.unstable_mockModule('../core/get-root-directory.js', () => ({
+	getRootDirectory: jest
+		.fn<typeof getRootDirectory>()
+		.mockResolvedValue('/root'),
+}));
+
+jest.unstable_mockModule('../core/get-workspaces.js', () => ({
+	getWorkspaces: jest
+		.fn<typeof getWorkspaces>()
+		.mockResolvedValue(['packages/**', 'apps/**']),
+}));
+
+jest.unstable_mockModule('../core/get-package-directories.js', () => ({
+	getPackageDirectories: jest
+		.fn<typeof getPackageDirectories>()
+		.mockResolvedValue(['packages/foo', 'apps/bar']),
+}));
+
+jest.unstable_mockModule('../core/get-snapshot.js', () => ({
+	getSnapshot: jest.fn<typeof getSnapshot>().mockResolvedValue({
+		projectId: '123',
+		branch: 'feature-branch',
+		packages: [
+			{
+				name: '@scope/foo',
+				path: 'packages/foo',
+				version: '1.0.0',
+				tags: [],
+				type: PackageType.NODE,
+				dependencies: [],
+				devDependencies: [],
+				peerDependencies: [],
+				owners: [],
+			},
+		],
+		tags: ['app', 'library'],
+	}),
+}));
+
+const oraSucceed = jest.fn();
+const oraFail = jest.fn();
+
+jest.unstable_mockModule('ora', () => ({
+	default: jest.fn().mockReturnValue({
+		start: jest.fn().mockReturnValue({ succeed: oraSucceed, fail: oraFail }),
+	}),
+}));
+
+const responseUrl = 'https://app.commonality.co/commonality/monorepo/root/main';
+
+jest.unstable_mockModule('got', () => ({
+	HTTPError,
+	post: jest.fn().mockReturnValue({
+		json: jest.fn<any>().mockResolvedValue({ url: responseUrl }),
+	} as any),
+}));
+
+const { ensureAuth } = await import('../core/ensure-auth.js');
+const { actionHandler } = await import('./publish.js');
 
 describe('publish', () => {
-  const mockedGot = jest.mocked(got);
-  const mockedOra = jest.mocked(ora);
+	describe('when the published data is valid', () => {
+		describe('when authenticating with a publish key', () => {
+			it('should not call ensureAuth', async () => {
+				await actionHandler(
+					{
+						error: jest.fn(),
+					} as any,
+					{ publishKey: '123' }
+				);
 
-  const responseUrl =
-    'https://app.commonality.co/commonality/monorepo/root/main';
+				expect(ensureAuth).not.toHaveBeenCalled();
+			});
+		});
 
-  const oraSucceed = jest.fn();
-  const oraFail = jest.fn();
-  const oraStart = jest
-    .fn()
-    .mockReturnValue({ succeed: oraSucceed, fail: oraFail });
+		describe('when authenticating with an access token', () => {
+			it('should call ensureAuth', async () => {
+				await actionHandler({ error: jest.fn() } as any, undefined);
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-
-    mockedOra.mockReturnValue({
-      start: oraStart,
-    } as any);
-
-    jest.spyOn(ensureAuth, 'ensureAuth').mockResolvedValue(true);
-    jest.spyOn(getRootDirectory, 'getRootDirectory').mockResolvedValue('/root');
-    jest
-      .spyOn(getPackageManager, 'getPackageManager')
-      .mockResolvedValue(PackageManager.YARN);
-    jest
-      .spyOn(getWorkspaces, 'getWorkspaces')
-      .mockResolvedValue(['packages/**', 'apps/**']);
-    jest
-      .spyOn(getPackageDirectories, 'getPackageDirectories')
-      .mockResolvedValue(['packages/foo', 'apps/bar']);
-    jest
-      .spyOn(getPackageDirectories, 'getPackageDirectories')
-      .mockResolvedValue(['packages/foo', 'apps/bar']);
-    jest.spyOn(getSnapshot, 'getSnapshot').mockResolvedValue({
-      projectId: '123',
-      branch: 'feature-branch',
-      packages: [
-        {
-          name: '@scope/foo',
-          path: 'packages/foo',
-          version: '1.0.0',
-          tags: [],
-          type: PackageType.NODE,
-          dependencies: [],
-          devDependencies: [],
-          peerDependencies: [],
-          owners: [],
-        },
-      ],
-      tags: ['app', 'library'],
-    });
-  });
-
-  describe('actionHandler', () => {
-    describe('when the published data is valid', () => {
-      beforeEach(() => {
-        mockedGot.post.mockResolvedValue({ url: responseUrl });
-      });
-
-      describe('when authenticating with a publish key', () => {
-        it('should not call ensureAuth', async () => {
-          await actionHandler({ publishKey: '123' }, {
-            error: jest.fn(),
-          } as any);
-
-          expect(ensureAuth.ensureAuth).not.toHaveBeenCalled();
-        });
-      });
-
-      describe('when authenticating with an access token', () => {
-        it('should call ensureAuth', async () => {
-          await actionHandler(undefined, { error: jest.fn() } as any);
-
-          expect(ensureAuth.ensureAuth).toHaveBeenCalled();
-        });
-      });
-    });
-
-    // describe('when the request returns a 400 status', () => {
-    //   beforeEach(() => {
-    //     mockedGot.post.mockResolvedValue({ url: responseUrl });
-
-    //     mockedGot.mockRejectedValue(new HTTPError(new Response()));
-    //     const response = new Response(JSON.stringify({}), {
-    //       status: 400,
-    //     });
-
-    //     mockedFetch.mockResolvedValue(response);
-    //   });
-
-    //   it('stops the spinner', async () => {
-    //     const errorFn = jest.fn();
-    //     await actionHandler(undefined, { error: errorFn } as any);
-
-    //     expect(oraSucceed).toHaveBeenCalled();
-    //   });
-
-    //   it(`exits with the message for ${InvalidSnapshotError.name}`, async () => {
-    //     const errorFn = jest.fn();
-    //     await actionHandler(undefined, { error: errorFn } as any);
-
-    //     expect(errorFn).toHaveBeenCalledWith(InvalidSnapshotErrorMessage);
-    //   });
-    // });
-
-    // describe('when the request returns a 500 status', () => {
-    //   beforeEach(() => {
-    //     const response = new Response(
-    //       {},
-    //       {
-    //         status: 500,
-    //       }
-    //     );
-
-    //     mockedFetch.mockResolvedValue(response);
-    //   });
-
-    //   it('stops the spinner', async () => {
-    //     const errorFn = jest.fn();
-    //     await actionHandler(undefined, { error: errorFn } as any);
-
-    //     expect(oraSucceed).toHaveBeenCalled();
-    //   });
-
-    //   it(`exits with the message for ${GenericError.name}`, async () => {
-    //     const errorFn = jest.fn();
-    //     await actionHandler(undefined, { error: errorFn } as any);
-
-    //     expect(errorFn).toHaveBeenCalledWith(GenericErrorMessage);
-    //   });
-    // });
-  });
+				expect(ensureAuth).toHaveBeenCalled();
+			});
+		});
+	});
 });

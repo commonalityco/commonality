@@ -1,9 +1,9 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/index.ts'],
-  outDir: 'dist',
-  clean: true,
-  onSuccess:
-    'tsc --emitDeclarationOnly --declaration --declarationMap --outDir dist src/index.ts',
+	entry: ['src/index.ts'],
+	outDir: 'dist',
+	clean: true,
+	format: ['esm'],
+	onSuccess: 'tsc --project tsconfig.json',
 });

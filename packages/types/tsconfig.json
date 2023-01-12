@@ -1,16 +1,19 @@
 {
-  "extends": "@tsconfig/node-lts/tsconfig.json",
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "compilerOptions": {
-    "outDir": "dist",
-    "emitDeclarationOnly": true,
-    "declaration": true,
-    "declarationMap": true
-  }
+	"extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx"
+	],
+	"exclude": [
+		"node_modules"
+	],
+	"compilerOptions": {
+		"declaration": true,
+		"declarationMap": true,
+		"emitDeclarationOnly": true,
+		"outDir": "./dist",
+		"typeRoots": [
+			"./node_modules/@types"
+		]
+	},
 }

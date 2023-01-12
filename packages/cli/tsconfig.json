@@ -1,10 +1,19 @@
 {
-  "extends": "@tsconfig/node-lts/tsconfig.json",
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+	"extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
+	"include": [
+		"**/*.ts",
+		"**/*.tsx"
+	],
+	"exclude": [
+		"node_modules"
+	],
+	"compilerOptions": {
+		"module": "Node16",
+		"target": "ESNext",
+		"moduleResolution": "Node16",
+		"esModuleInterop": true,
+		"typeRoots": [
+			"./node_modules/@types"
+		]
+	}
 }
