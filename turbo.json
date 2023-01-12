@@ -6,7 +6,7 @@
 		},
 		"test": {
 			"outputs": ["coverage/**"],
-			"dependsOn": ["^build"]
+			"dependsOn": ["^build", "build"]
 		},
 		"test:watch": {
 			"cache": false

@@ -34,7 +34,6 @@ const mockCommonalityApi: RequestListener = (request, response) => {
 						url: `https://app.commonality.co/monorepo/root/${parsedBody.branch}`,
 					})
 				);
-				// At this point, `body` has the entire request body stored in it as a string
 			});
 	} else {
 		response.statusCode = 405;
