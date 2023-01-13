@@ -44,8 +44,14 @@ export const loginAction = async (
 
 		console.log(
 			chalk.bold('Verification code: '),
-			chalk.blueBright(data.user_code)
+			chalk.blueBright(data.user_code),
+			'\n'
 		);
+
+		console.log(
+			chalk.dim('If your browser does not automatically open, please visit:')
+		);
+		console.log(chalk.dim(data.verification_uri_complete), '\n');
 
 		const verificationSpinner = ora('Waiting for verification...').start();
 

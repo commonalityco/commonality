@@ -64,6 +64,16 @@ describe('login', () => {
 			expect(stdout).toEqual(expect.stringContaining('ABC-DEF'));
 		});
 
+		it('should display the verification url', async () => {
+			const { stdout } = await execa(binaryPath, ['login'], {
+				env: {
+					COMMONALITY_AUTH_ORIGIN: server.getURL().origin,
+				},
+			});
+
+			expect(stdout).toEqual(expect.stringContaining('verify-complete'));
+		});
+
 		it('exit the process successfully', async () => {
 			await execa(binaryPath, ['login'], {
 				env: {
