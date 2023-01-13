@@ -12,18 +12,34 @@ export const getWorkspaces = async (
 		packageManager === PackageManager.NPM ||
 		packageManager === PackageManager.YARN
 	) {
+		const packageJsonPath = path.join(rootDirectory, 'package.json');
+
+		if (!fs.pathExistsSync(packageJsonPath)) {
+			throw new Error(
+				'Unable to determine workspaces, no package.json file found'
+			);
+		}
+
 		const rootPackageJson = (await fs.readJson(
 			path.join(rootDirectory, 'package.json')
 		)) as PackageJson;
 
-		return rootPackageJson.workspaces ?? [];
+		if (!rootPackageJson?.workspaces) {
+			throw new Error(
+				'You must include the "packages" property in your root package.json file'
+			);
+		}
+
+		return rootPackageJson.workspaces;
 	}
 
 	if (packageManager === PackageManager.PNPM) {
 		const workspaceFilePath = path.join(rootDirectory, 'pnpm-workspace.yaml');
 
 		if (!fs.existsSync(workspaceFilePath)) {
-			throw new Error('No pnpm-workspace.yaml file found');
+			throw new Error(
+				'Unable to determine workspaces, no pnpm-workspace.yaml file found'
+			);
 		}
 
 		const yamlFile = fs.readFileSync(workspaceFilePath, 'utf8');

@@ -5,6 +5,25 @@ import { jest } from '@jest/globals';
 
 export const mockAuthServerSpy = jest.fn();
 
+export const mockDeviceCodeResponse = jest.fn<
+	() => {
+		device_code: string;
+		user_code: string;
+		verification_uri: string;
+		verification_uri_complete: string;
+		expires_in: number;
+		interval: number;
+	}
+>();
+
+export const mockOAuthTokenResponse = jest.fn<
+	() => {
+		access_token: string;
+		expires_in: number;
+		token_type: string;
+	}
+>();
+
 const mockLoginApi: RequestListener = (request, response) => {
 	mockAuthServerSpy(request);
 
@@ -16,24 +35,9 @@ const mockLoginApi: RequestListener = (request, response) => {
 	response.setHeader('content-type', 'application/json');
 
 	if (method === 'POST' && pathname === '/oauth/device/code') {
-		response.end(
-			JSON.stringify({
-				device_code: 'ABC-DEF',
-				user_code: '123',
-				verification_uri: request.url,
-				verification_uri_complete: request.url,
-				expires_in: 123,
-				interval: 5,
-			})
-		);
+		response.end(JSON.stringify(mockDeviceCodeResponse()));
 	} else if (method === 'POST' && pathname === '/oauth/token') {
-		response.end(
-			JSON.stringify({
-				access_token: '123',
-				expires_in: 123,
-				token_type: 'access_token',
-			})
-		);
+		response.end(JSON.stringify(mockOAuthTokenResponse()));
 	} else {
 		response.statusCode = 405;
 		response.end(JSON.stringify({ code: 'method_not_allowed' }));

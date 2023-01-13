@@ -7,8 +7,6 @@ import type { SnapshotData } from '@commonalityco/types';
 export const mockServerSpy = jest.fn();
 
 const mockCommonalityApi: RequestListener = (request, response) => {
-	mockServerSpy(request);
-
 	const { url = '/', method } = request;
 
 	const { pathname = '/' } = parseUrl(url, true);
@@ -28,6 +26,8 @@ const mockCommonalityApi: RequestListener = (request, response) => {
 				const parsedBody = JSON.parse(
 					Buffer.concat(body).toString()
 				) as SnapshotData;
+
+				mockServerSpy(parsedBody);
 
 				response.end(
 					JSON.stringify({

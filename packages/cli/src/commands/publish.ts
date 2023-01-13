@@ -15,22 +15,22 @@ import { getRootDirectory } from '../core/get-root-directory.js';
 const program = new Command();
 
 export const actionHandler = async (
-	options: { publishKey?: string },
+	options: { publishKey?: string; cwd?: string },
 	action: Command
 ) => {
 	if (!options.publishKey) {
 		await ensureAuth();
 	}
 
-	const rootDirectory = await getRootDirectory();
+	const rootDirectory = await getRootDirectory(options.cwd);
 
 	if (!rootDirectory) {
-		console.log(chalk.red('Unable to deterimine root directory'));
-		return;
+		action.error('Unable to deterimine root directory');
 	}
 
 	const packageManager = await getPackageManager(rootDirectory);
 	const workspaces = await getWorkspaces(rootDirectory, packageManager);
+
 	const packageDirectories = await getPackageDirectories(
 		rootDirectory,
 		workspaces
@@ -99,5 +99,9 @@ export const publish = program
 		'--publishKey <key>',
 		'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_PUBLISH_KEY environment variable.',
 		process.env['COMMONALITY_PUBLISH_KEY']
+	)
+	.option(
+		'--cwd <path>',
+		"A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile."
 	)
 	.action(actionHandler);

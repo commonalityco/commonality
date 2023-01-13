@@ -12,8 +12,5 @@
 		"target": "ESNext",
 		"moduleResolution": "Node16",
 		"esModuleInterop": true,
-		"typeRoots": [
-			"./node_modules/@types"
-		]
 	}
 }
