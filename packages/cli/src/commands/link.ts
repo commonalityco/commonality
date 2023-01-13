@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import ora from 'ora';
-import { type Config } from '@commonalityco/types';
+import type { Config } from '@commonalityco/types';
 import { getRootDirectory } from '../core/get-root-directory.js';
 
 const program = new Command();
