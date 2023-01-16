@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import mock from 'mock-fs';
-import { PackageType } from '@commonalityco/types';
 import {
 	describe,
 	expect,
@@ -80,7 +79,6 @@ describe('getSnapshot', () => {
 				owners: [],
 				tags: ['tag-one'],
 				version: '1.0.0',
-				type: PackageType.NODE,
 				dependencies: [
 					{
 						name: 'bar',
@@ -97,7 +95,6 @@ describe('getSnapshot', () => {
 				tags: ['tag-two'],
 				version: '2.0.0',
 				dependencies: [],
-				type: PackageType.NODE,
 				devDependencies: [
 					{
 						name: 'bar',

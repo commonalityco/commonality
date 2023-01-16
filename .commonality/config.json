@@ -1,3 +1,13 @@
 {
-  "project": "clcjf5cwk0001jm0861muewzm"
+	"project": "clcjf5cwk0001jm0861muewzm",
+	"constraints": [
+		{
+			"tags": ["cli"],
+			"allow": ["utility"]
+		},
+		{
+			"tags": ["utility"],
+			"allow": ["utility"]
+		}
+	]
 }

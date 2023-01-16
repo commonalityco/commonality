@@ -81,9 +81,9 @@ export const loginAction = async (
 		const expires = new Date();
 		expires.setSeconds(expires.getSeconds() + requestTokenResponse.expires_in);
 
-		config.set('accessToken', requestTokenResponse.access_token);
-		config.set('expires', expires.toString());
-		config.set('tokenType', requestTokenResponse.token_type);
+		config.set('auth:accessToken', requestTokenResponse.access_token);
+		config.set('auth:expires', expires.toString());
+		config.set('auth:tokenType', requestTokenResponse.token_type);
 
 		verificationSpinner.succeed('Successfully logged in');
 	} catch (error: unknown) {

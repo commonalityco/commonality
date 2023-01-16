@@ -50,6 +50,7 @@
 	},
 	"devDependencies": {
 		"@commonalityco/types": "workspace:*",
+		"@commonalityco/constraints": "workspace:*",
 		"@jest/globals": "^29.3.1",
 		"@tsconfig/node-lts-strictest-esm": "^18.12.1",
 		"@types/configstore": "^6.0.0",

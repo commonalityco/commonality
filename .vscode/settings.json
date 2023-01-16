@@ -1,4 +1,21 @@
 {
-    "jest.rootPath": "./packages/codeowners",
-    "jest.jestCommandLine": "pnpm run test:watch"
+	"xo.format.enable": true,
+	"[javascript]": {
+		"editor.defaultFormatter": "samverschueren.linter-xo",
+		"editor.maxTokenizationLineLength": 2500,
+		"editor.quickSuggestions": {
+			"other": true,
+			"comments": true,
+			"strings": true
+		},
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "samverschueren.linter-xo",
+		"editor.maxTokenizationLineLength": 2500,
+		"editor.quickSuggestions": {
+			"other": true,
+			"comments": true,
+			"strings": true
+		},
+	}
 }

@@ -6,7 +6,6 @@ import type {
 	PackageJson,
 } from '@commonalityco/types';
 import { getOwnersForPath } from '@commonalityco/codeowners';
-import { getPackageType } from './get-package-type.js';
 
 export const getPackages = async ({
 	packageDirectories,
@@ -41,13 +40,6 @@ export const getPackages = async ({
 			([name, version]) => ({ name, version })
 		);
 
-		const allDeps = [
-			...formattedDependencies,
-			...formattedDevDependencies,
-			...formattedPeerDependencies,
-		];
-		const type = getPackageType(allDeps);
-
 		const owners = getOwnersForPath({ path: directory, rootDirectory });
 
 		if (!fs.pathExistsSync(packageConfigPath)) {
@@ -57,7 +49,6 @@ export const getPackages = async ({
 					path: directory,
 					version: packageJson.version ?? '',
 					tags: [],
-					type,
 					devDependencies: formattedDevDependencies,
 					dependencies: formattedDependencies,
 					peerDependencies: formattedPeerDependencies,
@@ -76,11 +67,6 @@ export const getPackages = async ({
 				path: directory,
 				version: packageJson.version ?? '',
 				tags: pkgConfig.tags ?? [],
-				type: getPackageType([
-					...formattedDependencies,
-					...formattedDevDependencies,
-					...formattedPeerDependencies,
-				]),
 				devDependencies: formattedDevDependencies,
 				dependencies: formattedDependencies,
 				peerDependencies: formattedPeerDependencies,

@@ -19,7 +19,7 @@ export const actionHandler = async (
 	action: Command
 ) => {
 	if (!options.publishKey) {
-		await ensureAuth();
+		await ensureAuth(action);
 	}
 
 	const rootDirectory = await getRootDirectory(options.cwd);
@@ -84,11 +84,21 @@ export const actionHandler = async (
 
 		console.log(`View your graph at ${chalk.bold.blue(result.url)}`);
 	} catch (error: unknown) {
-		spinner.fail('Failed to publish snapshot');
+		spinner.stop();
 
 		if (error instanceof got.HTTPError) {
-			action.error(error.message);
+			const responseBody = error.response.body as string;
+
+			try {
+				const body = JSON.parse(responseBody) as Error;
+
+				action.error(body.message);
+			} catch {
+				action.error('Failed to publish snapshot');
+			}
 		}
+
+		action.error('Failed to publish snapshot');
 	}
 };
 

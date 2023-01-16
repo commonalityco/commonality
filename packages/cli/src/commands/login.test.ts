@@ -21,37 +21,38 @@ describe('login', () => {
 	});
 
 	beforeEach(() => {
-		config.clear();
 		server.reset();
+
+		server.post('/oauth/device/code').mockImplementation((ctx) => {
+			ctx.status = 200;
+			ctx.body = {
+				device_code: '123-456',
+				user_code: 'ABC-DEF',
+				verification_uri: 'verify',
+				verification_uri_complete: 'verify-complete',
+				expires_in: 100_000,
+				interval: 0.5,
+			};
+		});
+
+		server
+			.post('/oauth/token')
+			.mockImplementationOnce((ctx) => {
+				ctx.status = 403;
+			})
+			.mockImplementationOnce((ctx) => {
+				ctx.status = 200;
+				ctx.body = {
+					access_token: '123',
+					expires_in: 123,
+					token_type: 'access_token',
+				};
+			});
 	});
 
 	describe('when not already logged in', () => {
 		beforeEach(() => {
-			server.post('/oauth/device/code').mockImplementation((ctx) => {
-				ctx.status = 200;
-				ctx.body = {
-					device_code: '123-456',
-					user_code: 'ABC-DEF',
-					verification_uri: 'verify',
-					verification_uri_complete: 'verify-complete',
-					expires_in: 100_000,
-					interval: 0.5,
-				};
-			});
-
-			server
-				.post('/oauth/token')
-				.mockImplementationOnce((ctx) => {
-					ctx.status = 403;
-				})
-				.mockImplementationOnce((ctx) => {
-					ctx.status = 200;
-					ctx.body = {
-						access_token: '123',
-						expires_in: 123,
-						token_type: 'access_token',
-					};
-				});
+			config.clear();
 		});
 
 		it('should display the verification code', async () => {
@@ -72,14 +73,6 @@ describe('login', () => {
 			});
 
 			expect(stdout).toEqual(expect.stringContaining('verify-complete'));
-		});
-
-		it('exit the process successfully', async () => {
-			await execa(binaryPath, ['login'], {
-				env: {
-					COMMONALITY_AUTH_ORIGIN: server.getURL().origin,
-				},
-			});
 		});
 	});
 });

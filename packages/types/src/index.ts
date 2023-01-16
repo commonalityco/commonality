@@ -1,22 +1,15 @@
-export enum PackageType {
-	NODE = 'NODE',
-	REACT = 'REACT',
-	NEXT = 'NEXT',
-}
-
-export type LocalDependency = {name: string; version: string};
+export type LocalDependency = { name: string; version: string };
 
 export type LocalPackage = {
 	path: string;
 	name: string;
 	version: string;
-	tags: string[];
-	type: string;
+	tags: string[] | undefined;
 	dependencies: LocalDependency[];
 	devDependencies: LocalDependency[];
 	peerDependencies: LocalDependency[];
 	/** The CODEOWNERS that match the path of this package */
-	owners: string[];
+	owners?: string[];
 };
 
 export type Config = {
@@ -42,8 +35,8 @@ export type LocalViolation = {
 	constraintTags: string[];
 	/** The tags allowed by the constraint */
 	allowedTags: string[];
-	/** The tags found in the dependency's configuration file */
-	targetTags: string[];
+	/** The tags found in the dependency's configuration file. If undefined, the target package has no configuration file. */
+	targetTags: string[] | undefined;
 };
 
 export type SnapshotResult = {

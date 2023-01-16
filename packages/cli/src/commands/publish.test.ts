@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 /* eslint-disable @typescript-eslint/naming-convention */
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -5,7 +6,7 @@ import { tmpdir } from 'node:os';
 import fs from 'fs-extra';
 import { execa } from 'execa';
 import { MockServer } from 'jest-mock-server';
-import { afterEach, jest } from '@jest/globals';
+import { afterEach, beforeEach, expect, jest } from '@jest/globals';
 import { config } from '../core/config.js';
 import { getCurrentBranch } from '../core/get-current-branch.js';
 
@@ -21,7 +22,7 @@ jest.mock('ora', () => ({
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const binaryPath = path.resolve(__dirname, `../../scripts/start.js`);
 const distPath = path.resolve(__dirname, '../../dist');
-const temporaryDir = path.join(tmpdir(), 'commonality-cli-test');
+const temporaryDir = path.join(tmpdir(), 'commonality-cli-test-publish');
 const distToTemporary = path.relative(distPath, temporaryDir);
 
 const defaultArgs = ['--cwd', distToTemporary];
@@ -51,9 +52,8 @@ describe('publish', () => {
 
 	beforeEach(async () => {
 		config.clear();
+		fs.removeSync(temporaryDir);
 		jest.clearAllMocks();
-
-		const currentBranch = await getCurrentBranch();
 
 		deviceCodeRoute = authServer
 			.post('/oauth/device/code')
@@ -79,16 +79,6 @@ describe('publish', () => {
 					token_type: 'access_token',
 				};
 			});
-
-		server.post('/api/cli/publish').mockImplementation((ctx) => {
-			ctx.status = 200;
-
-			bodySpy(ctx.request.body);
-
-			ctx.body = {
-				url: `https://app.commonality.co/monorepo/root/${currentBranch}`,
-			};
-		});
 
 		fs.outputJsonSync(path.join(temporaryDir, './package-lock.json'), {});
 		fs.outputJsonSync(path.join(temporaryDir, './package.json'), {
@@ -128,26 +118,124 @@ describe('publish', () => {
 		);
 	});
 
-	describe('when authenticating with a passed publish key', () => {
-		it('should not call the auth API', async () => {
-			await execa(
-				binaryPath,
-				['publish', '--publishKey', '123', ...defaultArgs],
-				{
+	describe('when the API returns a successful response', () => {
+		beforeEach(async () => {
+			const currentBranch = await getCurrentBranch();
+
+			server.post('/api/cli/publish').mockImplementation((ctx) => {
+				ctx.status = 200;
+
+				bodySpy(ctx.request.body);
+
+				ctx.body = {
+					url: `https://app.commonality.co/monorepo/root/${currentBranch}`,
+				};
+			});
+		});
+
+		describe('when already logged in', () => {
+			describe('when the access token has not expired', () => {
+				beforeEach(() => {
+					const expires = new Date();
+					expires.setDate(expires.getDate() + 1);
+
+					config.set('auth:accessToken', '123');
+					config.set('auth:expires', expires.toString());
+				});
+
+				it('should not prompt for a login', async () => {
+					await execa(binaryPath, ['publish', ...defaultArgs], {
+						env: {
+							COMMONALITY_API_ORIGIN: server.getURL().origin,
+							COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
+						},
+					});
+
+					expect(deviceCodeRoute).not.toHaveBeenCalled();
+					expect(tokenRoute).not.toHaveBeenCalled();
+				});
+			});
+
+			describe('when the access token has expired', () => {
+				beforeEach(() => {
+					const expires = new Date();
+					expires.setDate(expires.getDate() - 1);
+
+					config.set('auth:accessToken', '123');
+					config.set('auth:expires', expires.toString());
+				});
+
+				it('should prompt for a login', async () => {
+					await execa(binaryPath, ['publish', ...defaultArgs], {
+						env: {
+							COMMONALITY_API_ORIGIN: server.getURL().origin,
+							COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
+						},
+						stdout: 'inherit',
+					});
+
+					expect(deviceCodeRoute).toHaveBeenCalled();
+					expect(tokenRoute).toHaveBeenCalled();
+				});
+			});
+		});
+
+		describe('when authenticating with a passed publish key', () => {
+			it('should not call the auth API', async () => {
+				await execa(
+					binaryPath,
+					['publish', '--publishKey', '123', ...defaultArgs],
+					{
+						env: {
+							COMMONALITY_API_ORIGIN: server.getURL().origin,
+							COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
+						},
+					}
+				);
+
+				expect(deviceCodeRoute).not.toHaveBeenCalled();
+				expect(tokenRoute).not.toHaveBeenCalled();
+			});
+		});
+
+		describe('when authenticating with a env var publish key', () => {
+			it('should not call the auth API', async () => {
+				await execa(binaryPath, ['publish', ...defaultArgs], {
+					env: {
+						COMMONALITY_API_ORIGIN: server.getURL().origin,
+						COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
+						COMMONALITY_PUBLISH_KEY: '123',
+					},
+				});
+
+				expect(deviceCodeRoute).not.toHaveBeenCalled();
+				expect(tokenRoute).not.toHaveBeenCalled();
+			});
+		});
+
+		describe('when authenticating with an access token', () => {
+			it('should call the auth API', async () => {
+				await execa(binaryPath, ['publish', ...defaultArgs], {
 					env: {
 						COMMONALITY_API_ORIGIN: server.getURL().origin,
 						COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
 					},
-				}
-			);
+				});
 
-			expect(deviceCodeRoute).not.toHaveBeenCalled();
-			expect(tokenRoute).not.toHaveBeenCalled();
+				expect(deviceCodeRoute).toHaveBeenCalled();
+				expect(tokenRoute).toHaveBeenCalled();
+			});
 		});
-	});
 
-	describe('when authenticating with a env var publish key', () => {
-		it('should not call the auth API', async () => {
+		it('should POST to the URL with the correct data', async () => {
+			authServer.post('/oauth/device/code').mockImplementation((ctx) => {
+				ctx.status = 200;
+			});
+
+			authServer.post('/oauth/token').mockImplementationOnce((ctx) => {
+				ctx.status = 200;
+			});
+
 			await execa(binaryPath, ['publish', ...defaultArgs], {
 				env: {
 					COMMONALITY_API_ORIGIN: server.getURL().origin,
@@ -156,102 +244,95 @@ describe('publish', () => {
 				},
 			});
 
-			expect(deviceCodeRoute).not.toHaveBeenCalled();
-			expect(tokenRoute).not.toHaveBeenCalled();
-		});
-	});
+			const currentBranch = await getCurrentBranch();
 
-	describe('when authenticating with an access token', () => {
-		it('should call the auth API', async () => {
-			await execa(binaryPath, ['publish', ...defaultArgs], {
+			expect(bodySpy).toHaveBeenCalledWith(
+				expect.objectContaining({
+					branch: currentBranch,
+					packages: [
+						{
+							dependencies: [
+								{
+									name: 'bar',
+									version: '^1.0.0',
+								},
+							],
+							devDependencies: [],
+							name: '@scope/app-foo',
+							owners: [],
+							path: 'apps/app-foo',
+							peerDependencies: [],
+							tags: ['tag-one'],
+							version: '1.0.0',
+						},
+						{
+							dependencies: [],
+							devDependencies: [
+								{
+									name: 'bar',
+									version: '^1.0.0',
+								},
+							],
+							name: '@scope/pkg-foo',
+							owners: [],
+							path: 'packages/pkg-foo',
+							peerDependencies: [],
+							tags: ['tag-two'],
+							version: '2.0.0',
+						},
+					],
+					projectId: '123',
+					tags: ['tag-one', 'tag-two'],
+				})
+			);
+		});
+
+		it('should output the published view url', async () => {
+			const currentBranch = await getCurrentBranch();
+
+			const { stdout } = await execa(binaryPath, ['publish', ...defaultArgs], {
 				env: {
 					COMMONALITY_API_ORIGIN: server.getURL().origin,
 					COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
+					COMMONALITY_PUBLISH_KEY: '123',
 				},
 			});
 
-			expect(deviceCodeRoute).toHaveBeenCalled();
-			expect(tokenRoute).toHaveBeenCalled();
+			expect(stdout).toEqual(
+				expect.stringContaining(
+					`https://app.commonality.co/monorepo/root/${currentBranch}`
+				)
+			);
 		});
 	});
 
-	it('should POST to the URL with the correct data', async () => {
-		authServer.post('/oauth/device/code').mockImplementation((ctx) => {
-			ctx.status = 200;
+	describe('when the API returns an error', () => {
+		beforeEach(async () => {
+			server.post('/api/cli/publish').mockImplementation((ctx) => {
+				ctx.status = 500;
+
+				ctx.body = {
+					message: 'An error occurred',
+				};
+			});
 		});
 
-		authServer.post('/oauth/token').mockImplementationOnce((ctx) => {
-			ctx.status = 200;
-		});
-
-		await execa(binaryPath, ['publish', ...defaultArgs], {
-			env: {
-				COMMONALITY_API_ORIGIN: server.getURL().origin,
-				COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
-				COMMONALITY_PUBLISH_KEY: '123',
-			},
-		});
-
-		const currentBranch = await getCurrentBranch();
-
-		expect(bodySpy).toHaveBeenCalledWith(
-			expect.objectContaining({
-				branch: currentBranch,
-				packages: [
-					{
-						dependencies: [
-							{
-								name: 'bar',
-								version: '^1.0.0',
-							},
-						],
-						devDependencies: [],
-						name: '@scope/app-foo',
-						owners: [],
-						path: 'apps/app-foo',
-						peerDependencies: [],
-						tags: ['tag-one'],
-						type: 'NODE',
-						version: '1.0.0',
+		it('should output the error message', async () => {
+			const { stderr, exitCode } = await execa(
+				binaryPath,
+				['publish', ...defaultArgs],
+				{
+					env: {
+						COMMONALITY_API_ORIGIN: server.getURL().origin,
+						COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
+						COMMONALITY_PUBLISH_KEY: '123',
 					},
-					{
-						dependencies: [],
-						devDependencies: [
-							{
-								name: 'bar',
-								version: '^1.0.0',
-							},
-						],
-						name: '@scope/pkg-foo',
-						owners: [],
-						path: 'packages/pkg-foo',
-						peerDependencies: [],
-						tags: ['tag-two'],
-						type: 'NODE',
-						version: '2.0.0',
-					},
-				],
-				projectId: '123',
-				tags: ['tag-one', 'tag-two'],
-			})
-		);
-	});
+					reject: false,
+				}
+			);
 
-	it('should output the published view url', async () => {
-		const currentBranch = await getCurrentBranch();
-
-		const { stdout } = await execa(binaryPath, ['publish', ...defaultArgs], {
-			env: {
-				COMMONALITY_API_ORIGIN: server.getURL().origin,
-				COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
-				COMMONALITY_PUBLISH_KEY: '123',
-			},
+			expect(exitCode).toEqual(1);
+			expect(stderr).toEqual(expect.stringContaining('An error occurred'));
 		});
-
-		expect(stdout).toEqual(
-			expect.stringContaining(
-				`https://app.commonality.co/monorepo/root/${currentBranch}`
-			)
-		);
 	});
 });
