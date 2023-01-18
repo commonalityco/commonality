@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.0.8
+
+### Patch Changes
+
+- b81d284: commonality validate has been added to the CLI
+
 ## 0.0.7
 
 ### Patch Changes
