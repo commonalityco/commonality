@@ -1,19 +1,15 @@
 import treeverse from 'treeverse';
-import type {
-	Config,
-	LocalPackage,
-	LocalViolation,
-} from '@commonalityco/types';
+import type { ProjectConfig, Package, Violation } from '@commonalityco/types';
 import intersection from 'lodash.intersection';
 
 export const getConstraintViolations = ({
 	packages,
 	config,
 }: {
-	packages: LocalPackage[];
-	config: Config;
-}): LocalViolation[] => {
-	const violationsByPackageName = new Map<string, LocalViolation[]>();
+	packages: Package[];
+	config: ProjectConfig;
+}): Violation[] => {
+	const violationsByPackageName = new Map<string, Violation[]>();
 
 	for (const constraint of config?.constraints ?? []) {
 		const packagesWithConstraint = packages.filter(
@@ -21,7 +17,7 @@ export const getConstraintViolations = ({
 		);
 
 		for (const packageWithConstraint of packagesWithConstraint) {
-			treeverse.breadth<LocalPackage>({
+			treeverse.breadth<Package>({
 				tree: packageWithConstraint,
 				visit(node) {
 					return node;
@@ -43,7 +39,7 @@ export const getConstraintViolations = ({
 						allDependencyNames.has(pkg.name)
 					);
 
-					const packageViolations: LocalViolation[] = [];
+					const packageViolations: Violation[] = [];
 
 					for (const dependency of dependencies) {
 						const hasDisallowedTag =

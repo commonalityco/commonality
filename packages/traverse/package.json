@@ -1,0 +1,12 @@
+{
+	"name": "@commonalityco/traverse",
+	"description": "Utilities for traversing a monorepo's dependency graph",
+	"version": "0.0.3",
+	"publishConfig": {
+		"access": "public"
+	},
+	"type": "module",
+	"types": "dist/index.d.ts",
+	"main": "dist/index.js",
+	"license": "MIT"
+}

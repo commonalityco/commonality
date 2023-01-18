@@ -1,10 +1,6 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import type {
-	LocalPackage,
-	PackageConfig,
-	PackageJson,
-} from '@commonalityco/types';
+import type { Package, PackageConfig, PackageJson } from '@commonalityco/types';
 import { getOwnersForPath } from '@commonalityco/codeowners';
 
 export const getPackages = async ({
@@ -14,7 +10,7 @@ export const getPackages = async ({
 	packageDirectories: string[];
 	rootDirectory: string;
 }) => {
-	const packagesWithTags: LocalPackage[] = [];
+	const packagesWithTags: Package[] = [];
 
 	for (const directory of packageDirectories) {
 		const packageJsonPath = path.join(rootDirectory, directory, 'package.json');

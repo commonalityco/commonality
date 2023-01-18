@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import ora from 'ora';
-import type { Config } from '@commonalityco/types';
+import type { ProjectConfig } from '@commonalityco/types';
 import { getRootDirectory } from '../core/get-root-directory.js';
 
 const program = new Command();
@@ -24,7 +24,7 @@ export const link = program
 		const spinner = ora('Setting up configuration files...').start();
 
 		const additionalOptions = isConfigFilePresent
-			? ((await fs.readJSON(pathToFile)) as Config)
+			? ((await fs.readJSON(pathToFile)) as ProjectConfig)
 			: {};
 
 		await fs.outputJSON(

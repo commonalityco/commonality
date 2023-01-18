@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import type { Config, SnapshotData } from '@commonalityco/types';
+import type { ProjectConfig, SnapshotData } from '@commonalityco/types';
 import { getPackages } from './get-packages.js';
 import { getTags } from './get-tags.js';
 import { getCurrentBranch } from './get-current-branch.js';
@@ -15,7 +15,7 @@ export const getSnapshot = async (
 		'config.json'
 	);
 
-	const configFile = fs.readJSONSync(configFilePath) as Config;
+	const configFile = fs.readJSONSync(configFilePath) as ProjectConfig;
 
 	const packages = await getPackages({ packageDirectories, rootDirectory });
 

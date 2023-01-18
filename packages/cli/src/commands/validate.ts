@@ -5,7 +5,7 @@ import chalk from 'chalk';
 import groupBy from 'lodash.groupby';
 import terminalLink from 'terminal-link';
 import fs from 'fs-extra';
-import type { Config } from '@commonalityco/types';
+import type { ProjectConfig } from '@commonalityco/types';
 import { getRootDirectory } from '../core/get-root-directory.js';
 import { getWorkspaces } from '../core/get-workspaces.js';
 import { getPackageManager } from '../core/get-package-manager.js';
@@ -22,7 +22,7 @@ const logNoDefinedConstraints = () => {
 	);
 };
 
-const logDependencyConstraintCount = (config: Config, path: string) => {
+const logDependencyConstraintCount = (config: ProjectConfig, path: string) => {
 	const constraintTags = config.constraints ?? [];
 
 	const text =

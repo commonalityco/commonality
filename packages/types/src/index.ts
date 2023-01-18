@@ -1,18 +1,18 @@
-export type LocalDependency = { name: string; version: string };
+export type Dependency = { name: string; version: string };
 
-export type LocalPackage = {
+export type Package = {
 	path: string;
 	name: string;
 	version: string;
 	tags: string[] | undefined;
-	dependencies: LocalDependency[];
-	devDependencies: LocalDependency[];
-	peerDependencies: LocalDependency[];
+	dependencies: Dependency[];
+	devDependencies: Dependency[];
+	peerDependencies: Dependency[];
 	/** The CODEOWNERS that match the path of this package */
 	owners?: string[];
 };
 
-export type Config = {
+export type ProjectConfig = {
 	project: string;
 	constraints?: Array<{
 		tags: string[];
@@ -24,7 +24,7 @@ export type PackageConfig = {
 	tags?: string[];
 };
 
-export type LocalViolation = {
+export type Violation = {
 	/** The path to the package with violation relative to the root of the monorepo */
 	path: string;
 	/** The name of dependent */
@@ -55,6 +55,6 @@ export type PackageJson = {
 export type SnapshotData = {
 	projectId: string;
 	branch: string;
-	packages: LocalPackage[];
+	packages: Package[];
 	tags: string[];
 };

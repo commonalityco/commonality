@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import fs from 'fs-extra';
 import { beforeEach, jest } from '@jest/globals';
 import { execa } from 'execa';
-import type { Config, PackageConfig } from '@commonalityco/types';
+import type { ProjectConfig, PackageConfig } from '@commonalityco/types';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const binaryPath = path.resolve(__dirname, `../../scripts/start.js`);
@@ -19,7 +19,7 @@ const writeTestFiles = ({
 	packages,
 }: {
 	baseDir: string;
-	config: Config;
+	config: ProjectConfig;
 	packages: Array<{
 		name: string;
 		config?: PackageConfig;

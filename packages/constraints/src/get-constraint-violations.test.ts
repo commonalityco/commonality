@@ -1,9 +1,9 @@
-import type { Config, LocalPackage } from '@commonalityco/types';
+import type { ProjectConfig, Package } from '@commonalityco/types';
 import { getConstraintViolations } from './get-constraint-violations.js';
 
 describe('getConstraintViolations', () => {
 	describe('when a dependency does contain the allowed tags', () => {
-		const packages: LocalPackage[] = [
+		const packages: Package[] = [
 			{
 				name: '@scope/one',
 				version: '1.0.0',
@@ -41,7 +41,7 @@ describe('getConstraintViolations', () => {
 			},
 		];
 
-		const config: Config = {
+		const config: ProjectConfig = {
 			project: '123',
 			constraints: [
 				{
@@ -62,7 +62,7 @@ describe('getConstraintViolations', () => {
 	});
 
 	describe('when a dependency does not contain the allowed tags', () => {
-		const packages: LocalPackage[] = [
+		const packages: Package[] = [
 			{
 				name: '@scope/one',
 				version: '1.0.0',
@@ -115,7 +115,7 @@ describe('getConstraintViolations', () => {
 			},
 		];
 
-		const config: Config = {
+		const config: ProjectConfig = {
 			project: '123',
 			constraints: [
 				{
@@ -158,7 +158,7 @@ describe('getConstraintViolations', () => {
 	});
 
 	describe('when a dependency does not have tags defined', () => {
-		const packages: LocalPackage[] = [
+		const packages: Package[] = [
 			{
 				name: '@scope/one',
 				owners: [],
@@ -186,7 +186,7 @@ describe('getConstraintViolations', () => {
 			},
 		];
 
-		const config: Config = {
+		const config: ProjectConfig = {
 			project: '123',
 			constraints: [
 				{
@@ -213,7 +213,7 @@ describe('getConstraintViolations', () => {
 	});
 
 	describe('when there are no constraints defined', () => {
-		const packages: LocalPackage[] = [
+		const packages: Package[] = [
 			{
 				name: '@scope/one',
 				owners: [],
@@ -241,7 +241,7 @@ describe('getConstraintViolations', () => {
 			},
 		];
 
-		const config: Config = {
+		const config: ProjectConfig = {
 			project: '123',
 		};
 

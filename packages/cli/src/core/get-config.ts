@@ -1,8 +1,8 @@
 import path from 'node:path';
-import type { Config } from '@commonalityco/types';
+import type { ProjectConfig } from '@commonalityco/types';
 import fs from 'fs-extra';
 
-export const getConfig = async (rootDirectory: string): Promise<Config> => {
+export const getConfig = async (rootDirectory: string): Promise<ProjectConfig> => {
 	const configFilePath = path.join(
 		rootDirectory,
 		'.commonality',
@@ -10,7 +10,7 @@ export const getConfig = async (rootDirectory: string): Promise<Config> => {
 	);
 
 	try {
-		const configFile = (await fs.readJson(configFilePath)) as Config;
+		const configFile = (await fs.readJson(configFilePath)) as ProjectConfig;
 
 		return configFile;
 	} catch {
