@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import mock from 'mock-fs';
-import { PackageType } from '@commonalityco/types';
 import { describe, expect, beforeEach, afterEach, it } from '@jest/globals';
 import { getPackages } from './get-packages.js';
 
@@ -43,7 +42,6 @@ describe('getPackages', () => {
 					name: '@scope/foo',
 					path: 'packages/foo',
 					tags: ['tag-one'],
-					type: PackageType.NEXT,
 					dependencies: [
 						{
 							name: 'foo',
@@ -105,7 +103,6 @@ describe('getPackages', () => {
 					owners: [],
 					path: 'packages/foo',
 					tags: [],
-					type: PackageType.NODE,
 					dependencies: [
 						{
 							name: 'foo',

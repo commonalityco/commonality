@@ -15,22 +15,22 @@ import { getRootDirectory } from '../core/get-root-directory.js';
 const program = new Command();
 
 export const actionHandler = async (
-	options: { publishKey?: string },
+	options: { publishKey?: string; cwd?: string },
 	action: Command
 ) => {
 	if (!options.publishKey) {
-		await ensureAuth();
+		await ensureAuth(action);
 	}
 
-	const rootDirectory = await getRootDirectory();
+	const rootDirectory = await getRootDirectory(options.cwd);
 
 	if (!rootDirectory) {
-		console.log(chalk.red('Unable to deterimine root directory'));
-		return;
+		action.error('Unable to deterimine root directory');
 	}
 
 	const packageManager = await getPackageManager(rootDirectory);
 	const workspaces = await getWorkspaces(rootDirectory, packageManager);
+
 	const packageDirectories = await getPackageDirectories(
 		rootDirectory,
 		workspaces
@@ -84,11 +84,21 @@ export const actionHandler = async (
 
 		console.log(`View your graph at ${chalk.bold.blue(result.url)}`);
 	} catch (error: unknown) {
-		spinner.fail('Failed to publish snapshot');
+		spinner.stop();
 
 		if (error instanceof got.HTTPError) {
-			action.error(error.message);
+			const responseBody = error.response.body as string;
+
+			try {
+				const body = JSON.parse(responseBody) as Error;
+
+				action.error(body.message);
+			} catch {
+				action.error('Failed to publish snapshot');
+			}
 		}
+
+		action.error('Failed to publish snapshot');
 	}
 };
 
@@ -99,5 +109,9 @@ export const publish = program
 		'--publishKey <key>',
 		'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_PUBLISH_KEY environment variable.',
 		process.env['COMMONALITY_PUBLISH_KEY']
+	)
+	.option(
+		'--cwd <path>',
+		"A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile."
 	)
 	.action(actionHandler);

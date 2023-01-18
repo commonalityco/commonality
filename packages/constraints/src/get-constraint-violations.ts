@@ -1,76 +1,77 @@
-// Import treeverse from 'treeverse';
-// import type {
-// 	Config,
-// 	LocalPackage,
-// 	LocalViolation,
-// } from '@commonalityco/types';
-// import intersection from 'lodash.intersection';
+import treeverse from 'treeverse';
+import type {
+	Config,
+	LocalPackage,
+	LocalViolation,
+} from '@commonalityco/types';
+import intersection from 'lodash.intersection';
 
-// export const getConstraintViolations = (
-// 	packages: LocalPackage[],
-// 	config: Config
-// ): LocalViolation[] => {
-// 	const violations: LocalViolation[] = [];
+export const getConstraintViolations = ({
+	packages,
+	config,
+}: {
+	packages: LocalPackage[];
+	config: Config;
+}): LocalViolation[] => {
+	const violationsByPackageName = new Map<string, LocalViolation[]>();
 
-// 	for (const constraint of config?.constraints || []) {
-// 		const packagesWithConstraint = packages.filter((pkg) =>
-// 			intersection(pkg.tags, constraint.tags)
-// 		);
+	for (const constraint of config?.constraints ?? []) {
+		const packagesWithConstraint = packages.filter(
+			(pkg) => intersection(pkg.tags, constraint.tags).length > 0
+		);
 
-// 		for (const packageWithConstraint of packagesWithConstraint) {
-// 			treeverse.depth({
-// 				tree: packageWithConstraint,
-// 				leave(node: {
-// 					name: string;
-// 					path: string;
-// 					children: Array<typeof packageWithConstraint>;
-// 				}) {
-// 					if (node.children.length === 0) {
-// 						return;
-// 					}
+		for (const packageWithConstraint of packagesWithConstraint) {
+			treeverse.breadth<LocalPackage>({
+				tree: packageWithConstraint,
+				visit(node) {
+					return node;
+				},
+				getChildren(node) {
+					const dependencyNames = node.dependencies.map((dep) => dep.name);
+					const devDependencyNames = node.devDependencies.map(
+						(dep) => dep.name
+					);
+					const peerDependencyNames = node.peerDependencies.map(
+						(dep) => dep.name
+					);
+					const allDependencyNames = new Set([
+						...dependencyNames,
+						...devDependencyNames,
+						...peerDependencyNames,
+					]);
+					const dependencies = packages.filter((pkg) =>
+						allDependencyNames.has(pkg.name)
+					);
 
-// 					for (const child of node.children) {
-// 						if (intersection(child.tags, constraint.allow).length > 0) {
-// 							continue;
-// 						} else {
-// 							violations.push({
-// 								path: node.path,
-// 								sourceName: node.name,
-// 								targetName: child.name,
-// 								constraintTags: constraint.tags || [],
-// 								allowedTags: constraint.allow || [],
-// 								targetTags: child.tags,
-// 							});
-// 						}
-// 					}
-// 				},
-// 				visit(node: typeof packageWithConstraint) {
-// 					const dependencyNames = node.dependencies.map((dep) => dep.name);
-// 					const devDependencyNames = node.devDependencies.map(
-// 						(dep) => dep.name
-// 					);
-// 					const peerDependencyNames = node.peerDependencies.map(
-// 						(dep) => dep.name
-// 					);
+					const packageViolations: LocalViolation[] = [];
 
-// 					const allDependencyNames = new Set([
-// 						...dependencyNames,
-// 						...devDependencyNames,
-// 						...peerDependencyNames,
-// 					]);
+					for (const dependency of dependencies) {
+						const hasDisallowedTag =
+							intersection(dependency.tags, constraint.allow).length > 0;
 
-// 					const children = packages.filter((pkg) =>
-// 						allDependencyNames.has(pkg.name)
-// 					);
+						if (hasDisallowedTag) {
+							continue;
+						} else {
+							packageViolations.push({
+								path: node.path,
+								sourceName: node.name,
+								targetName: dependency.name,
+								constraintTags: constraint.tags || [],
+								allowedTags: constraint.allow || [],
+								targetTags: dependency.tags,
+							});
+						}
+					}
 
-// 					return { name: node.name, children, path: node.path };
-// 				},
-// 				getChildren(node: { children: Array<typeof packageWithConstraint> }) {
-// 					return node.children;
-// 				},
-// 			});
-// 		}
-// 	}
+					violationsByPackageName.set(node.name, packageViolations);
 
-// 	return violations;
-// };
+					return dependencies;
+				},
+			});
+		}
+	}
+
+	const violations = Array.from(violationsByPackageName.values()).flat();
+
+	return violations;
+};
