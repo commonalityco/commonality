@@ -3,10 +3,9 @@ import { getConstraintViolations } from '@commonalityco/constraints';
 import { Command } from 'commander';
 import chalk from 'chalk';
 import groupBy from 'lodash.groupby';
-import termialLink from 'terminal-link';
+import terminalLink from 'terminal-link';
 import fs from 'fs-extra';
 import type { Config } from '@commonalityco/types';
-import terminalLink from 'terminal-link';
 import { getRootDirectory } from '../core/get-root-directory.js';
 import { getWorkspaces } from '../core/get-workspaces.js';
 import { getPackageManager } from '../core/get-package-manager.js';
@@ -31,13 +30,13 @@ const logDependencyConstraintCount = (config: Config, path: string) => {
 			? `${constraintTags.length} dependency constraints found`
 			: `${constraintTags.length} dependency constraint found`;
 
-	const link = termialLink(text, path);
+	const link = terminalLink(text, path);
 
 	console.log(chalk.blue(link));
 };
 
 const logDependencyName = (packageName: string, path: string) => {
-	const link = termialLink(`📦 ${packageName}`, path);
+	const link = terminalLink(packageName, path);
 
 	console.log(chalk(link));
 };
@@ -147,7 +146,7 @@ export const validate = program
 					);
 
 					if (hasPackageConfigurationFile) {
-						console.log(middleSpacer, chalk.red('Received tags:'));
+						console.log(middleSpacer, chalk.red('Found tags:'));
 
 						console.log(
 							middleSpacer,
@@ -164,12 +163,17 @@ export const validate = program
 							middleSpacer,
 							chalk.red('Missing package configuration')
 						);
+
+						action.error(chalk.bold.red('Missing package configuration'));
 					}
 				}
 
 				console.log();
 			}
 
-			action.error(chalk.bold.red(`${violations.length} violations found`));
+			const violationMessage =
+				violations.length > 1 ? 'violations found' : 'violation found';
+
+			action.error(chalk.bold.red(`${violations.length} ${violationMessage}`));
 		}
 	);

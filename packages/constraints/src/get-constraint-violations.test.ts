@@ -25,6 +25,16 @@ describe('getConstraintViolations', () => {
 				path: 'packages/two',
 				owners: [],
 				tags: ['tag-two'],
+				dependencies: [{ name: '@scope/three', version: '*' }],
+				devDependencies: [],
+				peerDependencies: [],
+			},
+			{
+				name: '@scope/three',
+				version: '1.0.0',
+				path: 'packages/three',
+				owners: [],
+				tags: ['tag-three'],
 				dependencies: [],
 				devDependencies: [],
 				peerDependencies: [],
@@ -37,6 +47,10 @@ describe('getConstraintViolations', () => {
 				{
 					tags: ['tag-one'],
 					allow: ['tag-two'],
+				},
+				{
+					tags: ['tag-two'],
+					allow: ['tag-three'],
 				},
 			],
 		};

@@ -24,7 +24,6 @@ const binaryPath = path.resolve(__dirname, `../../scripts/start.js`);
 const distPath = path.resolve(__dirname, '../../dist');
 const temporaryDir = path.join(tmpdir(), 'commonality-cli-test-publish');
 const distToTemporary = path.relative(distPath, temporaryDir);
-
 const defaultArgs = ['--cwd', distToTemporary];
 
 describe('publish', () => {

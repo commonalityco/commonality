@@ -16,8 +16,8 @@ export const getConstraintViolations = ({
 	const violationsByPackageName = new Map<string, LocalViolation[]>();
 
 	for (const constraint of config?.constraints ?? []) {
-		const packagesWithConstraint = packages.filter((pkg) =>
-			intersection(pkg.tags, constraint.tags)
+		const packagesWithConstraint = packages.filter(
+			(pkg) => intersection(pkg.tags, constraint.tags).length > 0
 		);
 
 		for (const packageWithConstraint of packagesWithConstraint) {
@@ -46,7 +46,10 @@ export const getConstraintViolations = ({
 					const packageViolations: LocalViolation[] = [];
 
 					for (const dependency of dependencies) {
-						if (intersection(dependency.tags, constraint.allow).length > 0) {
+						const hasDisallowedTag =
+							intersection(dependency.tags, constraint.allow).length > 0;
+
+						if (hasDisallowedTag) {
 							continue;
 						} else {
 							packageViolations.push({
