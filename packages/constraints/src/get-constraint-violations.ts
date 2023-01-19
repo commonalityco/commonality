@@ -1,6 +1,6 @@
-import treeverse from 'treeverse';
 import type { ProjectConfig, Package, Violation } from '@commonalityco/types';
 import intersection from 'lodash.intersection';
+import { traverseGraph } from '@commonalityco/traverse';
 
 export const getConstraintViolations = ({
 	packages,
@@ -17,28 +17,11 @@ export const getConstraintViolations = ({
 		);
 
 		for (const packageWithConstraint of packagesWithConstraint) {
-			treeverse.breadth<Package>({
-				tree: packageWithConstraint,
-				visit(node) {
-					return node;
-				},
-				getChildren(node) {
-					const dependencyNames = node.dependencies.map((dep) => dep.name);
-					const devDependencyNames = node.devDependencies.map(
-						(dep) => dep.name
-					);
-					const peerDependencyNames = node.peerDependencies.map(
-						(dep) => dep.name
-					);
-					const allDependencyNames = new Set([
-						...dependencyNames,
-						...devDependencyNames,
-						...peerDependencyNames,
-					]);
-					const dependencies = packages.filter((pkg) =>
-						allDependencyNames.has(pkg.name)
-					);
-
+			traverseGraph({
+				root: packageWithConstraint,
+				packages,
+				visit(node, dependencies) {
+					console.log({ node });
 					const packageViolations: Violation[] = [];
 
 					for (const dependency of dependencies) {
@@ -60,8 +43,6 @@ export const getConstraintViolations = ({
 					}
 
 					violationsByPackageName.set(node.name, packageViolations);
-
-					return dependencies;
 				},
 			});
 		}

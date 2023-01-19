@@ -177,6 +177,7 @@ importers:
 
   packages/constraints:
     specifiers:
+      '@commonalityco/traverse': workspace:*
       '@commonalityco/types': workspace:*
       '@jest/globals': ^29.3.1
       '@tsconfig/node-lts-strictest-esm': ^18.12.1
@@ -206,6 +207,7 @@ importers:
       micromatch: 4.0.5
       treeverse: 3.0.0
     devDependencies:
+      '@commonalityco/traverse': link:../traverse
       '@commonalityco/types': link:../types
       '@jest/globals': 29.3.1
       '@tsconfig/node-lts-strictest-esm': 18.12.1
@@ -219,6 +221,31 @@ importers:
       jest: 29.3.1
       mock-fs: 5.2.0
       ts-jest: 29.0.4_p6ekqnroyms5nhqbfxosryz7rm
+      tsup: 6.5.0_typescript@4.9.4
+      typescript: 4.9.4
+
+  packages/traverse:
+    specifiers:
+      '@commonalityco/types': workspace:*
+      '@tsconfig/node-lts-strictest-esm': ^18.12.1
+      '@types/graphlib': ^2.1.8
+      '@types/lodash.memoize': ^4.1.7
+      graphlib: ^2.1.8
+      jest: ^29.3.1
+      lodash.memoize: ^4.1.2
+      treeverse: ^3.0.0
+      tsup: ^6.5.0
+      typescript: ^4.9.4
+    dependencies:
+      graphlib: 2.1.8
+      lodash.memoize: 4.1.2
+      treeverse: 3.0.0
+    devDependencies:
+      '@commonalityco/types': link:../types
+      '@tsconfig/node-lts-strictest-esm': 18.12.1
+      '@types/graphlib': 2.1.8
+      '@types/lodash.memoize': 4.1.7
+      jest: 29.3.1
       tsup: 6.5.0_typescript@4.9.4
       typescript: 4.9.4
 
@@ -1271,6 +1298,10 @@ packages:
       '@types/node': 18.11.18
     dev: true
 
+  /@types/graphlib/2.1.8:
+    resolution: {integrity: sha512-8nbbyD3zABRA9ePoBgAl2ym8cIwKQXTfv1gaIRTdY99yEOCaHfmjBeRp+BIemS8NtOqoWK7mfzWxjNrxLK3T5w==}
+    dev: true
+
   /@types/http-assert/1.5.3:
     resolution: {integrity: sha512-FyAOrDuQmBi8/or3ns4rwPno7/9tJTijVW6aQQjK02+kOQ8zmoNg2XJtAuQhvQcy1ASJq38wirX5//9J1EqoUA==}
     dev: true
@@ -1375,6 +1406,12 @@ packages:
 
   /@types/lodash.keyby/4.6.7:
     resolution: {integrity: sha512-3qSHbbxLfXlARIKsaijZPb/5ZHDajv1vRg7OlAOuBNwN29PESS3sEOPfG1s2kzSuZnKtxtXZd1lvGj5JasN91w==}
+    dependencies:
+      '@types/lodash': 4.14.191
+    dev: true
+
+  /@types/lodash.memoize/4.1.7:
+    resolution: {integrity: sha512-lGN7WeO4vO6sICVpf041Q7BX/9k1Y24Zo3FY0aUezr1QlKznpjzsDk3T3wvH8ofYzoK0QupN9TWcFAFZlyPwQQ==}
     dependencies:
       '@types/lodash': 4.14.191
     dev: true
@@ -3612,6 +3649,12 @@ packages:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
     dev: false
 
+  /graphlib/2.1.8:
+    resolution: {integrity: sha512-jcLLfkpoVGmH7/InMC/1hIvOPSUh38oJtGhvrOFGzioE1DZ+0YW16RgmOJhHiuWTvGiJQ9Z1Ik43JvkRPRvE+A==}
+    dependencies:
+      lodash: 4.17.21
+    dev: false
+
   /hard-rejection/2.1.0:
     resolution: {integrity: sha512-VIZB+ibDhx7ObhAe7OVtoEbuP4h/MuOTHJ+J8h/eBXotJYl0fBgR72xDFCKgIh22OJZIOVNxBMWuhAr10r8HdA==}
     engines: {node: '>=6'}
@@ -4936,7 +4979,6 @@ packages:
 
   /lodash.memoize/4.1.2:
     resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}
-    dev: true
 
   /lodash.merge/4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}

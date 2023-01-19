@@ -3,7 +3,6 @@
 	"include": [
 		"src/**/*.ts",
 		"src/**/*.tsx",
-		"./types"
 	],
 	"exclude": [
 		"node_modules"
@@ -14,7 +13,6 @@
 		"emitDeclarationOnly": true,
 		"outDir": "./dist",
 		"typeRoots": [
-			"./types",
 			"./node_modules/@types"
 		]
 	},

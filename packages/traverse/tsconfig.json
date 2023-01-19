@@ -2,7 +2,8 @@
 	"extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
 	"include": [
 		"src/**/*.ts",
-		"src/**/*.tsx"
+		"src/**/*.tsx",
+		"./types"
 	],
 	"exclude": [
 		"node_modules"
@@ -13,6 +14,7 @@
 		"emitDeclarationOnly": true,
 		"outDir": "./dist",
 		"typeRoots": [
+			"./types",
 			"./node_modules/@types"
 		]
 	},
