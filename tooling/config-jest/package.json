@@ -1,0 +1,18 @@
+{
+	"name": "@commonalityco/config-jest",
+	"description": "The Commonality CLI's Jest configuration",
+	"version": "0.0.1",
+	"author": {
+		"name": "Alec Ortega",
+		"email": "alec@commonality.co"
+	},
+	"license": "MIT",
+	"main": "jest.config.js",
+	"engines": {
+		"node": ">=14.6"
+	},
+	"devDependencies": {
+		"tsup": "^6.5.0",
+		"typescript": "^4.9.4"
+	}
+}

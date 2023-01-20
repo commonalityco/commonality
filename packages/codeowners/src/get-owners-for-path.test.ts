@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { getOwnersForPath } from './get-owners-for-path';
 
-jest.mock('./get-code-owners.js', () => ({
+jest.mock('./get-code-owners', () => ({
 	getCodeOwners: jest.fn().mockReturnValue({ 'packages/**': ['@team-one'] }),
 }));
 

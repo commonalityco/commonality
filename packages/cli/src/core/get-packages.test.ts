@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import mock from 'mock-fs';
 import { describe, expect, beforeEach, afterEach, it } from '@jest/globals';
-import { getPackages } from './get-packages.js';
+import { getPackages } from './get-packages';
 
 describe('getPackages', () => {
 	describe('when all projects have a commonality.json file', () => {

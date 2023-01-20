@@ -18,7 +18,9 @@ export const getProjectConfig = async (
 ): Promise<ProjectConfig | undefined> => {
 	const { findUp } = await import('find-up');
 
-	const configFilePath = await findUp(configNames);
+	const configFilePath = await findUp(configNames, {
+		cwd: rootDirectory,
+	});
 
 	if (!configFilePath) {
 		return undefined;
@@ -42,12 +44,13 @@ export const getProjectConfig = async (
 				swc: true,
 			});
 
-			return await require(configFilePath);
+			const result = await require(configFilePath);
+
+			return result.default || result;
 		} else {
 			return await require(configFilePath);
 		}
 	} catch (error: unknown) {
-		console.log({ error });
 		throw new Error('Encountered an error reading your project configuration.');
 	}
 };

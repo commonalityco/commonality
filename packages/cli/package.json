@@ -1,14 +1,14 @@
 {
 	"name": "commonality",
 	"version": "0.0.8",
-	"type": "module",
 	"bin": {
-		"commonality": "./dist/cli.cjs"
+		"commonality": "./dist/cli.js",
+		"co": "./dist/cli.js"
 	},
 	"engines": {
 		"node": ">=14.6"
 	},
-	"main": "./dist/index.cjs",
+	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"description": "Commonality is a toolchain that helps you scale your monorepo from one to hundeds of developers.",
 	"repository": "https://github.com/commonalityco/commonalityco",
@@ -30,10 +30,10 @@
 		"@swc/core": "^1.3.27",
 		"chalk": "^5.2.0",
 		"commander": "^9.5.0",
-		"configstore": "^6.0.0",
+		"configstore": "3.1.5",
 		"cosmiconfig": "^8.0.0",
 		"cosmiconfig-typescript-loader": "^4.3.0",
-		"execa": "^6.1.0",
+		"execa": "5.1.1",
 		"fast-glob": "^3.2.12",
 		"find-up": "^6.3.0",
 		"fs-extra": "^11.1.0",
@@ -58,10 +58,13 @@
 		"yaml": "^2.2.1"
 	},
 	"devDependencies": {
+		"@commonalityco/config-jest": "workspace:*",
+		"@commonalityco/config-tsup": "workspace:*",
 		"@commonalityco/constraints": "workspace:*",
 		"@commonalityco/tsconfig": "workspace:*",
 		"@commonalityco/types": "workspace:*",
 		"@jest/globals": "^29.3.1",
+		"@swc/jest": "^0.2.24",
 		"@tsconfig/node-lts-strictest-esm": "^18.12.1",
 		"@types/configstore": "^6.0.0",
 		"@types/fs-extra": "^11.0.1",

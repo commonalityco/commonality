@@ -23,6 +23,7 @@
 		"treeverse": "^3.0.0"
 	},
 	"devDependencies": {
+		"@commonalityco/config-jest": "workspace:*",
 		"@commonalityco/types": "workspace:*",
 		"@commonalityco/traverse": "workspace:*",
 		"@commonalityco/tsconfig": "workspace:*",

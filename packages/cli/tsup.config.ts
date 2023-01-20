@@ -1,11 +1,8 @@
 import { defineConfig } from 'tsup';
+import { config } from '@commonalityco/config-tsup';
 
 export default defineConfig({
-	entry: ['src/cli.ts', 'src/index.ts'],
-	outDir: 'dist',
-	clean: true,
-	dts: {
-		resolve: true,
-		entry: 'src/index.ts',
-	},
+	...config,
+	entry: ['./src/index.ts', './src/cli.ts'],
+	onSuccess: undefined,
 });

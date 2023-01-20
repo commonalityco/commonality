@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { execa } from 'execa';
+import execa from 'execa';
 import { MockServer } from 'jest-mock-server';
-import { beforeEach, afterAll, beforeAll } from '@jest/globals';
-import { config } from '../core/store.js';
+import { store } from '../core/store';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const binaryPath = path.resolve(__dirname, `../../scripts/start.js`);
 
 describe('login', () => {
@@ -51,12 +48,12 @@ describe('login', () => {
 	});
 
 	describe('when not already logged in', () => {
-		beforeEach(() => {
-			config.clear();
+		beforeEach(async () => {
+			store.clear();
 		});
 
 		it('should display the verification code', async () => {
-			const { stdout } = await execa(binaryPath, ['login'], {
+			const { stdout, stderr } = await execa(binaryPath, ['login'], {
 				env: {
 					COMMONALITY_AUTH_ORIGIN: server.getURL().origin,
 				},

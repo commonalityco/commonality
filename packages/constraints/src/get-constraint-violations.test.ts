@@ -1,5 +1,5 @@
 import type { ProjectConfig, Package } from '@commonalityco/types';
-import { getConstraintViolations } from './get-constraint-violations.js';
+import { getConstraintViolations } from './get-constraint-violations';
 
 describe('getConstraintViolations', () => {
 	describe('when a dependency does contain the allowed tags', () => {

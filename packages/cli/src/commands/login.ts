@@ -2,7 +2,7 @@
 import process from 'node:process';
 import { Command } from 'commander';
 import open from 'open';
-import { getStore } from '../core/store.js';
+import { store } from '../core/store.js';
 
 type DeviceCodeResponse = {
 	device_code: string;
@@ -24,7 +24,6 @@ export const loginAction = async (
 	const { got } = await import('got');
 	const { default: chalk } = await import('chalk');
 	const { default: ora } = await import('ora');
-	const store = await getStore();
 
 	try {
 		const data = await got

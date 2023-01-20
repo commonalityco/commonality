@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import mock from 'mock-fs';
-import { getCodeOwners } from './get-code-owners.js';
+import { getCodeOwners } from './get-code-owners';
 
 describe('getCodeOwners', () => {
 	describe('when the file is at the root of the repo', () => {

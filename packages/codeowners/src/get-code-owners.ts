@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import glob from 'glob';
-import { getIsTeam } from './get-is-team.js';
-import { getIsEmail } from './get-is-email.js';
+import { getIsTeam } from './get-is-team';
+import { getIsEmail } from './get-is-email';
 
 const isValidOwner = (owner: string) => {
 	const isTeamHandle = getIsTeam(owner);

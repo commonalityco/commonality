@@ -1,13 +1,3 @@
-let store: any;
+import Configstore from 'configstore';
 
-export const getStore = async () => {
-	if (store !== undefined) return store;
-
-	const { default: Configstore } = await import('configstore');
-
-	const newStore = new Configstore('@commonalityco/cli');
-
-	store = newStore;
-
-	return newStore;
-};
+export const store = new Configstore('commonality');

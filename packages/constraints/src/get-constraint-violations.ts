@@ -21,7 +21,6 @@ export const getConstraintViolations = ({
 				root: packageWithConstraint,
 				packages,
 				visit(node, dependencies) {
-					console.log({ node });
 					const packageViolations: Violation[] = [];
 
 					for (const dependency of dependencies) {

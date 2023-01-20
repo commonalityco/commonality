@@ -8,16 +8,14 @@ import {
 	it,
 	jest,
 } from '@jest/globals';
+import { getCurrentBranch } from './get-current-branch';
+import { getSnapshot } from './get-snapshot';
 
-const { getCurrentBranch } = await import('./get-current-branch.js');
-
-jest.unstable_mockModule('./get-current-branch.js', () => ({
+jest.mock('./get-current-branch', () => ({
 	getCurrentBranch: jest
 		.fn<typeof getCurrentBranch>()
 		.mockResolvedValue('my-branch'),
 }));
-
-const { getSnapshot } = await import('./get-snapshot.js');
 
 describe('getSnapshot', () => {
 	beforeEach(() => {

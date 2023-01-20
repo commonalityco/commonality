@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { tmpdir } from 'node:os';
 import fs from 'fs-extra';
-import { execa } from 'execa';
+import execa from 'execa';
 
 const binaryPath = path.resolve(__dirname, `../../scripts/start.js`);
 const distPath = path.resolve(__dirname, '../../dist');

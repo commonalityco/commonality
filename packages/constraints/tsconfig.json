@@ -2,18 +2,15 @@
 	"extends": "@commonalityco/tsconfig",
 	"include": [
 		"src/**/*.ts",
-		"src/**/*.tsx",
+		"src/**/*.tsx"
 	],
 	"exclude": [
 		"node_modules"
 	],
 	"compilerOptions": {
-		"declaration": true,
-		"declarationMap": true,
-		"emitDeclarationOnly": true,
-		"outDir": "./dist",
+		"outDir": "dist",
 		"typeRoots": [
-			"./node_modules/@types"
+			"node_modules/@types",
 		]
-	},
+	}
 }

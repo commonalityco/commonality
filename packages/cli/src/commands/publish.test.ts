@@ -1,14 +1,13 @@
 /* eslint-disable max-nested-callbacks */
 /* eslint-disable @typescript-eslint/naming-convention */
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import fs from 'fs-extra';
-import { execa } from 'execa';
+import execa from 'execa';
 import { MockServer } from 'jest-mock-server';
 import { afterEach, beforeEach, expect, jest } from '@jest/globals';
-import { config } from '../core/store.js';
-import { getCurrentBranch } from '../core/get-current-branch.js';
+import { store } from '../core/store';
+import { getCurrentBranch } from '../core/get-current-branch';
 
 const oraSucceed = jest.fn();
 const oraFail = jest.fn();
@@ -19,7 +18,6 @@ jest.mock('ora', () => ({
 	}),
 }));
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const binaryPath = path.resolve(__dirname, `../../scripts/start.js`);
 const distPath = path.resolve(__dirname, '../../dist');
 const temporaryDir = path.join(tmpdir(), 'commonality-cli-test-publish');
@@ -50,7 +48,7 @@ describe('publish', () => {
 	});
 
 	beforeEach(async () => {
-		config.clear();
+		store.clear();
 		fs.removeSync(temporaryDir);
 		jest.clearAllMocks();
 
@@ -134,12 +132,12 @@ describe('publish', () => {
 
 		describe('when already logged in', () => {
 			describe('when the access token has not expired', () => {
-				beforeEach(() => {
+				beforeEach(async () => {
 					const expires = new Date();
 					expires.setDate(expires.getDate() + 1);
 
-					config.set('auth:accessToken', '123');
-					config.set('auth:expires', expires.toString());
+					store.set('auth:accessToken', '123');
+					store.set('auth:expires', expires.toString());
 				});
 
 				it('should not prompt for a login', async () => {
@@ -156,12 +154,12 @@ describe('publish', () => {
 			});
 
 			describe('when the access token has expired', () => {
-				beforeEach(() => {
+				beforeEach(async () => {
 					const expires = new Date();
 					expires.setDate(expires.getDate() - 1);
 
-					config.set('auth:accessToken', '123');
-					config.set('auth:expires', expires.toString());
+					store.set('auth:accessToken', '123');
+					store.set('auth:expires', expires.toString());
 				});
 
 				it('should prompt for a login', async () => {

@@ -1,9 +1,9 @@
 import path from 'node:path';
 import fs from 'fs-extra';
 import type { ProjectConfig, SnapshotData } from '@commonalityco/types';
-import { getPackages } from './get-packages.js';
-import { getTags } from './get-tags.js';
-import { getCurrentBranch } from './get-current-branch.js';
+import { getPackages } from './get-packages';
+import { getTags } from './get-tags';
+import { getCurrentBranch } from './get-current-branch';
 
 export const getSnapshot = async (
 	rootDirectory: string,
