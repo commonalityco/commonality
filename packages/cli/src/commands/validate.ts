@@ -14,186 +14,186 @@ import { getProjectConfig } from '../core/get-project-config.js';
 const program = new Command();
 
 const logNoDefinedConstraints = async () => {
-	const { default: chalk } = await import('chalk');
+  const { default: chalk } = await import('chalk');
 
-	console.log(chalk.yellow('No constraints found'));
-	console.log(
-		'Define dependency constraints in your configuration file to control how packages are shared.'
-	);
+  console.log(chalk.yellow('No constraints found'));
+  console.log(
+    'Define dependency constraints in your configuration file to control how packages are shared.'
+  );
 };
 
 const logDependencyConstraintCount = async (
-	config: ProjectConfig,
-	path: string
+  config: ProjectConfig,
+  path: string
 ) => {
-	const { default: chalk } = await import('chalk');
-	const { default: terminalLink } = await import('terminal-link');
+  const { default: chalk } = await import('chalk');
+  const { default: terminalLink } = await import('terminal-link');
 
-	const constraintTags = config.constraints ?? [];
+  const constraintTags = config.constraints ?? [];
 
-	const text =
-		constraintTags.length > 1
-			? `${constraintTags.length} dependency constraints found`
-			: `${constraintTags.length} dependency constraint found`;
+  const text =
+    constraintTags.length > 1
+      ? `${constraintTags.length} dependency constraints found`
+      : `${constraintTags.length} dependency constraint found`;
 
-	const link = terminalLink(text, path);
+  const link = terminalLink(text, path);
 
-	console.log(chalk.blue(link));
+  console.log(chalk.blue(link));
 };
 
 const logDependencyName = async (packageName: string, path: string) => {
-	const { default: chalk } = await import('chalk');
-	const { default: terminalLink } = await import('terminal-link');
+  const { default: chalk } = await import('chalk');
+  const { default: terminalLink } = await import('terminal-link');
 
-	const link = terminalLink(packageName, path);
+  const link = terminalLink(packageName, path);
 
-	console.log(chalk(link));
+  console.log(chalk(link));
 };
 
 export const validate = program
-	.name('validate')
-	.description(
-		"Validate your project's package constraints and deprecation notices"
-	)
-	.option(
-		'--cwd <path>',
-		"A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile."
-	)
-	.action(
-		async ({ cwd }: { project: string; cwd?: string }, action: Command) => {
-			const { default: chalk } = await import('chalk');
-			const { default: terminalLink } = await import('terminal-link');
+  .name('validate')
+  .description(
+    "Validate your project's package constraints and deprecation notices"
+  )
+  .option(
+    '--cwd <path>',
+    "A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile."
+  )
+  .action(
+    async ({ cwd }: { project: string; cwd?: string }, action: Command) => {
+      const { default: chalk } = await import('chalk');
+      const { default: terminalLink } = await import('terminal-link');
 
-			const rootDirectory = await getRootDirectory(cwd);
-			const packageManager = await getPackageManager(rootDirectory);
-			const workspaces = await getWorkspaces(rootDirectory, packageManager);
-			const packageDirectories = await getPackageDirectories(
-				rootDirectory,
-				workspaces
-			);
-			const packages = await getPackages({ packageDirectories, rootDirectory });
-			const projectConfig = await getProjectConfig(rootDirectory);
+      const rootDirectory = await getRootDirectory(cwd);
+      const packageManager = await getPackageManager(rootDirectory);
+      const workspaces = await getWorkspaces(rootDirectory, packageManager);
+      const packageDirectories = await getPackageDirectories(
+        rootDirectory,
+        workspaces
+      );
+      const packages = await getPackages({ packageDirectories, rootDirectory });
+      const projectConfig = await getProjectConfig(rootDirectory);
 
-			if (!projectConfig) {
-				action.error('No project configuration found');
-			}
+      if (!projectConfig) {
+        action.error('No project configuration found');
+      }
 
-			const violations = getConstraintViolations({
-				packages,
-				config: projectConfig,
-			});
-			const violationsByPackageName = groupBy(violations, 'sourceName');
-			const packageNames = Object.keys(violationsByPackageName);
+      const violations = getConstraintViolations({
+        packages,
+        config: projectConfig,
+      });
+      const violationsByPackageName = groupBy(violations, 'sourceName');
+      const packageNames = Object.keys(violationsByPackageName);
 
-			console.log();
+      console.log();
 
-			if (Object.keys(projectConfig.constraints ?? {}).length === 0) {
-				logNoDefinedConstraints();
-				return;
-			}
+      if (Object.keys(projectConfig.constraints ?? {}).length === 0) {
+        logNoDefinedConstraints();
+        return;
+      }
 
-			logDependencyConstraintCount(
-				projectConfig,
-				path.join(rootDirectory, '.commonality/config.json')
-			);
+      logDependencyConstraintCount(
+        projectConfig,
+        path.join(rootDirectory, '.commonality/config.json')
+      );
 
-			console.log();
+      console.log();
 
-			if (violations.length === 0) {
-				console.log(chalk.green('No violations found'));
-				return;
-			}
+      if (violations.length === 0) {
+        console.log(chalk.green('No violations found'));
+        return;
+      }
 
-			for (const packageName of packageNames) {
-				const violations = violationsByPackageName[packageName];
-				const pkg = packages.find((pkg) => pkg.name === packageName);
+      for (const packageName of packageNames) {
+        const violations = violationsByPackageName[packageName];
+        const pkg = packages.find((pkg) => pkg.name === packageName);
 
-				if (!violations || !pkg) {
-					continue;
-				}
+        if (!violations || !pkg) {
+          continue;
+        }
 
-				logDependencyName(
-					packageName,
-					path.join(rootDirectory, pkg.path, 'commonality.json')
-				);
+        logDependencyName(
+          packageName,
+          path.join(rootDirectory, pkg.path, 'commonality.json')
+        );
 
-				for (let index = 0; index < violations.length; index++) {
-					const violation = violations[index];
+        for (let index = 0; index < violations.length; index++) {
+          const violation = violations[index];
 
-					if (!violation) {
-						continue;
-					}
+          if (!violation) {
+            continue;
+          }
 
-					const isLastViolation =
-						index === violations.length - 1 &&
-						violations.indexOf(violation) === violations.length - 1;
+          const isLastViolation =
+            index === violations.length - 1 &&
+            violations.indexOf(violation) === violations.length - 1;
 
-					const topSpacer = isLastViolation ? '└──' : '├──';
-					const middleSpacer = isLastViolation ? '   ' : '│  ';
+          const topSpacer = isLastViolation ? '└──' : '├──';
+          const middleSpacer = isLastViolation ? '   ' : '│  ';
 
-					console.log('│  ');
+          console.log('│  ');
 
-					const dependencyPkg = packages.find(
-						(pkg) => pkg.name === violation.targetName
-					);
+          const dependencyPkg = packages.find(
+            (pkg) => pkg.name === violation.targetName
+          );
 
-					if (!dependencyPkg) {
-						continue;
-					}
+          if (!dependencyPkg) {
+            continue;
+          }
 
-					const dependencyConfigurationPath = path.join(
-						rootDirectory,
-						dependencyPkg.path,
-						'commonality.json'
-					);
-					const dependencyManifestPath = path.join(
-						rootDirectory,
-						dependencyPkg.path,
-						'package.json'
-					);
+          const dependencyConfigurationPath = path.join(
+            rootDirectory,
+            dependencyPkg.path,
+            'commonality.json'
+          );
+          const dependencyManifestPath = path.join(
+            rootDirectory,
+            dependencyPkg.path,
+            'package.json'
+          );
 
-					const hasPackageConfigurationFile = fs.pathExistsSync(
-						dependencyConfigurationPath
-					);
+          const hasPackageConfigurationFile = fs.pathExistsSync(
+            dependencyConfigurationPath
+          );
 
-					const dependencyNameLinkPath = hasPackageConfigurationFile
-						? dependencyConfigurationPath
-						: dependencyManifestPath;
+          const dependencyNameLinkPath = hasPackageConfigurationFile
+            ? dependencyConfigurationPath
+            : dependencyManifestPath;
 
-					console.log(
-						topSpacer,
-						terminalLink(dependencyPkg.name, dependencyNameLinkPath)
-					);
+          console.log(
+            topSpacer,
+            terminalLink(dependencyPkg.name, dependencyNameLinkPath)
+          );
 
-					if (hasPackageConfigurationFile) {
-						console.log(middleSpacer, chalk.red('Found tags:'));
+          if (hasPackageConfigurationFile) {
+            console.log(middleSpacer, chalk.red('Found tags:'));
 
-						console.log(
-							middleSpacer,
-							chalk.red(JSON.stringify(violation.targetTags))
-						);
+            console.log(
+              middleSpacer,
+              chalk.red(JSON.stringify(violation.targetTags))
+            );
 
-						console.log(middleSpacer, chalk.green('Expected tags:'));
-						console.log(
-							middleSpacer,
-							chalk.green(JSON.stringify(violation.allowedTags))
-						);
-					} else {
-						console.log(
-							middleSpacer,
-							chalk.red('Missing package configuration')
-						);
+            console.log(middleSpacer, chalk.green('Expected tags:'));
+            console.log(
+              middleSpacer,
+              chalk.green(JSON.stringify(violation.allowedTags))
+            );
+          } else {
+            console.log(
+              middleSpacer,
+              chalk.red('Missing package configuration')
+            );
 
-						action.error(chalk.bold.red('Missing package configuration'));
-					}
-				}
+            action.error(chalk.bold.red('Missing package configuration'));
+          }
+        }
 
-				console.log();
-			}
+        console.log();
+      }
 
-			const violationMessage =
-				violations.length > 1 ? 'violations found' : 'violation found';
+      const violationMessage =
+        violations.length > 1 ? 'violations found' : 'violation found';
 
-			action.error(chalk.bold.red(`${violations.length} ${violationMessage}`));
-		}
-	);
+      action.error(chalk.bold.red(`${violations.length} ${violationMessage}`));
+    }
+  );

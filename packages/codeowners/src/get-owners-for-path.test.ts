@@ -2,18 +2,18 @@
 import { getOwnersForPath } from './get-owners-for-path';
 
 jest.mock('./get-code-owners', () => ({
-	getCodeOwners: jest.fn().mockReturnValue({ 'packages/**': ['@team-one'] }),
+  getCodeOwners: jest.fn().mockReturnValue({ 'packages/**': ['@team-one'] }),
 }));
 
 describe('get-owners-for-path', () => {
-	describe('when the file is at the root of the repo', () => {
-		it('returns an object containing the correct owners for each glob', () => {
-			const owners = getOwnersForPath({
-				path: 'packages/foo',
-				rootDirectory: './',
-			});
+  describe('when the file is at the root of the repo', () => {
+    it('returns an object containing the correct owners for each glob', () => {
+      const owners = getOwnersForPath({
+        path: 'packages/foo',
+        rootDirectory: './',
+      });
 
-			expect(owners).toEqual(['@team-one']);
-		});
-	});
+      expect(owners).toEqual(['@team-one']);
+    });
+  });
 });

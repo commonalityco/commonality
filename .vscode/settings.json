@@ -1,21 +1,21 @@
 {
-	"xo.format.enable": true,
-	"[javascript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.maxTokenizationLineLength": 2500,
-		"editor.quickSuggestions": {
-			"other": true,
-			"comments": true,
-			"strings": true
-		}
-	},
-	"[typescript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.maxTokenizationLineLength": 2500,
-		"editor.quickSuggestions": {
-			"other": true,
-			"comments": true,
-			"strings": true
-		}
-	}
+  "xo.format.enable": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.maxTokenizationLineLength": 2500,
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": true,
+      "strings": true
+    }
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.maxTokenizationLineLength": 2500,
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": true,
+      "strings": true
+    }
+  }
 }

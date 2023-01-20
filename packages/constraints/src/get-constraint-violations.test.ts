@@ -2,253 +2,253 @@ import type { ProjectConfig, Package } from '@commonalityco/types';
 import { getConstraintViolations } from './get-constraint-violations';
 
 describe('getConstraintViolations', () => {
-	describe('when a dependency does contain the allowed tags', () => {
-		const packages: Package[] = [
-			{
-				name: '@scope/one',
-				version: '1.0.0',
-				path: 'packages/one',
-				tags: ['tag-one'],
-				owners: [],
-				dependencies: [
-					{
-						name: '@scope/two',
-						version: '*',
-					},
-				],
-				devDependencies: [],
-				peerDependencies: [],
-			},
-			{
-				name: '@scope/two',
-				version: '1.0.0',
-				path: 'packages/two',
-				owners: [],
-				tags: ['tag-two'],
-				dependencies: [{ name: '@scope/three', version: '*' }],
-				devDependencies: [],
-				peerDependencies: [],
-			},
-			{
-				name: '@scope/three',
-				version: '1.0.0',
-				path: 'packages/three',
-				owners: [],
-				tags: ['tag-three'],
-				dependencies: [],
-				devDependencies: [],
-				peerDependencies: [],
-			},
-		];
+  describe('when a dependency does contain the allowed tags', () => {
+    const packages: Package[] = [
+      {
+        name: '@scope/one',
+        version: '1.0.0',
+        path: 'packages/one',
+        tags: ['tag-one'],
+        owners: [],
+        dependencies: [
+          {
+            name: '@scope/two',
+            version: '*',
+          },
+        ],
+        devDependencies: [],
+        peerDependencies: [],
+      },
+      {
+        name: '@scope/two',
+        version: '1.0.0',
+        path: 'packages/two',
+        owners: [],
+        tags: ['tag-two'],
+        dependencies: [{ name: '@scope/three', version: '*' }],
+        devDependencies: [],
+        peerDependencies: [],
+      },
+      {
+        name: '@scope/three',
+        version: '1.0.0',
+        path: 'packages/three',
+        owners: [],
+        tags: ['tag-three'],
+        dependencies: [],
+        devDependencies: [],
+        peerDependencies: [],
+      },
+    ];
 
-		const config: ProjectConfig = {
-			project: '123',
-			constraints: [
-				{
-					tags: ['tag-one'],
-					allow: ['tag-two'],
-				},
-				{
-					tags: ['tag-two'],
-					allow: ['tag-three'],
-				},
-			],
-		};
+    const config: ProjectConfig = {
+      project: '123',
+      constraints: [
+        {
+          tags: ['tag-one'],
+          allow: ['tag-two'],
+        },
+        {
+          tags: ['tag-two'],
+          allow: ['tag-three'],
+        },
+      ],
+    };
 
-		it('returns no violations', async () => {
-			const violations = getConstraintViolations({ packages, config });
-			expect(violations).toEqual([]);
-		});
-	});
+    it('returns no violations', async () => {
+      const violations = getConstraintViolations({ packages, config });
+      expect(violations).toEqual([]);
+    });
+  });
 
-	describe('when a dependency does not contain the allowed tags', () => {
-		const packages: Package[] = [
-			{
-				name: '@scope/one',
-				version: '1.0.0',
-				path: 'packages/one',
-				tags: ['tag-one'],
-				owners: [],
-				dependencies: [
-					{
-						name: '@scope/two',
-						version: '*',
-					},
-				],
-				devDependencies: [
-					{
-						name: '@scope/three',
-						version: '*',
-					},
-				],
-				peerDependencies: [],
-			},
-			{
-				name: '@scope/two',
-				version: '1.0.0',
-				path: 'packages/two',
-				owners: [],
-				tags: ['tag-two'],
-				dependencies: [],
-				devDependencies: [
-					{
-						name: '@scope/three',
-						version: '*',
-					},
-				],
-				peerDependencies: [],
-			},
-			{
-				name: '@scope/three',
-				version: '1.0.0',
-				path: 'packages/three',
-				owners: [],
-				tags: [],
-				dependencies: [
-					{
-						name: '@scope/one',
-						version: '*',
-					},
-				],
-				devDependencies: [],
-				peerDependencies: [],
-			},
-		];
+  describe('when a dependency does not contain the allowed tags', () => {
+    const packages: Package[] = [
+      {
+        name: '@scope/one',
+        version: '1.0.0',
+        path: 'packages/one',
+        tags: ['tag-one'],
+        owners: [],
+        dependencies: [
+          {
+            name: '@scope/two',
+            version: '*',
+          },
+        ],
+        devDependencies: [
+          {
+            name: '@scope/three',
+            version: '*',
+          },
+        ],
+        peerDependencies: [],
+      },
+      {
+        name: '@scope/two',
+        version: '1.0.0',
+        path: 'packages/two',
+        owners: [],
+        tags: ['tag-two'],
+        dependencies: [],
+        devDependencies: [
+          {
+            name: '@scope/three',
+            version: '*',
+          },
+        ],
+        peerDependencies: [],
+      },
+      {
+        name: '@scope/three',
+        version: '1.0.0',
+        path: 'packages/three',
+        owners: [],
+        tags: [],
+        dependencies: [
+          {
+            name: '@scope/one',
+            version: '*',
+          },
+        ],
+        devDependencies: [],
+        peerDependencies: [],
+      },
+    ];
 
-		const config: ProjectConfig = {
-			project: '123',
-			constraints: [
-				{
-					tags: ['tag-one'],
-					allow: ['tag-two'],
-				},
-			],
-		};
+    const config: ProjectConfig = {
+      project: '123',
+      constraints: [
+        {
+          tags: ['tag-one'],
+          allow: ['tag-two'],
+        },
+      ],
+    };
 
-		it('returns violations', async () => {
-			const violations = getConstraintViolations({ packages, config });
+    it('returns violations', async () => {
+      const violations = getConstraintViolations({ packages, config });
 
-			expect(violations).toEqual([
-				{
-					constraintTags: ['tag-one'],
-					allowedTags: ['tag-two'],
-					sourceName: '@scope/one',
-					targetName: '@scope/three',
-					targetTags: [],
-					path: 'packages/one',
-				},
-				{
-					constraintTags: ['tag-one'],
-					allowedTags: ['tag-two'],
-					sourceName: '@scope/two',
-					targetName: '@scope/three',
-					targetTags: [],
-					path: 'packages/two',
-				},
-				{
-					constraintTags: ['tag-one'],
-					allowedTags: ['tag-two'],
-					sourceName: '@scope/three',
-					targetName: '@scope/one',
-					targetTags: ['tag-one'],
-					path: 'packages/three',
-				},
-			]);
-		});
-	});
+      expect(violations).toEqual([
+        {
+          constraintTags: ['tag-one'],
+          allowedTags: ['tag-two'],
+          sourceName: '@scope/one',
+          targetName: '@scope/three',
+          targetTags: [],
+          path: 'packages/one',
+        },
+        {
+          constraintTags: ['tag-one'],
+          allowedTags: ['tag-two'],
+          sourceName: '@scope/two',
+          targetName: '@scope/three',
+          targetTags: [],
+          path: 'packages/two',
+        },
+        {
+          constraintTags: ['tag-one'],
+          allowedTags: ['tag-two'],
+          sourceName: '@scope/three',
+          targetName: '@scope/one',
+          targetTags: ['tag-one'],
+          path: 'packages/three',
+        },
+      ]);
+    });
+  });
 
-	describe('when a dependency does not have tags defined', () => {
-		const packages: Package[] = [
-			{
-				name: '@scope/one',
-				owners: [],
-				version: '1.0.0',
-				path: 'packages/one',
-				tags: ['tag-one'],
-				dependencies: [
-					{
-						name: '@scope/two',
-						version: '*',
-					},
-				],
-				devDependencies: [],
-				peerDependencies: [],
-			},
-			{
-				name: '@scope/two',
-				owners: [],
-				version: '1.0.0',
-				path: 'packages/two',
-				tags: [],
-				dependencies: [],
-				devDependencies: [],
-				peerDependencies: [],
-			},
-		];
+  describe('when a dependency does not have tags defined', () => {
+    const packages: Package[] = [
+      {
+        name: '@scope/one',
+        owners: [],
+        version: '1.0.0',
+        path: 'packages/one',
+        tags: ['tag-one'],
+        dependencies: [
+          {
+            name: '@scope/two',
+            version: '*',
+          },
+        ],
+        devDependencies: [],
+        peerDependencies: [],
+      },
+      {
+        name: '@scope/two',
+        owners: [],
+        version: '1.0.0',
+        path: 'packages/two',
+        tags: [],
+        dependencies: [],
+        devDependencies: [],
+        peerDependencies: [],
+      },
+    ];
 
-		const config: ProjectConfig = {
-			project: '123',
-			constraints: [
-				{
-					tags: ['tag-one'],
-					allow: ['tag-two'],
-				},
-			],
-		};
+    const config: ProjectConfig = {
+      project: '123',
+      constraints: [
+        {
+          tags: ['tag-one'],
+          allow: ['tag-two'],
+        },
+      ],
+    };
 
-		it('returns a violation within the array', async () => {
-			const violations = getConstraintViolations({ packages, config });
+    it('returns a violation within the array', async () => {
+      const violations = getConstraintViolations({ packages, config });
 
-			expect(violations).toEqual([
-				{
-					constraintTags: ['tag-one'],
-					allowedTags: ['tag-two'],
-					sourceName: '@scope/one',
-					targetName: '@scope/two',
-					path: 'packages/one',
-					targetTags: [],
-				},
-			]);
-		});
-	});
+      expect(violations).toEqual([
+        {
+          constraintTags: ['tag-one'],
+          allowedTags: ['tag-two'],
+          sourceName: '@scope/one',
+          targetName: '@scope/two',
+          path: 'packages/one',
+          targetTags: [],
+        },
+      ]);
+    });
+  });
 
-	describe('when there are no constraints defined', () => {
-		const packages: Package[] = [
-			{
-				name: '@scope/one',
-				owners: [],
-				version: '1.0.0',
-				path: 'packages/one',
-				tags: ['tag-one'],
-				dependencies: [
-					{
-						name: '@scope/two',
-						version: '*',
-					},
-				],
-				devDependencies: [],
-				peerDependencies: [],
-			},
-			{
-				name: '@scope/two',
-				owners: [],
-				version: '1.0.0',
-				path: 'packages/two',
-				tags: [],
-				dependencies: [],
-				devDependencies: [],
-				peerDependencies: [],
-			},
-		];
+  describe('when there are no constraints defined', () => {
+    const packages: Package[] = [
+      {
+        name: '@scope/one',
+        owners: [],
+        version: '1.0.0',
+        path: 'packages/one',
+        tags: ['tag-one'],
+        dependencies: [
+          {
+            name: '@scope/two',
+            version: '*',
+          },
+        ],
+        devDependencies: [],
+        peerDependencies: [],
+      },
+      {
+        name: '@scope/two',
+        owners: [],
+        version: '1.0.0',
+        path: 'packages/two',
+        tags: [],
+        dependencies: [],
+        devDependencies: [],
+        peerDependencies: [],
+      },
+    ];
 
-		const config: ProjectConfig = {
-			project: '123',
-		};
+    const config: ProjectConfig = {
+      project: '123',
+    };
 
-		it('returns no violations', async () => {
-			const violations = getConstraintViolations({ packages, config });
+    it('returns no violations', async () => {
+      const violations = getConstraintViolations({ packages, config });
 
-			expect(violations).toEqual([]);
-		});
-	});
+      expect(violations).toEqual([]);
+    });
+  });
 });

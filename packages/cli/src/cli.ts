@@ -9,9 +9,9 @@ import { validate } from './commands/validate.js';
 const program = new Command();
 
 program
-	.name('commonality')
-	.description('A toolchain for your monorepo')
-	.version('1.0.0');
+  .name('commonality')
+  .description('A toolchain for your monorepo')
+  .version('1.0.0');
 
 program.addCommand(publish);
 program.addCommand(link);

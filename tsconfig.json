@@ -1,4 +1,4 @@
 {
-	"extends": "@commonalityco/tsconfig",
-	"exclude": ["**.config.js"]
+  "extends": "@commonalityco/tsconfig",
+  "exclude": ["**.config.js"]
 }

@@ -8,49 +8,49 @@ import type { ProjectConfig } from '@commonalityco/types';
 const moduleName = 'commonality';
 
 const configNames = [
-	`${moduleName}.config.js`,
-	`${moduleName}.config.cjs`,
-	`${moduleName}.config.ts`,
+  `${moduleName}.config.js`,
+  `${moduleName}.config.cjs`,
+  `${moduleName}.config.ts`,
 ];
 
 export const getProjectConfig = async (
-	rootDirectory: string
+  rootDirectory: string
 ): Promise<ProjectConfig | undefined> => {
-	const { findUp } = await import('find-up');
+  const { findUp } = await import('find-up');
 
-	const configFilePath = await findUp(configNames, {
-		cwd: rootDirectory,
-	});
+  const configFilePath = await findUp(configNames, {
+    cwd: rootDirectory,
+  });
 
-	if (!configFilePath) {
-		return undefined;
-	}
+  if (!configFilePath) {
+    return undefined;
+  }
 
-	const rootPackageJsonPath = path.join(rootDirectory, 'package.json');
-	const rootPackageJson = await fs.readJson(rootPackageJsonPath);
+  const rootPackageJsonPath = path.join(rootDirectory, 'package.json');
+  const rootPackageJson = await fs.readJson(rootPackageJsonPath);
 
-	const isRootModule = rootPackageJson.type === 'module';
-	const isModule = configFilePath.endsWith('.mjs');
-	const isEsm = isModule || isRootModule;
+  const isRootModule = rootPackageJson.type === 'module';
+  const isModule = configFilePath.endsWith('.mjs');
+  const isEsm = isModule || isRootModule;
 
-	const isTypeScript = configFilePath.endsWith('.ts');
+  const isTypeScript = configFilePath.endsWith('.ts');
 
-	try {
-		if (isEsm) {
-			return await import(configFilePath);
-		} else if (isTypeScript) {
-			register({
-				compilerOptions: { module: 'commonjs' },
-				swc: true,
-			});
+  try {
+    if (isEsm) {
+      return await import(configFilePath);
+    } else if (isTypeScript) {
+      register({
+        compilerOptions: { module: 'commonjs' },
+        swc: true,
+      });
 
-			const result = await require(configFilePath);
+      const result = await require(configFilePath);
 
-			return result.default || result;
-		} else {
-			return await require(configFilePath);
-		}
-	} catch (error: unknown) {
-		throw new Error('Encountered an error reading your project configuration.');
-	}
+      return result.default || result;
+    } else {
+      return await require(configFilePath);
+    }
+  } catch (error: unknown) {
+    throw new Error('Encountered an error reading your project configuration.');
+  }
 };

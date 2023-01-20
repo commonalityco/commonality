@@ -12,43 +12,43 @@ const configPath = path.join(temporaryDir, '.commonality/config.json');
 const defaultArgs = ['--cwd', distToTemporary];
 
 describe('link', () => {
-	beforeEach(() => {
-		fs.removeSync(temporaryDir);
-		fs.removeSync(configPath);
+  beforeEach(() => {
+    fs.removeSync(temporaryDir);
+    fs.removeSync(configPath);
 
-		fs.outputJsonSync(path.join(temporaryDir, './package-lock.json'), {});
-	});
+    fs.outputJsonSync(path.join(temporaryDir, './package-lock.json'), {});
+  });
 
-	describe('when a configuration does not exist', () => {
-		it('creates the configuration file', async () => {
-			await execa(binaryPath, ['link', '--project', '123', ...defaultArgs]);
+  describe('when a configuration does not exist', () => {
+    it('creates the configuration file', async () => {
+      await execa(binaryPath, ['link', '--project', '123', ...defaultArgs]);
 
-			const exists = await fs.pathExists(
-				path.join(temporaryDir, '.commonality/config.json')
-			);
+      const exists = await fs.pathExists(
+        path.join(temporaryDir, '.commonality/config.json')
+      );
 
-			expect(exists).toBe(true);
+      expect(exists).toBe(true);
 
-			const json = fs.readJsonSync(configPath) as { project: string };
+      const json = fs.readJsonSync(configPath) as { project: string };
 
-			expect(json).toEqual({ project: '123' });
-		});
-	});
+      expect(json).toEqual({ project: '123' });
+    });
+  });
 
-	describe('when a configuration file already exists', () => {
-		beforeEach(async () => {
-			await fs.outputJSON(configPath, {
-				project: 'abc',
-				tags: [],
-			});
-		});
+  describe('when a configuration file already exists', () => {
+    beforeEach(async () => {
+      await fs.outputJSON(configPath, {
+        project: 'abc',
+        tags: [],
+      });
+    });
 
-		it('updates the configuration file', async () => {
-			await execa(binaryPath, ['link', '--project', '123', ...defaultArgs]);
+    it('updates the configuration file', async () => {
+      await execa(binaryPath, ['link', '--project', '123', ...defaultArgs]);
 
-			const json = fs.readJsonSync(configPath) as { project: string };
+      const json = fs.readJsonSync(configPath) as { project: string };
 
-			expect(json).toEqual({ project: '123', tags: [] });
-		});
-	});
+      expect(json).toEqual({ project: '123', tags: [] });
+    });
+  });
 });
