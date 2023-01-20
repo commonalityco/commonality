@@ -7,7 +7,7 @@ import fs from 'fs-extra';
 import { execa } from 'execa';
 import { MockServer } from 'jest-mock-server';
 import { afterEach, beforeEach, expect, jest } from '@jest/globals';
-import { config } from '../core/config.js';
+import { config } from '../core/store.js';
 import { getCurrentBranch } from '../core/get-current-branch.js';
 
 const oraSucceed = jest.fn();

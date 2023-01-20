@@ -1,0 +1,14 @@
+{
+	"name": "@commonalityco/tsconfig",
+	"description": "The Commonality CLI's TypeScript configuration",
+	"version": "0.0.1",
+	"author": {
+		"name": "Alec Ortega",
+		"email": "alec@commonality.co"
+	},
+	"license": "MIT",
+	"main": "tsconfig.json",
+	"engines": {
+		"node": ">=14.6"
+	}
+}

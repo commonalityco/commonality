@@ -1,10 +1,8 @@
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import fs from 'fs-extra';
 import { execa } from 'execa';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const binaryPath = path.resolve(__dirname, `../../scripts/start.js`);
 const distPath = path.resolve(__dirname, '../../dist');
 const temporaryDir = path.join(tmpdir(), 'commonality-cli-test-link');

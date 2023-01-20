@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { execa } from 'execa';
 import { MockServer } from 'jest-mock-server';
 import { beforeEach, afterAll, beforeAll } from '@jest/globals';
-import { config } from '../core/config.js';
+import { config } from '../core/store.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const binaryPath = path.resolve(__dirname, `../../scripts/start.js`);

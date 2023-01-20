@@ -1,8 +1,6 @@
 import path from 'node:path';
 import { Command } from 'commander';
 import fs from 'fs-extra';
-import chalk from 'chalk';
-import ora from 'ora';
 import type { ProjectConfig } from '@commonalityco/types';
 import { getRootDirectory } from '../core/get-root-directory.js';
 
@@ -17,6 +15,9 @@ export const link = program
 		"A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile."
 	)
 	.action(async ({ project, cwd }: { project: string; cwd?: string }) => {
+		const { default: chalk } = await import('chalk');
+		const { default: ora } = await import('ora');
+
 		const rootDirectory = await getRootDirectory(cwd);
 		const pathToFile = path.join(rootDirectory, '.commonality', 'config.json');
 		const isConfigFilePresent = await fs.pathExists(pathToFile);

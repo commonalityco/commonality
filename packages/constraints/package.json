@@ -4,7 +4,6 @@
 	"publishConfig": {
 		"access": "public"
 	},
-	"type": "module",
 	"types": "dist/index.d.ts",
 	"main": "dist/index.js",
 	"license": "MIT",
@@ -26,6 +25,7 @@
 	"devDependencies": {
 		"@commonalityco/types": "workspace:*",
 		"@commonalityco/traverse": "workspace:*",
+		"@commonalityco/tsconfig": "workspace:*",
 		"@jest/globals": "^29.3.1",
 		"@tsconfig/node-lts-strictest-esm": "^18.12.1",
 		"@types/fs-extra": "^11.0.1",

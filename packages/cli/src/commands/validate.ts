@@ -1,9 +1,7 @@
 import path from 'node:path';
 import { getConstraintViolations } from '@commonalityco/constraints';
 import { Command } from 'commander';
-import chalk from 'chalk';
 import groupBy from 'lodash.groupby';
-import terminalLink from 'terminal-link';
 import fs from 'fs-extra';
 import type { ProjectConfig } from '@commonalityco/types';
 import { getRootDirectory } from '../core/get-root-directory.js';
@@ -11,18 +9,26 @@ import { getWorkspaces } from '../core/get-workspaces.js';
 import { getPackageManager } from '../core/get-package-manager.js';
 import { getPackageDirectories } from '../core/get-package-directories.js';
 import { getPackages } from '../core/get-packages.js';
-import { getConfig } from '../core/get-config.js';
+import { getProjectConfig } from '../core/get-project-config.js';
 
 const program = new Command();
 
-const logNoDefinedConstraints = () => {
+const logNoDefinedConstraints = async () => {
+	const { default: chalk } = await import('chalk');
+
 	console.log(chalk.yellow('No constraints found'));
 	console.log(
 		'Define dependency constraints in your configuration file to control how packages are shared.'
 	);
 };
 
-const logDependencyConstraintCount = (config: ProjectConfig, path: string) => {
+const logDependencyConstraintCount = async (
+	config: ProjectConfig,
+	path: string
+) => {
+	const { default: chalk } = await import('chalk');
+	const { default: terminalLink } = await import('terminal-link');
+
 	const constraintTags = config.constraints ?? [];
 
 	const text =
@@ -35,7 +41,10 @@ const logDependencyConstraintCount = (config: ProjectConfig, path: string) => {
 	console.log(chalk.blue(link));
 };
 
-const logDependencyName = (packageName: string, path: string) => {
+const logDependencyName = async (packageName: string, path: string) => {
+	const { default: chalk } = await import('chalk');
+	const { default: terminalLink } = await import('terminal-link');
+
 	const link = terminalLink(packageName, path);
 
 	console.log(chalk(link));
@@ -52,6 +61,9 @@ export const validate = program
 	)
 	.action(
 		async ({ cwd }: { project: string; cwd?: string }, action: Command) => {
+			const { default: chalk } = await import('chalk');
+			const { default: terminalLink } = await import('terminal-link');
+
 			const rootDirectory = await getRootDirectory(cwd);
 			const packageManager = await getPackageManager(rootDirectory);
 			const workspaces = await getWorkspaces(rootDirectory, packageManager);
@@ -60,20 +72,28 @@ export const validate = program
 				workspaces
 			);
 			const packages = await getPackages({ packageDirectories, rootDirectory });
-			const config = await getConfig(rootDirectory);
-			const violations = getConstraintViolations({ packages, config });
+			const projectConfig = await getProjectConfig(rootDirectory);
+
+			if (!projectConfig) {
+				action.error('No project configuration found');
+			}
+
+			const violations = getConstraintViolations({
+				packages,
+				config: projectConfig,
+			});
 			const violationsByPackageName = groupBy(violations, 'sourceName');
 			const packageNames = Object.keys(violationsByPackageName);
 
 			console.log();
 
-			if (Object.keys(config.constraints ?? {}).length === 0) {
+			if (Object.keys(projectConfig.constraints ?? {}).length === 0) {
 				logNoDefinedConstraints();
 				return;
 			}
 
 			logDependencyConstraintCount(
-				config,
+				projectConfig,
 				path.join(rootDirectory, '.commonality/config.json')
 			);
 

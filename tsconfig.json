@@ -1,0 +1,6 @@
+{
+	"extends": "@commonalityco/tsconfig",
+	"exclude": [
+		"**.config.js"
+	]
+}

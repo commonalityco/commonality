@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { jest } from '@jest/globals';
+import { getOwnersForPath } from './get-owners-for-path';
 
-jest.unstable_mockModule('./get-code-owners.js', () => ({
+jest.mock('./get-code-owners.js', () => ({
 	getCodeOwners: jest.fn().mockReturnValue({ 'packages/**': ['@team-one'] }),
 }));
-
-const { getOwnersForPath } = await import('./get-owners-for-path.js');
 
 describe('get-owners-for-path', () => {
 	describe('when the file is at the root of the repo', () => {

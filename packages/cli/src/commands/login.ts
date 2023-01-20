@@ -2,10 +2,7 @@
 import process from 'node:process';
 import { Command } from 'commander';
 import open from 'open';
-import chalk from 'chalk';
-import ora from 'ora';
-import got from 'got';
-import { config } from '../core/config.js';
+import { getStore } from '../core/store.js';
 
 type DeviceCodeResponse = {
 	device_code: string;
@@ -24,6 +21,11 @@ export const loginAction = async (
 	_options: Record<string, unknown>,
 	action: Command
 ) => {
+	const { got } = await import('got');
+	const { default: chalk } = await import('chalk');
+	const { default: ora } = await import('ora');
+	const store = await getStore();
+
 	try {
 		const data = await got
 			.post(
@@ -81,9 +83,9 @@ export const loginAction = async (
 		const expires = new Date();
 		expires.setSeconds(expires.getSeconds() + requestTokenResponse.expires_in);
 
-		config.set('auth:accessToken', requestTokenResponse.access_token);
-		config.set('auth:expires', expires.toString());
-		config.set('auth:tokenType', requestTokenResponse.token_type);
+		store.set('auth:accessToken', requestTokenResponse.access_token);
+		store.set('auth:expires', expires.toString());
+		store.set('auth:tokenType', requestTokenResponse.token_type);
 
 		verificationSpinner.succeed('Successfully logged in');
 	} catch (error: unknown) {

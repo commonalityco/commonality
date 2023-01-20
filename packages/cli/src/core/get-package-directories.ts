@@ -1,11 +1,12 @@
 import path from 'node:path';
-import { globby } from 'globby';
 import fs from 'fs-extra';
 
 export const getPackageDirectories = async (
 	rootDirectory: string,
 	workspaceGlobs: string[]
 ): Promise<string[]> => {
+	const { globby } = await import('globby');
+
 	const directories = await globby(workspaceGlobs, {
 		cwd: rootDirectory,
 		onlyDirectories: true,
