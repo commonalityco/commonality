@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
-	"packageManager": "pnpm@7.21.0",
+	"packageManager": "pnpm@7.25.1",
 	"contributors": [
 		"Alec Ortega <alec@commonality.co> (https://github.com/alecortega)"
 	],
@@ -24,9 +24,8 @@
 	"license": "ISC",
 	"dependencies": {
 		"@changesets/cli": "^2.26.0",
-		"@commonalityco/cli": "workspace:*",
-		"rimraf": "^3.0.2",
-		"xo": "^0.53.1"
+		"commonality": "workspace:*",
+		"rimraf": "^3.0.2"
 	},
 	"devDependencies": {
 		"husky": "^8.0.3",
@@ -36,8 +35,5 @@
 		"ts-jest": "^29.0.3",
 		"turbo": "^1.7.0",
 		"typescript": "^4.9.4"
-	},
-	"xo": {
-		"prettier": true
 	}
 }

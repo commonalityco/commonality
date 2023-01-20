@@ -1,9 +1,9 @@
 {
-	"name": "@commonalityco/cli",
+	"name": "commonality",
 	"version": "0.0.8",
 	"type": "module",
 	"bin": {
-		"commonality": "./dist/index.js"
+		"commonality": "./dist/cli.js"
 	},
 	"description": "Commonality is a toolchain that helps you scale your monorepo from one to hundeds of developers.",
 	"repository": "https://github.com/commonalityco/commonalityco",

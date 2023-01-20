@@ -1,7 +1,7 @@
 {
 	"xo.format.enable": true,
 	"[javascript]": {
-		"editor.defaultFormatter": "samverschueren.linter-xo",
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.maxTokenizationLineLength": 2500,
 		"editor.quickSuggestions": {
 			"other": true,
@@ -10,7 +10,7 @@
 		},
 	},
 	"[typescript]": {
-		"editor.defaultFormatter": "samverschueren.linter-xo",
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"editor.maxTokenizationLineLength": 2500,
 		"editor.quickSuggestions": {
 			"other": true,
