@@ -7,7 +7,7 @@
 			"other": true,
 			"comments": true,
 			"strings": true
-		},
+		}
 	},
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -16,6 +16,6 @@
 			"other": true,
 			"comments": true,
 			"strings": true
-		},
+		}
 	}
 }
