@@ -1,0 +1,9 @@
+{
+  "extends": "@commonalityco/tsconfig",
+  "include": ["./types", "src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "typeRoots": ["./types", "node_modules/@types"]
+  }
+}

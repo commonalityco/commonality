@@ -1,117 +1,118 @@
 import process from 'node:process';
 import { Command } from 'commander';
-import * as got from 'got';
-import chalk from 'chalk';
-import ora from 'ora';
 import type { SnapshotResult } from '@commonalityco/types';
 import { getPackageManager } from '../core/get-package-manager.js';
 import { getWorkspaces } from '../core/get-workspaces.js';
 import { getPackageDirectories } from '../core/get-package-directories.js';
 import { ensureAuth } from '../core/ensure-auth.js';
-import { config } from '../core/config.js';
+import { store } from '../core/store.js';
 import { getSnapshot } from '../core/get-snapshot.js';
 import { getRootDirectory } from '../core/get-root-directory.js';
 
 const program = new Command();
 
 export const actionHandler = async (
-	options: { publishKey?: string; cwd?: string },
-	action: Command
+  options: { publishKey?: string; cwd?: string },
+  action: Command
 ) => {
-	if (!options.publishKey) {
-		await ensureAuth(action);
-	}
+  const { got, HTTPError } = await import('got');
+  const { default: chalk } = await import('chalk');
+  const { default: ora } = await import('ora');
 
-	const rootDirectory = await getRootDirectory(options.cwd);
+  if (!options.publishKey) {
+    await ensureAuth(action);
+  }
 
-	if (!rootDirectory) {
-		action.error('Unable to deterimine root directory');
-	}
+  const rootDirectory = await getRootDirectory(options.cwd);
 
-	const packageManager = await getPackageManager(rootDirectory);
-	const workspaces = await getWorkspaces(rootDirectory, packageManager);
+  if (!rootDirectory) {
+    action.error('Unable to determine root directory');
+  }
 
-	const packageDirectories = await getPackageDirectories(
-		rootDirectory,
-		workspaces
-	);
+  const packageManager = await getPackageManager(rootDirectory);
+  const workspaces = await getWorkspaces(rootDirectory, packageManager);
 
-	const snapshot = await getSnapshot(rootDirectory, packageDirectories);
+  const packageDirectories = await getPackageDirectories(
+    rootDirectory,
+    workspaces
+  );
 
-	const spinner = ora(
-		`Publishing ${snapshot.packages.length} packages...`
-	).start();
+  const snapshot = await getSnapshot(rootDirectory, packageDirectories);
 
-	const getAuthorizationHeaders = ():
-		| {
-				'X-API-KEY': string;
-		  }
-		| { authorization: string }
-		| Record<never, never> => {
-		const accessToken = config.get('accessToken') as string;
+  const spinner = ora(
+    `Publishing ${snapshot.packages.length} packages...`
+  ).start();
 
-		if (options.publishKey) {
-			return {
-				'X-API-KEY': options.publishKey,
-			};
-		}
+  const getAuthorizationHeaders = ():
+    | {
+        'X-API-KEY': string;
+      }
+    | { authorization: string }
+    | Record<never, never> => {
+    const accessToken = store.get('accessToken') as string;
 
-		if (accessToken) {
-			return {
-				authorization: `Bearer ${accessToken}`,
-			};
-		}
+    if (options.publishKey) {
+      return {
+        'X-API-KEY': options.publishKey,
+      };
+    }
 
-		return {};
-	};
+    if (accessToken) {
+      return {
+        authorization: `Bearer ${accessToken}`,
+      };
+    }
 
-	const authorizationHeaders = getAuthorizationHeaders();
+    return {};
+  };
 
-	try {
-		const result = await got.got
-			.post(
-				`${
-					process.env['COMMONALITY_API_ORIGIN'] ?? 'https://app.commonality.co'
-				}/api/cli/publish`,
-				{
-					json: snapshot,
-					headers: authorizationHeaders,
-				}
-			)
-			.json<SnapshotResult>();
+  const authorizationHeaders = getAuthorizationHeaders();
 
-		spinner.succeed('Successfully published snapshot');
+  try {
+    const result = await got
+      .post(
+        `${
+          process.env['COMMONALITY_API_ORIGIN'] ?? 'https://app.commonality.co'
+        }/api/cli/publish`,
+        {
+          json: snapshot,
+          headers: authorizationHeaders,
+        }
+      )
+      .json<SnapshotResult>();
 
-		console.log(`View your graph at ${chalk.bold.blue(result.url)}`);
-	} catch (error: unknown) {
-		spinner.stop();
+    spinner.succeed('Successfully published snapshot');
 
-		if (error instanceof got.HTTPError) {
-			const responseBody = error.response.body as string;
+    console.log(`View your graph at ${chalk.bold.blue(result.url)}`);
+  } catch (error: unknown) {
+    spinner.stop();
 
-			try {
-				const body = JSON.parse(responseBody) as Error;
+    if (error instanceof HTTPError) {
+      const responseBody = error.response.body as string;
 
-				action.error(body.message);
-			} catch {
-				action.error('Failed to publish snapshot');
-			}
-		}
+      try {
+        const body = JSON.parse(responseBody) as Error;
 
-		action.error('Failed to publish snapshot');
-	}
+        action.error(body.message);
+      } catch {
+        action.error('Failed to publish snapshot');
+      }
+    }
+
+    action.error('Failed to publish snapshot');
+  }
 };
 
 export const publish = program
-	.name('publish')
-	.description('Create and upload a snapshot of your monorepo')
-	.option(
-		'--publishKey <key>',
-		'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_PUBLISH_KEY environment variable.',
-		process.env['COMMONALITY_PUBLISH_KEY']
-	)
-	.option(
-		'--cwd <path>',
-		"A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile."
-	)
-	.action(actionHandler);
+  .name('publish')
+  .description('Create and upload a snapshot of your monorepo')
+  .option(
+    '--publishKey <key>',
+    'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_PUBLISH_KEY environment variable.',
+    process.env['COMMONALITY_PUBLISH_KEY']
+  )
+  .option(
+    '--cwd <path>',
+    "A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile."
+  )
+  .action(actionHandler);

@@ -2,18 +2,15 @@
 import process from 'node:process';
 import { Command } from 'commander';
 import open from 'open';
-import chalk from 'chalk';
-import ora from 'ora';
-import got from 'got';
-import { config } from '../core/config.js';
+import { store } from '../core/store.js';
 
 type DeviceCodeResponse = {
-	device_code: string;
-	user_code: string;
-	verification_uri: string;
-	verification_uri_complete: string;
-	expires_in: number;
-	interval: number;
+  device_code: string;
+  user_code: string;
+  verification_uri: string;
+  verification_uri_complete: string;
+  expires_in: number;
+  interval: number;
 };
 
 const program = new Command();
@@ -21,78 +18,82 @@ const clientId = 'ZftTZnwNfBjnaf1Zj97z7IPmhy0LjuSu';
 const authOrigin = 'https://commonality-production.us.auth0.com';
 
 export const loginAction = async (
-	_options: Record<string, unknown>,
-	action: Command
+  _options: Record<string, unknown>,
+  action: Command
 ) => {
-	try {
-		const data = await got
-			.post(
-				`${
-					process.env['COMMONALITY_AUTH_ORIGIN'] ?? authOrigin
-				}/oauth/device/code`,
-				{
-					headers: { 'content-type': 'application/x-www-form-urlencoded' },
-					form: {
-						client_id: clientId,
-						scope: 'openid profile email',
-					},
-				}
-			)
-			.json<DeviceCodeResponse>();
+  const { got } = await import('got');
+  const { default: chalk } = await import('chalk');
+  const { default: ora } = await import('ora');
 
-		await open(data.verification_uri_complete);
+  try {
+    const data = await got
+      .post(
+        `${
+          process.env['COMMONALITY_AUTH_ORIGIN'] ?? authOrigin
+        }/oauth/device/code`,
+        {
+          headers: { 'content-type': 'application/x-www-form-urlencoded' },
+          form: {
+            client_id: clientId,
+            scope: 'openid profile email',
+          },
+        }
+      )
+      .json<DeviceCodeResponse>();
 
-		console.log(
-			chalk.bold('Verification code: '),
-			chalk.blueBright(data.user_code),
-			'\n'
-		);
+    await open(data.verification_uri_complete);
 
-		console.log(
-			chalk.dim('If your browser does not automatically open, please visit:')
-		);
-		console.log(chalk.dim(data.verification_uri_complete), '\n');
+    console.log(
+      chalk.bold('Verification code: '),
+      chalk.blueBright(data.user_code),
+      '\n'
+    );
 
-		const verificationSpinner = ora('Waiting for verification...').start();
+    console.log(
+      chalk.dim('If your browser does not automatically open, please visit:')
+    );
+    console.log(chalk.dim(data.verification_uri_complete), '\n');
 
-		const requestTokenResponse = await got
-			.post(
-				`${process.env['COMMONALITY_AUTH_ORIGIN'] ?? authOrigin}/oauth/token`,
-				{
-					form: {
-						grant_type: 'urn:ietf:params:oauth:grant-type:device_code',
-						device_code: data.device_code,
-						client_id: clientId,
-					},
-					retry: {
-						limit: 30,
-						noise: 0,
-						calculateDelay: () => data.interval * 1000,
-						backoffLimit: data.interval * 1000,
-					},
-				}
-			)
-			.json<{
-				access_token: string;
-				expires_in: number;
-				token_type: string;
-			}>();
+    const verificationSpinner = ora('Waiting for verification...').start();
 
-		const expires = new Date();
-		expires.setSeconds(expires.getSeconds() + requestTokenResponse.expires_in);
+    const requestTokenResponse = await got
+      .post(
+        `${process.env['COMMONALITY_AUTH_ORIGIN'] ?? authOrigin}/oauth/token`,
+        {
+          form: {
+            grant_type: 'urn:ietf:params:oauth:grant-type:device_code',
+            device_code: data.device_code,
+            client_id: clientId,
+          },
+          retry: {
+            limit: 30,
+            noise: 0,
+            calculateDelay: () => data.interval * 1000,
+            backoffLimit: data.interval * 1000,
+          },
+        }
+      )
+      .json<{
+        access_token: string;
+        expires_in: number;
+        token_type: string;
+      }>();
 
-		config.set('auth:accessToken', requestTokenResponse.access_token);
-		config.set('auth:expires', expires.toString());
-		config.set('auth:tokenType', requestTokenResponse.token_type);
+    const expires = new Date();
+    expires.setSeconds(expires.getSeconds() + requestTokenResponse.expires_in);
 
-		verificationSpinner.succeed('Successfully logged in');
-	} catch (error: unknown) {
-		console.log(error);
-		action.error('Failed to login');
-	}
+    store.set('auth:accessToken', requestTokenResponse.access_token);
+    store.set('auth:expires', expires.toString());
+    store.set('auth:tokenType', requestTokenResponse.token_type);
+
+    verificationSpinner.succeed('Successfully logged in');
+  } catch (error: unknown) {
+    console.log(error);
+    action.error('Failed to login');
+  }
 };
 
 export const login = program
-	.name('login')
-	.description('Authenticate with the Commonality API')
-	.action(loginAction);
+  .name('login')
+  .description('Authenticate with the Commonality API')
+  .action(loginAction);

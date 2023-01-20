@@ -1,9 +1,4 @@
 import { defineConfig } from 'tsup';
+import { config } from '@commonalityco/config-tsup';
 
-export default defineConfig({
-	entry: ['src/index.ts'],
-	outDir: 'dist',
-	clean: true,
-	format: ['esm'],
-	onSuccess: 'tsc --project tsconfig.json',
-});
+export default defineConfig(config);

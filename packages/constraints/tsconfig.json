@@ -1,21 +1,9 @@
 {
-	"extends": "@tsconfig/node-lts-strictest-esm/tsconfig.json",
-	"include": [
-		"src/**/*.ts",
-		"src/**/*.tsx",
-		"./types"
-	],
-	"exclude": [
-		"node_modules"
-	],
-	"compilerOptions": {
-		"declaration": true,
-		"declarationMap": true,
-		"emitDeclarationOnly": true,
-		"outDir": "./dist",
-		"typeRoots": [
-			"./types",
-			"./node_modules/@types"
-		]
-	},
+  "extends": "@commonalityco/tsconfig",
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "typeRoots": ["node_modules/@types"]
+  }
 }

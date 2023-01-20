@@ -1,25 +1,25 @@
 {
-	"pipeline": {
-		"build": {
-			"outputs": ["dist/**"],
-			"dependsOn": ["^build"]
-		},
-		"test": {
-			"outputs": ["coverage/**"],
-			"dependsOn": ["^build", "build"]
-		},
-		"test:watch": {
-			"cache": false
-		},
-		"lint": {
-			"outputs": [],
-			"dependsOn": ["^build"]
-		},
-		"type-check": {
-			"outputs": []
-		},
-		"dev": {
-			"cache": false
-		}
-	}
+  "pipeline": {
+    "build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependsOn": ["^build", "build"]
+    },
+    "test:watch": {
+      "cache": false
+    },
+    "lint": {
+      "outputs": [],
+      "dependsOn": ["^build"]
+    },
+    "type-check": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    }
+  }
 }

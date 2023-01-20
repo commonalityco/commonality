@@ -1,25 +1,25 @@
 import micromatch from 'micromatch';
-import { getCodeOwners } from './get-code-owners.js';
+import { getCodeOwners } from './get-code-owners';
 
 export const getOwnersForPath = ({
-	path,
-	rootDirectory,
+  path,
+  rootDirectory,
 }: {
-	path: string;
-	rootDirectory: string;
+  path: string;
+  rootDirectory: string;
 }): string[] => {
-	const owners = getCodeOwners({ rootDirectory });
+  const owners = getCodeOwners({ rootDirectory });
 
-	const globs = Object.keys(owners);
+  const globs = Object.keys(owners);
 
-	const ownersForPath: string[] = [];
+  const ownersForPath: string[] = [];
 
-	for (const glob of globs) {
-		const ownersForGlob = owners[glob];
-		if (micromatch.isMatch(path, glob) && ownersForGlob) {
-			ownersForPath.push(...ownersForGlob);
-		}
-	}
+  for (const glob of globs) {
+    const ownersForGlob = owners[glob];
+    if (micromatch.isMatch(path, glob) && ownersForGlob) {
+      ownersForPath.push(...ownersForGlob);
+    }
+  }
 
-	return ownersForPath;
+  return ownersForPath;
 };

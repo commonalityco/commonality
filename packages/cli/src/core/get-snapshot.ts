@@ -1,32 +1,32 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import type { Config, SnapshotData } from '@commonalityco/types';
-import { getPackages } from './get-packages.js';
-import { getTags } from './get-tags.js';
-import { getCurrentBranch } from './get-current-branch.js';
+import type { ProjectConfig, SnapshotData } from '@commonalityco/types';
+import { getPackages } from './get-packages';
+import { getTags } from './get-tags';
+import { getCurrentBranch } from './get-current-branch';
 
 export const getSnapshot = async (
-	rootDirectory: string,
-	packageDirectories: string[]
+  rootDirectory: string,
+  packageDirectories: string[]
 ): Promise<SnapshotData> => {
-	const configFilePath = path.join(
-		rootDirectory,
-		'.commonality',
-		'config.json'
-	);
+  const configFilePath = path.join(
+    rootDirectory,
+    '.commonality',
+    'config.json'
+  );
 
-	const configFile = fs.readJSONSync(configFilePath) as Config;
+  const configFile = fs.readJSONSync(configFilePath) as ProjectConfig;
 
-	const packages = await getPackages({ packageDirectories, rootDirectory });
+  const packages = await getPackages({ packageDirectories, rootDirectory });
 
-	const currentBranch = await getCurrentBranch();
+  const currentBranch = await getCurrentBranch();
 
-	const tags = await getTags({ packageDirectories, rootDirectory });
+  const tags = await getTags({ packageDirectories, rootDirectory });
 
-	return {
-		branch: currentBranch,
-		projectId: configFile.project,
-		packages,
-		tags,
-	};
+  return {
+    branch: currentBranch,
+    projectId: configFile.project,
+    packages,
+    tags,
+  };
 };
