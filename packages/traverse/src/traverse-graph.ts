@@ -19,17 +19,19 @@ export const traverseGraph = ({
     getChildren: memoize(
       (node) => {
         const dependencyNames = node.dependencies.map((dep) => dep.name);
-        const devDependencyNames = node.devDependencies.map((dep) => dep.name);
+        const developmentDependencyNames = node.devDependencies.map(
+          (dep) => dep.name
+        );
         const peerDependencyNames = node.peerDependencies.map(
           (dep) => dep.name
         );
         const allDependencyNames = new Set([
           ...dependencyNames,
-          ...devDependencyNames,
+          ...developmentDependencyNames,
           ...peerDependencyNames,
         ]);
-        const dependencies = packages.filter((pkg) =>
-          allDependencyNames.has(pkg.name)
+        const dependencies = packages.filter((package_) =>
+          allDependencyNames.has(package_.name)
         );
 
         visit?.(node, dependencies);

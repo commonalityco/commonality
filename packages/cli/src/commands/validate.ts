@@ -17,6 +17,7 @@ const logNoDefinedConstraints = async () => {
   const { default: chalk } = await import('chalk');
 
   console.log(chalk.yellow('No constraints found'));
+
   console.log(
     'Define dependency constraints in your configuration file to control how packages are shared.'
   );
@@ -106,15 +107,17 @@ export const validate = program
 
       for (const packageName of packageNames) {
         const violations = violationsByPackageName[packageName];
-        const pkg = packages.find((pkg) => pkg.name === packageName);
+        const package_ = packages.find(
+          (package__) => package__.name === packageName
+        );
 
-        if (!violations || !pkg) {
+        if (!violations || !package_) {
           continue;
         }
 
         logDependencyName(
           packageName,
-          path.join(rootDirectory, pkg.path, 'commonality.json')
+          path.join(rootDirectory, package_.path, 'commonality.json')
         );
 
         for (let index = 0; index < violations.length; index++) {
@@ -133,22 +136,22 @@ export const validate = program
 
           console.log('│  ');
 
-          const dependencyPkg = packages.find(
-            (pkg) => pkg.name === violation.targetName
+          const dependencyPackage = packages.find(
+            (package__) => package__.name === violation.targetName
           );
 
-          if (!dependencyPkg) {
+          if (!dependencyPackage) {
             continue;
           }
 
           const dependencyConfigurationPath = path.join(
             rootDirectory,
-            dependencyPkg.path,
+            dependencyPackage.path,
             'commonality.json'
           );
           const dependencyManifestPath = path.join(
             rootDirectory,
-            dependencyPkg.path,
+            dependencyPackage.path,
             'package.json'
           );
 
@@ -162,7 +165,7 @@ export const validate = program
 
           console.log(
             topSpacer,
-            terminalLink(dependencyPkg.name, dependencyNameLinkPath)
+            terminalLink(dependencyPackage.name, dependencyNameLinkPath)
           );
 
           if (hasPackageConfigurationFile) {

@@ -13,6 +13,7 @@
     "dev": "tsup-node --watch"
   },
   "devDependencies": {
+    "@commonalityco/config-eslint": "workspace:*",
     "@commonalityco/config-tsup": "workspace:*",
     "@commonalityco/tsconfig": "workspace:*",
     "tsup": "^6.5.0",

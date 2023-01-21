@@ -19,10 +19,13 @@ jest.mock('ora', () => ({
 }));
 
 const binaryPath = path.resolve(__dirname, `../../scripts/start.js`);
-const distPath = path.resolve(__dirname, '../../dist');
-const temporaryDir = path.join(tmpdir(), 'commonality-cli-test-publish');
-const distToTemporary = path.relative(distPath, temporaryDir);
-const defaultArgs = ['--cwd', distToTemporary];
+const distributionPath = path.resolve(__dirname, '../../dist');
+const temporaryDirectory = path.join(tmpdir(), 'commonality-cli-test-publish');
+const distributionToTemporary = path.relative(
+  distributionPath,
+  temporaryDirectory
+);
+const defaultArguments = ['--cwd', distributionToTemporary];
 
 describe('publish', () => {
   const server = new MockServer();
@@ -49,14 +52,14 @@ describe('publish', () => {
 
   beforeEach(async () => {
     store.clear();
-    fs.removeSync(temporaryDir);
+    fs.removeSync(temporaryDirectory);
     jest.clearAllMocks();
 
     deviceCodeRoute = authServer
       .post('/oauth/device/code')
-      .mockImplementation((ctx) => {
-        ctx.status = 200;
-        ctx.body = {
+      .mockImplementation((context) => {
+        context.status = 200;
+        context.body = {
           device_code: '123-456',
           user_code: 'ABC-DEF',
           verification_uri: 'verify',
@@ -68,37 +71,43 @@ describe('publish', () => {
 
     tokenRoute = authServer
       .post('/oauth/token')
-      .mockImplementationOnce((ctx) => {
-        ctx.status = 200;
-        ctx.body = {
+      .mockImplementationOnce((context) => {
+        context.status = 200;
+        context.body = {
           access_token: '123',
           expires_in: 123,
           token_type: 'access_token',
         };
       });
 
-    fs.outputJsonSync(path.join(temporaryDir, './package-lock.json'), {});
-    fs.outputJsonSync(path.join(temporaryDir, './package.json'), {
+    fs.outputJsonSync(path.join(temporaryDirectory, './package-lock.json'), {});
+    fs.outputJsonSync(path.join(temporaryDirectory, './package.json'), {
       workspaces: ['apps/*', 'packages/*'],
     });
-    fs.outputJsonSync(path.join(temporaryDir, './.commonality/config.json'), {
-      project: '123',
-    });
-    fs.outputJsonSync(path.join(temporaryDir, './apps/app-foo/package.json'), {
-      name: '@scope/app-foo',
-      version: '1.0.0',
-      dependencies: {
-        bar: '^1.0.0',
-      },
-    });
     fs.outputJsonSync(
-      path.join(temporaryDir, './apps/app-foo/commonality.json'),
+      path.join(temporaryDirectory, './.commonality/config.json'),
+      {
+        project: '123',
+      }
+    );
+    fs.outputJsonSync(
+      path.join(temporaryDirectory, './apps/app-foo/package.json'),
+      {
+        name: '@scope/app-foo',
+        version: '1.0.0',
+        dependencies: {
+          bar: '^1.0.0',
+        },
+      }
+    );
+    fs.outputJsonSync(
+      path.join(temporaryDirectory, './apps/app-foo/commonality.json'),
       {
         tags: ['tag-one'],
       }
     );
     fs.outputJsonSync(
-      path.join(temporaryDir, './packages/pkg-foo/package.json'),
+      path.join(temporaryDirectory, './packages/pkg-foo/package.json'),
       {
         name: '@scope/pkg-foo',
         version: '2.0.0',
@@ -108,7 +117,7 @@ describe('publish', () => {
       }
     );
     fs.outputJsonSync(
-      path.join(temporaryDir, './packages/pkg-foo/commonality.json'),
+      path.join(temporaryDirectory, './packages/pkg-foo/commonality.json'),
       {
         tags: ['tag-two'],
       }
@@ -119,12 +128,12 @@ describe('publish', () => {
     beforeEach(async () => {
       const currentBranch = await getCurrentBranch();
 
-      server.post('/api/cli/publish').mockImplementation((ctx) => {
-        ctx.status = 200;
+      server.post('/api/cli/publish').mockImplementation((context) => {
+        context.status = 200;
 
-        bodySpy(ctx.request.body);
+        bodySpy(context.request.body);
 
-        ctx.body = {
+        context.body = {
           url: `https://app.commonality.co/monorepo/root/${currentBranch}`,
         };
       });
@@ -141,7 +150,7 @@ describe('publish', () => {
         });
 
         it('should not prompt for a login', async () => {
-          await execa(binaryPath, ['publish', ...defaultArgs], {
+          await execa(binaryPath, ['publish', ...defaultArguments], {
             env: {
               COMMONALITY_API_ORIGIN: server.getURL().origin,
               COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
@@ -163,7 +172,7 @@ describe('publish', () => {
         });
 
         it('should prompt for a login', async () => {
-          await execa(binaryPath, ['publish', ...defaultArgs], {
+          await execa(binaryPath, ['publish', ...defaultArguments], {
             env: {
               COMMONALITY_API_ORIGIN: server.getURL().origin,
               COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
@@ -181,7 +190,7 @@ describe('publish', () => {
       it('should not call the auth API', async () => {
         await execa(
           binaryPath,
-          ['publish', '--publishKey', '123', ...defaultArgs],
+          ['publish', '--publishKey', '123', ...defaultArguments],
           {
             env: {
               COMMONALITY_API_ORIGIN: server.getURL().origin,
@@ -197,7 +206,7 @@ describe('publish', () => {
 
     describe('when authenticating with a env var publish key', () => {
       it('should not call the auth API', async () => {
-        await execa(binaryPath, ['publish', ...defaultArgs], {
+        await execa(binaryPath, ['publish', ...defaultArguments], {
           env: {
             COMMONALITY_API_ORIGIN: server.getURL().origin,
             COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
@@ -212,7 +221,7 @@ describe('publish', () => {
 
     describe('when authenticating with an access token', () => {
       it('should call the auth API', async () => {
-        await execa(binaryPath, ['publish', ...defaultArgs], {
+        await execa(binaryPath, ['publish', ...defaultArguments], {
           env: {
             COMMONALITY_API_ORIGIN: server.getURL().origin,
             COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
@@ -225,15 +234,15 @@ describe('publish', () => {
     });
 
     it('should POST to the URL with the correct data', async () => {
-      authServer.post('/oauth/device/code').mockImplementation((ctx) => {
-        ctx.status = 200;
+      authServer.post('/oauth/device/code').mockImplementation((context) => {
+        context.status = 200;
       });
 
-      authServer.post('/oauth/token').mockImplementationOnce((ctx) => {
-        ctx.status = 200;
+      authServer.post('/oauth/token').mockImplementationOnce((context) => {
+        context.status = 200;
       });
 
-      await execa(binaryPath, ['publish', ...defaultArgs], {
+      await execa(binaryPath, ['publish', ...defaultArguments], {
         env: {
           COMMONALITY_API_ORIGIN: server.getURL().origin,
           COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
@@ -287,13 +296,17 @@ describe('publish', () => {
     it('should output the published view url', async () => {
       const currentBranch = await getCurrentBranch();
 
-      const { stdout } = await execa(binaryPath, ['publish', ...defaultArgs], {
-        env: {
-          COMMONALITY_API_ORIGIN: server.getURL().origin,
-          COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
-          COMMONALITY_PUBLISH_KEY: '123',
-        },
-      });
+      const { stdout } = await execa(
+        binaryPath,
+        ['publish', ...defaultArguments],
+        {
+          env: {
+            COMMONALITY_API_ORIGIN: server.getURL().origin,
+            COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
+            COMMONALITY_PUBLISH_KEY: '123',
+          },
+        }
+      );
 
       expect(stdout).toEqual(
         expect.stringContaining(
@@ -305,10 +318,10 @@ describe('publish', () => {
 
   describe('when the API returns an error', () => {
     beforeEach(async () => {
-      server.post('/api/cli/publish').mockImplementation((ctx) => {
-        ctx.status = 500;
+      server.post('/api/cli/publish').mockImplementation((context) => {
+        context.status = 500;
 
-        ctx.body = {
+        context.body = {
           message: 'An error occurred',
         };
       });
@@ -317,7 +330,7 @@ describe('publish', () => {
     it('should output the error message', async () => {
       const { stderr, exitCode } = await execa(
         binaryPath,
-        ['publish', ...defaultArgs],
+        ['publish', ...defaultArguments],
         {
           env: {
             COMMONALITY_API_ORIGIN: server.getURL().origin,

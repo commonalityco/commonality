@@ -58,6 +58,7 @@
     "yaml": "^2.2.1"
   },
   "devDependencies": {
+    "@commonalityco/config-eslint": "workspace:*",
     "@commonalityco/config-jest": "workspace:*",
     "@commonalityco/config-tsup": "workspace:*",
     "@commonalityco/constraints": "workspace:*",

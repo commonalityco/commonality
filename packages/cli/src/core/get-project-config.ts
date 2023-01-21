@@ -50,7 +50,7 @@ export const getProjectConfig = async (
     } else {
       return await require(configFilePath);
     }
-  } catch (error: unknown) {
+  } catch {
     throw new Error('Encountered an error reading your project configuration.');
   }
 };

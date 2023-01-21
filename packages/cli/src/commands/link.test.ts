@@ -4,27 +4,35 @@ import fs from 'fs-extra';
 import execa from 'execa';
 
 const binaryPath = path.resolve(__dirname, `../../scripts/start.js`);
-const distPath = path.resolve(__dirname, '../../dist');
-const temporaryDir = path.join(tmpdir(), 'commonality-cli-test-link');
-const distToTemporary = path.relative(distPath, temporaryDir);
-const configPath = path.join(temporaryDir, '.commonality/config.json');
+const distributionPath = path.resolve(__dirname, '../../dist');
+const temporaryDirectory = path.join(tmpdir(), 'commonality-cli-test-link');
+const distributionToTemporary = path.relative(
+  distributionPath,
+  temporaryDirectory
+);
+const configPath = path.join(temporaryDirectory, '.commonality/config.json');
 
-const defaultArgs = ['--cwd', distToTemporary];
+const defaultArguments = ['--cwd', distributionToTemporary];
 
 describe('link', () => {
   beforeEach(() => {
-    fs.removeSync(temporaryDir);
+    fs.removeSync(temporaryDirectory);
     fs.removeSync(configPath);
 
-    fs.outputJsonSync(path.join(temporaryDir, './package-lock.json'), {});
+    fs.outputJsonSync(path.join(temporaryDirectory, './package-lock.json'), {});
   });
 
   describe('when a configuration does not exist', () => {
     it('creates the configuration file', async () => {
-      await execa(binaryPath, ['link', '--project', '123', ...defaultArgs]);
+      await execa(binaryPath, [
+        'link',
+        '--project',
+        '123',
+        ...defaultArguments,
+      ]);
 
       const exists = await fs.pathExists(
-        path.join(temporaryDir, '.commonality/config.json')
+        path.join(temporaryDirectory, '.commonality/config.json')
       );
 
       expect(exists).toBe(true);
@@ -44,7 +52,12 @@ describe('link', () => {
     });
 
     it('updates the configuration file', async () => {
-      await execa(binaryPath, ['link', '--project', '123', ...defaultArgs]);
+      await execa(binaryPath, [
+        'link',
+        '--project',
+        '123',
+        ...defaultArguments,
+      ]);
 
       const json = fs.readJsonSync(configPath) as { project: string };
 

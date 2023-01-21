@@ -5,25 +5,28 @@ import fs from 'fs-extra';
 import { beforeEach, jest } from '@jest/globals';
 import execa from 'execa';
 
-const pkgRoot = path.resolve(__dirname, '../../');
-const binaryPath = path.join(pkgRoot, `scripts/start.js`);
-const distPath = path.join(pkgRoot, 'dist');
-const temporaryDir = path.join(tmpdir(), 'commonality-cli-test-validate');
-const distToTemporary = path.relative(distPath, temporaryDir);
-const defaultArgs = ['--cwd', distToTemporary];
+const packageRoot = path.resolve(__dirname, '../../');
+const binaryPath = path.join(packageRoot, `scripts/start.js`);
+const distributionPath = path.join(packageRoot, 'dist');
+const temporaryDirectory = path.join(tmpdir(), 'commonality-cli-test-validate');
+const distributionToTemporary = path.relative(
+  distributionPath,
+  temporaryDirectory
+);
+const defaultArguments = ['--cwd', distributionToTemporary];
 
 const copyFixtureAndInstall = async (name: string) => {
-  await fs.remove(temporaryDir);
+  await fs.remove(temporaryDirectory);
 
   const fixturePath = path.join(
     path.resolve(__dirname, '../../test/fixtures'),
     name
   );
 
-  await fs.copy(fixturePath, temporaryDir);
+  await fs.copy(fixturePath, temporaryDirectory);
 
-  await execa('pnpm', ['link', pkgRoot], {
-    cwd: temporaryDir,
+  await execa('pnpm', ['link', packageRoot], {
+    cwd: temporaryDirectory,
   });
 };
 
@@ -38,7 +41,10 @@ describe('validate', () => {
     });
 
     it('should log a warning message', async () => {
-      const { stdout } = await execa(binaryPath, ['validate', ...defaultArgs]);
+      const { stdout } = await execa(binaryPath, [
+        'validate',
+        ...defaultArguments,
+      ]);
 
       expect(stdout).toEqual(expect.stringContaining('No constraints found'));
     });
@@ -46,7 +52,7 @@ describe('validate', () => {
     it('exit the process gracefully', async () => {
       const { exitCode } = await execa(
         binaryPath,
-        ['validate', ...defaultArgs],
+        ['validate', ...defaultArguments],
         {}
       );
 
@@ -63,26 +69,26 @@ describe('validate', () => {
       it('should log target name and link', async () => {
         const { stdout, stderr } = await execa(
           binaryPath,
-          ['validate', ...defaultArgs],
+          ['validate', ...defaultArguments],
           {
             reject: false,
           }
         );
-        const pkgViolationPath = path.join(
-          temporaryDir,
+        const packageViolationPath = path.join(
+          temporaryDirectory,
           '/packages/pkg-three/package.json'
         );
         console.log({ stderr });
 
         expect(stdout).toEqual(
-          expect.stringContaining(`pkg-three (​${pkgViolationPath}​)`)
+          expect.stringContaining(`pkg-three (​${packageViolationPath}​)`)
         );
       });
 
       it('should log the error to stdout', async () => {
         const { stdout } = await execa(
           binaryPath,
-          ['validate', ...defaultArgs],
+          ['validate', ...defaultArguments],
           { reject: false }
         );
 
@@ -94,7 +100,7 @@ describe('validate', () => {
       it('exit the process with an error code', async () => {
         const { exitCode } = await execa(
           binaryPath,
-          ['validate', ...defaultArgs],
+          ['validate', ...defaultArguments],
           {
             reject: false,
           }
@@ -112,7 +118,7 @@ describe('validate', () => {
       it('should log the total violations to stderr', async () => {
         const { stderr } = await execa(
           binaryPath,
-          ['validate', ...defaultArgs],
+          ['validate', ...defaultArguments],
           {
             reject: false,
           }
@@ -124,43 +130,43 @@ describe('validate', () => {
       it('should log source name and link', async () => {
         const { stdout } = await execa(
           binaryPath,
-          ['validate', ...defaultArgs],
+          ['validate', ...defaultArguments],
           {
             reject: false,
           }
         );
-        const pkgViolationPath = path.join(
-          temporaryDir,
+        const packageViolationPath = path.join(
+          temporaryDirectory,
           '/packages/pkg-two/commonality.json'
         );
 
         expect(stdout).toEqual(
-          expect.stringContaining(`pkg-two (​${pkgViolationPath}​)`)
+          expect.stringContaining(`pkg-two (​${packageViolationPath}​)`)
         );
       });
 
       it('should log target name and link', async () => {
         const { stdout } = await execa(
           binaryPath,
-          ['validate', ...defaultArgs],
+          ['validate', ...defaultArguments],
           {
             reject: false,
           }
         );
-        const pkgViolationPath = path.join(
-          temporaryDir,
+        const packageViolationPath = path.join(
+          temporaryDirectory,
           '/packages/pkg-three/commonality.json'
         );
 
         expect(stdout).toEqual(
-          expect.stringContaining(`pkg-three (​${pkgViolationPath}​)`)
+          expect.stringContaining(`pkg-three (​${packageViolationPath}​)`)
         );
       });
 
       it('should log the expected tags', async () => {
         const { stdout } = await execa(
           binaryPath,
-          ['validate', ...defaultArgs],
+          ['validate', ...defaultArguments],
           {
             reject: false,
           }
@@ -173,7 +179,7 @@ describe('validate', () => {
       it('should log the received tags', async () => {
         const { stdout } = await execa(
           binaryPath,
-          ['validate', ...defaultArgs],
+          ['validate', ...defaultArguments],
           {
             reject: false,
           }
@@ -186,7 +192,7 @@ describe('validate', () => {
       it('exit the process with an error code', async () => {
         const { exitCode } = await execa(
           binaryPath,
-          ['validate', ...defaultArgs],
+          ['validate', ...defaultArguments],
           {
             reject: false,
           }
@@ -203,7 +209,10 @@ describe('validate', () => {
     });
 
     it('should log a success message', async () => {
-      const { stdout } = await execa(binaryPath, ['validate', ...defaultArgs]);
+      const { stdout } = await execa(binaryPath, [
+        'validate',
+        ...defaultArguments,
+      ]);
 
       expect(stdout).toEqual(expect.stringContaining('No violations found'));
     });
@@ -211,7 +220,7 @@ describe('validate', () => {
     it('exit the process gracefully', async () => {
       const { exitCode } = await execa(binaryPath, [
         'validate',
-        ...defaultArgs,
+        ...defaultArguments,
       ]);
 
       expect(exitCode).toEqual(0);

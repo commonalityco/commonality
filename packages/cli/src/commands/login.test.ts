@@ -20,9 +20,9 @@ describe('login', () => {
   beforeEach(() => {
     server.reset();
 
-    server.post('/oauth/device/code').mockImplementation((ctx) => {
-      ctx.status = 200;
-      ctx.body = {
+    server.post('/oauth/device/code').mockImplementation((context) => {
+      context.status = 200;
+      context.body = {
         device_code: '123-456',
         user_code: 'ABC-DEF',
         verification_uri: 'verify',
@@ -34,12 +34,12 @@ describe('login', () => {
 
     server
       .post('/oauth/token')
-      .mockImplementationOnce((ctx) => {
-        ctx.status = 403;
+      .mockImplementationOnce((context) => {
+        context.status = 403;
       })
-      .mockImplementationOnce((ctx) => {
-        ctx.status = 200;
-        ctx.body = {
+      .mockImplementationOnce((context) => {
+        context.status = 200;
+        context.body = {
           access_token: '123',
           expires_in: 123,
           token_type: 'access_token',

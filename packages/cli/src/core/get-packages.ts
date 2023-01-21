@@ -29,7 +29,7 @@ export const getPackages = async ({
     const formattedDependencies = Object.entries(dependencies).map(
       ([name, version]) => ({ name, version })
     );
-    const formattedDevDependencies = Object.entries(devDependencies).map(
+    const formattedDevelopmentDependencies = Object.entries(devDependencies).map(
       ([name, version]) => ({ name, version })
     );
     const formattedPeerDependencies = Object.entries(peerDependencies).map(
@@ -45,7 +45,7 @@ export const getPackages = async ({
           path: directory,
           version: packageJson.version ?? '',
           tags: [],
-          devDependencies: formattedDevDependencies,
+          devDependencies: formattedDevelopmentDependencies,
           dependencies: formattedDependencies,
           peerDependencies: formattedPeerDependencies,
           owners,
@@ -55,15 +55,15 @@ export const getPackages = async ({
       continue;
     }
 
-    const pkgConfig = fs.readJSONSync(packageConfigPath) as PackageConfig;
+    const packageConfig = fs.readJSONSync(packageConfigPath) as PackageConfig;
 
     if (packageJson.name) {
       packagesWithTags.push({
         name: packageJson.name,
         path: directory,
         version: packageJson.version ?? '',
-        tags: pkgConfig.tags ?? [],
-        devDependencies: formattedDevDependencies,
+        tags: packageConfig.tags ?? [],
+        devDependencies: formattedDevelopmentDependencies,
         dependencies: formattedDependencies,
         peerDependencies: formattedPeerDependencies,
         owners,
