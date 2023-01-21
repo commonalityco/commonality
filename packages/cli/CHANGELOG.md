@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.0.9
+
+### Patch Changes
+
+- 3849716: Change config file format from json to js
+- Updated dependencies [3849716]
+  - @commonalityco/codeowners@0.0.4
+
 ## 0.0.8
 
 ### Patch Changes

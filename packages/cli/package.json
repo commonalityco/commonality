@@ -1,6 +1,6 @@
 {
   "name": "commonality",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "bin": {
     "commonality": "./dist/cli.js",
     "co": "./dist/cli.js"
