@@ -1,5 +1,11 @@
 import { defineConfig } from 'commonality';
 
 export default defineConfig({
-  project: 'foo',
+  projectId: 'foo',
+  constraints: [
+    {
+      tags: ['tag-one'],
+      allow: ['foo', 'bar'],
+    },
+  ],
 });

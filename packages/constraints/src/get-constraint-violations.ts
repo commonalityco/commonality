@@ -13,7 +13,7 @@ export const getConstraintViolations = ({
 
   for (const constraint of config?.constraints ?? []) {
     const packagesWithConstraint = packages.filter(
-      (pkg) => intersection(pkg.tags, constraint.tags).length > 0
+      (package_) => intersection(package_.tags, constraint.tags).length > 0
     );
 
     for (const packageWithConstraint of packagesWithConstraint) {
@@ -47,7 +47,7 @@ export const getConstraintViolations = ({
     }
   }
 
-  const violations = Array.from(violationsByPackageName.values()).flat();
+  const violations = [...violationsByPackageName.values()].flat();
 
   return violations;
 };

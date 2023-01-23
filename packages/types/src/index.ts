@@ -13,7 +13,7 @@ export type Package = {
 };
 
 export type ProjectConfig = {
-  project: string;
+  projectId: string;
   constraints?: Array<{
     tags: string[];
     allow: string[];

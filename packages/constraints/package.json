@@ -23,6 +23,7 @@
     "treeverse": "^3.0.0"
   },
   "devDependencies": {
+    "@commonalityco/config-eslint": "workspace:*",
     "@commonalityco/config-jest": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@commonalityco/traverse": "workspace:*",

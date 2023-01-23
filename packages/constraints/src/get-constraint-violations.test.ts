@@ -42,7 +42,7 @@ describe('getConstraintViolations', () => {
     ];
 
     const config: ProjectConfig = {
-      project: '123',
+      projectId: '123',
       constraints: [
         {
           tags: ['tag-one'],
@@ -116,7 +116,7 @@ describe('getConstraintViolations', () => {
     ];
 
     const config: ProjectConfig = {
-      project: '123',
+      projectId: '123',
       constraints: [
         {
           tags: ['tag-one'],
@@ -187,7 +187,7 @@ describe('getConstraintViolations', () => {
     ];
 
     const config: ProjectConfig = {
-      project: '123',
+      projectId: '123',
       constraints: [
         {
           tags: ['tag-one'],
@@ -242,7 +242,7 @@ describe('getConstraintViolations', () => {
     ];
 
     const config: ProjectConfig = {
-      project: '123',
+      projectId: '123',
     };
 
     it('returns no violations', async () => {

@@ -27,9 +27,9 @@ export const getPackageDirectories = async (
           return directory;
         }
 
-        return null;
+        return;
       } catch {
-        return null;
+        return;
       }
     })
   );

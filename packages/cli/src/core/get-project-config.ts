@@ -4,6 +4,7 @@ import path from 'node:path';
 import fs from 'fs-extra';
 import { register } from 'ts-node';
 import type { ProjectConfig } from '@commonalityco/types';
+import findUp from 'find-up';
 
 const moduleName = 'commonality';
 
@@ -16,8 +17,6 @@ const configNames = [
 export const getProjectConfig = async (
   rootDirectory: string
 ): Promise<ProjectConfig | undefined> => {
-  const { findUp } = await import('find-up');
-
   const configFilePath = await findUp(configNames, {
     cwd: rootDirectory,
   });
@@ -50,7 +49,7 @@ export const getProjectConfig = async (
     } else {
       return await require(configFilePath);
     }
-  } catch (error: unknown) {
+  } catch {
     throw new Error('Encountered an error reading your project configuration.');
   }
 };

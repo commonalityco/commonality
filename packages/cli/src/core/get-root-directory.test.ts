@@ -1,58 +1,70 @@
 import process from 'node:process';
 import path from 'node:path';
-import mock from 'mock-fs';
+import fs from 'fs-extra';
+import { tmpdir } from 'node:os';
 import { describe, expect, beforeEach, afterEach, it } from '@jest/globals';
 import { getRootDirectory } from './get-root-directory';
 
-describe.skip('getRootDirectory', () => {
+const temporaryDirectory = path.join(tmpdir(), 'get-root-directory');
+
+describe('getRootDirectory', () => {
   describe('when the package manager is pnpm', () => {
-    beforeEach(() => {
-      mock({
-        'test-root/pnpm-lock.yaml': '',
-      });
+    beforeEach(async () => {
+      const fixturePath = path.join(
+        path.resolve(__dirname, '../../test/fixtures'),
+        'pnpm-workspace'
+      );
+      await fs.copy(fixturePath, temporaryDirectory);
     });
 
-    afterEach(mock.restore);
+    afterEach(async () => {
+      await fs.remove(temporaryDirectory);
+    });
 
     it('returns the root directory of the monorepo', async () => {
-      const testRootPath = path.resolve(process.cwd(), 'test-root');
-      const rootDirectory = await getRootDirectory(testRootPath);
+      const rootDirectory = await getRootDirectory(temporaryDirectory);
 
-      expect(rootDirectory).toEqual(testRootPath);
+      expect(rootDirectory).toEqual(temporaryDirectory);
     });
   });
 
   describe('when the package manager is yarn', () => {
-    beforeEach(() => {
-      mock({
-        'test-root/yarn.lock': '',
-      });
+    beforeEach(async () => {
+      const fixturePath = path.join(
+        path.resolve(__dirname, '../../test/fixtures'),
+        'yarn-workspace'
+      );
+      await fs.copy(fixturePath, temporaryDirectory);
     });
 
-    afterEach(mock.restore);
+    afterEach(async () => {
+      await fs.remove(temporaryDirectory);
+    });
 
     it('returns the root directory of the monorepo', async () => {
-      const testRootPath = path.resolve(process.cwd(), 'test-root');
-      const rootDirectory = await getRootDirectory(testRootPath);
+      const rootDirectory = await getRootDirectory(temporaryDirectory);
 
-      expect(rootDirectory).toEqual(testRootPath);
+      expect(rootDirectory).toEqual(temporaryDirectory);
     });
   });
 
   describe('when the package manager is yarn', () => {
-    beforeEach(() => {
-      mock({
-        'test-root/package-lock.json': '',
-      });
+    beforeEach(async () => {
+      const fixturePath = path.join(
+        path.resolve(__dirname, '../../test/fixtures'),
+        'npm-workspace'
+      );
+      await fs.copy(fixturePath, temporaryDirectory);
     });
 
-    afterEach(mock.restore);
+    afterEach(async () => {
+      await fs.remove(temporaryDirectory);
+    });
 
     it('returns the root directory of the monorepo', async () => {
-      const testRootPath = path.resolve(process.cwd(), 'test-root');
-      const rootDirectory = await getRootDirectory(testRootPath);
+      const rootDirectory = await getRootDirectory(temporaryDirectory);
 
-      expect(rootDirectory).toEqual(testRootPath);
+      expect(rootDirectory).toEqual(temporaryDirectory);
     });
   });
 });

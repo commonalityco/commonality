@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { getOwnersForPath } from './get-owners-for-path';
 
 jest.mock('./get-code-owners', () => ({
