@@ -1,7 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
+import { copyFixtureAndInstall } from './../../test/utilities/copy-fixture-and-install';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
-import fs from 'fs-extra';
 import { beforeEach, jest } from '@jest/globals';
 import execa from 'execa';
 
@@ -15,21 +15,6 @@ const distributionToTemporary = path.relative(
 );
 const defaultArguments = ['--cwd', distributionToTemporary];
 
-const copyFixtureAndInstall = async (name: string) => {
-  await fs.remove(temporaryDirectory);
-
-  const fixturePath = path.join(
-    path.resolve(__dirname, '../../test/fixtures'),
-    name
-  );
-
-  await fs.copy(fixturePath, temporaryDirectory);
-
-  await execa('pnpm', ['link', packageRoot], {
-    cwd: temporaryDirectory,
-  });
-};
-
 describe('validate', () => {
   beforeEach(async () => {
     jest.clearAllMocks();
@@ -37,7 +22,10 @@ describe('validate', () => {
 
   describe('when there are no constraints defined', () => {
     beforeEach(async () => {
-      await copyFixtureAndInstall('no-constraints');
+      await copyFixtureAndInstall({
+        destination: temporaryDirectory,
+        name: 'no-constraints',
+      });
     });
 
     it('should log a warning message', async () => {
@@ -63,7 +51,10 @@ describe('validate', () => {
   describe('when there are violations', () => {
     describe('and a dependency is missing package configuration', () => {
       beforeEach(async () => {
-        await copyFixtureAndInstall('missing-package-configuration');
+        await copyFixtureAndInstall({
+          destination: temporaryDirectory,
+          name: 'missing-package-configuration',
+        });
       });
 
       it('should log target name and link', async () => {
@@ -112,7 +103,10 @@ describe('validate', () => {
 
     describe('and all dependencies have package configuration', () => {
       beforeEach(async () => {
-        await copyFixtureAndInstall('constraint-violations');
+        await copyFixtureAndInstall({
+          destination: temporaryDirectory,
+          name: 'constraint-violations',
+        });
       });
 
       it('should log the total violations to stderr', async () => {
@@ -205,7 +199,10 @@ describe('validate', () => {
 
   describe('when there are no violations', () => {
     beforeEach(async () => {
-      await copyFixtureAndInstall('no-violations');
+      await copyFixtureAndInstall({
+        destination: temporaryDirectory,
+        name: 'no-violations',
+      });
     });
 
     it('should log a success message', async () => {

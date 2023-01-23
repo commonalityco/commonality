@@ -1,13 +1,14 @@
 import process from 'node:process';
 import { Command } from 'commander';
 import type { SnapshotResult } from '@commonalityco/types';
-import { getPackageManager } from '../core/get-package-manager.js';
-import { getWorkspaces } from '../core/get-workspaces.js';
-import { getPackageDirectories } from '../core/get-package-directories.js';
-import { ensureAuth } from '../core/ensure-auth.js';
-import { store } from '../core/store.js';
-import { getSnapshot } from '../core/get-snapshot.js';
-import { getRootDirectory } from '../core/get-root-directory.js';
+import { getPackageManager } from '../core/get-package-manager';
+import { getWorkspaces } from '../core/get-workspaces';
+import { getPackageDirectories } from '../core/get-package-directories';
+import { ensureAuth } from '../core/ensure-auth';
+import { store } from '../core/store';
+import { getSnapshot } from '../core/get-snapshot';
+import { getRootDirectory } from '../core/get-root-directory';
+import { getProjectConfig } from '../core/get-project-config';
 
 const program = new Command();
 
@@ -36,8 +37,17 @@ export const actionHandler = async (
     rootDirectory,
     workspaces
   );
+  const projectConfig = await getProjectConfig(rootDirectory);
 
-  const snapshot = await getSnapshot(rootDirectory, packageDirectories);
+  if (!projectConfig) {
+    action.error('No project configuration found');
+  }
+
+  const snapshot = await getSnapshot(
+    rootDirectory,
+    packageDirectories,
+    projectConfig.projectId
+  );
 
   const spinner = ora(
     `Publishing ${snapshot.packages.length} packages...`

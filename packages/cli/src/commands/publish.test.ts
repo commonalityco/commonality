@@ -1,3 +1,4 @@
+import { copyFixtureAndInstall } from './../../test/utilities/copy-fixture-and-install';
 /* eslint-disable max-nested-callbacks */
 /* eslint-disable @typescript-eslint/naming-convention */
 import path from 'node:path';
@@ -80,48 +81,10 @@ describe('publish', () => {
         };
       });
 
-    fs.outputJsonSync(path.join(temporaryDirectory, './package-lock.json'), {});
-    fs.outputJsonSync(path.join(temporaryDirectory, './package.json'), {
-      workspaces: ['apps/*', 'packages/*'],
+    await copyFixtureAndInstall({
+      destination: temporaryDirectory,
+      name: 'no-violations',
     });
-    fs.outputJsonSync(
-      path.join(temporaryDirectory, './.commonality/config.json'),
-      {
-        project: '123',
-      }
-    );
-    fs.outputJsonSync(
-      path.join(temporaryDirectory, './apps/app-foo/package.json'),
-      {
-        name: '@scope/app-foo',
-        version: '1.0.0',
-        dependencies: {
-          bar: '^1.0.0',
-        },
-      }
-    );
-    fs.outputJsonSync(
-      path.join(temporaryDirectory, './apps/app-foo/commonality.json'),
-      {
-        tags: ['tag-one'],
-      }
-    );
-    fs.outputJsonSync(
-      path.join(temporaryDirectory, './packages/pkg-foo/package.json'),
-      {
-        name: '@scope/pkg-foo',
-        version: '2.0.0',
-        devDependencies: {
-          bar: '^1.0.0',
-        },
-      }
-    );
-    fs.outputJsonSync(
-      path.join(temporaryDirectory, './packages/pkg-foo/commonality.json'),
-      {
-        tags: ['tag-two'],
-      }
-    );
   });
 
   describe('when the API returns a successful response', () => {
@@ -255,40 +218,50 @@ describe('publish', () => {
       expect(bodySpy).toHaveBeenCalledWith(
         expect.objectContaining({
           branch: currentBranch,
-          packages: [
+          packages: expect.arrayContaining([
             {
               dependencies: [
                 {
-                  name: 'bar',
-                  version: '^1.0.0',
+                  name: 'pkg-two',
+                  version: '*',
                 },
               ],
               devDependencies: [],
-              name: '@scope/app-foo',
+              name: 'pkg-one',
               owners: [],
-              path: 'apps/app-foo',
+              path: 'packages/pkg-one',
               peerDependencies: [],
               tags: ['tag-one'],
               version: '1.0.0',
             },
             {
-              dependencies: [],
-              devDependencies: [
+              dependencies: [
                 {
-                  name: 'bar',
-                  version: '^1.0.0',
+                  name: 'pkg-three',
+                  version: '*',
                 },
               ],
-              name: '@scope/pkg-foo',
+              devDependencies: [],
+              name: 'pkg-two',
               owners: [],
-              path: 'packages/pkg-foo',
+              path: 'packages/pkg-two',
               peerDependencies: [],
               tags: ['tag-two'],
-              version: '2.0.0',
+              version: '1.0.0',
             },
-          ],
-          projectId: '123',
-          tags: ['tag-one', 'tag-two'],
+            {
+              dependencies: [],
+              devDependencies: [],
+              name: 'pkg-three',
+              owners: [],
+              path: 'packages/pkg-three',
+              peerDependencies: [],
+              tags: ['tag-three'],
+              version: '1.0.0',
+            },
+          ]),
+          projectId: 'no-violations',
+          tags: expect.arrayContaining(['tag-one', 'tag-two', 'tag-three']),
         })
       );
     });

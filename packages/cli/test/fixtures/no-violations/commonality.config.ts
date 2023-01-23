@@ -1,7 +1,7 @@
 import { defineConfig } from 'commonality';
 
 export default defineConfig({
-  project: 'no-violations',
+  projectId: 'no-violations',
   constraints: [
     {
       tags: ['tag-one'],

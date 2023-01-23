@@ -47,28 +47,31 @@ describe('getSnapshot', () => {
   afterEach(mock.restore);
 
   it('returns the correct branch', async () => {
-    const snapshot = await getSnapshot('root', [
-      'apps/app-foo',
-      'packages/pkg-foo',
-    ]);
+    const snapshot = await getSnapshot(
+      'root',
+      ['apps/app-foo', 'packages/pkg-foo'],
+      '123'
+    );
 
     expect(snapshot.branch).toEqual('my-branch');
   });
 
   it('returns the correct projectId', async () => {
-    const snapshot = await getSnapshot('root', [
-      'apps/app-foo',
-      'packages/pkg-foo',
-    ]);
+    const snapshot = await getSnapshot(
+      'root',
+      ['apps/app-foo', 'packages/pkg-foo'],
+      '123'
+    );
 
     expect(snapshot.projectId).toEqual('123');
   });
 
   it('returns the correct packages', async () => {
-    const snapshot = await getSnapshot('root', [
-      'apps/app-foo',
-      'packages/pkg-foo',
-    ]);
+    const snapshot = await getSnapshot(
+      'root',
+      ['apps/app-foo', 'packages/pkg-foo'],
+      '123'
+    );
 
     expect(snapshot.packages).toEqual([
       {

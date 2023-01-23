@@ -35,7 +35,7 @@
     "cosmiconfig-typescript-loader": "^4.3.0",
     "execa": "5.1.1",
     "fast-glob": "^3.2.12",
-    "find-up": "^6.3.0",
+    "find-up": "5.0.0",
     "fs-extra": "^11.1.0",
     "get-port": "^6.1.2",
     "git-last-commit": "^1.0.1",
