@@ -29,9 +29,9 @@ export const getPackages = async ({
     const formattedDependencies = Object.entries(dependencies).map(
       ([name, version]) => ({ name, version })
     );
-    const formattedDevelopmentDependencies = Object.entries(devDependencies).map(
-      ([name, version]) => ({ name, version })
-    );
+    const formattedDevelopmentDependencies = Object.entries(
+      devDependencies
+    ).map(([name, version]) => ({ name, version }));
     const formattedPeerDependencies = Object.entries(peerDependencies).map(
       ([name, version]) => ({ name, version })
     );

@@ -25,7 +25,7 @@ export const getSnapshot = async (
 
   return {
     branch: currentBranch,
-    projectId: configFile.project,
+    projectId: configFile.projectId,
     packages,
     tags,
   };
