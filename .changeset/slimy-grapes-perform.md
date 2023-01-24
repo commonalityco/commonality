@@ -1,7 +1,6 @@
 ---
 '@commonalityco/tsconfig': patch
 '@commonalityco/constraints': patch
-'@commonalityco/codeowners': patch
 '@commonalityco/config-jest': patch
 '@commonalityco/config-tsup': patch
 '@commonalityco/traverse': patch
