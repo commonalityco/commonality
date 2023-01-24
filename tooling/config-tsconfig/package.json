@@ -6,6 +6,9 @@
     "name": "Alec Ortega",
     "email": "alec@commonality.co"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "main": "tsconfig.json",
   "engines": {

@@ -6,6 +6,9 @@
     "name": "Alec Ortega",
     "email": "alec@commonality.co"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
