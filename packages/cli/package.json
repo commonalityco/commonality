@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@commonalityco/constraints": "workspace:*",
+    "@commonalityco/traverse": "workspace:*",
     "chalk": "^5.2.0",
     "codeowners": "^5.1.1",
     "commander": "^9.5.0",

@@ -39,6 +39,7 @@ importers:
       '@commonalityco/config-jest': workspace:*
       '@commonalityco/config-tsup': workspace:*
       '@commonalityco/constraints': workspace:*
+      '@commonalityco/traverse': workspace:*
       '@commonalityco/tsconfig': workspace:*
       '@commonalityco/types': workspace:*
       '@jest/globals': ^29.3.1
@@ -86,6 +87,7 @@ importers:
       yaml: ^2.2.1
     dependencies:
       '@commonalityco/constraints': link:../constraints
+      '@commonalityco/traverse': link:../traverse
       chalk: 5.2.0
       codeowners: 5.1.1
       commander: 9.5.0
