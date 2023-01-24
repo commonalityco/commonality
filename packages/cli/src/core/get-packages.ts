@@ -1,7 +1,16 @@
 import path from 'node:path';
 import fs from 'fs-extra';
 import type { Package, PackageConfig, PackageJson } from '@commonalityco/types';
-import { getOwnersForPath } from '@commonalityco/codeowners';
+import Codeowners from 'codeowners';
+
+const getCodeowners = (rootDirectory: string) => {
+  try {
+    const file = new Codeowners(rootDirectory);
+    return file;
+  } catch {
+    return;
+  }
+};
 
 export const getPackages = async ({
   packageDirectories,
@@ -11,9 +20,11 @@ export const getPackages = async ({
   rootDirectory: string;
 }) => {
   const packagesWithTags: Package[] = [];
+  const codeowners = getCodeowners(rootDirectory);
 
   for (const directory of packageDirectories) {
     const packageJsonPath = path.join(rootDirectory, directory, 'package.json');
+
     const packageConfigPath = path.join(
       rootDirectory,
       directory,
@@ -36,7 +47,7 @@ export const getPackages = async ({
       ([name, version]) => ({ name, version })
     );
 
-    const owners = getOwnersForPath({ path: directory, rootDirectory });
+    const packageOwners = codeowners ? codeowners.getOwner(directory) : [];
 
     if (!fs.pathExistsSync(packageConfigPath)) {
       if (packageJson.name) {
@@ -48,7 +59,7 @@ export const getPackages = async ({
           devDependencies: formattedDevelopmentDependencies,
           dependencies: formattedDependencies,
           peerDependencies: formattedPeerDependencies,
-          owners,
+          owners: packageOwners,
         });
       }
 
@@ -66,7 +77,7 @@ export const getPackages = async ({
         devDependencies: formattedDevelopmentDependencies,
         dependencies: formattedDependencies,
         peerDependencies: formattedPeerDependencies,
-        owners,
+        owners: packageOwners,
       });
     }
   }

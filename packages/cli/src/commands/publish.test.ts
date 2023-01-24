@@ -83,7 +83,7 @@ describe('publish', () => {
 
     await copyFixtureAndInstall({
       destination: temporaryDirectory,
-      name: 'no-violations',
+      name: 'kitchen-sink',
     });
   });
 
@@ -228,7 +228,7 @@ describe('publish', () => {
               ],
               devDependencies: [],
               name: 'pkg-one',
-              owners: [],
+              owners: ['@team-one'],
               path: 'packages/pkg-one',
               peerDependencies: [],
               tags: ['tag-one'],
@@ -243,7 +243,7 @@ describe('publish', () => {
               ],
               devDependencies: [],
               name: 'pkg-two',
-              owners: [],
+              owners: ['@team-one'],
               path: 'packages/pkg-two',
               peerDependencies: [],
               tags: ['tag-two'],
@@ -253,14 +253,14 @@ describe('publish', () => {
               dependencies: [],
               devDependencies: [],
               name: 'pkg-three',
-              owners: [],
+              owners: ['@team-one'],
               path: 'packages/pkg-three',
               peerDependencies: [],
               tags: ['tag-three'],
               version: '1.0.0',
             },
           ]),
-          projectId: 'no-violations',
+          projectId: '123',
           tags: expect.arrayContaining(['tag-one', 'tag-two', 'tag-three']),
         })
       );
