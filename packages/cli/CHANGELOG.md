@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.0.9
+
+### Patch Changes
+
+- 7b374d1: Change to projectId
+- 3849716: Change config file format from json to js
+- ff2adad: Decorate snapshot with CODEOWNERS
+
 ## 0.0.8
 
 ### Patch Changes
