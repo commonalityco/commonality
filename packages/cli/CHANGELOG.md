@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.0.10
+
+### Patch Changes
+
+- 28fc8ec: Move constraints to be a prod dep
+
 ## 0.0.9
 
 ### Patch Changes
