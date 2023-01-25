@@ -1,5 +1,12 @@
 # @commonalityco/types
 
+## 0.0.6
+
+### Patch Changes
+
+- da377ff: Remove explicit undefined
+- 679388a: Add optional property to tags on SnapshotData
+
 ## 0.0.5
 
 ### Patch Changes
