@@ -4,7 +4,7 @@ export type Package = {
   path: string;
   name: string;
   version: string;
-  tags?: string[] | undefined;
+  tags?: string[];
   dependencies: Dependency[];
   devDependencies: Dependency[];
   peerDependencies: Dependency[];
@@ -36,7 +36,7 @@ export type Violation = {
   /** The tags allowed by the constraint */
   allowedTags: string[];
   /** The tags found in the dependency's configuration file. If undefined, the target package has no configuration file. */
-  targetTags?: string[] | undefined;
+  targetTags?: string[];
 };
 
 export type SnapshotResult = {
