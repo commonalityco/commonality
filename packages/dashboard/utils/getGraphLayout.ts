@@ -1,16 +1,6 @@
 import { Dependency, Package } from '@commonalityco/types';
-import ELK from 'elkjs';
-import type { ElkExtendedEdge, ElkNode } from 'elkjs';
-import type { Edge, Node, MarkerType } from 'reactflow';
 import { uniqBy } from 'lodash';
-import cytoscape, {
-  EdgeDefinition,
-  ElementDefinition,
-  NodeDefinition,
-} from 'cytoscape';
-
-const NODE_WIDTH = 300;
-const NODE_HEIGHT = 108;
+import { EdgeDefinition, ElementDefinition, NodeDefinition } from 'cytoscape';
 
 export const getGraphLayout = async (
   packages: Package[]
@@ -21,7 +11,7 @@ export const getGraphLayout = async (
 
   try {
     const nodes: NodeDefinition[] = packages.map((pkg) => ({
-      data: { id: pkg.name, ...pkg },
+      data: { ...pkg, id: pkg.name },
     }));
 
     const nonUniqueEdges: EdgeDefinition[] = packages
@@ -29,10 +19,12 @@ export const getGraphLayout = async (
         const getEdge = (dependency: Dependency) => {
           return {
             data: {
-              id: `${pkg.name}-${dependency.name}`,
+              ...dependency,
+              width: 1,
+              id: `${pkg.name}->${dependency.name}`,
               source: pkg.name,
               target: dependency.name,
-              controlPointDistances: '0 0',
+              controlPointDistances: '0.2 0.8',
             },
           };
         };

@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"name": "Root",
+			"path": "../"
+		},
+		{
+			"name": "🚀 Dashboard",
+			"path": "../packages/dashboard"
+		},
+		{
+			"name": "📦 Design System",
+			"path": "../packages/ui"
+		},
+		{
+			"name": "⚙️ Tooling",
+			"path": "./tooling"
+		},
+		{
+			"path": "../../monorepo"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			".turbo": true
+		},
+		"typescript.tsdk": "🚀 Dashboard/node_modules/typescript/lib"
+	}
+}

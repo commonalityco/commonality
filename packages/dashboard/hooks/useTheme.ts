@@ -1,8 +1,9 @@
 'use client';
 
+import 'client-only';
 import { useMedia } from 'react-use';
 import { useAtom } from 'jotai';
-import { themeAtom } from '@/atoms/theme';
+import { themeAtom } from 'atoms/theme';
 
 const COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)';
 
@@ -26,7 +27,7 @@ export function useTheme(): UseThemeNameOutput {
 
   const getComputedTheme = (): ThemeName.Dark | ThemeName.Light => {
     if (!controlledTheme || controlledTheme === ThemeName.System) {
-      return systemTheme;
+      return window.COMMONALITY_THEME;
     }
 
     return controlledTheme ?? systemTheme;
@@ -63,7 +64,7 @@ export function useTheme(): UseThemeNameOutput {
 
   return {
     computedTheme,
-    theme: controlledTheme ?? ThemeName.System,
+    theme: controlledTheme ?? window.COMMONALITY_THEME,
     setTheme: themeSetter,
   };
 }

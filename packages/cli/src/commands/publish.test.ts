@@ -31,6 +31,7 @@ const defaultArguments = ['--cwd', distributionToTemporary];
 describe('publish', () => {
   const server = new MockServer();
   const authServer = new MockServer();
+  const headerSpy = jest.fn();
   const bodySpy = jest.fn();
 
   let deviceCodeRoute: globalThis.jest.Mock;
@@ -94,6 +95,7 @@ describe('publish', () => {
       server.post('/api/cli/publish').mockImplementation((context) => {
         context.status = 200;
 
+        headerSpy(context.request.headers);
         bodySpy(context.request.body);
 
         context.body = {
@@ -165,6 +167,23 @@ describe('publish', () => {
         expect(deviceCodeRoute).not.toHaveBeenCalled();
         expect(tokenRoute).not.toHaveBeenCalled();
       });
+
+      it('should call the publish URL with the X-API-KEY header', async () => {
+        await execa(
+          binaryPath,
+          ['publish', '--publishKey', '123', ...defaultArguments],
+          {
+            env: {
+              COMMONALITY_API_ORIGIN: server.getURL().origin,
+              COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
+            },
+          }
+        );
+
+        expect(headerSpy).toHaveBeenCalledWith(
+          expect.objectContaining({ 'x-api-key': '123' })
+        );
+      });
     });
 
     describe('when authenticating with a env var publish key', () => {
@@ -180,6 +199,20 @@ describe('publish', () => {
         expect(deviceCodeRoute).not.toHaveBeenCalled();
         expect(tokenRoute).not.toHaveBeenCalled();
       });
+
+      it('should call the publish URL with the X-API-KEY header', async () => {
+        await execa(binaryPath, ['publish', ...defaultArguments], {
+          env: {
+            COMMONALITY_API_ORIGIN: server.getURL().origin,
+            COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
+            COMMONALITY_PUBLISH_KEY: '123',
+          },
+        });
+
+        expect(headerSpy).toHaveBeenCalledWith(
+          expect.objectContaining({ 'x-api-key': '123' })
+        );
+      });
     });
 
     describe('when authenticating with an access token', () => {
@@ -193,6 +226,19 @@ describe('publish', () => {
 
         expect(deviceCodeRoute).toHaveBeenCalled();
         expect(tokenRoute).toHaveBeenCalled();
+      });
+
+      it('should call the publish URL with the authorization header', async () => {
+        await execa(binaryPath, ['publish', ...defaultArguments], {
+          env: {
+            COMMONALITY_API_ORIGIN: server.getURL().origin,
+            COMMONALITY_AUTH_ORIGIN: authServer.getURL().origin,
+          },
+        });
+
+        expect(headerSpy).toHaveBeenCalledWith(
+          expect.objectContaining({ authorization: 'Bearer 123' })
+        );
       });
     });
 

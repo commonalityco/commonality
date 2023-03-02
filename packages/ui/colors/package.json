@@ -1,0 +1,15 @@
+{
+  "name": "@commonality/colors",
+  "version": "1.0.0",
+  "author": "Alec Ortega",
+  "private": true,
+  "dependenciesMeta": {},
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "typescript": "4.8.4"
+  },
+  "license": "MIT",
+  "main": "src/index.ts",
+  "sideEffects": false,
+  "types": "src/index.ts"
+}

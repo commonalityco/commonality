@@ -1,7 +1,7 @@
 import { getIsDarkMode } from './../getIsDarkMode';
 import { NodeSingular, Stylesheet } from 'cytoscape';
 
-const fontSize = 32;
+const fontSize = 24;
 
 export const nodeStyles: Stylesheet[] = [
   {
@@ -15,7 +15,7 @@ export const nodeStyles: Stylesheet[] = [
       color: '#27272a',
       'border-width': 1,
       'border-style': 'solid',
-      'border-color': 'gray',
+      'border-color': '#d4d4d8',
       'text-halign': 'center',
       'text-valign': 'center',
       height: (node: NodeSingular) => {
@@ -40,6 +40,12 @@ export const nodeStyles: Stylesheet[] = [
 
         return Math.floor(metrics.width) + padding;
       },
+    },
+  },
+  {
+    selector: 'node.dim',
+    style: {
+      opacity: 0.3,
     },
   },
   {

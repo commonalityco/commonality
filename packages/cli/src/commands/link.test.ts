@@ -39,7 +39,7 @@ describe('link', () => {
 
       const json = fs.readJsonSync(configPath) as { project: string };
 
-      expect(json).toEqual({ project: '123' });
+      expect(json).toEqual({ projectId: '123' });
     });
   });
 
@@ -61,7 +61,7 @@ describe('link', () => {
 
       const json = fs.readJsonSync(configPath) as { project: string };
 
-      expect(json).toEqual({ project: '123', tags: [] });
+      expect(json).toEqual({ projectId: '123', tags: [] });
     });
   });
 });

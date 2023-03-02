@@ -1,7 +1,6 @@
 import { Section } from '@commonalityco/ui-section';
-import { Logo } from '@/images/logo';
-import ThemeButton from './ThemeButton';
-import { getProject } from '@/data/project';
+import { Logo } from 'images/logo';
+import { getProject } from 'data/project';
 import { Heading } from '@commonalityco/ui-heading';
 
 async function Navigation() {
@@ -13,7 +12,6 @@ async function Navigation() {
         <Logo width={28} height={28} />
         <Heading size="md">{project.name}</Heading>
       </div>
-      <ThemeButton />
     </Section>
   );
 }

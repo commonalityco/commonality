@@ -1,33 +1,33 @@
 'use client';
 import 'client-only';
-import { useEffect, useRef } from 'react';
 import { ElementDefinition } from 'cytoscape';
-import { useTheme } from '@/hooks/useTheme';
-import { createGraphManager } from '@/utils/graph/graphManager';
-import { useAtomValue } from 'jotai';
-import { themeAtom } from '@/atoms/theme';
+import { createGraphManager } from 'utils/graph/graphManager';
+import { useAtom, useSetAtom } from 'jotai';
+import { graphManagerAtom, visibleElementsAtom } from 'atoms/graph';
 
-const graphManager = createGraphManager();
+function Graph({ elements }: { elements: ElementDefinition[] }) {
+  const [graphManager, setGraphManager] = useAtom(graphManagerAtom);
+  const setVisibleElements = useSetAtom(visibleElementsAtom);
 
-export function Graph({ elements }: { elements: ElementDefinition[] }) {
-  const { theme, computedTheme } = useTheme();
-  const ref = useRef<HTMLDivElement>(null);
+  return (
+    <>
+      <div
+        ref={(el) => {
+          if (!el || graphManager) return;
 
-  useEffect(() => {
-    if (!ref.current || !computedTheme) return;
-
-    graphManager.init({
-      elements,
-      container: ref.current,
-      theme: computedTheme,
-    });
-  }, [elements, computedTheme]);
-
-  useEffect(() => {
-    if (!computedTheme) return;
-
-    graphManager.setTheme(computedTheme);
-  }, [computedTheme]);
-
-  return <div className="h-full dark:bg-zinc-800 bg-zinc-50" ref={ref} />;
+          const instance = createGraphManager({ container: el });
+          instance.init({
+            elements,
+            onRender: (elements) => {
+              setVisibleElements(elements);
+            },
+          });
+          setGraphManager(instance);
+        }}
+        className="relative z-10 h-full w-full dark:bg-zinc-800 bg-zinc-50 cursor-grab active:cursor-grabbing"
+      />
+    </>
+  );
 }
+
+export default Graph;

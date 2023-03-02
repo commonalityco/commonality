@@ -1,0 +1,11 @@
+{
+  "extends": "@commonalityco/config-tsconfig/next.json",
+  "include": [
+    ".",
+    "../../../apps/documentation/stories/colors.stories.tsx"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}

@@ -1,21 +1,18 @@
 {
-  "name": "@commonalityco/tsconfig",
-  "description": "The Commonality CLI's TypeScript configuration",
-  "version": "0.0.2",
-  "author": {
-    "name": "Alec Ortega",
-    "email": "alec@commonality.co"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "license": "MIT",
-  "main": "tsconfig.json",
-  "engines": {
-    "node": ">=14.6"
-  },
+  "name": "@commonalityco/config-tsconfig",
+  "version": "1.0.0",
   "devDependencies": {
-    "tsup": "^6.5.0",
-    "typescript": "^4.9.4"
-  }
+    "@tsconfig/create-react-app": "^1.0.3",
+    "@tsconfig/next": "^1.0.4",
+    "@tsconfig/node16": "^1.0.3"
+  },
+  "files": [
+    "base.json",
+    "node16.json",
+    "react-app.json",
+    "react-library.json",
+    "next.json"
+  ],
+  "license": "MIT",
+  "private": true
 }

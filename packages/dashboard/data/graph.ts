@@ -7,7 +7,7 @@ import {
   getRootDirectory,
   getWorkspaces,
 } from '@commonalityco/snapshot';
-import { getGraphLayout } from '@/utils/getGraphLayout';
+import { getGraphLayout } from 'utils/getGraphLayout';
 
 export const preload = () => {
   void getElements();

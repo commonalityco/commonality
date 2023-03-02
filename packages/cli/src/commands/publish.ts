@@ -1,14 +1,17 @@
 import process from 'node:process';
 import { Command } from 'commander';
 import type { SnapshotResult } from '@commonalityco/types';
-import { getPackageManager } from '../core/get-package-manager';
-import { getWorkspaces } from '../core/get-workspaces';
-import { getPackageDirectories } from '../core/get-package-directories';
 import { ensureAuth } from '../core/ensure-auth';
 import { store } from '../core/store';
-import { getSnapshot } from '../core/get-snapshot';
-import { getRootDirectory } from '../core/get-root-directory';
-import { getProjectConfig } from '../core/get-project-config';
+import {
+  getPackageDirectories,
+  getPackageManager,
+  getProjectConfig,
+  getRootDirectory,
+  getSnapshot,
+  getWorkspaces,
+} from '@commonalityco/snapshot';
+import chalk from 'chalk';
 
 const program = new Command();
 
@@ -17,7 +20,6 @@ export const actionHandler = async (
   action: Command
 ) => {
   const { got, HTTPError } = await import('got');
-  const { default: chalk } = await import('chalk');
   const { default: ora } = await import('ora');
 
   if (!options.publishKey) {
@@ -55,15 +57,15 @@ export const actionHandler = async (
 
   const getAuthorizationHeaders = ():
     | {
-        'X-API-KEY': string;
+        'x-api-key': string;
       }
     | { authorization: string }
     | Record<never, never> => {
-    const accessToken = store.get('accessToken') as string;
+    const accessToken = store.get('auth:accessToken') as string;
 
     if (options.publishKey) {
       return {
-        'X-API-KEY': options.publishKey,
+        'x-api-key': options.publishKey,
       };
     }
 

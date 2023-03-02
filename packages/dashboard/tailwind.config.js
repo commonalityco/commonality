@@ -15,7 +15,6 @@ const pkgPaths = transpilePackages.map((pkgName) => {
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -53,24 +52,18 @@ module.exports = {
           '0%': { opacity: 0, transform: 'translateY(-2px)' },
           '100%': { opacity: 1, transform: 'translateY(0)' },
         },
-        slideUpAndFade: {
-          '0%': { opacity: 0, transform: 'translateY(2px)' },
-          '100%': { opacity: 1, transform: 'translateY(0)' },
+        accordionSlideDown: {
+          '0%': { height: 0 },
+          '100%': { height: 'var(--radix-accordion-content-height)' },
         },
-        slideLeftAndFade: {
-          '0%': { opacity: 0, transform: 'translateX(2px)' },
-          '100%': { opacity: 1, transform: 'translateX(0)' },
-        },
-        slideRightAndFade: {
-          '0%': { opacity: 0, transform: 'translateX(-2px)' },
-          '100%': { opacity: 1, transform: 'translateX(0)' },
+        accordionSlideUp: {
+          '0%': { height: 'var(--radix-accordion-content-height)' },
+          '100%': { height: 0 },
         },
       },
       animation: {
-        'slide-up-fade': 'slideUpAndFade 150ms ease-in-out',
-        'slide-down-fade': 'slideDownAndFade 150ms ease-in-out',
-        'slide-left-fade': 'slideLeftAndFade 150ms ease-in-out',
-        'slide-right-fade': 'slideRightAndFade 150ms ease-in-out',
+        'accordion-slide-up': 'accordionSlideUp 300ms ease-out',
+        'accordion-slide-down': 'accordionSlideDown 300ms ease-out',
       },
     },
   },

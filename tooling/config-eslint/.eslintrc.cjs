@@ -13,6 +13,7 @@ module.exports = {
   root: true,
   rules: {
     'unicorn/prefer-module': 'off',
+    'unicorn/no-process-exit': 'off',
   },
   overrides: [
     {

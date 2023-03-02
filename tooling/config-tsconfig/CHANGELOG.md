@@ -1,4 +1,4 @@
-# @commonalityco/tsconfig
+# @commonalityco/config-tsconfig
 
 ## 0.0.2
 

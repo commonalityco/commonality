@@ -3,7 +3,7 @@ import process from 'node:process';
 import { Command } from 'commander';
 import open from 'open';
 import { store } from '../core/store.js';
-
+import chalk from 'chalk';
 type DeviceCodeResponse = {
   device_code: string;
   user_code: string;
@@ -14,31 +14,29 @@ type DeviceCodeResponse = {
 };
 
 const program = new Command();
-const clientId = 'ZftTZnwNfBjnaf1Zj97z7IPmhy0LjuSu';
-const authOrigin = 'https://commonality-production.us.auth0.com';
+const clientId =
+  process.env['COMMONALITY_AUTH_CLIENT_ID'] ??
+  'ZftTZnwNfBjnaf1Zj97z7IPmhy0LjuSu';
+const authOrigin =
+  process.env['COMMONALITY_AUTH_ORIGIN'] ??
+  'https://commonality-production.us.auth0.com';
 
 export const loginAction = async (
   _options: Record<string, unknown>,
   action: Command
 ) => {
   const { got } = await import('got');
-  const { default: chalk } = await import('chalk');
   const { default: ora } = await import('ora');
 
   try {
     const data = await got
-      .post(
-        `${
-          process.env['COMMONALITY_AUTH_ORIGIN'] ?? authOrigin
-        }/oauth/device/code`,
-        {
-          headers: { 'content-type': 'application/x-www-form-urlencoded' },
-          form: {
-            client_id: clientId,
-            scope: 'openid profile email',
-          },
-        }
-      )
+      .post(`${authOrigin}/oauth/device/code`, {
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        form: {
+          client_id: clientId,
+          scope: 'openid profile email',
+        },
+      })
       .json<DeviceCodeResponse>();
 
     await open(data.verification_uri_complete);
