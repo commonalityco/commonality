@@ -21,6 +21,7 @@ import { cva } from 'class-variance-authority';
 import { TargetIcon } from '@radix-ui/react-icons';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { EyeSlashIcon as EyeSlashIconOutline } from '@heroicons/react/24/outline';
+import { graphEvents } from 'utils/graph/graphEvents';
 
 const visibilityButton = cva('shrink-0 opacity-0 hover:opacity-100', {
   variants: {
@@ -121,7 +122,10 @@ function PackagesFilterSection({ packages }: { packages: Package[] }) {
                 size="sm"
                 className="w-full justify-start px-3"
                 onClick={() =>
-                  graphManager?.fit(`node[name="${pkg.name}"]`, 200)
+                  graphEvents.emit('Fit', {
+                    selector: `node[name="${pkg.name}"]`,
+                    padding: 200,
+                  })
                 }
               >
                 {pkg.name}
@@ -129,11 +133,23 @@ function PackagesFilterSection({ packages }: { packages: Package[] }) {
 
               <ShowHideButton
                 visible={isPackageVisible}
-                onHide={() => graphManager?.hide(`node[name="${pkg.name}"]`)}
-                onShow={() => graphManager?.show(`node[name="${pkg.name}"]`)}
+                onHide={() =>
+                  graphEvents.emit('Hide', {
+                    selector: `node[name="${pkg.name}"]`,
+                  })
+                }
+                onShow={() =>
+                  graphEvents.emit('Show', {
+                    selector: `node[name="${pkg.name}"]`,
+                  })
+                }
               />
               <FocusButton
-                onClick={() => graphManager?.focus(`node[name="${pkg.name}"]`)}
+                onClick={() =>
+                  graphEvents.emit('Focus', {
+                    selector: `node[name="${pkg.name}"]`,
+                  })
+                }
               />
             </div>
           );
@@ -176,38 +192,44 @@ function TagsFilterSection({ tags }: { tags: string[] }) {
               <ShowHideButton
                 visible={isTagVisible}
                 onShow={() => {
-                  graphManager?.show((el) => {
-                    const data: Package = el.data();
+                  graphEvents.emit('Show', {
+                    selector: (el) => {
+                      const data: Package = el.data();
 
-                    if (data.tags) {
-                      return data.tags.includes(tag);
-                    }
+                      if (data.tags) {
+                        return data.tags.includes(tag);
+                      }
 
-                    return false;
+                      return false;
+                    },
                   });
                 }}
                 onHide={() => {
-                  graphManager?.hide((el) => {
-                    const data: Package = el.data();
+                  graphEvents.emit('Hide', {
+                    selector: (el) => {
+                      const data: Package = el.data();
 
-                    if (data.tags) {
-                      return data.tags.includes(tag);
-                    }
+                      if (data.tags) {
+                        return data.tags.includes(tag);
+                      }
 
-                    return false;
+                      return false;
+                    },
                   });
                 }}
               />
               <FocusButton
                 onClick={() =>
-                  graphManager?.focus((el) => {
-                    const data = el.data();
+                  graphEvents.emit('Focus', {
+                    selector: (el) => {
+                      const data = el.data();
 
-                    if (data.tags) {
-                      return data.tags.includes(tag);
-                    }
+                      if (data.tags) {
+                        return data.tags.includes(tag);
+                      }
 
-                    return false;
+                      return false;
+                    },
                   })
                 }
               />
@@ -252,38 +274,44 @@ function TeamsFilterSection({ teams }: { teams: string[] }) {
               <ShowHideButton
                 visible={isTeamVisible}
                 onShow={() => {
-                  graphManager?.show((el) => {
-                    const data: Package = el.data();
+                  graphEvents.emit('Show', {
+                    selector: (el) => {
+                      const data: Package = el.data();
 
-                    if (data.owners) {
-                      return data.owners.includes(team);
-                    }
+                      if (data.owners) {
+                        return data.owners.includes(team);
+                      }
 
-                    return false;
+                      return false;
+                    },
                   });
                 }}
                 onHide={() => {
-                  graphManager?.hide((el) => {
-                    const data: Package = el.data();
+                  graphEvents.emit('Hide', {
+                    selector: (el) => {
+                      const data: Package = el.data();
 
-                    if (data.owners) {
-                      return data.owners.includes(team);
-                    }
+                      if (data.owners) {
+                        return data.owners.includes(team);
+                      }
 
-                    return false;
+                      return false;
+                    },
                   });
                 }}
               />
               <FocusButton
                 onClick={() =>
-                  graphManager?.focus((el) => {
-                    const data: Package = el.data();
+                  graphEvents.emit('Focus', {
+                    selector: (el) => {
+                      const data: Package = el.data();
 
-                    if (data.owners) {
-                      return data.owners.includes(team);
-                    }
+                      if (data.owners) {
+                        return data.owners.includes(team);
+                      }
 
-                    return false;
+                      return false;
+                    },
                   })
                 }
               />
@@ -313,7 +341,7 @@ function GraphSidebar({
           use="secondary"
           className="w-full"
           onClick={() => {
-            graphManager?.showAll();
+            graphEvents.emit('ShowAll');
           }}
         >
           <div className="flex gap-2 items-center">
@@ -325,7 +353,7 @@ function GraphSidebar({
           use="secondary"
           className="w-full"
           onClick={() => {
-            graphManager?.hideAll();
+            graphEvents.emit('HideAll');
           }}
         >
           <div className="flex gap-2 items-center">

@@ -6,14 +6,11 @@ import {
   PlusIcon,
 } from '@heroicons/react/24/outline';
 
-import { graphManagerAtom } from 'atoms/graph';
-import { useAtomValue } from 'jotai';
+import { graphEvents } from 'utils/graph/graphEvents';
 
 function GraphNavigationButtons() {
-  const graphManager = useAtomValue(graphManagerAtom);
-
   return (
-    <div className="absolute z-20 top-3 right-3 border border-zinc-300 dark:border-zinc-600 rounded z-100 flex flex-col p-1 gap-1 bg-white dark:bg-zinc-900 shadow">
+    <div className="z-100 absolute top-3 right-3 z-20 flex flex-col gap-1 rounded border border-zinc-300 bg-white p-1 shadow dark:border-zinc-600 dark:bg-zinc-900">
       <IconButton use="ghost">
         <PlusIcon className="h-4 w-4" />
       </IconButton>
@@ -23,7 +20,9 @@ function GraphNavigationButtons() {
       <IconButton use="ghost">
         <ArrowsPointingInIcon
           className="h-4 w-4"
-          onClick={() => graphManager?.fit('nodes', 24)}
+          onClick={() =>
+            graphEvents.emit('Fit', { selector: 'nodes', padding: 24 })
+          }
         />
       </IconButton>
     </div>

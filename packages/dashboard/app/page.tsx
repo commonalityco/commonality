@@ -1,14 +1,10 @@
 import { getElements } from 'data/graph';
 import GraphSidebar from './GraphSidebar';
 import GraphNavigationButtons from './GraphNavigationButtons';
-import dynamic from 'next/dynamic';
 import { getPackagesData } from 'data/packages';
 import { getTagsData } from 'data/tags';
 import { getOwners } from '@commonalityco/codeowners';
-
-const Graph = dynamic(() => import('./Graph'), {
-  ssr: false,
-});
+import Graph from './Graph';
 
 export default async function Home() {
   const graphLayout = await getElements();
@@ -19,7 +15,7 @@ export default async function Home() {
   return (
     <main style={{ height: 'calc(100% - 56px)' }} className="flex flex-nowrap">
       <GraphSidebar packages={packages} tags={tags} teams={teams} />
-      <div className="grow relative dark:bg-zinc-800 bg-zinc-100 shrink-0">
+      <div className="relative shrink-0 grow bg-zinc-100 dark:bg-zinc-800">
         <GraphNavigationButtons />
         <Graph elements={graphLayout} />
       </div>

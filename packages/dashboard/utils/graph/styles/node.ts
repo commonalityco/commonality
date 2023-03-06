@@ -52,6 +52,7 @@ export const nodeStyles: Stylesheet[] = [
     selector: 'node.dark',
     style: {
       'background-color': '#18181b',
+      'border-color': '#52525b',
       color: '#fff',
     },
   },
