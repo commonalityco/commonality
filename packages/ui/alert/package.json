@@ -30,7 +30,6 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "peerDependencies": {
-    "@commonalityco/ui-flex": "1.0.0",
     "@commonalityco/ui-theme": "1.0.0",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",

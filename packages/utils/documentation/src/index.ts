@@ -1,1 +1,1 @@
-export * from './traverse-graph.js';
+export const foo = 1;

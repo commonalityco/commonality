@@ -18,7 +18,7 @@ async function LearnPage() {
     <div className="flex shrink overflow-hidden">
       <Sidebar
         packages={packages}
-        stripScopeFromPackageNames={projectConfig?.constraints}
+        stripScopeFromPackageNames={projectConfig?.stripScopeFromPackageNames}
       />
       <div className="text-white">
         {packageNames.map((pkgName) => {
