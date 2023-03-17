@@ -5,7 +5,6 @@ import {
   Package,
   PackageConfig,
   PackageJson,
-  PackageType,
 } from '@commonalityco/types';
 import { getCodeowners, getOwnersForPath } from '@commonalityco/codeowners';
 import chalk from 'chalk';

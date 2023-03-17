@@ -36,6 +36,7 @@ export type Package = {
 
 export type ProjectConfig = {
   projectId: string;
+  stripScopeFromPackageNames: boolean;
   constraints?: Array<{
     tags: string[];
     allow: string[];

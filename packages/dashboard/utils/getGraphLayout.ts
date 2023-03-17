@@ -48,7 +48,6 @@ export const getGraphLayout = async (
 
     return [...nodes, ...edges];
   } catch (error) {
-    console.log({ error });
     return [];
   }
 };

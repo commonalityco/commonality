@@ -15,6 +15,8 @@ import * as DescriptionList from '@commonalityco/ui-description-list';
 import { Tag } from '@commonalityco/ui-tag';
 import { cva } from 'class-variance-authority';
 import { Text } from '@commonalityco/ui-text';
+import { Heading } from '@commonalityco/ui-heading';
+import { getIconForPackage } from 'utils/get-icon-for-package';
 
 interface PackageContentProps {
   onHide: ComponentProps<typeof Button>['onClick'];
@@ -23,14 +25,20 @@ interface PackageContentProps {
 }
 
 const PackageContent = ({ onHide, onFocus, pkg }: PackageContentProps) => {
+  const IconForPackage = getIconForPackage(pkg);
+
   return (
     <>
-      <div className="mb-2 flex flex-nowrap items-center gap-2">
-        <CubeIcon className="h-4 w-4" />
-        <p className="text-md font-semibold">{pkg.name}</p>
+      <div className="mb-3 flex flex-nowrap items-center gap-2">
+        <div className="flex flex-nowrap gap-2">
+          <IconForPackage className="h-5 w-5" />
+          <Heading size="sm" as="p">
+            {pkg.name}
+          </Heading>
+        </div>
         <span className="font-mono">{pkg.version}</span>
       </div>
-      <DescriptionList.Root className="mb-2">
+      <DescriptionList.Root className="mb-3">
         {pkg.tags?.length ? (
           <>
             <DescriptionList.Term>Tags</DescriptionList.Term>
@@ -87,7 +95,8 @@ const DependencyContent = ({ dependency }: DependencyContentProps) => {
       <DescriptionList.Root>
         <DescriptionList.Term>Source</DescriptionList.Term>
         <DescriptionList.Details>{dependency.source}</DescriptionList.Details>
-        <ArrowDownIcon className="mb-2 h-3 w-3" />
+        <DescriptionList.Term>Target</DescriptionList.Term>
+        <DescriptionList.Details>{dependency.target}</DescriptionList.Details>
         <DescriptionList.Term>Type</DescriptionList.Term>
         <DescriptionList.Details>
           <div className="flex flex-nowrap items-center gap-2">
@@ -99,9 +108,6 @@ const DependencyContent = ({ dependency }: DependencyContentProps) => {
         <DescriptionList.Details className="mb-2 font-mono text-sm">
           {dependency.version}
         </DescriptionList.Details>
-        <ArrowDownIcon className="mb-2 h-3 w-3" />
-        <DescriptionList.Term>Target</DescriptionList.Term>
-        <DescriptionList.Details>{dependency.target}</DescriptionList.Details>
       </DescriptionList.Root>
     </>
   );

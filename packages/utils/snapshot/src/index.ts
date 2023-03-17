@@ -7,3 +7,4 @@ export * from './get-root-directory';
 export * from './get-snapshot';
 export * from './get-tags';
 export * from './get-workspaces';
+export * from './get-documentation';

@@ -1,17 +1,54 @@
-import React from 'react';
-import { StyledDescriptionList } from './description-list.styles';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { twMerge } from 'tailwind-merge';
 
-export interface DescriptionListProps {
-  children?: React.ReactNode;
-  className?: string;
+interface RootProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDListElement>,
+    HTMLDListElement
+  > {}
+
+const rootStyles = cva('m-0');
+
+export function Root({ className, children, ...props }: RootProps) {
+  return (
+    <dl {...props} className={twMerge(rootStyles({ className }))}>
+      {children}
+    </dl>
+  );
 }
 
-export function DescriptionList({ children, className }: DescriptionListProps) {
+interface TermProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLElement>,
+    HTMLElement
+  > {}
+
+const termStyles = cva(
+  'm-0 font-sans text-zinc-600 dark:text-zinc-300 mb-1 text-xs'
+);
+
+export function Term({ children, className, ...props }: TermProps) {
   return (
-    <div data-theme="light">
-      <StyledDescriptionList className={className}>
-        {children}
-      </StyledDescriptionList>
-    </div>
+    <dt {...props} className={twMerge(termStyles({ className }))}>
+      {children}
+    </dt>
+  );
+}
+
+interface DetailsProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLElement>,
+    HTMLElement
+  > {}
+
+const descriptionStyles = cva(
+  'mb-2 last:mb-0 text-zinc-800 dark:text-white text-xs'
+);
+
+export function Details({ children, className, ...props }: DetailsProps) {
+  return (
+    <dd {...props} className={twMerge(descriptionStyles({ className }))}>
+      {children}
+    </dd>
   );
 }

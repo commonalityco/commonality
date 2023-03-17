@@ -12,9 +12,9 @@
     "dev": "tsup-node --watch"
   },
   "devDependencies": {
+    "@commonalityco/codeowners": "workspace:*",
     "@commonalityco/config-eslint": "workspace:*",
     "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/codeowners": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@jest/globals": "^29.4.3",
     "@types/fs-extra": "^11.0.1",
@@ -38,6 +38,7 @@
     "lodash.memoize": "^4.1.2",
     "lodash.uniq": "^4.5.0",
     "treeverse": "^3.0.0",
-    "yaml": "^2.2.1"
+    "yaml": "^2.2.1",
+    "zod": "^3.21.4"
   }
 }

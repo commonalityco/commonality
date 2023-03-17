@@ -21,7 +21,7 @@ function GraphNavigationButtons() {
         <ArrowsPointingInIcon
           className="h-4 w-4"
           onClick={() =>
-            graphEvents.emit('Fit', { selector: 'nodes', padding: 24 })
+            graphEvents.emit('Fit', { selector: 'node, edge', padding: 24 })
           }
         />
       </IconButton>

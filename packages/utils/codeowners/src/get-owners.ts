@@ -7,7 +7,7 @@ export const getOwners = async () => {
   const ownersMap = {};
 
   const codeowners = getCodeowners({ rootDirectory });
-  console.log({ codeowners });
+
   for (const owners of Object.values(codeowners)) {
     for (const owner of owners) {
       ownersMap[owner] = true;

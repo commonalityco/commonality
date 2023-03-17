@@ -1,29 +1,30 @@
 {
 	"folders": [
 		{
-			"name": "Root",
+			"name": "🌳 Root",
 			"path": "../"
 		},
 		{
-			"name": "🚀 Dashboard",
+			"name": "📋 Dashboard",
 			"path": "../packages/dashboard"
 		},
 		{
-			"name": "📦 Design System",
+			"name": "🎨 Design System",
 			"path": "../packages/ui"
 		},
 		{
-			"name": "⚙️ Tooling",
-			"path": "./tooling"
+			"name": "🛠️ Utilities",
+			"path": "../packages/utils"
 		},
 		{
-			"path": "../../monorepo"
+			"name": "⚙️ Tooling",
+			"path": "../tooling"
 		}
 	],
 	"settings": {
 		"files.exclude": {
 			".turbo": true
 		},
-		"typescript.tsdk": "🚀 Dashboard/node_modules/typescript/lib"
+		"typescript.tsdk": "node_modules/.pnpm/typescript@4.9.5/node_modules/typescript/lib",
 	}
 }

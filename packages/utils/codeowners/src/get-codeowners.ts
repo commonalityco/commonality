@@ -22,7 +22,6 @@ export const getCodeowners = ({ rootDirectory }: { rootDirectory: string }) => {
       cwd: rootDirectory,
     }
   );
-  console.log({ filePath });
 
   if (!filePath) {
     return {};

@@ -1,5 +1,5 @@
 import { styled } from '@commonalityco/ui-theme';
-import type {} from '@stitches/react';
+import type { } from '@stitches/react';
 
 export const StyledTextContainer = styled('div', {
   display: 'flex',

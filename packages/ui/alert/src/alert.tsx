@@ -1,14 +1,12 @@
+import { theme } from '@commonalityco/ui-theme';
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import {
-  StyledAlert,
-  StyledTitle,
-  StyledCloseButton,
+  StyledAlert, StyledCloseButton,
   StyledText,
-  StyledTextContainer,
+  StyledTextContainer, StyledTitle
 } from './alert.styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
-import { theme } from '@commonalityco/ui-theme';
 export interface AlertProps {
   children?: React.ReactNode;
   status?: 'info' | 'success' | 'warning' | 'error';
@@ -21,9 +19,8 @@ export interface AlertProps {
 export function Alert({
   className,
   children,
-  status = 'info',
   closeable = false,
-  onClose = () => {},
+  onClose = () => { },
   title,
 }: AlertProps) {
   return (

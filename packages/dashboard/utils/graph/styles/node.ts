@@ -1,7 +1,9 @@
-import { getIsDarkMode } from './../getIsDarkMode';
 import { NodeSingular, Stylesheet } from 'cytoscape';
+import { inter, firaCode } from 'constants/fonts';
 
 const fontSize = 24;
+
+const fontFamily = inter.style.fontFamily.replace(/('|")/g, '');
 
 export const nodeStyles: Stylesheet[] = [
   {
@@ -10,7 +12,7 @@ export const nodeStyles: Stylesheet[] = [
       label: 'data(id)',
       shape: 'roundrectangle',
       'font-size': fontSize,
-      // 'font-family': 'var(--font-inter)',
+      'font-family': fontFamily,
       'background-color': '#fff',
       color: '#27272a',
       'border-width': 1,

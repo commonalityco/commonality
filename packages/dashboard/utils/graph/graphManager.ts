@@ -64,7 +64,14 @@ export const createGraphManager = ({
         const target: NodeSingular = event.target;
         const neighborhood = target.closedNeighborhood();
 
-        _renderGraph?.elements().difference(neighborhood).addClass('dim');
+        _renderGraph
+          ?.elements()
+          .difference(neighborhood)
+          .filter((ele) => {
+            return !ele.selected();
+          })
+          .addClass('dim');
+
         neighborhood.addClass('focus');
       });
 
@@ -78,10 +85,11 @@ export const createGraphManager = ({
         const focusedElements = _renderGraph.collection([neighborhood, target]);
 
         _renderGraph?.elements().difference(focusedElements).removeClass('dim');
-        neighborhood.removeClass('focus');
+
+        neighborhood.filter((el) => !el.selected()).removeClass('focus');
       });
 
-      graph.nodes().on('click', (event) => {
+      graph.nodes().on('select', (event) => {
         if (!_renderGraph) return;
         const target: NodeSingular = event.target;
         const data: Package = target.data();
@@ -115,7 +123,8 @@ export const createGraphManager = ({
         target.removeClass('focus');
       });
 
-      graph.edges().on('click', (event) => {
+      graph.edges().removeListener('select');
+      graph.edges().on('select', (event) => {
         if (!_renderGraph) return;
         const target: NodeSingular = event.target;
         const data: Dependency & { target: string; source: string } =
@@ -283,7 +292,10 @@ export const createGraphManager = ({
   });
 
   const init: GraphManager['init'] = ({ elements, onRender }) => {
-    if (_traversalGraph) return;
+    if (_traversalGraph) {
+      _traversalGraph.destroy();
+      _traversalGraph = undefined;
+    }
 
     _onRender = onRender;
     _traversalGraph = cytoscape({

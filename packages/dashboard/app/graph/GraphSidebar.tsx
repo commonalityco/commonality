@@ -22,6 +22,7 @@ import { TargetIcon } from '@radix-ui/react-icons';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { EyeSlashIcon as EyeSlashIconOutline } from '@heroicons/react/24/outline';
 import { graphEvents } from 'utils/graph/graphEvents';
+import { getIconForPackage } from 'utils/get-icon-for-package';
 
 const visibilityButton = cva('shrink-0 opacity-0 hover:opacity-100', {
   variants: {
@@ -52,8 +53,8 @@ function ShowHideButton({
           >
             {visible ? (
               <>
-                <EyeIconOutline className="h-4 w-4 opacity-100 group-hover:opacity-0 absolute transition" />
-                <EyeSlashIconOutline className="h-4 w-4 opacity-0 group-hover:opacity-100 absolute transition" />
+                <EyeIconOutline className="absolute h-4 w-4 opacity-100 transition group-hover:opacity-0" />
+                <EyeSlashIconOutline className="absolute h-4 w-4 opacity-0 transition group-hover:opacity-100" />
               </>
             ) : (
               <EyeIconOutline className="h-4 w-4" />
@@ -74,7 +75,7 @@ function FocusButton({
   return (
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
-        <IconButton onClick={onClick} use="secondary" size="sm">
+        <IconButton onClick={onClick} use="ghost" size="sm">
           <TargetIcon className="h-4 w-4" />
         </IconButton>
       </Tooltip.Trigger>
@@ -111,16 +112,17 @@ function PackagesFilterSection({ packages }: { packages: Package[] }) {
           const isPackageVisible = Boolean(
             visibleElements?.getElementById(pkg.name).length
           );
+          const IconForPackage = getIconForPackage(pkg);
 
           return (
             <div
               key={pkg.name}
-              className="flex flex-nowrap items-center mb-3 gap-1"
+              className="mb-3 flex flex-nowrap items-center justify-start"
             >
               <Button
                 use="ghost"
                 size="sm"
-                className="w-full justify-start px-3"
+                className="w-full justify-start px-1"
                 onClick={() =>
                   graphEvents.emit('Fit', {
                     selector: `node[name="${pkg.name}"]`,
@@ -128,7 +130,10 @@ function PackagesFilterSection({ packages }: { packages: Package[] }) {
                   })
                 }
               >
-                {pkg.name}
+                <div className="flex w-full items-center justify-start gap-2">
+                  <IconForPackage className="h-5 w-5 shrink-0 grow-0" />
+                  <div className="grow truncate text-left">{pkg.name}</div>
+                </div>
               </Button>
 
               <ShowHideButton
@@ -335,7 +340,7 @@ function GraphSidebar({
   const graphManager = useAtomValue(graphManagerAtom);
 
   return (
-    <div className="h-full basis-72 w-72 shrink-0 grow-0 border-r border-zinc-300 dark:border-zinc-600">
+    <div className="h-full w-72 shrink-0 grow-0 basis-72 border-r border-zinc-300 dark:border-zinc-600">
       <div className="flex flex-nowrap gap-2 px-3 py-2">
         <Button
           use="secondary"
@@ -344,7 +349,7 @@ function GraphSidebar({
             graphEvents.emit('ShowAll');
           }}
         >
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             <EyeIconOutline className="h-4 w-4" />
             Show all
           </div>
@@ -356,7 +361,7 @@ function GraphSidebar({
             graphEvents.emit('HideAll');
           }}
         >
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             <EyeSlashIconOutline className="h-4 w-4" />
             Hide all
           </div>

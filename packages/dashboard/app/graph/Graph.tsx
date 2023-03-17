@@ -24,7 +24,7 @@ function Graph({ elements }: { elements: ElementDefinition[] }) {
       <Tooltip />
       <div
         ref={(el) => {
-          if (!el || graphManager) return;
+          if (!el) return;
 
           const instance = createGraphManager({ container: el });
           instance.init({
@@ -33,8 +33,6 @@ function Graph({ elements }: { elements: ElementDefinition[] }) {
               setVisibleElements(elements);
             },
           });
-
-          setGraphManager(instance);
         }}
         className="h-full w-full cursor-grab active:cursor-grabbing"
       />
