@@ -4,7 +4,6 @@ import fs from 'fs-extra';
 import type { ProjectConfig } from '@commonalityco/types';
 import chalk from 'chalk';
 import { store } from '../core/store';
-import { ensureAuth } from '../core/ensure-auth.js';
 import { getRootDirectory } from '@commonalityco/snapshot';
 
 const program = new Command();
@@ -26,8 +25,6 @@ export const link = program
       const { default: ora } = await import('ora');
 
       try {
-        await ensureAuth(action);
-
         const accessToken = store.get('auth:accessToken') as string;
 
         const rootDirectory = await getRootDirectory(cwd);

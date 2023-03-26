@@ -7,12 +7,12 @@ export const getSelectStyles = (
   placeholder: () => '!text-sm dark:!text-zinc-600 antialiased',
   control: (state) => {
     return clsx(
-      '!cursor-pointer rounded !bg-white dark:!bg-zinc-900 !shadow-none !min-h-0 !h-9 !border-zinc-300 dark:!border-zinc-600 hover:!border-zinc-400 dark:hover:!border-zinc-500',
+      '!cursor-pointer rounded !bg-white dark:!bg-zinc-900 !shadow-none !min-h-0 !h-9 !border-zinc-100 dark:!border-zinc-600 hover:!border-zinc-400 dark:hover:!border-zinc-500',
 
       className,
       {
         '!border-zinc-500 dark:!border-zinc-400': state.isFocused,
-        '!border-zinc-300 dark:!border-zinc-600 hover:border-zinc-400 dark:hover:border-zinc-500':
+        '!border-zinc-100 dark:!border-zinc-600 hover:border-zinc-400 dark:hover:border-zinc-500':
           !state.isFocused,
       }
     );
@@ -29,7 +29,7 @@ export const getSelectStyles = (
     }),
   indicatorSeparator: () => '!display-none',
   menu: () =>
-    '!absolute !bg-white dark:!bg-zinc-900 rounded !border !border-solid !border-zinc-300 dark:!border-zinc-600 !p-2 !shadow-xl !font-sans',
+    '!absolute !bg-white dark:!bg-zinc-900 rounded !border !border-solid !border-zinc-100 dark:!border-zinc-600 !p-2 !shadow-xl !font-sans',
   menuList: () => '!py-0 !flex !flex-col gap-1',
   option: (state) => {
     return clsx(
@@ -53,13 +53,13 @@ export const getSearchableSelectStyles = (
   placeholder: () => '!text-sm !text-zinc-500 dark:!text-zinc-500 antialiased',
   control: (state) => {
     return clsx(
-      'mb-2 h-9 antialiased text-sm appearance-none rounded font-sans cursor-text w-full border border-solid outline-none border-zinc-300 dark:border-zinc-600 hover:border-zinc-400 dark:hover:border-zinc-500 text-ellipsis align-middle text-zinc-800 dark:text-white placeholder:text-zinc-400 !antialiased !bg-zinc-50 dark:!bg-zinc-800',
+      'mb-2 h-9 antialiased text-sm appearance-none rounded font-sans cursor-text w-full border border-solid outline-none border-zinc-100 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-500 text-ellipsis align-middle text-zinc-800 dark:text-white placeholder:text-zinc-400 !antialiased !bg-zinc-50 dark:!bg-zinc-800',
 
       className,
       {
         '!border-sky-600 dark:!border-sky-400 !shadow-[0_0_0_3px_black] !shadow-sky-300/50 dark:!shadow-sky-700/[0.5]':
           state.isFocused,
-        '!border-zinc-300 dark:!border-zinc-600 hover:border-zinc-400 dark:hover:border-zinc-500':
+        '!border-zinc-100 dark:!border-zinc-600 hover:border-zinc-400 dark:hover:border-zinc-500':
           !state.isFocused,
       }
     );

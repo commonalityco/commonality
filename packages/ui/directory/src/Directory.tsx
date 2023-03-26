@@ -43,7 +43,7 @@ function TreeNodeItem<Data>({
 
     for (let i = 1; i < usedDepth; i++) {
       indents.push(
-        <div className="inline-block w-[6px] mr-3 h-9 relative flex-shrink-0 flex-grow-0 border-r border-zinc-300 dark:border-zinc-700" />
+        <div className="inline-block w-[6px] mr-3 h-9 relative flex-shrink-0 flex-grow-0 border-r border-zinc-100 dark:border-zinc-800" />
       );
     }
     return indents;

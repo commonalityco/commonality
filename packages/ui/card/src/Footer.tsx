@@ -11,7 +11,7 @@ export const Footer = ({ className, ...restProps }: FooterProps) => {
     <div
       {...restProps}
       className={clsx(
-        'bg-zinc-50 dark:bg-zinc-800 py-4 px-6 border-solid border-t border-zinc-300 dark:border-zinc-600 rounded-bl-md rounded-br-md',
+        'bg-zinc-50 dark:bg-zinc-800 py-4 px-6 border-solid border-t border-zinc-100 dark:border-zinc-800 rounded-bl-md rounded-br-md',
         className
       )}
     />

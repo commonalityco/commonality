@@ -18,7 +18,7 @@ export function SidePanel({
   return (
     <AnimatePresence>
       {isOpen ? (
-        <motion.div className="absolute right-0 top-0 bottom-0 z-50 border-l border-zinc-300 bg-white py-3 pr-3 pl-5 dark:border-zinc-700 dark:bg-zinc-900">
+        <motion.div className="absolute right-0 top-0 bottom-0 z-50 border-l border-zinc-100 bg-white py-3 pr-3 pl-5 dark:border-zinc-800 dark:bg-zinc-900">
           <div className="flex items-center justify-between gap-4">
             <div>
               {title ? (

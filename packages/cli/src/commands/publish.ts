@@ -1,7 +1,6 @@
 import process from 'node:process';
 import { Command } from 'commander';
 import type { SnapshotResult } from '@commonalityco/types';
-import { ensureAuth } from '../core/ensure-auth';
 import { store } from '../core/store';
 import {
   getPackageDirectories,
@@ -21,10 +20,6 @@ export const actionHandler = async (
 ) => {
   const { got, HTTPError } = await import('got');
   const { default: ora } = await import('ora');
-
-  if (!options.publishKey) {
-    await ensureAuth(action);
-  }
 
   const rootDirectory = await getRootDirectory(options.cwd);
 

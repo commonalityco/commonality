@@ -1,10 +1,10 @@
 import {
-  GRAY_50,
-  GRAY_400,
+  zinc_50,
+  zinc_400,
   WHITE,
-  GRAY_300,
+  zinc_300,
   BLUE_600,
-  GRAY_500,
+  zinc_500,
   RED_600,
 } from '@commonality/colors';
 import {
@@ -16,7 +16,7 @@ import {
 import styled from 'styled-components';
 
 export const HelpText = styled.p`
-  color: ${GRAY_500};
+  color: ${zinc_500};
 `;
 
 export const Wrapper = styled.div<{
@@ -64,14 +64,14 @@ export const TextArea = styled.textarea`
   resize: vertical;
 
   &::placeholder {
-    color: ${GRAY_400};
+    color: ${zinc_400};
   }
 `;
 
 export const PrimaryTextArea = styled(TextArea)<{ ['aria-invalid']?: boolean }>`
-  background-color: ${GRAY_50};
+  background-color: ${zinc_50};
   color: var(--color-secondary);
-  border: solid 1px ${GRAY_300};
+  border: solid 1px ${zinc_300};
   box-shadow: ${BOX_SHADOW_BASE};
   padding: 12px 16px;
 
@@ -96,7 +96,7 @@ export const PrimaryTextArea = styled(TextArea)<{ ['aria-invalid']?: boolean }>`
 export const SecondaryTextArea = styled(TextArea)`
   background-color: ${WHITE};
   color: var(--color-secondary);
-  border: solid 1px ${(props) => (props.hasError ? RED_600 : GRAY_300)};
+  border: solid 1px ${(props) => (props.hasError ? RED_600 : zinc_300)};
   box-shadow: ${BOX_SHADOW_BASE};
   padding: 12px 16px;
 

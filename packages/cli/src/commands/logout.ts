@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { store } from '../core/store.js';
+import { store } from '../core/store';
 import chalk from 'chalk';
 const program = new Command();
 

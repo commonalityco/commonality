@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import { globby } from 'globby';
+import globby from 'globby';
 
 export const getPackageDirectories = async (
   rootDirectory: string,
@@ -14,7 +14,7 @@ export const getPackageDirectories = async (
   });
 
   const packageDirectoryPatterns = await Promise.all(
-    directories.map((directory) => {
+    directories.map((directory: string) => {
       const localPackageJsonPath = path.join(
         rootDirectory,
         directory,

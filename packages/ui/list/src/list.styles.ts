@@ -1,8 +1,8 @@
 import {
-  GRAY_700,
-  GRAY_100,
-  GRAY_200,
-  GRAY_500,
+  zinc_700,
+  zinc_100,
+  zinc_200,
+  zinc_500,
   WHITE,
 } from '@commonality/colors';
 import styled, { CSSProperties } from 'styled-components';
@@ -50,14 +50,14 @@ export const StyledUnorderedList = styled.ul<{
     outline: none;
 
     svg {
-      color: ${GRAY_500} !important;
+      color: ${zinc_500} !important;
     }
 
     &:hover {
-      background-color: ${GRAY_100};
+      background-color: ${zinc_100};
 
       svg {
-        color: ${GRAY_700} !important;
+        color: ${zinc_700} !important;
       }
 
       &:after {
@@ -66,7 +66,7 @@ export const StyledUnorderedList = styled.ul<{
     }
 
     &:active {
-      background-color: ${GRAY_200};
+      background-color: ${zinc_200};
     }
   }
 `;

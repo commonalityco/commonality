@@ -20,7 +20,7 @@ export function Tab({
         'align-center font-regular group relative flex grow-0 cursor-pointer select-none justify-center bg-transparent transition',
         {
           '': use === 'primary',
-          'border-l-0 border-t border-r border-zinc-300 bg-zinc-100 first-of-type:border-l hover:bg-zinc-100 active:bg-zinc-200 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-800 dark:active:bg-zinc-700':
+          'border-l-0 border-t border-r border-zinc-100 bg-zinc-100 first-of-type:border-l hover:bg-zinc-100 active:bg-zinc-200 dark:border-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-800 dark:active:bg-zinc-700':
             use === 'secondary',
         },
         className

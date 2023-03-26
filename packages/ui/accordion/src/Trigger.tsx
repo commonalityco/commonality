@@ -8,7 +8,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { twMerge } from 'tailwind-merge';
 
 const triggerClassName = cva(
-  'font-sans flex flex-nowrap group justify-between pr-3 items-center w-full shrink-0 text-zinc-800 dark:text-white font-medium text-sm'
+  'font-sans flex flex-nowrap group justify-between p-3 items-center w-full shrink-0 text-zinc-800 dark:text-white font-medium text-sm'
 );
 
 interface TriggerProps extends ComponentProps<typeof RadixTrigger> {}
@@ -21,7 +21,7 @@ export const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(
         {...props}
         ref={forwardedRef}
       >
-        <div className="pl-3 py-3">{children}</div>
+        {children}
         <div className="group-hover:bg-zinc-100 dark:group-hover:bg-zinc-800 rounded h-5 w-5 flex items-center justify-center transition">
           <ChevronDownIcon
             className="transition [[data-state=open]_&]:rotate-180"

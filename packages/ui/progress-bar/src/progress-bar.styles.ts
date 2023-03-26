@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import {
   BLUE_500,
-  GRAY_500,
-  GRAY_100,
+  zinc_500,
+  zinc_100,
   EMERALD_500,
   YELLOW_500,
   RED_500,
@@ -13,7 +13,7 @@ export const StyledProgressBar = styled.div<any>`
   width: 100%;
   max-width: 500px;
   height: 6px;
-  background-color: ${GRAY_100};
+  background-color: ${zinc_100};
   border-radius: 6px;
 `;
 
@@ -22,7 +22,7 @@ export const LabelLeft = styled.div`
   font-size: 12px;
   letter-spacing: 0em;
   line-height: 1;
-  color: ${GRAY_500};
+  color: ${zinc_500};
   font-weight: 500;
   flex-grow: 0;
   text-align: left;
@@ -33,7 +33,7 @@ export const LabelRight = styled.div`
   font-size: 12px;
   letter-spacing: 0em;
   line-height: 1;
-  color: ${GRAY_500};
+  color: ${zinc_500};
   font-weight: 500;
   text-align: right;
 `;
@@ -48,7 +48,7 @@ export const LabelWrapper = styled.div`
 
 export const CurrentValueLabel = styled.div<any>`
   font-size: 12px;
-  color: ${GRAY_500};
+  color: ${zinc_500};
   font-weight: 600;
   text-align: center;
   position: absolute;
@@ -78,5 +78,5 @@ export const StyledInfoProgressIndicator = styled(StyledProgressIndicator)`
 `;
 
 export const StyledDefaultProgressIndicator = styled(StyledProgressIndicator)`
-  background-color: ${GRAY_500};
+  background-color: ${zinc_500};
 `;

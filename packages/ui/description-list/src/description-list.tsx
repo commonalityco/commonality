@@ -24,7 +24,7 @@ interface TermProps
   > {}
 
 const termStyles = cva(
-  'm-0 font-sans text-zinc-600 dark:text-zinc-300 mb-1 text-xs'
+  'm-0 font-sans text-zinc-800 dark:text-white mb-2 text-xs font-medium'
 );
 
 export function Term({ children, className, ...props }: TermProps) {
@@ -42,7 +42,7 @@ interface DetailsProps
   > {}
 
 const descriptionStyles = cva(
-  'mb-2 last:mb-0 text-zinc-800 dark:text-white text-xs'
+  'mb-4 last:mb-0 text-zinc-500 dark:text-zinc-400 text-xs'
 );
 
 export function Details({ children, className, ...props }: DetailsProps) {

@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import path from 'node:path';
 import fs from 'fs-extra';
-import type { ProjectConfig } from '@commonalityco/types';
 import { z } from 'zod';
 
 const projectConfigSchema = z.object({
@@ -18,7 +17,7 @@ const projectConfigSchema = z.object({
 
 export const getProjectConfig = async (
   rootDirectory: string
-): Promise<ProjectConfig | undefined> => {
+): Promise<undefined | z.infer<typeof projectConfigSchema>> => {
   const projectConfigPath = path.join(
     rootDirectory,
     '.commonality/config.json'
@@ -29,10 +28,11 @@ export const getProjectConfig = async (
   }
 
   try {
-    const config = fs.readJson(projectConfigPath);
+    const config = await fs.readJson(projectConfigPath);
 
     return projectConfigSchema.parse(config);
-  } catch {
+  } catch (error) {
+    console.log(error);
     return;
   }
 };

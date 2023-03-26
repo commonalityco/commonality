@@ -21,7 +21,7 @@ export function Snippet({
       <div
         {...restProps}
         className={clsx(
-          'flex items-center rounded border border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800',
+          'flex items-center rounded border border-zinc-100 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-800',
           className,
           {
             'h-7 py-0 px-3 text-xs': size === 'sm',

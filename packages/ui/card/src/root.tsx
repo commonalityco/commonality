@@ -16,10 +16,10 @@ export function Root({ children, use, className, ...restProps }: RootProps) {
       className={clsx(
         'relative rounded w-full',
         {
-          'border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900':
+          'border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900':
             use === 'primary',
           'shadow-md': use === 'secondary',
-          'bg-zinc-50 border border-zinc-300': use === 'tertiary',
+          'bg-zinc-50 border border-zinc-100': use === 'tertiary',
         },
         className
       )}

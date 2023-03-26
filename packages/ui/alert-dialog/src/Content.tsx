@@ -19,7 +19,7 @@ export function Content({
       <RadixDialog.Overlay className="fixed inset-0 bg-zinc-400/60 dark:bg-zinc-800/60" />
       <RadixDialog.Content
         {...restProps}
-        className="bg-white dark:bg-zinc-900 rounded shadow-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] p-6 max-w-md max-h-[85vh] border border-zinc-200 dark:border-zinc-700"
+        className="bg-white dark:bg-zinc-900 rounded shadow-md fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] p-6 max-w-md max-h-[85vh] border border-zinc-100 dark:border-zinc-800"
       >
         <RadixDialog.Title className="m-0 font-medium text-lg text-zinc-800 dark:text-white antialiased">
           {title}

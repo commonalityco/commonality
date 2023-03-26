@@ -1,14 +1,5 @@
 import fs from 'fs-extra';
 import findUp from 'find-up';
-import { getIsTeam } from './get-is-team';
-import { getIsEmail } from './get-is-email';
-
-const isValidOwner = (owner: string) => {
-  const isTeamHandle = getIsTeam(owner);
-  const isEmail = getIsEmail(owner);
-
-  return isTeamHandle || isEmail;
-};
 
 export const getCodeowners = ({ rootDirectory }: { rootDirectory: string }) => {
   const filePath = findUp.sync(

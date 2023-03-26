@@ -15,7 +15,7 @@ export const BodyCell = ({
     <td
       {...restProps}
       className={clsx(
-        'text-sm font-medium antialiased p-4 text-left leading-none text-zinc-800 dark:text-white border-b border-zinc-300 dark:border-zinc-700',
+        'text-sm font-medium antialiased p-4 text-left leading-none text-zinc-800 dark:text-white border-b border-zinc-100 dark:border-zinc-800',
         className
       )}
     >

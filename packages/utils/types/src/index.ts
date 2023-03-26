@@ -22,6 +22,16 @@ export type Dependency = {
   type: DependencyType;
 };
 
+/**
+ * @typedef {Object} Document
+ * @property {string} filename - The name of the Markdown file.
+ * @property {string} content - The contents of the Markdown file in utf-8 format.
+ */
+export type Document = {
+  filename: string;
+  content: string;
+};
+
 export type Package = {
   path: string;
   name: string;
@@ -36,7 +46,7 @@ export type Package = {
 
 export type ProjectConfig = {
   projectId: string;
-  stripScopeFromPackageNames: boolean;
+  stripScopeFromPackageNames?: boolean;
   constraints?: Array<{
     tags: string[];
     allow: string[];

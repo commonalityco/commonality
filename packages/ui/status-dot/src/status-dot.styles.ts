@@ -1,6 +1,6 @@
 import {
   EMERALD_500,
-  GRAY_400,
+  zinc_400,
   BLUE_500,
   RED_500,
   YELLOW_500,
@@ -31,5 +31,5 @@ export const InfoStatusDot = styled(StatusDot)`
 `;
 
 export const PendingStatusDot = styled(StatusDot)`
-  background-color: ${GRAY_400};
+  background-color: ${zinc_400};
 `;

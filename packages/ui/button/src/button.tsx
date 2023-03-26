@@ -6,15 +6,15 @@ import useSize from '@react-hook/size';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { twMerge } from 'tailwind-merge';
 
-const buttonVariants = cva(
+export const buttonStyles = cva(
   'align-center rounded cursor-pointer font-sans font-medium p-0 disabled:cursor-not-allowed antialiased min-w-6 flex items-center justify-center truncate transition',
   {
     variants: {
       use: {
         primary:
-          'border border-transparent bg-zinc-800 text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-800 dark:hover:bg-zinc-100 disabled:bg-transparent disabled:dark:bg-transparent disabled:text-zinc-400 disabled:dark:text-zinc-600 disabled:hover:bg-transparent disabled:hover:text-zinc-400 disabled:border disabled:border-zinc-300 disabled:dark:border-zinc-600',
+          'border border-transparent bg-zinc-800 text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-800 dark:hover:bg-zinc-100 disabled:bg-transparent disabled:dark:bg-transparent disabled:text-zinc-400 disabled:dark:text-zinc-600 disabled:hover:bg-transparent disabled:hover:text-zinc-400 disabled:border disabled:border-zinc-100 disabled:dark:border-zinc-800',
         secondary:
-          'bg-white dark:bg-zinc-900 text-zinc-800 dark:text-white border border-zinc-300 dark:border-zinc-600 hover:border-zinc-400 dark:hover:border-zinc-500 active:border-zinc-500 dark:active:border-zinc-400 disabled:text-zinc-400 disabled:dark:text-zinc-500 disabled:!border-zinc-300 disabled:dark:!border-zinc-700',
+          'bg-white dark:bg-zinc-900 text-zinc-800 dark:text-white border border-zinc-100 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-500 active:border-zinc-500 dark:active:border-zinc-400 disabled:text-zinc-400 disabled:dark:text-zinc-500 disabled:!border-zinc-100 disabled:dark:!border-zinc-700',
         tertiary: 'bg-sky-600 text-white hover:bg-sky-700',
         danger: 'bg-red-600 text-white hover:bg-red-700',
         ghost:
@@ -34,7 +34,7 @@ export interface ButtonProps
       React.ButtonHTMLAttributes<HTMLButtonElement>,
       HTMLButtonElement
     >,
-    VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonStyles> {
   loading?: boolean;
 }
 
@@ -68,7 +68,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           disabled={disabled || loading}
           ref={ref}
           style={controlledWidth ? { width: controlledWidth } : undefined}
-          className={twMerge(buttonVariants({ use, size, className }))}
+          className={twMerge(buttonStyles({ use, size, className }))}
         >
           {loading ? (
             <Spinner use={use} disabled={disabled || loading} />

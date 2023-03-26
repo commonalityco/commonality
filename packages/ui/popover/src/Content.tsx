@@ -20,7 +20,7 @@ export function Content({
         {...restProps}
         sideOffset={sideOffset}
         className={clsx(
-          'rounded px-4 pb-4 w-64 bg-white dark:bg-zinc-900 shadow-md border border-zinc-200 dark:border-zinc-700 font-sans',
+          'rounded px-4 pb-4 w-64 bg-white dark:bg-zinc-900 shadow-md border border-zinc-100 dark:border-zinc-800 font-sans',
           className
         )}
       >

@@ -5,7 +5,7 @@ import { cva } from 'class-variance-authority';
 import { twMerge } from 'tailwind-merge';
 
 const triggerClassName = cva([
-  'p-3 overflow-auto',
+  'px-3 pb-3 overflow-auto',
   '[[data-state=closed]_&]:animate-accordion-slide-up',
   '[[data-state=open]_&]:animate-accordion-slide-down',
 ]);
@@ -20,6 +20,7 @@ export const Content = forwardRef<HTMLDivElement, ContentProps>(
         {...props}
         ref={forwardedRef}
       >
+        <div className="sticky z-10 top-0 h-3 bg-gradient-to-b from-white dark:from-zinc-900" />
         {children}
       </RadixContent>
     </div>

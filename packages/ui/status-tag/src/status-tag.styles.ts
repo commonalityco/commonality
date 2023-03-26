@@ -1,5 +1,5 @@
 import {
-  GRAY_100,
+  zinc_100,
   BLUE_100,
   EMERALD_700,
   EMERALD_100,
@@ -9,7 +9,7 @@ import {
   RED_100,
   BLUE_700,
   BLUE_200,
-  GRAY_200,
+  zinc_200,
   EMERALD_200,
   YELLOW_200,
   RED_200,
@@ -42,9 +42,9 @@ export const InfoStatusTag = styled(StatusTagContainer)`
 `;
 
 export const DefaultStatusTag = styled(StatusTagContainer)`
-  background: ${GRAY_100};
+  background: ${zinc_100};
   color: var(--color-secondary);
-  border: solid 1px ${GRAY_200};
+  border: solid 1px ${zinc_200};
 `;
 
 export const SuccessStatusTag = styled(StatusTagContainer)`

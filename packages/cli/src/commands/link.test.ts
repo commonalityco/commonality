@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import fs from 'fs-extra';
 import execa from 'execa';
 
-const binaryPath = path.resolve(__dirname, `../../scripts/start.js`);
+const binaryPath = path.resolve(__dirname, `../../dist/cli.js`);
 const distributionPath = path.resolve(__dirname, '../../dist');
 const temporaryDirectory = path.join(tmpdir(), 'commonality-cli-test-link');
 const distributionToTemporary = path.relative(

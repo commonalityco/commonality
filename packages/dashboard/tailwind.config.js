@@ -20,10 +20,6 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     './src/**/*.{js,ts,jsx,tsx}',
-    // path.join(
-    //   require.resolve('reactflow').replace('/umd/index.js', ''),
-    //   '**/*.{css,js}'
-    // ),
     ...pkgPaths,
   ],
   theme: {
@@ -67,5 +63,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

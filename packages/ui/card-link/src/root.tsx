@@ -9,7 +9,7 @@ export function Root({ children, className, ...restProps }: RootProps) {
     <Link
       {...restProps}
       className={clsx(
-        'transition relative font-sans w-full border border-solid border-zinc-300 dark:border-zinc-600 rounded cursor-pointer no-underline hover:shadow-md hover:border-zinc-400 dark:hover:border-zinc-500 active:border-zinc-500 dark:active:border-zinc-400',
+        'transition relative font-sans w-full border border-solid border-zinc-100 dark:border-zinc-800 rounded cursor-pointer no-underline hover:shadow-md hover:border-zinc-400 dark:hover:border-zinc-500 active:border-zinc-500 dark:active:border-zinc-400',
         className
       )}
     >

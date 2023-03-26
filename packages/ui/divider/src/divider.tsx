@@ -1,12 +1,21 @@
-import clsx from 'clsx';
+import { cva, VariantProps } from 'class-variance-authority';
+import { twMerge } from 'tailwind-merge';
 
 export interface DividerProps
   extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
-  direction?: 'horizontal' | 'vertical';
-}
+      React.HTMLAttributes<HTMLDivElement>,
+      HTMLDivElement
+    >,
+    VariantProps<typeof dividerStyles> {}
+
+const dividerStyles = cva('bg-zinc-200 dark:bg-zinc-800', {
+  variants: {
+    direction: {
+      horizontal: 'w-full h-px',
+      vertical: 'w-px h-[1.5em]',
+    },
+  },
+});
 
 export function Divider({
   className,
@@ -16,14 +25,7 @@ export function Divider({
   return (
     <div
       {...props}
-      className={clsx(
-        'bg-zinc-300 dark:bg-zinc-700',
-        {
-          'w-full h-px': direction === 'horizontal',
-          'w-px h-[1.5em]': direction === 'vertical',
-        },
-        className
-      )}
+      className={twMerge(dividerStyles({ className, direction }))}
       role="separator"
     />
   );

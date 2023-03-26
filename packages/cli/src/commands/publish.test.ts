@@ -8,7 +8,7 @@ import execa from 'execa';
 import { MockServer } from 'jest-mock-server';
 import { afterEach, beforeEach, expect, jest } from '@jest/globals';
 import { store } from '../core/store';
-import { getCurrentBranch } from '../core/get-current-branch';
+import { getCurrentBranch } from '@commonalityco/snapshot';
 
 const oraSucceed = jest.fn();
 const oraFail = jest.fn();

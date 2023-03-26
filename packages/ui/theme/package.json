@@ -8,6 +8,7 @@
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "color": "^4.2.3",
+    "stitches": "^1.2.11",
     "tailwind-merge": "^1.10.0"
   },
   "dependenciesMeta": {},
@@ -19,7 +20,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.2.4",
-    "typescript": "4.8.4"
+    "typescript": "4.9.5"
   },
   "license": "MIT",
   "main": "src/index.ts",
