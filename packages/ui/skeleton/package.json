@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/ui-skeleton",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Alec Ortega",
   "dependenciesMeta": {},
   "devDependencies": {
@@ -16,7 +16,6 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@commonalityco/ui-theme": "1.0.0",
     "framer-motion": "^6.5.0",
     "react": ">=17",
     "react-dom": ">=17",

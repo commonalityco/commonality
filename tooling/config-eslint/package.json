@@ -1,7 +1,7 @@
 {
     "name": "@commonalityco/config-eslint",
     "description": "The Commonality CLI's ESLint configuration",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": {
         "name": "Alec Ortega",
         "email": "alec@commonality.co"
