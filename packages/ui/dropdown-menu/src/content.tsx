@@ -1,7 +1,7 @@
 'use client';
 import { Content as RadixContent, Portal } from '@radix-ui/react-dropdown-menu';
 import { ComponentProps, forwardRef } from 'react';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { contentClassname } from './contentClassname';
 
 export const Content = forwardRef<
@@ -14,7 +14,7 @@ export const Content = forwardRef<
         {...props}
         ref={ref}
         sideOffset={sideOffset}
-        className={clsx(contentClassname, className)}
+        className={twMerge(contentClassname, className)}
       >
         {children}
       </RadixContent>

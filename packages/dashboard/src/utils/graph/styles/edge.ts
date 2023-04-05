@@ -1,6 +1,4 @@
 import { Stylesheet } from 'cytoscape';
-import { DependencyType } from '@commonalityco/types';
-import { memoize } from 'lodash';
 
 const colors = {
   light: {
@@ -21,20 +19,17 @@ export const edgeStyles: Stylesheet[] = [
   {
     selector: 'edge',
     style: {
-      width: 2,
-      'line-color': colors.light.default,
+      width: 3,
       'target-arrow-color': colors.light.default,
       'target-arrow-shape': 'triangle',
       'curve-style': 'unbundled-bezier',
       'source-endpoint': '0% 50%',
       'target-endpoint': '0% -50%',
-      'control-point-weights': '0.2 0.8',
-      'control-point-distances': 'data(controlPointDistances)',
-      'active-bg-color': '#a7f3d0',
       'arrow-scale': 1.5,
       'transition-duration': 0.5,
       'transition-timing-function': 'ease-in-out',
-      'overlay-color': 'red',
+      'overlay-color': 'gray',
+      'line-color': '#d4d4d8',
     },
   },
   {
@@ -55,30 +50,6 @@ export const edgeStyles: Stylesheet[] = [
     selector: 'edge.focus',
     style: {
       'z-index': 100,
-      'line-color': memoize((edge) => {
-        switch (edge.data('type')) {
-          case DependencyType.PEER:
-            return colors.light.default;
-          case DependencyType.DEVELOPMENT:
-            return colors.light.development;
-          case DependencyType.PRODUCTION:
-            return colors.light.production;
-          default:
-            return colors.light.default;
-        }
-      }),
-      'target-arrow-color': memoize((edge) => {
-        switch (edge.data('type')) {
-          case DependencyType.PEER:
-            return colors.light.default;
-          case DependencyType.DEVELOPMENT:
-            return colors.light.development;
-          case DependencyType.PRODUCTION:
-            return colors.light.production;
-          default:
-            return colors.light.default;
-        }
-      }),
     },
   },
 ];

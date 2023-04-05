@@ -1,10 +1,9 @@
-import { NodeSingular, Stylesheet } from 'cytoscape';
-import { inter, firaCode } from 'constants/fonts';
-import { memoize } from 'lodash';
+import { Stylesheet } from 'cytoscape';
+import { firaCode } from 'constants/fonts';
 
 const fontSize = 24;
 
-const fontFamily = inter.style.fontFamily.replace(/('|")/g, '');
+const fontFamily = firaCode.style.fontFamily.replace(/('|")/g, '');
 
 export const nodeStyles: Stylesheet[] = [
   {
@@ -21,28 +20,6 @@ export const nodeStyles: Stylesheet[] = [
       'border-color': '#d4d4d8',
       'text-halign': 'center',
       'text-valign': 'center',
-      height: memoize((node: NodeSingular) => {
-        const padding = 32;
-
-        return fontSize + padding;
-      }),
-      width: memoize((node: NodeSingular) => {
-        const padding = 48;
-        const ctx = document.createElement('canvas').getContext('2d');
-
-        if (!ctx) return 0;
-
-        const fStyle = node.style('font-style');
-        const size = node.style('font-size');
-        const family = node.style('font-family');
-        const weight = node.style('font-weight');
-
-        ctx.font = fStyle + ' ' + weight + ' ' + size + ' ' + family;
-
-        const metrics = ctx.measureText(node.data('name'));
-
-        return Math.floor(metrics.width) + padding;
-      }),
     },
   },
   {

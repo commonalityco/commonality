@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   const data = requestBodySchema.parse(json);
   const rootPath = await getRootDirectory();
   const filepath = path.join(rootPath, data.path, 'package.json');
-  console.log({ filepath });
+
   launch(filepath);
 
   return NextResponse.json({});

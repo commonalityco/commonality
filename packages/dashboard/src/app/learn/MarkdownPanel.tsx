@@ -48,11 +48,11 @@ ExtendedDocumentSection.displayName = 'ExtendedDocumentSection';
 
 function DocumentationSection({ docs }: { docs: Document[] }) {
   return (
-    <div className="flex grow flex-nowrap gap-7 py-3 px-6">
+    <div className="flex grow flex-nowrap gap-7 overflow-hidden py-4 px-6">
       <div className="basis-36">
         <MarkdownTableOfContents docs={docs} />
       </div>
-      <div>
+      <div className="grow overflow-auto">
         {docs.length ? (
           <div className="flex grow flex-col items-center">
             {docs.map((doc, index) => {
@@ -60,7 +60,7 @@ function DocumentationSection({ docs }: { docs: Document[] }) {
             })}
           </div>
         ) : (
-          <div className="flex items-center pl-80">
+          <div className="flex h-full items-center justify-center">
             <Text>No README</Text>
           </div>
         )}
@@ -89,7 +89,7 @@ function PanelContainer({
   return (
     <div
       ref={containerRef}
-      className="flex grow flex-col overflow-auto border-r border-zinc-100 text-white dark:border-zinc-800"
+      className="flex grow flex-col border-r border-zinc-100 text-white dark:border-zinc-800"
     >
       {children}
     </div>

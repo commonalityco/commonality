@@ -3,7 +3,7 @@ import {
   Portal,
 } from '@radix-ui/react-dropdown-menu';
 import { ComponentProps } from 'react';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { contentClassname } from './contentClassname';
 
 export function SubContent({
@@ -14,7 +14,7 @@ export function SubContent({
     <Portal>
       <RadixSubContent
         {...restProps}
-        className={clsx(contentClassname, className)}
+        className={twMerge(contentClassname, className)}
       />
     </Portal>
   );

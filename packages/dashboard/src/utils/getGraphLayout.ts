@@ -11,7 +11,7 @@ export const getGraphLayout = async (
 
   try {
     const nodes: NodeDefinition[] = packages.map((pkg) => ({
-      data: { ...pkg, id: pkg.name },
+      data: { ...pkg, id: pkg.name, width: pkg.name.length * 18, height: 100 },
     }));
 
     const nonUniqueEdges: EdgeDefinition[] = packages

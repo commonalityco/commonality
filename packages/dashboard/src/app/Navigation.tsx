@@ -4,7 +4,6 @@ import { getProject } from 'data/project';
 import { Heading } from '@commonalityco/ui-heading';
 import { NavigationButton } from 'app/NavigationButtons';
 import Link from 'next/link';
-import { BookOpenIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline';
 
 async function Navigation() {
   const project = await getProject();

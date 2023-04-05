@@ -5,7 +5,7 @@ import { cva } from 'class-variance-authority';
 import { usePathname } from 'next/navigation';
 
 const navigationButtonStyles = cva(
-  'cursor-pointer rounded-full py-2 px-4 group transition-all flex flex-nowrap gap-2 items-center text-sm font-medium',
+  'cursor-pointer rounded-full py-2 px-4 group transition-all flex flex-nowrap gap-2 items-center text-sm font-medium dark:active:bg-zinc-700',
   {
     variants: {
       active: {

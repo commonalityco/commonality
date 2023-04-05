@@ -9,6 +9,5 @@ export * from './sub-content';
 export * from './sub-trigger';
 export * from './root';
 export * from './trigger';
-export * from './portal';
 export * from './radio-group';
 export * from './sub';

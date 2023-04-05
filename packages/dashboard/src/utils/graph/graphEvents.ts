@@ -27,8 +27,11 @@ export type GraphEventTypes = {
   Move: [];
   Focus: [options: { selector: Filter }];
   Show: [options: { selector: Filter }];
-  ShowDependents: [];
-  ShowDependencies: [];
+  Isolate: [options: { id: string }];
+  ShowDependents: [options: { id: string }];
+  HideDependents: [options: { id: string }];
+  ShowDependencies: [options: { id: string }];
+  HideDependencies: [options: { id: string }];
   ShowAll: [];
   Hide: [options: { selector: Filter }];
   HideAll: [];

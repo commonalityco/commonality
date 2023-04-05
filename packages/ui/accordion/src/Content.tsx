@@ -14,7 +14,7 @@ interface ContentProps extends ComponentProps<typeof RadixContent> {}
 
 export const Content = forwardRef<HTMLDivElement, ContentProps>(
   ({ children, className, ...props }, forwardedRef) => (
-    <div className="shrink overflow-auto">
+    <div className="shrink overflow-auto scrollbar">
       <RadixContent
         className={twMerge(triggerClassName({ className }))}
         {...props}

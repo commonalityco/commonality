@@ -1,8 +1,9 @@
+import { BaseLayoutOptions } from 'cytoscape';
 import { DagreLayoutOptions } from 'cytoscape-dagre';
 
-export const layoutOptions: DagreLayoutOptions = {
+export const layoutOptions: DagreLayoutOptions & BaseLayoutOptions = {
   name: 'dagre',
   animate: false,
-  rankSep: 360,
-  nodeSep: 24,
+  rankSep: 400,
+  nodeSep: 60,
 };

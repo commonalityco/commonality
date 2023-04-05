@@ -37,7 +37,7 @@ function TitleButton({
 
 function MarkdownTableOfContents({ docs }: { docs: Document[] }) {
   return (
-    <div className="sticky top-20">
+    <div className="sticky top-0">
       {docs.map((doc) => {
         return <TitleButton key={doc.filename} filename={doc.filename} />;
       })}

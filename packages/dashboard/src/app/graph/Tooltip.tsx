@@ -1,28 +1,47 @@
 import { Dependency, Package } from '@commonalityco/types';
 import { Button } from '@commonalityco/ui-button';
 import {
-  ArrowDownIcon,
-  CubeIcon,
+  BookOpenIcon,
   EyeSlashIcon,
+  MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 import { VirtualElement } from '@popperjs/core';
-import { BoxIcon, TargetIcon } from '@radix-ui/react-icons';
 import { ComponentProps, useEffect, useState } from 'react';
 import { usePopper } from 'react-popper';
 import { graphEvents } from 'utils/graph/graphEvents';
 import { useClickAway } from 'react-use';
 import * as DescriptionList from '@commonalityco/ui-description-list';
-import { Tag } from '@commonalityco/ui-tag';
 import { cva } from 'class-variance-authority';
-import { Heading } from '@commonalityco/ui-heading';
 import { getIconForPackage } from 'utils/get-icon-for-package';
 import { formatPackageName } from 'utils/format-package-name';
+import { Divider } from '@commonalityco/ui-divider';
+import Link from 'next/link';
+import { slugifyPackageName } from 'utils/slugify-package-name';
 
 interface PackageContentProps {
   onHide: ComponentProps<typeof Button>['onClick'];
   onFocus: ComponentProps<typeof Button>['onClick'];
   pkg: Package;
   stripScope?: boolean;
+}
+
+function DropdownButtonIcon({ children }: { children: React.ReactNode }) {
+  return <div className="w-6">{children}</div>;
+}
+
+function DropdownButton({
+  children,
+  ...restProps
+}: ComponentProps<typeof Button>) {
+  return (
+    <Button
+      use="ghost"
+      className="mb-2 w-full justify-start px-2 last:mb-0"
+      {...restProps}
+    >
+      {children}
+    </Button>
+  );
 }
 
 const PackageContent = ({
@@ -38,42 +57,69 @@ const PackageContent = ({
 
   return (
     <>
-      <div className="mb-3 flex flex-nowrap items-center gap-2">
-        <div className="flex flex-nowrap gap-2">
-          <IconForPackage className="h-5 w-5" />
-          <Heading size="sm" as="p">
-            {formattedPackageName}
-          </Heading>
-        </div>
-        <span className="font-mono">{pkg.version}</span>
-      </div>
-      <DescriptionList.Root className="mb-3">
-        {pkg.tags?.length ? (
-          <>
-            <DescriptionList.Term>Tags</DescriptionList.Term>
-            <DescriptionList.Details>
-              {pkg.tags.map((tag) => {
-                return <Tag key={tag}>{`#${tag}`}</Tag>;
-              })}
-            </DescriptionList.Details>
-          </>
-        ) : null}
-        {pkg.owners?.length ? (
-          <>
-            <DescriptionList.Term>Owners</DescriptionList.Term>
-            <DescriptionList.Details>{pkg.owners}</DescriptionList.Details>
-          </>
-        ) : null}
-      </DescriptionList.Root>
+      <Link href={`/learn/${slugifyPackageName(pkg.name)}`}>
+        <DropdownButton>
+          <DropdownButtonIcon>
+            <BookOpenIcon className="mr-1 h-4 w-4" />
+          </DropdownButtonIcon>
+          View documentation
+        </DropdownButton>
+      </Link>
 
-      <Button use="secondary" className="mb-2 w-full" onClick={onHide}>
-        <EyeSlashIcon className="mr-1 h-4 w-4" />
-        <span>Hide</span>
-      </Button>
-      <Button use="secondary" className="w-full" onClick={onFocus}>
-        <TargetIcon className="mr-1 h-4 w-4" />
-        <span>Focus</span>
-      </Button>
+      <Divider className="my-2" />
+
+      <DropdownButton onClick={onHide}>
+        <DropdownButtonIcon>
+          <EyeSlashIcon className="mr-1 h-4 w-4" />
+        </DropdownButtonIcon>
+        Hide
+      </DropdownButton>
+      <DropdownButton
+        onClick={() => graphEvents.emit('Isolate', { id: pkg.name })}
+      >
+        <DropdownButtonIcon>
+          <MagnifyingGlassIcon className="mr-1 h-4 w-4" />
+        </DropdownButtonIcon>
+        Isolate
+      </DropdownButton>
+      <DropdownButton onClick={onFocus}>
+        <DropdownButtonIcon>
+          <MagnifyingGlassIcon className="mr-1 h-4 w-4" />
+        </DropdownButtonIcon>
+        Focus
+      </DropdownButton>
+      <DropdownButton
+        onClick={() => graphEvents.emit('ShowDependencies', { id: pkg.name })}
+      >
+        <DropdownButtonIcon>
+          <MagnifyingGlassIcon className="mr-1 h-4 w-4" />
+        </DropdownButtonIcon>
+        Show dependencies
+      </DropdownButton>
+      <DropdownButton
+        onClick={() => graphEvents.emit('HideDependencies', { id: pkg.name })}
+      >
+        <DropdownButtonIcon>
+          <MagnifyingGlassIcon className="mr-1 h-4 w-4" />
+        </DropdownButtonIcon>
+        Hide dependencies
+      </DropdownButton>
+      <DropdownButton
+        onClick={() => graphEvents.emit('ShowDependents', { id: pkg.name })}
+      >
+        <DropdownButtonIcon>
+          <MagnifyingGlassIcon className="mr-1 h-4 w-4" />
+        </DropdownButtonIcon>
+        Show dependents
+      </DropdownButton>
+      <DropdownButton
+        onClick={() => graphEvents.emit('HideDependents', { id: pkg.name })}
+      >
+        <DropdownButtonIcon>
+          <MagnifyingGlassIcon className="mr-1 h-4 w-4" />
+        </DropdownButtonIcon>
+        Hide dependents
+      </DropdownButton>
     </>
   );
 };
@@ -230,16 +276,17 @@ const Tooltip = ({ stripScope }: { stripScope?: boolean }) => {
   return (
     <div
       id="hello"
-      className="z-50 rounded border border-zinc-100 bg-white p-3 text-sm text-zinc-800 shadow dark:border-zinc-800 dark:bg-zinc-900 dark:text-white"
+      className="z-50 rounded-md border border-zinc-100 bg-white p-2 text-sm text-zinc-800 shadow dark:border-zinc-800 dark:bg-zinc-900 dark:text-white"
       ref={setPopperElement}
       style={styles.popper}
       {...attributes.popper}
     >
-      <Component
-        {...(currentTooltipData.props as any)}
-        stripScope={stripScope}
-      />
-
+      <div>
+        <Component
+          {...(currentTooltipData.props as any)}
+          stripScope={stripScope}
+        />
+      </div>
       <div ref={setArrowElement} style={styles.arrow} />
     </div>
   );

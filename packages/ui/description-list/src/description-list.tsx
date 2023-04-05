@@ -42,7 +42,7 @@ interface DetailsProps
   > {}
 
 const descriptionStyles = cva(
-  'mb-4 last:mb-0 text-zinc-500 dark:text-zinc-400 text-xs'
+  'mb-4 last:mb-0 text-zinc-500 dark:text-zinc-400 text-sm'
 );
 
 export function Details({ children, className, ...props }: DetailsProps) {

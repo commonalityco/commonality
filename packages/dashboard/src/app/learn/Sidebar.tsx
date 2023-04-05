@@ -37,7 +37,7 @@ function Sidebar({
   return (
     <div
       className={twMerge(
-        'shrink-0 grow-0 basis-72 rounded-lg bg-white p-3 dark:bg-zinc-900',
+        'shrink-0 grow-0 basis-72 overflow-hidden rounded-lg bg-white p-3 dark:bg-zinc-900',
         className
       )}
     >

@@ -1,17 +1,17 @@
 {
   "name": "@commonalityco/ui-skeleton",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": "Alec Ortega",
   "dependenciesMeta": {},
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/ui-theme": "workspace:1.0.0",
+    "@commonalityco/ui-theme": "workspace:*",
     "@types/react": "^18.0.27",
     "framer-motion": "^6.5.1",
     "postcss": "^8.4.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tailwindcss": "^3.2.4",
+    "tailwindcss": "^3.3.0",
     "typescript": "4.9.5"
   },
   "license": "MIT",
@@ -20,7 +20,7 @@
     "framer-motion": "^6.5.0",
     "react": ">=17",
     "react-dom": ">=17",
-    "tailwindcss": "^3.2.1"
+    "tailwindcss": "^3.3.0"
   },
   "sideEffects": false,
   "main": "src/index.ts",

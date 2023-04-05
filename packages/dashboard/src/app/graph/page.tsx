@@ -22,15 +22,17 @@ async function GraphPage() {
   return (
     <main
       style={{ height: 'calc(100% - 56px)' }}
-      className="relative h-full w-full overflow-hidden"
+      className="relative flex h-full w-full overflow-hidden"
     >
-      <GraphSidebar
-        packages={packages}
-        tags={tags}
-        teams={teams}
-        stripScopeFromPackageNames={stripScopeFromPackageNames}
-      />
-      <div className="relative h-full w-full shrink-0 grow bg-zinc-100 dark:bg-zinc-800">
+      <div className="bg-zinc-100 py-3 pl-3 dark:bg-zinc-900">
+        <GraphSidebar
+          packages={packages}
+          tags={tags}
+          teams={teams}
+          stripScopeFromPackageNames={stripScopeFromPackageNames}
+        />
+      </div>
+      <div className="relative h-full w-full grow bg-zinc-100 dark:bg-zinc-800">
         <GraphNavigationButtons />
         <Graph
           elements={graphLayout}

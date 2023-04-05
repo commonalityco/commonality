@@ -16,7 +16,7 @@ async function LearnPage() {
       <PackageHeader pkg={rootPkg}>
         <PackageToolbar pkg={rootPkg} />
       </PackageHeader>
-      <div className="flex flex-nowrap">
+      <div className="flex flex-nowrap overflow-hidden">
         <MarkdownPanel pkg={rootPkg} docs={rootDocs} />
         <PackageDetailsPanel pkg={rootPkg} />
       </div>
