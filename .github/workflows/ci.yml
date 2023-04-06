@@ -16,17 +16,30 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Setup Node.js 18.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.2
         with:
           version: 8
           run_install: false
 
-      - name: Setup Node.js 18.x
-        uses: actions/setup-node@v2
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
         with:
-          cache: 'pnpm'
-          node-version: 18
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -47,17 +60,30 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Setup Node.js 18.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.2
         with:
           version: 8
           run_install: false
 
-      - name: Setup Node.js 18.x
-        uses: actions/setup-node@v2
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
         with:
-          cache: 'pnpm'
-          node-version: 18
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -79,17 +105,30 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: Setup Node.js 18.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.2
         with:
           version: 8
           run_install: false
 
-      - name: Setup Node.js 18.x
-        uses: actions/setup-node@v2
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
         with:
-          cache: 'pnpm'
-          node-version: 18
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
