@@ -12,14 +12,14 @@ jobs:
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.2
         with:
-          version: 7
+          version: 8
           run_install: false
 
       - name: Setup Node.js 18.x
@@ -43,14 +43,14 @@ jobs:
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.2
         with:
-          version: 7
+          version: 8
           run_install: false
 
       - name: Setup Node.js 18.x
@@ -75,14 +75,14 @@ jobs:
 
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.2
         with:
-          version: 7
+          version: 8
           run_install: false
 
       - name: Setup Node.js 18.x
