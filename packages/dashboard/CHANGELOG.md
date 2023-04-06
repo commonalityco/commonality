@@ -1,5 +1,54 @@
 # @commonalityco/dashboard
 
+## 0.1.2
+
+### Patch Changes
+
+- 76ea8f2: Initial release
+- Updated dependencies [76ea8f2]
+  - @commonalityco/ui-description-list@0.0.3
+  - @commonalityco/ui-step-indicator@0.0.3
+  - @commonalityco/ui-dropdown-menu@0.0.3
+  - @commonalityco/codeowners@0.0.5
+  - @commonalityco/ui-icon-button@0.0.3
+  - @commonalityco/snapshot@0.0.6
+  - @commonalityco/ui-form-error@0.0.3
+  - @commonalityco/ui-side-panel@0.0.3
+  - @commonalityco/ui-text-input@0.0.3
+  - @commonalityco/ui-accordion@0.0.3
+  - @commonalityco/ui-card-link@0.0.3
+  - @commonalityco/ui-container@0.0.3
+  - @commonalityco/ui-directory@0.0.3
+  - @commonalityco/ui-paginator@0.0.3
+  - @commonalityco/ui-checkbox@0.0.3
+  - @commonalityco/ui-nav-link@0.0.3
+  - @commonalityco/ui-skeleton@0.0.3
+  - @commonalityco/types@0.0.7
+  - @commonalityco/ui-divider@0.0.3
+  - @commonalityco/ui-heading@0.0.3
+  - @commonalityco/ui-popover@0.0.3
+  - @commonalityco/ui-section@0.0.3
+  - @commonalityco/ui-snippet@0.0.3
+  - @commonalityco/ui-spinner@0.0.3
+  - @commonalityco/ui-tooltip@0.0.3
+  - @commonalityco/ui-avatar@0.0.3
+  - @commonalityco/ui-button@0.0.3
+  - @commonalityco/ui-center@0.0.3
+  - @commonalityco/ui-dialog@0.0.3
+  - @commonalityco/ui-select@0.0.3
+  - @commonalityco/ui-toggle@0.0.3
+  - @commonalityco/ui-label@0.0.3
+  - @commonalityco/ui-radio@0.0.3
+  - @commonalityco/ui-table@0.0.3
+  - @commonalityco/ui-theme@0.0.3
+  - @commonalityco/ui-toast@0.0.3
+  - @commonalityco/ui-card@0.0.3
+  - @commonalityco/ui-icon@0.0.3
+  - @commonalityco/ui-link@0.0.3
+  - @commonalityco/ui-tabs@0.0.3
+  - @commonalityco/ui-text@0.0.3
+  - @commonalityco/ui-tag@0.0.3
+
 ## 0.1.1
 
 ### Patch Changes

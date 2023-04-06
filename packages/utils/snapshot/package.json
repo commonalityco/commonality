@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/snapshot",
   "description": "Utilities for traversing a monorepo's dependency graph",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "types": "src/index.ts",
   "main": "dist/index.js",

@@ -1,5 +1,11 @@
 # @commonalityco/types
 
+## 0.0.7
+
+### Patch Changes
+
+- 76ea8f2: Initial release
+
 ## 0.0.6
 
 ### Patch Changes

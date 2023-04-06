@@ -1,5 +1,11 @@
 # @commonalityco/constraints
 
+## 0.0.5
+
+### Patch Changes
+
+- 76ea8f2: Initial release
+
 ## 0.0.4
 
 ### Patch Changes

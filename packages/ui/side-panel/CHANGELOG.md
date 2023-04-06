@@ -1,5 +1,13 @@
 # @commonalityco/ui-side-panel
 
+## 0.0.3
+
+### Patch Changes
+
+- 76ea8f2: Initial release
+- Updated dependencies [76ea8f2]
+  - @commonalityco/ui-icon@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
