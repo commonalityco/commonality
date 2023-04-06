@@ -21,7 +21,11 @@ async function main() {
 
   const arguments_ = ['ncc', 'build', 'src/index.ts', ...externalDependencies];
   rimraf(path.join(directoryRoot, 'dist'));
-  await execa('pnpm', arguments_, { stdio: 'inherit', cwd: directoryRoot });
+  await execa('pnpm', arguments_, {
+    stdin: 'inherit',
+    stdout: 'inherit',
+    cwd: directoryRoot,
+  });
 }
 
 process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {

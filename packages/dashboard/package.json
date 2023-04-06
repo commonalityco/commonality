@@ -8,7 +8,8 @@
     "dev": "tsup-node --config scripts/tsup.config.ts --watch & next dev | pino-pretty",
     "build": "tsup-node --config scripts/tsup.config.ts & next build",
     "start": "next start",
-    "test": "jest --watch",
+    "test": "jest --silent=false --passWithNoTests",
+    "test:watch": "jest --watch --silent=false --verbose",
     "lint": "next lint"
   },
   "dependencies": {

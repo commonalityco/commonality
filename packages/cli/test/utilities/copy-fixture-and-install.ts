@@ -16,8 +16,4 @@ export const copyFixtureAndInstall = async ({
   const fixturePath = path.join(path.resolve(__dirname, '../fixtures'), name);
 
   await fs.copy(fixturePath, destination);
-
-  await execa('pnpm', ['link', packageRoot], {
-    cwd: destination,
-  });
 };

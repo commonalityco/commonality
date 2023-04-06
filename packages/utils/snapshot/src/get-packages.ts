@@ -1,13 +1,13 @@
-import path from 'node:path';
-import fs from 'fs-extra';
+import { getCodeowners, getOwnersForPath } from '@commonalityco/codeowners';
 import {
   DependencyType,
   Package,
   PackageConfig,
-  PackageJson,
+  PackageJson
 } from '@commonalityco/types';
-import { getCodeowners, getOwnersForPath } from '@commonalityco/codeowners';
 import chalk from 'chalk';
+import fs from 'fs-extra';
+import path from 'node:path';
 
 const getPackage = ({
   rootDirectory,
@@ -103,7 +103,7 @@ export const getPackages = async ({
   packageDirectories: string[];
   rootDirectory: string;
 }) => {
-  const codeowners = getCodeowners({ rootDirectory });
+  const codeowners = await getCodeowners({ rootDirectory });
   const packages: Package[] = [];
 
   for (const directory of packageDirectories) {

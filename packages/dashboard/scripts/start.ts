@@ -1,18 +1,9 @@
 import execa from 'execa';
-import path, { resolve } from 'path';
-import { createServer } from 'http';
-import { parse } from 'url';
-import next from 'next';
+import path from 'path';
 
-export const start = async ({
-  port,
-  onReady,
-}: {
-  port?: number;
-  onReady: () => void;
-}) => {
-  console.log('preparing');
-
+export const start = async (
+  port: number
+): Promise<void> => {
   const pathToServer = path.resolve(__dirname, '../server.js');
 
   execa('node', [pathToServer], {

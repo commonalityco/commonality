@@ -10,9 +10,9 @@ export const open = program
   .description('Open the Commonality Dashboard')
   .action(async () => {
     const port = await getPort({ port: 8888 });
-    console.log('starting');
+
     start(port);
-    console.log('opening ');
+
 
     await openUrl(`http://localhost:${port}`);
   });

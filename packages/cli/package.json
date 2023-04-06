@@ -21,9 +21,7 @@
   "scripts": {
     "build": "ts-node scripts/build.ts",
     "dev": "ts-node --logError ./src/index.ts",
-    "lint": "eslint ./src --fix",
-    "test:watch": "jest --watch --silent=false --verbose",
-    "test": "jest --silent=false"
+    "lint": "eslint ./src --fix"
   },
   "dependencies": {
     "@commonalityco/codeowners": "workspace:*",
@@ -50,10 +48,10 @@
     "lodash.uniq": "^4.5.0",
     "micromatch": "^4.0.5",
     "open": "^8.4.2",
-    "ora": "^6.2.0",
+    "ora": "^6.3.0",
     "prompts": "^2.4.2",
-    "puppeteer": "^19.7.5",
-    "terminal-link": "^3.0.0",
+    "puppeteer": "^19.8.3",
+    "terminal-link": "2.1.1",
     "ts-node": "^10.9.1",
     "x-default-browser": "^0.5.2",
     "yaml": "^2.2.1"
@@ -65,20 +63,20 @@
     "@commonalityco/config-tsup": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@jest/globals": "^29.5.0",
-    "@swc/core": "^1.3.42",
+    "@swc/core": "^1.3.46",
     "@swc/jest": "^0.2.24",
     "@types/configstore": "^6.0.0",
     "@types/fs-extra": "^11.0.1",
     "@types/jest": "^29.5.0",
-    "@types/koa": "^2.13.5",
+    "@types/koa": "^2.13.6",
     "@types/koa-bodyparser": "^4.3.10",
     "@types/koa-router": "^7.4.4",
     "@types/lodash.groupby": "^4.6.7",
     "@types/lodash.keyby": "^4.6.7",
     "@types/lodash.uniq": "^4.5.7",
     "@types/mock-fs": "^4.13.1",
-    "@types/node": "^18.15.5",
-    "@types/prompts": "^2.4.3",
+    "@types/node": "^18.15.11",
+    "@types/prompts": "^2.4.4",
     "@types/puppeteer": "^7.0.4",
     "@vercel/ncc": "^0.36.1",
     "cross-env": "^7.0.3",
@@ -87,7 +85,7 @@
     "mock-fs": "^5.2.0",
     "ncc": "^0.3.6",
     "rimraf": "^4.4.1",
-    "ts-jest": "^29.0.5",
+    "ts-jest": "^29.1.0",
     "tsup": "^6.7.0",
     "typescript": "^4.9.5"
   }

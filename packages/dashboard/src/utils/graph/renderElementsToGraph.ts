@@ -4,8 +4,6 @@ import { bindRenderGraphEvents } from 'utils/graph/bindRenderGraphEvents';
 import { updateNodeStyles } from 'utils/graph/updateNodeStyles';
 import { withTiming } from 'utils/with-timing';
 
-const worker = new Worker(new URL('./graph.worker.ts', import.meta.url));
-
 export const renderElementsToGraph = withTiming(
   'renderElementsToGraph',
   ({
@@ -19,6 +17,8 @@ export const renderElementsToGraph = withTiming(
     theme: ThemeName;
     elements: ElementDefinition | ElementDefinition[] | ElementsDefinition;
   }) => {
+    const worker = new Worker(new URL('./graph.worker.ts', import.meta.url));
+
     worker.postMessage({
       type: 'runLayout',
       elements,

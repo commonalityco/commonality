@@ -12,7 +12,7 @@ export const getOwnersForPath = ({
   const matchingPatterns = [];
 
   for (const pattern of patterns) {
-    const ig = ignore({ allowRelativePaths: true }).add([pattern as any]);
+    const ig = ignore({ allowRelativePaths: true }).add([pattern]);
     const result = ig.test(path);
 
     if (result.ignored && !result.unignored) {

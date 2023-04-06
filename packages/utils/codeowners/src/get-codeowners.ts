@@ -1,8 +1,12 @@
 import fs from 'fs-extra';
-import findUp from 'find-up';
+import { findFirstExistingFile } from './utils/find-first-existing-file';
 
-export const getCodeowners = ({ rootDirectory }: { rootDirectory: string }) => {
-  const filePath = findUp.sync(
+export const getCodeowners = async ({
+  rootDirectory,
+}: {
+  rootDirectory: string;
+}) => {
+  const filePath = await findFirstExistingFile(
     [
       'CODEOWNERS',
       '.github/CODEOWNERS',

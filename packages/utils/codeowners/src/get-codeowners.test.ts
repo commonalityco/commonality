@@ -5,7 +5,7 @@ import { getCodeowners } from './get-codeowners';
 describe('getCodeOwners', () => {
   describe('when the file is at the root of the repo', () => {
     it('returns an object containing the correct owners for each glob', async () => {
-      const ownership = getCodeowners({
+      const ownership = await getCodeowners({
         rootDirectory: path.resolve(
           __dirname,
           '../test/fixtures/github-example'
@@ -30,8 +30,8 @@ describe('getCodeOwners', () => {
   });
 
   describe('when there is no CODEOWNERS file', () => {
-    it('returns an empty object', () => {
-      const ownership = getCodeowners({
+    it('returns an empty object', async () => {
+      const ownership = await getCodeowners({
         rootDirectory: path.resolve(__dirname, '../test/fixtures/missing-file'),
       });
 
