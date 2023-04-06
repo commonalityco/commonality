@@ -1,6 +1,6 @@
 {
   "name": "commonality",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "bin": {
     "commonality": "./dist/index.js",
     "co": "./dist/index.js"
