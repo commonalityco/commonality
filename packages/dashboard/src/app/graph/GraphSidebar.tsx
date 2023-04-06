@@ -12,19 +12,15 @@ import {
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 import { useAtomValue } from 'jotai';
-import { graphManagerAtom, visibleElementsAtom } from 'atoms/graph';
+import { visibleElementsAtom } from 'atoms/graph';
 import { IconButton } from '@commonalityco/ui-icon-button';
 import { cva } from 'class-variance-authority';
-import { TargetIcon } from '@radix-ui/react-icons';
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { EyeSlashIcon as EyeSlashIconOutline } from '@heroicons/react/24/outline';
 import { graphEvents } from 'utils/graph/graphEvents';
 import { getIconForPackage } from 'utils/get-icon-for-package';
 import { formatPackageName } from 'utils/format-package-name';
 import { Heading } from '@commonalityco/ui-heading';
-import { twMerge } from 'tailwind-merge';
 import { Text } from '@commonalityco/ui-text';
-import { Skeleton } from '@commonalityco/ui-skeleton';
 
 const visibilityButton = cva('shrink-0 opacity-0 hover:opacity-100', {
   variants: {
@@ -360,9 +356,7 @@ function PackageCount({ packages }: { packages: Package[] }) {
     <div className="mb-1 self-center justify-self-end pt-3 text-center">
       {visibleElements ? (
         <Text use="help">{`${shownPackageCount} of ${packages.length} packages`}</Text>
-      ) : (
-        <Skeleton className="mx-auto h-5 w-28" />
-      )}
+      ) : null}
     </div>
   );
 }
