@@ -21,7 +21,6 @@
     "@commonalityco/ui-button": "workspace:*",
     "@commonalityco/ui-card": "workspace:*",
     "@commonalityco/ui-card-link": "workspace:*",
-    "@commonalityco/ui-center": "workspace:*",
     "@commonalityco/ui-checkbox": "workspace:*",
     "@commonalityco/ui-container": "workspace:*",
     "@commonalityco/ui-description-list": "workspace:*",
