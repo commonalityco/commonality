@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/ui-container",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "author": "Alec Ortega",
   "main": "src/index.ts",

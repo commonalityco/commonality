@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/config-jest",
   "description": "The Commonality CLI's Jest configuration",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": {
     "name": "Alec Ortega",
     "email": "alec@commonality.co"

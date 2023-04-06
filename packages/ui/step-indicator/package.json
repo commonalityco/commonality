@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/ui-step-indicator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Alec Ortega",
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
