@@ -1,5 +1,17 @@
 # @commonalityco/cli
 
+## 0.0.12
+
+### Patch Changes
+
+- 66e2af0: Initial publish
+- Updated dependencies [66e2af0]
+  - @commonalityco/constraints@0.0.4
+  - @commonalityco/codeowners@0.0.4
+  - @commonalityco/snapshot@0.0.5
+  - @commonalityco/traverse@0.0.5
+  - @commonalityco/dashboard@0.1.1
+
 ## 0.0.11
 
 ### Patch Changes

@@ -1,9 +1,9 @@
 {
-  "name": "commonalityco",
-  "version": "1.0.0",
+  "name": "@commonalityco/monorepo",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "packageManager": "pnpm@7.25.1",
+  "packageManager": "pnpm@8.1.1",
   "contributors": [
     "Alec Ortega <alec@commonality.co> (https://github.com/alecortega)"
   ],
@@ -14,7 +14,9 @@
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "lint": "turbo run lint",
-    "changeset": "changeset",
+    "link-all": "ts-node scripts/link-all.ts",
+    "unlink-all": "ts-node scripts/unlink-all.ts",
+    "changeset:create": "changeset",
     "changeset:version": "changeset version",
     "changeset:release": "changeset publish",
     "commonality:publish": "commonality publish"
@@ -23,20 +25,26 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@changesets/cli": "^2.26.0",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "@commonalityco/tsconfig": "^0.0.2",
-    "@typescript-eslint/eslint-plugin": "^5.49.0",
-    "@typescript-eslint/parser": "^5.49.0",
-    "commonality": "^0.0.11",
-    "eslint": "^8.32.0",
+    "@changesets/cli": "^2.26.1",
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/snapshot": "workspace:*",
+    "@types/node": "^18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "chalk": "4.1.2",
+    "commonality": "workspace:^",
+    "eslint": "^8.37.0",
     "eslint-plugin-unicorn": "^45.0.2",
-    "jest": "^29.4.0",
-    "prettier": "^2.8.3",
-    "ts-jest": "^29.0.5",
-    "turbo": "^1.7.0",
-    "typescript": "^4.9.4"
+    "execa": "5.1.1",
+    "jest": "^29.5.0",
+    "ora": "5.4.1",
+    "prettier": "^2.8.7",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
+    "turbo": "^1.8.8",
+    "typescript": "^4.9.5"
   }
 }

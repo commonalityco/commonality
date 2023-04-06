@@ -1,9 +1,0 @@
-{
-  "extends": "@commonalityco/tsconfig",
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules"],
-  "compilerOptions": {
-    "outDir": "dist",
-    "typeRoots": ["node_modules/@types"]
-  }
-}

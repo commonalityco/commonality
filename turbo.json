@@ -1,7 +1,7 @@
 {
   "pipeline": {
     "build": {
-      "outputs": ["dist/**"],
+      "outputs": ["dist/**", ".next/**"],
       "dependsOn": ["^build"]
     },
     "test": {
@@ -19,7 +19,8 @@
       "outputs": []
     },
     "dev": {
-      "cache": false
+      "cache": false,
+      "dependsOn": ["^build"]
     }
   }
 }

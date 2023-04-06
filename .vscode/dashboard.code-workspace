@@ -1,0 +1,30 @@
+{
+	"folders": [
+		{
+			"name": "🌳 Root",
+			"path": "../"
+		},
+		{
+			"name": "📋 Dashboard",
+			"path": "../packages/dashboard"
+		},
+		{
+			"name": "🎨 Design System",
+			"path": "../packages/ui"
+		},
+		{
+			"name": "🛠️ Utilities",
+			"path": "../packages/utils"
+		},
+		{
+			"name": "⚙️ Tooling",
+			"path": "../tooling"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			".turbo": true
+		},
+		"typescript.tsdk": "node_modules/.pnpm/typescript@4.9.5/node_modules/typescript/lib",
+	}
+}

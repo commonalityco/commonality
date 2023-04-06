@@ -1,5 +1,4 @@
 {
-  "xo.format.enable": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.maxTokenizationLineLength": 2500,
@@ -17,5 +16,11 @@
       "comments": true,
       "strings": true
     }
-  }
+  },
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "cva\\(([^)]*)\\)",
+      "[\"'`]([^\"'`]*).*?[\"'`]"
+    ]
+  ],
 }

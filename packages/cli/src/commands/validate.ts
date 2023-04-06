@@ -4,18 +4,19 @@ import { Command } from 'commander';
 import groupBy from 'lodash.groupby';
 import fs from 'fs-extra';
 import type { ProjectConfig } from '@commonalityco/types';
-import { getRootDirectory } from '../core/get-root-directory.js';
-import { getWorkspaces } from '../core/get-workspaces.js';
-import { getPackageManager } from '../core/get-package-manager.js';
-import { getPackageDirectories } from '../core/get-package-directories.js';
-import { getPackages } from '../core/get-packages.js';
-import { getProjectConfig } from '../core/get-project-config.js';
+import chalk from 'chalk';
+import {
+  getPackageDirectories,
+  getPackageManager,
+  getPackages,
+  getProjectConfig,
+  getRootDirectory,
+  getWorkspaces,
+} from '@commonalityco/snapshot';
 
 const program = new Command();
 
 const logNoDefinedConstraints = async () => {
-  const { default: chalk } = await import('chalk');
-
   console.log(chalk.yellow('No constraints found'));
 
   console.log(
@@ -27,7 +28,6 @@ const logDependencyConstraintCount = async (
   config: ProjectConfig,
   path: string
 ) => {
-  const { default: chalk } = await import('chalk');
   const { default: terminalLink } = await import('terminal-link');
 
   const constraintTags = config.constraints ?? [];
@@ -43,7 +43,6 @@ const logDependencyConstraintCount = async (
 };
 
 const logDependencyName = async (packageName: string, path: string) => {
-  const { default: chalk } = await import('chalk');
   const { default: terminalLink } = await import('terminal-link');
 
   const link = terminalLink(packageName, path);
@@ -62,7 +61,6 @@ export const validate = program
   )
   .action(
     async ({ cwd }: { project: string; cwd?: string }, action: Command) => {
-      const { default: chalk } = await import('chalk');
       const { default: terminalLink } = await import('terminal-link');
 
       const rootDirectory = await getRootDirectory(cwd);
