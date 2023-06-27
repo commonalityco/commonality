@@ -1,0 +1,27 @@
+{
+  "name": "@commonalityco/config-tsup",
+  "description": "Commonality's tsup configuration",
+  "version": "0.0.5",
+  
+  "author": {
+    "name": "Alec Ortega",
+    "email": "alec@commonality.co"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "files": [
+    "node.json",
+    "ui.json"
+  ],
+  "engines": {
+    "node": ">=14.6"
+  },
+  "devDependencies": {
+    "@commonalityco/config-eslint": "workspace:^",
+    "@commonalityco/config-prettier": "workspace:^",
+    "tsup": "^6.7.0",
+    "typescript": "^4.9.5"
+  }
+}

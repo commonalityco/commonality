@@ -1,0 +1,28 @@
+{
+  "name": "@commonalityco/data-graph",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-prettier": "*p",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/types": "*",
+    "@popperjs/core": "^2.11.8",
+    "@types/cytoscape": "^3.19.10",
+    "@types/lodash.debounce": "^4.0.7",
+    "@types/lodash.sortby": "^4.7.7",
+    "typescript": "4.9.5"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "xstate": "^4.37.2"
+  },
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "@commonalityco/utils-core": "*",
+    "@commonalityco/utils-graph": "*",
+    "cytoscape": "^3.25.0",
+    "lodash.debounce": "^4.0.8"
+  }
+}

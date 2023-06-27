@@ -1,4 +1,26 @@
 {
-    "projectId": "cle5wzskb0002zywbqtu0ns0s",
-    "stripScopeFromPackageNames": true
+  "projectId": "cle5wzskb0002zywbqtu0ns0s",
+  "stripScopeFromPackageNames": true,
+  "constraints": [
+    {
+      "tags": ["feature"],
+      "allow": ["*"]
+    },
+    {
+      "tags": ["ui"],
+      "allow": ["ui", "utility", "config"]
+    },
+    {
+      "tags": ["data"],
+      "allow": ["data", "config", "utility"]
+    },
+    {
+      "tags": ["utility"],
+      "allow": ["utility", "data", "config"]
+    },
+    {
+      "tags": ["config"],
+      "allow": ["config"]
+    }
+  ]
 }

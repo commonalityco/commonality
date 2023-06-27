@@ -1,0 +1,16 @@
+{
+  "name": "@commonalityco/utils-core",
+  "version": "0.0.1",
+  "description": "Contains the common constants used in all Commonality applications and packages",
+  "dependencies": {
+    "events": "^3.3.0"
+  },
+  "devDependencies": {
+    "@commonalityco/config-eslint": "workspace:*",
+    "@commonalityco/config-prettier": "workspace:^",
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "typescript": "4.9.5"
+  },
+  "main": "src/index.ts",
+  "types": "src/index.ts"
+}

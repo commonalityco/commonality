@@ -1,0 +1,22 @@
+{
+  "name": "@commonalityco/config-eslint",
+  "description": "The Commonality CLI's ESLint configuration",
+  "version": "0.0.5",
+  "author": {
+    "name": "Alec Ortega",
+    "email": "alec@commonality.co"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "main": ".eslintrc.cjs",
+  "engines": {
+    "node": ">=14.6"
+  },
+  "devDependencies": {
+    "@commonalityco/config-prettier": "workspace:^",
+    "tsup": "^6.7.0",
+    "typescript": "^4.9.5"
+  }
+}

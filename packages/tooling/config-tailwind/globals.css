@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: 'Inter';
+    --font-mono: 'Fira Code';
+
+    --background: 0 0% 100%;
+    --foreground: 240 4% 16%;
+
+    --muted: 210 2% 98%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 240 6% 90%;
+    --input: 240 5% 84%;
+
+    --primary: 240 4% 16%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 4% 16%;
+    --secondary-background: 240 6% 90%;
+
+    --accent: 240 5% 96%;
+    --accent-foreground: 240 4% 16%;
+    --accent-background: 240 5% 96%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --ring: 	200.4°, 98, 39.4;
+
+    --radius: 0.5rem;
+  }
+
+  .dark,
+  [data-mode='dark'],
+  [data-theme='dark'] {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 100%;
+
+    --muted: 240 5.9% 7.5%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 100%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 222.2 47.4% 1.2%;
+
+    --border: 240 3.7% 15.88%;
+    --input: 240 5.3% 26.1%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 240 5.9% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-background: 240 5% 26%;
+
+    --accent: 240 5.9% 10%;
+    --accent-foreground: 0 0% 100%;
+    --accent-background: 240 5% 26%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 201.3 96.3 32.2;
+
+    --radius: 0.5rem;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
