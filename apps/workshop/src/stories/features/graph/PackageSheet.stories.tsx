@@ -10,7 +10,28 @@ const meta = {
   argTypes: {},
   args: {
     open: true,
-    allTags: ['tag-one', 'tag-two', 'tag-three', 'tag-four', 'tag-five'],
+    tags: [
+      {
+        packageName: 'pkg-one',
+        tags: ['tag-one'],
+      },
+      {
+        packageName: 'pkg-two',
+        tags: ['tag-two'],
+      },
+      {
+        packageName: 'pkg-three',
+        tags: ['tag-three'],
+      },
+      {
+        packageName: 'pkg-four',
+        tags: ['tag-four'],
+      },
+      {
+        packageName: 'pkg-five',
+        tags: ['tag-five'],
+      },
+    ],
   },
   parameters: {
     backgrounds: {
@@ -85,71 +106,3 @@ export const AllEmpty: Story = {
     },
   },
 };
-
-// export const NoAdditionalInfo: Story = {
-//   args: {
-//     node: {
-//       data: {
-//         name: '@scope/test',
-//         version: '1.0.0',
-//         path: './scope/test',
-//         tags: [],
-//         owners: [],
-//         dependencies: [
-//           { name: 'react', version: '18', type: 'PRODUCTION' as any },
-//         ],
-//         devDependencies: [],
-//         peerDependencies: [],
-//       },
-//     },
-//   },
-// };
-
-// export const ExcessiveInfo: Story = {
-//   args: {
-//     node: {
-//       data: {
-//         name: '@scope/looooooooooooooooooooooooooonnnnnnngggggggggggg',
-//         version: '1.0.0',
-//         description:
-//           'The picturesque landscape, adorned with verdant forests, meandering rivers, and towering mountains, captivated the hearts of travelers, who cherished the serenity and beauty of this idyllic haven',
-//         path: './scope/test',
-//         tags: [
-//           'tag-one',
-//           'tag-two',
-//           'tag-three',
-//           'tag-four',
-//           'tag-five',
-//           'tag-six',
-//           'tag-seven',
-//           'tag-eight',
-//           'tag-nine',
-//           'tag-ten',
-//         ],
-//         owners: [
-//           '@scope/owner-one',
-//           '@scope/owner-two',
-//           '@scope/owner-three',
-//           '@scope/owner-four',
-//           '@scope/owner-five',
-//           '@scope/owner-six',
-//           '@scope/owner-seven',
-//           '@scope/owner-eight',
-//           '@scope/owner-nine',
-//           '@scope/owner-ten',
-//         ],
-//         dependencies: [
-//           { name: 'react', version: '18', type: 'PRODUCTION' as any },
-//         ],
-//         devDependencies: [],
-//         peerDependencies: [],
-//       },
-
-//       element: {
-//         id: () => '@scope/test',
-//         incomers: () => ({ nodes: () => [null] }),
-//         outgoers: () => ({ nodes: () => [null, null] }),
-//       },
-//     },
-//   },
-// };

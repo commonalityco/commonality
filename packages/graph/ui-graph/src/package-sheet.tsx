@@ -13,8 +13,6 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  Select,
-  CreatebleSelect,
   Button,
   Popover,
   PopoverTrigger,
@@ -27,17 +25,25 @@ import {
   cn,
 } from '@commonalityco/ui-design-system';
 import { ComponentProps, useMemo, useState } from 'react';
-import type { Package } from '@commonalityco/types';
+import type {
+  CodeownersData,
+  DocumentsData,
+  Package,
+  TagsData,
+} from '@commonalityco/types';
 import type cytoscape from 'cytoscape';
-import { Markdown } from '@commonalityco/ui-documentation';
+import { Markdown } from '@commonalityco/ui-core';
 import { GradientFade } from '@commonalityco/ui-core';
-import { Check, File, Tags, Users, FileText } from 'lucide-react';
+import { Check, File, FileText } from 'lucide-react';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import ReactWrapBalancer from 'react-wrap-balancer';
+import sortBy from 'lodash.sortby';
 
 interface PackageSheetProps extends ComponentProps<typeof Sheet> {
   node?: Partial<cytoscape.NodeSingular> & { data: () => Package };
-  allTags: string[];
+  tagsData: TagsData[];
+  codeownersData: CodeownersData[];
+  documentsData: DocumentsData[];
   onSetTags: (options: { tags: string[]; packageName: string }) => void;
 }
 
@@ -99,7 +105,7 @@ function TagsButton({
                   const newTags = isSelected
                     ? pkgTags.filter((pkgTag) => pkgTag !== tag)
                     : [...pkgTags, tag];
-                  console.log({ newTags });
+
                   return onSetTags({ tags: newTags, packageName });
                 }}
               >
@@ -119,101 +125,153 @@ function TagsButton({
   );
 }
 
-export function PackageSheet(props: PackageSheetProps) {
-  if (!props.node) {
-    return null;
-  }
-
-  const pkg: Package = props.node.data();
+function PackageSheetContent({
+  pkg,
+  tagsData,
+  documentsData,
+  codeownersData,
+  onSetTags,
+}: {
+  pkg: Package;
+  documentsData: PackageSheetProps['documentsData'];
+  tagsData: PackageSheetProps['tagsData'];
+  codeownersData: PackageSheetProps['codeownersData'];
+  onSetTags: PackageSheetProps['onSetTags'];
+}) {
   const Icon = getIconForPackage(pkg);
 
+  const tagDataForPkg = useMemo(() => {
+    return tagsData.find((data) => data.packageName === pkg.name);
+  }, [pkg, tagsData]);
+
+  const ownerDataForPkg = useMemo(() => {
+    return codeownersData.find((data) => data.packageName === pkg.name);
+  }, [pkg, codeownersData]);
+
+  const allTags: string[] = useMemo(() => {
+    if (tagsData.length === 0) {
+      return [];
+    }
+
+    const uniqueTags = [
+      ...new Set(
+        tagsData
+          ?.map((data) => data.tags)
+          .flat()
+          .filter(Boolean)
+      ),
+    ];
+
+    return sortBy(uniqueTags, (item) => item);
+  }, [tagsData]);
+
+  const documentsForPkg = useMemo(() => {
+    return documentsData.find((data) => data.packageName === pkg.name);
+  }, [documentsData]);
+
+  const readmeDocument = documentsForPkg?.documents.find((doc) => doc.isReadme);
+
   return (
-    <Sheet {...props}>
-      <SheetContent className="flex flex-col gap-2 p-0 sm:max-w-[300px] md:max-w-[550px]">
-        <SheetHeader className="px-6 pt-6">
-          <p className="text-xs text-muted-foreground">Package</p>
-          <SheetTitle>
-            <Icon className="mr-2 inline-block h-5 w-5" />
-            <span>{pkg.name}</span>
-            <span className="pl-2 align-baseline font-mono">{pkg.version}</span>
-          </SheetTitle>
-          {pkg.description && (
-            <SheetDescription>{pkg.description}</SheetDescription>
-          )}
-        </SheetHeader>
-        <ScrollArea className="h-full px-6">
-          <GradientFade placement="top" />
-          <div className="grid gap-2">
-            <div>
-              <Label className="flex">
-                <Tags className="inline-block h-5 w-5 pr-1" />
-                Tags
-              </Label>
-              <div className="w-full">
-                {pkg.tags && (
-                  <TagsButton
-                    pkgTags={pkg.tags}
-                    allTags={props.allTags}
-                    packageName={pkg.name}
-                    onSetTags={props.onSetTags}
-                  />
-                )}
-              </div>
+    <>
+      <SheetHeader className="px-6 pt-6">
+        <p className="text-xs text-muted-foreground">Package</p>
+        <SheetTitle>
+          <Icon className="mr-2 inline-block h-5 w-5" />
+          <span>{pkg.name}</span>
+          <span className="pl-2 align-baseline font-mono">{pkg.version}</span>
+        </SheetTitle>
+        {pkg.description && (
+          <SheetDescription>{pkg.description}</SheetDescription>
+        )}
+      </SheetHeader>
+      <ScrollArea className="h-full px-6">
+        <GradientFade placement="top" />
+        <div className="grid gap-2">
+          <div>
+            <Label className="flex">Tags</Label>
+            <div className="w-full">
+              <TagsButton
+                pkgTags={tagDataForPkg?.tags ?? []}
+                allTags={allTags}
+                packageName={pkg.name}
+                onSetTags={onSetTags}
+              />
             </div>
+          </div>
+          <div>
+            <Label>Owners</Label>
             <div>
-              <Label>
-                <Users className="inline-block h-5 w-5 pr-1" />
-                Owners
-              </Label>
-              {pkg.owners && pkg.owners.length ? (
-                pkg.owners.join(', ')
+              {ownerDataForPkg?.codeowners.length ? (
+                ownerDataForPkg.codeowners.join(', ')
               ) : (
                 <p className="pl-1 text-muted-foreground">No owners</p>
               )}
             </div>
           </div>
-          <div className="pt-6">
+        </div>
+        <div className="pt-6">
+          <div>
             <div>
-              <div>
-                {pkg.docs?.readme ? (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>
-                        <File className="inline-block h-5 w-5 pr-1 align-sub" />
-                        {pkg.docs.readme.filename}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <Markdown>{pkg.docs.readme.content}</Markdown>
-                    </CardContent>
-                  </Card>
-                ) : (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>
-                        <File className="inline-block h-5 w-5 pr-1 align-sub" />
-                        README
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="flex flex-col justify-center gap-3 text-center">
-                      <FileText className="mx-auto h-6 w-6" />
-                      <p className="text-xs text-muted-foreground">
-                        <ReactWrapBalancer>
-                          Create a README.md to help your team understand what
-                          this package does
-                        </ReactWrapBalancer>
-                      </p>
-                      <Button variant="secondary" size="sm" className="w-full">
-                        Create README
-                      </Button>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
+              {readmeDocument ? (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>
+                      <File className="inline-block h-5 w-5 pr-1 align-sub" />
+                      <span className="font-mono">
+                        {readmeDocument.filename}
+                      </span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Markdown>{readmeDocument.content}</Markdown>
+                  </CardContent>
+                </Card>
+              ) : (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>
+                      <File className="inline-block h-5 w-5 pr-1 align-sub" />
+                      README
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex flex-col justify-center gap-3 text-center">
+                    <FileText className="mx-auto h-6 w-6" />
+                    <p className="text-xs text-muted-foreground">
+                      <ReactWrapBalancer>
+                        Create a README.md to help your team understand what
+                        this package does
+                      </ReactWrapBalancer>
+                    </p>
+                    <Button variant="secondary" size="sm" className="w-full">
+                      Create README
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </div>
-          <GradientFade placement="bottom" />
-        </ScrollArea>
+        </div>
+        <GradientFade placement="bottom" />
+      </ScrollArea>
+    </>
+  );
+}
+
+export function PackageSheet(props: PackageSheetProps) {
+  const pkg: Package | undefined = props.node?.data();
+
+  return (
+    <Sheet {...props}>
+      <SheetContent className="flex flex-col gap-2 p-0 sm:max-w-[300px] md:max-w-[550px]">
+        {pkg && (
+          <PackageSheetContent
+            pkg={pkg}
+            tagsData={props.tagsData}
+            documentsData={props.documentsData}
+            codeownersData={props.codeownersData}
+            onSetTags={props.onSetTags}
+          />
+        )}
       </SheetContent>
     </Sheet>
   );

@@ -1,13 +1,18 @@
 import 'server-only';
 import { cache } from 'react';
-import { getRootDirectory, getProjectConfig } from '@commonalityco/snapshot';
+import {
+  getProjectConfig,
+  getRootDirectory,
+} from '@commonalityco/data-project';
 
 export const getRootDirectoryData = cache(async () => {
   return getRootDirectory();
 });
 
-export const getProjectConfigData = cache(async () => {
+export const getProjectConfigData = async () => {
   const rootDirectory = await getRootDirectoryData();
 
-  return getProjectConfig(rootDirectory);
-});
+  const foo = await getProjectConfig({ rootDirectory });
+
+  return foo;
+};

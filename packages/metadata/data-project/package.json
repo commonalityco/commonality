@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "types": "src/index.ts",
-  "main": "dist/index.js",
+  "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./src --fix",
@@ -12,11 +12,11 @@
     "dev": "tsup-node --watch"
   },
   "devDependencies": {
-    "@commonalityco/codeowners": "workspace:*",
-    "@commonalityco/config-eslint": "workspace:*",
-    "@commonalityco/config-prettier": "workspace:^",
-    "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/types": "workspace:*",
+    "@commonalityco/data-codeowners": "*",
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-prettier": "*",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/types": "*",
     "@jest/globals": "^29.5.0",
     "@types/fs-extra": "^11.0.1",
     "@types/graphlib": "^2.1.8",
@@ -41,6 +41,6 @@
     "treeverse": "^3.0.0",
     "yaml": "^2.3.1",
     "zod": "^3.21.4",
-    "@commonalityco/utils-core": "workspace:*"
+    "@commonalityco/utils-core": "*"
   }
 }

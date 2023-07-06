@@ -2,9 +2,10 @@ import {
   getProjectConfig,
   getRootDirectory,
 } from '@commonalityco/data-project';
-import { getPackages } from '@commonalityco/snapshot';
+import { getPackages } from '@commonalityco/data-packages';
+import { getTagsData } from '@commonalityco/data-tags';
 import { Command } from 'commander';
-import { getViolations } from '@commonalityco/data-violations';
+import { getViolationsData } from '@commonalityco/data-violations';
 import chalk from 'chalk';
 import { Violation } from '@commonalityco/types';
 import terminalLink from 'terminal-link';
@@ -18,18 +19,24 @@ export const validate = program
   .action(async () => {
     const rootDirectory = await getRootDirectory();
     const packages = await getPackages({ rootDirectory });
+    const tagData = await getTagsData({ rootDirectory, packages });
     const projectConfig = await getProjectConfig({ rootDirectory });
 
     const violationsByPackageName: Record<string, Violation[]> = {};
 
-    const violations = getViolations({ packages, projectConfig });
+    const violations = await getViolationsData({
+      packages,
+      projectConfig,
+      tagData,
+    });
 
     for (let i = 0; i < violations.length; i++) {
       const violation = violations[i];
 
-      const currentViolations = violationsByPackageName[violation.sourceName];
+      const currentViolations =
+        violationsByPackageName[violation.sourcePackageName];
 
-      violationsByPackageName[violation.sourceName] = currentViolations
+      violationsByPackageName[violation.sourcePackageName] = currentViolations
         ? [...currentViolations, violation]
         : [violation];
     }
@@ -56,11 +63,11 @@ export const validate = program
 
       violations.forEach((violation) => {
         console.log(
-          chalk.bold(`${violation.sourceName} -> ${violation.targetName}`)
+          chalk.bold(
+            `${violation.sourcePackageName} -> ${violation.targetPackageName}`
+          )
         );
-        console.log(
-          `Constraint matching: ${JSON.stringify(violation.matchTags) ?? []}`
-        );
+        console.log(`Constraint matching: ${violation.constraintTag}`);
 
         console.log(
           `${chalk.green('Allowed:')} ${

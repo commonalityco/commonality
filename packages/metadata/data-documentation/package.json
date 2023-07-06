@@ -1,0 +1,46 @@
+{
+  "name": "@commonalityco/data-documentation",
+  "description": "Utilities getting and setting metadata for a Commonality project",
+  "version": "0.0.1",
+  "private": false,
+  "types": "src/index.ts",
+  "main": "dist/index.js",
+  "scripts": {
+    "lint": "eslint ./src --fix",
+    "build": "tsup-node",
+    "dev": "tsup-node --watch"
+  },
+  "devDependencies": {
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-prettier": "*",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/types": "*",
+    "@commonalityco/utils-core": "*",
+    "@jest/globals": "^29.5.0",
+    "@types/fs-extra": "^11.0.1",
+    "@types/graphlib": "^2.1.8",
+    "@types/lodash.memoize": "^4.1.7",
+    "@types/lodash.uniq": "^4.5.7",
+    "@types/mock-fs": "^4.13.1",
+    "@types/node": "^18.16.18",
+    "jest": "^29.5.0",
+    "mock-fs": "^5.2.0",
+    "tsup": "^6.7.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@commonalityco/data-project": "*",
+    "@commonalityco/data-packages": "*",
+    "chalk": "4.1.2",
+    "execa": "5.1.1",
+    "find-up": "5.0.0",
+    "fs-extra": "^11.1.1",
+    "globby": "11.0.4",
+    "graphlib": "^2.1.8",
+    "lodash.memoize": "^4.1.2",
+    "lodash.uniq": "^4.5.0",
+    "treeverse": "^3.0.0",
+    "yaml": "^2.3.1",
+    "zod": "^3.21.4"
+  }
+}

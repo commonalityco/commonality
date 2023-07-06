@@ -1,0 +1,10 @@
+{
+  "extends": "@commonalityco/config-tsconfig/node16.json",
+  "include": ["./types", "src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "lib": ["DOM", "ES2020"],
+    "typeRoots": ["./types", "node_modules/@types"]
+  }
+}

@@ -9,9 +9,49 @@ import {
 import { bindRenderGraphEvents } from './bind-render-graph-events';
 import { withTiming } from './utils/with-timing';
 import { OffloadRenderFn, getUpdatedGraphJson } from './get-updated-graph-json';
+import { DependencyType } from '@commonalityco/utils-core';
+import { Dependency, Package, Violation } from '@commonalityco/types';
 
-const updateNodeStyles = ({ graph, theme }: { graph: Core; theme: string }) => {
+const updateStyles = ({
+  graph,
+  theme,
+  forceEdgeColor,
+  violations = [],
+}: {
+  graph: Core;
+  theme: string;
+  forceEdgeColor: boolean;
+  violations: Violation[];
+}) => {
   graph.elements().removeClass(['dark', 'light']).addClass(theme);
+
+  graph.edges().forEach((edge) => {
+    const edgeData = edge.data() as Dependency;
+
+    const violationForEdge = edgeData
+      ? violations.find((violation) => {
+          const source: Package = edge.source().data();
+          const target: Package = edge.source().data();
+
+          return (
+            violation.sourcePackageName === source.name &&
+            violation.targetPackageName === target.name
+          );
+        })
+      : null;
+
+    if (violationForEdge) {
+      edge.addClass('violation');
+    }
+
+    if (forceEdgeColor) {
+      edge.addClass(edgeData.type);
+      edge.addClass('focus');
+    } else {
+      edge.removeClass(['DEVELOPMENT', 'PEER', 'PRODUCTION']);
+      edge.removeClass('focus');
+    }
+  });
 };
 
 const renderElementsToGraph = withTiming(
@@ -24,6 +64,8 @@ const renderElementsToGraph = withTiming(
     theme,
     elements,
     getUpdatedGraphJson,
+    forceEdgeColor,
+    violations,
   }: {
     onLoad: () => void;
     onRender: (graph: Core) => void;
@@ -32,6 +74,8 @@ const renderElementsToGraph = withTiming(
     theme: string;
     elements: ElementDefinition[];
     getUpdatedGraphJson: OffloadRenderFn;
+    forceEdgeColor: boolean;
+    violations: Violation[];
   }) => {
     onLoad?.();
 
@@ -42,7 +86,7 @@ const renderElementsToGraph = withTiming(
     // Re-add all new elements to graph
     renderGraph.add(elements);
 
-    updateNodeStyles({ graph: renderGraph, theme });
+    updateStyles({ graph: renderGraph, theme, forceEdgeColor, violations });
 
     // Apply layout to graph
     const graphJson = await getUpdatedGraphJson({
@@ -50,7 +94,6 @@ const renderElementsToGraph = withTiming(
     });
 
     renderGraph.ready(() => {
-      console.log('RENDERING');
       renderGraph.json(graphJson);
 
       renderGraph.fit(undefined, 24);
@@ -74,6 +117,8 @@ const updateGraphElements = withTiming(
     traversalGraph,
     elements,
     theme,
+    forceEdgeColor,
+    violations,
   }: {
     renderGraph: Core;
     traversalGraph: Core;
@@ -84,6 +129,8 @@ const updateGraphElements = withTiming(
       | CollectionArgument;
     theme: string;
     getUpdatedGraphJson: OffloadRenderFn;
+    forceEdgeColor: boolean;
+    violations: Violation[];
   }) => {
     // Clear the graph
     renderGraph.elements().remove();
@@ -92,7 +139,7 @@ const updateGraphElements = withTiming(
     // Re-add all new elements to graph
     renderGraph.add(elements);
 
-    updateNodeStyles({ graph: renderGraph, theme });
+    updateStyles({ graph: renderGraph, theme, forceEdgeColor, violations });
 
     const graphJson = await getUpdatedGraphJson({
       graphJson: renderGraph.json(),

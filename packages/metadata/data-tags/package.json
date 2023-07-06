@@ -11,11 +11,11 @@
     "dev": "tsup-node --watch"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "workspace:*",
-    "@commonalityco/config-prettier": "workspace:^",
-    "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/types": "workspace:*",
-    "@commonalityco/utils-core": "workspace:*",
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-prettier": "*",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/types": "*",
+    "@commonalityco/utils-core": "*",
     "@jest/globals": "^29.5.0",
     "@types/fs-extra": "^11.0.1",
     "@types/graphlib": "^2.1.8",
@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@commonalityco/data-project": "*",
+    "@commonalityco/data-packages": "*",
     "chalk": "4.1.2",
     "execa": "5.1.1",
     "find-up": "5.0.0",

@@ -1,20 +1,22 @@
+'use server';
 import { cache } from 'react';
 import 'server-only';
 import {
-  getPackageManager,
   getProjectConfig,
   getRootDirectory,
 } from '@commonalityco/data-project';
 
-import { getViolations } from '@commonalityco/data-violations';
+import { getViolationsData as getViolationDatas } from '@commonalityco/data-violations';
 import { getPackagesData } from './packages';
+import { getTagsData } from '@commonalityco/data-tags';
 
 export const getViolationsData = cache(async () => {
   const rootDirectory = await getRootDirectory();
   const packages = await getPackagesData();
   const projectConfig = await getProjectConfig({ rootDirectory });
-  console.log({packages})
-  const violations = getViolations({ packages, projectConfig });
+  const tagData = await getTagsData({ rootDirectory, packages });
 
-  return violations
+  const violations = getViolationDatas({ packages, projectConfig, tagData });
+
+  return violations;
 });

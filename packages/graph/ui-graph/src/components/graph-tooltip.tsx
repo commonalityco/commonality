@@ -18,7 +18,7 @@ export const GraphTooltip = ({
   const referenceRef = useMemo(() => element.popperRef(), [element]);
 
   const boundaryElement = document.querySelector('#graph-layout-root');
-  debugger;
+
   const { styles, attributes } = usePopper(referenceRef, tooltipRef, {
     modifiers: [
       {

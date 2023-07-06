@@ -1,12 +1,13 @@
 {
   "name": "@commonalityco/data-graph",
+  "description": "State management utilities for the Commonality Dashboard graph",
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
-    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-eslint": "^0.0.5",
     "@commonalityco/config-prettier": "*p",
-    "@commonalityco/config-tsconfig": "*",
-    "@commonalityco/types": "*",
+    "@commonalityco/config-tsconfig": "^0.0.4",
+    "@commonalityco/types": "^0.0.8",
     "@popperjs/core": "^2.11.8",
     "@types/cytoscape": "^3.19.10",
     "@types/lodash.debounce": "^4.0.7",
@@ -20,8 +21,8 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "dependencies": {
-    "@commonalityco/utils-core": "*",
-    "@commonalityco/utils-graph": "*",
+    "@commonalityco/utils-core": "^0.0.1",
+    "@commonalityco/utils-graph": "^0.0.1",
     "cytoscape": "^3.25.0",
     "lodash.debounce": "^4.0.8"
   }

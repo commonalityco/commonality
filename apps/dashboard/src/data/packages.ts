@@ -1,13 +1,13 @@
+'use server';
 import { cache } from 'react';
 import 'server-only';
 import {
   getPackageDirectories,
   getPackageManager,
-  getPackages,
   getRootDirectory,
-  getRootPackage,
-  getWorkspaces,
-} from '@commonalityco/snapshot';
+  getWorkspaceGlobs,
+} from '@commonalityco/data-project';
+import { getPackages } from '@commonalityco/data-packages';
 
 export const getRootDirectoryData = cache(async () => {
   return getRootDirectory();
@@ -15,23 +15,19 @@ export const getRootDirectoryData = cache(async () => {
 
 export const getPackageDirectoriesData = cache(async () => {
   const rootDirectory = await getRootDirectoryData();
-  const packageManager = await getPackageManager(rootDirectory);
-  const workspaceGlobs = await getWorkspaces(rootDirectory, packageManager);
+  const packageManager = await getPackageManager({ rootDirectory });
+  const workspaceGlobs = await getWorkspaceGlobs({
+    rootDirectory,
+    packageManager,
+  });
 
-  return getPackageDirectories(rootDirectory, workspaceGlobs);
+  return getPackageDirectories({ rootDirectory, workspaceGlobs });
 });
 
 export const getPackagesData = async () => {
   const rootDirectory = await getRootDirectoryData();
-  const packageDirectories = await getPackageDirectoriesData();
 
   const packagesData = await getPackages({ rootDirectory });
 
   return packagesData;
 };
-
-export const getRootPackageData = cache(async () => {
-  const rootDirectory = await getRootDirectoryData();
-
-  return getRootPackage({ rootDirectory });
-});

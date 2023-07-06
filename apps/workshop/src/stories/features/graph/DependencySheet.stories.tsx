@@ -21,19 +21,49 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const dependencyData: Dependency & { target: string; source: string } = {
+const dependencyData: Dependency = {
   name: '@scope/test',
   version: '1.0.0',
   type: DependencyType.PRODUCTION,
-  source: '@scope/one',
-  target: '@scope/two',
 };
 
 export const KitchenSink: Story = {
   args: {
-    edge: {
-      data: () => dependencyData,
-    },
+    dependency: dependencyData,
+    source: '@scope/one',
+    target: '@scope/two',
+    constraints: [
+      {
+        tag: 'tag-one',
+        allow: ['*'],
+      },
+      {
+        tag: 'tag-two',
+        allow: ['tag-three'],
+      },
+      {
+        tag: 'tag-two',
+        disallow: ['tag-four'],
+      },
+      {
+        tag: 'tag-one',
+        disallow: ['*'],
+      },
+      {
+        tag: 'tag-one',
+        allow: ['tag-six'],
+        disallow: ['tag-five'],
+      },
+    ],
+    violations: [
+      {
+        sourcePackageName: '@scope/one',
+        targetPackageName: '@scope/two',
+        constraintTag: 'tag-one',
+        allowedTags: ['*'],
+        disallowedTags: [],
+      },
+    ],
   },
 };
 

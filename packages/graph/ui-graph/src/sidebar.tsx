@@ -1,7 +1,6 @@
 'use client';
-import { ComponentProps, useState } from 'react';
-import { Package } from '@commonalityco/types';
-
+import { ComponentProps, useMemo, useState } from 'react';
+import { CodeownersData, Package, TagsData } from '@commonalityco/types';
 import {
   Button,
   Input,
@@ -22,6 +21,7 @@ import {
 import { Eye, EyeOff, Focus } from 'lucide-react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { GradientFade } from '@commonalityco/ui-core';
+import sortBy from 'lodash.sortby';
 
 const visibilityButton = cva(
   'shrink-0 opacity-0 hover:opacity-100 flex items-center',
@@ -176,20 +176,37 @@ function PackagesFilterSection({
 }
 
 function TagsFilterSection({
-  tags,
+  tagData,
   className,
   visiblePackages,
   onHide,
   onFocus,
   onShow,
 }: {
-  tags: string[];
   visiblePackages?: Package[];
   className?: string;
   onHide: (tag: string) => void;
   onShow: (tag: string) => void;
   onFocus: (tag: string) => void;
+  tagData: TagsData[];
 }) {
+  const allTags: string[] = useMemo(() => {
+    if (tagData.length === 0) {
+      return [];
+    }
+
+    const uniqueTags = [
+      ...new Set(
+        tagData
+          ?.map((data) => data.tags)
+          .flat()
+          .filter(Boolean)
+      ),
+    ];
+
+    return sortBy(uniqueTags, (item) => item);
+  }, [tagData]);
+
   return (
     <>
       <Heading as="p" size="sm">
@@ -197,12 +214,16 @@ function TagsFilterSection({
       </Heading>
       <ScrollArea className="@sm:display-none h-full">
         <GradientFade className="h-3" placement="top" />
-        {tags.length > 0 ? (
-          tags.map((tag) => {
+        {allTags.length > 0 ? (
+          allTags.map((tag) => {
             const isTagVisible = Boolean(
               visiblePackages?.some((package_) => {
-                if (package_.tags) {
-                  return package_.tags.includes(tag);
+                const tagsForPkg = tagData.find(
+                  (data) => data.packageName === package_.name
+                );
+
+                if (tagsForPkg) {
+                  return tagsForPkg.tags.includes(tag);
                 }
 
                 return false;
@@ -236,20 +257,37 @@ function TagsFilterSection({
 }
 
 function TeamsFilterSection({
-  teams,
+  ownerData,
   className,
   visiblePackages,
   onHide,
   onShow,
   onFocus,
 }: {
-  teams: string[];
+  ownerData: CodeownersData[];
   className?: string;
   visiblePackages?: Package[];
   onHide: (team: string) => void;
   onShow: (team: string) => void;
   onFocus: (team: string) => void;
 }) {
+  const allOwners: string[] = useMemo(() => {
+    if (ownerData.length === 0) {
+      return [];
+    }
+
+    const uniqueOwners = [
+      ...new Set(
+        ownerData
+          ?.map((data) => data.codeowners)
+          .flat()
+          .filter(Boolean)
+      ),
+    ];
+
+    return sortBy(uniqueOwners, (item) => item);
+  }, [ownerData]);
+
   return (
     <>
       <Heading as="p" size="sm">
@@ -257,12 +295,16 @@ function TeamsFilterSection({
       </Heading>
       <ScrollArea className="@sm:display-none h-full">
         <GradientFade className="h-3" placement="top" />
-        {teams.length > 0 ? (
-          teams.map((team) => {
+        {allOwners.length > 0 ? (
+          allOwners.map((owner) => {
             const isTeamVisible = Boolean(
               visiblePackages?.some((package_) => {
-                if (package_.owners) {
-                  return package_.owners.includes(team);
+                const ownersForPkg = ownerData.find(
+                  (data) => data.packageName === package_.name
+                );
+
+                if (ownersForPkg) {
+                  return ownersForPkg.codeowners.includes(owner);
                 }
 
                 return false;
@@ -270,24 +312,24 @@ function TeamsFilterSection({
             );
 
             return (
-              <div className="flex flex-nowrap items-center gap-1" key={team}>
+              <div className="flex flex-nowrap items-center gap-1" key={owner}>
                 <div className="w-full max-w-[184px]">
                   <Button
                     variant="ghost"
                     className="block w-full justify-start truncate px-3 text-left"
                   >
-                    {team}
+                    {owner}
                   </Button>
                 </div>
                 <div className="shrink-0">
                   <ShowHideButton
                     visible={isTeamVisible}
-                    onShow={() => onShow(team)}
-                    onHide={() => onHide(team)}
+                    onShow={() => onShow(owner)}
+                    onHide={() => onHide(owner)}
                   />
                 </div>
                 <div className="shrink-0">
-                  <FocusButton onClick={() => onFocus(team)} />
+                  <FocusButton onClick={() => onFocus(owner)} />
                 </div>
               </div>
             );
@@ -312,8 +354,8 @@ function ResizeBar() {
 export function Sidebar({
   packages,
   visiblePackages,
-  tags,
-  teams,
+  tagsData,
+  codeownersData,
   stripScopeFromPackageNames,
   onHideAll = () => {},
   onShowAll = () => {},
@@ -330,8 +372,8 @@ export function Sidebar({
 }: {
   visiblePackages: Package[];
   packages: Package[];
-  tags: string[];
-  teams: string[];
+  codeownersData: CodeownersData[];
+  tagsData: TagsData[];
   stripScopeFromPackageNames?: boolean;
   onShowAll: () => void;
   onHideAll: () => void;
@@ -348,20 +390,20 @@ export function Sidebar({
 }) {
   const [filter, setFilter] = useState('');
 
-  const filteredTeams = filter
-    ? teams.filter((team) => team.includes(filter))
-    : teams;
+  const filteredOwners = filter
+    ? codeownersData.filter((data) => data.codeowners.includes(filter))
+    : codeownersData;
 
   const filteredTags = filter
-    ? tags.filter((tag) => tag.includes(filter))
-    : tags;
+    ? tagsData.filter((data) => data.tags.includes(filter))
+    : tagsData;
 
   const filteredPackages = filter
     ? packages.filter((package_) => package_.name.includes(filter))
     : packages;
 
   const noMatchingItems =
-    filteredTeams.length === 0 &&
+    filteredOwners.length === 0 &&
     filteredTags.length === 0 &&
     filteredPackages.length === 0;
 
@@ -417,7 +459,7 @@ export function Sidebar({
             <Panel defaultSize={20} minSize={5} className="grid content-start">
               <TagsFilterSection
                 className="min-height-0 shrink"
-                tags={filteredTags}
+                tagData={filteredTags}
                 visiblePackages={visiblePackages}
                 onFocus={onTagFocus}
                 onHide={onTagHide}
@@ -428,7 +470,7 @@ export function Sidebar({
             <Panel defaultSize={20} minSize={5} className="grid content-start">
               <TeamsFilterSection
                 className="min-height-0 shrink"
-                teams={filteredTeams}
+                ownerData={filteredOwners}
                 visiblePackages={visiblePackages}
                 onFocus={onTeamFocus}
                 onHide={onTeamHide}

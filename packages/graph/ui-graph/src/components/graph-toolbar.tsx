@@ -8,7 +8,6 @@ import {
 import { PackageManager } from '@commonalityco/utils-core';
 import {
   Separator,
-  Text,
   Toggle,
   Button,
   Tooltip,
@@ -20,24 +19,209 @@ import {
   HoverCardContent,
   Tag,
   ScrollArea,
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+  Label,
 } from '@commonalityco/ui-design-system';
 import {
   MinusIcon,
   Palette,
   PlusIcon,
   Maximize,
-  Group,
+  ExternalLink,
+  ShieldIcon,
+  Shield,
+  ArrowRight,
+  ShieldClose,
+  ShieldCheck,
+  X,
   CornerDownRight,
 } from 'lucide-react';
-import { Violation } from '@commonalityco/types';
-import { useMemo } from 'react';
+import { ProjectConfig, Violation, Constraint } from '@commonalityco/types';
+import { ComponentProps, useMemo } from 'react';
 import { cva } from 'class-variance-authority';
+import { ConstraintTag } from './constraint-tag';
+import { ConstraintDetails } from './constraint-details';
+import { ConstraintAccordionTrigger } from './constraint-accordion-trigger';
+
+function ViolationsHoverCard({
+  constraints = [],
+  violations = [],
+  onPackageClick = () => {},
+}: {
+  constraints?: Constraint[];
+  violations?: Violation[];
+  onPackageClick: (packageName: string) => void;
+}) {
+  const violationsByConstraintTag = useMemo(() => {
+    const map: Record<string, Violation[] | undefined> = {};
+
+    for (let i = 0; i < violations.length; i++) {
+      const violation = violations[i];
+
+      const currentViolations = map[violation.constraintTag];
+
+      map[violation.constraintTag] = currentViolations
+        ? [...currentViolations, violation]
+        : [violation];
+    }
+
+    return map;
+  }, [violations]);
+
+  return (
+    <HoverCard>
+      <HoverCardTrigger asChild>
+        <Button variant="link" size="sm" className="gap-2">
+          <div
+            className={validateDotStyles({
+              variant: violations.length ? 'destructive' : 'success',
+            })}
+          />
+          {`${constraints.length} constraints with ${
+            violations?.length ?? 0
+          } violations`}
+        </Button>
+      </HoverCardTrigger>
+      <HoverCardContent className="grid w-auto p-0">
+        {constraints.length ? (
+          <ScrollArea className="h-full max-h-[400px] px-4 pb-0 pt-0">
+            <Accordion
+              type="multiple"
+              className="h-full min-w-[250px] max-w-[400px]"
+              defaultValue={Object.keys(violationsByConstraintTag)}
+            >
+              {constraints.map((constraint) => {
+                const violations = violationsByConstraintTag[constraint.tag];
+
+                if (!violations?.length) {
+                  return (
+                    <AccordionItem
+                      key={constraint.tag}
+                      value={constraint.tag}
+                      className="w-full"
+                    >
+                      <AccordionTrigger>
+                        <ConstraintAccordionTrigger
+                          variant="pass"
+                          constraint={constraint}
+                          violations={violations}
+                        />
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="grid gap-4">
+                          <ConstraintDetails constraint={constraint} />
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  );
+                }
+
+                return (
+                  <AccordionItem
+                    className="grid w-full gap-2"
+                    key={constraint.tag}
+                    value={constraint.tag}
+                  >
+                    <AccordionTrigger>
+                      <ConstraintAccordionTrigger
+                        variant="error"
+                        constraint={constraint}
+                        violations={violations}
+                      />
+                    </AccordionTrigger>
+                    <AccordionContent className="w-full">
+                      <div className="flex w-full flex-col gap-4">
+                        <ConstraintDetails constraint={constraint} />
+                        <div className="w-full">
+                          <Label className="text-xs">Violations:</Label>
+                          <div className="flex flex-col gap-2">
+                            {violations.map((violation) => {
+                              return (
+                                <div className="w-full">
+                                  <div>
+                                    <Button
+                                      className="block h-auto w-full truncate px-0 py-1 text-left text-xs font-semibold"
+                                      size="sm"
+                                      variant="link"
+                                      onClick={() =>
+                                        onPackageClick(
+                                          violation.sourcePackageName
+                                        )
+                                      }
+                                    >
+                                      {violation.sourcePackageName}
+                                    </Button>
+                                    <div className="flex items-center gap-2">
+                                      <CornerDownRight className="h-4 w-4 shrink-0 text-destructive" />
+                                      <Button
+                                        className="block h-auto truncate px-0 py-1 text-left text-xs font-semibold"
+                                        size="sm"
+                                        variant="link"
+                                        onClick={() =>
+                                          onPackageClick(
+                                            violation.targetPackageName
+                                          )
+                                        }
+                                      >
+                                        {violation.targetPackageName}
+                                      </Button>
+                                    </div>
+                                  </div>
+                                  <div className="w-full pl-6">
+                                    <div className="flex w-full flex-wrap gap-1">
+                                      {violation.foundTags?.length ? (
+                                        violation.foundTags.map((tag) => (
+                                          <Tag
+                                            use="secondary"
+                                            key={tag}
+                                            className="block min-w-0"
+                                          >
+                                            {`#${tag}`}
+                                          </Tag>
+                                        ))
+                                      ) : (
+                                        <p className="text-xs">No tags</p>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              })}
+            </Accordion>
+          </ScrollArea>
+        ) : (
+          <div className="w-64 p-4 text-center">
+            <ShieldIcon className="mx-auto h-6 w-6" />
+            <p className="mb-1 mt-2 text-xs font-bold">No constraints found</p>
+            <p className="mb-3 text-xs">
+              Create constraints to enforce boundaries in your dependency graph.
+            </p>
+            <Button variant="secondary" size="sm" className="w-full">
+              Learn more
+              <ExternalLink className="ml-1 h-3 w-3" />
+            </Button>
+          </div>
+        )}
+      </HoverCardContent>
+    </HoverCard>
+  );
+}
 
 const validateDotStyles = cva('h-2 w-2 rounded-full', {
   variants: {
     variant: {
-      allow: 'bg-emerald-600',
-      found: 'bg-red-600',
+      success: 'bg-emerald-600',
+      destructive: 'bg-destructive',
     },
   },
 });
@@ -47,6 +231,20 @@ const IconByPackageManager = {
   [PackageManager.PNPM]: PnpmLogo,
   [PackageManager.YARN]: YarnLogo,
 };
+
+export interface GraphToolbarProps {
+  packageManager: PackageManager;
+  totalPackageCount: number;
+  shownPackageCount: number;
+  isEdgeColorShown?: boolean;
+  onSetIsEdgeColorShown?: (isEdgeColorShown: boolean) => void;
+  onZoomIn?: () => void;
+  onZoomOut?: () => void;
+  onFit?: () => void;
+  onPackageClick: (packageName: string) => void;
+  projectConfig: ProjectConfig;
+  violations: Violation[];
+}
 
 export function GraphToolbar({
   packageManager,
@@ -58,38 +256,12 @@ export function GraphToolbar({
   onZoomOut = () => {},
   onFit = () => {},
   onPackageClick = () => {},
+  projectConfig = {},
   violations = [],
-}: {
-  packageManager: PackageManager;
-  totalPackageCount: number;
-  shownPackageCount: number;
-  isEdgeColorShown?: boolean;
-  onSetIsEdgeColorShown?: (isEdgeColorShown: boolean) => void;
-  onZoomIn?: () => void;
-  onZoomOut?: () => void;
-  onFit?: () => void;
-  onPackageClick?: (packageName: string) => void;
-  violations: Violation[];
-}) {
+}: GraphToolbarProps) {
   const Icon = packageManager
     ? IconByPackageManager[packageManager]
     : undefined;
-
-  const violationsByPackageName = useMemo(() => {
-    const map: Record<string, Violation[]> = {};
-
-    for (let i = 0; i < violations.length; i++) {
-      const violation = violations[i];
-
-      const currentViolations = map[violation.sourceName];
-
-      map[violation.sourceName] = currentViolations
-        ? [...currentViolations, violation]
-        : [violation];
-    }
-
-    return map;
-  }, []);
 
   return (
     <div className="flex w-full bg-background px-3 pb-1 pt-3">
@@ -104,122 +276,12 @@ export function GraphToolbar({
             </HoverCardTrigger>
           </HoverCard>
         </div>
-        <HoverCard>
-          <HoverCardTrigger asChild>
-            <Button
-              variant="link"
-              size="sm"
-            >{`${violations?.length} violations`}</Button>
-          </HoverCardTrigger>
-          <HoverCardContent className="grid w-auto gap-2 p-0">
-            <ScrollArea className="h-full max-h-[400px] p-0">
-              <div className="px-4 pt-3">
-                <p>Constraints</p>
-              </div>
-              <div className="grid gap-4">
-                {Object.keys(violationsByPackageName).map((pkgName) => {
-                  const violations = violationsByPackageName[pkgName];
-                  return (
-                    <div key={pkgName}>
-                      <div className="sticky top-0 w-full">
-                        <Button
-                          variant="link"
-                          className="w-full justify-start bg-background px-4 py-0 font-bold"
-                          onClick={() => onPackageClick(pkgName)}
-                        >
-                          {pkgName}
-                        </Button>
-                        <GradientFade placement="top" className="h-2" />
-                      </div>
-                      {/* <p className="mb-2 text-sm font-bold">{pkgName}</p> */}
-                      <div className="grid gap-4 px-4">
-                        {violations.map((violation) => {
-                          return (
-                            <div className="text-xs">
-                              <div className="mb-1 flex flex-nowrap items-center">
-                                <CornerDownRight className="h-4 w-4 text-foreground" />
-                                <Button
-                                  size="sm"
-                                  variant="link"
-                                  className="px-2"
-                                  onClick={() =>
-                                    onPackageClick(violation.targetName)
-                                  }
-                                >
-                                  {violation.targetName}
-                                </Button>
-                              </div>
-                              <div className="grid grid-cols-[auto_1fr] items-center gap-2">
-                                <p>Constraint for:</p>
-                                <div className="flex gap-2">
-                                  {violation.matchTags?.length ? (
-                                    violation.matchTags.map((tag) => {
-                                      return (
-                                        <Tag key={tag} use="secondary">
-                                          {`#${tag}`}
-                                        </Tag>
-                                      );
-                                    })
-                                  ) : (
-                                    <p>None</p>
-                                  )}
-                                </div>
-                                <div className="flex flex-nowrap items-center gap-1">
-                                  <div
-                                    className={validateDotStyles({
-                                      variant: 'allow',
-                                    })}
-                                  />
-                                  <p>Allowed:</p>
-                                </div>
-
-                                <div className="flex gap-2">
-                                  {violation.allowedTags?.length ? (
-                                    violation.allowedTags.map((tag) => {
-                                      return (
-                                        <Tag key={tag} use="secondary">
-                                          {`#${tag}`}
-                                        </Tag>
-                                      );
-                                    })
-                                  ) : (
-                                    <p>None</p>
-                                  )}
-                                </div>
-                                <div className="flex flex-nowrap items-center gap-1">
-                                  <div
-                                    className={validateDotStyles({
-                                      variant: 'found',
-                                    })}
-                                  />
-                                  <p>Found:</p>
-                                </div>
-                                <div className="flex gap-2">
-                                  {violation.foundTags?.length ? (
-                                    violation.foundTags.map((tag) => {
-                                      return (
-                                        <Tag key={tag} use="secondary">
-                                          {`#${tag}`}
-                                        </Tag>
-                                      );
-                                    })
-                                  ) : (
-                                    <p>None</p>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              <GradientFade placement="bottom" className="h-3" />
-            </ScrollArea>
-          </HoverCardContent>
-        </HoverCard>
+        <Separator orientation="vertical" />
+        <ViolationsHoverCard
+          onPackageClick={onPackageClick}
+          violations={violations}
+          constraints={projectConfig.constraints}
+        />
       </div>
       <div className="grow" />
       <div className="flex items-center gap-1">

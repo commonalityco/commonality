@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import launch from 'launch-editor';
-import { getRootDirectory } from '@commonalityco/snapshot';
+import { getRootDirectory } from '@commonalityco/data-project';
 import path from 'path';
 
 const requestBodySchema = z.object({

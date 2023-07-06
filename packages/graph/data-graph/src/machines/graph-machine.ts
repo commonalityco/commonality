@@ -4,14 +4,13 @@ import {
   createTraversalGraph,
   getElementDefinitions,
 } from '@commonalityco/utils-graph';
-import { Package } from '@commonalityco/types';
+import { Package, Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
 import { assign, createMachine } from 'xstate';
 import {
   CollectionArgument,
   Core,
   EdgeSingular,
-
   NodeSingular,
   Selector,
   Singular,
@@ -39,6 +38,7 @@ export interface Context {
   popoverRef?: VirtualElement;
   isEdgeColorShown: boolean;
   theme: string;
+  violations: Violation[];
 }
 
 type Event =
@@ -50,8 +50,8 @@ type Event =
       packages: Package[];
       theme: string;
       getUpdatedGraphJson: OffloadRenderFn;
-      tags?: string[];
       isGroupedByTag: boolean;
+      violations: Violation[];
     }
 
   // Interactions
@@ -89,6 +89,7 @@ export const graphMachine = createMachine(
       isEdgeColorShown: false,
       theme: 'light',
       getUpdatedGraphJson,
+      violations: [],
     },
     tsTypes: {} as import('./graph-machine.typegen').Typegen0,
     schema: {
@@ -249,7 +250,10 @@ export const graphMachine = createMachine(
           elements: context.elements,
           theme: context.theme,
           getUpdatedGraphJson: context.getUpdatedGraphJson,
+          forceEdgeColor: context.isEdgeColorShown,
+          violations: context.violations,
         });
+
         context.renderGraph.on('click', (event) => {
           if (context.selectedNode) {
             callback({ type: 'UNSELECT' });
@@ -315,6 +319,9 @@ export const graphMachine = createMachine(
           if (!context.renderGraph) return [] as any;
 
           return context.renderGraph?.elements();
+        },
+        violations: (context, event) => {
+          return event.violations;
         },
       }),
       setTheme: assign({
@@ -510,6 +517,8 @@ export const graphMachine = createMachine(
         selectedNode: (context, event) => {
           return context.traversalGraph?.$id(event.packageName);
         },
+        hoveredRenderNode: undefined,
+        hoveredTraversalNode: undefined,
       }),
       edgeClick: assign({
         selectedNode: undefined,

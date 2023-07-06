@@ -1,6 +1,8 @@
-import { cache } from 'react';
 import 'server-only';
-import { getPackageManager, getRootDirectory } from '@commonalityco/snapshot';
+import {
+  getPackageManager,
+  getRootDirectory,
+} from '@commonalityco/data-project';
 import path from 'path';
 import fs from 'fs-extra';
 
@@ -8,9 +10,9 @@ export const preload = () => {
   void getProject();
 };
 
-export const getProject = cache(async () => {
+export const getProject = async () => {
   const rootDirectory = await getRootDirectory();
-  const packageManager = await getPackageManager(rootDirectory);
+  const packageManager = await getPackageManager({ rootDirectory });
   const rootPackageJsonPath = path.join(rootDirectory, 'package.json');
   const rootPackageJson = fs.readJsonSync(rootPackageJsonPath);
 
@@ -18,4 +20,4 @@ export const getProject = cache(async () => {
     name: rootPackageJson.name,
     packageManager,
   };
-});
+};

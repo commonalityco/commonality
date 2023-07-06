@@ -148,7 +148,6 @@ export function Select<
   variant,
   ...restProps
 }: Props<Option, IsMulti, Group> & VariantProps<typeof controlStyles>) {
-  console.log('variant', variant);
   return (
     <ReactSelect
       {...restProps}

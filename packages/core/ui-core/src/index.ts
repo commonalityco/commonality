@@ -6,3 +6,4 @@ export { GradientFade } from './gradient-fade';
 export { NpmLogo } from './images/npm-logo';
 export { PnpmLogo } from './images/pnpm-logo';
 export { YarnLogo } from './images/yarn-logo';
+export { Markdown } from './markdown';

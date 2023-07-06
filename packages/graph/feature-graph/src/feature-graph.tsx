@@ -6,35 +6,65 @@ import {
   PackageSheet,
   TooltipPackage,
 } from '@commonalityco/ui-graph';
-import {
-  getElementDefinitions,
-  OffloadRenderFn,
-} from '@commonalityco/utils-graph';
+import { OffloadRenderFn } from '@commonalityco/utils-graph';
 import { useEffect, useMemo, useRef } from 'react';
 import { PackageManager } from '@commonalityco/utils-core';
-import { Package, Violation } from '@commonalityco/types';
+import {
+  CodeownersData,
+  Constraint,
+  DocumentsData,
+  Package,
+  ProjectConfig,
+  Violation,
+} from '@commonalityco/types';
 import { GraphContext } from './graph-provider';
 import { FeatureGraphToolbar } from './feature-graph-toolbar';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface GraphProps {
   stripScopeFromPackageNames?: boolean;
   getUpdatedGraphJson: OffloadRenderFn;
   packages: Package[];
   theme?: string;
-  allTags: string[];
   packageManager: PackageManager;
-  onSetTags: (options: { tags: string[]; packageName: string }) => void;
+  onSetTags: (options: {
+    tags: string[];
+    packageName: string;
+  }) => Promise<void>;
   isGroupedByTag?: boolean;
   violations: Violation[];
+  getTags: () => Promise<Array<{ packageName: string; tags: string[] }>>;
+  getViolations: () => Promise<Violation[]>;
+  projectConfig: ProjectConfig;
+  codeownersData: CodeownersData[];
+  documentsData: DocumentsData[];
 }
 
 function GraphContent({
-  tags,
+  codeownersData,
+  documentsData,
+  getTags,
   onSetTags,
+  getViolations,
+  constraints,
 }: {
-  tags: string[];
-  onSetTags: (options: { tags: string[]; packageName: string }) => void;
+  documentsData: GraphProps['documentsData'];
+  codeownersData: GraphProps['codeownersData'];
+  getTags: GraphProps['getTags'];
+  onSetTags: GraphProps['onSetTags'];
+  getViolations: GraphProps['getViolations'];
+  constraints: Constraint[];
 }) {
+  const queryClient = useQueryClient();
+  const { data: tagsData } = useQuery({
+    queryKey: ['tags'],
+    queryFn: () => getTags(),
+  });
+  const { data: violations } = useQuery({
+    queryKey: ['violations'],
+    queryFn: () => getViolations(),
+  });
+
   const actor = GraphContext.useActorRef();
   const selectedNode = GraphContext.useSelector(
     (state) => state.context.selectedNode
@@ -49,21 +79,45 @@ function GraphContent({
     (state) => state.context.hoveredTraversalNode
   );
 
+  const dependencyConstraints = useMemo(() => {
+    if (!selectedEdge) return [];
+
+    const dependencyConstraints = constraints.filter((constraint) => {
+      const sourcePkg: Package = selectedEdge.source().data();
+      const tagsForPkg = tagsData?.find(
+        (data) => data.packageName === sourcePkg.name
+      );
+
+      return tagsForPkg?.tags.includes(constraint.tag);
+    });
+
+    return dependencyConstraints;
+  }, [selectedEdge, constraints]);
+
   return (
     <div className="relative z-10">
       <PackageSheet
-        allTags={tags}
+        documentsData={documentsData}
+        codeownersData={codeownersData}
+        tagsData={tagsData ?? []}
         node={selectedNode}
         defaultOpen={Boolean(selectedNode)}
         open={Boolean(selectedNode)}
         onOpenChange={() => actor.send('UNSELECT')}
-        onSetTags={onSetTags}
+        onSetTags={async (options) => {
+          await onSetTags(options);
+          await queryClient.invalidateQueries(['tags']);
+        }}
       />
       <DependencySheet
-        edge={selectedEdge}
+        dependency={selectedEdge?.data()}
         defaultOpen={Boolean(selectedEdge)}
         open={Boolean(selectedEdge)}
         onOpenChange={() => actor.send('UNSELECT')}
+        violations={violations ?? []}
+        constraints={dependencyConstraints}
+        source={selectedEdge?.source().id() ?? 'Source pkg'}
+        target={selectedEdge?.target().id() ?? 'Target pkg'}
       />
       {hoveredRenderNode && hoveredTraversalNode && (
         <TooltipPackage
@@ -96,44 +150,47 @@ function GraphContent({
 export function FeatureGraph({
   theme,
   getUpdatedGraphJson,
-  packages,
   packageManager,
-  allTags,
   onSetTags,
   isGroupedByTag = false,
   violations,
+  packages,
+  getTags,
+  getViolations,
+  projectConfig,
+  documentsData,
+  codeownersData,
 }: GraphProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const queryClient = useQueryClient();
 
   const actor = GraphContext.useActorRef();
+
   const isLoading = GraphContext.useSelector((state) =>
     state.matches('loading')
   );
-  const actorRef = GraphContext.useActorRef();
+
+  const isEmpty = GraphContext.useSelector((state) => {
+    return state.matches('success') && state.context.elements.length === 0;
+  });
 
   useEffect(() => {
-    actorRef.subscribe((state) => {
-      console.log({ state });
-    });
-  }, []);
-
-  useEffect(() => {
-    if (containerRef.current) {
+    if (containerRef.current && packages) {
       actor.send({
         type: 'INITIALIZE',
         containerId: containerRef.current.id,
         packages,
         theme: theme ?? 'light',
         getUpdatedGraphJson,
-        tags: allTags,
         isGroupedByTag,
+        violations,
       });
     }
 
     return () => {
       actor.send({ type: 'DESTROY' });
     };
-  }, [packages]);
+  }, []);
 
   useEffect(() => {
     if (!theme) return;
@@ -144,15 +201,33 @@ export function FeatureGraph({
   return (
     <GraphLayoutMain>
       <FeatureGraphToolbar
+        projectConfig={projectConfig}
         packageManager={packageManager}
-        totalPackageCount={packages.length}
-        violations={violations}
+        totalPackageCount={packages?.length ?? 0}
+        getViolations={getViolations}
         onPackageClick={(packageName) => {
           actor.send({ type: 'NODE_SELECT', packageName });
         }}
       />
-      <GraphChart ref={containerRef} loading={isLoading} />
-      <GraphContent tags={allTags} onSetTags={onSetTags} />
+      <GraphChart
+        ref={containerRef}
+        loading={isLoading}
+        isEmpty={isEmpty}
+        onShowAllPackages={() => {
+          actor.send({ type: 'SHOW_ALL' });
+        }}
+      />
+      <GraphContent
+        documentsData={documentsData}
+        codeownersData={codeownersData}
+        constraints={projectConfig.constraints ?? []}
+        getTags={getTags}
+        getViolations={getViolations}
+        onSetTags={async (options) => {
+          await onSetTags(options);
+          await queryClient.invalidateQueries({ queryKey: ['tags'] });
+        }}
+      />
     </GraphLayoutMain>
   );
 }

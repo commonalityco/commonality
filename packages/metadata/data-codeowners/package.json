@@ -1,5 +1,5 @@
 {
-  "name": "@commonalityco/codeowners",
+  "name": "@commonalityco/data-codeowners",
   "version": "0.0.6",
   "publishConfig": {
     "access": "public"
@@ -23,11 +23,12 @@
     "micromatch": "^4.0.5"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "workspace:*",
-    "@commonalityco/config-jest": "workspace:*",
-    "@commonalityco/config-prettier": "workspace:^",
-    "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/config-tsup": "workspace:*",
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-jest": "*",
+    "@commonalityco/config-prettier": "*",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/types": "*",
+    "@commonalityco/config-tsup": "*",
     "@jest/globals": "^29.5.0",
     "@types/fs-extra": "^11.0.1",
     "@types/glob": "^8.1.0",

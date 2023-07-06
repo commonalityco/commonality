@@ -2,29 +2,26 @@
 import { ComponentProps } from 'react';
 import sortBy from 'lodash.sortby';
 import { GraphContext } from './graph-provider';
-import { Package } from '@commonalityco/types';
+import { Package, TagsData } from '@commonalityco/types';
 import { GraphLayoutAside, Sidebar } from '@commonalityco/ui-graph';
 import { formatPackageName } from '@commonalityco/utils-package';
+import { useQuery } from '@tanstack/react-query';
 
-export function FeatureGraphSidebar(
-  props: Omit<
-    ComponentProps<typeof Sidebar>,
-    | 'visiblePackages'
-    | 'onPackageHide'
-    | 'onPackageShow'
-    | 'onPackageFocus'
-    | 'onTeamHide'
-    | 'onTeamShow'
-    | 'onTeamFocus'
-    | 'onTagHide'
-    | 'onTagShow'
-    | 'onTagFocus'
-    | 'onShowAll'
-    | 'onHideAll'
-    | 'onPackageClick'
-  >
-) {
+interface FeatureGraphSidebarProps {
+  packages: ComponentProps<typeof Sidebar>['packages'];
+  codeownersData: ComponentProps<typeof Sidebar>['codeownersData'];
+  stripScopeFromPackageNames: ComponentProps<
+    typeof Sidebar
+  >['stripScopeFromPackageNames'];
+  getTags: () => Promise<TagsData[]>;
+}
+
+export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
   const [state, send] = GraphContext.useActor();
+  const { data: tagsData } = useQuery({
+    queryKey: ['tags'],
+    queryFn: () => props.getTags(),
+  });
 
   const graphPkgs: Package[] = state.context.elements.map((el) => el.data());
   const graphPkgNames = graphPkgs.map((pkg) => pkg.name);
@@ -40,9 +37,6 @@ export function FeatureGraphSidebar(
 
     return formattedPackageName;
   });
-
-  const sortedTags = sortBy(props.tags, (item) => item);
-  const sortedTeams = sortBy(props.teams, (item) => item);
 
   return (
     <GraphLayoutAside>
@@ -70,7 +64,11 @@ export function FeatureGraphSidebar(
             type: 'HIDE',
             selector: (element, index, elements) => {
               const pkg: Package = element.data();
-              return pkg.tags?.includes(tag) ?? false;
+              const tagDataForPkg = tagsData?.find(
+                (data) => data.packageName === pkg.name
+              );
+
+              return tagDataForPkg?.tags.includes(tag) ?? false;
             },
           })
         }
@@ -79,7 +77,11 @@ export function FeatureGraphSidebar(
             type: 'SHOW',
             selector: (element, index, elements) => {
               const pkg: Package = element.data();
-              return pkg.tags?.includes(tag) ?? false;
+              const tagDataForPkg = tagsData?.find(
+                (data) => data.packageName === pkg.name
+              );
+
+              return tagDataForPkg?.tags.includes(tag) ?? false;
             },
           })
         }
@@ -92,8 +94,11 @@ export function FeatureGraphSidebar(
               }
 
               const pkg: Package = el.data();
+              const tagDataForPkg = tagsData?.find(
+                (data) => data.packageName === pkg.name
+              );
 
-              return pkg.tags?.includes(tag) ?? false;
+              return tagDataForPkg?.tags.includes(tag) ?? false;
             },
           })
         }
@@ -102,7 +107,11 @@ export function FeatureGraphSidebar(
             type: 'HIDE',
             selector: (element, index, elements) => {
               const pkg: Package = element.data();
-              return pkg.owners?.includes(team) ?? false;
+              const ownerDataForPkg = props.codeownersData?.find(
+                (data) => data.packageName === pkg.name
+              );
+
+              return ownerDataForPkg?.codeowners.includes(team) ?? false;
             },
           });
         }}
@@ -111,7 +120,11 @@ export function FeatureGraphSidebar(
             type: 'SHOW',
             selector: (element, index, elements) => {
               const pkg: Package = element.data();
-              return pkg.owners?.includes(team) ?? false;
+              const ownerDataForPkg = props.codeownersData?.find(
+                (data) => data.packageName === pkg.name
+              );
+
+              return ownerDataForPkg?.codeowners.includes(team) ?? false;
             },
           });
         }}
@@ -124,13 +137,16 @@ export function FeatureGraphSidebar(
               }
 
               const pkg: Package = el.data();
+              const ownerDataForPkg = props.codeownersData?.find(
+                (data) => data.packageName === pkg.name
+              );
 
-              return pkg.owners?.includes(team) ?? false;
+              return ownerDataForPkg?.codeowners.includes(team) ?? false;
             },
           })
         }
-        teams={sortedTeams}
-        tags={sortedTags}
+        codeownersData={props.codeownersData}
+        tagsData={tagsData ?? []}
         packages={sortedPackages}
         visiblePackages={visiblePackages}
       />

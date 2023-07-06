@@ -1,3 +1,4 @@
+'use server';
 import path from 'node:path';
 import fs from 'fs-extra';
 import type { PackageConfig, PackageJson } from '@commonalityco/types';
@@ -37,7 +38,6 @@ export const setTags = async ({
     const packageJsonPath = path.join(rootDirectory, directory, 'package.json');
 
     if (!fs.existsSync(packageJsonPath)) {
-      console.log('PACKAGE.JSON DOES NOT EXIST');
       continue;
     }
 

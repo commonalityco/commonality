@@ -1,17 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 'use client';
 import { Package } from '@commonalityco/types';
-import {
-  Button,
-  Heading,
-  Text,
-  Tag,
-  Label,
-} from '@commonalityco/ui-design-system';
+import { Button, Text, Tag } from '@commonalityco/ui-design-system';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import type cytoscape from 'cytoscape';
 import { ComponentProps } from 'react';
-import { TruncatedChildrenContainer } from './utils/truncated-children-container';
 import { Package as PackageIcon, ArrowUp, ArrowDown } from 'lucide-react';
 import { GraphTooltip } from './components/graph-tooltip';
 

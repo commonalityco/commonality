@@ -1,3 +1,3 @@
-export { getTags } from './get-tags';
+export { getTagsData } from './get-tag-data';
 
 export { setTags } from './set-tags';

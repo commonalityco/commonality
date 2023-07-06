@@ -6,9 +6,9 @@
     "events": "^3.3.0"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "workspace:*",
-    "@commonalityco/config-prettier": "workspace:^",
-    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-prettier": "*",
+    "@commonalityco/config-tsconfig": "*",
     "typescript": "4.9.5"
   },
   "main": "src/index.ts",

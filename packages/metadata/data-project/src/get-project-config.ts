@@ -6,9 +6,25 @@ import { z } from 'zod';
 
 const projectConfigSchema = z.object({
   projectId: z.string().optional(),
-  stripScopeFromPackageNames: z.boolean().default(false).optional(),
+  stripScopeFromPackageNames: z.boolean().default(true).optional(),
   constraints: z
-    .array(z.object({ tags: z.array(z.string()), allow: z.array(z.string()) }))
+    .array(
+      z.union([
+        z.object({
+          tag: z.string(),
+          allow: z.array(z.string()),
+          disallow: z.array(z.string()),
+        }),
+        z.object({
+          tag: z.string(),
+          allow: z.array(z.string()),
+        }),
+        z.object({
+          tag: z.string(),
+          disallow: z.array(z.string()),
+        }),
+      ])
+    )
     .optional(),
 });
 
@@ -28,8 +44,10 @@ export const getProjectConfig = async ({
 
   try {
     const config = await fs.readJson(projectConfigPath);
-
-    return projectConfigSchema.parse(config);
+    console.log({ innerConfig: JSON.stringify(config) });
+    const parsed = projectConfigSchema.parse(config);
+    console.log({ parsed: JSON.stringify(parsed) });
+    return parsed;
   } catch (error) {
     console.log(error);
     return {};

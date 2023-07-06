@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { start } from '@commonalityco/dashboard';
+import { start } from '@commonalityco/app-dashboard';
 import getPort from 'get-port';
 import openUrl, { apps } from 'open';
 

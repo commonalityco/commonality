@@ -1,26 +1,25 @@
 {
-  "projectId": "cle5wzskb0002zywbqtu0ns0s",
   "stripScopeFromPackageNames": true,
   "constraints": [
     {
-      "tags": ["feature"],
+      "tag": "feature",
       "allow": ["*"]
     },
     {
-      "tags": ["ui"],
+      "tag": "config",
+      "allow": ["config"]
+    },
+    {
+      "tag": "ui",
       "allow": ["ui", "utility", "config"]
     },
     {
-      "tags": ["data"],
-      "allow": ["data", "config", "utility"]
+      "tag": "data",
+      "allow": ["data", "utility", "config"]
     },
     {
-      "tags": ["utility"],
-      "allow": ["utility", "data", "config"]
-    },
-    {
-      "tags": ["config"],
-      "allow": ["config"]
+      "tag": "utility",
+      "allow": ["data", "utility", "config"]
     }
   ]
 }

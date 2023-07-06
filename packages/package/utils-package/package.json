@@ -14,11 +14,11 @@
     "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "workspace:*",
-    "@commonalityco/config-prettier": "workspace:^",
-    "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/types": "workspace:*",
-    "@types/react": "^18.2.13",
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-prettier": "*",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/types": "*",
+    "@types/react": "^18.2.14",
     "postcss": "^8.4.24",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -1,12 +1,13 @@
 'use server';
 import 'server-only';
-import { getPackageDirectoriesData } from './packages';
 import { cache } from 'react';
-import { getRootDirectory, getTags } from '@commonalityco/snapshot';
+import { getRootDirectory } from '@commonalityco/data-project';
+import { getTagsData as getTagsDatas } from '@commonalityco/data-tags';
+import { getPackages } from '@commonalityco/data-packages';
 
 export const getTagsData = cache(async () => {
   const rootDirectory = await getRootDirectory();
-  const packageDirectories = await getPackageDirectoriesData();
+  const packages = await getPackages({ rootDirectory });
 
-  return getTags({ packageDirectories, rootDirectory });
+  return getTagsDatas({ packages, rootDirectory });
 });
