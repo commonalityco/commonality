@@ -1,6 +1,6 @@
 'use client';
 import {
-  GradientFade,
+  
   NpmLogo,
   PnpmLogo,
   YarnLogo,
@@ -32,17 +32,12 @@ import {
   Maximize,
   ExternalLink,
   ShieldIcon,
-  Shield,
-  ArrowRight,
-  ShieldClose,
-  ShieldCheck,
-  X,
   CornerDownRight,
 } from 'lucide-react';
 import { ProjectConfig, Violation, Constraint } from '@commonalityco/types';
-import { ComponentProps, useMemo } from 'react';
+import {  useMemo } from 'react';
 import { cva } from 'class-variance-authority';
-import { ConstraintTag } from './constraint-tag';
+
 import { ConstraintDetails } from './constraint-details';
 import { ConstraintAccordionTrigger } from './constraint-accordion-trigger';
 

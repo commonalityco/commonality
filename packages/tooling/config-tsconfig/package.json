@@ -2,7 +2,7 @@
   "name": "@commonalityco/config-tsconfig",
   "version": "0.0.4",
   "devDependencies": {
-    "@commonalityco/config-prettier": "*",
+     
     "@tsconfig/create-react-app": "^1.0.3",
     "@tsconfig/next": "^1.0.5",
     "@tsconfig/node16": "^1.0.4",

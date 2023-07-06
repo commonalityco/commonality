@@ -100,7 +100,7 @@ function GraphContent({
         documentsData={documentsData}
         codeownersData={codeownersData}
         tagsData={tagsData ?? []}
-        node={selectedNode}
+        pkg={selectedNode?.data()}
         defaultOpen={Boolean(selectedNode)}
         open={Boolean(selectedNode)}
         onOpenChange={() => actor.send('UNSELECT')}

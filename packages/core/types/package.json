@@ -16,11 +16,11 @@
     "@commonalityco/utils-core": "*"
   },
   "devDependencies": {
-    "@commonalityco/utils-core": "*",
-    "@commonalityco/config-eslint": "*",
-    "@commonalityco/config-prettier": "*",
-    "@commonalityco/config-tsconfig": "*",
-    "@commonalityco/config-tsup": "*",
+    "@commonalityco/config-eslint": "^0.0.5",
+     
+    "@commonalityco/config-tsconfig": "^0.0.4",
+    "@commonalityco/config-tsup": "^0.0.5",
+    "@commonalityco/utils-core": "^0.0.1",
     "tsup": "^6.7.0",
     "typescript": "^4.9.5"
   }

@@ -44,9 +44,8 @@ export const getProjectConfig = async ({
 
   try {
     const config = await fs.readJson(projectConfigPath);
-    console.log({ innerConfig: JSON.stringify(config) });
     const parsed = projectConfigSchema.parse(config);
-    console.log({ parsed: JSON.stringify(parsed) });
+
     return parsed;
   } catch (error) {
     console.log(error);

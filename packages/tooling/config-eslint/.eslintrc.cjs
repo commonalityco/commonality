@@ -1,5 +1,5 @@
 module.exports = {
-  ignorePatterns: ['dist/**/*'],
+  ignorePatterns: ['dist/**/*', 'node_modules/**/*'],
   env: {
     node: true,
   },

@@ -40,7 +40,7 @@ import ReactWrapBalancer from 'react-wrap-balancer';
 import sortBy from 'lodash.sortby';
 
 interface PackageSheetProps extends ComponentProps<typeof Sheet> {
-  node?: Partial<cytoscape.NodeSingular> & { data: () => Package };
+  pkg?: Package;
   tagsData: TagsData[];
   codeownersData: CodeownersData[];
   documentsData: DocumentsData[];
@@ -50,6 +50,7 @@ interface PackageSheetProps extends ComponentProps<typeof Sheet> {
 function TagsButton({
   pkgTags = [],
   allTags = [],
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onSetTags = () => {},
   packageName,
 }: {
@@ -184,11 +185,13 @@ function PackageSheetContent({
           <SheetDescription>{pkg.description}</SheetDescription>
         )}
       </SheetHeader>
-      <ScrollArea className="h-full px-6">
+      <ScrollArea className="h-full">
         <GradientFade placement="top" />
-        <div className="grid gap-2">
+        <div className="grid gap-2 px-6">
           <div>
-            <Label className="flex">Tags</Label>
+            <Label className="mb-1">
+              Tags
+            </Label>
             <div className="w-full">
               <TagsButton
                 pkgTags={tagDataForPkg?.tags ?? []}
@@ -199,7 +202,7 @@ function PackageSheetContent({
             </div>
           </div>
           <div>
-            <Label>Owners</Label>
+            <Label className="mb-1">Owners</Label>
             <div>
               {ownerDataForPkg?.codeowners.length ? (
                 ownerDataForPkg.codeowners.join(', ')
@@ -209,7 +212,7 @@ function PackageSheetContent({
             </div>
           </div>
         </div>
-        <div className="pt-6">
+        <div className="px-6 pt-6">
           <div>
             <div>
               {readmeDocument ? (
@@ -258,14 +261,12 @@ function PackageSheetContent({
 }
 
 export function PackageSheet(props: PackageSheetProps) {
-  const pkg: Package | undefined = props.node?.data();
-
   return (
-    <Sheet {...props}>
+    <Sheet {...props} open={Boolean(props.pkg)}>
       <SheetContent className="flex flex-col gap-2 p-0 sm:max-w-[300px] md:max-w-[550px]">
-        {pkg && (
+        {props.pkg && (
           <PackageSheetContent
-            pkg={pkg}
+            pkg={props.pkg}
             tagsData={props.tagsData}
             documentsData={props.documentsData}
             codeownersData={props.codeownersData}
