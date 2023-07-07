@@ -42,15 +42,15 @@ export const KitchenSink: Story = {
         allow: ['tag-three'],
       },
       {
-        tag: 'tag-two',
+        tag: 'tag-three',
         disallow: ['tag-four'],
       },
       {
-        tag: 'tag-one',
+        tag: 'tag-four',
         disallow: ['*'],
       },
       {
-        tag: 'tag-one',
+        tag: 'tag-five',
         allow: ['tag-six'],
         disallow: ['tag-five'],
       },
@@ -64,6 +64,16 @@ export const KitchenSink: Story = {
         disallowedTags: [],
       },
     ],
+  },
+};
+
+export const NoConstraints: Story = {
+  args: {
+    dependency: dependencyData,
+    source: '@scope/one',
+    target: '@scope/two',
+    constraints: [],
+    violations: [],
   },
 };
 

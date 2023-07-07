@@ -5,8 +5,13 @@ module.exports = {
   },
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
-  root: true,
+  plugins: ['@typescript-eslint', 'unused-imports'],
+  rules: {
+    'no-empty-function': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
+  },
   overrides: [
     {
       files: ['*.config.js'],

@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --font-sans: 'Inter';
+    --font-serif: 'Vollkorn';
     --font-mono: 'Fira Code';
 
     --background: 0 0% 100%;
@@ -36,7 +37,7 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --ring: 	200.4°, 98, 39.4;
+    --ring: 200.4°, 98, 39.4;
 
     --radius: 0.5rem;
   }
@@ -81,7 +82,7 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: 'rlig' 1, 'calt' 1;
-    -webkit-font-smoothing: antialiased; 
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }

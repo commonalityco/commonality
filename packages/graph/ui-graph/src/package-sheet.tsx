@@ -73,18 +73,18 @@ function TagsButton({
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="ghost"
-          className="h-auto w-full flex-wrap justify-start gap-2 px-2"
-        >
-          {pkgTags.length ? (
-            pkgTags.map((tag) => <Tag key={tag} use="outline">{`#${tag}`}</Tag>)
-          ) : (
-            <p className="pl-1 text-muted-foreground">No tags</p>
-          )}
-        </Button>
-      </PopoverTrigger>
+      {pkgTags.length ? (
+        <PopoverTrigger>
+          <div className="flex gap-1">
+            {pkgTags.map((tag) => (
+              <Tag use="secondary" key={tag}>{`#${tag}`}</Tag>
+            ))}
+          </div>
+        </PopoverTrigger>
+      ) : (
+        <p className="text-muted-foreground text-xs">No tags</p>
+      )}
+
       <PopoverContent className="w-[200px] p-0" side="left" align="start">
         <Command shouldFilter={false}>
           <CommandInput
@@ -175,7 +175,7 @@ function PackageSheetContent({
   return (
     <>
       <SheetHeader className="px-6 pt-6">
-        <p className="text-xs text-muted-foreground">Package</p>
+        <p className="text-muted-foreground text-xs">Package</p>
         <SheetTitle>
           <Icon className="mr-2 inline-block h-5 w-5" />
           <span>{pkg.name}</span>
@@ -187,11 +187,9 @@ function PackageSheetContent({
       </SheetHeader>
       <ScrollArea className="h-full">
         <GradientFade placement="top" />
-        <div className="grid gap-2 px-6">
+        <div className="grid gap-4 px-6">
           <div>
-            <Label className="mb-1">
-              Tags
-            </Label>
+            <Label className="mb-2">Tags</Label>
             <div className="w-full">
               <TagsButton
                 pkgTags={tagDataForPkg?.tags ?? []}
@@ -202,12 +200,18 @@ function PackageSheetContent({
             </div>
           </div>
           <div>
-            <Label className="mb-1">Owners</Label>
+            <Label className="mb-2">Owners</Label>
             <div>
               {ownerDataForPkg?.codeowners.length ? (
-                ownerDataForPkg.codeowners.join(', ')
+                <div className="flex gap-1">
+                  {ownerDataForPkg.codeowners.map((codeowner) => (
+                    <Tag key={codeowner} use="outline" className="rounded-full">
+                      {codeowner}
+                    </Tag>
+                  ))}
+                </div>
               ) : (
-                <p className="pl-1 text-muted-foreground">No owners</p>
+                <p className="text-muted-foreground text-xs">No owners</p>
               )}
             </div>
           </div>
@@ -239,7 +243,7 @@ function PackageSheetContent({
                   </CardHeader>
                   <CardContent className="flex flex-col justify-center gap-3 text-center">
                     <FileText className="mx-auto h-6 w-6" />
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-muted-foreground text-xs">
                       <ReactWrapBalancer>
                         Create a README.md to help your team understand what
                         this package does

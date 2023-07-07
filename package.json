@@ -39,6 +39,7 @@
     "chalk": "4.1.2",
     "commonality": "^0.0.14",
     "eslint": "^8.44.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "execa": "5.1.1",
     "husky": "^8.0.3",
     "jest": "^29.6.1",

@@ -346,7 +346,7 @@ function TeamsFilterSection({
 function ResizeBar() {
   return (
     <PanelResizeHandle className="group relative h-4">
-      <div className="absolute bottom-0 left-0 right-0 top-0 m-auto h-px rounded-full bg-border transition-all group-data-[resize-handle-active=pointer]:h-1.5" />
+      <div className="bg-border absolute bottom-0 left-0 right-0 top-0 m-auto h-px rounded-full transition-all group-data-[resize-handle-active=pointer]:h-1.5" />
     </PanelResizeHandle>
   );
 }
@@ -391,11 +391,13 @@ export function Sidebar({
   const [filter, setFilter] = useState('');
 
   const filteredOwners = filter
-    ? codeownersData.filter((data) => data.codeowners.includes(filter))
+    ? codeownersData.filter((data) =>
+        data.codeowners.some((codeowner) => codeowner.includes(filter))
+      )
     : codeownersData;
 
   const filteredTags = filter
-    ? tagsData.filter((data) => data.tags.includes(filter))
+    ? tagsData.filter((data) => data.tags.some((tag) => tag.includes(filter)))
     : tagsData;
 
   const filteredPackages = filter
@@ -408,7 +410,7 @@ export function Sidebar({
     filteredPackages.length === 0;
 
   return (
-    <div className="h-full w-full overflow-hidden rounded-lg bg-background py-3">
+    <div className="bg-background h-full w-full overflow-hidden rounded-lg py-3">
       <div className="flex h-full flex-col content-start gap-3 px-3">
         <div className="flex flex-nowrap items-center gap-2">
           <Button

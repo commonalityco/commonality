@@ -2,17 +2,17 @@ import { DependencyType } from '@commonalityco/utils-core';
 
 export type Constraint =
   | {
-      tag: string;
-      allow: string[];
+      applyTo: string;
+      allow: string[] | string;
     }
   | {
-      tag: string;
-      disallow: string[];
+      applyTo: string;
+      disallow: string[] | string;
     }
   | {
-      tag: string;
-      allow: string[];
-      disallow: string[];
+      applyTo: string;
+      allow: string[] | string;
+      disallow: string[] | string;
     };
 
 export type Violation = {
@@ -20,13 +20,13 @@ export type Violation = {
   targetPackageName: string;
 
   /** The tags to which the constraint is applied to */
-  constraintTag: string;
+  appliedTo: string;
   /** The tags allowed by the constraint */
-  allowedTags: string[];
+  allowed: string[] | string;
   /** The tags disallowed by the constraint */
-  disallowedTags: string[];
+  disallowed: string[] | string;
   /** The tags found in the dependency's configuration file. If undefined, the target package has no configuration file. */
-  foundTags?: string[];
+  found?: string[];
 };
 
 export type Dependency = {

@@ -1,21 +1,32 @@
-import { Constraint, Violation } from '@commonalityco/types';
-import { ConstraintTag } from './constraint-tag';
+import { Constraint } from '@commonalityco/types';
+import { AccordionTrigger, Tag } from '@commonalityco/ui-design-system';
+import { ShieldCheck, ShieldClose } from 'lucide-react';
 
 export function ConstraintAccordionTrigger({
   constraint,
-  violations = [],
   variant,
+  children,
 }: {
   constraint: Constraint;
-  violations?: Violation[];
   variant: 'pass' | 'error';
+  children?: React.ReactNode;
 }) {
   return (
-    <div className="text-left">
-      <ConstraintTag constraint={constraint} variant={variant} />
-      <p className="mt-1 text-left text-xs text-muted-foreground">{`${
-        violations.length ?? 0
-      } violations`}</p>
-    </div>
+    <AccordionTrigger className="text-left">
+      <div>
+        <Tag
+          className="grid grid-cols-[auto_1fr] gap-1"
+          use={variant === 'pass' ? 'success' : 'destructive'}
+        >
+          {variant === 'pass' ? (
+            <ShieldCheck className="h-4 w-4" />
+          ) : (
+            <ShieldClose className="h-4 w-4" />
+          )}
+          <span className="truncate">{`#${constraint.tag}`}</span>
+        </Tag>
+        {children}
+      </div>
+    </AccordionTrigger>
   );
 }

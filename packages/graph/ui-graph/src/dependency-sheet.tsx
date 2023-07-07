@@ -1,8 +1,6 @@
 import { Constraint, Dependency, Violation } from '@commonalityco/types';
 import {
   Accordion,
-  AccordionItem,
-  AccordionTrigger,
   Label,
   Sheet,
   SheetContent,
@@ -11,8 +9,11 @@ import {
 } from '@commonalityco/ui-design-system';
 import { DependencyType } from '@commonalityco/utils-core';
 import { cva } from 'class-variance-authority';
-import { ArrowDown, ArrowRight, CornerDownRight } from 'lucide-react';
+import { CornerDownRight } from 'lucide-react';
 import { ComponentProps } from 'react';
+import { ConstraintAccordionContent } from './components/constraint-accordion-content';
+import { ConstraintAccordionItem } from './components/constraint-accordion-item';
+import { ConstraintAccordionTrigger } from './components/constraint-accordion-trigger';
 
 const statusDotStyles = cva('h-2 w-2 rounded-full', {
   variants: {
@@ -46,7 +47,7 @@ function DependencySheetContent({
   return (
     <>
       <SheetHeader>
-        <p className="text-xs text-muted-foreground">Dependency</p>
+        <p className="text-muted-foreground text-xs">Dependency</p>
         <SheetTitle className="grid gap-1">
           <span>{source}</span>
           <div className="flex flex-nowrap items-center gap-2">
@@ -55,17 +56,17 @@ function DependencySheetContent({
           </div>
         </SheetTitle>
       </SheetHeader>
-      <div className="grid gap-2 pt-4">
+      <div className="grid gap-4 pt-4">
         <div>
-          <Label className="mb-1">Type</Label>
+          <Label className="mb-2">Type</Label>
           <div className="flex flex-nowrap items-center gap-2">
             <div className={statusDotStyles({ type: dependency.type })} />
-            <p>{TextByType[dependency.type]}</p>
+            <p className="text-xs">{TextByType[dependency.type]}</p>
           </div>
         </div>
         <div>
-          <Label className="mb-1">Version range</Label>
-          <p>
+          <Label className="mb-2">Version range</Label>
+          <p className="text-xs">
             {dependency.version ? (
               <span className="font-mono">{dependency.version}</span>
             ) : (
@@ -74,15 +75,31 @@ function DependencySheetContent({
           </p>
         </div>
         <div>
-          <Label className="mb-1">Constraints</Label>
+          <Label>Constraints</Label>
           <Accordion type="multiple">
-            {constraints.map((constraint) => {
-              return (
-                <AccordionItem key={constraint.tag} value={constraint.tag}>
-                  <AccordionTrigger></AccordionTrigger>
-                </AccordionItem>
-              );
-            })}
+            {constraints.length ? (
+              constraints.map((constraint) => {
+                const hasViolation = violations.some(
+                  (violation) => violation.constraintTag === constraint.tag
+                );
+                return (
+                  <ConstraintAccordionItem
+                    key={constraint.tag}
+                    constraint={constraint}
+                  >
+                    <ConstraintAccordionTrigger
+                      constraint={constraint}
+                      variant={hasViolation ? 'error' : 'pass'}
+                    />
+                    <ConstraintAccordionContent constraint={constraint} />
+                  </ConstraintAccordionItem>
+                );
+              })
+            ) : (
+              <p className="text-muted-foreground mt-1 text-xs">
+                No constraints
+              </p>
+            )}
           </Accordion>
         </div>
       </div>

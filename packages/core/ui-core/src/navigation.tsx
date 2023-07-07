@@ -17,7 +17,9 @@ export function Navigation({ children, title }: NavigationProperties) {
       <div className="flex items-center justify-between">
         <div className="flex flex-nowrap items-center justify-center gap-4">
           <Logo width={24} height={24} />
-          <div className="text-foreground font-semibold">{title}</div>
+          <div className="text-foreground font-serif font-semibold">
+            {title}
+          </div>
         </div>
       </div>
 

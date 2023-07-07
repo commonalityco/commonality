@@ -8,7 +8,7 @@ export const inter = Inter({
 
 export const vollkorn = Vollkorn({
   subsets: ['latin'],
-  variable: '--font-vollkorn',
+  variable: '--font-inter',
   display: 'swap',
 });
 

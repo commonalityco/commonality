@@ -1,10 +1,5 @@
 'use client';
-import {
-  
-  NpmLogo,
-  PnpmLogo,
-  YarnLogo,
-} from '@commonalityco/ui-core';
+import { NpmLogo, PnpmLogo, YarnLogo } from '@commonalityco/ui-core';
 import { PackageManager } from '@commonalityco/utils-core';
 import {
   Separator,
@@ -20,10 +15,8 @@ import {
   Tag,
   ScrollArea,
   Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
   Label,
+  AccordionItem,
 } from '@commonalityco/ui-design-system';
 import {
   MinusIcon,
@@ -35,11 +28,11 @@ import {
   CornerDownRight,
 } from 'lucide-react';
 import { ProjectConfig, Violation, Constraint } from '@commonalityco/types';
-import {  useMemo } from 'react';
+import { useMemo } from 'react';
 import { cva } from 'class-variance-authority';
-
-import { ConstraintDetails } from './constraint-details';
+import { ConstraintAccordionItem } from './constraint-accordion-item';
 import { ConstraintAccordionTrigger } from './constraint-accordion-trigger';
+import { ConstraintAccordionContent } from './constraint-accordion-content';
 
 function ViolationsHoverCard({
   constraints = [],
@@ -93,103 +86,89 @@ function ViolationsHoverCard({
 
                 if (!violations?.length) {
                   return (
-                    <AccordionItem
+                    <ConstraintAccordionItem
+                      constraint={constraint}
                       key={constraint.tag}
-                      value={constraint.tag}
-                      className="w-full"
                     >
-                      <AccordionTrigger>
-                        <ConstraintAccordionTrigger
-                          variant="pass"
-                          constraint={constraint}
-                          violations={violations}
-                        />
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="grid gap-4">
-                          <ConstraintDetails constraint={constraint} />
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
+                      <ConstraintAccordionTrigger
+                        variant="pass"
+                        constraint={constraint}
+                      >
+                        <p className="text-muted-foreground mt-1 mt-1 block text-left text-xs">{`${
+                          violations?.length ?? 0
+                        } violations`}</p>
+                      </ConstraintAccordionTrigger>
+                      <ConstraintAccordionContent constraint={constraint} />
+                    </ConstraintAccordionItem>
                   );
                 }
 
                 return (
-                  <AccordionItem
-                    className="grid w-full gap-2"
+                  <ConstraintAccordionItem
+                    constraint={constraint}
                     key={constraint.tag}
-                    value={constraint.tag}
                   >
-                    <AccordionTrigger>
-                      <ConstraintAccordionTrigger
-                        variant="error"
-                        constraint={constraint}
-                        violations={violations}
-                      />
-                    </AccordionTrigger>
-                    <AccordionContent className="w-full">
-                      <div className="flex w-full flex-col gap-4">
-                        <ConstraintDetails constraint={constraint} />
-                        <div className="w-full">
-                          <Label className="text-xs">Violations:</Label>
-                          <div className="flex flex-col gap-2">
-                            {violations.map((violation) => {
-                              return (
-                                <div className="w-full">
-                                  <div>
-                                    <Button
-                                      className="block h-auto w-full truncate px-0 py-1 text-left text-xs font-semibold"
-                                      size="sm"
-                                      variant="link"
-                                      onClick={() =>
-                                        onPackageClick(
-                                          violation.sourcePackageName
-                                        )
-                                      }
+                    <ConstraintAccordionTrigger
+                      variant="error"
+                      constraint={constraint}
+                    >
+                      <p className="text-muted-foreground mt-1 mt-1 block text-left text-xs">{`${
+                        violations.length ?? 0
+                      } violations`}</p>
+                    </ConstraintAccordionTrigger>
+                    <ConstraintAccordionContent constraint={constraint}>
+                      <Label className="text-xs">Violations:</Label>
+
+                      {violations.map((violation) => {
+                        return (
+                          <div className="w-full" key={violation.constraintTag}>
+                            <div>
+                              <Button
+                                className="block h-auto w-full truncate px-0 py-1 text-left text-xs font-semibold"
+                                size="sm"
+                                variant="link"
+                                onClick={() =>
+                                  onPackageClick(violation.sourcePackageName)
+                                }
+                              >
+                                {violation.sourcePackageName}
+                              </Button>
+                              <div className="flex items-center gap-2">
+                                <CornerDownRight className="text-destructive h-4 w-4 shrink-0" />
+                                <Button
+                                  className="block h-auto truncate px-0 py-1 text-left text-xs font-semibold"
+                                  size="sm"
+                                  variant="link"
+                                  onClick={() =>
+                                    onPackageClick(violation.targetPackageName)
+                                  }
+                                >
+                                  {violation.targetPackageName}
+                                </Button>
+                              </div>
+                            </div>
+                            <div className="w-full pl-6">
+                              <div className="flex w-full flex-wrap gap-1">
+                                {violation.foundTags?.length ? (
+                                  violation.foundTags.map((tag) => (
+                                    <Tag
+                                      use="secondary"
+                                      key={tag}
+                                      className="block min-w-0"
                                     >
-                                      {violation.sourcePackageName}
-                                    </Button>
-                                    <div className="flex items-center gap-2">
-                                      <CornerDownRight className="h-4 w-4 shrink-0 text-destructive" />
-                                      <Button
-                                        className="block h-auto truncate px-0 py-1 text-left text-xs font-semibold"
-                                        size="sm"
-                                        variant="link"
-                                        onClick={() =>
-                                          onPackageClick(
-                                            violation.targetPackageName
-                                          )
-                                        }
-                                      >
-                                        {violation.targetPackageName}
-                                      </Button>
-                                    </div>
-                                  </div>
-                                  <div className="w-full pl-6">
-                                    <div className="flex w-full flex-wrap gap-1">
-                                      {violation.foundTags?.length ? (
-                                        violation.foundTags.map((tag) => (
-                                          <Tag
-                                            use="secondary"
-                                            key={tag}
-                                            className="block min-w-0"
-                                          >
-                                            {`#${tag}`}
-                                          </Tag>
-                                        ))
-                                      ) : (
-                                        <p className="text-xs">No tags</p>
-                                      )}
-                                    </div>
-                                  </div>
-                                </div>
-                              );
-                            })}
+                                      {`#${tag}`}
+                                    </Tag>
+                                  ))
+                                ) : (
+                                  <p className="text-xs">No tags</p>
+                                )}
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
+                        );
+                      })}
+                    </ConstraintAccordionContent>
+                  </ConstraintAccordionItem>
                 );
               })}
             </Accordion>
@@ -259,7 +238,7 @@ export function GraphToolbar({
     : undefined;
 
   return (
-    <div className="flex w-full bg-background px-3 pb-1 pt-3">
+    <div className="bg-background flex w-full px-3 pb-1 pt-3">
       <div className="flex items-center gap-2">
         <div className="flex flex-nowrap items-center gap-2 pl-2">
           {Icon && <Icon />}
@@ -280,14 +259,25 @@ export function GraphToolbar({
       </div>
       <div className="grow" />
       <div className="flex items-center gap-1">
-        <Toggle
-          onPressedChange={(pressed) => {
-            onSetIsEdgeColorShown(pressed);
-          }}
-          pressed={isEdgeColorShown}
-        >
-          <Palette className="h-4 w-4" />
-        </Toggle>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Toggle
+                onPressedChange={(pressed) => {
+                  onSetIsEdgeColorShown(pressed);
+                }}
+                pressed={isEdgeColorShown}
+              >
+                <Palette className="h-4 w-4" />
+              </Toggle>
+            </TooltipTrigger>
+            <TooltipContent>
+              {isEdgeColorShown
+                ? 'Hide dependency colors'
+                : 'Show dependency colors'}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <Separator orientation="vertical" />
         <div className="flex gap-1">
           <TooltipProvider>

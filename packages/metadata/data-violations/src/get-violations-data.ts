@@ -1,4 +1,3 @@
-import { getTagsData } from '@commonalityco/data-tags';
 import {
   Package,
   Violation,
@@ -6,10 +5,8 @@ import {
   ProjectConfig,
   TagsData,
 } from '@commonalityco/types';
-import { getPackages } from '@commonalityco/data-packages';
-import { getProjectConfig } from '@commonalityco/data-project';
 
-function includesAny(a: Set<string>, b: Set<string>): boolean {
+function includesAny<Value>(a: Set<Value>, b: Set<Value>): boolean {
   return Array.from(b).some((val) => a.has(val));
 }
 
@@ -30,9 +27,14 @@ function getAllDependencies(
     }
   }
 
-  return Array.from(new Set(deps.map((dep) => dep.name))).map(
-    (name) => deps.find((dep) => dep.name === name)!
-  );
+  const dependencyNames = deps.map((dep) => dep.name);
+  const deduplicatedDependencyNames = [...new Set(dependencyNames)];
+
+  const dependencies = deduplicatedDependencyNames
+    .map((name) => deps.find((dep) => dep.name === name))
+    .filter((dep): dep is Dependency => dep !== undefined);
+
+  return dependencies;
 }
 
 export async function getViolationsData({
@@ -67,20 +69,20 @@ export async function getViolationsData({
         ].map((dep) => dep.name)
       )
     )
-      .map((name) => packagesMap.get(name)!)
-      .filter(Boolean);
+      .map((name) => packagesMap.get(name))
+      .filter((pkg): pkg is Package => pkg !== undefined);
 
     const constraintsForPackage = projectConfig.constraints.filter(
       (constraint) => {
         return tagsForPkg
-          ? includesAny(new Set(tagsForPkg.tags), new Set([constraint.tag]))
+          ? includesAny(new Set(tagsForPkg.tags), new Set([constraint.applyTo]))
           : [];
       }
     );
 
     const allowsAnyPackage = constraintsForPackage.some((constraint) => {
       if ('allow' in constraint) {
-        return constraint.allow.includes('*');
+        return constraint.allow === '*';
       }
       return false;
     });
@@ -88,10 +90,28 @@ export async function getViolationsData({
     for (const constraint of constraintsForPackage) {
       const hasAllow = 'allow' in constraint;
       const hasDisallow = 'disallow' in constraint;
+      const allowed = hasAllow ? constraint.allow : undefined;
+      const disallowed = hasDisallow ? constraint.disallow : undefined;
+
+      if (disallowed === '*') {
+        for (const dependency of directDependencies) {
+          const tagsForTargetPkg =
+            tagData.find((data) => data.packageName === dependency.name)
+              ?.tags ?? [];
+
+          violations.push({
+            sourcePackageName: pkg.name,
+            targetPackageName: dependency.name,
+            appliedTo: constraint.applyTo,
+            allowed: hasAllow ? constraint.allow : [],
+            disallowed: hasDisallow ? constraint.disallow : [],
+            found: tagsForTargetPkg,
+          });
+        }
+        continue;
+      }
 
       if (hasAllow) {
-        const allowedTags = new Set(constraint.allow);
-
         if (allowsAnyPackage) {
           continue;
         }
@@ -101,21 +121,20 @@ export async function getViolationsData({
             tagData.find((data) => data.packageName === dependency.name)
               ?.tags ?? [];
 
-          if (!includesAny(allowedTags, new Set(tagsForTargetPkg))) {
+          if (!includesAny(new Set(allowed), new Set(tagsForTargetPkg))) {
             violations.push({
               sourcePackageName: pkg.name,
               targetPackageName: dependency.name,
-              constraintTag: constraint.tag,
-              allowedTags: constraint.allow,
-              disallowedTags: hasDisallow ? constraint.disallow : [],
-              foundTags: tagsForTargetPkg,
+              appliedTo: constraint.applyTo,
+              allowed: constraint.allow,
+              disallowed: hasDisallow ? constraint.disallow : [],
+              found: tagsForTargetPkg,
             });
           }
         }
       }
 
       if (hasDisallow) {
-        const disallowedTags = new Set(constraint.disallow);
         const allDependencies = getAllDependencies(pkg, packagesMap);
 
         for (const dependency of allDependencies) {
@@ -124,17 +143,14 @@ export async function getViolationsData({
             tagData.find((data) => data.packageName === dependencyPackage?.name)
               ?.tags ?? [];
 
-          if (
-            dependencyPackage &&
-            includesAny(disallowedTags, new Set(tagsForTargetPkg))
-          ) {
+          if (includesAny(new Set(disallowed), new Set(tagsForTargetPkg))) {
             violations.push({
               sourcePackageName: pkg.name,
               targetPackageName: dependency.name,
-              constraintTag: constraint.tag,
-              allowedTags: [],
-              disallowedTags: constraint.disallow,
-              foundTags: tagsForTargetPkg,
+              appliedTo: constraint.applyTo,
+              allowed: hasAllow ? constraint.allow : [],
+              disallowed: constraint.disallow,
+              found: tagsForTargetPkg,
             });
           }
         }

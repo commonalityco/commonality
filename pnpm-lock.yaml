@@ -39,6 +39,9 @@ importers:
       eslint:
         specifier: ^8.44.0
         version: 8.44.0
+      eslint-plugin-unused-imports:
+        specifier: ^2.0.0
+        version: 2.0.0(@typescript-eslint/eslint-plugin@5.61.0)(eslint@8.44.0)
       execa:
         specifier: 5.1.1
         version: 5.1.1
@@ -73,46 +76,46 @@ importers:
   apps/dashboard:
     dependencies:
       '@commonalityco/data-codeowners':
-        specifier: ^0.0.6
+        specifier: '*'
         version: link:../../packages/metadata/data-codeowners
       '@commonalityco/data-documentation':
-        specifier: ^0.0.1
+        specifier: '*'
         version: link:../../packages/metadata/data-documentation
       '@commonalityco/data-graph':
-        specifier: ^0.0.1
+        specifier: '*'
         version: link:../../packages/graph/data-graph
       '@commonalityco/data-packages':
-        specifier: ^0.0.6
+        specifier: '*'
         version: link:../../packages/metadata/data-packages
       '@commonalityco/data-project':
-        specifier: ^0.0.1
+        specifier: '*'
         version: link:../../packages/metadata/data-project
       '@commonalityco/data-tags':
-        specifier: ^0.0.1
+        specifier: '*'
         version: link:../../packages/metadata/data-tags
       '@commonalityco/data-violations':
-        specifier: ^0.0.6
+        specifier: '*'
         version: link:../../packages/metadata/data-violations
       '@commonalityco/feature-graph':
-        specifier: ^0.0.1
+        specifier: '*'
         version: link:../../packages/graph/feature-graph
       '@commonalityco/types':
-        specifier: ^0.0.8
+        specifier: '*'
         version: link:../../packages/core/types
       '@commonalityco/ui-core':
-        specifier: ^0.0.1
+        specifier: '*'
         version: link:../../packages/core/ui-core
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.1
+        specifier: '*'
         version: link:../../packages/design-system/ui-design-system
       '@commonalityco/ui-graph':
-        specifier: ^0.0.1
+        specifier: '*'
         version: link:../../packages/graph/ui-graph
       '@commonalityco/utils-core':
-        specifier: ^0.0.1
+        specifier: '*'
         version: link:../../packages/core/utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.1
+        specifier: '*'
         version: link:../../packages/graph/utils-graph
       '@fortawesome/fontawesome-svg-core':
         specifier: ^6.4.0
@@ -290,10 +293,10 @@ importers:
         specifier: ^0.8.0
         version: 0.8.0
       '@commonalityco/config-eslint':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../packages/tooling/config-eslint
       '@commonalityco/config-tailwind':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../packages/tooling/config-tailwind
       '@testing-library/jest-dom':
         specifier: ^5.16.5
@@ -1962,6 +1965,9 @@ importers:
 
   packages/tooling/config-eslint:
     devDependencies:
+      eslint-plugin-unused-imports:
+        specifier: ^2.0.0
+        version: 2.0.0(@typescript-eslint/eslint-plugin@5.61.0)(eslint@8.44.0)
       tsup:
         specifier: ^6.7.0
         version: 6.7.0(@swc/core@1.3.68)(ts-node@10.9.1)(typescript@4.9.5)
@@ -12176,6 +12182,26 @@ packages:
       semver: 6.3.0
       string.prototype.matchall: 4.0.8
     dev: false
+
+  /eslint-plugin-unused-imports@2.0.0(@typescript-eslint/eslint-plugin@5.61.0)(eslint@8.44.0):
+    resolution: {integrity: sha512-3APeS/tQlTrFa167ThtP0Zm0vctjr4M44HMpeg1P4bK6wItarumq0Ma82xorMKdFsWpphQBlRPzw/pxiVELX1A==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    peerDependencies:
+      '@typescript-eslint/eslint-plugin': ^5.0.0
+      eslint: ^8.0.0
+    peerDependenciesMeta:
+      '@typescript-eslint/eslint-plugin':
+        optional: true
+    dependencies:
+      '@typescript-eslint/eslint-plugin': 5.61.0(@typescript-eslint/parser@5.61.0)(eslint@8.44.0)(typescript@4.9.5)
+      eslint: 8.44.0
+      eslint-rule-composer: 0.3.0
+    dev: true
+
+  /eslint-rule-composer@0.3.0:
+    resolution: {integrity: sha512-bt+Sh8CtDmn2OajxvNO+BX7Wn4CIWMpTRm3MaiKPCQcnnlm0CS2mhui6QaoeQugs+3Kj2ESKEEGJUdVafwhiCg==}
+    engines: {node: '>=4.0.0'}
+    dev: true
 
   /eslint-scope@5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}

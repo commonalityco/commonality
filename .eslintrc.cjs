@@ -1,1 +1,3 @@
-module.exports = require('@commonalityco/config-eslint');
+var config = require('@commonalityco/config-eslint');
+
+module.exports = { ...config };

@@ -45,7 +45,7 @@ const documentsData = [
 const codeownersData = [
   {
     packageName: pkg.name,
-    codeowners: ['team-one', 'team-two', 'team-three'],
+    codeowners: ['@team-one', '@team-two', '@team-three'],
   },
 ] satisfies CodeownersData[];
 
