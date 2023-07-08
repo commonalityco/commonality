@@ -14,9 +14,9 @@
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage"
   },
   "dependencies": {
-    "@commonalityco/data-packages": "^0.0.6",
-    "@commonalityco/data-project": "^0.0.1",
-    "@commonalityco/data-tags": "^0.0.1",
+    "@commonalityco/data-packages": "workspace:^",
+    "@commonalityco/data-project": "workspace:^",
+    "@commonalityco/data-tags": "workspace:^",
     "fast-glob": "^3.3.0",
     "fs-extra": "^11.1.1",
     "glob": "^8.1.0",

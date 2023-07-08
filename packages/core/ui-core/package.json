@@ -2,9 +2,9 @@
   "name": "@commonalityco/ui-core",
   "version": "0.0.1",
   "dependencies": {
-    "@commonalityco/types": "^0.0.8",
-    "@commonalityco/ui-design-system": "^0.0.1",
-    "@commonalityco/utils-core": "^0.0.1",
+    "@commonalityco/types": "workspace:^",
+    "@commonalityco/ui-design-system": "workspace:^",
+    "@commonalityco/utils-core": "workspace:^",
     "@heroicons/react": "^2.0.18",
     "@popperjs/core": "^2.11.8",
     "class-variance-authority": "^0.4.0",
@@ -25,10 +25,9 @@
     "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "^0.0.5",
-     
-    "@commonalityco/config-tailwind": "^0.0.1",
-    "@commonalityco/config-tsconfig": "^0.0.4",
+    "@commonalityco/config-eslint": "workspace:^",
+    "@commonalityco/config-tailwind": "workspace:^",
+    "@commonalityco/config-tsconfig": "workspace:^",
     "@types/cytoscape": "^3.19.10",
     "@types/cytoscape-dagre": "^2.3.0",
     "@types/cytoscape-popper": "^2.0.0",

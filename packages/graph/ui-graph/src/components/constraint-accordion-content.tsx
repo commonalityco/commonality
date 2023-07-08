@@ -20,18 +20,16 @@ export function ConstraintAccordionContent({
                 </Label>
               </div>
               <div className="flex w-full flex-wrap gap-1">
-                {constraint.allow.map((tag) =>
-                  tag === '*' ? (
-                    <p className="text-xs" key={tag}>
-                      Any tag or no tags
-                    </p>
-                  ) : (
+                {constraint.allow === '*' ? (
+                  <p className="text-xs">All packages</p>
+                ) : (
+                  constraint.allow.map((tag) => (
                     <Tag
                       use="secondary"
                       key={tag}
                       className="block min-w-0"
                     >{`#${tag}`}</Tag>
-                  )
+                  ))
                 )}
               </div>
             </div>
@@ -44,13 +42,17 @@ export function ConstraintAccordionContent({
                 </Label>
               </div>
               <div className="flex w-full flex-wrap gap-1">
-                {constraint.disallow.map((tag) => (
-                  <Tag
-                    use="secondary"
-                    key={tag}
-                    className="block min-w-0"
-                  >{`#${tag}`}</Tag>
-                ))}
+                {constraint.disallow === '*' ? (
+                  <p className="text-xs">All packages</p>
+                ) : (
+                  constraint.disallow.map((tag) => (
+                    <Tag
+                      use="secondary"
+                      key={tag}
+                      className="block min-w-0"
+                    >{`#${tag}`}</Tag>
+                  ))
+                )}
               </div>
             </div>
           )}

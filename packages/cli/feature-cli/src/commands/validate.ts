@@ -67,20 +67,20 @@ export const validate = program
             `${violation.sourcePackageName} -> ${violation.targetPackageName}`
           )
         );
-        console.log(`Constraint matching: ${violation.constraintTag}`);
+        console.log(`Constraint matching: ${violation.appliedTo}`);
 
         console.log(
           `${chalk.green('Allowed:')} ${
-            violation.allowedTags?.length
-              ? JSON.stringify(violation.allowedTags)
+            violation.allowed?.length
+              ? JSON.stringify(violation.allowed)
               : 'No packages allowed'
           }`
         );
         console.log(
           `${chalk.red('Found:')} ${
-            violation.foundTags?.length
-              ? JSON.stringify(violation.foundTags)
-              : violation.allowedTags?.length
+            violation.found?.length
+              ? JSON.stringify(violation.found)
+              : violation.allowed?.length
               ? chalk.dim('None')
               : 'Package found'
           }`

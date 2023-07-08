@@ -23,12 +23,11 @@
     "micromatch": "^4.0.5"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "^0.0.5",
-    "@commonalityco/config-jest": "^0.0.5",
-     
-    "@commonalityco/config-tsconfig": "^0.0.4",
-    "@commonalityco/config-tsup": "^0.0.5",
-    "@commonalityco/types": "^0.0.8",
+    "@commonalityco/config-eslint": "workspace:^",
+    "@commonalityco/config-jest": "workspace:^",
+    "@commonalityco/config-tsconfig": "workspace:^",
+    "@commonalityco/config-tsup": "workspace:^",
+    "@commonalityco/types": "workspace:^",
     "@jest/globals": "^29.6.1",
     "@types/fs-extra": "^11.0.1",
     "@types/glob": "^8.1.0",

@@ -1,18 +1,18 @@
-import { DependencyType } from '@commonalityco/utils-core';
+import { DependencyType, AllPackagesWildcard } from '@commonalityco/utils-core';
 
 export type Constraint =
   | {
       applyTo: string;
-      allow: string[] | string;
+      allow: string[] | typeof AllPackagesWildcard;
     }
   | {
       applyTo: string;
-      disallow: string[] | string;
+      disallow: string[] | typeof AllPackagesWildcard;
     }
   | {
       applyTo: string;
-      allow: string[] | string;
-      disallow: string[] | string;
+      allow: string[] | typeof AllPackagesWildcard;
+      disallow: string[] | typeof AllPackagesWildcard;
     };
 
 export type Violation = {
@@ -22,9 +22,9 @@ export type Violation = {
   /** The tags to which the constraint is applied to */
   appliedTo: string;
   /** The tags allowed by the constraint */
-  allowed: string[] | string;
+  allowed: string[] | typeof AllPackagesWildcard;
   /** The tags disallowed by the constraint */
-  disallowed: string[] | string;
+  disallowed: string[] | typeof AllPackagesWildcard;
   /** The tags found in the dependency's configuration file. If undefined, the target package has no configuration file. */
   found?: string[];
 };

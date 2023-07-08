@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable @typescript-eslint/ban-types */
 import path from 'node:path';
 import fs from 'fs-extra';
 import { z } from 'zod';
+
+const allPackagesWildcard = z.enum(['*']);
 
 const projectConfigSchema = z.object({
   projectId: z.string().optional(),
@@ -11,17 +11,17 @@ const projectConfigSchema = z.object({
     .array(
       z.union([
         z.object({
-          tag: z.string(),
-          allow: z.array(z.string()),
-          disallow: z.array(z.string()),
+          applyTo: z.string(),
+          allow: z.union([z.array(z.string()), allPackagesWildcard]),
+          disallow: z.union([z.array(z.string()), allPackagesWildcard]),
         }),
         z.object({
-          tag: z.string(),
-          allow: z.array(z.string()),
+          applyTo: z.string(),
+          allow: z.union([z.array(z.string()), allPackagesWildcard]),
         }),
         z.object({
-          tag: z.string(),
-          disallow: z.array(z.string()),
+          applyTo: z.string(),
+          disallow: z.union([z.array(z.string()), allPackagesWildcard]),
         }),
       ])
     )
@@ -48,7 +48,8 @@ export const getProjectConfig = async ({
 
     return parsed;
   } catch (error) {
-    console.log(error);
+    console.error('Invalid project configuration');
+    // console.log(error);
     return {};
   }
 };

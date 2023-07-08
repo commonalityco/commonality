@@ -27,3 +27,5 @@ export enum PackageManager {
   YARN = 'yarn',
   NPM = 'npm',
 }
+
+export const AllPackagesWildcard = '*' as const;

@@ -1,4 +1,9 @@
-import { Package, TagsData, Violation } from '@commonalityco/types';
+import {
+  Package,
+  ProjectConfig,
+  TagsData,
+  Violation,
+} from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
 import { getViolationsData } from './get-violations-data';
 
@@ -90,7 +95,7 @@ describe('getViolations', () => {
         const constraints = [
           { applyTo: 'tag-one', allow: '*' },
           { applyTo: 'restricted', allow: ['restricted'] },
-        ];
+        ] satisfies ProjectConfig['constraints'];
 
         describe('and has a dependency that does not have any tags', () => {
           const tagData = [
@@ -431,15 +436,33 @@ describe('getViolations', () => {
   describe('when a constraint is applied to all packages', () => {
     const packages = [basePkgOne, basePkgTwo];
     const projectConfig = {
-      constraints: [{ applyTo: '*', allow: ['foo'], disallow: '*' }],
-    };
+      constraints: [{ applyTo: '*', disallow: ['tag-two'] }],
+    } satisfies ProjectConfig;
     const tagData = [
       { packageName: basePkgOne.name, tags: ['tag-one'] },
-      { packageName: basePkgTwo.name, tags: ['tag-two', 'tag-three'] },
-      { packageName: '@scope/pkg-three', tags: ['tag-four'] },
+      { packageName: basePkgTwo.name, tags: ['tag-two'] },
     ] satisfies TagsData[];
 
-    it('is run against every package', () => {});
+    it('is run against every package', async () => {
+      const violations = await getViolationsData({
+        projectConfig,
+        packages,
+        tagData,
+      });
+
+      const expectedViolations = [
+        {
+          allowed: [],
+          appliedTo: '*',
+          disallowed: ['tag-two'],
+          found: ['tag-two'],
+          sourcePackageName: '@scope/pkg-one',
+          targetPackageName: '@scope/pkg-two',
+        },
+      ] satisfies Violation[];
+
+      expect(violations).toEqual(expectedViolations);
+    });
   });
 
   describe('when a constraint disallows all tags', () => {
@@ -508,7 +531,7 @@ describe('getViolations', () => {
     describe('and allows no tags', () => {
       const projectConfig = {
         constraints: [{ applyTo: 'tag-one', disallow: '*' }],
-      };
+      } satisfies ProjectConfig;
 
       describe('and a dependency has no tags', () => {
         const tagData = [
@@ -683,7 +706,7 @@ describe('getViolations', () => {
       { applyTo: 'data', allow: ['config'] },
       { applyTo: 'utility', allow: ['data'] },
       { applyTo: 'config', allow: ['config'] },
-    ];
+    ] satisfies ProjectConfig['constraints'];
 
     it('returns violations', async () => {
       const violations = await getViolationsData({

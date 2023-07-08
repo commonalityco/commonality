@@ -6,9 +6,8 @@
     "events": "^3.3.0"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "^0.0.5",
-     
-    "@commonalityco/config-tsconfig": "^0.0.4",
+    "@commonalityco/config-eslint": "workspace:^",
+    "@commonalityco/config-tsconfig": "workspace:^",
     "typescript": "4.9.5"
   },
   "main": "src/index.ts",

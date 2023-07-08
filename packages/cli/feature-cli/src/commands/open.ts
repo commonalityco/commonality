@@ -14,7 +14,14 @@ export const open = program
     try {
       await start(port);
 
-      await openUrl(`http://localhost:${port}`);
+      await openUrl(`http://localhost:${port}`, {
+        app: [
+          {
+            name: apps.chrome,
+            arguments: ['--app=http://localhost:8888'],
+          },
+        ],
+      });
     } catch (error) {
       console.log(error);
     }

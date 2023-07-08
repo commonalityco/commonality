@@ -80,11 +80,11 @@ function DependencySheetContent({
             {constraints.length ? (
               constraints.map((constraint) => {
                 const hasViolation = violations.some(
-                  (violation) => violation.constraintTag === constraint.tag
+                  (violation) => violation.appliedTo === constraint.applyTo
                 );
                 return (
                   <ConstraintAccordionItem
-                    key={constraint.tag}
+                    key={constraint.applyTo}
                     constraint={constraint}
                   >
                     <ConstraintAccordionTrigger

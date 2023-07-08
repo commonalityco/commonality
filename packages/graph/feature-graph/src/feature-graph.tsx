@@ -88,7 +88,7 @@ function GraphContent({
         (data) => data.packageName === sourcePkg.name
       );
 
-      return tagsForPkg?.tags.includes(constraint.tag);
+      return tagsForPkg?.tags.includes(constraint.applyTo);
     });
 
     return dependencyConstraints;

@@ -16,7 +16,6 @@ import {
   ScrollArea,
   Accordion,
   Label,
-  AccordionItem,
 } from '@commonalityco/ui-design-system';
 import {
   MinusIcon,
@@ -49,9 +48,9 @@ function ViolationsHoverCard({
     for (let i = 0; i < violations.length; i++) {
       const violation = violations[i];
 
-      const currentViolations = map[violation.constraintTag];
+      const currentViolations = map[violation.appliedTo];
 
-      map[violation.constraintTag] = currentViolations
+      map[violation.appliedTo] = currentViolations
         ? [...currentViolations, violation]
         : [violation];
     }
@@ -82,19 +81,20 @@ function ViolationsHoverCard({
               defaultValue={Object.keys(violationsByConstraintTag)}
             >
               {constraints.map((constraint) => {
-                const violations = violationsByConstraintTag[constraint.tag];
+                const violations =
+                  violationsByConstraintTag[constraint.applyTo];
 
                 if (!violations?.length) {
                   return (
                     <ConstraintAccordionItem
                       constraint={constraint}
-                      key={constraint.tag}
+                      key={constraint.applyTo}
                     >
                       <ConstraintAccordionTrigger
                         variant="pass"
                         constraint={constraint}
                       >
-                        <p className="text-muted-foreground mt-1 mt-1 block text-left text-xs">{`${
+                        <p className="text-muted-foreground mt-1 block text-left text-xs">{`${
                           violations?.length ?? 0
                         } violations`}</p>
                       </ConstraintAccordionTrigger>
@@ -106,13 +106,13 @@ function ViolationsHoverCard({
                 return (
                   <ConstraintAccordionItem
                     constraint={constraint}
-                    key={constraint.tag}
+                    key={constraint.applyTo}
                   >
                     <ConstraintAccordionTrigger
                       variant="error"
                       constraint={constraint}
                     >
-                      <p className="text-muted-foreground mt-1 mt-1 block text-left text-xs">{`${
+                      <p className="text-muted-foreground mt-1 block text-left text-xs">{`${
                         violations.length ?? 0
                       } violations`}</p>
                     </ConstraintAccordionTrigger>
@@ -121,7 +121,7 @@ function ViolationsHoverCard({
 
                       {violations.map((violation) => {
                         return (
-                          <div className="w-full" key={violation.constraintTag}>
+                          <div className="w-full" key={violation.appliedTo}>
                             <div>
                               <Button
                                 className="block h-auto w-full truncate px-0 py-1 text-left text-xs font-semibold"
@@ -149,8 +149,8 @@ function ViolationsHoverCard({
                             </div>
                             <div className="w-full pl-6">
                               <div className="flex w-full flex-wrap gap-1">
-                                {violation.foundTags?.length ? (
-                                  violation.foundTags.map((tag) => (
+                                {violation.found?.length ? (
+                                  violation.found.map((tag) => (
                                     <Tag
                                       use="secondary"
                                       key={tag}
@@ -271,11 +271,7 @@ export function GraphToolbar({
                 <Palette className="h-4 w-4" />
               </Toggle>
             </TooltipTrigger>
-            <TooltipContent>
-              {isEdgeColorShown
-                ? 'Hide dependency colors'
-                : 'Show dependency colors'}
-            </TooltipContent>
+            <TooltipContent>Toggle dependency colors</TooltipContent>
           </Tooltip>
         </TooltipProvider>
         <Separator orientation="vertical" />

@@ -74,6 +74,10 @@ export async function getViolationsData({
 
     const constraintsForPackage = projectConfig.constraints.filter(
       (constraint) => {
+        if (constraint.applyTo === '*') {
+          return true;
+        }
+
         return tagsForPkg
           ? includesAny(new Set(tagsForPkg.tags), new Set([constraint.applyTo]))
           : [];

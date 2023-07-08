@@ -23,7 +23,7 @@ export function ConstraintAccordionTrigger({
           ) : (
             <ShieldClose className="h-4 w-4" />
           )}
-          <span className="truncate">{`#${constraint.tag}`}</span>
+          <span className="truncate">{`#${constraint.applyTo}`}</span>
         </Tag>
         {children}
       </div>

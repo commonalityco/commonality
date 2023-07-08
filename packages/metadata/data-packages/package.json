@@ -23,14 +23,13 @@
     "treeverse": "^3.0.0"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "^0.0.5",
-    "@commonalityco/config-jest": "^0.0.5",
-     
-    "@commonalityco/config-tsconfig": "^0.0.4",
-    "@commonalityco/data-project": "^0.0.1",
-    "@commonalityco/traverse": "^0.0.6",
-    "@commonalityco/types": "^0.0.8",
-    "@commonalityco/utils-core": "^0.0.1",
+    "@commonalityco/config-eslint": "workspace:^",
+    "@commonalityco/config-jest": "workspace:^",
+    "@commonalityco/config-tsconfig": "workspace:^",
+    "@commonalityco/data-project": "workspace:^",
+    "@commonalityco/traverse": "workspace:^",
+    "@commonalityco/types": "workspace:^",
+    "@commonalityco/utils-core": "workspace:^",
     "@jest/globals": "^29.6.1",
     "@types/fs-extra": "^11.0.1",
     "@types/glob": "^8.1.0",

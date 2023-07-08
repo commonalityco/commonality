@@ -9,7 +9,7 @@ export function ConstraintAccordionItem({
   children?: React.ReactNode;
 }) {
   return (
-    <AccordionItem className="grid w-full gap-2" value={constraint.tag}>
+    <AccordionItem className="grid w-full gap-2" value={constraint.applyTo}>
       {children}
     </AccordionItem>
   );
