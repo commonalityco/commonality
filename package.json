@@ -10,7 +10,7 @@
   "scripts": {
     "co:open": "pnpm exec commonality open",
     "build": "turbo run build",
-    "clean": "rimraf **/node_modules **/dist **/.turbo",
+    "clean": "rimraf **/node_modules **/dist **/.turbo **/lib",
     "dev": "turbo run dev",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",

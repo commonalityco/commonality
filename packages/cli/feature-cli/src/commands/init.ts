@@ -15,5 +15,5 @@ export const init = program
     console.log('Here is what we will will do:');
     console.log('1. Create a new project within Commonality');
     console.log('2. Create configuration files');
-    console.log('3. Publish your first snapshot');
+    console.log('3. Open the Commonality Dashboard');
   });
