@@ -11,7 +11,7 @@
     "build": "tsup-node",
     "dev": "tsup-node --watch",
     "lint": "eslint ./src --fix",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage"
+    "test": "jest"
   },
   "dependencies": {
     "@commonalityco/data-packages": "workspace:^",

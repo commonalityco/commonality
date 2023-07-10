@@ -4,6 +4,8 @@ import type { PackageJson } from '@commonalityco/types';
 import yaml from 'yaml';
 import { PackageManager } from '@commonalityco/utils-core';
 
+const defaultWorkspaceGlobs = ['./**'];
+
 export const getWorkspaceGlobs = async ({
   rootDirectory,
   packageManager,
@@ -17,48 +19,36 @@ export const getWorkspaceGlobs = async ({
   ) {
     const packageJsonPath = path.join(rootDirectory, 'package.json');
 
-    if (!fs.pathExistsSync(packageJsonPath)) {
-      throw new Error(
-        'Unable to determine workspaces, no package.json file found'
-      );
+    if (fs.pathExistsSync(packageJsonPath)) {
+      const rootPackageJson = (await fs.readJson(
+        path.join(rootDirectory, 'package.json')
+      )) as PackageJson;
+
+      if (!rootPackageJson?.workspaces) {
+        return defaultWorkspaceGlobs;
+      }
+
+      return rootPackageJson.workspaces;
     }
-
-    const rootPackageJson = (await fs.readJson(
-      path.join(rootDirectory, 'package.json')
-    )) as PackageJson;
-
-    if (!rootPackageJson?.workspaces) {
-      throw new Error(
-        'You must include the "packages" property in your root package.json file'
-      );
-    }
-
-    return rootPackageJson.workspaces;
   }
 
   if (packageManager === PackageManager.PNPM) {
     const workspaceFilePath = path.join(rootDirectory, 'pnpm-workspace.yaml');
 
-    if (!fs.existsSync(workspaceFilePath)) {
-      throw new Error(
-        'Unable to determine workspaces, no pnpm-workspace.yaml file found'
-      );
+    if (fs.existsSync(workspaceFilePath)) {
+      const yamlFile = fs.readFileSync(workspaceFilePath, 'utf8');
+
+      const workspacesFile = (await yaml.parse(yamlFile)) as {
+        packages: string[];
+      };
+
+      if (!workspacesFile?.packages) {
+        return defaultWorkspaceGlobs;
+      }
+
+      return workspacesFile.packages;
     }
-
-    const yamlFile = fs.readFileSync(workspaceFilePath, 'utf8');
-
-    const workspacesFile = (await yaml.parse(yamlFile)) as {
-      packages: string[];
-    };
-
-    if (!workspacesFile?.packages) {
-      throw new Error(
-        'You must include the "packages" property in your pnpm-workspace.yaml file'
-      );
-    }
-
-    return workspacesFile.packages;
   }
 
-  throw new Error('Invalid package manager');
+  return defaultWorkspaceGlobs;
 };

@@ -4,3 +4,4 @@ packages:
   - 'apps/**'
   - '!**/test/**'
   - '!**/.next/**'
+  - '!**/fixtures/**'

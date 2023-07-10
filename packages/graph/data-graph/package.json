@@ -5,6 +5,7 @@
   "private": true,
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
+    "@commonalityco/config-jest": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
     "@commonalityco/types": "workspace:^",
     "@popperjs/core": "^2.11.8",

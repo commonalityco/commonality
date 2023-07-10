@@ -9,16 +9,19 @@
   "scripts": {
     "lint": "eslint ./src --fix",
     "build": "tsup-node",
-    "dev": "tsup-node --watch"
+    "dev": "tsup-node --watch",
+    "test": "jest"
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
+    "@commonalityco/config-jest": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
     "@commonalityco/data-codeowners": "workspace:^",
     "@commonalityco/types": "workspace:^",
     "@jest/globals": "^29.6.1",
     "@types/fs-extra": "^11.0.1",
     "@types/graphlib": "^2.1.8",
+    "@types/jest": "^29.5.2",
     "@types/lodash.memoize": "^4.1.7",
     "@types/lodash.uniq": "^4.5.7",
     "@types/mock-fs": "^4.13.1",

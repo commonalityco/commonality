@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
+    "@commonalityco/config-jest": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
     "@commonalityco/types": "workspace:^",
     "@commonalityco/utils-core": "workspace:^",
