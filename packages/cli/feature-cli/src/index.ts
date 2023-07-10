@@ -9,7 +9,7 @@ const program = new Command();
 
 program
   .name('commonality')
-  .description('A toolchain for your monorepo')
+  .description('Infinitely scale your front-end ecosystem')
   .version('1.0.0');
 
 program.addCommand(init);

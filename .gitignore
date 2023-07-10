@@ -20,14 +20,7 @@ node_modules
 .npm
 web_modules/
 coverage
-# blitz
-/.blitz/
-/.next/
-*.sqlite
-*.sqlite-journal
-.now
-.blitz**
-blitz-log.log
+
 
 # misc
 .DS_Store
@@ -64,3 +57,9 @@ lib-cov
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+
+# Build
+lib
+dist
+.next
+.turbo

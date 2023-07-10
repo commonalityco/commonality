@@ -9,7 +9,7 @@ const open_1 = require('./commands/open');
 const program = new commander_1.Command();
 program
   .name('commonality')
-  .description('A toolchain for your monorepo')
+  .description('Infinitely scale your front-end ecosystem')
   .version('1.0.0');
 program.addCommand(init_1.init);
 program.addCommand(publish_1.publish);

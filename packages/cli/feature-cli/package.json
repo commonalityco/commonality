@@ -2,8 +2,8 @@
   "name": "commonality",
   "version": "0.0.14",
   "bin": {
-    "commonality": "./dist/commonality.cjs",
-    "co": "./dist/commonality.cjs"
+    "commonality": "./bin/commonality.cjs",
+    "co": "./bin/commonality.cjs"
   },
   "engines": {
     "node": ">=14.6"
@@ -17,9 +17,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "pnpm run compile && esbuild lib/index.js --bundle --platform=node --outfile=dist/commonality.cjs",
-    "compile": "tsc --build",
-    "dev": "tsc --watch",
+    "build": "tsc --build && esbuild lib/index.js --bundle --platform=node --outfile=dist/commonality.cjs",
+    "dev": "tsc --watch & esbuild lib/index.js --bundle --platform=node --outfile=dist/commonality.cjs --watch",
     "lint": "eslint ./src --fix"
   },
   "dependencies": {
