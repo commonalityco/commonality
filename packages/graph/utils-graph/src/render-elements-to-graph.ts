@@ -31,8 +31,9 @@ const updateStyles = ({
     const violationForEdge = edgeData
       ? violations.find((violation) => {
           const source: Package = edge.source().data();
-          const target: Package = edge.source().data();
+          const target: Package = edge.target().data();
 
+          console.log({ name: edgeData.name, source, target });
           return (
             violation.sourcePackageName === source.name &&
             violation.targetPackageName === target.name
@@ -40,16 +41,19 @@ const updateStyles = ({
         })
       : null;
 
-    if (violationForEdge) {
-      edge.addClass('violation');
-    }
-
     if (forceEdgeColor) {
       edge.addClass(edgeData.type);
       edge.addClass('focus');
     } else {
       edge.removeClass(['DEVELOPMENT', 'PEER', 'PRODUCTION']);
       edge.removeClass('focus');
+    }
+
+    if (violationForEdge) {
+      edge.removeClass(['DEVELOPMENT', 'PEER', 'PRODUCTION']);
+      edge.removeClass('focus');
+
+      edge.addClass('violation');
     }
   });
 };
@@ -103,6 +107,7 @@ const renderElementsToGraph = withTiming(
         renderGraph,
         theme,
         traversalGraph,
+        violations,
       });
 
       onRender?.(renderGraph);

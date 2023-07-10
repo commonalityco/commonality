@@ -2,23 +2,23 @@
   "stripScopeFromPackageNames": true,
   "constraints": [
     {
-      "tag": "feature",
-      "allow": ["*"]
+      "applyTo": "feature",
+      "allow": "*"
     },
     {
-      "tag": "config",
+      "applyTo": "config",
       "allow": ["config"]
     },
     {
-      "tag": "ui",
+      "applyTo": "ui",
       "allow": ["ui", "utility", "config"]
     },
     {
-      "tag": "data",
+      "applyTo": "data",
       "allow": ["data", "utility", "config"]
     },
     {
-      "tag": "utility",
+      "applyTo": "utility",
       "allow": ["data", "utility", "config"]
     }
   ]

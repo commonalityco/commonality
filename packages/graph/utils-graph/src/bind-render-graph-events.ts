@@ -1,3 +1,4 @@
+import { Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
 import { Core, EdgeSingular, EventObject } from 'cytoscape';
 
@@ -5,6 +6,7 @@ interface EventHandlerArgs {
   renderGraph: Core;
   traversalGraph: Core;
   theme: string;
+  violations: Violation[];
 }
 
 /**********************************
@@ -65,15 +67,29 @@ export const handleNodeMouseout = ({
 export const handleEdgeMouseover = ({
   target,
   renderGraph,
+  violations = [],
 }: EventHandlerArgs & { target: EdgeSingular }) => {
   const forceEdgeColor = renderGraph.scratch('forceEdgeColor');
+
+  target.addClass('hover');
 
   if (forceEdgeColor) return;
 
   const type = target.data('type') as DependencyType;
 
-  target.addClass(type);
-  target.addClass('focus');
+  const sourcePackageName = target.source().id();
+  const targetPackageName = target.target().id();
+  const hasViolation = violations.some((violation) => {
+    return (
+      violation.sourcePackageName === sourcePackageName &&
+      violation.targetPackageName === targetPackageName
+    );
+  });
+
+  if (!hasViolation) {
+    target.addClass(type);
+    console.log('HELLO TWO');
+  }
 };
 
 export const handleEdgeMouseout = ({
@@ -82,10 +98,11 @@ export const handleEdgeMouseout = ({
 }: EventHandlerArgs & { target: EventObject['target'] }) => {
   const forceEdgeColor = renderGraph.scratch('forceEdgeColor');
 
+  target.removeClass('hover');
+
   if (forceEdgeColor) return;
 
   target.removeClass(['DEVELOPMENT', 'PEER', 'PRODUCTION']);
-  target.removeClass('focus');
 };
 
 /**********************************

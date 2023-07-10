@@ -45,7 +45,7 @@ export const getProjectConfig = async ({
   try {
     const config = await fs.readJson(projectConfigPath);
     const parsed = projectConfigSchema.parse(config);
-
+    console.log({ parsed });
     return parsed;
   } catch (error) {
     console.error('Invalid project configuration');

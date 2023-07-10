@@ -1,4 +1,4 @@
-import { Stylesheet } from 'cytoscape';
+import cytoscape, { Stylesheet } from 'cytoscape';
 
 const colors = {
   light: {
@@ -6,12 +6,14 @@ const colors = {
     development: '#0284c7',
     peer: '#0284c7',
     production: '#059669',
+    violation: '#FF0000',
   },
   dark: {
     default: '#27272a',
     development: '#0284c7',
     peer: '#0284c7',
     production: '#059669',
+    violation: '#FF0000',
   },
 };
 
@@ -25,10 +27,11 @@ export const edgeStyles: Stylesheet[] = [
       'curve-style': 'unbundled-bezier',
       'source-endpoint': '0% 50%',
       'target-endpoint': '0% -50%',
-      'arrow-scale': 1,
+      'arrow-scale': 1.3,
       'line-color': colors.light.default,
     },
   },
+
   {
     selector: 'edge.dark',
     style: {
@@ -82,11 +85,20 @@ export const edgeStyles: Stylesheet[] = [
     },
   },
   {
+    selector: 'edge.violation',
+    style: {
+      'line-color': colors.dark.violation,
+      'target-arrow-color': colors.dark.violation,
+      'overlay-color': colors.dark.violation,
+    },
+  },
+  {
     selector: 'edge.dark.PEER',
     style: {
       'line-color': colors.dark.peer,
       'target-arrow-color': colors.dark.peer,
       'overlay-color': colors.dark.peer,
+
       width: 3,
     },
   },
@@ -94,13 +106,15 @@ export const edgeStyles: Stylesheet[] = [
     selector: 'edge.dim',
     style: {
       'z-index': 0,
-      opacity: 0.2,
+      opacity: 0.15,
     },
   },
   {
-    selector: 'edge.focus',
+    selector: 'edge.hover',
     style: {
       'z-index': 100,
+      'overlay-padding': 8,
+      'overlay-opacity': 0.35,
     },
   },
 ];

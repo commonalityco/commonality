@@ -29,7 +29,7 @@ export const createRenderGraph = ({
   container,
   elements,
 }: CreateRenderGraphOptions) => {
-  return cytoscape({
+  const renderGraph = cytoscape({
     container,
     style: [...nodeStyles, ...edgeStyles],
     autoungrabify: true,
@@ -37,4 +37,6 @@ export const createRenderGraph = ({
     minZoom: calculateMinZoom(elements.length),
     elements,
   });
+
+  return renderGraph;
 };
