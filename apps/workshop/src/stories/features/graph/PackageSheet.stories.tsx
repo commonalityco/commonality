@@ -45,14 +45,34 @@ const documentsData = [
 const codeownersData = [
   {
     packageName: pkg.name,
-    codeowners: ['@team-one', '@team-two', '@team-three'],
+    codeowners: [
+      '@team-one',
+      '@team-two',
+      '@team-three',
+      '@team-one',
+      '@team-two',
+      '@team-three',
+      '@team-one',
+      '@team-two',
+      '@team-three',
+    ],
   },
 ] satisfies CodeownersData[];
 
 const tagsData = [
   {
     packageName: pkg.name,
-    tags: ['tag-one', 'tag-two', 'tag-three'],
+    tags: [
+      'tag-one',
+      'tag-two',
+      'tag-three',
+      'tag-one',
+      'tag-two',
+      'tag-three',
+      'tag-one',
+      'tag-two',
+      'tag-three',
+    ],
   },
 ] satisfies TagsData[];
 

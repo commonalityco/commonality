@@ -19,8 +19,6 @@ const config: StorybookConfig = {
     // {
     //   name: '@storybook/addon-styling',
     //   options: {
-    //     // Check out https://github.com/storybookjs/addon-styling/blob/main/docs/api.md
-    //     // For more details on this addon's options.
     //     postCss: true,
     //   },
     // },
@@ -28,6 +26,9 @@ const config: StorybookConfig = {
   async viteFinal(config, { configType }) {
     return mergeConfig(config, {
       define: { 'process.env': {} },
+      optimizeDeps: {
+        include: ['@commonalityco/utils-core'],
+      },
     });
   },
   framework: {

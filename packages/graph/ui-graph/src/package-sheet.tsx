@@ -8,7 +8,6 @@ import {
   SheetHeader,
   SheetTitle,
   Tag,
-  Snippet,
   Card,
   CardContent,
   CardHeader,
@@ -31,7 +30,6 @@ import type {
   Package,
   TagsData,
 } from '@commonalityco/types';
-import type cytoscape from 'cytoscape';
 import { Markdown } from '@commonalityco/ui-core';
 import { GradientFade } from '@commonalityco/ui-core';
 import { Check, File, FileText } from 'lucide-react';
@@ -75,7 +73,7 @@ function TagsButton({
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       {pkgTags.length ? (
         <PopoverTrigger>
-          <div className="flex gap-1">
+          <div className="flex flex-wrap gap-1">
             {pkgTags.map((tag) => (
               <Tag use="secondary" key={tag}>{`#${tag}`}</Tag>
             ))}
@@ -203,7 +201,7 @@ function PackageSheetContent({
             <Label className="mb-2">Owners</Label>
             <div>
               {ownerDataForPkg?.codeowners.length ? (
-                <div className="flex gap-1">
+                <div className="flex flex-wrap gap-1">
                   {ownerDataForPkg.codeowners.map((codeowner) => (
                     <Tag key={codeowner} use="outline" className="rounded-full">
                       {codeowner}
