@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@commonalityco/data-codeowners": "^0.0.6",
-    "@commonalityco/data-documentation": "^0.0.1",
+    "@commonalityco/data-documents": "^0.0.1",
     "@commonalityco/data-graph": "^0.0.1",
     "@commonalityco/data-packages": "^0.0.6",
     "@commonalityco/data-project": "^0.0.1",

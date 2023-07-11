@@ -24,7 +24,7 @@
   "dependencies": {
     "@commonalityco/app-dashboard": "workspace:^",
     "@commonalityco/data-codeowners": "workspace:^",
-    "@commonalityco/data-documentation": "workspace:^",
+    "@commonalityco/data-documents": "workspace:^",
     "@commonalityco/data-packages": "workspace:^",
     "@commonalityco/data-project": "workspace:^",
     "@commonalityco/data-tags": "workspace:^",

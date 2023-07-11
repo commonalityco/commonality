@@ -78,9 +78,9 @@ importers:
       '@commonalityco/data-codeowners':
         specifier: ^0.0.6
         version: link:../../packages/metadata/data-codeowners
-      '@commonalityco/data-documentation':
+      '@commonalityco/data-documents':
         specifier: ^0.0.1
-        version: link:../../packages/metadata/data-documentation
+        version: link:../../packages/metadata/data-documents
       '@commonalityco/data-graph':
         specifier: ^0.0.1
         version: link:../../packages/graph/data-graph
@@ -488,9 +488,9 @@ importers:
       '@commonalityco/data-codeowners':
         specifier: workspace:^
         version: link:../../metadata/data-codeowners
-      '@commonalityco/data-documentation':
+      '@commonalityco/data-documents':
         specifier: workspace:^
-        version: link:../../metadata/data-documentation
+        version: link:../../metadata/data-documents
       '@commonalityco/data-packages':
         specifier: workspace:^
         version: link:../../metadata/data-packages
@@ -1442,7 +1442,7 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
 
-  packages/metadata/data-documentation:
+  packages/metadata/data-documents:
     dependencies:
       '@commonalityco/data-packages':
         specifier: workspace:^
@@ -1508,6 +1508,9 @@ importers:
       '@types/graphlib':
         specifier: ^2.1.8
         version: 2.1.8
+      '@types/jest':
+        specifier: ^29.5.2
+        version: 29.5.2
       '@types/lodash.memoize':
         specifier: ^4.1.7
         version: 4.1.7
@@ -2110,7 +2113,7 @@ packages:
       '@babel/parser': 7.22.7
       '@babel/template': 7.22.5
       '@babel/traverse': 7.22.8
-      '@babel/types': 7.21.5
+      '@babel/types': 7.22.5
       convert-source-map: 1.9.0
       debug: 4.3.4(supports-color@8.1.1)
       gensync: 1.0.0-beta.2
@@ -2146,7 +2149,7 @@ packages:
     resolution: {integrity: sha512-F3fZga2uv09wFdEjEQIJxXALXfz0+JaOb7SabvVMmjHxeVTuGW8wgE8Vp1Hd7O+zMTYtcfEISGRzPkeiaPPsvg==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.21.5
+      '@babel/types': 7.22.5
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.18
       jsesc: 2.5.2
@@ -2464,7 +2467,7 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
-      '@babel/types': 7.21.5
+      '@babel/types': 7.22.5
     dev: true
 
   /@babel/parser@7.22.7:
@@ -4180,7 +4183,7 @@ packages:
       '@babel/plugin-transform-unicode-escapes': 7.22.5(@babel/core@7.21.8)
       '@babel/plugin-transform-unicode-regex': 7.22.5(@babel/core@7.21.8)
       '@babel/preset-modules': 0.1.5(@babel/core@7.21.8)
-      '@babel/types': 7.21.5
+      '@babel/types': 7.22.5
       babel-plugin-polyfill-corejs2: 0.3.3(@babel/core@7.21.8)
       babel-plugin-polyfill-corejs3: 0.6.0(@babel/core@7.21.8)
       babel-plugin-polyfill-regenerator: 0.4.1(@babel/core@7.21.8)
@@ -4372,13 +4375,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/code-frame': 7.22.5
-      '@babel/generator': 7.21.9
+      '@babel/generator': 7.22.7
       '@babel/helper-environment-visitor': 7.22.5
       '@babel/helper-function-name': 7.22.5
       '@babel/helper-hoist-variables': 7.22.5
       '@babel/helper-split-export-declaration': 7.22.6
-      '@babel/parser': 7.21.9
-      '@babel/types': 7.21.5
+      '@babel/parser': 7.22.7
+      '@babel/types': 7.22.5
       debug: 4.3.4(supports-color@8.1.1)
       globals: 11.12.0
     transitivePeerDependencies:
@@ -5362,14 +5365,14 @@ packages:
       '@jest/test-result': 29.6.1
       '@jest/transform': 29.6.1
       '@jest/types': 29.6.1
-      '@types/node': 18.14.0
+      '@types/node': 18.16.19
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       ci-info: 3.8.0
       exit: 0.1.2
       graceful-fs: 4.2.11
       jest-changed-files: 29.5.0
-      jest-config: 29.6.1(@types/node@18.14.0)(ts-node@10.9.1)
+      jest-config: 29.6.1(@types/node@18.16.19)(ts-node@10.9.1)
       jest-haste-map: 29.6.1
       jest-message-util: 29.6.1
       jest-regex-util: 29.4.3
@@ -5403,7 +5406,7 @@ packages:
     dependencies:
       '@jest/fake-timers': 29.6.1
       '@jest/types': 29.6.1
-      '@types/node': 18.14.0
+      '@types/node': 18.16.19
       jest-mock: 29.6.1
     dev: true
 
@@ -5562,7 +5565,7 @@ packages:
       '@jest/schemas': 29.6.0
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 18.14.0
+      '@types/node': 18.16.19
       '@types/yargs': 17.0.24
       chalk: 4.1.2
     dev: true
@@ -8824,7 +8827,7 @@ packages:
     resolution: {integrity: sha512-MxObHvNl4A69ofaTRU8DFqvgzzv8s9yRtaPPm5gud9HDNvpB3GPQFvNuTWAI59B9huVGV5jXYJwbCsmBsOGYWA==}
     dependencies:
       '@types/jsonfile': 6.1.1
-      '@types/node': 18.14.0
+      '@types/node': 18.16.19
     dev: true
 
   /@types/geojson@7946.0.10:
@@ -8927,7 +8930,7 @@ packages:
   /@types/jsonfile@6.1.1:
     resolution: {integrity: sha512-GSgiRCVeapDN+3pqA35IkQwasaCh/0YFH5dEF6S88iDvEn901DjOeH3/QPY+XYP1DFzDZPvIvfeEgk+7br5png==}
     dependencies:
-      '@types/node': 18.14.0
+      '@types/node': 18.16.19
     dev: true
 
   /@types/keygrip@1.0.2:
@@ -14429,7 +14432,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.1
-      '@types/node': 18.14.0
+      '@types/node': 18.16.19
       jest-util: 29.6.1
     dev: true
 
@@ -14568,7 +14571,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.1
-      '@types/node': 18.14.0
+      '@types/node': 18.16.19
       chalk: 4.1.2
       ci-info: 3.8.0
       graceful-fs: 4.2.11
@@ -19250,7 +19253,7 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
       esbuild: 0.17.19
       execa: 5.1.1
-      globby: 11.1.0
+      globby: 11.0.4
       joycon: 3.1.1
       postcss-load-config: 3.1.4(postcss@8.4.25)(ts-node@10.9.1)
       resolve-from: 5.0.0
@@ -19286,7 +19289,7 @@ packages:
       debug: 4.3.4(supports-color@8.1.1)
       esbuild: 0.17.19
       execa: 5.1.1
-      globby: 11.1.0
+      globby: 11.0.4
       joycon: 3.1.1
       postcss: 8.4.25
       postcss-load-config: 3.1.4(postcss@8.4.25)(ts-node@10.9.1)

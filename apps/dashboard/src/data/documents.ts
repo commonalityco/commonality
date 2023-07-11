@@ -1,5 +1,5 @@
 'use server';
-import { getDocumentsData as getDocumentsDataUtility } from '@commonalityco/data-documentation';
+import { getDocumentsData as getDocumentsDataUtility } from '@commonalityco/data-documents';
 import { cache } from 'react';
 import 'server-only';
 
