@@ -12,60 +12,65 @@ describe('getProjectConfig', () => {
     console.log = log;
   });
 
-  it('should return an empty object if the project config file does not exist', async () => {
-    const rootDirectory = path.join(
-      __dirname,
-      '../fixtures',
-      'missing-project-config'
-    );
-    const config = await getProjectConfig({ rootDirectory });
+  describe('when run in an un-initialized project', () => {
+    it('returns an empty object', async () => {
+      const rootDirectory = path.join(
+        __dirname,
+        '../fixtures',
+        'uninitialized'
+      );
 
-    expect(config).toEqual({});
-  });
+      const config = await getProjectConfig({ rootDirectory });
 
-  it('should return the parsed project config if the file exists and is valid', async () => {
-    const rootDirectory = path.join(
-      __dirname,
-      '../fixtures',
-      'valid-project-config'
-    );
-
-    const config = await getProjectConfig({ rootDirectory });
-
-    expect(config).toEqual({
-      projectId: '123',
-      constraints: [
-        {
-          applyTo: 'feature',
-          allow: '*',
-        },
-        {
-          applyTo: 'config',
-          allow: ['config'],
-        },
-        {
-          applyTo: 'ui',
-          allow: ['ui', 'utility', 'config'],
-        },
-        {
-          applyTo: 'data',
-          allow: ['data', 'utility', 'config'],
-        },
-        {
-          applyTo: 'utility',
-          allow: ['data', 'utility', 'config'],
-        },
-      ],
+      expect(config).toEqual({});
     });
   });
 
-  it('should throw an error if the file exists but is invalid', async () => {
-    const rootDirectory = path.join(
-      __dirname,
-      '../fixtures',
-      'invalid-project-config'
-    );
+  describe('when run in an initialized project', () => {
+    it('should return the parsed project config if the file exists and is valid', async () => {
+      const rootDirectory = path.join(
+        __dirname,
+        '../fixtures',
+        'valid-project-config'
+      );
 
-    await expect(getProjectConfig({ rootDirectory })).rejects.toThrow();
+      const config = await getProjectConfig({ rootDirectory });
+
+      expect(config).toEqual({
+        projectId: '123',
+        constraints: [
+          {
+            applyTo: 'feature',
+            allow: '*',
+          },
+          {
+            applyTo: 'config',
+            allow: ['config'],
+          },
+          {
+            applyTo: 'ui',
+            allow: ['ui', 'utility', 'config'],
+          },
+          {
+            applyTo: 'data',
+            allow: ['data', 'utility', 'config'],
+          },
+          {
+            applyTo: 'utility',
+            allow: ['data', 'utility', 'config'],
+          },
+        ],
+      });
+    });
+
+    it('should throw an error if the file exists but is invalid', async () => {
+      const rootDirectory = path.join(
+        __dirname,
+        '../fixtures',
+        'invalid-project-config'
+      );
+
+      await expect(getProjectConfig({ rootDirectory })).rejects.toThrow();
+    });
   });
 });

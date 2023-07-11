@@ -4,6 +4,7 @@ import { publish } from './commands/publish';
 import { init } from './commands/init';
 import { validate } from './commands/validate';
 import { open } from './commands/open';
+import chalk from 'chalk';
 
 const program = new Command();
 
@@ -17,4 +18,4 @@ program.addCommand(publish);
 program.addCommand(validate);
 program.addCommand(open);
 
-program.parse();
+program.parse(process.argv);

@@ -159,6 +159,7 @@ const updateGraphElements = withTiming(
       renderGraph,
       theme,
       traversalGraph,
+      violations,
     });
   }
 );

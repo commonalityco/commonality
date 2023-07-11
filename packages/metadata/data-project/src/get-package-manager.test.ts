@@ -13,24 +13,50 @@ describe('getPackageManager', () => {
     console.log = log;
   });
 
-  it(`should return ${PackageManager.NPM} for an NPM workspace`, async () => {
-    const rootDirectory = path.join(__dirname, '../fixtures', 'npm-workspace');
-    const packageManager = await getPackageManager({ rootDirectory });
+  describe('when run in an un-initialized project', () => {
+    it('should throw an error', async () => {
+      const rootDirectory = path.join(
+        __dirname,
+        '../fixtures',
+        'uninitialized'
+      );
 
-    expect(packageManager).toEqual(PackageManager.NPM);
+      await expect(getPackageManager({ rootDirectory })).rejects.toThrow();
+    });
   });
 
-  it(`should return ${PackageManager.YARN} for an Yarn workspace`, async () => {
-    const rootDirectory = path.join(__dirname, '../fixtures', 'yarn-workspace');
-    const packageManager = await getPackageManager({ rootDirectory });
+  describe('when run in an initialized project', () => {
+    it(`should return ${PackageManager.NPM} for an NPM workspace`, async () => {
+      const rootDirectory = path.join(
+        __dirname,
+        '../fixtures',
+        'npm-workspace'
+      );
+      const packageManager = await getPackageManager({ rootDirectory });
 
-    expect(packageManager).toEqual(PackageManager.YARN);
-  });
+      expect(packageManager).toEqual(PackageManager.NPM);
+    });
 
-  it(`should return ${PackageManager.PNPM} for an pnpm workspace`, async () => {
-    const rootDirectory = path.join(__dirname, '../fixtures', 'pnpm-workspace');
-    const packageManager = await getPackageManager({ rootDirectory });
+    it(`should return ${PackageManager.YARN} for an Yarn workspace`, async () => {
+      const rootDirectory = path.join(
+        __dirname,
+        '../fixtures',
+        'yarn-workspace'
+      );
+      const packageManager = await getPackageManager({ rootDirectory });
 
-    expect(packageManager).toEqual(PackageManager.PNPM);
+      expect(packageManager).toEqual(PackageManager.YARN);
+    });
+
+    it(`should return ${PackageManager.PNPM} for an pnpm workspace`, async () => {
+      const rootDirectory = path.join(
+        __dirname,
+        '../fixtures',
+        'pnpm-workspace'
+      );
+      const packageManager = await getPackageManager({ rootDirectory });
+
+      expect(packageManager).toEqual(PackageManager.PNPM);
+    });
   });
 });

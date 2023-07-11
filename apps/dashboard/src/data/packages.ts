@@ -4,30 +4,29 @@ import 'server-only';
 import {
   getPackageDirectories,
   getPackageManager,
-  getRootDirectory,
   getWorkspaceGlobs,
 } from '@commonalityco/data-project';
 import { getPackages } from '@commonalityco/data-packages';
 
-export const getRootDirectoryData = cache(async () => {
-  return getRootDirectory();
-});
-
 export const getPackageDirectoriesData = cache(async () => {
-  const rootDirectory = await getRootDirectoryData();
-  const packageManager = await getPackageManager({ rootDirectory });
+  const packageManager = await getPackageManager({
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+  });
   const workspaceGlobs = await getWorkspaceGlobs({
-    rootDirectory,
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
     packageManager,
   });
 
-  return getPackageDirectories({ rootDirectory, workspaceGlobs });
+  return getPackageDirectories({
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+    workspaceGlobs,
+  });
 });
 
 export const getPackagesData = async () => {
-  const rootDirectory = await getRootDirectoryData();
-
-  const packagesData = await getPackages({ rootDirectory });
+  const packagesData = await getPackages({
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+  });
 
   return packagesData;
 };

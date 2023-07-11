@@ -10,4 +10,4 @@ The current version of Node.js is ${process.version}`);
   process.exit(1);
 }
 
-require('../dist/commonality.cjs');
+require('../dist/index.js');

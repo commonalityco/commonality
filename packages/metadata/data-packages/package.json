@@ -4,15 +4,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "src/index.ts",
-  "main": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "build": "tsup-node",
     "dev": "tsup-node --watch",
     "lint": "eslint ./src --fix",
     "test:watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "jest"
   },
   "dependencies": {
     "fast-glob": "^3.3.0",

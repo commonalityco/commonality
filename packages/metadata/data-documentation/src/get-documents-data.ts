@@ -79,30 +79,33 @@ export const getDocumentsData = async ({
     directory: './',
   });
 
-  const rootPackageJson = readJsonSync(
-    path.join(rootDirectory, 'package.json')
-  );
+  const rootPackageJsonPath = path.join(rootDirectory, 'package.json');
+  const rootPackageJsonExists = await pathExists(rootPackageJsonPath);
 
-  documentData.push({
-    packageName: rootPackageJson.name,
-    documents: rootDocumentation,
-  });
-
-  for (const directory of packageDirectories) {
-    const documents = await getPagesFromDirectory({
-      rootDirectory,
-      isRoot: false,
-      directory,
-    });
-
-    const packageJson = readJsonSync(
-      path.join(rootDirectory, directory, 'package.json')
-    );
+  if (rootPackageJsonExists) {
+    const rootPackageJson = readJsonSync(rootPackageJsonPath);
 
     documentData.push({
-      packageName: packageJson.name,
-      documents,
+      packageName: rootPackageJson.name,
+      documents: rootDocumentation,
     });
+
+    for (const directory of packageDirectories) {
+      const documents = await getPagesFromDirectory({
+        rootDirectory,
+        isRoot: false,
+        directory,
+      });
+
+      const packageJson = readJsonSync(
+        path.join(rootDirectory, directory, 'package.json')
+      );
+
+      documentData.push({
+        packageName: packageJson.name,
+        documents,
+      });
+    }
   }
 
   return documentData;

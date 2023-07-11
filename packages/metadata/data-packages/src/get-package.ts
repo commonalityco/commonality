@@ -1,5 +1,4 @@
 import { Package, PackageJson } from '@commonalityco/types';
-import chalk from 'chalk';
 import fs from 'fs-extra';
 import path from 'node:path';
 import { DependencyType } from '@commonalityco/utils-core';
@@ -12,13 +11,18 @@ export const getPackage = async ({
   directory: string;
 }): Promise<Package> => {
   const packageJsonPath = path.join(rootDirectory, directory, 'package.json');
+  const packageJsonExists = await fs.pathExists(packageJsonPath);
+
+  if (!packageJsonExists) {
+    throw new Error('No package.json file for directory');
+  }
 
   const packageJson = fs.readJSONSync(packageJsonPath) as PackageJson;
 
   if (!packageJson.name) {
-    console.log(chalk.red(`Packages must define a name property`));
-    console.log(chalk.dim(directory));
-    process.exit(1);
+    throw new Error(
+      `${directory} has a package.json that does not contain a name property`
+    );
   }
 
   const dependencies = packageJson.dependencies ?? {};

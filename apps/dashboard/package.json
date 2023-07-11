@@ -9,8 +9,12 @@
   },
   "scripts": {
     "dev": "tsup-node --config scripts/tsup.config.ts --watch & next dev | pino-pretty",
-    "build": "tsup-node --config scripts/tsup.config.ts & next build",
+    "build:script": "tsup-node --config scripts/tsup.config.ts",
+    "build:app": "next build",
+    "build": "pnpm run build:script && pnpm run build:app",
     "start": "next start",
+    "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
+    "cypress:open": "cypress open",
     "test": "jest --silent=false --passWithNoTests",
     "test:watch": "jest --watch --silent=false --verbose",
     "lint": "next lint"
@@ -109,6 +113,7 @@
     "postcss": "^8.4.25",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
+    "start-server-and-test": "^2.0.0",
     "tailwindcss": "^3.3.2",
     "tsup": "^6.7.0",
     "typescript": "4.9.5"

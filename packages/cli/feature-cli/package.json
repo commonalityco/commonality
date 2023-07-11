@@ -2,13 +2,13 @@
   "name": "commonality",
   "version": "0.0.14",
   "bin": {
-    "commonality": "./bin/commonality.cjs",
-    "co": "./bin/commonality.cjs"
+    "commonality": "./bin/index.js",
+    "co": "./bin/index.js"
   },
   "engines": {
     "node": ">=14.6"
   },
-  "description": "Commonality is a toolchain that helps you scale your monorepo from one to hundeds of developers.",
+  "description": "Infinitely scale your front-end ecosystem.",
   "repository": "https://github.com/commonalityco/commonalityco",
   "bugs": "https://github.com/commonalityco/commonalityco/issues",
   "homepage": "https://commonality.co",
@@ -17,8 +17,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc --build && esbuild lib/index.js --bundle --platform=node --outfile=dist/commonality.cjs",
-    "dev": "tsc --watch & esbuild lib/index.js --bundle --platform=node --outfile=dist/commonality.cjs --watch",
+    "build": "tsup-node",
+    "dev": "tsup-node --watch",
     "lint": "eslint ./src --fix"
   },
   "dependencies": {

@@ -1,23 +1,21 @@
 import 'server-only';
-import {
-  getPackageManager,
-  getRootDirectory,
-} from '@commonalityco/data-project';
-import path from 'path';
-import fs from 'fs-extra';
+import { getPackageManager } from '@commonalityco/data-project';
+import { getRootPackage } from '@commonalityco/data-packages';
 
 export const preload = () => {
   void getProject();
 };
 
 export const getProject = async () => {
-  const rootDirectory = await getRootDirectory();
-  const packageManager = await getPackageManager({ rootDirectory });
-  const rootPackageJsonPath = path.join(rootDirectory, 'package.json');
-  const rootPackageJson = fs.readJsonSync(rootPackageJsonPath);
+  const packageManager = await getPackageManager({
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+  });
+  const rootPackage = await getRootPackage({
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+  });
 
   return {
-    name: rootPackageJson.name,
+    name: rootPackage.name,
     packageManager,
   };
 };

@@ -21,7 +21,7 @@ export const getPackages = async ({
     workspaceGlobs,
   });
 
-  return Promise.all(
+  const packageResults = await Promise.all(
     packageDirectories.map((directory) => {
       return getPackage({
         rootDirectory,
@@ -29,4 +29,6 @@ export const getPackages = async ({
       });
     })
   );
+
+  return packageResults.filter((pkg): pkg is Package => pkg !== undefined);
 };
