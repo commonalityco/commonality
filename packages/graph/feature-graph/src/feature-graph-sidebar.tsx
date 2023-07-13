@@ -44,9 +44,6 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
     <GraphLayoutAside>
       <Sidebar
         {...props}
-        onPackageClick={(packageName) => {
-          send({ type: 'NODE_SELECT', packageName });
-        }}
         onHideAll={() => send({ type: 'HIDE_ALL' })}
         onShowAll={() => send({ type: 'SHOW_ALL' })}
         onPackageHide={(pkg) =>

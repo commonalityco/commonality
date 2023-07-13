@@ -101,7 +101,12 @@ export const KitchenSink: Story = {
       { packageName: '@scope/two', tags: ['tag-three'] },
       { packageName: '@scope/three', tags: ['tag-four'] },
       { packageName: '@scope/four', tags: ['tag-five'] },
-      { packageName: '@scope/five', tags: ['tag-six'] },
+      {
+        packageName: '@scope/five',
+        tags: [
+          'tag-sixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        ],
+      },
     ],
     codeownersData: [
       {
@@ -122,7 +127,9 @@ export const KitchenSink: Story = {
       },
       {
         packageName: '@scope/five',
-        codeowners: ['@team-five'],
+        codeowners: [
+          '@team-fiveeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+        ],
       },
     ],
   },

@@ -28,10 +28,6 @@ export const nodeStyles: Stylesheet[] = [
       'border-color': '#a1a1aa',
       'text-halign': 'center',
       'text-valign': 'center',
-      'transition-duration': 175,
-      'transition-delay': 0,
-      'transition-timing-function': 'ease-in-out',
-      'transition-property': 'opacity',
     },
   },
   {

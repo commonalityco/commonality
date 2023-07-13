@@ -104,7 +104,6 @@ function PackagesFilterSection({
   onHide,
   onShow,
   onFocus,
-  onPackageClick,
 }: {
   visiblePackages?: Package[];
   packages: Package[];
@@ -112,7 +111,6 @@ function PackagesFilterSection({
   onHide: (pkgName: string) => void;
   onShow: (pkgName: string) => void;
   onFocus: (pkgName: string) => void;
-  onPackageClick: (pkgName: string) => void;
 }) {
   return (
     <>
@@ -140,28 +138,23 @@ function PackagesFilterSection({
               return (
                 <div
                   key={package_.name}
-                  className="mb-1 flex flex-nowrap items-center justify-start overflow-hidden"
+                  className="mb-1 grid grid-cols-[1fr_auto] items-center justify-start overflow-hidden"
                 >
-                  <div className="grow overflow-hidden">
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start px-3"
-                      onClick={() => onPackageClick(package_.name)}
-                    >
-                      <div className="flex w-full items-center justify-start gap-2">
-                        <IconForPackage className="h-4 w-4 shrink-0 grow-0" />
-                        <div className="max-w-[144px] truncate text-left">
-                          {formattedPackageName}
-                        </div>
-                      </div>
-                    </Button>
+                  <div className="flex w-full items-center justify-start gap-2 overflow-hidden">
+                    <IconForPackage className="h-4 w-4 shrink-0 grow-0" />
+                    <p className="my-0 truncate text-left text-sm">
+                      {formattedPackageName}
+                    </p>
                   </div>
-                  <ShowHideButton
-                    visible={isPackageVisible}
-                    onHide={() => onHide(package_.name)}
-                    onShow={() => onShow(package_.name)}
-                  />
-                  <FocusButton onClick={() => onFocus(package_.name)} />
+
+                  <div className="flex-nowwrap flex gap-1">
+                    <ShowHideButton
+                      visible={isPackageVisible}
+                      onHide={() => onHide(package_.name)}
+                      onShow={() => onShow(package_.name)}
+                    />
+                    <FocusButton onClick={() => onFocus(package_.name)} />
+                  </div>
                 </div>
               );
             })
@@ -231,19 +224,25 @@ function TagsFilterSection({
             );
 
             return (
-              <div className="flex flex-nowrap items-center" key={tag}>
-                <Button variant="ghost" className="w-full justify-start px-3">
+              <div
+                className="grid grid-cols-[1fr_auto] items-center gap-1"
+                key={tag}
+              >
+                <div className="w-full overflow-hidden">
                   <Tag
                     use="secondary"
-                    className="block max-w-[160px]"
+                    className="inline-block min-w-0 max-w-full truncate"
                   >{`#${tag}`}</Tag>
-                </Button>
-                <ShowHideButton
-                  visible={isTagVisible}
-                  onShow={() => onShow(tag)}
-                  onHide={() => onHide(tag)}
-                />
-                <FocusButton onClick={() => onFocus(tag)} />
+                </div>
+
+                <div className="flex flex-nowrap gap-1">
+                  <ShowHideButton
+                    visible={isTagVisible}
+                    onShow={() => onShow(tag)}
+                    onHide={() => onHide(tag)}
+                  />
+                  <FocusButton onClick={() => onFocus(tag)} />
+                </div>
               </div>
             );
           })
@@ -312,24 +311,24 @@ function TeamsFilterSection({
             );
 
             return (
-              <div className="flex flex-nowrap items-center gap-1" key={owner}>
-                <div className="w-full max-w-[184px]">
-                  <Button
-                    variant="ghost"
-                    className="block w-full justify-start truncate px-3 text-left"
-                  >
-                    {owner}
-                  </Button>
-                </div>
-                <div className="shrink-0">
-                  <ShowHideButton
-                    visible={isTeamVisible}
-                    onShow={() => onShow(owner)}
-                    onHide={() => onHide(owner)}
-                  />
-                </div>
-                <div className="shrink-0">
-                  <FocusButton onClick={() => onFocus(owner)} />
+              <div
+                className="grid grid-cols-[1fr_auto] flex-nowrap items-center gap-1"
+                key={owner}
+              >
+                <p className="block w-full truncate text-left text-sm">
+                  {owner}
+                </p>
+                <div className="flex flex-nowrap gap-1">
+                  <div className="shrink-0">
+                    <ShowHideButton
+                      visible={isTeamVisible}
+                      onShow={() => onShow(owner)}
+                      onHide={() => onHide(owner)}
+                    />
+                  </div>
+                  <div className="shrink-0">
+                    <FocusButton onClick={() => onFocus(owner)} />
+                  </div>
                 </div>
               </div>
             );
@@ -365,7 +364,6 @@ export function Sidebar({
   onTeamHide = () => {},
   onTeamShow = () => {},
   onTeamFocus = () => {},
-  onPackageClick = () => {},
   onPackageHide = () => {},
   onPackageShow = () => {},
   onPackageFocus = () => {},
@@ -383,7 +381,6 @@ export function Sidebar({
   onTeamHide: (team: string) => void;
   onTeamShow: (team: string) => void;
   onTeamFocus: (team: string) => void;
-  onPackageClick: (packageName: string) => void;
   onPackageHide: (packageName: string) => void;
   onPackageShow: (packageName: string) => void;
   onPackageFocus: (packageName: string) => void;
@@ -448,7 +445,6 @@ export function Sidebar({
           <PanelGroup direction="vertical" autoSaveId="graph-sidebar">
             <Panel defaultSize={20} minSize={5} className="grid content-start">
               <PackagesFilterSection
-                onPackageClick={onPackageClick}
                 packages={filteredPackages}
                 stripScopeFromPackageNames={stripScopeFromPackageNames}
                 visiblePackages={visiblePackages}
