@@ -5,6 +5,8 @@ import ReactMarkdown, { Components } from 'react-markdown';
 import { HTMLAttributes, useMemo } from 'react';
 import atomOneDark from 'react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark';
 import atomOneLight from 'react-syntax-highlighter/dist/esm/styles/hljs/atom-one-light';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 
 const CodeBlock = ({
   language,
@@ -77,6 +79,7 @@ export function Markdown({ theme = 'light', children }: MarkdownProps) {
     <ReactMarkdown
       className="prose prose-zinc dark:prose-invert max-w-none font-sans"
       remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeRaw, rehypeSanitize]}
       components={components}
     >
       {children ?? 'No content'}
