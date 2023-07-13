@@ -56,6 +56,9 @@ interface MarkdownProps {
 export function Markdown({ theme = 'light', children }: MarkdownProps) {
   const components: Components = useMemo(() => {
     return {
+      a: ({ node: _node, ...props }) => (
+        <a {...props} target="_blank" rel="noopener noreferrer" />
+      ),
       pre: CustomPre,
       code({ inline, className, children, ...properties }) {
         const match = /language-(\w+)/.exec(className || '');
