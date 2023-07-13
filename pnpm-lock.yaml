@@ -1350,6 +1350,9 @@ importers:
       '@types/cytoscape-popper':
         specifier: ^2.0.0
         version: 2.0.0
+      '@types/jest':
+        specifier: ^29.5.2
+        version: 29.5.2
       '@types/lodash.uniqby':
         specifier: ^4.7.7
         version: 4.7.7

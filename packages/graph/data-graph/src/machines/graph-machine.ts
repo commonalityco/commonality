@@ -3,6 +3,9 @@ import {
   createRenderGraph,
   createTraversalGraph,
   getElementDefinitions,
+  show,
+  showDependants,
+  showDependencies,
 } from '@commonalityco/utils-graph';
 import { Package, Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
@@ -11,9 +14,9 @@ import {
   CollectionArgument,
   Core,
   EdgeSingular,
+  ElementDefinition,
   NodeSingular,
   Selector,
-  Singular,
 } from 'cytoscape';
 import {
   OffloadRenderFn,
@@ -24,13 +27,13 @@ import debounce from 'lodash.debounce';
 
 type Filter =
   | Selector
-  | ((ele: Singular, index: number, eles: CollectionArgument) => boolean);
+  | ((ele: NodeSingular, index: number, eles: CollectionArgument) => boolean);
 
 export interface Context {
   renderGraph?: Core;
   traversalGraph?: Core;
   getUpdatedGraphJson: OffloadRenderFn;
-  elements: CollectionArgument;
+  elements: ElementDefinition[];
   hoveredRenderNode?: NodeSingular & { data: () => Package };
   hoveredTraversalNode?: NodeSingular & { data: () => Package };
   selectedNode?: NodeSingular;
@@ -240,7 +243,7 @@ export const graphMachine = createMachine(
   },
   {
     services: {
-      renderGraph: (context, event) => async (callback, onReceive) => {
+      renderGraph: (context) => async (callback) => {
         if (!context.renderGraph || !context.traversalGraph)
           return Promise.resolve();
 
@@ -254,7 +257,7 @@ export const graphMachine = createMachine(
           violations: context.violations,
         });
 
-        context.renderGraph.on('click', (event) => {
+        context.renderGraph.on('click', () => {
           if (context.selectedNode) {
             callback({ type: 'UNSELECT' });
           }
@@ -293,7 +296,7 @@ export const graphMachine = createMachine(
         context.renderGraph.on(
           'pan zoom resize',
           debounce(
-            (event) => {
+            () => {
               if (!context.renderGraph) return;
               callback({ type: 'UNSELECT' });
             },
@@ -315,7 +318,7 @@ export const graphMachine = createMachine(
         context.traversalGraph?.destroy();
       },
       setInitialElements: assign({
-        elements: (context, event) => {
+        elements: (context) => {
           if (!context.renderGraph) return [] as any;
 
           return context.renderGraph?.elements();
@@ -352,7 +355,9 @@ export const graphMachine = createMachine(
           if (!context.renderGraph || !context.traversalGraph) return [] as any;
 
           const elementsToHide = context.traversalGraph.collection();
-          const nodesToHide = context.traversalGraph.filter(event.selector);
+          const nodesToHide = context.traversalGraph
+            .nodes()
+            .filter(event.selector);
           const edgesForElements = nodesToHide.connectedEdges();
 
           elementsToHide.merge(nodesToHide).merge(edgesForElements);
@@ -383,7 +388,7 @@ export const graphMachine = createMachine(
         },
       }),
       hideAll: assign({
-        elements: (context, event) => {
+        elements: (context) => {
           if (!context.traversalGraph) return [] as any;
 
           return context.traversalGraph.collection();
@@ -395,42 +400,40 @@ export const graphMachine = createMachine(
       }),
       show: assign({
         elements: (context, event) => {
-          if (!context.renderGraph || !context.traversalGraph) return [] as any;
+          if (!context.renderGraph || !context.traversalGraph) return [];
 
-          let nodesToRender = context.traversalGraph.collection();
-          const matchingNodes = context.traversalGraph.filter(event.selector);
-
-          nodesToRender = nodesToRender.union(matchingNodes);
-          nodesToRender = nodesToRender.union(context.renderGraph.elements());
-
-          const edgesToRender = nodesToRender.edgesTo(nodesToRender);
-
-          return nodesToRender.union(edgesToRender);
+          return show({
+            traversalGraph: context.traversalGraph,
+            renderGraph: context.renderGraph,
+            selector: event.selector,
+          });
         },
       }),
       showDependencies: assign({
         elements: (context, event) => {
-          if (!context.renderGraph || !context.traversalGraph) return [] as any;
+          if (!context.renderGraph || !context.traversalGraph) return [];
 
-          return context.traversalGraph
-            .$id(event.pkg.name)
-            .outgoers()
-            .union(context.renderGraph.elements());
+          return showDependencies({
+            traversalGraph: context.traversalGraph,
+            renderGraph: context.renderGraph,
+            id: event.pkg.name,
+          });
         },
       }),
 
       showDependants: assign({
         elements: (context, event) => {
-          if (!context.renderGraph || !context.traversalGraph) return [] as any;
+          if (!context.renderGraph || !context.traversalGraph) return [];
 
-          return context.traversalGraph
-            .$id(event.pkg.name)
-            .incomers()
-            .union(context.renderGraph.elements());
+          return showDependants({
+            traversalGraph: context.traversalGraph,
+            renderGraph: context.renderGraph,
+            id: event.pkg.name,
+          });
         },
       }),
       showAll: assign({
-        elements: (context, event) => {
+        elements: (context) => {
           if (!context.traversalGraph) return [] as any;
 
           return context.traversalGraph.elements();
@@ -440,17 +443,17 @@ export const graphMachine = createMachine(
         elements: (context, event) => {
           if (!context.renderGraph || !context.traversalGraph) return [] as any;
 
-          return context.traversalGraph.filter(event.selector);
+          return context.traversalGraph.nodes().filter(event.selector);
         },
       }),
       fit: (context, event) => {
         if (!context.renderGraph) return;
 
-        const elements = context.renderGraph.filter(event.selector);
+        const elements = context.renderGraph.nodes().filter(event.selector);
 
         context.renderGraph.fit(elements, 24);
       },
-      zoomIn: (context, event) => {
+      zoomIn: (context) => {
         if (!context.renderGraph) return;
 
         const currentZoom = context.renderGraph.zoom();
@@ -537,7 +540,7 @@ export const graphMachine = createMachine(
       },
     },
     guards: {
-      renderGraphExists: (context, event) =>
+      renderGraphExists: (context) =>
         context.renderGraph !== undefined ||
         context.traversalGraph !== undefined,
     },

@@ -38,8 +38,6 @@ const pkgOne = {
       type: 'DEVELOPMENT' as any,
     },
   ],
-  tags: ['tag-one', 'tag-two'],
-  owners: ['@team-one', '@team-two'],
   devDependencies: [],
   peerDependencies: [],
 } satisfies Package;
@@ -48,19 +46,15 @@ const pkgTwo = {
   path: `/path/to/package-two`,
   name: `@scope/two`,
   version: '1.0.0',
-  tags: ['tag-three'],
-  owners: ['@team-three'],
   dependencies: [],
   devDependencies: [],
   peerDependencies: [],
-};
+} satisfies Package;
 
 const pkgThree = {
   path: `/path/to/package-three`,
   name: `@scope/three`,
   version: '1.0.0',
-  tags: ['tag-three'],
-  owners: ['@team-three'],
   dependencies: [
     {
       name: '@scope/four',
@@ -70,18 +64,16 @@ const pkgThree = {
   ],
   devDependencies: [],
   peerDependencies: [],
-};
+} satisfies Package;
 
 const pkgFour = {
   path: `/path/to/package-four`,
   name: `@scope/four`,
   version: '1.0.0',
-  tags: ['tag-four'],
-  owners: ['@team-four'],
   dependencies: [],
   devDependencies: [],
   peerDependencies: [],
-};
+} satisfies Package;
 
 const pkgFive = {
   path: `/path/to/package-five-looooooooooooooonnnnnngggggggg`,
@@ -104,21 +96,34 @@ export const KitchenSink: Story = {
   args: {
     visiblePackages: [pkgOne, pkgTwo, pkgThree],
     packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
-    tags: [
-      'tag-one',
-      'tag-two',
-      'tag-three',
-      'tag-four',
-      'tag-five',
-      'tag-loooooooooooonnnnnnnnnnnnnngggggggggggg',
+    tagsData: [
+      { packageName: '@scope/one', tags: ['tag-one', 'tag-two'] },
+      { packageName: '@scope/two', tags: ['tag-three'] },
+      { packageName: '@scope/three', tags: ['tag-four'] },
+      { packageName: '@scope/four', tags: ['tag-five'] },
+      { packageName: '@scope/five', tags: ['tag-six'] },
     ],
-    teams: [
-      '@team-one',
-      '@team-two',
-      '@team-three',
-      '@team-four',
-      '@team-five',
-      '@team-looooooooooooooooonnnnnnnnnnnnnnnnnngggggggggggg',
+    codeownersData: [
+      {
+        packageName: '@scope/one',
+        codeowners: ['@team-one'],
+      },
+      {
+        packageName: '@scope/two',
+        codeowners: ['@team-two'],
+      },
+      {
+        packageName: '@scope/three',
+        codeowners: ['@team-three'],
+      },
+      {
+        packageName: '@scope/four',
+        codeowners: ['@team-four'],
+      },
+      {
+        packageName: '@scope/five',
+        codeowners: ['@team-five'],
+      },
     ],
   },
 };
@@ -127,14 +132,8 @@ export const NoPackages: Story = {
   args: {
     visiblePackages: [],
     packages: [],
-    tags: ['tag-one', 'tag-two', 'tag-three', 'tag-four', 'tag-five'],
-    teams: [
-      '@team-one',
-      '@team-two',
-      '@team-three',
-      '@team-four',
-      '@team-five',
-    ],
+    tagsData: [],
+    codeownersData: [],
   },
 };
 
@@ -142,13 +141,28 @@ export const NoTags: Story = {
   args: {
     visiblePackages: [pkgOne, pkgTwo, pkgThree],
     packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
-    tags: [],
-    teams: [
-      '@team-one',
-      '@team-two',
-      '@team-three',
-      '@team-four',
-      '@team-five',
+    tagsData: [],
+    codeownersData: [
+      {
+        packageName: '@scope/one',
+        codeowners: ['@team-one'],
+      },
+      {
+        packageName: '@scope/two',
+        codeowners: ['@team-two'],
+      },
+      {
+        packageName: '@scope/three',
+        codeowners: ['@team-three'],
+      },
+      {
+        packageName: '@scope/four',
+        codeowners: ['@team-four'],
+      },
+      {
+        packageName: '@scope/five',
+        codeowners: ['@team-five'],
+      },
     ],
   },
 };
@@ -157,8 +171,35 @@ export const NoTeams: Story = {
   args: {
     visiblePackages: [pkgOne, pkgTwo, pkgThree],
     packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
-    tags: ['tag-one', 'tag-two', 'tag-three', 'tag-four', 'tag-five'],
-    teams: [],
+    tagsData: [
+      { packageName: '@scope/one', tags: ['tag-one', 'tag-two'] },
+      { packageName: '@scope/two', tags: ['tag-three'] },
+      { packageName: '@scope/three', tags: ['tag-four'] },
+      { packageName: '@scope/four', tags: ['tag-five'] },
+      { packageName: '@scope/five', tags: ['tag-six'] },
+    ],
+    codeownersData: [
+      {
+        packageName: '@scope/one',
+        codeowners: [],
+      },
+      {
+        packageName: '@scope/two',
+        codeowners: [],
+      },
+      {
+        packageName: '@scope/three',
+        codeowners: [],
+      },
+      {
+        packageName: '@scope/four',
+        codeowners: [],
+      },
+      {
+        packageName: '@scope/five',
+        codeowners: [],
+      },
+    ],
   },
 };
 
@@ -166,7 +207,7 @@ export const NoItems: Story = {
   args: {
     visiblePackages: [],
     packages: [],
-    tags: [],
-    teams: [],
+    tagsData: [],
+    codeownersData: [],
   },
 };

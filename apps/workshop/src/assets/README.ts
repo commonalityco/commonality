@@ -1,4 +1,4 @@
-const readme: string = `# Xornet Ipsum
+const readme = `# Xornet Ipsum
 
 Xornet ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
 
@@ -41,12 +41,12 @@ In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
 
 \`\`\`javascript
 const xornetIpsum = require('xornet-ipsum');
-
+// This is a reaaaaaaaaaaaaaaaaaaaaaallllllllllllllllllllyyyyyyyyyyyyyy loonnggggggggggggggggggg lineeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 const options = {
   paragraphs: 7,
   sentences: 6,
   words: 12,
-  includeHeader: true
+  includeHeader: true 
 };
 
 const text = xornetIpsum.generate(options);

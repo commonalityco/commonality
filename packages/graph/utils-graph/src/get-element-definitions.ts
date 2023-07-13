@@ -62,7 +62,7 @@ export const getElementDefinitions = (
       const dimensions = getNodeSize({ context, name: package_.name });
       const primaryDependency = getPrimaryDependency(package_);
       const image = ImageByPrimaryDependency[primaryDependency] ?? nodeImage;
-      var imageData = 'data:image/svg+xml;base64,' + image;
+      const imageData = 'data:image/svg+xml;base64,' + image;
 
       return {
         data: {

@@ -26,8 +26,8 @@ export function FeatureGraphToolbar({
     queryFn: () => getViolations(),
   });
 
-  const shownPackageCount = state.context.elements.nodes
-    ? state.context.elements.nodes().length
+  const shownPackageCount = state.context.renderGraph
+    ? state.context.renderGraph.nodes().length
     : props.totalPackageCount;
 
   if (isLoading || !violations) {

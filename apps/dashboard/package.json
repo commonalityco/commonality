@@ -8,11 +8,11 @@
     "access": "restricted"
   },
   "scripts": {
-    "dev": "tsup-node --config scripts/tsup.config.ts --watch & next dev | pino-pretty",
+    "dev": "tsup-node --config scripts/tsup.config.ts --watch & node server.js | pino-pretty",
     "build:script": "tsup-node --config scripts/tsup.config.ts",
     "build:app": "next build",
     "build": "pnpm run build:script && pnpm run build:app",
-    "start": "next start",
+    "start": "NODE_ENV=production node server.js",
     "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
     "cypress:open": "cypress open",
     "test": "jest --silent=false --passWithNoTests",

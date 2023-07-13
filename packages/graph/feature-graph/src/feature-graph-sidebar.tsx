@@ -23,7 +23,9 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
     queryFn: () => props.getTags(),
   });
 
-  const graphPkgs: Package[] = state.context.elements.map((el) => el.data());
+  const graphPkgs: Package[] = state.context.elements.map(
+    (el) => el.data as Package
+  );
   const graphPkgNames = graphPkgs.map((pkg) => pkg.name);
 
   const visiblePackages = props.packages.filter((pkg) => {

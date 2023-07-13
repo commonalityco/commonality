@@ -1,3 +1,4 @@
+import React from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import remarkGfm from 'remark-gfm';
 import ReactMarkdown, { Components } from 'react-markdown';
@@ -36,8 +37,11 @@ const CodeBlock = ({
 
 const CustomPre = ({ ...properties }: HTMLAttributes<HTMLPreElement>) => {
   return (
-    <div className="not-prose">
-      <pre className="rounded-lg font-mono text-sm" {...properties} />
+    <div className="not-prose w-full max-w-md overflow-hidden">
+      <pre
+        className="w-full overflow-auto rounded-lg font-mono text-sm"
+        {...properties}
+      />
     </div>
   );
 };
@@ -71,7 +75,7 @@ export function Markdown({ theme = 'light', children }: MarkdownProps) {
 
   return (
     <ReactMarkdown
-      className="prose prose-zinc max-w-none font-sans dark:prose-invert"
+      className="prose prose-zinc dark:prose-invert max-w-none font-sans"
       remarkPlugins={[remarkGfm]}
       components={components}
     >
