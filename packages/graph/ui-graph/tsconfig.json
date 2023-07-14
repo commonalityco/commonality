@@ -1,5 +1,5 @@
 {
   "extends": "@commonalityco/config-tsconfig/react-library.json",
-  "include": [".", "test/jest-setup.ts"],
+  "include": [".", "test/setup.ts"],
   "exclude": ["dist", "node_modules"]
 }

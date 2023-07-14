@@ -21,7 +21,7 @@
     "changeset:version": "changeset version",
     "changeset:release": "changeset publish",
     "commonality:publish": "commonality publish",
-    "prepare": "husky install && turbo run build"
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",

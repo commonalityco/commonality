@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function LogoReact(props: JSX.IntrinsicElements['svg']) {
   return (
     <svg
