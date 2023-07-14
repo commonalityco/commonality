@@ -1,5 +1,6 @@
 {
   "name": "@commonalityco/ui-core",
+  "type": "module",
   "version": "0.0.1",
   "dependencies": {
     "@commonalityco/types": "workspace:^",
@@ -24,25 +25,28 @@
     "rehype-sanitize": "^5.0.1",
     "remark-gfm": "^3.0.1",
     "tailwind-merge": "^1.13.2",
-    "tailwindcss": "^3.3.2"
+    "tailwindcss": "^3.3.3"
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
     "@commonalityco/config-tailwind": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
+    "@commonalityco/config-tsup": "workspace:^",
     "@types/cytoscape": "^3.19.10",
     "@types/cytoscape-dagre": "^2.3.0",
     "@types/cytoscape-popper": "^2.0.0",
-    "@types/react": "^18.2.14",
+    "@types/react": "^18.2.15",
     "@types/react-syntax-highlighter": "^15.5.7",
     "cytoscape-popper": "^2.0.0",
     "lucide-react": "^0.248.0",
     "next": "13.4.6",
-    "postcss": "^8.4.25",
+    "postcss": "^8.4.26",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.3.0",
-    "typescript": "4.9.5"
+    "tslib": "^2.6.0",
+    "typescript": "4.9.5",
+    "@size-limit/preset-small-lib": "^8.2.6"
   },
   "license": "MIT",
   "peerDependencies": {

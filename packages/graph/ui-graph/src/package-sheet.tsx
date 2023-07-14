@@ -30,8 +30,7 @@ import type {
   Package,
   TagsData,
 } from '@commonalityco/types';
-import { Markdown } from '@commonalityco/ui-core';
-import { GradientFade } from '@commonalityco/ui-core';
+import { Markdown, GradientFade } from '@commonalityco/ui-core';
 import { Check, File, FileText } from 'lucide-react';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import ReactWrapBalancer from 'react-wrap-balancer';

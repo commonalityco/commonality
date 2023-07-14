@@ -35,7 +35,7 @@
     "@tsconfig/node-lts-strictest-esm": "^18.12.1",
     "@types/fs-extra": "^11.0.1",
     "@types/glob": "^8.1.0",
-    "@types/jest": "^29.5.2",
+    "@types/jest": "^29.5.3",
     "@types/lodash.intersection": "^4.4.7",
     "@types/micromatch": "^4.0.2",
     "@types/mock-fs": "^4.13.1",

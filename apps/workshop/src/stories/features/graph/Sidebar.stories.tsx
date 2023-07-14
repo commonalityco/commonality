@@ -135,7 +135,95 @@ export const KitchenSink: Story = {
   },
 };
 
-export const NoPackages: Story = {
+export const ZeroPackages: Story = {
+  args: {
+    initialSearch: 'tag',
+    visiblePackages: [],
+    packages: [],
+    tagsData: [],
+    codeownersData: [],
+  },
+};
+
+export const ZeroTags: Story = {
+  args: {
+    initialSearch: '@scope',
+    visiblePackages: [pkgOne, pkgTwo, pkgThree],
+    packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
+    tagsData: [],
+    codeownersData: [
+      {
+        packageName: '@scope/one',
+        codeowners: ['@team-one'],
+      },
+      {
+        packageName: '@scope/two',
+        codeowners: ['@team-two'],
+      },
+      {
+        packageName: '@scope/three',
+        codeowners: ['@team-three'],
+      },
+      {
+        packageName: '@scope/four',
+        codeowners: ['@team-four'],
+      },
+      {
+        packageName: '@scope/five',
+        codeowners: ['@team-five'],
+      },
+    ],
+  },
+};
+
+export const ZeroCodeowners: Story = {
+  args: {
+    initialSearch: 'tag',
+    visiblePackages: [pkgOne, pkgTwo, pkgThree],
+    packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
+    tagsData: [
+      { packageName: '@scope/one', tags: ['tag-one', 'tag-two'] },
+      { packageName: '@scope/two', tags: ['tag-three'] },
+      { packageName: '@scope/three', tags: ['tag-four'] },
+      { packageName: '@scope/four', tags: ['tag-five'] },
+      { packageName: '@scope/five', tags: ['tag-six'] },
+    ],
+    codeownersData: [
+      {
+        packageName: '@owner/one',
+        codeowners: [],
+      },
+      {
+        packageName: '@owner/two',
+        codeowners: [],
+      },
+      {
+        packageName: '@owner/three',
+        codeowners: [],
+      },
+      {
+        packageName: '@owner/four',
+        codeowners: [],
+      },
+      {
+        packageName: '@owner/five',
+        codeowners: [],
+      },
+    ],
+  },
+};
+
+export const ZeroItems: Story = {
+  args: {
+    initialSearch: 'zzzzzz',
+    visiblePackages: [],
+    packages: [],
+    tagsData: [],
+    codeownersData: [],
+  },
+};
+
+export const EmptyPackages: Story = {
   args: {
     visiblePackages: [],
     packages: [],
@@ -144,7 +232,7 @@ export const NoPackages: Story = {
   },
 };
 
-export const NoTags: Story = {
+export const EmptyTags: Story = {
   args: {
     visiblePackages: [pkgOne, pkgTwo, pkgThree],
     packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
@@ -174,7 +262,7 @@ export const NoTags: Story = {
   },
 };
 
-export const NoTeams: Story = {
+export const EmptyCodeowners: Story = {
   args: {
     visiblePackages: [pkgOne, pkgTwo, pkgThree],
     packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
@@ -187,30 +275,30 @@ export const NoTeams: Story = {
     ],
     codeownersData: [
       {
-        packageName: '@scope/one',
+        packageName: '@owner/one',
         codeowners: [],
       },
       {
-        packageName: '@scope/two',
+        packageName: '@owner/two',
         codeowners: [],
       },
       {
-        packageName: '@scope/three',
+        packageName: '@owner/three',
         codeowners: [],
       },
       {
-        packageName: '@scope/four',
+        packageName: '@owner/four',
         codeowners: [],
       },
       {
-        packageName: '@scope/five',
+        packageName: '@owner/five',
         codeowners: [],
       },
     ],
   },
 };
 
-export const NoItems: Story = {
+export const EmptyItems: Story = {
   args: {
     visiblePackages: [],
     packages: [],

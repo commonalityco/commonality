@@ -1,3 +1,4 @@
+import React from 'react';
 import { cn } from '@commonalityco/ui-design-system';
 
 export function PnpmLogo({ className }: { className?: string }) {

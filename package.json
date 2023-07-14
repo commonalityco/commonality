@@ -21,7 +21,7 @@
     "changeset:version": "changeset version",
     "changeset:release": "changeset publish",
     "commonality:publish": "commonality publish",
-    "prepare": "husky install"
+    "prepare": "husky install && turbo run build"
   },
   "keywords": [],
   "author": "",
@@ -34,11 +34,11 @@
     "@commonalityco/config-eslint": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
     "@types/node": "^18.16.19",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
-    "@typescript-eslint/parser": "^5.61.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
     "chalk": "4.1.2",
     "commonality": "workspace:^",
-    "eslint": "^8.44.0",
+    "eslint": "^8.45.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "execa": "5.1.1",
     "husky": "^8.0.3",

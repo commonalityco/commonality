@@ -18,7 +18,15 @@ import {
   getIconForPackage,
   formatPackageName,
 } from '@commonalityco/utils-package';
-import { Eye, EyeOff, Focus } from 'lucide-react';
+import {
+  Box,
+  ExternalLink,
+  Eye,
+  EyeOff,
+  FileText,
+  Focus,
+  Tags,
+} from 'lucide-react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { GradientFade } from '@commonalityco/ui-core';
 import sortBy from 'lodash.sortby';
@@ -104,6 +112,7 @@ function PackagesFilterSection({
   onHide,
   onShow,
   onFocus,
+  search,
 }: {
   visiblePackages?: Package[];
   packages: Package[];
@@ -111,7 +120,39 @@ function PackagesFilterSection({
   onHide: (pkgName: string) => void;
   onShow: (pkgName: string) => void;
   onFocus: (pkgName: string) => void;
+  search: string;
 }) {
+  const getPlaceholder = () => {
+    if (search) {
+      return <Text use="help">No matching packages</Text>;
+    }
+
+    return (
+      <div className="flex space-x-4 rounded-md border p-4">
+        <Box className="h-6 w-6 shrink-0" />
+        <div className="space-y-2">
+          <p className="text-sm font-medium leading-none">
+            Create your first package
+          </p>
+          <p className="text-muted-foreground text-sm">
+            Buld a composable ecosystem of packages optimized for reuse and
+            scale.
+          </p>
+          <Button asChild variant="secondary" size="sm">
+            <a
+              href="https://commonality.co/docs/codeowners"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn more
+              <ExternalLink className="ml-1 h-3 w-3 -translate-y-px" />
+            </a>
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <Heading as="p" size="sm">
@@ -122,45 +163,43 @@ function PackagesFilterSection({
         <ScrollArea className="relative h-full">
           <GradientFade className="h-3" placement="top" />
 
-          {packages.length > 0 ? (
-            packages.map((package_) => {
-              const isPackageVisible = Boolean(
-                visiblePackages?.some(
-                  (packageName) => packageName.name === package_.name
-                )
-              );
+          {packages.length > 0
+            ? packages.map((package_) => {
+                const isPackageVisible = Boolean(
+                  visiblePackages?.some(
+                    (packageName) => packageName.name === package_.name
+                  )
+                );
 
-              const IconForPackage = getIconForPackage(package_);
-              const formattedPackageName = formatPackageName(package_.name, {
-                stripScope: stripScopeFromPackageNames ?? true,
-              });
+                const IconForPackage = getIconForPackage(package_);
+                const formattedPackageName = formatPackageName(package_.name, {
+                  stripScope: stripScopeFromPackageNames ?? true,
+                });
 
-              return (
-                <div
-                  key={package_.name}
-                  className="mb-1 grid grid-cols-[1fr_auto] items-center justify-start overflow-hidden"
-                >
-                  <div className="flex w-full items-center justify-start gap-2 overflow-hidden">
-                    <IconForPackage className="h-4 w-4 shrink-0 grow-0" />
-                    <p className="my-0 truncate text-left text-sm">
-                      {formattedPackageName}
-                    </p>
+                return (
+                  <div
+                    key={package_.name}
+                    className="mb-1 grid grid-cols-[1fr_auto] items-center justify-start overflow-hidden"
+                  >
+                    <div className="flex w-full items-center justify-start gap-2 overflow-hidden">
+                      <IconForPackage className="h-4 w-4 shrink-0 grow-0" />
+                      <p className="my-0 truncate text-left text-sm">
+                        {formattedPackageName}
+                      </p>
+                    </div>
+
+                    <div className="flex-nowwrap flex gap-1">
+                      <ShowHideButton
+                        visible={isPackageVisible}
+                        onHide={() => onHide(package_.name)}
+                        onShow={() => onShow(package_.name)}
+                      />
+                      <FocusButton onClick={() => onFocus(package_.name)} />
+                    </div>
                   </div>
-
-                  <div className="flex-nowwrap flex gap-1">
-                    <ShowHideButton
-                      visible={isPackageVisible}
-                      onHide={() => onHide(package_.name)}
-                      onShow={() => onShow(package_.name)}
-                    />
-                    <FocusButton onClick={() => onFocus(package_.name)} />
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            <Text use="help">No matching packages</Text>
-          )}
+                );
+              })
+            : getPlaceholder()}
           <GradientFade className="h-2" placement="bottom" />
         </ScrollArea>
       </div>
@@ -175,6 +214,7 @@ function TagsFilterSection({
   onHide,
   onFocus,
   onShow,
+  search,
 }: {
   visiblePackages?: Package[];
   className?: string;
@@ -182,6 +222,7 @@ function TagsFilterSection({
   onShow: (tag: string) => void;
   onFocus: (tag: string) => void;
   tagData: TagsData[];
+  search: string;
 }) {
   const allTags: string[] = useMemo(() => {
     if (tagData.length === 0) {
@@ -200,6 +241,37 @@ function TagsFilterSection({
     return sortBy(uniqueTags, (item) => item);
   }, [tagData]);
 
+  const getPlaceholder = () => {
+    if (search) {
+      return <Text use="help">No matching tags</Text>;
+    }
+
+    return (
+      <div className="flex space-x-4 rounded-md border p-4">
+        <Tags className="h-6 w-6 shrink-0" />
+        <div className="space-y-2">
+          <p className="text-sm font-medium leading-none">
+            Create your first tag
+          </p>
+          <p className="text-muted-foreground text-sm">
+            Categorize groups of packages to apply constraints and organize
+            workflows.
+          </p>
+          <Button asChild variant="secondary" size="sm">
+            <a
+              href="https://commonality.co/docs/codeowners"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn more
+              <ExternalLink className="ml-1 h-3 w-3 -translate-y-px" />
+            </a>
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <Heading as="p" size="sm">
@@ -207,62 +279,62 @@ function TagsFilterSection({
       </Heading>
       <ScrollArea className="@sm:display-none h-full">
         <GradientFade className="h-3" placement="top" />
-        {allTags.length > 0 ? (
-          allTags.map((tag) => {
-            const isTagVisible = Boolean(
-              visiblePackages?.some((package_) => {
-                const tagsForPkg = tagData.find(
-                  (data) => data.packageName === package_.name
-                );
+        {allTags.length > 0
+          ? allTags.map((tag) => {
+              const isTagVisible = Boolean(
+                visiblePackages?.some((package_) => {
+                  const tagsForPkg = tagData.find(
+                    (data) => data.packageName === package_.name
+                  );
 
-                if (tagsForPkg) {
-                  return tagsForPkg.tags.includes(tag);
-                }
+                  if (tagsForPkg) {
+                    return tagsForPkg.tags.includes(tag);
+                  }
 
-                return false;
-              })
-            );
+                  return false;
+                })
+              );
 
-            return (
-              <div
-                className="grid grid-cols-[1fr_auto] items-center gap-1"
-                key={tag}
-              >
-                <div className="w-full overflow-hidden">
-                  <Tag
-                    use="secondary"
-                    className="inline-block min-w-0 max-w-full truncate"
-                  >{`#${tag}`}</Tag>
+              return (
+                <div
+                  className="grid grid-cols-[1fr_auto] items-center gap-1"
+                  key={tag}
+                >
+                  <div className="w-full overflow-hidden">
+                    <Tag
+                      use="secondary"
+                      className="inline-block min-w-0 max-w-full truncate"
+                    >{`#${tag}`}</Tag>
+                  </div>
+
+                  <div className="flex flex-nowrap gap-1">
+                    <ShowHideButton
+                      visible={isTagVisible}
+                      onShow={() => onShow(tag)}
+                      onHide={() => onHide(tag)}
+                    />
+                    <FocusButton onClick={() => onFocus(tag)} />
+                  </div>
                 </div>
-
-                <div className="flex flex-nowrap gap-1">
-                  <ShowHideButton
-                    visible={isTagVisible}
-                    onShow={() => onShow(tag)}
-                    onHide={() => onHide(tag)}
-                  />
-                  <FocusButton onClick={() => onFocus(tag)} />
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          <Text use="help">No matching tags</Text>
-        )}
+              );
+            })
+          : getPlaceholder()}
         <GradientFade className="h-2" placement="bottom" />
       </ScrollArea>
     </>
   );
 }
 
-function TeamsFilterSection({
+function CodeownersFilterSection({
   ownerData,
   className,
   visiblePackages,
   onHide,
   onShow,
   onFocus,
+  search,
 }: {
+  search: string;
   ownerData: CodeownersData[];
   className?: string;
   visiblePackages?: Package[];
@@ -287,55 +359,83 @@ function TeamsFilterSection({
     return sortBy(uniqueOwners, (item) => item);
   }, [ownerData]);
 
+  const getPlaceholder = () => {
+    if (search) {
+      return <Text use="help">No matching codeowners</Text>;
+    }
+
+    return (
+      <div className="flex space-x-4 rounded-md border p-4">
+        <FileText className="h-6 w-6 shrink-0" />
+        <div className="space-y-2">
+          <p className="text-sm font-medium leading-none">
+            Create a CODEOWNERS file
+          </p>
+          <p className="text-muted-foreground text-sm">
+            Assign ownership over portions of your project.
+          </p>
+          <Button asChild variant="secondary" size="sm">
+            <a
+              href="https://commonality.co/docs/codeowners"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn more
+              <ExternalLink className="ml-1 h-3 w-3 -translate-y-px" />
+            </a>
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <Heading as="p" size="sm">
-        Owners
+        Codeowners
       </Heading>
       <ScrollArea className="@sm:display-none h-full">
         <GradientFade className="h-3" placement="top" />
-        {allOwners.length > 0 ? (
-          allOwners.map((owner) => {
-            const isTeamVisible = Boolean(
-              visiblePackages?.some((package_) => {
-                const ownersForPkg = ownerData.find(
-                  (data) => data.packageName === package_.name
-                );
+        {allOwners.length > 0
+          ? allOwners.map((owner) => {
+              const isTeamVisible = Boolean(
+                visiblePackages?.some((package_) => {
+                  const ownersForPkg = ownerData.find(
+                    (data) => data.packageName === package_.name
+                  );
 
-                if (ownersForPkg) {
-                  return ownersForPkg.codeowners.includes(owner);
-                }
+                  if (ownersForPkg) {
+                    return ownersForPkg.codeowners.includes(owner);
+                  }
 
-                return false;
-              })
-            );
+                  return false;
+                })
+              );
 
-            return (
-              <div
-                className="grid grid-cols-[1fr_auto] flex-nowrap items-center gap-1"
-                key={owner}
-              >
-                <p className="block w-full truncate text-left text-sm">
-                  {owner}
-                </p>
-                <div className="flex flex-nowrap gap-1">
-                  <div className="shrink-0">
-                    <ShowHideButton
-                      visible={isTeamVisible}
-                      onShow={() => onShow(owner)}
-                      onHide={() => onHide(owner)}
-                    />
-                  </div>
-                  <div className="shrink-0">
-                    <FocusButton onClick={() => onFocus(owner)} />
+              return (
+                <div
+                  className="grid grid-cols-[1fr_auto] flex-nowrap items-center gap-1"
+                  key={owner}
+                >
+                  <p className="block w-full truncate text-left text-sm">
+                    {owner}
+                  </p>
+                  <div className="flex flex-nowrap gap-1">
+                    <div className="shrink-0">
+                      <ShowHideButton
+                        visible={isTeamVisible}
+                        onShow={() => onShow(owner)}
+                        onHide={() => onHide(owner)}
+                      />
+                    </div>
+                    <div className="shrink-0">
+                      <FocusButton onClick={() => onFocus(owner)} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })
-        ) : (
-          <Text use="help">No matching teams</Text>
-        )}
+              );
+            })
+          : getPlaceholder()}
         <GradientFade className="h-2" placement="bottom" />
       </ScrollArea>
     </>
@@ -367,6 +467,7 @@ export function Sidebar({
   onPackageHide = () => {},
   onPackageShow = () => {},
   onPackageFocus = () => {},
+  initialSearch = '',
 }: {
   visiblePackages: Package[];
   packages: Package[];
@@ -384,21 +485,22 @@ export function Sidebar({
   onPackageHide: (packageName: string) => void;
   onPackageShow: (packageName: string) => void;
   onPackageFocus: (packageName: string) => void;
+  initialSearch?: string;
 }) {
-  const [filter, setFilter] = useState('');
+  const [search, setSearch] = useState(initialSearch);
 
-  const filteredOwners = filter
+  const filteredOwners = search
     ? codeownersData.filter((data) =>
-        data.codeowners.some((codeowner) => codeowner.includes(filter))
+        data.codeowners.some((codeowner) => codeowner.includes(search))
       )
     : codeownersData;
 
-  const filteredTags = filter
-    ? tagsData.filter((data) => data.tags.some((tag) => tag.includes(filter)))
+  const filteredTags = search
+    ? tagsData.filter((data) => data.tags.some((tag) => tag.includes(search)))
     : tagsData;
 
-  const filteredPackages = filter
-    ? packages.filter((package_) => package_.name.includes(filter))
+  const filteredPackages = search
+    ? packages.filter((package_) => package_.name.includes(search))
     : packages;
 
   const noMatchingItems =
@@ -413,6 +515,7 @@ export function Sidebar({
           <Button
             variant="secondary"
             className="w-full"
+            disabled={packages.length === 0}
             onClick={() => onShowAll()}
           >
             <div className="flex items-center gap-2">
@@ -423,6 +526,7 @@ export function Sidebar({
           <Button
             variant="secondary"
             className="w-full"
+            disabled={packages.length === 0}
             onClick={() => onHideAll()}
           >
             <div className="flex items-center gap-2">
@@ -433,11 +537,11 @@ export function Sidebar({
         </div>
         <Input
           placeholder="Search"
-          value={filter}
-          onChange={(event) => setFilter(event.target.value)}
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
         />
 
-        {noMatchingItems ? (
+        {noMatchingItems && search ? (
           <div className="py-6 text-center">
             <Text use="help">No matches found</Text>
           </div>
@@ -451,6 +555,7 @@ export function Sidebar({
                 onFocus={onPackageFocus}
                 onHide={onPackageHide}
                 onShow={onPackageShow}
+                search={search}
               />
             </Panel>
             <ResizeBar />
@@ -462,17 +567,19 @@ export function Sidebar({
                 onFocus={onTagFocus}
                 onHide={onTagHide}
                 onShow={onTagShow}
+                search={search}
               />
             </Panel>
             <ResizeBar />
             <Panel defaultSize={20} minSize={5} className="grid content-start">
-              <TeamsFilterSection
+              <CodeownersFilterSection
                 className="min-height-0 shrink"
                 ownerData={filteredOwners}
                 visiblePackages={visiblePackages}
                 onFocus={onTeamFocus}
                 onHide={onTeamHide}
                 onShow={onTeamShow}
+                search={search}
               />
             </Panel>
           </PanelGroup>
