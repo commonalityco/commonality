@@ -33,7 +33,6 @@ const updateStyles = ({
           const source: Package = edge.source().data();
           const target: Package = edge.target().data();
 
-          console.log({ name: edgeData.name, source, target });
           return (
             violation.sourcePackageName === source.name &&
             violation.targetPackageName === target.name

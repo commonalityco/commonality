@@ -28,12 +28,21 @@ export const nodeStyles: Stylesheet[] = [
       'border-color': '#a1a1aa',
       'text-halign': 'center',
       'text-valign': 'center',
+      'overlay-opacity': 0,
     },
   },
   {
     selector: 'node.dim',
     style: {
       opacity: 0.2,
+    },
+  },
+  {
+    selector: 'node.hover',
+    style: {
+      'background-color': '#09090b',
+      color: '#FFF',
+      'border-color': '#09090b',
     },
   },
   {

@@ -12,6 +12,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  Label,
 } from '@commonalityco/ui-design-system';
 import { cva } from 'class-variance-authority';
 import {
@@ -82,8 +83,10 @@ function ShowHideButton({
 
 function FocusButton({
   onClick,
+  children,
 }: {
   onClick: ComponentProps<typeof Button>['onClick'];
+  children?: string;
 }) {
   return (
     <TooltipProvider>
@@ -93,13 +96,13 @@ function FocusButton({
             onClick={onClick}
             variant="ghost"
             size="icon"
-            aria-label="Focus"
+            aria-label={children}
             className="shrink-0"
           >
             <Focus className="h-4 w-4" />
           </Button>
         </TooltipTrigger>
-        <TooltipContent>Focus</TooltipContent>
+        <TooltipContent>{children}</TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );
@@ -183,7 +186,7 @@ function PackagesFilterSection({
                   >
                     <div className="flex w-full items-center justify-start gap-2 overflow-hidden">
                       <IconForPackage className="h-4 w-4 shrink-0 grow-0" />
-                      <p className="my-0 truncate text-left text-sm">
+                      <p className="text-foreground my-0 truncate text-left text-sm font-medium">
                         {formattedPackageName}
                       </p>
                     </div>
@@ -194,7 +197,9 @@ function PackagesFilterSection({
                         onHide={() => onHide(package_.name)}
                         onShow={() => onShow(package_.name)}
                       />
-                      <FocusButton onClick={() => onFocus(package_.name)} />
+                      <FocusButton onClick={() => onFocus(package_.name)}>
+                        Only show package
+                      </FocusButton>
                     </div>
                   </div>
                 );
@@ -312,7 +317,9 @@ function TagsFilterSection({
                       onShow={() => onShow(tag)}
                       onHide={() => onHide(tag)}
                     />
-                    <FocusButton onClick={() => onFocus(tag)} />
+                    <FocusButton onClick={() => onFocus(tag)}>
+                      Only show packages with this tag
+                    </FocusButton>
                   </div>
                 </div>
               );
@@ -416,9 +423,9 @@ function CodeownersFilterSection({
                   className="grid grid-cols-[1fr_auto] flex-nowrap items-center gap-1"
                   key={owner}
                 >
-                  <p className="block w-full truncate text-left text-sm">
-                    {owner}
-                  </p>
+                  <Label asChild size="md">
+                    <p className="block w-full truncate text-left">{owner}</p>
+                  </Label>
                   <div className="flex flex-nowrap gap-1">
                     <div className="shrink-0">
                       <ShowHideButton
@@ -428,7 +435,9 @@ function CodeownersFilterSection({
                       />
                     </div>
                     <div className="shrink-0">
-                      <FocusButton onClick={() => onFocus(owner)} />
+                      <FocusButton onClick={() => onFocus(owner)}>
+                        Only show packages with this codeowner
+                      </FocusButton>
                     </div>
                   </div>
                 </div>

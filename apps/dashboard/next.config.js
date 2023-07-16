@@ -1,6 +1,6 @@
 const packageJSON = require('./package.json');
 const transpiledPackages = Object.keys(packageJSON.dependencies).filter((it) =>
-  it.includes('@commonality/')
+  it.includes('@commonalityco/')
 );
 
 /** @type {import('next').NextConfig} */

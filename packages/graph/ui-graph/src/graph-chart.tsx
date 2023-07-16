@@ -11,16 +11,17 @@ interface GraphChartProperties {
   children?: React.ReactNode;
   isEmpty?: boolean;
   onShowAllPackages?: () => void;
+  className?: string;
 }
 
 export const GraphChart = memo(
   forwardRef<HTMLDivElement, GraphChartProperties>(
-    ({ loading, children, isEmpty, onShowAllPackages }, ref) => {
+    ({ loading, children, isEmpty, className, onShowAllPackages }, ref) => {
       return (
-        <div className="relative z-10 w-full shrink-0 grow">
+        <div className={cn('relative z-10 w-full shrink-0 grow', className)}>
           <div
             className={cn(
-              'absolute bottom-0 left-0 right-0 top-0 z-20 flex h-full w-full items-center justify-center bg-background transition-opacity',
+              'bg-background absolute bottom-0 left-0 right-0 top-0 z-20 flex h-full w-full items-center justify-center transition-opacity',
               {
                 'opacity-100': isEmpty,
                 'pointer-events-none -z-10 opacity-0': !isEmpty,
@@ -59,18 +60,15 @@ export const GraphChart = memo(
               }
             )}
           >
-            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+            <Loader2 className="text-muted-foreground h-6 w-6 animate-spin" />
           </div>
           <div
             id="graph-container"
             ref={ref}
-            className={clsx(
-              'h-full w-full cursor-grab active:cursor-grabbing',
-              {
-                'opacity-0': loading,
-                'opacity-100 transition-opacity ': !loading,
-              }
-            )}
+            className={clsx('h-full w-full', {
+              'opacity-0': loading,
+              'opacity-100 transition-opacity ': !loading,
+            })}
           />
           {children}
         </div>

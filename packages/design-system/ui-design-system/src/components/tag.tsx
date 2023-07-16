@@ -13,7 +13,7 @@ const tagStyles = cva('inline-flex items-center gap-x-0.5 border truncate', {
     },
     color: {
       transparent: 'bg-transparent text-foreground',
-      grey: 'bg-secondary text-secondary-foreground',
+      grey: 'bg-secondary text-foreground',
       green: 'bg-success text-success-foreground border-success-border',
       red: 'bg-danger text-danger-foreground border-danger-border',
     },

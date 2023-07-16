@@ -20,6 +20,7 @@ import {
 import { GraphContext } from './graph-provider';
 import { FeatureGraphToolbar } from './feature-graph-toolbar';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { cn } from '@commonalityco/ui-design-system';
 
 interface GraphProps {
   stripScopeFromPackageNames?: boolean;
@@ -174,6 +175,10 @@ export function FeatureGraph({
     return state.matches('success') && state.context.elements.length === 0;
   });
 
+  const isHovering = GraphContext.useSelector(
+    (state) => state.context.hoveredRenderNode
+  );
+
   useEffect(() => {
     if (containerRef.current && packages) {
       actor.send({
@@ -213,6 +218,10 @@ export function FeatureGraph({
         ref={containerRef}
         loading={isLoading}
         isEmpty={isEmpty}
+        className={cn({
+          'cursor-pointer': isHovering,
+          'cursor-grab active:cursor-grabbing': !isHovering,
+        })}
         onShowAllPackages={() => {
           actor.send({ type: 'SHOW_ALL' });
         }}

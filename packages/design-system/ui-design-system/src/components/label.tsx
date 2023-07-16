@@ -25,7 +25,9 @@ export const labelVariants = cva('font-sans', {
 
 interface LabelProps
   extends React.ComponentPropsWithoutRef<'label'>,
-    VariantProps<typeof labelVariants> {}
+    VariantProps<typeof labelVariants> {
+  asChild?: boolean;
+}
 
 export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
   ({ className, size = 'md', weight = 'medium', ...props }, ref) => {

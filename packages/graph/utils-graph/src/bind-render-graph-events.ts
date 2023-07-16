@@ -1,6 +1,6 @@
 import { Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
-import { Core, EdgeSingular, EventObject } from 'cytoscape';
+import { Core, EdgeSingular, EventObject, NodeSingular } from 'cytoscape';
 
 interface EventHandlerArgs {
   renderGraph: Core;
@@ -15,7 +15,7 @@ interface EventHandlerArgs {
 export const handleNodeMouseover = ({
   target,
   renderGraph,
-}: EventHandlerArgs & { target: EventObject['target'] }) => {
+}: EventHandlerArgs & { target: NodeSingular }) => {
   const neighborhood = target.closedNeighborhood();
 
   renderGraph
@@ -36,13 +36,13 @@ export const handleNodeMouseover = ({
     });
   }
 
-  neighborhood.addClass('focus');
+  target.addClass('hover');
 };
 
 export const handleNodeMouseout = ({
   target,
   renderGraph,
-}: EventHandlerArgs & { target: EventObject['target'] }) => {
+}: EventHandlerArgs & { target: NodeSingular }) => {
   const neighborhood = target.neighborhood();
   const focusedElements = renderGraph.collection([neighborhood, target]);
 
@@ -56,9 +56,7 @@ export const handleNodeMouseout = ({
     });
   }
 
-  neighborhood
-    .filter((element: EdgeSingular) => !element.selected())
-    .removeClass('focus');
+  target.removeClass('hover');
 };
 
 /**********************************
@@ -88,7 +86,6 @@ export const handleEdgeMouseover = ({
 
   if (!hasViolation) {
     target.addClass(type);
-    console.log('HELLO TWO');
   }
 };
 
