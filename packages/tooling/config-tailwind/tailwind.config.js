@@ -1,4 +1,3 @@
-// @ts-check
 var { fontFamily } = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
@@ -10,6 +9,7 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
+
   theme: {
     fontFamily: {
       sans: ['var(--font-sans)', ...fontFamily.sans],
@@ -29,6 +29,7 @@ module.exports = {
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
+
         foreground: 'hsl(var(--foreground))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
@@ -57,6 +58,16 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+        },
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          border: 'hsl(var(--success-border))',
+          foreground: 'hsl(var(--success-foreground))',
+        },
+        danger: {
+          DEFAULT: 'hsl(var(--danger))',
+          border: 'hsl(var(--danger-border))',
+          foreground: 'hsl(var(--danger-foreground))',
         },
       },
       borderRadius: {

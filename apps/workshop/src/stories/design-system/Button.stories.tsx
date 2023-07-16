@@ -22,6 +22,56 @@ export const Primary: Story = {
   },
 };
 
+export const PrimaryDark: Story = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+  decorators: [
+    (Story) => (
+      <div className="dark">
+        <Story />
+      </div>
+    ),
+  ],
+  args: {
+    size: 'lg',
+    variant: 'default',
+    children: 'Click me',
+  },
+};
+
+export const Sm: Story = {
+  args: {
+    size: 'sm',
+    variant: 'secondary',
+    children: 'Click me',
+  },
+};
+
+export const Md: Story = {
+  args: {
+    size: 'md',
+    variant: 'secondary',
+    children: 'Click me',
+  },
+};
+
+export const Lg: Story = {
+  args: {
+    size: 'lg',
+    variant: 'secondary',
+    children: 'Click me',
+  },
+};
+
+export const Xl: Story = {
+  args: {
+    size: 'xl',
+    variant: 'secondary',
+    children: 'Click me',
+  },
+};
+
 export const Secondary: Story = {
   args: {
     size: 'lg',
@@ -30,15 +80,43 @@ export const Secondary: Story = {
   },
 };
 
-export const Outline: Story = {
+export const SecondaryDark: Story = {
   args: {
     size: 'lg',
-    variant: 'outline',
+    variant: 'secondary',
+    children: 'Click me',
+  },
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+  decorators: [
+    (Story) => (
+      <div className="dark">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const Ghost: Story = {
+  args: {
+    size: 'lg',
+    variant: 'ghost',
     children: 'Click me',
   },
 };
 
-export const Ghost: Story = {
+export const GhostDark: Story = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+  decorators: [
+    (Story) => (
+      <div className="dark">
+        <Story />
+      </div>
+    ),
+  ],
   args: {
     size: 'lg',
     variant: 'ghost',

@@ -16,7 +16,7 @@ export function ConstraintAccordionTrigger({
       <div>
         <Tag
           className="grid grid-cols-[auto_1fr] gap-1"
-          use={variant === 'pass' ? 'success' : 'destructive'}
+          color={variant === 'pass' ? 'green' : 'red'}
         >
           {variant === 'pass' ? (
             <ShieldCheck className="h-4 w-4" />

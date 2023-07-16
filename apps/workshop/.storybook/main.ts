@@ -9,25 +9,12 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     'storybook-addon-variants',
-    // {
-    //   name: '@storybook/addon-docs',
-    //   options: {
-    //     configureJSX: true,
-    //     transcludeMarkdown: true,
-    //   },
-    // },
-    // {
-    //   name: '@storybook/addon-styling',
-    //   options: {
-    //     postCss: true,
-    //   },
-    // },
   ],
   async viteFinal(config, { configType }) {
     return mergeConfig(config, {
       define: { 'process.env': {} },
       optimizeDeps: {
-        include: ['@commonalityco/utils-core'],
+        include: ['@commonalityco/utils-core', '@commonalityco/ui-core'],
       },
     });
   },

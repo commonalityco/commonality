@@ -134,7 +134,7 @@ function PackagesFilterSection({
           <p className="text-sm font-medium leading-none">
             Create your first package
           </p>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-xs">
             Buld a composable ecosystem of packages optimized for reuse and
             scale.
           </p>
@@ -253,7 +253,7 @@ function TagsFilterSection({
           <p className="text-sm font-medium leading-none">
             Create your first tag
           </p>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-xs">
             Categorize groups of packages to apply constraints and organize
             workflows.
           </p>
@@ -300,11 +300,10 @@ function TagsFilterSection({
                   className="grid grid-cols-[1fr_auto] items-center gap-1"
                   key={tag}
                 >
-                  <div className="w-full overflow-hidden">
-                    <Tag
-                      use="secondary"
-                      className="inline-block min-w-0 max-w-full truncate"
-                    >{`#${tag}`}</Tag>
+                  <div className="flex w-full items-center overflow-hidden">
+                    <div className="flex">
+                      <Tag className="inline-block min-w-0 max-w-full truncate">{`#${tag}`}</Tag>
+                    </div>
                   </div>
 
                   <div className="flex flex-nowrap gap-1">
@@ -371,7 +370,7 @@ function CodeownersFilterSection({
           <p className="text-sm font-medium leading-none">
             Create a CODEOWNERS file
           </p>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-xs">
             Assign ownership over portions of your project.
           </p>
           <Button asChild variant="secondary" size="sm">

@@ -54,12 +54,12 @@ export const TooltipPackage = ({
 
   return (
     <GraphTooltip element={renderNode}>
-      <div className="flex max-w-fit flex-nowrap rounded-md bg-background p-3 font-sans">
+      <div className="bg-background flex max-w-fit flex-nowrap rounded-md p-3 font-sans">
         <div className="grid w-48 auto-rows-min items-start gap-3">
           <div className="grid gap-2">
             <div className="flex items-center gap-1">
               <PackageIcon className="h-4 w-4" />
-              <Text className="font-medium text-foreground">Package</Text>
+              <Text className="text-foreground font-medium">Package</Text>
             </div>
             <div className="flex flex-nowrap items-center gap-1">
               <DropdownButton onClick={() => onFocus(pkg)}>
@@ -71,9 +71,9 @@ export const TooltipPackage = ({
           <div className="grid gap-2">
             <div className="flex items-center gap-1">
               <ArrowUp className="h-4 w-4" />
-              <Text className="font-medium text-foreground">Dependents</Text>
+              <Text className="text-foreground font-medium">Dependents</Text>
               <div className="grow text-right">
-                <Tag use="outline" className="text-xs">
+                <Tag color="transparent" className="text-xs">
                   {dependentsCount}
                 </Tag>
               </div>
@@ -96,9 +96,9 @@ export const TooltipPackage = ({
           <div className="grid gap-2">
             <div className="flex items-center gap-1">
               <ArrowDown className="h-4 w-4" />
-              <Text className="font-medium text-foreground">Dependencies</Text>
+              <Text className="text-foreground font-medium">Dependencies</Text>
               <div className="grow text-right">
-                <Tag use="outline" className="text-xs">
+                <Tag color="transparent" className="text-xs">
                   {dependenciesCount}
                 </Tag>
               </div>

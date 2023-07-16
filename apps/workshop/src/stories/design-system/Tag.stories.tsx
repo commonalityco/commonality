@@ -17,25 +17,77 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/7.0/react/writing-stories/args
 export const Default: Story = {
+  args: {},
+};
+
+export const Small: Story = {
   args: {
-    use: 'default',
+    size: 'sm',
   },
 };
 
-export const Secondary: Story = {
+export const Medium: Story = {
   args: {
-    use: 'secondary',
+    size: 'md',
   },
 };
 
-export const Outline: Story = {
+export const Large: Story = {
   args: {
-    use: 'outline',
+    size: 'lg',
   },
 };
 
-export const Destructive: Story = {
+export const Rounded: Story = {
   args: {
-    use: 'destructive',
+    variant: 'rounded',
+  },
+};
+
+export const Grey: Story = {
+  args: {
+    color: 'grey',
+  },
+};
+
+export const GreyDark: Story = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+  args: {
+    color: 'grey',
+    className: 'dark',
+  },
+};
+
+export const Green: Story = {
+  args: {
+    color: 'green',
+  },
+};
+
+export const GreenDark: Story = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+  args: {
+    color: 'green',
+    className: 'dark',
+  },
+};
+
+export const Red: Story = {
+  args: {
+    color: 'red',
+  },
+};
+
+export const RedDark: Story = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+  args: {
+    color: 'red',
+    className: 'dark',
   },
 };

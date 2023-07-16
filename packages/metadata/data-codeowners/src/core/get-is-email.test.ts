@@ -1,4 +1,5 @@
 import { getIsEmail } from './get-is-email';
+import { describe, test, expect } from 'vitest';
 
 describe('getIsEmail', () => {
   test('should return true for valid email addresses', () => {
@@ -35,7 +36,6 @@ describe('getIsEmail', () => {
   });
 
   test('should return false for non-string input', () => {
-    // eslint-disable-next-line unicorn/no-null
     const nonStringInputs = [123, null, undefined, {}, []];
 
     for (const input of nonStringInputs) {

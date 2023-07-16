@@ -151,11 +151,7 @@ function ViolationsHoverCard({
                               <div className="flex w-full flex-wrap gap-1">
                                 {violation.found?.length ? (
                                   violation.found.map((tag) => (
-                                    <Tag
-                                      use="secondary"
-                                      key={tag}
-                                      className="block min-w-0"
-                                    >
+                                    <Tag key={tag} className="block min-w-0">
                                       {`#${tag}`}
                                     </Tag>
                                   ))

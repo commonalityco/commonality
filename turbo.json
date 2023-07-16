@@ -6,10 +6,7 @@
     },
     "test": {
       "outputs": ["coverage/**"],
-      "dependsOn": ["^build", "build"]
-    },
-    "test:watch": {
-      "cache": false
+      "dependsOn": ["^build"]
     },
     "lint": {
       "outputs": [],
@@ -19,8 +16,7 @@
       "outputs": []
     },
     "dev": {
-      "cache": false,
-      "dependsOn": ["^build"]
+      "cache": false
     }
   }
 }

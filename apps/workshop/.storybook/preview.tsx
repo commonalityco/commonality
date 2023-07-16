@@ -13,23 +13,15 @@ const preview: Preview = {
   ],
   parameters: {
     backgrounds: {
-      default: 'light/primary',
+      default: 'light',
       values: [
         {
-          name: 'light/primary',
+          name: 'light',
           value: '#fff',
         },
         {
-          name: 'light/secondary',
-          value: '#f4f4f5',
-        },
-        {
-          name: 'dark/primary',
-          value: '#18181b',
-        },
-        {
-          name: 'dark/secondary',
-          value: '#27272a',
+          name: 'dark',
+          value: 'hsl(240 6% 8.5%)',
         },
       ],
     },

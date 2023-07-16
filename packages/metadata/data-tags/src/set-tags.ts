@@ -3,11 +3,6 @@ import path from 'node:path';
 import fs from 'fs-extra';
 import type { PackageConfig, PackageJson } from '@commonalityco/types';
 import uniq from 'lodash.uniq';
-// import { getPackageDirectories } from './core/get-package-directories';
-// import { getWorkspaceGlobs } from './core/get-workspace-globs';
-// import { getRootDirectory } from './core/get-root-directory';
-// import { getPackageManager } from './core/get-package-manager';
-
 import {
   getPackageDirectories,
   getWorkspaceGlobs,

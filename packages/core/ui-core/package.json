@@ -1,6 +1,5 @@
 {
   "name": "@commonalityco/ui-core",
-  "type": "module",
   "version": "0.0.1",
   "dependencies": {
     "@commonalityco/types": "workspace:^",
@@ -32,6 +31,8 @@
     "@commonalityco/config-tailwind": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
     "@commonalityco/config-tsup": "workspace:^",
+    "@size-limit/preset-small-lib": "^8.2.6",
+    "@testing-library/react": "^13.4.0",
     "@types/cytoscape": "^3.19.10",
     "@types/cytoscape-dagre": "^2.3.0",
     "@types/cytoscape-popper": "^2.0.0",
@@ -46,7 +47,7 @@
     "tailwindcss": "^3.3.0",
     "tslib": "^2.6.0",
     "typescript": "4.9.5",
-    "@size-limit/preset-small-lib": "^8.2.6"
+    "vitest": "^0.33.0"
   },
   "license": "MIT",
   "peerDependencies": {
@@ -55,6 +56,9 @@
     "react": ">=17",
     "react-dom": ">=17",
     "tailwindcss": "^3.3.0"
+  },
+  "scripts": {
+    "test": "vitest"
   },
   "main": "src/index.ts",
   "types": "src/index.ts"

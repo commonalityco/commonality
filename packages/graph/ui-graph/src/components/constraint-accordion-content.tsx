@@ -16,7 +16,7 @@ export function ConstraintAccordionContent({
             <div className="flex w-full flex-col gap-2">
               <div className="flex items-center gap-1">
                 <Label className="text-xs">
-                  Allow direct dependencies tagged:
+                  Allow only direct dependencies tagged:
                 </Label>
               </div>
               <div className="flex w-full flex-wrap gap-1">
@@ -24,11 +24,7 @@ export function ConstraintAccordionContent({
                   <p className="text-xs">All packages</p>
                 ) : (
                   constraint.allow.map((tag) => (
-                    <Tag
-                      use="secondary"
-                      key={tag}
-                      className="block min-w-0"
-                    >{`#${tag}`}</Tag>
+                    <Tag key={tag} className="block min-w-0">{`#${tag}`}</Tag>
                   ))
                 )}
               </div>
@@ -46,11 +42,7 @@ export function ConstraintAccordionContent({
                   <p className="text-xs">All packages</p>
                 ) : (
                   constraint.disallow.map((tag) => (
-                    <Tag
-                      use="secondary"
-                      key={tag}
-                      className="block min-w-0"
-                    >{`#${tag}`}</Tag>
+                    <Tag key={tag} className="block min-w-0">{`#${tag}`}</Tag>
                   ))
                 )}
               </div>

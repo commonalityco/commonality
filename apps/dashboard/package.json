@@ -15,8 +15,6 @@
     "start": "NODE_ENV=production node server.js",
     "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
     "cypress:open": "cypress open",
-    "test": "jest --silent=false --passWithNoTests",
-    "test:watch": "jest --watch --silent=false --verbose",
     "lint": "next lint"
   },
   "dependencies": {

@@ -74,7 +74,7 @@ function TagsButton({
         <PopoverTrigger>
           <div className="flex flex-wrap gap-1">
             {pkgTags.map((tag) => (
-              <Tag use="secondary" key={tag}>{`#${tag}`}</Tag>
+              <Tag key={tag}>{`#${tag}`}</Tag>
             ))}
           </div>
         </PopoverTrigger>
@@ -202,7 +202,11 @@ function PackageSheetContent({
               {ownerDataForPkg?.codeowners.length ? (
                 <div className="flex flex-wrap gap-1">
                   {ownerDataForPkg.codeowners.map((codeowner) => (
-                    <Tag key={codeowner} use="outline" className="rounded-full">
+                    <Tag
+                      key={codeowner}
+                      className="rounded-full"
+                      color="transparent"
+                    >
                       {codeowner}
                     </Tag>
                   ))}

@@ -1,6 +1,6 @@
 export function GraphLayoutRoot({ children }: { children?: React.ReactNode }) {
   return (
-    <main className="relative flex h-full max-h-screen min-h-0 w-full bg-secondary">
+    <main className="bg-secondary relative flex h-full max-h-screen min-h-0 w-full">
       {children}
     </main>
   );
@@ -8,17 +8,17 @@ export function GraphLayoutRoot({ children }: { children?: React.ReactNode }) {
 
 export function GraphLayoutAside({ children }: { children?: React.ReactNode }) {
   return (
-    <div className="px-5 py-5">
-      <div className="h-full w-72 rounded-lg bg-background">{children}</div>
+    <div className="p-3">
+      <div className="bg-background h-full w-72 rounded-lg">{children}</div>
     </div>
   );
 }
 
 export function GraphLayoutMain({ children }: { children?: React.ReactNode }) {
   return (
-    <div className="align-stretch flex grow py-5 pr-5">
+    <div className="align-stretch flex grow py-3 pr-3">
       <div
-        className="flex h-full w-full flex-col overflow-hidden rounded-lg bg-background"
+        className="bg-background flex h-full w-full flex-col overflow-hidden rounded-lg"
         id="graph-layout-root"
       >
         {children}

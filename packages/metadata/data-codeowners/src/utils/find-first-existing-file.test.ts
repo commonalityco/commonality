@@ -1,6 +1,7 @@
 import { findFirstExistingFile } from './find-first-existing-file';
 import path from 'node:path';
 import fs from 'fs-extra';
+import { describe, beforeAll, afterAll, test, expect } from 'vitest';
 
 describe('findFirstExistingFile', () => {
   const testDirectory = path.join(__dirname, 'test-files');

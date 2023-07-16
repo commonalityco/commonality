@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import path from 'node:path';
 import { getCodeowners } from './get-codeowners';
+import { describe, it, expect } from 'vitest';
 
 describe('getCodeOwners', () => {
   describe('when the file is at the root of the repo', () => {
     it('returns an object containing the correct owners for each glob', async () => {
-      const ownership = await getCodeowners({
-        rootDirectory: path.resolve(
-          __dirname,
-          '../test/fixtures/github-example'
-        ),
-      });
+      const rootDirectory = path.resolve(
+        __dirname,
+        '../../test/fixtures/github-example'
+      );
+      const ownership = await getCodeowners({ rootDirectory });
 
       const globalOwners = ['@global-owner1', '@global-owner2'];
 

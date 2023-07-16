@@ -37,7 +37,8 @@ export const KitchenSink: Story = {
     projectConfig: {
       constraints: [
         {
-          tag: 'tag-one-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
+          applyTo:
+            'tag-one-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
           allow: [
             'tag-two-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
             'tag-three-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
@@ -50,16 +51,16 @@ export const KitchenSink: Story = {
           ],
         },
         {
-          tag: 'tag-two',
+          applyTo: 'tag-two',
           allow: ['tag-two', 'tag-three'],
           disallow: ['tag-four'],
         },
         {
-          tag: 'tag-three',
+          applyTo: 'tag-three',
           disallow: ['tag-four'],
         },
         {
-          tag: 'tag-four',
+          applyTo: 'tag-four',
           allow: ['*'],
           disallow: ['tag-four'],
         },
@@ -71,13 +72,13 @@ export const KitchenSink: Story = {
           'pkg-a-looooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnngggggggggggggggggggggggg',
         targetPackageName:
           'pkg-b-looooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnngggggggggggggggggggggggg',
-        constraintTag:
+        appliedTo:
           'tag-one-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
-        allowedTags: [
+        allowed: [
           'tag-two-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
           'tag-three-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
         ],
-        disallowedTags: [],
+        disallowed: [],
         foundTags: [
           'bar-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
           'foo-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
@@ -89,17 +90,17 @@ export const KitchenSink: Story = {
       {
         sourcePackageName: 'pkg-b',
         targetPackageName: 'pkg-c',
-        constraintTag: 'tag-two',
-        allowedTags: ['tag-two', 'tag-three'],
-        disallowedTags: [],
+        appliedTo: 'tag-two',
+        allowed: ['tag-two', 'tag-three'],
+        disallowed: [],
         foundTags: [],
       },
       {
         sourcePackageName: 'pkg-c',
         targetPackageName: 'pkg-d',
-        constraintTag: 'tag-one',
-        allowedTags: ['tag-two', 'tag-three'],
-        disallowedTags: [],
+        appliedTo: 'tag-one',
+        allowed: ['tag-two', 'tag-three'],
+        disallowed: [],
         foundTags: [],
       },
     ],

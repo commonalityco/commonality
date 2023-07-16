@@ -1,6 +1,7 @@
 import nodePath from 'node:path';
 import { getCodeowners } from './get-codeowners';
 import { getOwnersForPath } from './get-owners-for-path';
+import { describe, test, expect } from 'vitest';
 
 const globalOwners = ['@global-owner1', '@global-owner2'];
 
@@ -26,7 +27,7 @@ describe('get-owners-for-path', () => {
     const codeowners = await getCodeowners({
       rootDirectory: nodePath.resolve(
         __dirname,
-        '../test/fixtures/github-example'
+        '../../test/fixtures/github-example'
       ),
     });
 
