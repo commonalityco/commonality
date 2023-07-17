@@ -11,7 +11,7 @@
     "@commonalityco/utils-package": "workspace:^",
     "@heroicons/react": "^2.0.18",
     "@popperjs/core": "^2.11.8",
-    "@tanstack/react-query": "^4.29.23",
+    "@tanstack/react-query": "^4.29.25",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "cytoscape-popper": "^2.0.0",
@@ -23,7 +23,7 @@
     "react-popper": "^2.3.0",
     "react-resizable-panels": "^0.0.36",
     "react-use": "^17.4.0",
-    "tailwind-merge": "^1.13.2",
+    "tailwind-merge": "^1.14.0",
     "tailwindcss": "^3.3.3"
   },
   "devDependencies": {

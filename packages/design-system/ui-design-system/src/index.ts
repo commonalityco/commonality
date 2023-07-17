@@ -1,6 +1,7 @@
 export * from './components/accordion';
 export * from './components/alert';
 export * from './components/button';
+export * from './components/badge';
 export * from './components/card';
 export * from './components/checkbox';
 export * from './components/dropdown-menu';
@@ -14,7 +15,6 @@ export * from './components/snippet';
 export * from './components/switch';
 export * from './components/popover';
 export * from './components/command';
-export * from './components/tag';
 export * from './components/input';
 export * from './components/text';
 export * from './components/toggle';

@@ -12,7 +12,7 @@ import {
   HoverCard,
   HoverCardTrigger,
   HoverCardContent,
-  Tag,
+  Badge,
   ScrollArea,
   Accordion,
   Label,
@@ -151,9 +151,9 @@ function ViolationsHoverCard({
                               <div className="flex w-full flex-wrap gap-1">
                                 {violation.found?.length ? (
                                   violation.found.map((tag) => (
-                                    <Tag key={tag} className="block min-w-0">
+                                    <Badge key={tag} className="block min-w-0">
                                       {`#${tag}`}
-                                    </Tag>
+                                    </Badge>
                                   ))
                                 ) : (
                                   <p className="text-xs">No tags</p>

@@ -7,7 +7,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  Tag,
+  Badge,
   Card,
   CardContent,
   CardHeader,
@@ -16,12 +16,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  Command,
-  CommandInput,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  cn,
+  CreatebleSelect,
 } from '@commonalityco/ui-design-system';
 import { ComponentProps, useMemo, useState } from 'react';
 import type {
@@ -31,10 +26,11 @@ import type {
   TagsData,
 } from '@commonalityco/types';
 import { Markdown, GradientFade } from '@commonalityco/ui-core';
-import { Check, File, FileText } from 'lucide-react';
+import { File, FileText, Plus } from 'lucide-react';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import ReactWrapBalancer from 'react-wrap-balancer';
 import sortBy from 'lodash.sortby';
+import { formatTagName } from '@commonalityco/utils-core';
 
 interface PackageSheetProps extends ComponentProps<typeof Sheet> {
   pkg?: Package;
@@ -56,68 +52,52 @@ function TagsButton({
   allTags: string[];
   packageName: string;
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState('');
-
-  const filteredTags = useMemo(() => {
-    const newFilteredTags = allTags.filter((tag) => tag.includes(search));
-
-    if (!newFilteredTags.length) {
-      return [search];
-    }
-    return newFilteredTags;
-  }, [search, allTags]);
-
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
+    <Popover onOpenChange={() => console.log('changed')} modal>
       {pkgTags.length ? (
         <PopoverTrigger>
           <div className="flex flex-wrap gap-1">
             {pkgTags.map((tag) => (
-              <Tag key={tag}>{`#${tag}`}</Tag>
+              <Badge variant="secondary" key={tag}>{`#${tag}`}</Badge>
             ))}
           </div>
         </PopoverTrigger>
       ) : (
-        <p className="text-muted-foreground text-xs">No tags</p>
+        <PopoverTrigger asChild>
+          <Button variant="link" className="text-muted-foreground px-0">
+            <Plus className="h-3 w-3" />
+            <span className="text-xs">Add tags</span>
+          </Button>
+        </PopoverTrigger>
       )}
 
-      <PopoverContent className="w-[200px] p-0" side="left" align="start">
-        <Command shouldFilter={false}>
-          <CommandInput
-            placeholder="Search tags..."
-            value={search}
-            onValueChange={setSearch}
-          />
-          <CommandEmpty>
-            <CommandItem>Create</CommandItem>
-          </CommandEmpty>
-          <CommandGroup>
-            {filteredTags.map((tag) => (
-              <CommandItem
-                key={tag}
-                value={tag}
-                onSelect={(value) => {
-                  const isSelected = pkgTags.includes(value);
-
-                  const newTags = isSelected
-                    ? pkgTags.filter((pkgTag) => pkgTag !== tag)
-                    : [...pkgTags, tag];
-
-                  return onSetTags({ tags: newTags, packageName });
-                }}
-              >
-                <Check
-                  className={cn(
-                    'mr-2 h-4 w-4',
-                    pkgTags.includes(tag) ? 'opacity-100' : 'opacity-0'
-                  )}
-                />
-                {`#${tag}`}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
+      <PopoverContent className="w-[240px] p-0" align="start" side="left">
+        <CreatebleSelect
+          variant="inline"
+          menuIsOpen={true}
+          autoFocus={true}
+          isMulti
+          backspaceRemovesValue={false}
+          closeMenuOnSelect={false}
+          controlShouldRenderValue={false}
+          hideSelectedOptions={false}
+          isClearable={false}
+          formatCreateLabel={(inputValue) => {
+            return `Create ${formatTagName(inputValue)}`;
+          }}
+          value={pkgTags.map((pkgTag) => ({
+            label: formatTagName(pkgTag),
+            value: pkgTag,
+          }))}
+          onChange={(options) => {
+            const tags = options.map((opt) => opt.value);
+            onSetTags({ packageName, tags });
+          }}
+          options={allTags.map((tag) => ({
+            label: formatTagName(tag),
+            value: tag,
+          }))}
+        />
       </PopoverContent>
     </Popover>
   );
@@ -202,13 +182,13 @@ function PackageSheetContent({
               {ownerDataForPkg?.codeowners.length ? (
                 <div className="flex flex-wrap gap-1">
                   {ownerDataForPkg.codeowners.map((codeowner) => (
-                    <Tag
+                    <Badge
                       key={codeowner}
                       className="rounded-full"
-                      color="transparent"
+                      variant="outline"
                     >
                       {codeowner}
-                    </Tag>
+                    </Badge>
                   ))}
                 </div>
               ) : (

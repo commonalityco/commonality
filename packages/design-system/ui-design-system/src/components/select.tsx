@@ -6,33 +6,33 @@ import ReactSelect, {
   GroupBase,
   InputProps,
   MenuListProps,
-  MultiValueProps,
   OptionProps,
   Props,
-  ValueContainerProps,
 } from 'react-select';
 import { ChevronDown, X } from 'lucide-react';
 import { CSSProperties } from 'react';
 import { cn } from '../utils/cn';
-import Creatable, {
-  useCreatable,
-  CreatableProps,
-} from 'react-select/creatable';
+import Creatable, { CreatableProps } from 'react-select/creatable';
 import { cva, VariantProps } from 'class-variance-authority';
 
 const controlStyles = cva(
-  '!flex !min-h-[40px] !w-full !items-center !justify-between !rounded-md !border !text-sm',
+  '!flex !min-h-0 !w-full !items-center !justify-between !rounded-md !border !text-sm antialiased h-9',
   {
     variants: {
       variant: {
-        default: '!border-input !bg-transparent',
+        default: '!border-input !bg-background',
         ghost: '!border-none !bg-transparent',
+        inline:
+          '!border-x-0 !border-t-0 !bg-background !border-b-border !rounded-none !shadow-none !rounded-t-md !px-0',
       },
       isFocused: {
-        true: '!bg-accent !text-accent-foreground',
+        true: '!text-accent-foreground',
         false: '!ring-offset-background',
       },
       isDisabled: { true: '!disabled:cursor-not-allowed !disabled:opacity-50' },
+    },
+    defaultVariants: {
+      variant: 'default',
     },
   }
 );
@@ -41,44 +41,61 @@ function getClassNames<
   Option,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>
->(
-  className?: string,
-  variant: 'default' | 'ghost' | null | undefined = 'default'
-) {
+>(className?: string, variant?: VariantProps<typeof controlStyles>['variant']) {
   return {
     multiValue: () =>
       '!bg-secondary !text-foreground !rounded-sm !font-regular',
-    placeholder: () => '!text-muted-foreground',
-    valueContainer: (props: ValueContainerProps<Option, IsMulti, Group>) => {
-      return cn('!p-2 !m-0');
+    placeholder: () => '!text-muted-foreground antialiased',
+    valueContainer: () => {
+      return cn('!m-0', {
+        '!px-2 !py-0': variant !== 'inline',
+        '!px-3 !py-0': variant === 'inline',
+      });
     },
-    multiValueRemove: (state: MultiValueProps<Option, IsMulti, Group>) => {
+    multiValueRemove: () => {
       return '!bg-transparent !text-muted-foreground transition hover:!bg-secondary-background hover:!text-foreground !rounded-sm !px-1';
     },
-    indicatorsContainer: () => '!pr-3',
+    indicatorsContainer: () => {
+      return cn('!pr-3', {
+        '!hidden': variant === 'inline',
+      });
+    },
     multiValueLabel: () =>
       '!rounded-sm !text-foreground !text-sm !py-1 !pl-2 !pr-1',
     input: (props: InputProps<Option, IsMulti, Group>) => {
-      if (props.isMulti) {
-        return '!pr-0 !pl-1 !m-0';
-      }
+      return cn('!text-foreground antialiased', {
+        '!p-0 !m-0': props.isMulti,
+        '!px-0 !m-0': !props.isMulti,
+      });
+    },
 
-      return '!px-0 !m-0';
-    },
     menu: () => {
-      return '!animate-in !fade-in-80 !rounded-md !bg-popover !shadow-md !border !overflow-hidden !min-w-[8rem] !z-50 !text-popover-foreground';
+      const isInline = variant === 'inline';
+
+      return cn(
+        {
+          '!relative !m-0 !shadow-none': isInline,
+          '!animate-in !fade-in-80 !bg-popover !shadow-md !border !z-50':
+            !isInline,
+        },
+        '!overflow-hidden !min-w-[8rem] !text-popover-foreground !bg-background !rounded-md antialiased'
+      );
     },
-    noOptionsMessage: () => '!text-muted-foreground !text-sm',
+    noOptionsMessage: () => '!text-muted-foreground !text-sm antialiased !py-6',
     menuList: (state: MenuListProps<Option, IsMulti, Group>) => {
       return cn('!relative !p-1 !flex !flex-col !gap-1');
     },
     option: (state: OptionProps<Option, IsMulti, Group>) => {
       return cn(
-        '!relative !block !truncate !w-full !cursor-pointer !select-none !items-center !rounded-sm !py-1.5 !px-3 !text-sm !outline-none !font-sans',
+        '!relative !block !truncate !w-full !cursor-pointer !select-none !items-center !rounded-sm !font-normal antialiased !py-1.5 !outline-none !font-sans !shrink-0',
         {
           '!bg-accent !text-accent-foreground': state.isFocused,
           '!pointer-events-none !opacity-50': state.isDisabled,
-          '!bg-secondary !text-foreground': state.isSelected,
+          '!bg-secondary !text-foreground': state.isSelected && !state.isMulti,
+          '!pr-2 !pl-7 ': state.isMulti,
+          '!bg-transparent hover:!bg-accent !text-foreground before:content-["•"] before:absolute before:my-auto before:left-2 before:!text-[24px] before:-translate-y-0.5':
+            state.isMulti && state.isSelected,
+          '!px-2': !state.isMulti,
         }
       );
     },
@@ -114,7 +131,7 @@ function getComponents<
           ref={ref}
           style={getStyles('clearIndicator', props) as CSSProperties}
         >
-          <X className="h-4 w-4 cursor-pointer text-muted-foreground transition-colors hover:text-foreground" />
+          <X className="text-muted-foreground hover:text-foreground h-4 w-4 cursor-pointer transition-colors" />
         </div>
       );
     },
@@ -132,14 +149,14 @@ function getComponents<
           {...restInnerProps}
           ref={ref}
         >
-          <ChevronDown className="h-4 w-4 cursor-pointer text-muted-foreground transition-colors hover:text-foreground" />
+          <ChevronDown className="text-muted-foreground hover:text-foreground h-4 w-4 cursor-pointer transition-colors" />
         </div>
       );
     },
   };
 }
 
-export function Select<
+function Select<
   Option,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>
@@ -157,7 +174,7 @@ export function Select<
   );
 }
 
-export function CreatebleSelect<
+function CreatebleSelect<
   Option,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>
@@ -175,3 +192,5 @@ export function CreatebleSelect<
     />
   );
 }
+
+export { Select, CreatebleSelect };

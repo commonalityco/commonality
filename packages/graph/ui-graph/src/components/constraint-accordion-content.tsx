@@ -1,5 +1,9 @@
 import { Constraint } from '@commonalityco/types';
-import { AccordionContent, Label, Tag } from '@commonalityco/ui-design-system';
+import {
+  AccordionContent,
+  Label,
+  Badge,
+} from '@commonalityco/ui-design-system';
 
 export function ConstraintAccordionContent({
   constraint,
@@ -24,7 +28,11 @@ export function ConstraintAccordionContent({
                   <p className="text-xs">All packages</p>
                 ) : (
                   constraint.allow.map((tag) => (
-                    <Tag key={tag} className="block min-w-0">{`#${tag}`}</Tag>
+                    <Badge
+                      key={tag}
+                      variant="secondary"
+                      className="block min-w-0"
+                    >{`#${tag}`}</Badge>
                   ))
                 )}
               </div>
@@ -42,7 +50,11 @@ export function ConstraintAccordionContent({
                   <p className="text-xs">All packages</p>
                 ) : (
                   constraint.disallow.map((tag) => (
-                    <Tag key={tag} className="block min-w-0">{`#${tag}`}</Tag>
+                    <Badge
+                      variant="secondary"
+                      key={tag}
+                      className="block min-w-0"
+                    >{`#${tag}`}</Badge>
                   ))
                 )}
               </div>

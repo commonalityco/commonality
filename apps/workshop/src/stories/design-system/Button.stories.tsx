@@ -50,7 +50,7 @@ export const Sm: Story = {
 
 export const Md: Story = {
   args: {
-    size: 'md',
+    size: 'default',
     variant: 'secondary',
     children: 'Click me',
   },
@@ -59,14 +59,6 @@ export const Md: Story = {
 export const Lg: Story = {
   args: {
     size: 'lg',
-    variant: 'secondary',
-    children: 'Click me',
-  },
-};
-
-export const Xl: Story = {
-  args: {
-    size: 'xl',
     variant: 'secondary',
     children: 'Click me',
   },
@@ -96,6 +88,32 @@ export const SecondaryDark: Story = {
       </div>
     ),
   ],
+};
+
+export const Outline: Story = {
+  args: {
+    size: 'lg',
+    variant: 'outline',
+    children: 'Click me',
+  },
+};
+
+export const OutlineDark: Story = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+  decorators: [
+    (Story) => (
+      <div className="dark">
+        <Story />
+      </div>
+    ),
+  ],
+  args: {
+    size: 'lg',
+    variant: 'outline',
+    children: 'Click me',
+  },
 };
 
 export const Ghost: Story = {

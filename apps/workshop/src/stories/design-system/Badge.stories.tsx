@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tag } from '@commonalityco/ui-design-system';
+import { Badge } from '@commonalityco/ui-design-system';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
-  title: 'Design System/Tag',
-  component: Tag,
+  title: 'Design System/Badge',
+  component: Badge,
   tags: ['autodocs'],
   argTypes: {},
   args: {
-    children: 'Hello Tag',
+    children: 'Hello Badge',
   },
-} satisfies Meta<typeof Tag>;
+} satisfies Meta<typeof Badge>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -20,74 +20,75 @@ export const Default: Story = {
   args: {},
 };
 
-export const Small: Story = {
-  args: {
-    size: 'sm',
-  },
-};
-
-export const Medium: Story = {
-  args: {
-    size: 'md',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    size: 'lg',
-  },
-};
-
-export const Rounded: Story = {
-  args: {
-    variant: 'rounded',
-  },
-};
-
-export const Grey: Story = {
-  args: {
-    color: 'grey',
-  },
-};
-
-export const GreyDark: Story = {
+export const DefaultDark: Story = {
   parameters: {
     backgrounds: { default: 'dark' },
   },
   args: {
-    color: 'grey',
     className: 'dark',
   },
 };
 
-export const Green: Story = {
+export const Secondary: Story = {
   args: {
-    color: 'green',
+    variant: 'secondary',
   },
 };
 
-export const GreenDark: Story = {
+export const SecondaryDark: Story = {
   parameters: {
     backgrounds: { default: 'dark' },
   },
   args: {
-    color: 'green',
+    variant: 'secondary',
     className: 'dark',
   },
 };
 
-export const Red: Story = {
+export const Destructive: Story = {
   args: {
-    color: 'red',
+    variant: 'destructive',
   },
 };
 
-export const RedDark: Story = {
+export const DestructiveDark: Story = {
   parameters: {
     backgrounds: { default: 'dark' },
   },
   args: {
-    color: 'red',
+    variant: 'destructive',
+    className: 'dark',
+  },
+};
+
+export const Success: Story = {
+  args: {
+    variant: 'success',
+  },
+};
+
+export const SuccessDark: Story = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+  args: {
+    variant: 'success',
+    className: 'dark',
+  },
+};
+
+export const Outline: Story = {
+  args: {
+    variant: 'outline',
+  },
+};
+
+export const OutlineDark: Story = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+  args: {
+    variant: 'outline',
     className: 'dark',
   },
 };

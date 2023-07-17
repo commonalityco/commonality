@@ -4,7 +4,7 @@ import { CodeownersData, Package, TagsData } from '@commonalityco/types';
 import {
   Button,
   Input,
-  Tag,
+  Badge,
   Heading,
   Text,
   ScrollArea,
@@ -307,7 +307,10 @@ function TagsFilterSection({
                 >
                   <div className="flex w-full items-center overflow-hidden">
                     <div className="flex">
-                      <Tag className="inline-block min-w-0 max-w-full truncate">{`#${tag}`}</Tag>
+                      <Badge
+                        variant="secondary"
+                        className="inline-block min-w-0 max-w-full truncate"
+                      >{`#${tag}`}</Badge>
                     </div>
                   </div>
 
@@ -423,7 +426,7 @@ function CodeownersFilterSection({
                   className="grid grid-cols-[1fr_auto] flex-nowrap items-center gap-1"
                   key={owner}
                 >
-                  <Label asChild size="md">
+                  <Label asChild>
                     <p className="block w-full truncate text-left">{owner}</p>
                   </Label>
                   <div className="flex flex-nowrap gap-1">

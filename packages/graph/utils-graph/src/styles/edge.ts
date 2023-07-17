@@ -2,7 +2,7 @@ import cytoscape, { Stylesheet } from 'cytoscape';
 
 const colors = {
   light: {
-    default: '#d4d4d8',
+    default: '#e4e4e7',
     development: '#0284c7',
     peer: '#0284c7',
     production: '#059669',
@@ -21,7 +21,7 @@ export const edgeStyles: Stylesheet[] = [
   {
     selector: 'edge',
     style: {
-      width: 2,
+      width: 3,
       'target-arrow-color': colors.light.default,
       'target-arrow-shape': 'triangle',
       'curve-style': 'unbundled-bezier',
@@ -90,6 +90,7 @@ export const edgeStyles: Stylesheet[] = [
       'line-color': colors.dark.violation,
       'target-arrow-color': colors.dark.violation,
       'overlay-color': colors.dark.violation,
+      'z-index': 10,
     },
   },
   {
@@ -106,7 +107,7 @@ export const edgeStyles: Stylesheet[] = [
     selector: 'edge.dim',
     style: {
       'z-index': 0,
-      opacity: 0.15,
+      opacity: 0.2,
     },
   },
   {

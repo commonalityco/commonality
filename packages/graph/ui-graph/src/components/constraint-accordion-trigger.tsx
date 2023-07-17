@@ -1,5 +1,5 @@
 import { Constraint } from '@commonalityco/types';
-import { AccordionTrigger, Tag } from '@commonalityco/ui-design-system';
+import { AccordionTrigger, Badge } from '@commonalityco/ui-design-system';
 import { ShieldCheck, ShieldClose } from 'lucide-react';
 
 export function ConstraintAccordionTrigger({
@@ -14,9 +14,9 @@ export function ConstraintAccordionTrigger({
   return (
     <AccordionTrigger className="text-left">
       <div>
-        <Tag
+        <Badge
           className="grid grid-cols-[auto_1fr] gap-1"
-          color={variant === 'pass' ? 'green' : 'red'}
+          variant={variant === 'pass' ? 'success' : 'destructive'}
         >
           {variant === 'pass' ? (
             <ShieldCheck className="h-4 w-4" />
@@ -24,7 +24,7 @@ export function ConstraintAccordionTrigger({
             <ShieldClose className="h-4 w-4" />
           )}
           <span className="truncate">{`#${constraint.applyTo}`}</span>
-        </Tag>
+        </Badge>
         {children}
       </div>
     </AccordionTrigger>

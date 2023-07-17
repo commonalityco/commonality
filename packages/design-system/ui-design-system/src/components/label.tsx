@@ -1,42 +1,25 @@
 'use client';
-import * as Primitives from '@radix-ui/react-label';
-import { cva, type VariantProps } from 'class-variance-authority';
+
 import * as React from 'react';
+import * as LabelPrimitive from '@radix-ui/react-label';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
 
-export const labelVariants = cva('font-sans', {
-  variants: {
-    size: {
-      xs: 'text-xs leading-5',
-      sm: 'text-[13px] leading-5',
-      md: 'text-sm leading-5',
-      lg: 'text-base leading-5',
-    },
-    weight: {
-      normal: 'font-normal',
-      medium: 'font-medium',
-    },
-  },
-  defaultVariants: {
-    size: 'md',
-    weight: 'normal',
-  },
-});
-
-interface LabelProps
-  extends React.ComponentPropsWithoutRef<'label'>,
-    VariantProps<typeof labelVariants> {
-  asChild?: boolean;
-}
-
-export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
-  ({ className, size = 'md', weight = 'medium', ...props }, ref) => {
-    return (
-      <Primitives.Root
-        ref={ref}
-        className={cn(labelVariants({ size, weight }), className)}
-        {...props}
-      />
-    );
-  }
+const labelVariants = cva(
+  'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
 );
+
+const Label = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
+    VariantProps<typeof labelVariants>
+>(({ className, ...props }, ref) => (
+  <LabelPrimitive.Root
+    ref={ref}
+    className={cn(labelVariants(), className)}
+    {...props}
+  />
+));
+Label.displayName = LabelPrimitive.Root.displayName;
+
+export { Label };

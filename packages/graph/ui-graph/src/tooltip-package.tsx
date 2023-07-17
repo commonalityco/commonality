@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 'use client';
 import { Package } from '@commonalityco/types';
-import { Button, Text, Tag } from '@commonalityco/ui-design-system';
+import { Button, Text, Badge } from '@commonalityco/ui-design-system';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import type cytoscape from 'cytoscape';
 import { ComponentProps } from 'react';
@@ -73,9 +73,9 @@ export const TooltipPackage = ({
               <ArrowUp className="h-4 w-4" />
               <Text className="text-foreground font-medium">Dependents</Text>
               <div className="grow text-right">
-                <Tag color="transparent" className="text-xs">
+                <Badge variant="outline" className="text-xs">
                   {dependentsCount}
-                </Tag>
+                </Badge>
               </div>
             </div>
             <div className="flex items-center gap-1">
@@ -98,9 +98,9 @@ export const TooltipPackage = ({
               <ArrowDown className="h-4 w-4" />
               <Text className="text-foreground font-medium">Dependencies</Text>
               <div className="grow text-right">
-                <Tag color="transparent" className="text-xs">
+                <Badge variant="outline" className="text-xs">
                   {dependenciesCount}
-                </Tag>
+                </Badge>
               </div>
             </div>
             <div className="flex gap-1">

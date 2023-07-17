@@ -19,5 +19,5 @@ export const slugifyPackageName = (packageName: string) => {
     '-'
   );
 
-  return slugify(packageNameWithoutScopeSlash, { strict: true });
+  return slugify(packageNameWithoutScopeSlash, { strict: true, lower: true });
 };

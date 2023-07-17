@@ -23,7 +23,7 @@
     "react-resizable-panels": "^0.0.36",
     "react-use": "^17.4.0",
     "react-wrap-balancer": "^0.4.1",
-    "tailwind-merge": "^1.13.2",
+    "tailwind-merge": "^1.14.0",
     "tailwindcss": "^3.3.3",
     "xstate": "^4.38.1"
   },
