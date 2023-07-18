@@ -1,5 +1,5 @@
+'use server';
 import 'server-only';
-import { cache } from 'react';
 import { getProjectConfig } from '@commonalityco/data-project';
 
 export const getProjectConfigData = async () => {

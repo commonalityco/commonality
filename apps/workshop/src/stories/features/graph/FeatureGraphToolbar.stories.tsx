@@ -4,6 +4,7 @@ import {
   FeatureGraphToolbar,
 } from '@commonalityco/feature-graph';
 import { PackageManager } from '@commonalityco/utils-core';
+import { ProjectConfig } from '@commonalityco/types';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
@@ -33,8 +34,8 @@ type Story = StoryObj<typeof meta>;
 export const KitchenSink: Story = {
   args: {
     packageManager: PackageManager.PNPM,
-    totalPackageCount: 100,
-    projectConfig: {
+    getPackages: async () => [],
+    getProjectConfig: async () => ({
       constraints: [
         {
           applyTo:
@@ -61,11 +62,11 @@ export const KitchenSink: Story = {
         },
         {
           applyTo: 'tag-four',
-          allow: ['*'],
+          allow: '*',
           disallow: ['tag-four'],
         },
       ],
-    },
+    }),
     getViolations: async () => [
       {
         sourcePackageName:
@@ -110,8 +111,8 @@ export const KitchenSink: Story = {
 export const NoConstraints: Story = {
   args: {
     packageManager: PackageManager.PNPM,
-    totalPackageCount: 100,
-    projectConfig: {},
+    getPackages: async () => [],
+    getProjectConfig: async () => ({}),
     getViolations: async () => [],
   },
 };

@@ -53,7 +53,6 @@ type Event =
       packages: Package[];
       theme: string;
       getUpdatedGraphJson: OffloadRenderFn;
-      isGroupedByTag: boolean;
       violations: Violation[];
     }
 
@@ -257,13 +256,17 @@ export const graphMachine = createMachine(
           violations: context.violations,
         });
 
-        context.renderGraph.on('click', () => {
-          if (context.selectedNode) {
-            callback({ type: 'UNSELECT' });
-          }
+        context.renderGraph.on('tap', function (event) {
+          const evtTarget = event.target;
 
-          if (context.selectedEdge) {
-            callback({ type: 'UNSELECT' });
+          if (evtTarget === context.renderGraph) {
+            if (context.selectedNode) {
+              callback({ type: 'UNSELECT' });
+            }
+
+            if (context.selectedEdge) {
+              callback({ type: 'UNSELECT' });
+            }
           }
         });
 
@@ -294,7 +297,7 @@ export const graphMachine = createMachine(
         });
 
         context.renderGraph.on(
-          'pan zoom resize',
+          'pan zoom',
           debounce(
             () => {
               if (!context.renderGraph) return;
@@ -313,10 +316,11 @@ export const graphMachine = createMachine(
       destroy: (context) => {
         if (!context.renderGraph || !context.traversalGraph) return;
 
-        context.renderGraph?.removeAllListeners();
+        context.renderGraph?.elements().removeAllListeners();
         context.renderGraph?.destroy();
         context.traversalGraph?.destroy();
       },
+
       setInitialElements: assign({
         elements: (context) => {
           if (!context.renderGraph) return [] as any;

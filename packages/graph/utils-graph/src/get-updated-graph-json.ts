@@ -2,10 +2,8 @@
 import cytoscape from 'cytoscape';
 import { layoutOptions } from './layout-options';
 import dagre from 'cytoscape-dagre';
-import popper from 'cytoscape-popper';
 
 cytoscape.use(dagre);
-cytoscape.use(popper);
 
 export type OffloadRenderFn = ({
   graphJson,

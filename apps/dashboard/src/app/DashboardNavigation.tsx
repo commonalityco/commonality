@@ -4,6 +4,8 @@ import { Navigation } from '@commonalityco/ui-core';
 import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import { Button } from '@commonalityco/ui-design-system';
+import Link from 'next/link';
 
 const ThemeButton = dynamic(
   () => import('@commonalityco/ui-core').then((module) => module.ThemeButton),
@@ -30,13 +32,20 @@ function DashboardNavigation({ title }: { title: string }) {
           },
         ]}
       >
-        <div className="w-10">
+        <div className="flex space-x-2">
           <ThemeButton
             defaultTheme={theme as Theme}
             onThemeChange={(theme) => {
               setTheme(theme);
             }}
           />
+          <Link
+            href="https://commonality.co/docs"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="link">Docs</Button>
+          </Link>
         </div>
       </Navigation>
     </>

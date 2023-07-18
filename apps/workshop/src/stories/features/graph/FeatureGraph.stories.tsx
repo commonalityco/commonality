@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { FeatureGraph, FeatureGraphLayout } from '@commonalityco/feature-graph';
-import { getUpdatedGraphJson } from '@commonalityco/utils-graph';
+import { documentsKeys, getUpdatedGraphJson } from '@commonalityco/utils-graph';
 import { DependencyType, PackageManager } from '@commonalityco/utils-core';
 import {
   CodeownersData,
@@ -23,10 +23,10 @@ const meta = {
     theme: 'light',
     getUpdatedGraphJson,
     onSetTags: () => Promise.resolve(),
-    violations: [],
-    getTags: () =>
+    getViolations: () => Promise.resolve([]),
+    getTagsData: () =>
       Promise.resolve([{ packageName: 'pkg-one', tags: ['tag-one'] }]),
-    projectConfig: {},
+    getProjectConfig: () => Promise.resolve({}),
   },
   decorators: [
     (Story, props) => {
@@ -158,9 +158,9 @@ const packages = [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive];
 
 export const Default: Story = {
   args: {
-    packages,
-    codeownersData,
-    documentsData: [],
+    getPackages: () => Promise.resolve(packages),
+    getCodeownersData: () => Promise.resolve(codeownersData),
+    getDocumentsData: () => Promise.resolve([]),
     getViolations: () => Promise.resolve([]),
   },
 };
@@ -178,19 +178,20 @@ const violations = [
 
 export const ConstraintsAndViolations: Story = {
   args: {
-    packages,
-    codeownersData,
-    documentsData: [],
-    projectConfig: {
-      constraints: [
-        {
-          applyTo: 'foo',
-          allow: ['bar'],
-          disallow: ['baz'],
-        },
-      ],
-    } satisfies ProjectConfig,
-    violations,
+    getPackages: () => Promise.resolve(packages),
+    getCodeownersData: () => Promise.resolve(codeownersData),
+    getDocumentsData: () => Promise.resolve([]),
+    getProjectConfig: () =>
+      Promise.resolve({
+        constraints: [
+          {
+            applyTo: 'foo',
+            allow: ['bar'],
+            disallow: ['baz'],
+          },
+        ],
+      } satisfies ProjectConfig),
+
     getViolations: () => Promise.resolve(violations),
   },
 };

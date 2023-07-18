@@ -163,11 +163,13 @@ function Select<
 >({
   className,
   variant,
+  placeholder = 'Search...',
   ...restProps
 }: Props<Option, IsMulti, Group> & VariantProps<typeof controlStyles>) {
   return (
     <ReactSelect
       {...restProps}
+      placeholder={placeholder}
       classNames={getClassNames<Option, IsMulti, Group>(className, variant)}
       components={getComponents<Option, IsMulti, Group>()}
     />
@@ -181,12 +183,14 @@ function CreatebleSelect<
 >({
   className,
   variant,
+  placeholder = 'Search...',
   ...restProps
 }: CreatableProps<Option, IsMulti, Group> &
   VariantProps<typeof controlStyles>) {
   return (
     <Creatable
       {...restProps}
+      placeholder={placeholder}
       classNames={getClassNames<Option, IsMulti, Group>(className, variant)}
       components={getComponents<Option, IsMulti, Group>()}
     />

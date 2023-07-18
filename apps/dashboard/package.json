@@ -39,6 +39,7 @@
     "@popperjs/core": "^2.11.8",
     "@radix-ui/react-icons": "^1.3.0",
     "@tanstack/react-query": "^4.29.25",
+    "@tanstack/react-query-devtools": "^4.29.25",
     "@types/node": "18.14.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "18.0.11",

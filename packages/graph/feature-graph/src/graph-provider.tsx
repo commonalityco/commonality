@@ -9,6 +9,7 @@ import {
   DehydratedState,
 } from '@tanstack/react-query';
 import type { State } from 'xstate';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export const GraphContext = createActorContext(graphMachine);
 
@@ -24,7 +25,10 @@ export const GraphProvider = ({
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={dehydratedState}>
-        <GraphContext.Provider>{children}</GraphContext.Provider>
+        <GraphContext.Provider>
+          {children}
+          <ReactQueryDevtools />
+        </GraphContext.Provider>
       </Hydrate>
     </QueryClientProvider>
   );

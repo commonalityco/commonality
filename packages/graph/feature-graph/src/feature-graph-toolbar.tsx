@@ -3,7 +3,12 @@ import { ComponentProps } from 'react';
 import { GraphContext } from './graph-provider';
 import { GraphToolbar } from '@commonalityco/ui-graph';
 import { useQuery } from '@tanstack/react-query';
-import { Violation } from '@commonalityco/types';
+import { Package, ProjectConfig, Violation } from '@commonalityco/types';
+import {
+  packagesKeys,
+  projectConfigKeys,
+  violationsKeys,
+} from '@commonalityco/utils-graph';
 
 interface FeatureGraphToolbarProps
   extends Omit<
@@ -12,31 +17,47 @@ interface FeatureGraphToolbarProps
     | 'forceEdgeColor'
     | 'onForceEdgeColorChange'
     | 'violations'
+    | 'projectConfig'
+    | 'totalPackageCount'
   > {
+  getProjectConfig: () => Promise<ProjectConfig>;
   getViolations: () => Promise<Violation[]>;
+  getPackages: () => Promise<Package[]>;
 }
 
 export function FeatureGraphToolbar({
   getViolations,
+  getProjectConfig,
+  getPackages,
   ...props
 }: FeatureGraphToolbarProps) {
   const [state, send] = GraphContext.useActor();
-  const { data: violations, isLoading } = useQuery({
-    queryKey: ['violations'],
+  const { data: violations } = useQuery({
+    queryKey: violationsKeys,
     queryFn: () => getViolations(),
+  });
+  const { data: projectConfig } = useQuery({
+    queryKey: projectConfigKeys,
+    queryFn: () => getProjectConfig(),
+  });
+  const { data: packages } = useQuery({
+    queryKey: packagesKeys,
+    queryFn: () => getPackages(),
   });
 
   const shownPackageCount = state.context.renderGraph
     ? state.context.renderGraph.nodes().length
-    : props.totalPackageCount;
+    : packages?.length ?? 0;
 
-  if (isLoading || !violations) {
+  if (!violations || !projectConfig) {
     return null;
   }
 
   return (
     <GraphToolbar
       {...props}
+      totalPackageCount={packages?.length ?? 0}
+      projectConfig={projectConfig}
       violations={violations}
       isEdgeColorShown={state.context.isEdgeColorShown}
       onSetIsEdgeColorShown={(isEdgeColorShown) =>

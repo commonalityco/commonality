@@ -1,6 +1,5 @@
 'use server';
 import { setTags } from '@commonalityco/data-tags';
-import { revalidatePath } from 'next/cache';
 
 export async function setTagsAction({
   packageName,
@@ -10,5 +9,4 @@ export async function setTagsAction({
   tags: string[];
 }) {
   setTags({ packageName, tags });
-  revalidatePath('/');
 }

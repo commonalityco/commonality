@@ -118,7 +118,7 @@ interface DependencySheetProps extends ComponentProps<typeof Sheet> {
 export function DependencySheet(props: DependencySheetProps) {
   return (
     <Sheet {...props}>
-      <SheetContent className="sm:max-w-[300px] md:max-w-[550px]">
+      <SheetContent className="sm:max-w-[300px] md:max-w-[450px]">
         {props.dependency && (
           <DependencySheetContent
             constraints={props.constraints}

@@ -1,52 +1,24 @@
 'use client';
-import {
-  CodeownersData,
-  DocumentsData,
-  Package,
-  ProjectConfig,
-  Violation,
-} from '@commonalityco/types';
-import { PackageManager } from '@commonalityco/utils-core';
-import React, { ComponentProps } from 'react';
+import React, { ComponentPropsWithoutRef } from 'react';
 import { useTheme } from 'next-themes';
-import { getUpdatedGraphJsonAction } from 'actions/graph';
 import { FeatureGraph } from '@commonalityco/feature-graph';
 import { setTagsAction } from 'actions/metadata';
+import { getUpdatedGraphJsonAction } from 'actions/graph';
 
-function DashboardGraph({
-  packages,
-  packageManager,
-  violations,
-  getTags,
-  projectConfig,
-  getViolations,
-  documentsData,
-  codeownersData,
-}: {
-  packages: Package[];
-  violations: Violation[];
-  packageManager: PackageManager;
-  getTags: () => Promise<Array<{ packageName: string; tags: string[] }>>;
-  getViolations: ComponentProps<typeof FeatureGraph>['getViolations'];
-  projectConfig: ProjectConfig;
-  documentsData: DocumentsData[];
-  codeownersData: CodeownersData[];
-}) {
+function DashboardGraph(
+  props: Omit<
+    ComponentPropsWithoutRef<typeof FeatureGraph>,
+    'theme' | 'onSetTags' | 'getUpdatedGraphJson'
+  >
+) {
   const { resolvedTheme } = useTheme();
 
   return (
     <FeatureGraph
-      documentsData={documentsData}
-      codeownersData={codeownersData}
-      projectConfig={projectConfig}
-      violations={violations}
-      packages={packages}
+      {...props}
       theme={resolvedTheme}
-      getUpdatedGraphJson={getUpdatedGraphJsonAction}
-      packageManager={packageManager}
       onSetTags={setTagsAction}
-      getTags={getTags}
-      getViolations={getViolations}
+      getUpdatedGraphJson={getUpdatedGraphJsonAction}
     />
   );
 }

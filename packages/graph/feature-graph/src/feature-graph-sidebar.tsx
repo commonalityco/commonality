@@ -1,44 +1,50 @@
 'use client';
-import { ComponentProps } from 'react';
-import sortBy from 'lodash.sortby';
 import { GraphContext } from './graph-provider';
-import { Package, TagsData } from '@commonalityco/types';
+import { CodeownersData, Package, TagsData } from '@commonalityco/types';
 import { GraphLayoutAside, Sidebar } from '@commonalityco/ui-graph';
-import { formatPackageName } from '@commonalityco/utils-package';
 import { useQuery } from '@tanstack/react-query';
+import {
+  codeownersKeys,
+  packagesKeys,
+  tagsKeys,
+} from '@commonalityco/utils-graph';
+import { useMemo } from 'react';
 
 interface FeatureGraphSidebarProps {
-  packages: ComponentProps<typeof Sidebar>['packages'];
-  codeownersData: ComponentProps<typeof Sidebar>['codeownersData'];
-  stripScopeFromPackageNames: ComponentProps<
-    typeof Sidebar
-  >['stripScopeFromPackageNames'];
+  getCodeownersData: () => Promise<CodeownersData[]>;
   getTags: () => Promise<TagsData[]>;
+  getPackages: () => Promise<Package[]>;
 }
 
 export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
   const [state, send] = GraphContext.useActor();
   const { data: tagsData } = useQuery({
-    queryKey: ['tags'],
+    queryKey: tagsKeys,
     queryFn: () => props.getTags(),
   });
-
-  const graphPkgs: Package[] = state.context.elements.map(
-    (el) => el.data as Package
-  );
-  const graphPkgNames = graphPkgs.map((pkg) => pkg.name);
-
-  const visiblePackages = props.packages.filter((pkg) => {
-    return graphPkgNames.includes(pkg.name);
+  const { data: codeownersData } = useQuery({
+    queryKey: codeownersKeys,
+    queryFn: () => props.getCodeownersData(),
+  });
+  const { data: packages } = useQuery({
+    queryKey: packagesKeys,
+    queryFn: () => props.getPackages(),
   });
 
-  const sortedPackages = sortBy(props.packages, (item) => {
-    const formattedPackageName = formatPackageName(item.name, {
-      stripScope: props.stripScopeFromPackageNames ?? true,
+  const visiblePackages = useMemo(() => {
+    const graphPkgs: Package[] = state.context.elements.map(
+      (el) => el.data as Package
+    );
+    const graphPkgNames = graphPkgs.map((pkg) => pkg.name);
+
+    return packages?.filter((pkg) => {
+      return graphPkgNames.includes(pkg.name);
     });
+  }, []);
 
-    return formattedPackageName;
-  });
+  if (!packages || !codeownersData) {
+    return null;
+  }
 
   return (
     <GraphLayoutAside>
@@ -61,7 +67,7 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
         onTagHide={(tag) =>
           send({
             type: 'HIDE',
-            selector: (element, index, elements) => {
+            selector: (element) => {
               const pkg: Package = element.data();
               const tagDataForPkg = tagsData?.find(
                 (data) => data.packageName === pkg.name
@@ -74,7 +80,7 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
         onTagShow={(tag) =>
           send({
             type: 'SHOW',
-            selector: (element, index, elements) => {
+            selector: (element) => {
               const pkg: Package = element.data();
               const tagDataForPkg = tagsData?.find(
                 (data) => data.packageName === pkg.name
@@ -104,9 +110,9 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
         onTeamHide={(team) => {
           send({
             type: 'HIDE',
-            selector: (element, index, elements) => {
+            selector: (element) => {
               const pkg: Package = element.data();
-              const ownerDataForPkg = props.codeownersData?.find(
+              const ownerDataForPkg = codeownersData?.find(
                 (data) => data.packageName === pkg.name
               );
 
@@ -117,9 +123,9 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
         onTeamShow={(team) => {
           send({
             type: 'SHOW',
-            selector: (element, index, elements) => {
+            selector: (element) => {
               const pkg: Package = element.data();
-              const ownerDataForPkg = props.codeownersData?.find(
+              const ownerDataForPkg = codeownersData?.find(
                 (data) => data.packageName === pkg.name
               );
 
@@ -136,7 +142,7 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
               }
 
               const pkg: Package = el.data();
-              const ownerDataForPkg = props.codeownersData?.find(
+              const ownerDataForPkg = codeownersData?.find(
                 (data) => data.packageName === pkg.name
               );
 
@@ -144,10 +150,10 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
             },
           })
         }
-        codeownersData={props.codeownersData}
+        codeownersData={codeownersData}
         tagsData={tagsData ?? []}
-        packages={sortedPackages}
-        visiblePackages={visiblePackages}
+        packages={packages}
+        visiblePackages={visiblePackages ?? []}
       />
     </GraphLayoutAside>
   );

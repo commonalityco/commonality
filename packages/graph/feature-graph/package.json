@@ -12,6 +12,7 @@
     "@heroicons/react": "^2.0.18",
     "@popperjs/core": "^2.11.8",
     "@tanstack/react-query": "^4.29.25",
+    "@tanstack/react-query-devtools": "^4.29.25",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "cytoscape-popper": "^2.0.0",

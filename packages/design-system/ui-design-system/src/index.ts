@@ -20,5 +20,8 @@ export * from './components/text';
 export * from './components/toggle';
 export * from './components/tooltip';
 export * from './components/hover-card';
+export * from './components/toaster';
+
+export * from './hooks/use-toast';
 
 export * from './utils/cn';

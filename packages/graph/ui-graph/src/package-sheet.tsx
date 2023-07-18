@@ -53,7 +53,7 @@ function TagsButton({
   packageName: string;
 }) {
   return (
-    <Popover onOpenChange={() => console.log('changed')} modal>
+    <Popover modal>
       {pkgTags.length ? (
         <PopoverTrigger>
           <div className="flex flex-wrap gap-1">
@@ -71,7 +71,7 @@ function TagsButton({
         </PopoverTrigger>
       )}
 
-      <PopoverContent className="w-[240px] p-0" align="start" side="left">
+      <PopoverContent className="w-[240px] p-0" align="start">
         <CreatebleSelect
           variant="inline"
           menuIsOpen={true}
@@ -179,7 +179,7 @@ function PackageSheetContent({
           <div>
             <Label className="mb-2">Owners</Label>
             <div>
-              {ownerDataForPkg?.codeowners.length ? (
+              {ownerDataForPkg?.codeowners?.length ? (
                 <div className="flex flex-wrap gap-1">
                   {ownerDataForPkg.codeowners.map((codeowner) => (
                     <Badge
@@ -248,7 +248,7 @@ function PackageSheetContent({
 export function PackageSheet(props: PackageSheetProps) {
   return (
     <Sheet {...props} open={Boolean(props.pkg)}>
-      <SheetContent className="flex flex-col gap-2 p-0 sm:max-w-[300px] md:max-w-[550px]">
+      <SheetContent className="flex flex-col gap-2 p-0 sm:max-w-[300px] md:max-w-[650px]">
         {props.pkg && (
           <PackageSheetContent
             pkg={props.pkg}
