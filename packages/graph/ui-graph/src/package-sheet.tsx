@@ -17,6 +17,8 @@ import {
   PopoverTrigger,
   PopoverContent,
   CreatebleSelect,
+  CardDescription,
+  CardFooter,
 } from '@commonalityco/ui-design-system';
 import { ComponentProps, useMemo, useState } from 'react';
 import type {
@@ -26,7 +28,7 @@ import type {
   TagsData,
 } from '@commonalityco/types';
 import { Markdown, GradientFade } from '@commonalityco/ui-core';
-import { File, FileText, Plus } from 'lucide-react';
+import { ExternalLink, File, FileText, Plus, Tags, Users } from 'lucide-react';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import ReactWrapBalancer from 'react-wrap-balancer';
 import sortBy from 'lodash.sortby';
@@ -63,15 +65,42 @@ function TagsButton({
           </div>
         </PopoverTrigger>
       ) : (
-        <PopoverTrigger asChild>
-          <Button variant="link" className="text-muted-foreground px-0">
-            <Plus className="h-3 w-3" />
-            <span className="text-xs">Add tags</span>
-          </Button>
-        </PopoverTrigger>
+        <Card variant="secondary">
+          <CardHeader>
+            <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-md border">
+              <div className="bg-secondary rounded-sm p-1.5">
+                <Tags className="h-5 w-5" />
+              </div>
+            </div>
+            <CardTitle>Get started with tags</CardTitle>
+            <CardDescription>
+              Add tags to a package to enforce dependency constraints, automate
+              workflows, and categorize packages in your ecosystem.
+            </CardDescription>
+          </CardHeader>
+          <CardFooter className="flex space-x-2">
+            <PopoverTrigger asChild>
+              <Button>
+                <Plus className="h-3 w-3" />
+                <span>Add tags</span>
+              </Button>
+            </PopoverTrigger>
+            <Button asChild variant="outline">
+              <a
+                className="space-x-1"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://commonality.co/docs/tags"
+              >
+                <span>Learn more</span>
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </Button>
+          </CardFooter>
+        </Card>
       )}
 
-      <PopoverContent className="w-[240px] p-0" align="start">
+      <PopoverContent className="w-[300px] p-0" align="start">
         <CreatebleSelect
           variant="inline"
           menuIsOpen={true}
@@ -82,6 +111,7 @@ function TagsButton({
           controlShouldRenderValue={false}
           hideSelectedOptions={false}
           isClearable={false}
+          noOptionsMessage={() => 'Start typing to create a new tag'}
           formatCreateLabel={(inputValue) => {
             return `Create ${formatTagName(inputValue)}`;
           }}
@@ -162,11 +192,11 @@ function PackageSheetContent({
           <SheetDescription>{pkg.description}</SheetDescription>
         )}
       </SheetHeader>
-      <ScrollArea className="h-full">
+      <ScrollArea className="h-full antialiased">
         <GradientFade placement="top" />
-        <div className="grid gap-4 px-6">
-          <div>
-            <Label className="mb-2">Tags</Label>
+        <div className="space-y-4 px-6">
+          <div className="space-y-2">
+            <Label>Tags</Label>
             <div className="w-full">
               <TagsButton
                 pkgTags={tagDataForPkg?.tags ?? []}
@@ -176,8 +206,8 @@ function PackageSheetContent({
               />
             </div>
           </div>
-          <div>
-            <Label className="mb-2">Owners</Label>
+          <div className="space-y-2">
+            <Label>Owners</Label>
             <div>
               {ownerDataForPkg?.codeowners?.length ? (
                 <div className="flex flex-wrap gap-1">
@@ -192,7 +222,34 @@ function PackageSheetContent({
                   ))}
                 </div>
               ) : (
-                <p className="text-muted-foreground text-xs">No owners</p>
+                <Card variant="secondary">
+                  <CardHeader>
+                    <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-md border">
+                      <div className="bg-secondary rounded-sm p-1.5">
+                        <Users className="h-5 w-5" />
+                      </div>
+                    </div>
+                    <CardTitle>Assign a codeowner</CardTitle>
+                    <CardDescription>
+                      Add tags to a package to enforce dependency constraints,
+                      automate workflows, and categorize packages in your
+                      ecosystem.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardFooter className="flex space-x-2">
+                    <Button asChild variant="outline">
+                      <a
+                        className="space-x-1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://commonality.co/docs/codeowners"
+                      >
+                        <span>Learn more</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </Button>
+                  </CardFooter>
+                </Card>
               )}
             </div>
           </div>
