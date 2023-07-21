@@ -103,7 +103,7 @@ function FeatureGraphOverlays({
   }
 
   return (
-    <div className="relative z-10">
+    <div className="relative z-20">
       <PackageSheet
         documentsData={documentsData}
         codeownersData={codeownersData}

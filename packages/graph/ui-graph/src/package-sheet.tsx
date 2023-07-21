@@ -230,9 +230,6 @@ function PackageSheetContent({
                         this package does
                       </ReactWrapBalancer>
                     </p>
-                    <Button variant="secondary" size="sm" className="w-full">
-                      Create README
-                    </Button>
                   </CardContent>
                 </Card>
               )}

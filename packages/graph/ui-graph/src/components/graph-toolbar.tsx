@@ -117,8 +117,6 @@ function ViolationsHoverCard({
                       } violations`}</p>
                     </ConstraintAccordionTrigger>
                     <ConstraintAccordionContent constraint={constraint}>
-                      <Label className="text-xs">Violations:</Label>
-
                       {violations.map((violation) => {
                         return (
                           <div className="w-full" key={violation.appliedTo}>
@@ -151,7 +149,11 @@ function ViolationsHoverCard({
                               <div className="flex w-full flex-wrap gap-1">
                                 {violation.found?.length ? (
                                   violation.found.map((tag) => (
-                                    <Badge key={tag} className="block min-w-0">
+                                    <Badge
+                                      key={tag}
+                                      className="block min-w-0"
+                                      variant="secondary"
+                                    >
                                       {`#${tag}`}
                                     </Badge>
                                   ))

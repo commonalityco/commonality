@@ -54,7 +54,7 @@ export const TooltipPackage = ({
 
   return (
     <GraphTooltip element={renderNode}>
-      <div className="bg-background flex max-w-fit flex-nowrap rounded-md p-3 font-sans">
+      <div className="bg-background z-20 flex max-w-fit flex-nowrap rounded-md p-3 font-sans">
         <div className="grid w-48 auto-rows-min items-start gap-3">
           <div className="grid gap-2">
             <div className="flex items-center gap-1">

@@ -29,6 +29,7 @@ import { GraphContext } from './graph-provider';
 import { FeatureGraphToolbar } from './feature-graph-toolbar';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { cn } from '@commonalityco/ui-design-system';
+import debounce from 'lodash.debounce';
 
 interface GraphProps {
   getUpdatedGraphJson: OffloadRenderFn;
@@ -81,6 +82,21 @@ export function FeatureGraph({
   const isHovering = GraphContext.useSelector(
     (state) => state.context.hoveredRenderNode
   );
+
+  const renderGraph = GraphContext.useSelector(
+    (state) => state.context.renderGraph
+  );
+
+  useEffect(() => {
+    const listener = debounce(() => {
+      renderGraph?.resize();
+      actor.send('FIT');
+    }, 50);
+
+    window.addEventListener('resize', listener);
+
+    return () => window.removeEventListener('resize', listener);
+  }, [renderGraph]);
 
   useEffect(() => {
     if (!violations || !packages) {

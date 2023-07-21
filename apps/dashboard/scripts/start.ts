@@ -14,14 +14,15 @@ export const start = async ({
     stdio: 'inherit',
     cwd: path.resolve(__dirname, '..'),
     env: {
-      NODE_ENV: 'production',
+      NODE_ENV: process.env.NODE_ENV,
       PORT: port?.toString(),
       COMMONALITY_ROOT_DIRECTORY: rootDirectory,
     },
   });
 
+  console.log({ stdout });
+
   if (stderr) {
     console.log(stderr);
-    process.exit(1);
   }
 };

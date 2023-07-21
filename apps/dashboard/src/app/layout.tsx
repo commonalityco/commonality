@@ -3,10 +3,7 @@ import { clsx } from 'clsx';
 import DashboardNavigation from 'app/DashboardNavigation';
 import { firaCode, inter } from 'constants/fonts';
 import { getProject } from 'data/project';
-import { themeEffect } from './theme-effect';
 import { Providers } from 'app/providers';
-
-export const revalidate = 360000;
 
 export const metadata = {
   title: 'Commonality',
@@ -28,13 +25,6 @@ export default async function RootLayout({
       className="relative h-full overflow-hidden antialiased"
       suppressHydrationWarning
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(${themeEffect.toString()})();`,
-          }}
-        />
-      </head>
       <body
         className={clsx(
           inter.className,

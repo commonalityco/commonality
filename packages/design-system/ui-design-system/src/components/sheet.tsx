@@ -6,6 +6,8 @@ import { X } from 'lucide-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '../utils/cn';
+import { Button } from './button';
+import { Kbd } from './kbd';
 
 const Sheet = SheetPrimitive.Root;
 
@@ -71,10 +73,15 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       {children}
-      <SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
-        <X className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </SheetPrimitive.Close>
+      <div className="absolute right-4 top-4 flex items-center space-x-2">
+        <Kbd>Esc</Kbd>
+        <Button asChild size="icon" variant="ghost">
+          <SheetPrimitive.Close>
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </SheetPrimitive.Close>
+        </Button>
+      </div>
     </SheetPrimitive.Content>
   </SheetPortal>
 ));
@@ -114,7 +121,10 @@ const SheetTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn('text-foreground text-lg font-semibold', className)}
+    className={cn(
+      'text-foreground break-words pr-20 text-lg font-semibold',
+      className
+    )}
     {...props}
   />
 ));
@@ -126,7 +136,7 @@ const SheetDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Description
     ref={ref}
-    className={cn('text-muted-foreground text-sm', className)}
+    className={cn('text-muted-foreground break-words text-sm', className)}
     {...props}
   />
 ));

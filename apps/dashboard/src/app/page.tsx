@@ -2,8 +2,9 @@ import { getPackagesData } from 'data/packages';
 import { getTagsData } from 'data/tags';
 import { getProject } from 'data/project';
 import {
-  FeatureGraphLayout,
   FeatureGraphOverlays,
+  FeatureGraphLayout,
+  GraphProvider,
 } from '@commonalityco/feature-graph';
 import DashboardGraph from './DashboardGraph';
 import { DashboardSidebar } from './DashboardSidebar';
@@ -21,6 +22,7 @@ import {
   violationsKeys,
 } from '@commonalityco/utils-graph';
 import { setTagsAction } from 'actions/metadata';
+import { GraphLayoutRoot } from '@commonalityco/ui-graph';
 
 async function GraphPage() {
   const project = await getProject();
@@ -35,21 +37,23 @@ async function GraphPage() {
   await queryClient.prefetchQuery(projectConfigKeys, getProjectConfigData);
 
   return (
-    <FeatureGraphLayout dehydratedState={dehydrate(queryClient)}>
-      <DashboardSidebar
-        getCodeownersData={getCodeownersData}
-        getTags={getTagsData}
-        getPackages={getPackagesData}
-      />
-      <DashboardGraph
-        packageManager={project.packageManager}
-        getTagsData={getTagsData}
-        getViolations={getViolationsData}
-        getPackages={getPackagesData}
-        getDocumentsData={getDocumentsData}
-        getCodeownersData={getCodeownersData}
-        getProjectConfig={getProjectConfigData}
-      />
+    <GraphProvider dehydratedState={dehydrate(queryClient)}>
+      <FeatureGraphLayout>
+        <DashboardSidebar
+          getCodeownersData={getCodeownersData}
+          getTags={getTagsData}
+          getPackages={getPackagesData}
+        />
+        <DashboardGraph
+          packageManager={project.packageManager}
+          getTagsData={getTagsData}
+          getViolations={getViolationsData}
+          getPackages={getPackagesData}
+          getDocumentsData={getDocumentsData}
+          getCodeownersData={getCodeownersData}
+          getProjectConfig={getProjectConfigData}
+        />
+      </FeatureGraphLayout>
       <FeatureGraphOverlays
         getProjectConfig={getProjectConfigData}
         getViolations={getViolationsData}
@@ -58,7 +62,7 @@ async function GraphPage() {
         getTagsData={getTagsData}
         onSetTags={setTagsAction}
       />
-    </FeatureGraphLayout>
+    </GraphProvider>
   );
 }
 

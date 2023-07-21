@@ -1139,6 +1139,9 @@ importers:
       '@types/cytoscape':
         specifier: ^3.19.10
         version: 3.19.10
+      '@types/lodash.debounce':
+        specifier: ^4.0.7
+        version: 4.0.7
       '@types/lodash.sortby':
         specifier: ^4.7.7
         version: 4.7.7
@@ -1154,6 +1157,9 @@ importers:
       jotai:
         specifier: ^2.2.2
         version: 2.2.2(react@18.2.0)
+      lodash.debounce:
+        specifier: ^4.0.8
+        version: 4.0.8
       lucide-react:
         specifier: ^0.248.0
         version: 0.248.0(react@18.2.0)
@@ -1827,6 +1833,9 @@ importers:
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
+      vitest:
+        specifier: ^0.33.0
+        version: 0.33.0
 
   packages/metadata/data-traverse:
     dependencies:

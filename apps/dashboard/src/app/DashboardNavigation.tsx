@@ -33,12 +33,6 @@ function DashboardNavigation({ title }: { title: string }) {
         ]}
       >
         <div className="flex space-x-2">
-          <ThemeButton
-            defaultTheme={theme as Theme}
-            onThemeChange={(theme) => {
-              setTheme(theme);
-            }}
-          />
           <Link
             href="https://commonality.co/docs"
             target="_blank"
@@ -46,6 +40,12 @@ function DashboardNavigation({ title }: { title: string }) {
           >
             <Button variant="link">Docs</Button>
           </Link>
+          <ThemeButton
+            defaultTheme={theme as Theme}
+            onThemeChange={(theme) => {
+              setTheme(theme);
+            }}
+          />
         </div>
       </Navigation>
     </>

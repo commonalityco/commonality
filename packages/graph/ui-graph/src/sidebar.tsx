@@ -143,7 +143,7 @@ function PackagesFilterSection({
           </p>
           <Button asChild variant="secondary" size="sm">
             <a
-              href="https://commonality.co/docs/codeowners"
+              href="https://commonality.co/docs/packages"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -198,7 +198,7 @@ function PackagesFilterSection({
                         onShow={() => onShow(package_.name)}
                       />
                       <FocusButton onClick={() => onFocus(package_.name)}>
-                        Only show package
+                        Only show this package
                       </FocusButton>
                     </div>
                   </div>
@@ -264,7 +264,7 @@ function TagsFilterSection({
           </p>
           <Button asChild variant="secondary" size="sm">
             <a
-              href="https://commonality.co/docs/codeowners"
+              href="https://commonality.co/docs/tags"
               target="_blank"
               rel="noopener noreferrer"
             >

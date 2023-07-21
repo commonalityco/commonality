@@ -149,7 +149,14 @@ describe('<Sidebar/>', () => {
           ],
         });
 
-        expect(screen.getByText('Create your first tag'));
+        expect(screen.getByText('Create your first tag')).toBeTruthy();
+
+        const link = screen.getByRole('link', { name: 'Learn more' });
+
+        expect(link).toBeTruthy();
+        expect(link.getAttribute('href')).toEqual(
+          'https://commonality.co/docs/tags'
+        );
       });
     });
 
