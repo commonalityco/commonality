@@ -1,3 +1,6 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 const packageJSON = require('./package.json');
 const transpiledPackages = Object.keys(packageJSON.dependencies).filter((it) =>
   it.includes('@commonalityco/')
@@ -13,4 +16,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);

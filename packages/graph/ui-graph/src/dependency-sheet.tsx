@@ -51,23 +51,23 @@ function DependencySheetContent({
         <p className="text-muted-foreground text-xs">Dependency</p>
         <SheetTitle className="grid gap-1">
           <span>{source}</span>
-          <div className="flex flex-nowrap items-center gap-2">
+          <div className="flex flex-nowrap items-center space-x-2">
             <CornerDownRight className="h-4 w-4" />
             <span>{target}</span>
           </div>
         </SheetTitle>
       </SheetHeader>
-      <div className="grid gap-4 pt-4">
-        <div>
-          <Label className="mb-2">Type</Label>
-          <div className="flex flex-nowrap items-center gap-2">
+      <div className="space-y-4 pt-4">
+        <div className="space-y-1">
+          <Label>Type</Label>
+          <div className="flex flex-nowrap items-center space-x-2">
             <div className={statusDotStyles({ type: dependency.type })} />
-            <p className="text-xs">{TextByType[dependency.type]}</p>
+            <p>{TextByType[dependency.type]}</p>
           </div>
         </div>
-        <div>
-          <Label className="mb-2">Version range</Label>
-          <p className="text-xs">
+        <div className="space-y-1">
+          <Label>Version range</Label>
+          <p>
             {dependency.version ? (
               <span className="font-mono">{dependency.version}</span>
             ) : (

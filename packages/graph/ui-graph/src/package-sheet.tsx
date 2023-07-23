@@ -192,7 +192,7 @@ function PackageSheetContent({
           <SheetDescription>{pkg.description}</SheetDescription>
         )}
       </SheetHeader>
-      <ScrollArea className="h-full antialiased">
+      <div className="h-full overflow-auto antialiased">
         <GradientFade placement="top" />
         <div className="space-y-4 px-6">
           <div className="space-y-2">
@@ -294,7 +294,7 @@ function PackageSheetContent({
           </div>
         </div>
         <GradientFade placement="bottom" />
-      </ScrollArea>
+      </div>
     </>
   );
 }

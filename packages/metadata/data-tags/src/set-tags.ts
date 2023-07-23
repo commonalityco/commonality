@@ -6,18 +6,18 @@ import uniq from 'lodash.uniq';
 import {
   getPackageDirectories,
   getWorkspaceGlobs,
-  getRootDirectory,
   getPackageManager,
 } from '@commonalityco/data-project';
 
 export const setTags = async ({
   packageName,
   tags,
+  rootDirectory,
 }: {
   packageName: string;
   tags: string[];
-}) => {
-  const rootDirectory = await getRootDirectory();
+  rootDirectory: string;
+}): Promise<string[]> => {
   const packageManager = await getPackageManager({ rootDirectory });
   const workspaceGlobs = await getWorkspaceGlobs({
     rootDirectory,

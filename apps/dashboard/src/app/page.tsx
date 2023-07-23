@@ -22,7 +22,6 @@ import {
   violationsKeys,
 } from '@commonalityco/utils-graph';
 import { setTagsAction } from 'actions/metadata';
-import { GraphLayoutRoot } from '@commonalityco/ui-graph';
 
 async function GraphPage() {
   const project = await getProject();

@@ -17,6 +17,9 @@ import {
   Accordion,
   Label,
   AccordionContent,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
 } from '@commonalityco/ui-design-system';
 import {
   MinusIcon,
@@ -28,6 +31,7 @@ import {
   CornerDownRight,
   ShieldCheck,
   ShieldClose,
+  ChevronDown,
 } from 'lucide-react';
 import { ProjectConfig, Violation, Constraint } from '@commonalityco/types';
 import { useMemo } from 'react';
@@ -62,9 +66,9 @@ function ViolationsHoverCard({
   }, [violations]);
 
   return (
-    <HoverCard>
-      <HoverCardTrigger asChild>
-        <Button variant="link" size="sm" className="gap-2">
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="ghost" size="sm" className="gap-2">
           <div
             className={validateDotStyles({
               variant: violations.length ? 'destructive' : 'success',
@@ -73,9 +77,10 @@ function ViolationsHoverCard({
           {`${constraints.length} constraints with ${
             violations?.length ?? 0
           } violations`}
+          <ChevronDown className="h-4 w-4" />
         </Button>
-      </HoverCardTrigger>
-      <HoverCardContent className="grid w-auto p-0">
+      </PopoverTrigger>
+      <PopoverContent className="grid w-auto p-0" align="start">
         {constraints.length ? (
           <ScrollArea className="h-full max-h-[400px] px-4 pb-0 pt-0">
             <Accordion
@@ -111,7 +116,10 @@ function ViolationsHoverCard({
                         {violations?.length ? (
                           violations?.map((violation) => {
                             return (
-                              <div className="space-y-1">
+                              <div
+                                className="space-y-1"
+                                key={`${violation.sourcePackageName}${violation.targetPackageName}`}
+                              >
                                 <div>
                                   <Button
                                     className="block h-auto w-full truncate px-0 py-1 text-left text-xs font-semibold"
@@ -173,8 +181,8 @@ function ViolationsHoverCard({
             </Button>
           </div>
         )}
-      </HoverCardContent>
-    </HoverCard>
+      </PopoverContent>
+    </Popover>
   );
 }
 

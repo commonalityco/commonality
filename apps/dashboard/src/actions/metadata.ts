@@ -8,5 +8,9 @@ export async function setTagsAction({
   packageName: string;
   tags: string[];
 }) {
-  setTags({ packageName, tags });
+  setTags({
+    packageName,
+    tags,
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+  });
 }

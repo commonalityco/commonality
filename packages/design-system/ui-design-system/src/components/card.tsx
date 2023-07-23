@@ -6,7 +6,7 @@ const cardVariants = cva('text-card-foreground rounded-lg border antialiased', {
   variants: {
     variant: {
       default: 'shadow bg-card',
-      secondary: 'bg-secondary',
+      secondary: 'bg-muted',
     },
   },
   defaultVariants: {

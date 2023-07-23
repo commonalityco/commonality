@@ -8,7 +8,8 @@
   "scripts": {
     "lint": "eslint ./src --fix",
     "build": "tsup-node",
-    "dev": "tsup-node --watch"
+    "dev": "tsup-node --watch",
+    "test": "vitest"
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",

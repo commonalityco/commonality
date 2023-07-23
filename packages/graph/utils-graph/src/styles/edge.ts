@@ -107,6 +107,13 @@ export const edgeStyles: Stylesheet[] = [
     selector: 'edge.dim',
     style: {
       'z-index': 0,
+      opacity: 0.1,
+    },
+  },
+  {
+    selector: 'edge.dark.dim',
+    style: {
+      'z-index': 0,
       opacity: 0.2,
     },
   },

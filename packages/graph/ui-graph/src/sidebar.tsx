@@ -13,6 +13,11 @@ import {
   TooltipContent,
   TooltipTrigger,
   Label,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
 } from '@commonalityco/ui-design-system';
 import { cva } from 'class-variance-authority';
 import {
@@ -131,17 +136,22 @@ function PackagesFilterSection({
     }
 
     return (
-      <div className="flex space-x-4 rounded-md border p-4">
-        <Box className="h-6 w-6 shrink-0" />
-        <div className="space-y-2">
-          <p className="text-sm font-medium leading-none">
-            Create your first package
-          </p>
-          <p className="text-muted-foreground text-xs">
-            Buld a composable ecosystem of packages optimized for reuse and
+      <Card variant="secondary">
+        <CardHeader>
+          <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-md border">
+            <div className="bg-secondary rounded-sm p-1.5">
+              <Box className="h-5 w-5" />
+            </div>
+          </div>
+
+          <CardTitle>Create your first package</CardTitle>
+          <CardDescription>
+            Build a composable ecosystem of packages optimized for reuse and
             scale.
-          </p>
-          <Button asChild variant="secondary" size="sm">
+          </CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button asChild variant="outline" size="sm">
             <a
               href="https://commonality.co/docs/packages"
               target="_blank"
@@ -151,8 +161,8 @@ function PackagesFilterSection({
               <ExternalLink className="ml-1 h-3 w-3 -translate-y-px" />
             </a>
           </Button>
-        </div>
-      </div>
+        </CardFooter>
+      </Card>
     );
   };
 
@@ -252,17 +262,22 @@ function TagsFilterSection({
     }
 
     return (
-      <div className="flex space-x-4 rounded-md border p-4">
-        <Tags className="h-6 w-6 shrink-0" />
-        <div className="space-y-2">
-          <p className="text-sm font-medium leading-none">
-            Create your first tag
-          </p>
-          <p className="text-muted-foreground text-xs">
+      <Card variant="secondary">
+        <CardHeader>
+          <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-md border">
+            <div className="bg-secondary rounded-sm p-1.5">
+              <Tags className="h-5 w-5" />
+            </div>
+          </div>
+
+          <CardTitle>Create your first tag</CardTitle>
+          <CardDescription>
             Categorize groups of packages to apply constraints and organize
             workflows.
-          </p>
-          <Button asChild variant="secondary" size="sm">
+          </CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button asChild variant="outline" size="sm">
             <a
               href="https://commonality.co/docs/tags"
               target="_blank"
@@ -272,8 +287,8 @@ function TagsFilterSection({
               <ExternalLink className="ml-1 h-3 w-3 -translate-y-px" />
             </a>
           </Button>
-        </div>
-      </div>
+        </CardFooter>
+      </Card>
     );
   };
 
@@ -374,16 +389,21 @@ function CodeownersFilterSection({
     }
 
     return (
-      <div className="flex space-x-4 rounded-md border p-4">
-        <FileText className="h-6 w-6 shrink-0" />
-        <div className="space-y-2">
-          <p className="text-sm font-medium leading-none">
-            Create a CODEOWNERS file
-          </p>
-          <p className="text-muted-foreground text-xs">
+      <Card variant="secondary">
+        <CardHeader>
+          <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-md border">
+            <div className="bg-secondary rounded-sm p-1.5">
+              <FileText className="h-5 w-5" />
+            </div>
+          </div>
+
+          <CardTitle>Create a CODEOWNERS file</CardTitle>
+          <CardDescription>
             Assign ownership over portions of your project.
-          </p>
-          <Button asChild variant="secondary" size="sm">
+          </CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button asChild variant="outline" size="sm">
             <a
               href="https://commonality.co/docs/codeowners"
               target="_blank"
@@ -393,8 +413,8 @@ function CodeownersFilterSection({
               <ExternalLink className="ml-1 h-3 w-3 -translate-y-px" />
             </a>
           </Button>
-        </div>
-      </div>
+        </CardFooter>
+      </Card>
     );
   };
 

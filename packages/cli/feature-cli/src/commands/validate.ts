@@ -7,8 +7,6 @@ import { getTagsData } from '@commonalityco/data-tags';
 import { Command } from 'commander';
 import { getViolationsData } from '@commonalityco/data-violations';
 import chalk from 'chalk';
-import { Violation } from '@commonalityco/types';
-import terminalLink from 'terminal-link';
 import path from 'node:path';
 import { formatTagName } from '@commonalityco/utils-core';
 import cliui from 'cliui';
