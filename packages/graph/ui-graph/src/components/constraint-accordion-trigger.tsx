@@ -18,11 +18,6 @@ export function ConstraintAccordionTrigger({
           className="grid grid-cols-[auto_1fr] gap-1"
           variant={variant === 'pass' ? 'success' : 'destructive'}
         >
-          {variant === 'pass' ? (
-            <ShieldCheck className="h-4 w-4" />
-          ) : (
-            <ShieldClose className="h-4 w-4" />
-          )}
           <span className="truncate">{`#${constraint.applyTo}`}</span>
         </Badge>
         {children}

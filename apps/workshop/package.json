@@ -7,13 +7,13 @@
     "dev": "storybook dev -p 6006"
   },
   "dependencies": {
-    "@commonalityco/feature-graph": "workspace:^",
-    "@commonalityco/types": "workspace:^",
-    "@commonalityco/ui-core": "workspace:^",
-    "@commonalityco/ui-design-system": "workspace:^",
-    "@commonalityco/ui-graph": "workspace:^",
-    "@commonalityco/utils-core": "workspace:^",
-    "@commonalityco/utils-graph": "workspace:^",
+    "@commonalityco/feature-graph": "*",
+    "@commonalityco/types": "*",
+    "@commonalityco/ui-core": "*",
+    "@commonalityco/ui-design-system": "*",
+    "@commonalityco/ui-graph": "*",
+    "@commonalityco/utils-core": "*",
+    "@commonalityco/utils-graph": "*",
     "@heroicons/react": "^2.0.18",
     "next": "13.4.6",
     "next-themes": "^0.2.1",
@@ -22,7 +22,7 @@
     "storybook-addon-variants": "^0.2.0"
   },
   "devDependencies": {
-    "@commonalityco/config-tailwind": "workspace:^",
+    "@commonalityco/config-tailwind": "*",
     "@storybook/addon-a11y": "^7.0.27",
     "@storybook/addon-docs": "^7.0.27",
     "@storybook/addon-essentials": "^7.0.27",

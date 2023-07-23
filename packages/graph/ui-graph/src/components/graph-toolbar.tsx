@@ -16,6 +16,7 @@ import {
   ScrollArea,
   Accordion,
   Label,
+  AccordionContent,
 } from '@commonalityco/ui-design-system';
 import {
   MinusIcon,
@@ -25,13 +26,15 @@ import {
   ExternalLink,
   ShieldIcon,
   CornerDownRight,
+  ShieldCheck,
+  ShieldClose,
 } from 'lucide-react';
 import { ProjectConfig, Violation, Constraint } from '@commonalityco/types';
 import { useMemo } from 'react';
 import { cva } from 'class-variance-authority';
 import { ConstraintAccordionItem } from './constraint-accordion-item';
 import { ConstraintAccordionTrigger } from './constraint-accordion-trigger';
-import { ConstraintAccordionContent } from './constraint-accordion-content';
+import { ConstraintResult } from './constraint-result';
 
 function ViolationsHoverCard({
   constraints = [],
@@ -84,88 +87,74 @@ function ViolationsHoverCard({
                 const violations =
                   violationsByConstraintTag[constraint.applyTo];
 
-                if (!violations?.length) {
-                  return (
-                    <ConstraintAccordionItem
-                      constraint={constraint}
-                      key={constraint.applyTo}
-                    >
-                      <ConstraintAccordionTrigger
-                        variant="pass"
-                        constraint={constraint}
-                      >
-                        <p className="text-muted-foreground mt-1 block text-left text-xs">{`${
-                          violations?.length ?? 0
-                        } violations`}</p>
-                      </ConstraintAccordionTrigger>
-                      <ConstraintAccordionContent constraint={constraint} />
-                    </ConstraintAccordionItem>
-                  );
-                }
-
                 return (
                   <ConstraintAccordionItem
                     constraint={constraint}
                     key={constraint.applyTo}
                   >
                     <ConstraintAccordionTrigger
-                      variant="error"
+                      variant={violations?.length ? 'error' : 'pass'}
                       constraint={constraint}
-                    >
-                      <p className="text-muted-foreground mt-1 block text-left text-xs">{`${
-                        violations.length ?? 0
-                      } violations`}</p>
-                    </ConstraintAccordionTrigger>
-                    <ConstraintAccordionContent constraint={constraint}>
-                      {violations.map((violation) => {
-                        return (
-                          <div className="w-full" key={violation.appliedTo}>
-                            <div>
-                              <Button
-                                className="block h-auto w-full truncate px-0 py-1 text-left text-xs font-semibold"
-                                size="sm"
-                                variant="link"
-                                onClick={() =>
-                                  onPackageClick(violation.sourcePackageName)
-                                }
-                              >
-                                {violation.sourcePackageName}
-                              </Button>
-                              <div className="flex items-center gap-2">
-                                <CornerDownRight className="text-destructive h-4 w-4 shrink-0" />
-                                <Button
-                                  className="block h-auto truncate px-0 py-1 text-left text-xs font-semibold"
-                                  size="sm"
-                                  variant="link"
-                                  onClick={() =>
-                                    onPackageClick(violation.targetPackageName)
-                                  }
-                                >
-                                  {violation.targetPackageName}
-                                </Button>
-                              </div>
-                            </div>
-                            <div className="w-full pl-6">
-                              <div className="flex w-full flex-wrap gap-1">
-                                {violation.found?.length ? (
-                                  violation.found.map((tag) => (
-                                    <Badge
-                                      key={tag}
-                                      className="block min-w-0"
-                                      variant="secondary"
+                    ></ConstraintAccordionTrigger>
+                    <AccordionContent>
+                      <div className="mb-2 flex items-center space-x-2">
+                        {violations?.length ? (
+                          <ShieldClose className="text-destructive h-4 w-4" />
+                        ) : (
+                          <ShieldCheck className="text-success h-4 w-4" />
+                        )}
+                        <p className="text-sm font-semibold">{`${
+                          violations?.length ?? 0
+                        } violations`}</p>
+                      </div>
+                      <div className="space-y-2">
+                        {violations?.length ? (
+                          violations?.map((violation) => {
+                            return (
+                              <div className="space-y-1">
+                                <div>
+                                  <Button
+                                    className="block h-auto w-full truncate px-0 py-1 text-left text-xs font-semibold"
+                                    size="sm"
+                                    variant="link"
+                                    onClick={() =>
+                                      onPackageClick(
+                                        violation.sourcePackageName
+                                      )
+                                    }
+                                  >
+                                    {violation.sourcePackageName}
+                                  </Button>
+                                  <div className="flex items-center gap-2">
+                                    <CornerDownRight className="text-destructive h-5 w-5 shrink-0" />
+                                    <Button
+                                      className="block h-auto truncate px-0 py-1 text-left text-xs font-semibold"
+                                      size="sm"
+                                      variant="link"
+                                      onClick={() =>
+                                        onPackageClick(
+                                          violation.targetPackageName
+                                        )
+                                      }
                                     >
-                                      {`#${tag}`}
-                                    </Badge>
-                                  ))
-                                ) : (
-                                  <p className="text-xs">No tags</p>
-                                )}
+                                      {violation.targetPackageName}
+                                    </Button>
+                                  </div>
+                                </div>
+                                <div className="pl-7">
+                                  <ConstraintResult
+                                    constraint={constraint}
+                                    violation={violation}
+                                  />
+                                </div>
                               </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </ConstraintAccordionContent>
+                            );
+                          })
+                        ) : (
+                          <ConstraintResult constraint={constraint} />
+                        )}
+                      </div>
+                    </AccordionContent>
                   </ConstraintAccordionItem>
                 );
               })}

@@ -10,19 +10,21 @@ import chalk from 'chalk';
 import { Violation } from '@commonalityco/types';
 import terminalLink from 'terminal-link';
 import path from 'node:path';
+import { formatTagName } from '@commonalityco/utils-core';
+import cliui from 'cliui';
+
+const ui = cliui({});
 
 const program = new Command();
 
 export const validate = program
   .name('validate')
-  .description('Validate that packges adhere to your tag constraints')
+  .description('Validate that local dependencies adhere to your constraints')
   .action(async () => {
     const rootDirectory = await getRootDirectory();
     const packages = await getPackages({ rootDirectory });
     const tagData = await getTagsData({ rootDirectory, packages });
     const projectConfig = await getProjectConfig({ rootDirectory });
-
-    const violationsByPackageName: Record<string, Violation[]> = {};
 
     const violations = await getViolationsData({
       packages,
@@ -30,70 +32,99 @@ export const validate = program
       tagData,
     });
 
-    for (let i = 0; i < violations.length; i++) {
-      const violation = violations[i];
+    const constraints = projectConfig.constraints;
 
-      const currentViolations =
-        violationsByPackageName[violation.sourcePackageName];
-
-      violationsByPackageName[violation.sourcePackageName] = currentViolations
-        ? [...currentViolations, violation]
-        : [violation];
+    if (!constraints) {
+      ui.div({
+        text: 'No constraints found',
+        padding: [1, 0, 1, 0],
+      });
+      console.log(ui.toString());
+      return;
     }
 
-    Object.keys(violationsByPackageName).forEach((packageName) => {
-      const pkg = packages.find((pkg) => pkg.name === packageName);
+    console.log(
+      `Validating constraints...\n` +
+        chalk.dim(path.join(rootDirectory, '.commonality/config.json'))
+    );
 
-      const pkgNameText = `📦 ${chalk.blue.bold.underline(packageName)}`;
+    const constraintsWithViolationCount = constraints.filter((constraint) =>
+      violations.some((violation) => violation.appliedTo === constraint.applyTo)
+    ).length;
 
-      const projectConfigPath = pkg
-        ? path.join(path.resolve(rootDirectory, pkg.path), './commonality.json')
-        : undefined;
-
-      console.log(
-        projectConfigPath
-          ? terminalLink(
-              pkgNameText,
-              `file://${path.resolve(projectConfigPath)}`
-            )
-          : pkgNameText
+    for (const constraint of constraints) {
+      const violationsForConstraint = violations.filter(
+        (violation) => violation.appliedTo === constraint.applyTo
       );
 
-      const violations = violationsByPackageName[packageName];
+      const hasViolations = Boolean(violationsForConstraint.length);
 
-      violations.forEach((violation) => {
-        console.log(
-          chalk.bold(
-            `${violation.sourcePackageName} -> ${violation.targetPackageName}`
-          )
+      if (hasViolations) {
+        const tagText = chalk.inverse(
+          chalk.red.bold(` ${formatTagName(constraint.applyTo)} `)
         );
-        console.log(`Constraint matching: ${violation.appliedTo}`);
+        const violationsText = chalk.red(
+          `${violationsForConstraint.length} violations`
+        );
+        console.log(`\n${tagText} ${violationsText}`);
 
-        console.log(
-          `${chalk.green('Allowed:')} ${
-            violation.allowed?.length
-              ? JSON.stringify(violation.allowed)
-              : 'No packages allowed'
-          }`
-        );
-        console.log(
-          `${chalk.red('Found:')} ${
-            violation.found?.length
-              ? JSON.stringify(violation.found)
-              : violation.allowed?.length
-              ? chalk.dim('None')
-              : 'Package found'
-          }`
-        );
-        console.log('');
-      });
-    });
+        violationsForConstraint.forEach((violation) => {
+          const sourcePackageLink = violation.sourcePackageName;
 
-    console.log(
-      chalk.red.bold(
-        `Found ${violations.length} violations across ${
-          Object.keys(violationsByPackageName).length
-        } packages`
-      )
+          const targetPackageLink = violation.targetPackageName;
+
+          ui.div(`${sourcePackageLink} ${chalk.red('→')} ${targetPackageLink}`);
+
+          const getText = (application?: string[] | '*'): string => {
+            if (application === '*') {
+              return 'All packages';
+            } else if (application?.length === 0) {
+              return 'No tags found';
+            } else {
+              return JSON.stringify(application);
+            }
+          };
+
+          const allowedText = violation.allowed.length
+            ? `${chalk.dim('Allowed')} \t${getText(violation.allowed)}\n`
+            : '';
+          const disallowedText = violation.disallowed.length
+            ? `${chalk.dim('Disallowed')} \t${getText(violation.disallowed)}\n`
+            : '';
+          const foundText = violation.found
+            ? `${chalk.red('Found')} \t${getText(violation.found)}\n`
+            : '';
+
+          ui.div(allowedText + disallowedText + foundText);
+          console.log(ui.toString());
+          ui.resetOutput();
+        });
+      } else {
+        const tagText = chalk.green.inverse.bold(
+          ` ${formatTagName(constraint.applyTo)} `
+        );
+
+        console.log(`\n${tagText} ${chalk.grey('No violations')}`);
+      }
+    }
+    ui.resetOutput();
+    const constraintPrefix = chalk.dim('Constraints');
+    const constraintPrimaryText = constraintsWithViolationCount
+      ? `${chalk.red.bold(`${constraintsWithViolationCount} failed`)}`
+      : `${chalk.green.bold(`${constraints.length} passed`)}`;
+
+    const constraintSuffix = chalk.gray(`(${constraints.length})`);
+
+    const violationsText = violations.length
+      ? chalk.red.bold(`${violations.length} violations`)
+      : chalk.green.bold(`No violations`);
+
+    ui.div(
+      `\n${constraintPrefix}\t ${constraintPrimaryText} ${constraintSuffix}` +
+        `\n${chalk.dim('Violations')}\t ${violationsText}`
     );
+
+    console.log(ui.toString());
+
+    process.exit(1);
   });

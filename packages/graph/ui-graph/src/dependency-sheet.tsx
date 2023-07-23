@@ -1,6 +1,7 @@
 import { Constraint, Dependency, Violation } from '@commonalityco/types';
 import {
   Accordion,
+  AccordionContent,
   Label,
   Sheet,
   SheetContent,
@@ -11,7 +12,7 @@ import { DependencyType } from '@commonalityco/utils-core';
 import { cva } from 'class-variance-authority';
 import { CornerDownRight } from 'lucide-react';
 import { ComponentProps } from 'react';
-import { ConstraintAccordionContent } from './components/constraint-accordion-content';
+import { ConstraintResult } from './components/constraint-result';
 import { ConstraintAccordionItem } from './components/constraint-accordion-item';
 import { ConstraintAccordionTrigger } from './components/constraint-accordion-trigger';
 
@@ -79,7 +80,7 @@ function DependencySheetContent({
           <Accordion type="multiple">
             {constraints.length ? (
               constraints.map((constraint) => {
-                const hasViolation = violations.some(
+                const violation = violations.find(
                   (violation) => violation.appliedTo === constraint.applyTo
                 );
                 return (
@@ -89,9 +90,14 @@ function DependencySheetContent({
                   >
                     <ConstraintAccordionTrigger
                       constraint={constraint}
-                      variant={hasViolation ? 'error' : 'pass'}
+                      variant={violation ? 'error' : 'pass'}
                     />
-                    <ConstraintAccordionContent constraint={constraint} />
+                    <AccordionContent>
+                      <ConstraintResult
+                        constraint={constraint}
+                        violation={violation}
+                      />
+                    </AccordionContent>
                   </ConstraintAccordionItem>
                 );
               })

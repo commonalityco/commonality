@@ -1,12 +1,10 @@
-import React from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import remarkGfm from 'remark-gfm';
 import ReactMarkdown, { Components } from 'react-markdown';
 import { HTMLAttributes, useMemo } from 'react';
 import atomOneDark from 'react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark';
 import atomOneLight from 'react-syntax-highlighter/dist/esm/styles/hljs/atom-one-light';
-import rehypeRaw from 'rehype-raw';
-import rehypeSanitize from 'rehype-sanitize';
+import { cn } from '@commonalityco/ui-design-system';
 
 const CodeBlock = ({
   language,
@@ -20,7 +18,7 @@ const CodeBlock = ({
   const style = theme === 'dark' ? atomOneDark : atomOneLight;
 
   return (
-    <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-2 dark:border-zinc-700 dark:bg-zinc-800">
+    <div className="bg-muted w-full rounded-md p-2">
       <SyntaxHighlighter
         language={language}
         style={style}
@@ -39,9 +37,9 @@ const CodeBlock = ({
 
 const CustomPre = ({ ...properties }: HTMLAttributes<HTMLPreElement>) => {
   return (
-    <div className="not-prose w-full max-w-md overflow-hidden">
+    <div className="not-prose w-full overflow-hidden">
       <pre
-        className="w-full overflow-auto rounded-lg font-mono text-sm"
+        className="w-full overflow-auto rounded-md font-mono text-sm"
         {...properties}
       />
     </div>
@@ -70,19 +68,18 @@ export function Markdown({ theme = 'light', children }: MarkdownProps) {
             {childString}
           </CodeBlock>
         ) : (
-          <code className={`${className} font-mono`} {...properties}>
+          <code className={cn('font-mono', className)} {...properties}>
             {children}
           </code>
         );
       },
     };
-  }, []);
+  }, [theme, children]);
 
   return (
     <ReactMarkdown
       className="prose prose-zinc dark:prose-invert max-w-none font-sans"
       remarkPlugins={[remarkGfm]}
-      rehypePlugins={[rehypeRaw, rehypeSanitize]}
       components={components}
     >
       {children ?? 'No content'}

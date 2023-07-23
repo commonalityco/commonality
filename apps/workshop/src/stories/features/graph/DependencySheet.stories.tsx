@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DependencySheet } from '@commonalityco/ui-graph';
-import { Dependency, Package } from '@commonalityco/types';
+import {
+  Constraint,
+  Dependency,
+  Package,
+  Violation,
+} from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
@@ -34,36 +39,37 @@ export const KitchenSink: Story = {
     target: '@scope/two',
     constraints: [
       {
-        tag: 'tag-one',
-        allow: ['*'],
+        applyTo: 'tag-one',
+        allow: '*',
       },
       {
-        tag: 'tag-two',
+        applyTo: 'tag-two',
         allow: ['tag-three'],
       },
       {
-        tag: 'tag-three',
+        applyTo: 'tag-three',
         disallow: ['tag-four'],
       },
       {
-        tag: 'tag-four',
-        disallow: ['*'],
+        applyTo: 'tag-four',
+        disallow: '*',
       },
       {
-        tag: 'tag-five',
+        applyTo: 'tag-five',
         allow: ['tag-six'],
         disallow: ['tag-five'],
       },
-    ],
+    ] satisfies Constraint[],
     violations: [
       {
         sourcePackageName: '@scope/one',
         targetPackageName: '@scope/two',
-        constraintTag: 'tag-one',
-        allowedTags: ['*'],
-        disallowedTags: [],
+        appliedTo: 'tag-one',
+        allowed: ['bar'],
+        disallowed: [],
+        found: ['baz'],
       },
-    ],
+    ] satisfies Violation[],
   },
 };
 

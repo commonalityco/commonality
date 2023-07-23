@@ -87,7 +87,7 @@ describe('<PackageSheet/>', () => {
       expect(screen.getByText('#tag-six')).toBeTruthy();
       expect(screen.getByText('#tag-seven')).toBeTruthy();
       expect(screen.getByText('#tag-eight')).toBeTruthy();
-      expect(screen.getByText('#tag-nine')).toBeTruthy();
+      expect(screen.getByText('#tag-ninef')).toBeTruthy();
     });
   });
 

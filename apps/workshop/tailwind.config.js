@@ -13,6 +13,8 @@ const pkgPaths = localPackageNames.map((pkgName) => {
   );
 });
 
+console.log({ pkgPaths });
+
 module.exports = {
   ...baseConfig,
   content: ['./src/**/*.{js,ts,jsx,tsx}', ...pkgPaths],

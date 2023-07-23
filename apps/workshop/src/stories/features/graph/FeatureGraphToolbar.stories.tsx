@@ -2,9 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react';
 import {
   FeatureGraphLayout,
   FeatureGraphToolbar,
+  GraphProvider,
 } from '@commonalityco/feature-graph';
 import { PackageManager } from '@commonalityco/utils-core';
-import { ProjectConfig } from '@commonalityco/types';
+import { ProjectConfig, Violation } from '@commonalityco/types';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
@@ -20,9 +21,9 @@ const meta = {
   decorators: [
     (Story, props) => {
       return (
-        <FeatureGraphLayout dehydratedState={{ mutations: [], queries: [] }}>
+        <GraphProvider dehydratedState={{ mutations: [], queries: [] }}>
           <Story {...props} />
-        </FeatureGraphLayout>
+        </GraphProvider>
       );
     },
   ],
@@ -67,44 +68,53 @@ export const KitchenSink: Story = {
         },
       ],
     }),
-    getViolations: async () => [
-      {
-        sourcePackageName:
-          'pkg-a-looooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnngggggggggggggggggggggggg',
-        targetPackageName:
-          'pkg-b-looooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnngggggggggggggggggggggggg',
-        appliedTo:
-          'tag-one-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
-        allowed: [
-          'tag-two-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
-          'tag-three-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
-        ],
-        disallowed: [],
-        foundTags: [
-          'bar-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
-          'foo-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
-          'one',
-          'two',
-          'three',
-        ],
-      },
-      {
-        sourcePackageName: 'pkg-b',
-        targetPackageName: 'pkg-c',
-        appliedTo: 'tag-two',
-        allowed: ['tag-two', 'tag-three'],
-        disallowed: [],
-        foundTags: [],
-      },
-      {
-        sourcePackageName: 'pkg-c',
-        targetPackageName: 'pkg-d',
-        appliedTo: 'tag-one',
-        allowed: ['tag-two', 'tag-three'],
-        disallowed: [],
-        foundTags: [],
-      },
-    ],
+    getViolations: async () =>
+      [
+        {
+          sourcePackageName:
+            'pkg-a-looooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnngggggggggggggggggggggggg',
+          targetPackageName:
+            'pkg-b-looooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnngggggggggggggggggggggggg',
+          appliedTo:
+            'tag-one-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
+          allowed: [
+            'tag-two-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
+            'tag-three-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
+          ],
+          disallowed: [],
+          found: [
+            'bar-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
+            'foo-loooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnggggggggggggg',
+            'one',
+            'two',
+            'three',
+          ],
+        },
+        {
+          sourcePackageName: 'pkg-b',
+          targetPackageName: 'pkg-c',
+          appliedTo: 'tag-two',
+          allowed: ['tag-two', 'tag-three'],
+          disallowed: [],
+          found: ['tag-bar'],
+        },
+        {
+          sourcePackageName: 'pkg-b',
+          targetPackageName: 'pkg-d',
+          appliedTo: 'tag-two',
+          allowed: ['tag-two', 'tag-three'],
+          disallowed: [],
+          found: [],
+        },
+        {
+          sourcePackageName: 'pkg-c',
+          targetPackageName: 'pkg-d',
+          appliedTo: 'tag-one',
+          allowed: ['tag-two', 'tag-three'],
+          disallowed: [],
+          found: [],
+        },
+      ] satisfies Violation[],
   },
 };
 
