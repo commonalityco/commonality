@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { FeatureGraph, FeatureGraphLayout } from '@commonalityco/feature-graph';
-import { documentsKeys, getUpdatedGraphJson } from '@commonalityco/utils-graph';
+import {
+  documentsKeys,
+  getElementDefinitionsWithUpdatedLayout,
+} from '@commonalityco/utils-graph';
 import { DependencyType, PackageManager } from '@commonalityco/utils-core';
 import {
   CodeownersData,
@@ -21,7 +24,7 @@ const meta = {
   args: {
     packageManager: PackageManager.PNPM,
     theme: 'light',
-    getUpdatedGraphJson,
+    getElementDefinitionsWithUpdatedLayout,
     onSetTags: () => Promise.resolve(),
     getViolations: () => Promise.resolve([]),
     getTagsData: () =>

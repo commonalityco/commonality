@@ -13,7 +13,7 @@
     "build:app": "next build",
     "build": "pnpm run build:script && pnpm run build:app",
     "analyze": "ANALYZE=true next build",
-    "start": "NODE_ENV=production node server.js",
+    "start": "NODE_ENV=production node dist/e2e-start.js",
     "cypress:open": "cypress open",
     "lint": "next lint",
     "e2e:run-script": "node dist/e2e-start.js",

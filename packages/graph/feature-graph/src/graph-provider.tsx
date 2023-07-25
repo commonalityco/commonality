@@ -8,7 +8,6 @@ import {
   Hydrate,
   DehydratedState,
 } from '@tanstack/react-query';
-import type { State } from 'xstate';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export const GraphContext = createActorContext(graphMachine);

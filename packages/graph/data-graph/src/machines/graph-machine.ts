@@ -2,14 +2,21 @@ import { VirtualElement } from '@popperjs/core';
 import {
   createRenderGraph,
   createTraversalGraph,
+  focus,
   getElementDefinitions,
+  hide,
+  hideAll,
+  hideDependants,
+  hideDependencies,
+  setInitialElements,
   show,
+  showAll,
   showDependants,
   showDependencies,
 } from '@commonalityco/utils-graph';
 import { Package, Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
-import { assign, createMachine } from 'xstate';
+import { Actor, ActorRef, assign, createMachine, spawn } from 'xstate';
 import {
   CollectionArgument,
   Core,
@@ -18,11 +25,7 @@ import {
   NodeSingular,
   Selector,
 } from 'cytoscape';
-import {
-  OffloadRenderFn,
-  updateGraphElements,
-  getUpdatedGraphJson,
-} from '@commonalityco/utils-graph';
+import { updateGraphElements } from '@commonalityco/utils-graph';
 import debounce from 'lodash.debounce';
 
 type Filter =
@@ -30,9 +33,9 @@ type Filter =
   | ((ele: NodeSingular, index: number, eles: CollectionArgument) => boolean);
 
 export interface Context {
+  worker?: Worker;
   renderGraph?: Core;
   traversalGraph?: Core;
-  getUpdatedGraphJson: OffloadRenderFn;
   elements: ElementDefinition[];
   hoveredRenderNode?: NodeSingular & { data: () => Package };
   hoveredTraversalNode?: NodeSingular & { data: () => Package };
@@ -52,7 +55,6 @@ type Event =
       containerId: string;
       packages: Package[];
       theme: string;
-      getUpdatedGraphJson: OffloadRenderFn;
       violations: Violation[];
     }
 
@@ -90,7 +92,6 @@ export const graphMachine = createMachine(
       elements: [] as any,
       isEdgeColorShown: false,
       theme: 'light',
-      getUpdatedGraphJson,
       violations: [],
     },
     tsTypes: {} as import('./graph-machine.typegen').Typegen0,
@@ -98,13 +99,13 @@ export const graphMachine = createMachine(
       events: {} as Event,
       context: {} as Context,
     },
-
     states: {
       uninitialized: {
         on: {
           INITIALIZE: {
-            target: 'loading',
+            target: 'updating',
             actions: [
+              'createWorker',
               'createTraversalGraph',
               'createRenderGraph',
               'setTheme',
@@ -117,7 +118,7 @@ export const graphMachine = createMachine(
       success: {
         on: {
           INITIALIZE: {
-            target: 'loading',
+            target: 'updating',
             actions: [
               'createTraversalGraph',
               'createRenderGraph',
@@ -132,52 +133,52 @@ export const graphMachine = createMachine(
           },
           // Graph interactions
           HIDE: {
-            target: 'loading',
+            target: 'updating',
             cond: 'renderGraphExists',
             actions: ['hide', 'unselect', 'unhover', 'log'],
           },
           HIDE_DEPENDENCIES: {
-            target: 'loading',
+            target: 'updating',
             cond: 'renderGraphExists',
             actions: ['hideDependencies', 'unselect', 'unhover', 'log'],
           },
           HIDE_DEPENDANTS: {
-            target: 'loading',
+            target: 'updating',
             cond: 'renderGraphExists',
             actions: ['hideDependants', 'unselect', 'log'],
           },
           HIDE_ALL: {
-            target: 'loading',
+            target: 'updating',
             cond: 'renderGraphExists',
             actions: ['hideAll', 'unselect', 'log'],
           },
           SHOW: {
-            target: 'loading',
+            target: 'updating',
             cond: 'renderGraphExists',
             actions: ['show', 'unselect', 'unhover', 'log'],
           },
           SHOW_DEPENDENCIES: {
-            target: 'loading',
+            target: 'updating',
             cond: 'renderGraphExists',
             actions: ['showDependencies', 'unselect', 'log'],
           },
           SHOW_DEPENDANTS: {
-            target: 'loading',
+            target: 'updating',
             cond: 'renderGraphExists',
             actions: ['showDependants', 'unselect', 'log'],
           },
           SHOW_ALL: {
-            target: 'loading',
+            target: 'updating',
             cond: 'renderGraphExists',
             actions: ['showAll', 'unselect', 'log'],
           },
           FOCUS: {
-            target: 'loading',
+            target: 'updating',
             cond: 'renderGraphExists',
             actions: ['focus', 'unselect', 'unhover', 'log'],
           },
           SET_THEME: {
-            target: 'loading',
+            target: 'updating',
             cond: 'renderGraphExists',
             actions: ['setTheme', 'log'],
           },
@@ -222,7 +223,24 @@ export const graphMachine = createMachine(
         },
       },
       error: {},
-      loading: {
+      updating: {
+        invoke: {
+          id: 'update-layout',
+          src: 'updateLayout',
+          onDone: {
+            target: 'rendering',
+            actions: assign({
+              elements: (context, event) => event.data,
+            }),
+          },
+          onError: {
+            target: 'error',
+            cond: 'renderGraphExists',
+            actions: ['log'],
+          },
+        },
+      },
+      rendering: {
         invoke: {
           id: 'render-graph',
           src: 'renderGraph',
@@ -242,6 +260,29 @@ export const graphMachine = createMachine(
   },
   {
     services: {
+      updateLayout: (context) => {
+        return new Promise((resolve, reject) => {
+          if (!context.worker) {
+            // Throw to ERROR STATE
+            return resolve([]);
+          }
+
+          context.worker.onmessage = async (
+            event: MessageEvent<ElementDefinition[]>
+          ) => {
+            if (!context.renderGraph || !context.traversalGraph) {
+              return resolve([]);
+            }
+
+            resolve(event.data);
+          };
+
+          const message = JSON.parse(JSON.stringify(context.elements));
+
+          console.log({ elements: context.elements, message });
+          context.worker.postMessage(context.elements);
+        });
+      },
       renderGraph: (context) => async (callback) => {
         if (!context.renderGraph || !context.traversalGraph)
           return Promise.resolve();
@@ -251,7 +292,6 @@ export const graphMachine = createMachine(
           traversalGraph: context.traversalGraph,
           elements: context.elements,
           theme: context.theme,
-          getUpdatedGraphJson: context.getUpdatedGraphJson,
           forceEdgeColor: context.isEdgeColorShown,
           violations: context.violations,
         });
@@ -307,12 +347,16 @@ export const graphMachine = createMachine(
             { leading: true, trailing: false }
           )
         );
-
-        return Promise.resolve();
       },
     },
 
     actions: {
+      createWorker: assign({
+        worker: () =>
+          new Worker(new URL('../utils/worker.ts', import.meta.url), {
+            type: 'module',
+          }),
+      }),
       destroy: (context) => {
         if (!context.renderGraph || !context.traversalGraph) return;
 
@@ -325,7 +369,7 @@ export const graphMachine = createMachine(
         elements: (context) => {
           if (!context.renderGraph) return [] as any;
 
-          return context.renderGraph?.elements();
+          return setInitialElements({ renderGraph: context.renderGraph });
         },
         violations: (context, event) => {
           return event.violations;
@@ -358,44 +402,40 @@ export const graphMachine = createMachine(
         elements: (context, event) => {
           if (!context.renderGraph || !context.traversalGraph) return [] as any;
 
-          const elementsToHide = context.traversalGraph.collection();
-          const nodesToHide = context.traversalGraph
-            .nodes()
-            .filter(event.selector);
-          const edgesForElements = nodesToHide.connectedEdges();
-
-          elementsToHide.merge(nodesToHide).merge(edgesForElements);
-
-          return context.renderGraph.elements().difference(elementsToHide);
+          return hide({
+            traversalGraph: context.traversalGraph,
+            renderGraph: context.renderGraph,
+            selector: event.selector,
+          });
         },
       }),
       hideDependencies: assign({
         elements: (context, event) => {
           if (!context.renderGraph || !context.traversalGraph) return [] as any;
 
-          const elementsToHide = context.traversalGraph
-            .$id(event.pkg.name)
-            .outgoers();
-
-          return context.renderGraph.elements().difference(elementsToHide);
+          return hideDependencies({
+            traversalGraph: context.traversalGraph,
+            renderGraph: context.renderGraph,
+            id: event.pkg.name,
+          });
         },
       }),
       hideDependants: assign({
         elements: (context, event) => {
           if (!context.renderGraph || !context.traversalGraph) return [] as any;
 
-          const elementsToHide = context.traversalGraph
-            .$id(event.pkg.name)
-            .incomers();
-
-          return context.renderGraph.elements().difference(elementsToHide);
+          return hideDependants({
+            traversalGraph: context.traversalGraph,
+            renderGraph: context.renderGraph,
+            id: event.pkg.name,
+          });
         },
       }),
       hideAll: assign({
         elements: (context) => {
           if (!context.traversalGraph) return [] as any;
 
-          return context.traversalGraph.collection();
+          return hideAll({ traversalGraph: context.traversalGraph });
         },
       }),
       unhover: assign({
@@ -440,14 +480,17 @@ export const graphMachine = createMachine(
         elements: (context) => {
           if (!context.traversalGraph) return [] as any;
 
-          return context.traversalGraph.elements();
+          return showAll({ traversalGraph: context.traversalGraph });
         },
       }),
       focus: assign({
         elements: (context, event) => {
-          if (!context.renderGraph || !context.traversalGraph) return [] as any;
+          if (!context.traversalGraph) return [] as any;
 
-          return context.traversalGraph.nodes().filter(event.selector);
+          return focus({
+            traversalGraph: context.traversalGraph,
+            selector: event.selector,
+          });
         },
       }),
       fit: (context, event) => {

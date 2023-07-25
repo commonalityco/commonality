@@ -272,8 +272,8 @@ function TagsFilterSection({
 
           <CardTitle>Create your first tag</CardTitle>
           <CardDescription>
-            Categorize groups of packages to apply constraints and organize
-            workflows.
+            Use tags to group packages, enforce dependency constraints, and
+            organize workflows.
           </CardDescription>
         </CardHeader>
         <CardFooter>

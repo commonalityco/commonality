@@ -1,21 +1,7 @@
 'use client';
-import {
-  DependencySheet,
-  GraphChart,
-  GraphLayoutMain,
-  PackageSheet,
-  TooltipPackage,
-} from '@commonalityco/ui-graph';
-import {
-  documentsKeys,
-  metadataKey,
-  OffloadRenderFn,
-  packagesKeys,
-  projectConfigKeys,
-  tagsKeys,
-  violationsKeys,
-} from '@commonalityco/utils-graph';
-import { useEffect, useMemo, useRef } from 'react';
+import { GraphChart, GraphLayoutMain } from '@commonalityco/ui-graph';
+import { packagesKeys, violationsKeys } from '@commonalityco/utils-graph';
+import { useEffect, useRef } from 'react';
 import { PackageManager } from '@commonalityco/utils-core';
 import {
   CodeownersData,
@@ -27,12 +13,11 @@ import {
 } from '@commonalityco/types';
 import { GraphContext } from './graph-provider';
 import { FeatureGraphToolbar } from './feature-graph-toolbar';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { cn } from '@commonalityco/ui-design-system';
 import debounce from 'lodash.debounce';
 
 interface GraphProps {
-  getUpdatedGraphJson: OffloadRenderFn;
   theme?: string;
   packageManager: PackageManager;
   onSetTags: (tagsData: TagsData) => Promise<void>;
@@ -46,18 +31,12 @@ interface GraphProps {
 
 export function FeatureGraph({
   theme,
-  getUpdatedGraphJson,
   packageManager,
-  onSetTags,
-  getTagsData,
   getViolations,
   getPackages,
-  getDocumentsData,
   getProjectConfig,
-  getCodeownersData,
 }: GraphProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const queryClient = useQueryClient();
 
   const { data: packages } = useQuery({
     queryKey: packagesKeys,
@@ -71,8 +50,11 @@ export function FeatureGraph({
 
   const actor = GraphContext.useActorRef();
 
-  const isLoading = GraphContext.useSelector((state) =>
-    state.matches('loading')
+  const isLoading = GraphContext.useSelector(
+    (state) =>
+      state.matches('updating') ||
+      state.matches('rendering') ||
+      state.matches('uninitialized')
   );
 
   const isEmpty = GraphContext.useSelector((state) => {
@@ -109,7 +91,6 @@ export function FeatureGraph({
         containerId: containerRef.current.id,
         packages,
         theme: theme ?? 'light',
-        getUpdatedGraphJson,
         violations,
       });
     }

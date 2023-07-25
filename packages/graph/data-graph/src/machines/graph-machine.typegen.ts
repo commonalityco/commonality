@@ -8,14 +8,24 @@ export interface Typegen0 {
       data: unknown;
       __tip: 'See the XState TS docs to learn how to strongly type this.';
     };
+    'done.invoke.update-layout': {
+      type: 'done.invoke.update-layout';
+      data: unknown;
+      __tip: 'See the XState TS docs to learn how to strongly type this.';
+    };
     'error.platform.render-graph': {
       type: 'error.platform.render-graph';
+      data: unknown;
+    };
+    'error.platform.update-layout': {
+      type: 'error.platform.update-layout';
       data: unknown;
     };
     'xstate.init': { type: 'xstate.init' };
   };
   invokeSrcNameMap: {
     renderGraph: 'done.invoke.render-graph';
+    updateLayout: 'done.invoke.update-layout';
   };
   missingImplementations: {
     actions: never;
@@ -26,6 +36,7 @@ export interface Typegen0 {
   eventsCausingActions: {
     createRenderGraph: 'INITIALIZE';
     createTraversalGraph: 'INITIALIZE';
+    createWorker: 'INITIALIZE';
     destroy: 'DESTROY';
     edgeClick: 'EDGE_CLICK';
     fit: 'FIT';
@@ -57,7 +68,8 @@ export interface Typegen0 {
       | 'ZOOM_IN'
       | 'ZOOM_OUT'
       | 'done.invoke.render-graph'
-      | 'error.platform.render-graph';
+      | 'error.platform.render-graph'
+      | 'error.platform.update-layout';
     nodeMouseOver: 'NODE_MOUSEOVER';
     nodeSelect: 'NODE_SELECT';
     renderIsEdgeColorShown: 'SET_IS_EDGE_COLOR_SHOWN';
@@ -108,10 +120,12 @@ export interface Typegen0 {
       | 'ZOOM_IN'
       | 'ZOOM_OUT'
       | 'done.invoke.render-graph'
-      | 'error.platform.render-graph';
+      | 'error.platform.render-graph'
+      | 'error.platform.update-layout';
   };
   eventsCausingServices: {
-    renderGraph:
+    renderGraph: 'done.invoke.update-layout';
+    updateLayout:
       | 'FOCUS'
       | 'HIDE'
       | 'HIDE_ALL'
@@ -124,6 +138,11 @@ export interface Typegen0 {
       | 'SHOW_DEPENDANTS'
       | 'SHOW_DEPENDENCIES';
   };
-  matchesStates: 'error' | 'loading' | 'success' | 'uninitialized';
+  matchesStates:
+    | 'error'
+    | 'rendering'
+    | 'success'
+    | 'uninitialized'
+    | 'updating';
   tags: never;
 }

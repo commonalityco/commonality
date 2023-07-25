@@ -1,24 +1,27 @@
-'use server';
-import cytoscape from 'cytoscape';
+import cytoscape, { ElementDefinition } from 'cytoscape';
 import { layoutOptions } from './layout-options';
 import dagre from 'cytoscape-dagre';
+import { nodeStyles } from './styles/node';
+import { edgeStyles } from './styles/edge';
 
 cytoscape.use(dagre);
 
 export type OffloadRenderFn = ({
-  graphJson,
+  elements,
 }: {
-  graphJson: Record<string, any>;
-}) => Promise<Record<string, any>>;
+  elements: ElementDefinition[];
+}) => Promise<ElementDefinition[]>;
 
-export const getUpdatedGraphJson: OffloadRenderFn = async ({ graphJson }) => {
+export const getElementDefinitionsWithUpdatedLayout: OffloadRenderFn = async ({
+  elements,
+}) => {
   const graph = cytoscape({
-    headless: true,
     styleEnabled: true,
+    style: [...nodeStyles, ...edgeStyles],
+    elements,
   });
 
-  graph.json(graphJson);
-
   graph.layout(layoutOptions).run();
-  return graph.json();
+
+  return graph.elements().jsons() as any;
 };
