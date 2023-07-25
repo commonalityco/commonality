@@ -20,9 +20,9 @@ export const getOwnersForPath = ({
     }
   }
 
-  const allPatterns = matchingPatterns.flatMap(
-    (pattern) => codeowners[pattern]
-  );
+  const allPatterns = matchingPatterns
+    .flatMap((pattern) => codeowners[pattern])
+    .filter((str): str is string => Boolean(str));
 
   return [...new Set(allPatterns)];
 };

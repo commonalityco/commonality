@@ -1,18 +1,9 @@
 import { PackageManager } from '@commonalityco/utils-core';
 import path from 'path';
 import { getPackageManager } from './get-package-manager';
-
-const log = console.log;
+import { describe, expect, it } from 'vitest';
 
 describe('getPackageManager', () => {
-  beforeEach(() => {
-    console.log = jest.fn();
-  });
-
-  afterEach(() => {
-    console.log = log;
-  });
-
   describe('when run in an un-initialized project', () => {
     it('should throw an error', async () => {
       const rootDirectory = path.join(

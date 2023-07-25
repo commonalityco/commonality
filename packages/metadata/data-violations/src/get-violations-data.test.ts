@@ -6,6 +6,7 @@ import {
 } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
 import { getViolationsData } from './get-violations-data';
+import { describe, it, expect } from 'vitest';
 
 const basePkgOne = {
   path: '/pkgs/pkg-one',

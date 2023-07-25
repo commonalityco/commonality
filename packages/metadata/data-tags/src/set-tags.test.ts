@@ -1,7 +1,7 @@
-import { copy, mkdtemp, remove, mkdtempSync, pathExists } from 'fs-extra';
+import { copy, remove, mkdtempSync, pathExists } from 'fs-extra';
 import { afterAll, beforeEach, describe, expect, test } from 'vitest';
 import os from 'os';
-import path, { sep } from 'path';
+import path from 'path';
 import { setTags } from './set-tags';
 
 describe('setTags', () => {

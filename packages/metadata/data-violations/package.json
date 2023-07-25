@@ -11,7 +11,7 @@
     "build": "tsup-node",
     "dev": "tsup-node --watch",
     "lint": "eslint ./src --fix",
-    "test": "jest"
+    "test": "vitest"
   },
   "dependencies": {
     "@commonalityco/data-packages": "workspace:^",
@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
-    "@commonalityco/config-jest": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
     "@commonalityco/traverse": "workspace:^",
     "@commonalityco/types": "workspace:^",
@@ -35,17 +34,16 @@
     "@tsconfig/node-lts-strictest-esm": "^18.12.1",
     "@types/fs-extra": "^11.0.1",
     "@types/glob": "^8.1.0",
-    "@types/jest": "^29.5.3",
     "@types/lodash.intersection": "^4.4.7",
     "@types/micromatch": "^4.0.2",
     "@types/mock-fs": "^4.13.1",
     "@types/node": "^18.16.19",
     "cross-env": "^7.0.3",
-    "jest": "^29.6.1",
     "mock-fs": "^5.2.0",
     "ts-jest": "^29.1.1",
     "tsup": "^6.7.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vitest": "^0.33.0"
   },
   "xo": {
     "prettier": true

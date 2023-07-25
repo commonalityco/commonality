@@ -4,6 +4,7 @@ import cytoscape, {
   ElementDefinition,
   NodeDefinition,
 } from 'cytoscape';
+import { describe, it, expect } from 'vitest';
 
 const nodeOne = {
   group: 'nodes',

@@ -1,6 +1,6 @@
 import { Package, TagsData } from '@commonalityco/types';
 import path from 'path';
-import { describe, beforeAll, afterAll, test, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
 import { getTagsData } from './get-tags-data';
 
 describe('getTagsData', () => {

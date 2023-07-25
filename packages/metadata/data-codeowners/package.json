@@ -23,7 +23,6 @@
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
-    "@commonalityco/config-jest": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
     "@commonalityco/config-tsup": "workspace:^",
     "@commonalityco/types": "workspace:^",
@@ -34,7 +33,6 @@
     "@types/mock-fs": "^4.13.1",
     "@types/node": "^18.16.19",
     "cross-env": "^7.0.3",
-    "jest": "^29.6.1",
     "mock-fs": "^5.2.0",
     "ts-jest": "^29.1.1",
     "tsup": "^6.7.0",

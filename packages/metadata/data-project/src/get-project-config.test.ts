@@ -1,17 +1,8 @@
 import path from 'path';
 import { getProjectConfig } from './get-project-config';
-
-const log = console.log;
+import { describe, expect, it } from 'vitest';
 
 describe('getProjectConfig', () => {
-  beforeEach(() => {
-    console.log = jest.fn();
-  });
-
-  afterEach(() => {
-    console.log = log;
-  });
-
   describe('when run in an un-initialized project', () => {
     it('returns an empty object', async () => {
       const rootDirectory = path.join(

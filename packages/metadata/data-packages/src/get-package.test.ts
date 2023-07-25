@@ -1,6 +1,7 @@
 import { DependencyType } from '@commonalityco/utils-core';
 import path from 'path';
 import { getPackage } from './get-package';
+import { describe, expect, it } from 'vitest';
 
 describe('getPackage', () => {
   it('should throw an error if package.json does not exist', async () => {

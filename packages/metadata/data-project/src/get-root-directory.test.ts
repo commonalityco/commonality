@@ -1,5 +1,6 @@
 import path from 'path';
 import { getRootDirectory } from './get-root-directory';
+import { describe, expect, it } from 'vitest';
 
 describe('getRootDirectory', () => {
   it('should return the root directory of the project', async () => {

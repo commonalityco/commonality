@@ -1,6 +1,9 @@
 import execa from 'execa';
 import path from 'path';
 
+const env =
+  process.env.NODE_ENV !== 'development' ? 'production' : 'development';
+
 export const start = async ({
   port,
   rootDirectory,
@@ -11,18 +14,18 @@ export const start = async ({
   const pathToServer = path.resolve(__dirname, '../server.js');
 
   const { stderr, stdout } = await execa('node', [pathToServer], {
-    stdio: 'inherit',
+    stdio: env === 'development' ? 'pipe' : 'ignore',
     cwd: path.resolve(__dirname, '..'),
     env: {
-      NODE_ENV: process.env.NODE_ENV,
+      NODE_ENV: env,
       PORT: port?.toString(),
       COMMONALITY_ROOT_DIRECTORY: rootDirectory,
     },
   });
 
-  console.log({ stdout });
-
   if (stderr) {
     console.log(stderr);
+  } else {
+    console.log({ stdout });
   }
 };

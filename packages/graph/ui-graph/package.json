@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
-    "@commonalityco/config-jest": "workspace:^",
     "@commonalityco/config-tailwind": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
     "@commonalityco/config-tsup": "workspace:^",

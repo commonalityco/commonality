@@ -2,8 +2,8 @@
   "name": "commonality",
   "version": "0.0.14",
   "bin": {
-    "commonality": "./bin/index.js",
-    "co": "./bin/index.js"
+    "commonality": "./bin/commonality.cjs",
+    "co": "./bin/commonality.cjs"
   },
   "engines": {
     "node": ">=14.6"
@@ -30,6 +30,7 @@
     "@commonalityco/data-tags": "workspace:^",
     "@commonalityco/data-violations": "workspace:^",
     "@commonalityco/utils-core": "workspace:^",
+    "boxen": "^5.1.2",
     "chalk": "4.1.2",
     "chromium": "^3.0.3",
     "cliui": "^8.0.1",
@@ -61,7 +62,6 @@
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
-    "@commonalityco/config-jest": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
     "@commonalityco/config-tsup": "workspace:^",
     "@commonalityco/types": "workspace:^",

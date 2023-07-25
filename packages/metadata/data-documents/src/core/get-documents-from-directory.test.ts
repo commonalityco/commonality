@@ -1,6 +1,7 @@
 import { getDocumentsFromDirectory } from './get-documents-from-directory';
 import path from 'path';
 import { Document } from '@commonalityco/types';
+import { describe, it, expect } from 'vitest';
 
 describe('getPagesFromDirectory', () => {
   it('should return documents for a package when they exist', async () => {
@@ -27,7 +28,6 @@ describe('getPagesFromDirectory', () => {
 
     expect(documents).toEqual(expectedDocuments);
   });
-  2;
 
   it('should return no documents for a package no markdown files exist', async () => {
     const rootDirectory = path.join(

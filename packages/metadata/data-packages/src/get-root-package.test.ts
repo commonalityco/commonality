@@ -1,5 +1,6 @@
 import path from 'path';
 import { getRootPackage } from './get-root-package';
+import { describe, expect, it } from 'vitest';
 
 describe('getRootPackage', () => {
   it('should throw an error if package.json does not exist', async () => {

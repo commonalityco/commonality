@@ -1,6 +1,7 @@
 import { getDocumentsData } from './get-documents-data';
 import path from 'path';
 import { DocumentsData } from '@commonalityco/types';
+import { describe, it, expect } from 'vitest';
 
 describe('getDocumentsData', () => {
   it('should return documents when they exist', async () => {
