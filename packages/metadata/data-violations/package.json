@@ -6,46 +6,19 @@
   },
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
-  "license": "MIT",
   "scripts": {
     "build": "tsup-node",
     "dev": "tsup-node --watch",
     "lint": "eslint ./src --fix",
     "test": "vitest"
   },
-  "dependencies": {
-    "@commonalityco/data-packages": "workspace:^",
-    "@commonalityco/data-project": "workspace:^",
-    "@commonalityco/data-tags": "workspace:^",
-    "fast-glob": "^3.3.0",
-    "fs-extra": "^11.1.1",
-    "glob": "^8.1.0",
-    "lodash.intersection": "^4.4.0",
-    "micromatch": "^4.0.5",
-    "treeverse": "^3.0.0"
-  },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
-    "@commonalityco/traverse": "workspace:^",
     "@commonalityco/types": "workspace:^",
     "@commonalityco/utils-core": "workspace:^",
-    "@jest/globals": "^29.6.1",
-    "@tsconfig/node-lts-strictest-esm": "^18.12.1",
-    "@types/fs-extra": "^11.0.1",
-    "@types/glob": "^8.1.0",
-    "@types/lodash.intersection": "^4.4.7",
-    "@types/micromatch": "^4.0.2",
-    "@types/mock-fs": "^4.13.1",
-    "@types/node": "^18.16.19",
-    "cross-env": "^7.0.3",
-    "mock-fs": "^5.2.0",
-    "ts-jest": "^29.1.1",
     "tsup": "^6.7.0",
     "typescript": "^4.9.5",
     "vitest": "^0.33.0"
-  },
-  "xo": {
-    "prettier": true
   }
 }

@@ -20,7 +20,7 @@ import {
   CardDescription,
   CardFooter,
 } from '@commonalityco/ui-design-system';
-import { ComponentProps, useMemo, useState } from 'react';
+import { ComponentProps, useMemo } from 'react';
 import type {
   CodeownersData,
   DocumentsData,
