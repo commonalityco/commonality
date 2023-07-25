@@ -22,7 +22,7 @@
     "lint": "eslint ./src --fix"
   },
   "dependencies": {
-    "@commonalityco/app-dashboard": "workspace:^",
+    "@commonalityco/studio": "workspace:^",
     "@commonalityco/data-codeowners": "workspace:^",
     "@commonalityco/data-documents": "workspace:^",
     "@commonalityco/data-packages": "workspace:^",

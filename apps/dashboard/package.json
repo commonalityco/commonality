@@ -1,5 +1,5 @@
 {
-  "name": "@commonalityco/app-dashboard",
+  "name": "@commonalityco/studio",
   "version": "0.1.2",
   "private": true,
   "main": "dist/start.js",

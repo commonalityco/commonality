@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { start } from '@commonalityco/app-dashboard';
+import { start } from '@commonalityco/studio';
 import getPort from 'get-port';
 import openUrl from 'open';
 import { validateProjectStructure } from '../utils/validate-project-structure';
@@ -11,7 +11,7 @@ const command = new Command();
 
 export const open = command
   .name('open')
-  .description('Open the Commonality Dashboard')
+  .description('Open Commonality Studio')
   .action(async () => {
     await validateProjectStructure({
       directory: process.cwd(),

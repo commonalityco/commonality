@@ -485,9 +485,6 @@ importers:
 
   packages/cli/commonality:
     dependencies:
-      '@commonalityco/app-dashboard':
-        specifier: workspace:^
-        version: link:../../../apps/dashboard
       '@commonalityco/data-codeowners':
         specifier: workspace:^
         version: link:../../metadata/data-codeowners
@@ -506,6 +503,9 @@ importers:
       '@commonalityco/data-violations':
         specifier: workspace:^
         version: link:../../metadata/data-violations
+      '@commonalityco/studio':
+        specifier: workspace:^
+        version: link:../../../apps/dashboard
       '@commonalityco/utils-core':
         specifier: workspace:^
         version: link:../../core/utils-core
