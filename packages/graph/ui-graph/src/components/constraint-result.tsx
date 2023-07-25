@@ -9,7 +9,7 @@ import {
 } from '@commonalityco/ui-design-system';
 import { Info } from 'lucide-react';
 
-function TagDetails({
+export function TagDetails({
   label,
   helpText,
   appliedTo,
@@ -41,7 +41,7 @@ function TagDetails({
         <Label className="text-xs">{label}</Label>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger aria-label="Learn more">
               <Info className="text-muted-foreground h-3 w-3" />
             </TooltipTrigger>
             <TooltipContent>{helpText}</TooltipContent>
@@ -73,7 +73,7 @@ export function ConstraintResult({
         <TagDetails
           label="Disallowed"
           appliedTo={constraint.disallow}
-          helpText="Any upstream dependency cannot have these tags"
+          helpText="Direct or indirect dependencies cannot have these tags"
         />
       )}
       {violation ? (

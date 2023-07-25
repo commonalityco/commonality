@@ -24,7 +24,7 @@ export const open = command
     try {
       start({ port, rootDirectory });
       console.log(`Starting Commonality Studio...`);
-      console.log(chalk.dim(url));
+      console.log(`Viewable at: ${chalk.dim(url)}`);
 
       await openUrl(url);
     } catch (error) {

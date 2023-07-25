@@ -2,6 +2,10 @@
   "stripScopeFromPackageNames": true,
   "constraints": [
     {
+      "applyTo": "*",
+      "disallow": ["deliverable"]
+    },
+    {
       "applyTo": "feature",
       "allow": "*"
     },
