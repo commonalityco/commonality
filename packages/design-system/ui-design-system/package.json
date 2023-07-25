@@ -24,28 +24,21 @@
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
-    "framer-motion": "^6.5.1",
-    "lodash.debounce": "^4.0.8",
-    "next": "13.4.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-select": "^5.7.4",
     "tailwind-merge": "^1.14.0",
-    "tailwindcss": "^3.3.3",
-    "tailwindcss-animate": "^1.0.6"
+    "tailwindcss": "^3.3.3"
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
     "@commonalityco/config-tailwind": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
     "@commonalityco/config-tsup": "workspace:^",
-    "@commonalityco/types": "workspace:^",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@types/cytoscape": "^3.19.10",
-    "@types/lodash.debounce": "^4.0.7",
     "@types/react": "^18.2.15",
-    "cytoscape": "^3.25.0",
     "lucide-react": "^0.248.0",
     "postcss": "^8.4.26",
     "react": "^18.2.0",
@@ -62,8 +55,5 @@
     "tailwindcss": "^3.3.0"
   },
   "main": "src/index.ts",
-  "types": "src/index.ts",
-  "scripts": {
-    "build": "tsup"
-  }
+  "types": "src/index.ts"
 }
