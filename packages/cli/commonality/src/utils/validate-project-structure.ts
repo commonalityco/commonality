@@ -3,15 +3,6 @@ import { getRootDirectory } from '@commonalityco/data-project';
 import chalk from 'chalk';
 import { Command } from 'commander';
 
-const getMessage = (errorMessage: string) =>
-  `
-${chalk.red(errorMessage)}
-Commonality can only be run in projects where:
-1. A lockfile created by npm, yarn, or pnpm is at the root of the project
-2. A package.json is at the root of the project
-3. Every package.json file has a unique "name" property
-`.trim();
-
 export const validateProjectStructure = async ({
   directory,
   command,
@@ -19,21 +10,38 @@ export const validateProjectStructure = async ({
   directory: string;
   command: Command;
 }) => {
+  const getRootDirectoryWithErrorHandling = async (cwd?: string) => {
+    try {
+      const rootDir = await getRootDirectory(cwd);
+      return rootDir;
+    } catch (error) {
+      command.error(
+        chalk.red.bold('No lockfile detected') +
+          '\nYou must have a package-lock.json, yarn.lock, or pnpm-lock.yaml file at the root of your project',
+        {
+          exitCode: 1,
+        }
+      );
+    }
+  };
+
+  const rootDirectory = await getRootDirectoryWithErrorHandling(directory);
+
+  if (!rootDirectory) return;
+
   try {
-    await getRootDirectory(directory);
+    await getRootPackage({ rootDirectory });
   } catch (error) {
-    command.error(getMessage('No lockfile detected'), { exitCode: 1 });
+    command.error(
+      chalk.red.bold('No valid root package detected') +
+        '\n You must have a package.json file within the same directory as your lockfile. Your package.json file must also have a name property.',
+      { exitCode: 1 }
+    );
   }
 
   try {
-    await getRootPackage({ rootDirectory: directory });
-  } catch (error) {
-    command.error(getMessage('No root package detected'), { exitCode: 1 });
-  }
-
-  try {
-    await getPackages({ rootDirectory: directory });
-  } catch (error: unknown) {
-    command.error(getMessage(error.message), { exitCode: 1 });
+    await getPackages({ rootDirectory });
+  } catch (error: any) {
+    command.error(chalk.red(error?.message), { exitCode: 1 });
   }
 };

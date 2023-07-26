@@ -17,6 +17,6 @@
     "suppressImplicitAnyIndexErrors": true,
     "target": "es2021"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/commands/validate.tsx"],
   "exclude": ["node_modules"]
 }

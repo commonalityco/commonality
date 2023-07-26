@@ -447,6 +447,9 @@ importers:
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
+      vitest:
+        specifier: ^0.33.0
+        version: 0.33.0
 
   packages/core/types:
     devDependencies:

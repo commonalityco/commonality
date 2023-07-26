@@ -19,16 +19,17 @@
   "scripts": {
     "build": "tsup-node",
     "dev": "tsup-node --watch",
-    "lint": "eslint ./src --fix"
+    "lint": "eslint ./src --fix",
+    "test": "vitest"
   },
   "dependencies": {
-    "@commonalityco/studio": "workspace:^",
     "@commonalityco/data-codeowners": "workspace:^",
     "@commonalityco/data-documents": "workspace:^",
     "@commonalityco/data-packages": "workspace:^",
     "@commonalityco/data-project": "workspace:^",
     "@commonalityco/data-tags": "workspace:^",
     "@commonalityco/data-violations": "workspace:^",
+    "@commonalityco/studio": "workspace:^",
     "@commonalityco/utils-core": "workspace:^",
     "boxen": "^5.1.2",
     "chalk": "4.1.2",
@@ -51,6 +52,7 @@
     "@types/node": "^18.16.19",
     "@types/update-notifier": "^6.0.4",
     "tsup": "^6.7.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vitest": "^0.33.0"
   }
 }
