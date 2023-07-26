@@ -18,7 +18,7 @@ export function TagDetails({
   helpText: string;
   appliedTo?: string[] | '*';
 }) {
-  const getFoundContent = () => {
+  const getText = () => {
     if (appliedTo === '*') {
       return <p className="text-xs">All packages</p>;
     }
@@ -48,7 +48,7 @@ export function TagDetails({
           </Tooltip>
         </TooltipProvider>
       </div>
-      <div className="flex w-full flex-wrap gap-1">{getFoundContent()}</div>
+      <div className="flex w-full flex-wrap gap-1">{getText()}</div>
     </div>
   );
 }

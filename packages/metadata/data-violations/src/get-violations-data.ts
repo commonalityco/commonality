@@ -40,11 +40,11 @@ function getAllDependencies(
 export async function getViolationsData({
   projectConfig,
   packages,
-  tagData,
+  tagsData,
 }: {
   projectConfig: ProjectConfig;
   packages: Package[];
-  tagData: TagsData[];
+  tagsData: TagsData[];
 }): Promise<Violation[]> {
   const violations: Violation[] = [];
   if (!projectConfig.constraints) {
@@ -54,7 +54,7 @@ export async function getViolationsData({
   const packagesMap = new Map(packages.map((pkg) => [pkg.name, pkg]));
 
   for (const pkg of packages) {
-    const tagsForPkg = tagData.find((data) => data.packageName === pkg.name);
+    const tagsForPkg = tagsData.find((data) => data.packageName === pkg.name);
 
     if (!tagsForPkg) {
       continue;
@@ -100,7 +100,7 @@ export async function getViolationsData({
       if (disallowed === '*') {
         for (const dependency of directDependencies) {
           const tagsForTargetPkg =
-            tagData.find((data) => data.packageName === dependency.name)
+            tagsData.find((data) => data.packageName === dependency.name)
               ?.tags ?? [];
 
           violations.push({
@@ -122,7 +122,7 @@ export async function getViolationsData({
 
         for (const dependency of directDependencies) {
           const tagsForTargetPkg =
-            tagData.find((data) => data.packageName === dependency.name)
+            tagsData.find((data) => data.packageName === dependency.name)
               ?.tags ?? [];
 
           if (!includesAny(new Set(allowed), new Set(tagsForTargetPkg))) {
@@ -144,8 +144,9 @@ export async function getViolationsData({
         for (const dependency of allDependencies) {
           const dependencyPackage = packagesMap.get(dependency.name);
           const tagsForTargetPkg =
-            tagData.find((data) => data.packageName === dependencyPackage?.name)
-              ?.tags ?? [];
+            tagsData.find(
+              (data) => data.packageName === dependencyPackage?.name
+            )?.tags ?? [];
 
           if (includesAny(new Set(disallowed), new Set(tagsForTargetPkg))) {
             violations.push({

@@ -36,9 +36,9 @@ describe('validateProjectStructure', () => {
 
     it('should throw an error if no lockfile is detected', async () => {
       const command = new Command();
-      const spy = vi.spyOn(command, 'error');
-
-      spy.mockImplementation((async () => {}) as any);
+      const spy = vi
+        .spyOn(command, 'error')
+        .mockImplementation((() => {}) as any);
 
       await validateProjectStructure({
         directory: tempPath,

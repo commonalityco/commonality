@@ -51,6 +51,7 @@
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.16.19",
     "@types/update-notifier": "^6.0.4",
+    "strip-ansi": "^7.1.0",
     "tsup": "^6.7.0",
     "typescript": "^4.9.5",
     "vitest": "^0.33.0"

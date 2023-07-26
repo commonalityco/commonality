@@ -10,21 +10,31 @@ import chalk from 'chalk';
 import path from 'node:path';
 import { formatTagName } from '@commonalityco/utils-core';
 import cliui from 'cliui';
+import { ProjectConfig, Violation } from '@commonalityco/types';
 
-const ui = cliui({});
+const ui = cliui({ width: process.stdout.columns });
 
-export const validateAction = async () => {
-  const rootDirectory = await getRootDirectory();
-  const packages = await getPackages({ rootDirectory });
-  const tagData = await getTagsData({ rootDirectory, packages });
-  const projectConfig = await getProjectConfig({ rootDirectory });
+const getText = (application?: string[] | '*'): string => {
+  if (application === '*') {
+    return 'All packages';
+  } else if (application?.length === 0) {
+    return 'No tags found';
+  } else {
+    return JSON.stringify(application);
+  }
+};
 
-  const violations = await getViolationsData({
-    packages,
-    projectConfig,
-    tagData,
-  });
-
+export const validateAction = async ({
+  rootDirectory,
+  projectConfig,
+  violations,
+  command,
+}: {
+  rootDirectory: string;
+  projectConfig: ProjectConfig;
+  violations: Violation[];
+  command: Command;
+}) => {
   const constraints = projectConfig.constraints;
 
   if (!constraints) {
@@ -54,8 +64,15 @@ export const validateAction = async () => {
 
     if (hasViolations) {
       const tagText = chalk.inverse(
-        chalk.red.bold(` ${formatTagName(constraint.applyTo)} `)
+        chalk.red.bold(
+          ` ${
+            constraint.applyTo !== '*'
+              ? formatTagName(constraint.applyTo)
+              : getText(constraint.applyTo)
+          } `
+        )
       );
+
       const violationsText = chalk.red(
         `${violationsForConstraint.length} violations`
       );
@@ -67,16 +84,6 @@ export const validateAction = async () => {
         const targetPackageLink = violation.targetPackageName;
 
         ui.div(`${sourcePackageLink} ${chalk.red('→')} ${targetPackageLink}`);
-
-        const getText = (application?: string[] | '*'): string => {
-          if (application === '*') {
-            return 'All packages';
-          } else if (application?.length === 0) {
-            return 'No tags found';
-          } else {
-            return JSON.stringify(application);
-          }
-        };
 
         const allowedText = violation.allowed.length
           ? `${chalk.dim('Allowed')} \t${getText(violation.allowed)}\n`
@@ -94,7 +101,11 @@ export const validateAction = async () => {
       });
     } else {
       const tagText = chalk.green.inverse.bold(
-        ` ${formatTagName(constraint.applyTo)} `
+        ` ${
+          constraint.applyTo === '*'
+            ? 'All packages'
+            : formatTagName(constraint.applyTo)
+        } `
       );
 
       console.log(`\n${tagText} ${chalk.dim('No violations')}`);
@@ -117,14 +128,33 @@ export const validateAction = async () => {
       `\n${chalk.dim('Violations')}\t ${violationsText}`
   );
 
-  console.log(ui.toString());
+  if (violations.length) {
+    command.error(ui.toString(), { exitCode: 1 });
+  }
 
-  process.exit(1);
+  console.log(ui.toString());
 };
 
-const program = new Command();
+const command = new Command();
 
-export const validate = program
+export const validate = command
   .name('validate')
   .description('Validate that local dependencies adhere to your constraints')
-  .action(validateAction);
+  .action(async () => {
+    const rootDirectory = await getRootDirectory();
+    const packages = await getPackages({ rootDirectory });
+    const tagsData = await getTagsData({ rootDirectory, packages });
+    const projectConfig = await getProjectConfig({ rootDirectory });
+    const violations = await getViolationsData({
+      packages,
+      projectConfig,
+      tagsData,
+    });
+
+    await validateAction({
+      rootDirectory,
+      projectConfig,
+      violations,
+      command,
+    });
+  });

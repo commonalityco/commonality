@@ -47,7 +47,7 @@ describe('getViolations', () => {
       const violations = await getViolationsData({
         packages,
         projectConfig: {},
-        tagData: baseTagsData,
+        tagsData: baseTagsData,
       });
 
       expect(violations).toEqual([]);
@@ -55,7 +55,7 @@ describe('getViolations', () => {
   }),
     describe('when there are no packages that have tags', () => {
       const packages = [{ ...basePkgOne, tags: [] }];
-      const tagData = [] satisfies TagsData[];
+      const tagsData = [] satisfies TagsData[];
 
       it('does not return violations', async () => {
         const violations = await getViolationsData({
@@ -63,7 +63,7 @@ describe('getViolations', () => {
           projectConfig: {
             constraints: [{ applyTo: 'tag-one', allow: ['tag-two'] }],
           },
-          tagData,
+          tagsData,
         });
 
         expect(violations).toEqual([]);
@@ -73,7 +73,7 @@ describe('getViolations', () => {
   describe('when a package has tags', () => {
     describe('and there are no tags that match a constraint', () => {
       const packages = [basePkgOne];
-      const tagData = [
+      const tagsData = [
         { packageName: basePkgOne.name, tags: ['tag-one'] },
       ] satisfies TagsData[];
       const constraints = [{ applyTo: 'tag-four', allow: ['tag-five'] }];
@@ -84,7 +84,7 @@ describe('getViolations', () => {
           projectConfig: {
             constraints,
           },
-          tagData,
+          tagsData,
         });
 
         expect(violations).toEqual([]);
@@ -99,7 +99,7 @@ describe('getViolations', () => {
         ] satisfies ProjectConfig['constraints'];
 
         describe('and has a dependency that does not have any tags', () => {
-          const tagData = [
+          const tagsData = [
             { packageName: basePkgOne.name, tags: ['tag-one'] },
             { packageName: basePkgTwo.name, tags: [] },
           ] satisfies TagsData[];
@@ -111,7 +111,7 @@ describe('getViolations', () => {
               projectConfig: {
                 constraints,
               },
-              tagData,
+              tagsData,
             });
 
             expect(violations).toEqual([]);
@@ -119,7 +119,7 @@ describe('getViolations', () => {
         });
 
         describe('and has a dependency that does have tags', () => {
-          const tagData = [
+          const tagsData = [
             { packageName: basePkgOne.name, tags: ['tag-one', 'restricted'] },
             { packageName: basePkgTwo.name, tags: ['foo'] },
           ] satisfies TagsData[];
@@ -131,7 +131,7 @@ describe('getViolations', () => {
               projectConfig: {
                 constraints,
               },
-              tagData,
+              tagsData,
             });
 
             expect(violations).toEqual([]);
@@ -142,7 +142,7 @@ describe('getViolations', () => {
       describe('and the constraint allows specific tags', () => {
         describe('and has a dependency that does not have any tags', () => {
           const constraints = [{ applyTo: 'tag-one', allow: ['tag-two'] }];
-          const tagData = [
+          const tagsData = [
             { packageName: basePkgOne.name, tags: ['tag-one'] },
             { packageName: basePkgTwo.name, tags: [] },
           ] satisfies TagsData[];
@@ -154,7 +154,7 @@ describe('getViolations', () => {
               projectConfig: {
                 constraints,
               },
-              tagData,
+              tagsData,
             });
 
             expect(violations).toEqual([
@@ -172,7 +172,7 @@ describe('getViolations', () => {
 
         describe('and has a dependency that has tags that are not allowed by the constraint', () => {
           const constraints = [{ applyTo: 'tag-one', allow: ['tag-two'] }];
-          const tagData = [
+          const tagsData = [
             { packageName: basePkgOne.name, tags: ['tag-one'] },
             { packageName: basePkgTwo.name, tags: ['tag-three'] },
           ] satisfies TagsData[];
@@ -184,7 +184,7 @@ describe('getViolations', () => {
               projectConfig: {
                 constraints,
               },
-              tagData,
+              tagsData,
             });
 
             expect(violations).toEqual([
@@ -202,7 +202,7 @@ describe('getViolations', () => {
 
         describe('and has a dependency that has tags that are allowed by the constraint', () => {
           const constraints = [{ applyTo: 'tag-one', allow: ['tag-two'] }];
-          const tagData = [
+          const tagsData = [
             { packageName: basePkgOne.name, tags: ['tag-one'] },
             { packageName: basePkgTwo.name, tags: ['tag-two'] },
           ] satisfies TagsData[];
@@ -214,7 +214,7 @@ describe('getViolations', () => {
               projectConfig: {
                 constraints,
               },
-              tagData,
+              tagsData,
             });
 
             expect(violations).toEqual([]);
@@ -232,7 +232,7 @@ describe('getViolations', () => {
       ];
 
       describe('and the package has a dependency that does not have any tags', () => {
-        const tagData = [
+        const tagsData = [
           { packageName: basePkgOne.name, tags: ['tag-one', 'tag-five'] },
           { packageName: basePkgTwo.name, tags: [] },
         ] satisfies TagsData[];
@@ -244,7 +244,7 @@ describe('getViolations', () => {
             projectConfig: {
               constraints,
             },
-            tagData,
+            tagsData,
           });
 
           expect(violations).toEqual(
@@ -272,7 +272,7 @@ describe('getViolations', () => {
 
       describe('and the package has a dependency that has tags that are not allowed by the constraint', () => {
         const packages = [basePkgOne, basePkgTwo] satisfies Package[];
-        const tagData = [
+        const tagsData = [
           { packageName: basePkgOne.name, tags: ['tag-one', 'tag-five'] },
           { packageName: basePkgTwo.name, tags: ['tag-two', 'tag-three'] },
         ] satisfies TagsData[];
@@ -283,7 +283,7 @@ describe('getViolations', () => {
             projectConfig: {
               constraints,
             },
-            tagData,
+            tagsData,
           });
 
           expect(violations).toEqual(
@@ -303,7 +303,7 @@ describe('getViolations', () => {
 
       describe('and the package has a dependency that has tags that are allowed by the constraint', () => {
         const packages = [basePkgOne, basePkgTwo] satisfies Package[];
-        const tagData = [
+        const tagsData = [
           { packageName: basePkgOne.name, tags: ['tag-one'] },
           { packageName: basePkgTwo.name, tags: ['tag-two'] },
         ] satisfies TagsData[];
@@ -314,7 +314,7 @@ describe('getViolations', () => {
             projectConfig: {
               constraints,
             },
-            tagData,
+            tagsData,
           });
 
           expect(violations).toEqual([]);
@@ -328,7 +328,7 @@ describe('getViolations', () => {
       constraints: [{ applyTo: 'tag-one', disallow: ['tag-two'] }],
     };
     const packages = [basePkgOne, basePkgTwo] satisfies Package[];
-    const tagData = [
+    const tagsData = [
       { packageName: basePkgOne.name, tags: ['tag-one'] },
       { packageName: basePkgTwo.name, tags: ['tag-two', 'tag-three'] },
     ] satisfies TagsData[];
@@ -345,7 +345,7 @@ describe('getViolations', () => {
     const violations = await getViolationsData({
       projectConfig,
       packages,
-      tagData,
+      tagsData,
     });
 
     expect(violations).toEqual([expectedViolation]);
@@ -368,7 +368,7 @@ describe('getViolations', () => {
     };
 
     const packages = [basePkgOne, basePkgTwo] satisfies Package[];
-    const tagData = [
+    const tagsData = [
       { packageName: basePkgOne.name, tags: ['tag-one'] },
       { packageName: basePkgTwo.name, tags: ['tag-two', 'tag-three'] },
     ] satisfies TagsData[];
@@ -376,7 +376,7 @@ describe('getViolations', () => {
     const violations = await getViolationsData({
       projectConfig,
       packages,
-      tagData,
+      tagsData,
     });
 
     expect(violations).toEqual([expectedViolation]);
@@ -410,7 +410,7 @@ describe('getViolations', () => {
         peerDependencies: [],
       },
     ] satisfies Package[];
-    const tagData = [
+    const tagsData = [
       { packageName: basePkgOne.name, tags: ['tag-one'] },
       { packageName: basePkgTwo.name, tags: ['tag-two', 'tag-three'] },
       { packageName: '@scope/pkg-three', tags: ['tag-four'] },
@@ -428,7 +428,7 @@ describe('getViolations', () => {
     const violations = await getViolationsData({
       projectConfig,
       packages,
-      tagData,
+      tagsData,
     });
 
     expect(violations).toEqual([expectedViolation]);
@@ -439,7 +439,7 @@ describe('getViolations', () => {
     const projectConfig = {
       constraints: [{ applyTo: '*', disallow: ['tag-two'] }],
     } satisfies ProjectConfig;
-    const tagData = [
+    const tagsData = [
       { packageName: basePkgOne.name, tags: ['tag-one'] },
       { packageName: basePkgTwo.name, tags: ['tag-two'] },
     ] satisfies TagsData[];
@@ -448,7 +448,7 @@ describe('getViolations', () => {
       const violations = await getViolationsData({
         projectConfig,
         packages,
-        tagData,
+        tagsData,
       });
 
       const expectedViolations = [
@@ -477,7 +477,7 @@ describe('getViolations', () => {
       };
 
       describe('and a dependency has no tags', () => {
-        const tagData = [
+        const tagsData = [
           { packageName: basePkgOne.name, tags: ['tag-one'] },
           { packageName: basePkgTwo.name, tags: [] },
         ] satisfies TagsData[];
@@ -495,7 +495,7 @@ describe('getViolations', () => {
           const violations = await getViolationsData({
             projectConfig,
             packages,
-            tagData,
+            tagsData,
           });
 
           expect(violations).toEqual([expectedViolation]);
@@ -503,7 +503,7 @@ describe('getViolations', () => {
       });
 
       describe('and a dependency has tags', () => {
-        const tagData = [
+        const tagsData = [
           { packageName: basePkgOne.name, tags: ['tag-one'] },
           { packageName: basePkgTwo.name, tags: ['tag-two'] },
         ] satisfies TagsData[];
@@ -521,7 +521,7 @@ describe('getViolations', () => {
           const violations = await getViolationsData({
             projectConfig,
             packages,
-            tagData,
+            tagsData,
           });
 
           expect(violations).toEqual([expectedViolation]);
@@ -535,7 +535,7 @@ describe('getViolations', () => {
       } satisfies ProjectConfig;
 
       describe('and a dependency has no tags', () => {
-        const tagData = [
+        const tagsData = [
           { packageName: basePkgOne.name, tags: ['tag-one'] },
           { packageName: basePkgTwo.name, tags: [] },
         ] satisfies TagsData[];
@@ -553,7 +553,7 @@ describe('getViolations', () => {
           const violations = await getViolationsData({
             projectConfig,
             packages,
-            tagData,
+            tagsData,
           });
 
           expect(violations).toEqual([expectedViolation]);
@@ -561,7 +561,7 @@ describe('getViolations', () => {
       });
 
       describe('and a dependency has tags', () => {
-        const tagData = [
+        const tagsData = [
           { packageName: basePkgOne.name, tags: ['tag-one'] },
           { packageName: basePkgTwo.name, tags: ['tag-two'] },
         ] satisfies TagsData[];
@@ -579,7 +579,7 @@ describe('getViolations', () => {
           const violations = await getViolationsData({
             projectConfig,
             packages,
-            tagData,
+            tagsData,
           });
 
           expect(violations).toEqual([expectedViolation]);
@@ -675,7 +675,7 @@ describe('getViolations', () => {
       pkgSix,
     ] satisfies Package[];
 
-    const tagData = [
+    const tagsData = [
       {
         packageName: pkgOne.name,
         tags: ['feature'],
@@ -715,7 +715,7 @@ describe('getViolations', () => {
         projectConfig: {
           constraints,
         },
-        tagData,
+        tagsData,
       });
 
       expect(violations).toEqual(

@@ -12,12 +12,12 @@ export const getViolationsData = cache(async () => {
   const projectConfig = await getProjectConfig({
     rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
   });
-  const tagData = await getTagsData({
+  const tagsData = await getTagsData({
     rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
     packages,
   });
 
-  const violations = getViolationDatas({ packages, projectConfig, tagData });
+  const violations = getViolationDatas({ packages, projectConfig, tagsData });
 
   return violations;
 });
