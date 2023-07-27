@@ -6,6 +6,7 @@
     "@commonalityco/config-eslint": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
     "@commonalityco/utils-graph": "workspace:^",
+    "@commonalityco/utils-core": "workspace:^",
     "@commonalityco/types": "workspace:^",
     "@popperjs/core": "^2.11.8",
     "@types/cytoscape": "^3.19.10",
@@ -16,7 +17,8 @@
   "license": "MIT",
   "peerDependencies": {
     "xstate": "^4.37.2",
-    "@commonalityco/utils-graph": "workspace:^"
+    "@commonalityco/utils-graph": "workspace:^",
+    "@commonalityco/utils-core": "workspace:^"
   },
   "main": "src/index.ts",
   "types": "src/index.ts",

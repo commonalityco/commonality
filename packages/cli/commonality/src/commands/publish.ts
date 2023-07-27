@@ -12,12 +12,11 @@ import { getDocumentsData } from '@commonalityco/data-documents';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
 import { getViolationsData } from '@commonalityco/data-violations';
 
-const program = new Command();
+const command = new Command();
 
 export const actionHandler = async (options: {
   rootDirectory: string;
   snapshot: SnapshotData;
-  command: Command;
 }) => {
   const { default: got, HTTPError } = await import('got');
   const { default: ora } = await import('ora');
@@ -86,7 +85,7 @@ export const actionHandler = async (options: {
   // }
 };
 
-export const publish = program
+export const publish = command
   .name('publish')
   .description('Create and upload a snapshot of your monorepo')
   .option(
@@ -120,5 +119,5 @@ export const publish = program
       tagsData,
     } satisfies SnapshotData;
 
-    await actionHandler({ rootDirectory, snapshot, command });
+    await actionHandler({ rootDirectory, snapshot });
   });

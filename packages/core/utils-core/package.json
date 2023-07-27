@@ -2,8 +2,8 @@
   "name": "@commonalityco/utils-core",
   "version": "0.0.1",
   "description": "Contains the common constants used in all Commonality applications and packages",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "build": "tsup",
