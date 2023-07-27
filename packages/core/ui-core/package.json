@@ -1,19 +1,14 @@
 {
   "name": "@commonalityco/ui-core",
+  "type": "module",
   "version": "0.0.1",
   "dependencies": {
     "@commonalityco/types": "workspace:^",
-    "@commonalityco/ui-design-system": "workspace:^",
     "class-variance-authority": "^0.4.0",
-    "next": "13.4.6",
-    "next-themes": "^0.2.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-markdown": "^8.0.7",
     "react-syntax-highlighter": "^15.5.0",
     "remark-gfm": "^3.0.1",
-    "tailwind-merge": "^1.14.0",
-    "tailwindcss": "^3.3.3"
+    "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
@@ -23,25 +18,35 @@
     "@testing-library/react": "^13.4.0",
     "@types/react": "^18.2.15",
     "@types/react-syntax-highlighter": "^15.5.7",
+    "@commonalityco/ui-design-system": "workspace:^",
     "lucide-react": "^0.248.0",
     "next": "13.4.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.3.0",
+    "tsup": "^6.7.0",
     "typescript": "4.9.5",
+    "next-themes": "^0.2.1",
     "vitest": "^0.33.0"
   },
   "license": "MIT",
   "peerDependencies": {
+    "lucide-react": "^0.248.0",
+    "@commonalityco/ui-design-system": "workspace:^",
     "next": "13.4.6",
     "next-themes": "^0.2.1",
-    "react": ">=17",
-    "react-dom": ">=17",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tailwindcss": "^3.3.0"
   },
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "build": "tsup",
+    "dev": "tsup --watch"
   },
-  "main": "src/index.ts",
-  "types": "src/index.ts"
+  "exports": "./dist/index.js",
+  "engines": {
+    "node": ">=16"
+  },
+  "types": "dist/index.d.ts"
 }

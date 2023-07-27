@@ -2,10 +2,10 @@
   "name": "@commonalityco/data-graph",
   "description": "State management utilities for the Commonality Dashboard graph",
   "version": "0.0.1",
-  "private": true,
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",
     "@commonalityco/config-tsconfig": "workspace:^",
+    "@commonalityco/utils-graph": "workspace:^",
     "@commonalityco/types": "workspace:^",
     "@popperjs/core": "^2.11.8",
     "@types/cytoscape": "^3.19.10",
@@ -15,13 +15,12 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "xstate": "^4.37.2"
+    "xstate": "^4.37.2",
+    "@commonalityco/utils-graph": "workspace:^"
   },
   "main": "src/index.ts",
   "types": "src/index.ts",
   "dependencies": {
-    "@commonalityco/utils-core": "workspace:^",
-    "@commonalityco/utils-graph": "workspace:^",
     "cytoscape": "^3.25.0",
     "lodash.debounce": "^4.0.8"
   }

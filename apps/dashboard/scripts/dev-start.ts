@@ -7,4 +7,5 @@ const PROJECT_PATH = '../../../../pnpm';
 start({
   port: 3000,
   rootDirectory: path.resolve(__dirname, PROJECT_PATH),
+  env: 'development',
 });

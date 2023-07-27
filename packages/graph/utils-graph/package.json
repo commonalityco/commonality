@@ -1,7 +1,6 @@
 {
   "name": "@commonalityco/utils-graph",
   "version": "0.0.1",
-  "private": true,
   "dependencies": {
     "@commonalityco/utils-core": "workspace:^",
     "cytoscape": "^3.25.0",

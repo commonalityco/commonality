@@ -13,24 +13,16 @@ const ThemeButton = dynamic(
 );
 
 function DashboardNavigation({ title }: { title: string }) {
-  const pathname = usePathname();
   const { setTheme, theme } = useTheme();
 
   return (
     <>
       <Navigation
-        title={title}
-        pathname={pathname}
-        links={[
-          {
-            href: '/graph',
-            label: 'Graph',
-          },
-          {
-            href: '/docs',
-            label: 'Documentation',
-          },
-        ]}
+        title={
+          <h1 className="font-serif text-base font-semibold text-foreground">
+            {title}
+          </h1>
+        }
       >
         <div className="flex space-x-2">
           <Link

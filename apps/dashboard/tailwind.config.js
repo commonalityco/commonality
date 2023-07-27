@@ -1,18 +1,13 @@
 // @ts-check
 const path = require('path');
-const packageJSON = require('./package.json');
 const baseConfig = require('@commonalityco/config-tailwind');
 
-const localPackageNames = Object.keys(packageJSON.dependencies).filter((it) =>
-  it.includes('@commonalityco/ui-')
-);
-
-const pkgPaths = localPackageNames.map((pkgName) => {
+const getPkgPattern = (pkgName) => {
   return path.join(
-    require.resolve(pkgName).replace('/index.ts', ''),
-    '**/*.{js,ts,jsx,tsx}'
+    path.dirname(require.resolve(pkgName)),
+    '**/*.{js,jsx,ts,tsx}'
   );
-});
+};
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -22,6 +17,9 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     './src/**/*.{js,ts,jsx,tsx}',
-    ...pkgPaths,
+    getPkgPattern('@commonalityco/feature-graph'),
+    getPkgPattern('@commonalityco/ui-design-system'),
+    getPkgPattern('@commonalityco/ui-graph'),
+    getPkgPattern('@commonalityco/ui-core'),
   ],
 };

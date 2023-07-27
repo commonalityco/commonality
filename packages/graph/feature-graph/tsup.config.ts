@@ -1,3 +1,8 @@
 import ui from '@commonalityco/config-tsup/ui.json' assert { type: 'json' };
 
-export default ui;
+export default {
+  ...ui,
+  banner: {
+    js: '"use client"',
+  },
+};

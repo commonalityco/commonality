@@ -19,9 +19,8 @@
     "jsx": "react-jsx",
     "module": "ESNext",
     "lib": ["dom", "ES2015"],
-    "target": "es6",
-    "noEmit": true,
-    "outDir": "dist"
+    "target": "ES2020",
+    "noEmit": true
   },
   "exclude": ["node_modules"]
 }

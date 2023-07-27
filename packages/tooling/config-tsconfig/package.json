@@ -1,8 +1,8 @@
 {
   "name": "@commonalityco/config-tsconfig",
   "version": "0.0.4",
+  "private": true,
   "devDependencies": {
-     
     "@tsconfig/create-react-app": "^1.0.3",
     "@tsconfig/next": "^1.0.5",
     "@tsconfig/node16": "^1.0.4",
@@ -14,7 +14,5 @@
     "react-app.json",
     "react-library.json",
     "next.json"
-  ],
-  "license": "MIT",
-  "private": true
+  ]
 }

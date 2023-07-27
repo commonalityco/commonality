@@ -1,6 +1,10 @@
 {
   "name": "@commonalityco/utils-package",
   "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@popperjs/core": "^2.11.8",
@@ -24,7 +28,6 @@
     "tailwindcss": "^3.3.0",
     "typescript": "4.9.5"
   },
-  "license": "MIT",
   "peerDependencies": {
     "react": ">=17",
     "react-dom": ">=17",

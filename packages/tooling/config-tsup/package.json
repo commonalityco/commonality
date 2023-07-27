@@ -1,13 +1,11 @@
 {
   "name": "@commonalityco/config-tsup",
   "description": "Commonality's tsup configuration",
+  "private": true,
   "version": "0.0.5",
   "author": {
     "name": "Alec Ortega",
     "email": "alec@commonality.co"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "license": "MIT",
   "files": [

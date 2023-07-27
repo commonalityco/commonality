@@ -22,7 +22,7 @@ export const open = command
     const rootDirectory = await getRootDirectory();
     const url = `http://localhost:${port}`;
     try {
-      start({ port, rootDirectory });
+      start({ port, rootDirectory, env: 'production' });
       console.log(`Starting Commonality Studio...`);
       console.log(`Viewable at: ${chalk.dim(url)}`);
 

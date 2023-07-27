@@ -1,16 +1,13 @@
- {
+{
   "entry": ["src/index.ts"],
-  "treeshake": true,
   "sourcemap": true,
-  "minify": true,
   "clean": true,
-  "splitting": false,
-  "format": ["cjs", "esm"],
+  "splitting": true,
   "external": ["react"],
+  "format": ["esm"],
   "outDir": "./dist",
   "dts": {
     "resolve": true,
     "entry": "src/index.ts"
-  },
-  "onSuccess": "tsc --project tsconfig.json"
+  }
 }
