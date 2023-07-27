@@ -1,21 +1,27 @@
 import process from 'node:process';
 import { Command } from 'commander';
-import type { SnapshotResult } from '@commonalityco/types';
-import { store } from '../core/store';
+import type { SnapshotData, SnapshotResult } from '@commonalityco/types';
 import {
   getProjectConfig,
   getRootDirectory,
 } from '@commonalityco/data-project';
 import chalk from 'chalk';
+import { getPackages } from '@commonalityco/data-packages';
+import { getTagsData } from '@commonalityco/data-tags';
+import { getDocumentsData } from '@commonalityco/data-documents';
+import { getCodeownersData } from '@commonalityco/data-codeowners';
+import { getViolationsData } from '@commonalityco/data-violations';
 
 const program = new Command();
 
-export const actionHandler = async (
-  options: { publishKey?: string; cwd?: string },
-  action: Command
-) => {
-  // const { got, HTTPError } = await import('got');
-  // const { default: ora } = await import('ora');
+export const actionHandler = async (options: {
+  rootDirectory: string;
+  snapshot: SnapshotData;
+  command: Command;
+}) => {
+  const { default: got, HTTPError } = await import('got');
+  const { default: ora } = await import('ora');
+
   // const rootDirectory = await getRootDirectory(options.cwd);
   // if (!rootDirectory) {
   //   action.error('Unable to determine root directory');
@@ -92,4 +98,27 @@ export const publish = program
     '--cwd <path>',
     "A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile."
   )
-  .action(actionHandler);
+  .action(async () => {
+    const rootDirectory = await getRootDirectory();
+    const packages = await getPackages({ rootDirectory });
+    const documentsData = await getDocumentsData({ rootDirectory });
+    const projectConfig = await getProjectConfig({ rootDirectory });
+    const codeownersData = await getCodeownersData({ rootDirectory, packages });
+    const tagsData = await getTagsData({ rootDirectory, packages });
+    const violations = await getViolationsData({
+      projectConfig,
+      packages,
+      tagsData,
+    });
+
+    const snapshot = {
+      packages,
+      violations,
+      projectConfig,
+      documentsData,
+      codeownersData,
+      tagsData,
+    } satisfies SnapshotData;
+
+    await actionHandler({ rootDirectory, snapshot, command });
+  });

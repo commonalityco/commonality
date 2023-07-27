@@ -78,10 +78,6 @@ export type PackageConfig = {
   tags?: string[];
 };
 
-export type SnapshotResult = {
-  url: string;
-};
-
 export type PackageJson = {
   workspaces?: string[];
   name?: string;
@@ -92,8 +88,15 @@ export type PackageJson = {
   peerDependencies?: Record<string, string>;
 };
 
+export type SnapshotResult = {
+  url: string;
+};
+
 export type SnapshotData = {
-  projectId: string;
-  branch: string;
   packages: Package[];
+  tagsData: TagsData[];
+  documentsData: DocumentsData[];
+  codeownersData: CodeownersData[];
+  violations: Violation[];
+  projectConfig: ProjectConfig;
 };
