@@ -59,7 +59,7 @@ export const getProjectConfig = async ({
         console.log(`Error location: ${JSON.stringify(issue.path)}`);
 
         console.log('\nView documentation:');
-        console.log('https://commonality.co/docs/reference/project-config');
+        console.log('https://commonality.co/docs/project-config');
       }
 
       throw new Error('Invalid project configuration');

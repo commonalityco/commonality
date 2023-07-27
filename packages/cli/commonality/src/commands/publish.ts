@@ -11,93 +11,92 @@ import { getTagsData } from '@commonalityco/data-tags';
 import { getDocumentsData } from '@commonalityco/data-documents';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
 import { getViolationsData } from '@commonalityco/data-violations';
+import got, { HTTPError } from 'got';
+import path from 'node:path';
 
 const command = new Command();
 
-export const actionHandler = async (options: {
+export const actionHandler = async ({
+  apiOrigin,
+  snapshot,
+  key,
+  action,
+  rootDirectory,
+}: {
   rootDirectory: string;
+  apiOrigin: string;
+  key?: string;
   snapshot: SnapshotData;
+  action: Command;
 }) => {
-  const { default: got, HTTPError } = await import('got');
   const { default: ora } = await import('ora');
 
-  // const rootDirectory = await getRootDirectory(options.cwd);
-  // if (!rootDirectory) {
-  //   action.error('Unable to determine root directory');
-  // }
-  // const projectConfig = await getProjectConfig({ rootDirectory });
-  // if (!projectConfig) {
-  //   action.error('No project configuration found');
-  // }
-  // if (!projectConfig.projectId) {
-  //   action.error('No projectId found');
-  // }
-  // const snapshot = await getSnapshot(rootDirectory, projectConfig.projectId);
-  // const spinner = ora(
-  //   `Publishing ${snapshot.packages.length} packages...`
-  // ).start();
-  // const getAuthorizationHeaders = ():
-  //   | {
-  //       'x-api-key': string;
-  //     }
-  //   | { authorization: string }
-  //   | Record<never, never> => {
-  //   const accessToken = store.get('auth:accessToken') as string;
-  //   if (options.publishKey) {
-  //     return {
-  //       'x-api-key': options.publishKey,
-  //     };
-  //   }
-  //   if (accessToken) {
-  //     return {
-  //       authorization: `Bearer ${accessToken}`,
-  //     };
-  //   }
-  //   return {};
-  // };
-  // const authorizationHeaders = getAuthorizationHeaders();
-  // try {
-  //   const result = await got
-  //     .post(
-  //       `${
-  //         process.env['COMMONALITY_API_ORIGIN'] ?? 'https://app.commonality.co'
-  //       }/api/cli/publish`,
-  //       {
-  //         json: snapshot,
-  //         headers: authorizationHeaders,
-  //       }
-  //     )
-  //     .json<SnapshotResult>();
-  //   spinner.succeed('Successfully published snapshot');
-  //   console.log(`View your graph at ${chalk.bold.blue(result.url)}`);
-  // } catch (error: unknown) {
-  //   spinner.stop();
-  //   if (error instanceof HTTPError) {
-  //     const responseBody = error.response.body as string;
-  //     try {
-  //       const body = JSON.parse(responseBody) as Error;
-  //       action.error(body.message);
-  //     } catch {
-  //       action.error('Failed to publish snapshot');
-  //     }
-  //   }
-  //   action.error('Failed to publish snapshot');
-  // }
+  if (!snapshot.projectConfig.projectId) {
+    const configPath = path.join(rootDirectory, '.commonality/config.json');
+
+    action.error(
+      chalk.red.bold('No projectId found') +
+        `\nYou must include a projectId in your project configuration` +
+        `\n${chalk.dim(configPath)}`
+    );
+    return;
+  }
+
+  if (!key) {
+    action.error(chalk.red.bold('Missing API key'));
+
+    return;
+  }
+
+  const spinner = ora(
+    `Publishing ${snapshot.packages.length} packages...`
+  ).start();
+
+  try {
+    const result = await got
+      .post(`${apiOrigin ?? 'https://app.commonality.co'}/api/cli/publish`, {
+        json: snapshot,
+        headers: {
+          'x-api-key': key,
+        },
+      })
+      .json<SnapshotResult>();
+    console.log({ spinner, ora: ora().start() });
+    spinner.succeed('Successfully published snapshot');
+    console.log(`View your graph at ${chalk.bold.blue(result.url)}`);
+  } catch (error: unknown) {
+    // console.log({ error });
+    spinner.stop();
+    if (error instanceof HTTPError) {
+      const responseBody = error.response.body as string;
+
+      try {
+        const body = JSON.parse(responseBody) as Error;
+        action.error(body.message);
+        return;
+      } catch {
+        action.error(chalk.red.bold('Failed to publish snapshot'));
+        return;
+      }
+    }
+
+    action.error(chalk.red.bold('Failed to publish snapshot'));
+  }
 };
 
 export const publish = command
   .name('publish')
   .description('Create and upload a snapshot of your monorepo')
-  .option(
-    '--publishKey <key>',
-    'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_PUBLISH_KEY environment variable.',
-    process.env['COMMONALITY_PUBLISH_KEY']
+  .requiredOption(
+    '--key <key>',
+    'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_API_KEY environment variable.',
+    process.env['COMMONALITY_API_KEY']
   )
   .option(
     '--cwd <path>',
     "A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile."
   )
-  .action(async () => {
+  .action(async (options) => {
     const rootDirectory = await getRootDirectory();
     const packages = await getPackages({ rootDirectory });
     const documentsData = await getDocumentsData({ rootDirectory });
@@ -119,5 +118,12 @@ export const publish = command
       tagsData,
     } satisfies SnapshotData;
 
-    await actionHandler({ rootDirectory, snapshot });
+    await actionHandler({
+      rootDirectory,
+      key: options,
+      action: command,
+      snapshot,
+      apiOrigin:
+        process.env['COMMONALITY_API_ORIGIN'] ?? 'https://app.commonality.co',
+    });
   });
