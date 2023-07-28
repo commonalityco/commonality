@@ -8,13 +8,9 @@ const PackageTypeByDependencyName = {
 
 export const getPackageType = (pkg: Package) => {
   const deps = Object.keys(pkg.dependencies || {});
-  const devDeps = Object.keys(pkg.devDependencies || {});
-  const peerDeps = Object.keys(pkg.peerDependencies || {});
-
-  const allDeps = new Set([...deps, ...devDeps, ...peerDeps]);
 
   const firstMatchingDep = Object.keys(PackageTypeByDependencyName).find(
-    (depName) => allDeps.has(depName)
+    (depName) => deps.some((dep) => dep === depName)
   ) as keyof typeof PackageTypeByDependencyName;
 
   if (!firstMatchingDep || !PackageTypeByDependencyName[firstMatchingDep]) {

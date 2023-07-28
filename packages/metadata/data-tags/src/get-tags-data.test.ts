@@ -14,24 +14,18 @@ describe('getTagsData', () => {
           path: 'packages/pkg-one',
           version: '0.0.0',
           dependencies: [],
-          devDependencies: [],
-          peerDependencies: [],
         },
         {
           name: 'pkg-two',
           path: 'packages/pkg-two',
           version: '0.0.0',
           dependencies: [],
-          devDependencies: [],
-          peerDependencies: [],
         },
         {
           name: 'pkg-three',
           path: 'packages/pkg-three',
           version: '0.0.0',
           dependencies: [],
-          devDependencies: [],
-          peerDependencies: [],
         },
       ] satisfies Package[];
 
@@ -62,24 +56,18 @@ describe('getTagsData', () => {
           path: 'packages/pkg-one',
           version: '0.0.0',
           dependencies: [],
-          devDependencies: [],
-          peerDependencies: [],
         },
         {
           name: 'pkg-two',
           path: 'packages/pkg-two',
           version: '0.0.0',
           dependencies: [],
-          devDependencies: [],
-          peerDependencies: [],
         },
         {
           name: 'pkg-three',
           path: 'packages/pkg-three',
           version: '0.0.0',
           dependencies: [],
-          devDependencies: [],
-          peerDependencies: [],
         },
       ] satisfies Package[];
 

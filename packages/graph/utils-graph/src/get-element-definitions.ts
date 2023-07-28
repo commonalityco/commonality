@@ -86,19 +86,9 @@ export const getElementDefinitions = (
         };
       };
 
-      const dependencies = package_.dependencies
+      return package_.dependencies
         .filter((dep) => getIsInternalDependency(dep))
         .map((dep) => getEdge(dep));
-
-      const devDependencies = package_.devDependencies
-        .filter((dep) => getIsInternalDependency(dep))
-        .map((dep) => getEdge(dep));
-
-      const peerDependencies = package_.peerDependencies
-        .filter((dep) => getIsInternalDependency(dep))
-        .map((dep) => getEdge(dep));
-
-      return [...dependencies, ...devDependencies, ...peerDependencies];
     });
     const edges = uniqBy(
       nonUniqueEdges,

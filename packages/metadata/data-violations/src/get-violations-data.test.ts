@@ -20,8 +20,6 @@ const basePkgOne = {
       type: DependencyType.PRODUCTION,
     },
   ],
-  devDependencies: [],
-  peerDependencies: [],
 } satisfies Package;
 
 const basePkgTwo = {
@@ -30,8 +28,6 @@ const basePkgTwo = {
   description: 'A package',
   version: '1.0.0',
   dependencies: [],
-  devDependencies: [],
-  peerDependencies: [],
 } satisfies Package;
 
 const baseTagsData = [
@@ -406,8 +402,6 @@ describe('getViolations', () => {
         path: '/',
         version: '1.0.0',
         dependencies: [],
-        devDependencies: [],
-        peerDependencies: [],
       },
     ] satisfies Package[];
     const tagsData = [
@@ -610,16 +604,12 @@ describe('getViolations', () => {
           type: DependencyType.PRODUCTION,
         },
       ],
-      devDependencies: [],
-      peerDependencies: [],
     } satisfies Package;
     const pkgTwo = {
       name: 'pkg-two',
       path: '/',
       version: '1.0.0',
       dependencies: [],
-      devDependencies: [],
-      peerDependencies: [],
     } satisfies Package;
     const pkgThree = {
       name: 'pkg-three',
@@ -632,8 +622,6 @@ describe('getViolations', () => {
           type: DependencyType.PRODUCTION,
         },
       ],
-      devDependencies: [],
-      peerDependencies: [],
     } satisfies Package;
     const pkgFour = {
       name: 'pkg-four',
@@ -646,24 +634,18 @@ describe('getViolations', () => {
           type: DependencyType.PRODUCTION,
         },
       ],
-      devDependencies: [],
-      peerDependencies: [],
     } satisfies Package;
     const pkgFive = {
       name: 'pkg-five',
       path: '/',
       version: '1.0.0',
       dependencies: [],
-      devDependencies: [],
-      peerDependencies: [],
     } satisfies Package;
     const pkgSix = {
       name: 'pkg-six',
       path: '/',
       version: '1.0.0',
       dependencies: [],
-      devDependencies: [],
-      peerDependencies: [],
     } satisfies Package;
 
     const packages = [

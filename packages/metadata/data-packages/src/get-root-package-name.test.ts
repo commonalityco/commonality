@@ -1,18 +1,16 @@
 import path from 'path';
-import { getRootPackage } from './get-root-package';
+import { getRootPackageName } from './get-root-package-name';
 import { describe, expect, it } from 'vitest';
 
-describe('getRootPackage', () => {
-  it('should throw an error if package.json does not exist', async () => {
+describe('getRootPackageName', () => {
+  it('returns undefined when the ', async () => {
     const rootDirectory = path.join(
       __dirname,
       '../test/fixtures',
       'missing-json-root'
     );
 
-    await expect(getRootPackage({ rootDirectory })).rejects.toThrow(
-      'No package.json file for directory'
-    );
+    await expect(getRootPackageName({ rootDirectory })).rejects.toThrow();
   });
 
   it('should throw an error if package.json does not contain a name property', async () => {
@@ -22,7 +20,7 @@ describe('getRootPackage', () => {
       'missing-name-root'
     );
 
-    await expect(getRootPackage({ rootDirectory })).rejects.toThrow();
+    await expect(getRootPackageName({ rootDirectory })).rejects.toThrow();
   });
 
   it('should return a package object with correct properties', async () => {
@@ -32,18 +30,10 @@ describe('getRootPackage', () => {
       'kitchen-sink'
     );
 
-    const packageObject = await getRootPackage({
+    const packageObject = await getRootPackageName({
       rootDirectory: rootDirectory,
     });
 
-    expect(packageObject).toEqual({
-      name: 'root',
-      description: 'root description',
-      path: './',
-      version: '1.0.0',
-      dependencies: [],
-      devDependencies: [],
-      peerDependencies: [],
-    });
+    expect(packageObject).toEqual('root');
   });
 });

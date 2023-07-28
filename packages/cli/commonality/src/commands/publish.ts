@@ -61,7 +61,7 @@ export const actionHandler = async ({
         },
       })
       .json<SnapshotResult>();
-    console.log({ spinner, ora: ora().start() });
+
     spinner.succeed('Successfully published snapshot');
     console.log(`View your graph at ${chalk.bold.blue(result.url)}`);
   } catch (error: unknown) {

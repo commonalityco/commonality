@@ -25,8 +25,6 @@ export const getPrimaryDependency = (pkg: Package): PrimaryDependency => {
   };
 
   for (const dep of pkg.dependencies ?? []) addDepNameToMap(dep);
-  for (const dep of pkg.devDependencies ?? []) addDepNameToMap(dep);
-  for (const dep of pkg.peerDependencies ?? []) addDepNameToMap(dep);
 
   for (const type of typeOrder) {
     if (type === PrimaryDependency.NODE) {

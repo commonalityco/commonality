@@ -1,4 +1,4 @@
-import { getRootPackage, getPackages } from '@commonalityco/data-packages';
+import { getRootPackageName, getPackages } from '@commonalityco/data-packages';
 import { getRootDirectory } from '@commonalityco/data-project';
 import chalk from 'chalk';
 import { Command } from 'commander';
@@ -30,7 +30,7 @@ export const validateProjectStructure = async ({
   if (!rootDirectory) return;
 
   try {
-    await getRootPackage({ rootDirectory });
+    await getRootPackageName({ rootDirectory });
   } catch (error) {
     command.error(
       chalk.red.bold('No valid root package detected') +

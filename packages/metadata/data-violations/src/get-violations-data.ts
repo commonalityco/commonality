@@ -14,11 +14,7 @@ function getAllDependencies(
   pkg: Package,
   packages: Map<string, Package>
 ): Dependency[] {
-  const deps: Dependency[] = [
-    ...pkg.dependencies,
-    ...pkg.devDependencies,
-    ...pkg.peerDependencies,
-  ];
+  const deps = pkg.dependencies;
 
   for (const dependency of pkg.dependencies) {
     const dependencyPackage = packages.get(dependency.name);
@@ -60,15 +56,8 @@ export async function getViolationsData({
       continue;
     }
 
-    const directDependencies = Array.from(
-      new Set(
-        [
-          ...pkg.dependencies,
-          ...pkg.devDependencies,
-          ...pkg.peerDependencies,
-        ].map((dep) => dep.name)
-      )
-    )
+    const directDependencies = pkg.dependencies
+      .map((dep) => dep.name)
       .map((name) => packagesMap.get(name))
       .filter((pkg): pkg is Package => pkg !== undefined);
 

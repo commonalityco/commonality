@@ -27,8 +27,6 @@ export const getType = (package_: Package) => {
   };
 
   for (const dep of package_.dependencies ?? []) addDepNameToMap(dep);
-  for (const dep of package_.devDependencies ?? []) addDepNameToMap(dep);
-  for (const dep of package_.peerDependencies ?? []) addDepNameToMap(dep);
 
   for (const type of typeOrder) {
     if (type === PackageType.NODE) {

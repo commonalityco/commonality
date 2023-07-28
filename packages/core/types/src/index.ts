@@ -64,13 +64,10 @@ export type Package = {
   description?: string;
   version: string;
   dependencies: Dependency[];
-  devDependencies: Dependency[];
-  peerDependencies: Dependency[];
 };
 
 export type ProjectConfig = {
   projectId?: string;
-  stripScopeFromPackageNames?: boolean;
   constraints?: Constraint[];
 };
 
