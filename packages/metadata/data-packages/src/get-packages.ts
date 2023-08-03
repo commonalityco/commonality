@@ -61,7 +61,7 @@ export const getPackage = async ({
     path: directory,
     version: packageJson.version ?? '',
     dependencies: allDependencies,
-  };
+  } satisfies Package;
 };
 
 export const getPackages = async ({

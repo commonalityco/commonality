@@ -11,11 +11,8 @@ import {
   TooltipContent,
   HoverCard,
   HoverCardTrigger,
-  HoverCardContent,
-  Badge,
   ScrollArea,
   Accordion,
-  Label,
   AccordionContent,
   Popover,
   PopoverTrigger,
@@ -202,7 +199,7 @@ const IconByPackageManager = {
 };
 
 export interface GraphToolbarProps {
-  packageManager: PackageManager;
+  packageManager?: PackageManager;
   totalPackageCount: number;
   shownPackageCount: number;
   isEdgeColorShown?: boolean;

@@ -19,7 +19,7 @@ import debounce from 'lodash.debounce';
 
 interface GraphProps {
   theme?: string;
-  packageManager: PackageManager;
+  packageManager?: PackageManager;
   onSetTags: (tagsData: TagsData) => Promise<void>;
   getPackages: () => Promise<Package[]>;
   getDocumentsData: () => Promise<DocumentsData[]>;

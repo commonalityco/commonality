@@ -30,9 +30,10 @@ async function GraphPage() {
 
   await queryClient.prefetchQuery(packagesKeys, getPackagesData);
   await queryClient.prefetchQuery(tagsKeys, getTagsData);
+  await queryClient.prefetchQuery(codeownersKeys, getCodeownersData);
+
   await queryClient.prefetchQuery(violationsKeys, getViolationsData);
   await queryClient.prefetchQuery(documentsKeys, getDocumentsData);
-  await queryClient.prefetchQuery(codeownersKeys, getCodeownersData);
   await queryClient.prefetchQuery(projectConfigKeys, getProjectConfigData);
 
   return (

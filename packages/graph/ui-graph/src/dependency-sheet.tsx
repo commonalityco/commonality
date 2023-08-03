@@ -19,9 +19,9 @@ import { ConstraintAccordionTrigger } from './components/constraint-accordion-tr
 const statusDotStyles = cva('h-2 w-2 rounded-full', {
   variants: {
     type: {
-      PRODUCTION: 'bg-green-600',
-      DEVELOPMENT: 'bg-blue-600',
-      PEER: 'bg-purple-600',
+      production: 'bg-green-600',
+      development: 'bg-blue-600',
+      peer: 'bg-purple-600',
     },
   },
 });

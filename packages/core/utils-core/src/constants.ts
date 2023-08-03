@@ -11,15 +11,15 @@ export enum Lockfile {
 }
 
 export enum DependencyType {
-  PEER = 'PEER',
-  DEVELOPMENT = 'DEVELOPMENT',
-  PRODUCTION = 'PRODUCTION',
+  PEER = 'peer',
+  DEVELOPMENT = 'development',
+  PRODUCTION = 'production',
 }
 
 export enum PackageType {
-  NODE = 'NODE',
-  REACT = 'REACT',
-  NEXT = 'NEXT',
+  NODE = 'node',
+  REACT = 'react',
+  NEXT = 'next',
 }
 
 export enum PackageManager {
