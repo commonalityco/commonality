@@ -30,9 +30,10 @@ export type Violation = {
 };
 
 export type Dependency = {
-  name: string;
   version: string;
   type: DependencyType;
+  source: string;
+  target: string;
 };
 
 export type Codeowner = string;
@@ -63,7 +64,6 @@ export type Package = {
   name: string;
   description?: string;
   version: string;
-  dependencies: Dependency[];
 };
 
 export type ProjectConfig = {

@@ -1,123 +1,129 @@
 import {
-  Package,
   Violation,
   Dependency,
-  ProjectConfig,
   TagsData,
+  Constraint,
 } from '@commonalityco/types';
 
-function includesAny<Value>(a: Set<Value>, b: Set<Value>): boolean {
-  return Array.from(b).some((val) => a.has(val));
-}
+const edgeKey = (dep: Dependency) => `${dep.source}|${dep.target}`;
 
-function getAllDependencies(
-  pkg: Package,
-  packages: Map<string, Package>
-): Dependency[] {
-  const deps = pkg.dependencies;
+const getAllDependencies = (
+  dependencies: Dependency[],
+  packageName: string,
+  visitedNodes: Set<string> = new Set(),
+  resultEdges: Set<string> = new Set()
+): Dependency[] => {
+  if (visitedNodes.has(packageName)) {
+    return [];
+  }
+  visitedNodes.add(packageName);
 
-  for (const dependency of pkg.dependencies) {
-    const dependencyPackage = packages.get(dependency.name);
-    if (dependencyPackage) {
-      deps.push(...getAllDependencies(dependencyPackage, packages));
-    }
+  const connectedDependencies = dependencies.filter(
+    (dep) => dep.source === packageName && !resultEdges.has(edgeKey(dep))
+  );
+
+  for (const dep of connectedDependencies) {
+    resultEdges.add(edgeKey(dep));
+    getAllDependencies(dependencies, dep.target, visitedNodes, resultEdges);
   }
 
-  const dependencyNames = deps.map((dep) => dep.name);
-  const deduplicatedDependencyNames = [...new Set(dependencyNames)];
+  return Array.from(resultEdges)
+    .map((key) => {
+      const [source, target] = key.split('|');
 
-  const dependencies = deduplicatedDependencyNames
-    .map((name) => deps.find((dep) => dep.name === name))
-    .filter((dep): dep is Dependency => dep !== undefined);
-
-  return dependencies;
-}
+      return dependencies.find(
+        (dep) => dep.source === source && dep.target === target
+      );
+    })
+    .filter((dep): dep is Dependency => Boolean(dep));
+};
 
 export async function getViolationsData({
-  projectConfig,
-  packages,
-  tagsData,
+  constraints = [],
+  dependencies = [],
+  tagsData = [],
 }: {
-  projectConfig: ProjectConfig;
-  packages: Package[];
+  constraints: Constraint[];
+  dependencies: Dependency[];
   tagsData: TagsData[];
 }): Promise<Violation[]> {
   const violations: Violation[] = [];
-  if (!projectConfig.constraints) {
+
+  const tagsByPackageName = new Map(
+    tagsData.map((data) => [data.packageName, data.tags])
+  );
+
+  if (!constraints.length) {
     return violations;
   }
 
-  const packagesMap = new Map(packages.map((pkg) => [pkg.name, pkg]));
-
-  for (const pkg of packages) {
-    const tagsForPkg = tagsData.find((data) => data.packageName === pkg.name);
-
-    if (!tagsForPkg) {
-      continue;
-    }
-
-    const directDependencies = pkg.dependencies
-      .map((dep) => dep.name)
-      .map((name) => packagesMap.get(name))
-      .filter((pkg): pkg is Package => pkg !== undefined);
-
-    const constraintsForPackage = projectConfig.constraints.filter(
-      (constraint) => {
-        if (constraint.applyTo === '*') {
-          return true;
-        }
-
-        return tagsForPkg
-          ? includesAny(new Set(tagsForPkg.tags), new Set([constraint.applyTo]))
-          : [];
+  for (const dependency of dependencies) {
+    const constraintsForDependency = constraints.filter((constraint) => {
+      if (constraint.applyTo === '*') {
+        return true;
       }
-    );
+      const tagsForDependency = tagsByPackageName.get(dependency.source);
 
-    const allowsAnyPackage = constraintsForPackage.some((constraint) => {
-      if ('allow' in constraint) {
-        return constraint.allow === '*';
-      }
-      return false;
+      return tagsForDependency?.some((tag) => tag === constraint.applyTo);
     });
 
-    for (const constraint of constraintsForPackage) {
+    const allowsAll = constraintsForDependency.some(
+      (constraint) => 'allow' in constraint && constraint.allow === '*'
+    );
+
+    for (const constraint of constraintsForDependency) {
+      const directDependencyPackageNames = dependencies
+        .filter((dep) => dep.source === dependency.source)
+        .map((dep) => dep.target);
+
       const hasAllow = 'allow' in constraint;
       const hasDisallow = 'disallow' in constraint;
       const allowed = hasAllow ? constraint.allow : undefined;
       const disallowed = hasDisallow ? constraint.disallow : undefined;
 
       if (disallowed === '*') {
-        for (const dependency of directDependencies) {
-          const tagsForTargetPkg =
-            tagsData.find((data) => data.packageName === dependency.name)
-              ?.tags ?? [];
+        for (const directDependencyPackageName of directDependencyPackageNames) {
+          const tagsForTargetPkg = tagsByPackageName.get(
+            directDependencyPackageName
+          );
 
           violations.push({
-            sourcePackageName: pkg.name,
-            targetPackageName: dependency.name,
+            sourcePackageName: dependency.source,
+            targetPackageName: directDependencyPackageName,
             appliedTo: constraint.applyTo,
             allowed: hasAllow ? constraint.allow : [],
             disallowed: hasDisallow ? constraint.disallow : [],
             found: tagsForTargetPkg,
           });
         }
+
         continue;
       }
 
-      if (hasAllow) {
-        if (allowsAnyPackage) {
+      if (hasAllow && allowed !== '*') {
+        if (allowsAll) {
           continue;
         }
 
-        for (const dependency of directDependencies) {
-          const tagsForTargetPkg =
-            tagsData.find((data) => data.packageName === dependency.name)
-              ?.tags ?? [];
+        const directDependencyPackageNames = dependencies
+          .filter((dep) => dep.source === dependency.source)
+          .map((dep) => dep.target);
 
-          if (!includesAny(new Set(allowed), new Set(tagsForTargetPkg))) {
+        for (const directDependencyPackageName of directDependencyPackageNames) {
+          const tagsForTargetPkg = tagsByPackageName.get(
+            directDependencyPackageName
+          );
+
+          const hasMatch = Boolean(
+            tagsForTargetPkg?.some((tag) =>
+              allowed?.some((allowedTag) => allowedTag === tag)
+            )
+          );
+
+          if (!hasMatch) {
             violations.push({
-              sourcePackageName: pkg.name,
-              targetPackageName: dependency.name,
+              sourcePackageName: dependency.source,
+              targetPackageName: directDependencyPackageName,
               appliedTo: constraint.applyTo,
               allowed: constraint.allow,
               disallowed: hasDisallow ? constraint.disallow : [],
@@ -127,20 +133,25 @@ export async function getViolationsData({
         }
       }
 
-      if (hasDisallow) {
-        const allDependencies = getAllDependencies(pkg, packagesMap);
+      if (hasDisallow && disallowed) {
+        const allDependencies = getAllDependencies(
+          dependencies,
+          dependency.source
+        );
 
-        for (const dependency of allDependencies) {
-          const dependencyPackage = packagesMap.get(dependency.name);
-          const tagsForTargetPkg =
-            tagsData.find(
-              (data) => data.packageName === dependencyPackage?.name
-            )?.tags ?? [];
+        for (const targetDependency of allDependencies) {
+          const tagsForTargetPkg = tagsByPackageName.get(
+            targetDependency.target
+          );
 
-          if (includesAny(new Set(disallowed), new Set(tagsForTargetPkg))) {
+          const hasMatch = tagsForTargetPkg?.some((tag) =>
+            disallowed.some((disallowedTag) => disallowedTag === tag)
+          );
+
+          if (hasMatch) {
             violations.push({
-              sourcePackageName: pkg.name,
-              targetPackageName: dependency.name,
+              sourcePackageName: dependency.source,
+              targetPackageName: targetDependency.target,
               appliedTo: constraint.applyTo,
               allowed: hasAllow ? constraint.allow : [],
               disallowed: constraint.disallow,

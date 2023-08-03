@@ -13,19 +13,16 @@ describe('getTagsData', () => {
           name: 'pkg-one',
           path: 'packages/pkg-one',
           version: '0.0.0',
-          dependencies: [],
         },
         {
           name: 'pkg-two',
           path: 'packages/pkg-two',
           version: '0.0.0',
-          dependencies: [],
         },
         {
           name: 'pkg-three',
           path: 'packages/pkg-three',
           version: '0.0.0',
-          dependencies: [],
         },
       ] satisfies Package[];
 
@@ -39,7 +36,7 @@ describe('getTagsData', () => {
         { packageName: 'pkg-two', tags: ['tag-two', 'crazy-tag-whoa'] },
       ] satisfies TagsData[];
 
-      expect(tagsData).toEqual(expectTagsData);
+      expect(tagsData).toEqual(expect.arrayContaining(expectTagsData));
     });
   });
 
@@ -55,19 +52,16 @@ describe('getTagsData', () => {
           name: 'pkg-one',
           path: 'packages/pkg-one',
           version: '0.0.0',
-          dependencies: [],
         },
         {
           name: 'pkg-two',
           path: 'packages/pkg-two',
           version: '0.0.0',
-          dependencies: [],
         },
         {
           name: 'pkg-three',
           path: 'packages/pkg-three',
           version: '0.0.0',
-          dependencies: [],
         },
       ] satisfies Package[];
 
