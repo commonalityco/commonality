@@ -1,4 +1,8 @@
-import { DependencyType, AllPackagesWildcard } from '@commonalityco/utils-core';
+import {
+  DependencyType,
+  AllPackagesWildcard,
+  PackageType,
+} from '@commonalityco/utils-core';
 
 export type Constraint =
   | {
@@ -61,6 +65,7 @@ export type TagsData = { packageName: string; tags: Tag[] };
 
 export type Package = {
   path: string;
+  type: PackageType;
   name: string;
   description?: string;
   version: string;

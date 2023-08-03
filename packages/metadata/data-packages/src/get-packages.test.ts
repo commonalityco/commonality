@@ -1,7 +1,7 @@
-import { DependencyType } from '@commonalityco/utils-core';
 import path from 'path';
 import { getPackages } from './get-packages';
 import { describe, expect, it } from 'vitest';
+import { PackageType } from '@commonalityco/utils-core';
 
 describe('getPackages', () => {
   it('should return an array of packages with internal dependencies excluding the root package', async () => {
@@ -19,12 +19,14 @@ describe('getPackages', () => {
         version: '1.0.0',
         description: 'pkg-one description',
         path: 'packages/pkg-one',
+        type: PackageType.NODE,
       },
       {
         name: 'pkg-two',
         version: '1.0.0',
         description: 'pkg-two description',
         path: 'packages/pkg-two',
+        type: PackageType.NODE,
       },
     ]);
   });

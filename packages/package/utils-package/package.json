@@ -18,9 +18,10 @@
     "tailwindcss": "^3.3.3"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "workspace:^",
-    "@commonalityco/config-tsconfig": "workspace:^",
-    "@commonalityco/types": "workspace:^",
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/types": "*",
+    "@commonalityco/utils-core": "*",
     "@types/react": "^18.2.15",
     "postcss": "^8.4.26",
     "react": "^18.2.0",

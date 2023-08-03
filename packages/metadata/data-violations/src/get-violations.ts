@@ -38,12 +38,12 @@ const getAllDependencies = (
     .filter((dep): dep is Dependency => Boolean(dep));
 };
 
-export async function getViolationsData({
+export async function getViolations({
   constraints = [],
   dependencies = [],
   tagsData = [],
 }: {
-  constraints: Constraint[];
+  constraints?: Constraint[];
   dependencies: Dependency[];
   tagsData: TagsData[];
 }): Promise<Violation[]> {

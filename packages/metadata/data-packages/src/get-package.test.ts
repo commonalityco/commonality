@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { getPackage } from './get-package';
 import path from 'path';
+import { PackageType } from '@commonalityco/utils-core';
 
 describe('getPackage', () => {
   it('should throw an error if package.json does not exist', async () => {
@@ -43,6 +44,7 @@ describe('getPackage', () => {
       name: 'pkg-one',
       description: 'pkg-one description',
       path: 'packages/pkg-one',
+      type: PackageType.NODE,
       version: '1.0.0',
     });
   });

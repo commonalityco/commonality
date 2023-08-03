@@ -53,7 +53,7 @@ type Event =
   | {
       type: 'INITIALIZE';
       containerId: string;
-      packages: Package[];
+      elements: ElementDefinition[];
       theme: string;
       violations: Violation[];
     }
@@ -388,14 +388,14 @@ export const graphMachine = createMachine(
 
           return createRenderGraph({
             container,
-            elements: getElementDefinitions(event.packages),
+            elements: event.elements,
           });
         },
       }),
       createTraversalGraph: assign({
         traversalGraph: (context, event) =>
           createTraversalGraph({
-            elements: getElementDefinitions(event.packages),
+            elements: event.elements,
           }),
       }),
       hide: assign({

@@ -15,6 +15,7 @@ import { getProjectConfigData } from 'data/structure';
 import { getDocumentsData } from 'data/documents';
 import {
   codeownersKeys,
+  dependenciesKeys,
   documentsKeys,
   packagesKeys,
   projectConfigKeys,
@@ -22,6 +23,7 @@ import {
   violationsKeys,
 } from '@commonalityco/utils-graph';
 import { setTagsAction } from 'actions/metadata';
+import { getDependenciesData } from 'data/dependencies';
 
 async function GraphPage() {
   const project = await getProject();
@@ -29,6 +31,7 @@ async function GraphPage() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery(packagesKeys, getPackagesData);
+  await queryClient.prefetchQuery(dependenciesKeys, getDependenciesData);
   await queryClient.prefetchQuery(tagsKeys, getTagsData);
   await queryClient.prefetchQuery(codeownersKeys, getCodeownersData);
 
@@ -45,12 +48,10 @@ async function GraphPage() {
           getPackages={getPackagesData}
         />
         <DashboardGraph
+          getDependencies={getDependenciesData}
           packageManager={project.packageManager}
-          getTagsData={getTagsData}
           getViolations={getViolationsData}
           getPackages={getPackagesData}
-          getDocumentsData={getDocumentsData}
-          getCodeownersData={getCodeownersData}
           getProjectConfig={getProjectConfigData}
         />
       </FeatureGraphLayout>

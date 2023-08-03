@@ -2,6 +2,7 @@ import { Package, TagsData } from '@commonalityco/types';
 import path from 'path';
 import { describe, test, expect } from 'vitest';
 import { getTagsData } from './get-tags-data';
+import { PackageType } from '@commonalityco/utils-core';
 
 describe('getTagsData', () => {
   describe('when in a project with tags', () => {
@@ -13,16 +14,19 @@ describe('getTagsData', () => {
           name: 'pkg-one',
           path: 'packages/pkg-one',
           version: '0.0.0',
+          type: PackageType.NODE,
         },
         {
           name: 'pkg-two',
           path: 'packages/pkg-two',
           version: '0.0.0',
+          type: PackageType.NODE,
         },
         {
           name: 'pkg-three',
           path: 'packages/pkg-three',
           version: '0.0.0',
+          type: PackageType.NODE,
         },
       ] satisfies Package[];
 
@@ -52,16 +56,19 @@ describe('getTagsData', () => {
           name: 'pkg-one',
           path: 'packages/pkg-one',
           version: '0.0.0',
+          type: PackageType.NODE,
         },
         {
           name: 'pkg-two',
           path: 'packages/pkg-two',
           version: '0.0.0',
+          type: PackageType.NODE,
         },
         {
           name: 'pkg-three',
           path: 'packages/pkg-three',
           version: '0.0.0',
+          type: PackageType.NODE,
         },
       ] satisfies Package[];
 

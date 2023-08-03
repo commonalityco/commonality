@@ -1244,14 +1244,17 @@ importers:
         version: 3.3.3(ts-node@10.9.1)
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../tooling/config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../tooling/config-tsconfig
       '@commonalityco/types':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../core/types
+      '@commonalityco/utils-core':
+        specifier: '*'
+        version: link:../../core/utils-core
       '@types/react':
         specifier: ^18.2.15
         version: 18.2.15

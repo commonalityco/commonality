@@ -1,14 +1,17 @@
 'use client';
 import { GraphChart, GraphLayoutMain } from '@commonalityco/ui-graph';
-import { packagesKeys, violationsKeys } from '@commonalityco/utils-graph';
+import {
+  dependenciesKeys,
+  getElementDefinitions,
+  packagesKeys,
+  violationsKeys,
+} from '@commonalityco/utils-graph';
 import { useEffect, useRef } from 'react';
 import { PackageManager } from '@commonalityco/utils-core';
 import {
-  CodeownersData,
-  DocumentsData,
+  Dependency,
   Package,
   ProjectConfig,
-  TagsData,
   Violation,
 } from '@commonalityco/types';
 import { GraphContext } from './graph-provider';
@@ -20,13 +23,10 @@ import debounce from 'lodash.debounce';
 interface GraphProps {
   theme?: string;
   packageManager?: PackageManager;
-  onSetTags: (tagsData: TagsData) => Promise<void>;
   getPackages: () => Promise<Package[]>;
-  getDocumentsData: () => Promise<DocumentsData[]>;
-  getCodeownersData: () => Promise<CodeownersData[]>;
   getViolations: () => Promise<Violation[]>;
   getProjectConfig: () => Promise<ProjectConfig>;
-  getTagsData: () => Promise<TagsData[]>;
+  getDependencies: () => Promise<Dependency[]>;
 }
 
 export function FeatureGraph({
@@ -35,12 +35,18 @@ export function FeatureGraph({
   getViolations,
   getPackages,
   getProjectConfig,
+  getDependencies,
 }: GraphProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { data: packages } = useQuery({
     queryKey: packagesKeys,
     queryFn: () => getPackages(),
+  });
+
+  const { data: dependencies } = useQuery({
+    queryKey: dependenciesKeys,
+    queryFn: () => getDependencies(),
   });
 
   const { data: violations } = useQuery({
@@ -85,11 +91,11 @@ export function FeatureGraph({
       return;
     }
 
-    if (containerRef.current && packages) {
+    if (containerRef.current && packages && dependencies) {
       actor.send({
         type: 'INITIALIZE',
         containerId: containerRef.current.id,
-        packages,
+        elements: getElementDefinitions({ packages, dependencies }),
         theme: theme ?? 'light',
         violations,
       });

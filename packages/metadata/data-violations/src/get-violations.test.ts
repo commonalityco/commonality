@@ -6,8 +6,8 @@ import {
   TagsData,
   Violation,
 } from '@commonalityco/types';
-import { DependencyType } from '@commonalityco/utils-core';
-import { getViolationsData } from './get-violations-data';
+import { DependencyType, PackageType } from '@commonalityco/utils-core';
+import { getViolations } from './get-violations';
 import { describe, it, expect } from 'vitest';
 
 const basePkgOne = {
@@ -15,6 +15,7 @@ const basePkgOne = {
   name: '@scope/pkg-one',
   description: 'A package',
   version: '1.0.0',
+  type: PackageType.NODE,
 } satisfies Package;
 
 const basePkgTwo = {
@@ -22,6 +23,7 @@ const basePkgTwo = {
   name: '@scope/pkg-two',
   description: 'A package',
   version: '1.0.0',
+  type: PackageType.NODE,
 } satisfies Package;
 
 const baseTagsData = [
@@ -39,7 +41,7 @@ const dependencyOne = {
 describe('getViolations', () => {
   describe('when there are no constraints defined', () => {
     it('does not return violations', async () => {
-      const violations = await getViolationsData({
+      const violations = await getViolations({
         dependencies: [dependencyOne],
         constraints: [],
         tagsData: baseTagsData,
@@ -52,7 +54,7 @@ describe('getViolations', () => {
       const tagsData = [] satisfies TagsData[];
 
       it('does not return violations', async () => {
-        const violations = await getViolationsData({
+        const violations = await getViolations({
           dependencies: [dependencyOne],
           constraints: [{ applyTo: 'tag-one', allow: ['tag-two'] }],
           tagsData,
@@ -70,7 +72,7 @@ describe('getViolations', () => {
       const constraints = [{ applyTo: 'tag-four', allow: ['tag-five'] }];
 
       it('does not return violations', async () => {
-        const violations = await getViolationsData({
+        const violations = await getViolations({
           dependencies: [dependencyOne],
           constraints,
           tagsData,
@@ -94,7 +96,7 @@ describe('getViolations', () => {
           ] satisfies TagsData[];
 
           it('does not return a violation', async () => {
-            const violations = await getViolationsData({
+            const violations = await getViolations({
               dependencies: [dependencyOne],
               constraints,
               tagsData,
@@ -111,7 +113,7 @@ describe('getViolations', () => {
           ] satisfies TagsData[];
 
           it('does not return a violation', async () => {
-            const violations = await getViolationsData({
+            const violations = await getViolations({
               dependencies: [dependencyOne],
               constraints,
               tagsData,
@@ -131,7 +133,7 @@ describe('getViolations', () => {
           ] satisfies TagsData[];
 
           it('returns violations', async () => {
-            const violations = await getViolationsData({
+            const violations = await getViolations({
               dependencies: [dependencyOne],
               constraints,
               tagsData,
@@ -158,7 +160,7 @@ describe('getViolations', () => {
           ] satisfies TagsData[];
 
           it('returns violations', async () => {
-            const violations = await getViolationsData({
+            const violations = await getViolations({
               dependencies: [dependencyOne],
               constraints,
               tagsData,
@@ -185,7 +187,7 @@ describe('getViolations', () => {
           ] satisfies TagsData[];
 
           it('does not return a violation', async () => {
-            const violations = await getViolationsData({
+            const violations = await getViolations({
               dependencies: [dependencyOne],
               constraints,
               tagsData,
@@ -212,7 +214,7 @@ describe('getViolations', () => {
         ] satisfies TagsData[];
 
         it('returns violations', async () => {
-          const violations = await getViolationsData({
+          const violations = await getViolations({
             dependencies: [dependencyOne],
             constraints,
             tagsData,
@@ -248,7 +250,7 @@ describe('getViolations', () => {
         ] satisfies TagsData[];
 
         it('returns multiple violations', async () => {
-          const violations = await getViolationsData({
+          const violations = await getViolations({
             dependencies: [dependencyOne],
             constraints,
             tagsData,
@@ -276,7 +278,7 @@ describe('getViolations', () => {
         ] satisfies TagsData[];
 
         it('does not return violations', async () => {
-          const violations = await getViolationsData({
+          const violations = await getViolations({
             dependencies: [dependencyOne],
             constraints,
             tagsData,
@@ -305,7 +307,7 @@ describe('getViolations', () => {
       found: ['tag-two', 'tag-three'],
     } satisfies Violation;
 
-    const violations = await getViolationsData({
+    const violations = await getViolations({
       constraints,
       dependencies: [dependencyOne],
       tagsData,
@@ -333,7 +335,7 @@ describe('getViolations', () => {
       { packageName: basePkgTwo.name, tags: ['tag-two', 'tag-three'] },
     ] satisfies TagsData[];
 
-    const violations = await getViolationsData({
+    const violations = await getViolations({
       constraints,
       dependencies: [dependencyOne],
       tagsData,
@@ -372,7 +374,7 @@ describe('getViolations', () => {
       found: ['tag-four'],
     };
 
-    const violations = await getViolationsData({
+    const violations = await getViolations({
       constraints,
       dependencies,
       tagsData,
@@ -392,7 +394,7 @@ describe('getViolations', () => {
     ] satisfies TagsData[];
 
     it('is run against every package', async () => {
-      const violations = await getViolationsData({
+      const violations = await getViolations({
         constraints,
         dependencies: [dependencyOne],
         tagsData,
@@ -435,7 +437,7 @@ describe('getViolations', () => {
             found: [],
           } satisfies Violation;
 
-          const violations = await getViolationsData({
+          const violations = await getViolations({
             constraints,
             dependencies: [dependencyOne],
             tagsData,
@@ -461,7 +463,7 @@ describe('getViolations', () => {
             found: ['tag-two'],
           };
 
-          const violations = await getViolationsData({
+          const violations = await getViolations({
             constraints,
             dependencies: [dependencyOne],
             tagsData,
@@ -493,7 +495,7 @@ describe('getViolations', () => {
             found: [],
           };
 
-          const violations = await getViolationsData({
+          const violations = await getViolations({
             constraints,
             dependencies: [dependencyOne],
             tagsData,
@@ -519,7 +521,7 @@ describe('getViolations', () => {
             found: ['tag-two'],
           };
 
-          const violations = await getViolationsData({
+          const violations = await getViolations({
             constraints,
             dependencies: [dependencyOne],
             tagsData,
@@ -600,7 +602,7 @@ describe('getViolations', () => {
     ] satisfies Constraint[];
 
     it('returns violations', async () => {
-      const violations = await getViolationsData({
+      const violations = await getViolations({
         dependencies,
         constraints,
         tagsData,

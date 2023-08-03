@@ -2,7 +2,6 @@
 import React, { ComponentPropsWithoutRef } from 'react';
 import { useTheme } from 'next-themes';
 import { FeatureGraph } from '@commonalityco/feature-graph';
-import { setTagsAction } from 'actions/metadata';
 
 function DashboardGraph(
   props: Omit<
@@ -12,9 +11,7 @@ function DashboardGraph(
 ) {
   const { resolvedTheme } = useTheme();
 
-  return (
-    <FeatureGraph {...props} theme={resolvedTheme} onSetTags={setTagsAction} />
-  );
+  return <FeatureGraph {...props} theme={resolvedTheme} />;
 }
 
 export default DashboardGraph;
