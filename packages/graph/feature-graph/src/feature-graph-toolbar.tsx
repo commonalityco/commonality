@@ -3,10 +3,10 @@ import { ComponentProps } from 'react';
 import { GraphContext } from './graph-provider';
 import { GraphToolbar } from '@commonalityco/ui-graph';
 import { useQuery } from '@tanstack/react-query';
-import { Package, ProjectConfig, Violation } from '@commonalityco/types';
+import { Constraint, Package, Violation } from '@commonalityco/types';
 import {
+  constraintsKeys,
   packagesKeys,
-  projectConfigKeys,
   violationsKeys,
 } from '@commonalityco/utils-graph';
 
@@ -17,17 +17,17 @@ interface FeatureGraphToolbarProps
     | 'forceEdgeColor'
     | 'onForceEdgeColorChange'
     | 'violations'
-    | 'projectConfig'
+    | 'constraints'
     | 'totalPackageCount'
   > {
-  getProjectConfig: () => Promise<ProjectConfig>;
   getViolations: () => Promise<Violation[]>;
   getPackages: () => Promise<Package[]>;
+  getConstraints: () => Promise<Constraint[]>;
 }
 
 export function FeatureGraphToolbar({
   getViolations,
-  getProjectConfig,
+  getConstraints,
   getPackages,
   ...props
 }: FeatureGraphToolbarProps) {
@@ -36,9 +36,9 @@ export function FeatureGraphToolbar({
     queryKey: violationsKeys,
     queryFn: () => getViolations(),
   });
-  const { data: projectConfig } = useQuery({
-    queryKey: projectConfigKeys,
-    queryFn: () => getProjectConfig(),
+  const { data: constraints } = useQuery({
+    queryKey: constraintsKeys,
+    queryFn: () => getConstraints(),
   });
   const { data: packages } = useQuery({
     queryKey: packagesKeys,
@@ -49,7 +49,7 @@ export function FeatureGraphToolbar({
     ? state.context.renderGraph.nodes().length
     : packages?.length ?? 0;
 
-  if (!violations || !projectConfig) {
+  if (!violations || !constraints) {
     return null;
   }
 
@@ -57,7 +57,7 @@ export function FeatureGraphToolbar({
     <GraphToolbar
       {...props}
       totalPackageCount={packages?.length ?? 0}
-      projectConfig={projectConfig}
+      constraints={constraints}
       violations={violations}
       isEdgeColorShown={state.context.isEdgeColorShown}
       onSetIsEdgeColorShown={(isEdgeColorShown) =>

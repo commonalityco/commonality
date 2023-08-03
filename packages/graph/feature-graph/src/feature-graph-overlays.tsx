@@ -1,23 +1,22 @@
 'use client';
 import {
   CodeownersData,
+  Constraint,
   DocumentsData,
   Package,
-  ProjectConfig,
   TagsData,
   Violation,
 } from '@commonalityco/types';
 import { useToast } from '@commonalityco/ui-design-system';
-import { ToastAction } from '@commonalityco/ui-design-system/src/components/toast';
 import {
   DependencySheet,
   PackageSheet,
   TooltipPackage,
 } from '@commonalityco/ui-graph';
 import {
+  constraintsKeys,
   documentsKeys,
   metadataKey,
-  projectConfigKeys,
   tagsKeys,
   violationsKeys,
 } from '@commonalityco/utils-graph';
@@ -29,7 +28,7 @@ function FeatureGraphOverlays({
   onSetTags,
   getTagsData,
   getDocumentsData,
-  getProjectConfig,
+  getConstraints,
   getCodeownersData,
   getViolations,
 }: {
@@ -37,7 +36,7 @@ function FeatureGraphOverlays({
   getTagsData: () => Promise<TagsData[]>;
   getDocumentsData: () => Promise<DocumentsData[]>;
   getCodeownersData: () => Promise<CodeownersData[]>;
-  getProjectConfig: () => Promise<ProjectConfig>;
+  getConstraints: () => Promise<Constraint[]>;
   getViolations: () => Promise<Violation[]>;
 }) {
   const { toast } = useToast();
@@ -77,16 +76,16 @@ function FeatureGraphOverlays({
     queryFn: () => getTagsData(),
   });
 
-  const { data: projectConfig } = useQuery({
-    queryKey: projectConfigKeys,
-    queryFn: () => getProjectConfig(),
+  const { data: constraints } = useQuery({
+    queryKey: constraintsKeys,
+    queryFn: () => getConstraints(),
   });
 
   const dependencyConstraints = useMemo(() => {
-    if (!selectedEdge || !projectConfig) return [];
+    if (!selectedEdge || !constraints) return [];
 
     const dependencyConstraints =
-      projectConfig?.constraints?.filter((constraint) => {
+      constraints?.filter((constraint) => {
         const sourcePkg: Package = selectedEdge.source().data();
         const tagsForPkg = tagsData?.find(
           (data) => data.packageName === sourcePkg.name
@@ -96,7 +95,7 @@ function FeatureGraphOverlays({
       }) ?? [];
 
     return dependencyConstraints;
-  }, [selectedEdge, projectConfig]);
+  }, [selectedEdge, constraints]);
 
   if (!documentsData || !codeownersData) {
     return null;

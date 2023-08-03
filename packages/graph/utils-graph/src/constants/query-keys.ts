@@ -8,6 +8,8 @@ export const tagsKeys = [metadataKey, 'tags'] as const;
 
 export const projectConfigKeys = [metadataKey, 'projectConfig'] as const;
 
+export const constraintsKeys = [metadataKey, 'constraints'] as const;
+
 export const codeownersKeys = [metadataKey, 'codeowners'] as const;
 
 export const packagesKeys = [metadataKey, 'packages'] as const;

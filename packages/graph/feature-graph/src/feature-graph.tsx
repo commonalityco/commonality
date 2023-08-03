@@ -9,9 +9,9 @@ import {
 import { useEffect, useRef } from 'react';
 import { PackageManager } from '@commonalityco/utils-core';
 import {
+  Constraint,
   Dependency,
   Package,
-  ProjectConfig,
   Violation,
 } from '@commonalityco/types';
 import { GraphContext } from './graph-provider';
@@ -25,7 +25,7 @@ interface GraphProps {
   packageManager?: PackageManager;
   getPackages: () => Promise<Package[]>;
   getViolations: () => Promise<Violation[]>;
-  getProjectConfig: () => Promise<ProjectConfig>;
+  getConstraints: () => Promise<Constraint[]>;
   getDependencies: () => Promise<Dependency[]>;
 }
 
@@ -34,7 +34,7 @@ export function FeatureGraph({
   packageManager,
   getViolations,
   getPackages,
-  getProjectConfig,
+  getConstraints,
   getDependencies,
 }: GraphProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -116,7 +116,7 @@ export function FeatureGraph({
     <GraphLayoutMain>
       <FeatureGraphToolbar
         packageManager={packageManager}
-        getProjectConfig={getProjectConfig}
+        getConstraints={getConstraints}
         getPackages={getPackages}
         getViolations={getViolations}
         onPackageClick={(packageName) => {

@@ -208,7 +208,7 @@ export interface GraphToolbarProps {
   onZoomOut?: () => void;
   onFit?: () => void;
   onPackageClick: (packageName: string) => void;
-  projectConfig: ProjectConfig;
+  constraints: Constraint[];
   violations: Violation[];
 }
 
@@ -222,7 +222,7 @@ export function GraphToolbar({
   onZoomOut = () => {},
   onFit = () => {},
   onPackageClick = () => {},
-  projectConfig = {},
+  constraints = [],
   violations = [],
 }: GraphToolbarProps) {
   const Icon = packageManager
@@ -246,7 +246,7 @@ export function GraphToolbar({
         <ViolationsHoverCard
           onPackageClick={onPackageClick}
           violations={violations}
-          constraints={projectConfig.constraints}
+          constraints={constraints}
         />
       </div>
       <div className="grow" />

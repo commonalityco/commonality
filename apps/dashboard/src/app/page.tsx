@@ -11,19 +11,19 @@ import { DashboardSidebar } from './DashboardSidebar';
 import { getCodeownersData } from 'data/codeowners';
 import { getViolationsData } from 'data/violations';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { getProjectConfigData } from 'data/structure';
 import { getDocumentsData } from 'data/documents';
 import {
   codeownersKeys,
+  constraintsKeys,
   dependenciesKeys,
   documentsKeys,
   packagesKeys,
-  projectConfigKeys,
   tagsKeys,
   violationsKeys,
 } from '@commonalityco/utils-graph';
 import { setTagsAction } from 'actions/metadata';
 import { getDependenciesData } from 'data/dependencies';
+import { getConstraintsData } from 'data/constraints';
 
 async function GraphPage() {
   const project = await getProject();
@@ -37,7 +37,7 @@ async function GraphPage() {
 
   await queryClient.prefetchQuery(violationsKeys, getViolationsData);
   await queryClient.prefetchQuery(documentsKeys, getDocumentsData);
-  await queryClient.prefetchQuery(projectConfigKeys, getProjectConfigData);
+  await queryClient.prefetchQuery(constraintsKeys, getConstraintsData);
 
   return (
     <GraphProvider dehydratedState={dehydrate(queryClient)}>
@@ -52,11 +52,11 @@ async function GraphPage() {
           packageManager={project.packageManager}
           getViolations={getViolationsData}
           getPackages={getPackagesData}
-          getProjectConfig={getProjectConfigData}
+          getConstraints={getConstraintsData}
         />
       </FeatureGraphLayout>
       <FeatureGraphOverlays
-        getProjectConfig={getProjectConfigData}
+        getConstraints={getConstraintsData}
         getViolations={getViolationsData}
         getDocumentsData={getDocumentsData}
         getCodeownersData={getCodeownersData}
