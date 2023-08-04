@@ -52,7 +52,11 @@ export const handleNodeMouseout = ({
 
   if (!forceEdgeColor) {
     target.connectedEdges().map((element: EdgeSingular) => {
-      element.removeClass(['DEVELOPMENT', 'PEER', 'PRODUCTION']);
+      element.removeClass([
+        DependencyType.PRODUCTION,
+        DependencyType.DEVELOPMENT,
+        DependencyType.PEER,
+      ]);
     });
   }
 
@@ -99,7 +103,11 @@ export const handleEdgeMouseout = ({
 
   if (forceEdgeColor) return;
 
-  target.removeClass(['DEVELOPMENT', 'PEER', 'PRODUCTION']);
+  target.removeClass([
+    DependencyType.PRODUCTION,
+    DependencyType.DEVELOPMENT,
+    DependencyType.PEER,
+  ]);
 };
 
 /**********************************

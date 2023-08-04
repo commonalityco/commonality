@@ -43,8 +43,8 @@ export interface Typegen0 {
     focus: 'FOCUS';
     hide: 'HIDE';
     hideAll: 'HIDE_ALL';
-    hideDependants: 'HIDE_DEPENDANTS';
     hideDependencies: 'HIDE_DEPENDENCIES';
+    hideDependents: 'HIDE_DEPENDANTS';
     log:
       | 'DESTROY'
       | 'EDGE_CLICK'
@@ -132,6 +132,7 @@ export interface Typegen0 {
       | 'HIDE_DEPENDANTS'
       | 'HIDE_DEPENDENCIES'
       | 'INITIALIZE'
+      | 'SET_IS_EDGE_COLOR_SHOWN'
       | 'SET_THEME'
       | 'SHOW'
       | 'SHOW_ALL'

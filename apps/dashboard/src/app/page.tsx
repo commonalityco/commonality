@@ -5,6 +5,9 @@ import {
   FeatureGraphOverlays,
   FeatureGraphLayout,
   GraphProvider,
+  FeatureGraphPackageTooltip,
+  FeatureGraphDependencySheet,
+  FeatureGraphPackageSheet,
 } from '@commonalityco/feature-graph';
 import DashboardGraph from './DashboardGraph';
 import { DashboardSidebar } from './DashboardSidebar';
@@ -21,9 +24,9 @@ import {
   tagsKeys,
   violationsKeys,
 } from '@commonalityco/utils-graph';
-import { setTagsAction } from 'actions/metadata';
 import { getDependenciesData } from 'data/dependencies';
 import { getConstraintsData } from 'data/constraints';
+import { getCreateTagsButton } from './CreateTagsButton';
 
 async function GraphPage() {
   const project = await getProject();
@@ -34,7 +37,6 @@ async function GraphPage() {
   await queryClient.prefetchQuery(dependenciesKeys, getDependenciesData);
   await queryClient.prefetchQuery(tagsKeys, getTagsData);
   await queryClient.prefetchQuery(codeownersKeys, getCodeownersData);
-
   await queryClient.prefetchQuery(violationsKeys, getViolationsData);
   await queryClient.prefetchQuery(documentsKeys, getDocumentsData);
   await queryClient.prefetchQuery(constraintsKeys, getConstraintsData);
@@ -55,14 +57,20 @@ async function GraphPage() {
           getConstraints={getConstraintsData}
         />
       </FeatureGraphLayout>
-      <FeatureGraphOverlays
-        getConstraints={getConstraintsData}
-        getViolations={getViolationsData}
-        getDocumentsData={getDocumentsData}
-        getCodeownersData={getCodeownersData}
-        getTagsData={getTagsData}
-        onSetTags={setTagsAction}
-      />
+      <FeatureGraphOverlays>
+        <FeatureGraphPackageSheet
+          getTagsData={getTagsData}
+          getDocumentsData={getDocumentsData}
+          getCodeownersData={getCodeownersData}
+          getCreateTagsButton={getCreateTagsButton}
+        />
+        <FeatureGraphDependencySheet
+          getViolations={getViolationsData}
+          getConstraints={getConstraintsData}
+          getTagsData={getTagsData}
+        />
+        <FeatureGraphPackageTooltip />
+      </FeatureGraphOverlays>
     </GraphProvider>
   );
 }

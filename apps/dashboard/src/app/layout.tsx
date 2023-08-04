@@ -1,7 +1,7 @@
 import './globals.css';
 import { clsx } from 'clsx';
 import DashboardNavigation from 'app/DashboardNavigation';
-import { firaCode, inter } from 'constants/fonts';
+import { firaCode, inter, vollkorn } from 'constants/fonts';
 import { getProject } from 'data/project';
 import { Providers } from 'app/providers';
 
@@ -30,6 +30,7 @@ export default async function RootLayout({
           inter.className,
           inter.variable,
           firaCode.variable,
+          vollkorn.variable,
           'flex h-full flex-col font-sans'
         )}
       >

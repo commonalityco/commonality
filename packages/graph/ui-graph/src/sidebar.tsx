@@ -122,7 +122,7 @@ function PackagesFilterSection({
   onFocus,
   search,
 }: {
-  visiblePackages?: Package[];
+  visiblePackages: Package[];
   packages: Package[];
   stripScopeFromPackageNames?: boolean;
   onHide: (pkgName: string) => void;
@@ -138,8 +138,8 @@ function PackagesFilterSection({
     return (
       <Card variant="secondary">
         <CardHeader>
-          <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-md border">
-            <div className="bg-secondary rounded-sm p-1.5">
+          <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
+            <div className="bg-secondary rounded-full p-1.5">
               <Box className="h-5 w-5" />
             </div>
           </div>
@@ -264,8 +264,8 @@ function TagsFilterSection({
     return (
       <Card variant="secondary">
         <CardHeader>
-          <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-md border">
-            <div className="bg-secondary rounded-sm p-1.5">
+          <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
+            <div className="bg-secondary rounded-full p-1.5">
               <Tags className="h-5 w-5" />
             </div>
           </div>
@@ -391,8 +391,8 @@ function CodeownersFilterSection({
     return (
       <Card variant="secondary">
         <CardHeader>
-          <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-md border">
-            <div className="bg-secondary rounded-sm p-1.5">
+          <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
+            <div className="bg-secondary rounded-full p-1.5">
               <FileText className="h-5 w-5" />
             </div>
           </div>
@@ -567,6 +567,7 @@ export function Sidebar({
           </Button>
         </div>
         <Input
+          className="shrink-0"
           placeholder="Search"
           value={search}
           onChange={(event) => setSearch(event.target.value)}

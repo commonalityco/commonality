@@ -118,7 +118,7 @@ export const hideAll = withSerialization(
   }
 );
 
-export const hideDependants = withSerialization(
+export const hideDependents = withSerialization(
   ({
     traversalGraph,
     renderGraph,
@@ -128,9 +128,21 @@ export const hideDependants = withSerialization(
     renderGraph: Core;
     id: string;
   }) => {
-    const elementsToHide = traversalGraph.$id(id).incomers();
+    const successorsOfNode = renderGraph.$id(id).successors();
+    const successorsOfDirectDependents = traversalGraph
+      .$id(id)
+      .incomers()
+      .successors();
 
-    return renderGraph.elements().difference(elementsToHide);
+    if (successorsOfDirectDependents.length) {
+      return traversalGraph
+        .collection()
+        .union(traversalGraph.$id(id))
+        .union(successorsOfNode)
+        .intersection(successorsOfDirectDependents);
+    } else {
+      return renderGraph.elements();
+    }
   }
 );
 
@@ -144,7 +156,7 @@ export const hideDependencies = withSerialization(
     renderGraph: Core;
     id: string;
   }) => {
-    const elementsToHide = traversalGraph.$id(id).outgoers();
+    const elementsToHide = traversalGraph.$id(id).successors();
 
     return renderGraph.elements().difference(elementsToHide);
   }

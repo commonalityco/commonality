@@ -6,7 +6,7 @@ import {
   getElementDefinitions,
   hide,
   hideAll,
-  hideDependants,
+  hideDependents,
   hideDependencies,
   setInitialElements,
   show,
@@ -145,7 +145,7 @@ export const graphMachine = createMachine(
           HIDE_DEPENDANTS: {
             target: 'updating',
             cond: 'renderGraphExists',
-            actions: ['hideDependants', 'unselect', 'log'],
+            actions: ['hideDependents', 'unselect', 'log'],
           },
           HIDE_ALL: {
             target: 'updating',
@@ -182,6 +182,11 @@ export const graphMachine = createMachine(
             cond: 'renderGraphExists',
             actions: ['setTheme', 'log'],
           },
+          SET_IS_EDGE_COLOR_SHOWN: {
+            target: 'updating',
+            cond: 'renderGraphExists',
+            actions: ['renderIsEdgeColorShown', 'setIsEdgeColorShown', 'log'],
+          },
           // Graph toolbar events triggered by the user
           FIT: {
             cond: 'renderGraphExists',
@@ -194,10 +199,6 @@ export const graphMachine = createMachine(
           ZOOM_OUT: {
             cond: 'renderGraphExists',
             actions: ['zoomOut', 'log'],
-          },
-          SET_IS_EDGE_COLOR_SHOWN: {
-            cond: 'renderGraphExists',
-            actions: ['renderIsEdgeColorShown', 'setIsEdgeColorShown', 'log'],
           },
           // Events triggered by the graph
           NODE_MOUSEOVER: {
@@ -420,11 +421,11 @@ export const graphMachine = createMachine(
           });
         },
       }),
-      hideDependants: assign({
+      hideDependents: assign({
         elements: (context, event) => {
           if (!context.renderGraph || !context.traversalGraph) return [] as any;
 
-          return hideDependants({
+          return hideDependents({
             traversalGraph: context.traversalGraph,
             renderGraph: context.renderGraph,
             id: event.pkg.name,
@@ -526,7 +527,11 @@ export const graphMachine = createMachine(
             edge.addClass(type);
             edge.addClass('focus');
           } else {
-            edge.removeClass(['DEVELOPMENT', 'PEER', 'PRODUCTION']);
+            edge.removeClass([
+              DependencyType.PRODUCTION,
+              DependencyType.DEVELOPMENT,
+              DependencyType.PEER,
+            ]);
             edge.removeClass('focus');
           }
         });

@@ -153,6 +153,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      lucide-react:
+        specifier: ^0.248.0
+        version: 0.248.0(react@18.2.0)
       next:
         specifier: 13.4.6
         version: 13.4.6(@babel/core@7.22.9)(react-dom@18.2.0)(react@18.2.0)
@@ -839,6 +842,9 @@ importers:
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
+      lodash.debounce:
+        specifier: ^4.0.8
+        version: 4.0.8
       lodash.sortby:
         specifier: ^4.7.0
         version: 4.7.0
@@ -894,6 +900,9 @@ importers:
       '@types/cytoscape':
         specifier: ^3.19.10
         version: 3.19.10
+      '@types/lodash.debounce':
+        specifier: ^4.0.7
+        version: 4.0.7
       '@types/lodash.sortby':
         specifier: ^4.7.7
         version: 4.7.7

@@ -1,10 +1,16 @@
-import { show, showDependencies, showDependants } from './actions';
+import {
+  show,
+  showDependencies,
+  showDependants,
+  hideDependents,
+  hideDependencies,
+} from './actions';
 import cytoscape, {
   EdgeDefinition,
   ElementDefinition,
   NodeDefinition,
 } from 'cytoscape';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, test } from 'vitest';
 
 const nodeOne = {
   group: 'nodes',
@@ -24,8 +30,14 @@ const nodeThree = {
     id: 'three',
   },
 } satisfies NodeDefinition;
+const nodeFour = {
+  group: 'nodes',
+  data: {
+    id: 'four',
+  },
+} satisfies NodeDefinition;
 
-const edgeOne = {
+const edgeOneToTwo = {
   group: 'edges',
   data: {
     id: 'one->two',
@@ -33,7 +45,7 @@ const edgeOne = {
     target: 'two',
   },
 } satisfies EdgeDefinition;
-const edgeTwo = {
+const edgeTwoToThree = {
   group: 'edges',
   data: {
     id: 'two->three',
@@ -41,12 +53,12 @@ const edgeTwo = {
     target: 'three',
   },
 } satisfies EdgeDefinition;
-const edgeThree = {
+const edgeOneToFour = {
   group: 'edges',
   data: {
-    id: 'one->three',
+    id: 'one->four',
     source: 'one',
-    target: 'three',
+    target: 'four',
   },
 } satisfies EdgeDefinition;
 
@@ -54,9 +66,10 @@ const elements = [
   nodeOne,
   nodeTwo,
   nodeThree,
-  edgeOne,
-  edgeTwo,
-  edgeThree,
+  nodeFour,
+  edgeOneToTwo,
+  edgeTwoToThree,
+  edgeOneToFour,
 ] satisfies ElementDefinition[];
 
 describe('show', () => {
@@ -76,9 +89,10 @@ describe('show', () => {
           expect.objectContaining(nodeOne),
           expect.objectContaining(nodeTwo),
           expect.objectContaining(nodeThree),
-          expect.objectContaining(edgeOne),
-          expect.objectContaining(edgeThree),
-          expect.objectContaining(edgeTwo),
+          expect.objectContaining(nodeFour),
+          expect.objectContaining(edgeOneToTwo),
+          expect.objectContaining(edgeOneToFour),
+          expect.objectContaining(edgeTwoToThree),
         ]);
       });
     });
@@ -98,9 +112,10 @@ describe('show', () => {
             expect.objectContaining(nodeOne),
             expect.objectContaining(nodeTwo),
             expect.objectContaining(nodeThree),
-            expect.objectContaining(edgeOne),
-            expect.objectContaining(edgeTwo),
-            expect.objectContaining(edgeThree),
+            expect.objectContaining(nodeFour),
+            expect.objectContaining(edgeOneToTwo),
+            expect.objectContaining(edgeTwoToThree),
+            expect.objectContaining(edgeOneToFour),
           ])
         );
       });
@@ -124,9 +139,10 @@ describe('show', () => {
             expect.objectContaining(nodeOne),
             expect.not.objectContaining(nodeTwo),
             expect.not.objectContaining(nodeThree),
-            expect.not.objectContaining(edgeOne),
-            expect.not.objectContaining(edgeTwo),
-            expect.not.objectContaining(edgeThree),
+            expect.not.objectContaining(nodeFour),
+            expect.not.objectContaining(edgeOneToTwo),
+            expect.not.objectContaining(edgeTwoToThree),
+            expect.not.objectContaining(edgeOneToFour),
           ])
         );
       });
@@ -147,9 +163,10 @@ describe('show', () => {
             expect.objectContaining(nodeOne),
             expect.not.objectContaining(nodeTwo),
             expect.not.objectContaining(nodeThree),
-            expect.not.objectContaining(edgeOne),
-            expect.not.objectContaining(edgeTwo),
-            expect.not.objectContaining(edgeThree),
+            expect.not.objectContaining(nodeFour),
+            expect.not.objectContaining(edgeOneToTwo),
+            expect.not.objectContaining(edgeTwoToThree),
+            expect.not.objectContaining(edgeOneToFour),
           ])
         );
       });
@@ -174,17 +191,18 @@ describe('showDependencies', () => {
           expect.objectContaining(nodeOne),
           expect.objectContaining(nodeTwo),
           expect.objectContaining(nodeThree),
-          expect.objectContaining(edgeOne),
-          expect.objectContaining(edgeTwo),
-          expect.objectContaining(edgeThree),
+          expect.objectContaining(nodeFour),
+          expect.objectContaining(edgeOneToTwo),
+          expect.objectContaining(edgeTwoToThree),
+          expect.objectContaining(edgeOneToFour),
         ])
       );
     });
   });
 
-  describe('when no nodes are shown', () => {
+  describe('when only the root is shown', () => {
     const traversalGraph = cytoscape({ elements, headless: true });
-    const renderGraph = cytoscape({ elements: [], headless: true });
+    const renderGraph = cytoscape({ elements: [nodeOne], headless: true });
 
     it('returns the correct elements', () => {
       const elements = showDependencies({
@@ -196,11 +214,40 @@ describe('showDependencies', () => {
       expect(elements).toEqual(
         expect.arrayContaining([
           expect.objectContaining(nodeOne),
+          expect.objectContaining(nodeTwo),
           expect.not.objectContaining(nodeThree),
+          expect.objectContaining(nodeFour),
+          expect.objectContaining(edgeOneToTwo),
+          expect.not.objectContaining(edgeTwoToThree),
+          expect.objectContaining(edgeOneToFour),
+        ])
+      );
+    });
+  });
+
+  describe('when the root and its dependencies are shown', () => {
+    const traversalGraph = cytoscape({ elements, headless: true });
+    const renderGraph = cytoscape({
+      elements: [nodeOne, edgeOneToTwo, edgeOneToFour, nodeTwo, nodeFour],
+      headless: true,
+    });
+
+    it('returns the correct elements', () => {
+      const elements = showDependencies({
+        renderGraph,
+        traversalGraph,
+        id: 'two',
+      });
+
+      expect(elements).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining(nodeOne),
+          expect.objectContaining(nodeTwo),
           expect.objectContaining(nodeThree),
-          expect.objectContaining(edgeOne),
-          expect.not.objectContaining(edgeTwo),
-          expect.objectContaining(edgeThree),
+          expect.objectContaining(nodeFour),
+          expect.objectContaining(edgeOneToTwo),
+          expect.objectContaining(edgeTwoToThree),
+          expect.objectContaining(edgeOneToFour),
         ])
       );
     });
@@ -219,40 +266,117 @@ describe('showDependants', () => {
         id: 'two',
       });
 
-      expect(elements).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining(nodeOne),
-          expect.objectContaining(nodeTwo),
-          expect.objectContaining(nodeThree),
-          expect.objectContaining(edgeOne),
-          expect.objectContaining(edgeTwo),
-          expect.objectContaining(edgeThree),
-        ])
-      );
+      expect(elements).toMatchObject([
+        nodeOne,
+        nodeTwo,
+        nodeThree,
+        nodeFour,
+        edgeOneToTwo,
+        edgeTwoToThree,
+        edgeOneToFour,
+      ]);
     });
   });
 
-  describe('when no nodes are shown', () => {
+  describe('when only the root node is shown', () => {
     const traversalGraph = cytoscape({ elements, headless: true });
-    const renderGraph = cytoscape({ elements: [], headless: true });
+    const renderGraph = cytoscape({ elements: [nodeOne], headless: true });
 
     it('returns the correct elements', () => {
       const elements = showDependants({
         renderGraph,
         traversalGraph,
-        id: 'two',
+        id: 'one',
       });
 
-      expect(elements).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining(nodeOne),
-          expect.objectContaining(nodeTwo),
-          expect.not.objectContaining(nodeThree),
-          expect.objectContaining(edgeOne),
-          expect.not.objectContaining(edgeTwo),
-          expect.not.objectContaining(edgeThree),
-        ])
-      );
+      expect(elements).toMatchObject([nodeOne]);
+      expect(elements).not.toMatchObject([
+        nodeTwo,
+        nodeThree,
+        nodeFour,
+        edgeOneToFour,
+        edgeOneToTwo,
+        edgeTwoToThree,
+      ]);
     });
+  });
+
+  describe('when only a leaf node is shown', () => {
+    const traversalGraph = cytoscape({ elements, headless: true });
+    const renderGraph = cytoscape({ elements: [nodeThree], headless: true });
+
+    it('returns the correct elements', () => {
+      const elements = showDependants({
+        renderGraph,
+        traversalGraph,
+        id: 'three',
+      });
+
+      expect(elements).toMatchObject([nodeThree, nodeTwo, edgeTwoToThree]);
+      expect(elements).not.toMatchObject([
+        nodeOne,
+        nodeFour,
+        edgeOneToFour,
+        edgeOneToTwo,
+        edgeTwoToThree,
+      ]);
+    });
+  });
+});
+
+describe('hideDependents', () => {
+  describe('when all nodes are shown', () => {
+    describe('when hiding dependents for the root node', () => {
+      const traversalGraph = cytoscape({ elements, headless: true });
+      const renderGraph = cytoscape({ elements, headless: true });
+
+      it('returns the correct elements', () => {
+        const elements = hideDependents({
+          renderGraph,
+          traversalGraph,
+          id: 'one',
+        });
+
+        expect(elements).toMatchObject([
+          nodeOne,
+          nodeTwo,
+          nodeThree,
+          nodeFour,
+          edgeOneToTwo,
+          edgeTwoToThree,
+          edgeOneToFour,
+        ]);
+      });
+    });
+
+    describe('when hiding dependents for a node with dependents and dependencies', () => {
+      const traversalGraph = cytoscape({ elements, headless: true });
+      const renderGraph = cytoscape({ elements, headless: true });
+
+      it('returns the correct elements', () => {
+        const elements = hideDependents({
+          renderGraph,
+          traversalGraph,
+          id: 'two',
+        });
+
+        expect(elements).toMatchObject([nodeTwo, edgeTwoToThree, nodeThree]);
+      });
+    });
+  });
+});
+
+describe('hideDependencies', () => {
+  test('when hiding dependencies for the root node only the root node is shown', () => {
+    const traversalGraph = cytoscape({ elements, headless: true });
+    const renderGraph = cytoscape({ elements, headless: true });
+
+    const shownElements = hideDependencies({
+      renderGraph,
+      traversalGraph,
+      id: 'one',
+    });
+    console.log({ shownElements: shownElements.map((el) => el.data) });
+    expect(shownElements).toMatchObject([nodeOne]);
   });
 });

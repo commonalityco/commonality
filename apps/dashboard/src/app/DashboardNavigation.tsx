@@ -1,6 +1,6 @@
 'use client';
 import { Theme } from '@commonalityco/utils-core';
-import { Navigation } from '@commonalityco/ui-core';
+import { Navigation, NavigationLogo, Divider } from '@commonalityco/ui-core';
 import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
@@ -17,27 +17,29 @@ function DashboardNavigation({ title }: { title: string }) {
 
   return (
     <>
-      <Navigation
-        title={
-          <h1 className="font-serif text-base font-semibold text-foreground">
-            {title}
-          </h1>
-        }
-      >
-        <div className="flex space-x-2">
-          <Link
-            href="https://commonality.co/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button variant="link">Docs</Button>
-          </Link>
-          <ThemeButton
-            defaultTheme={theme as Theme}
-            onThemeChange={(theme) => {
-              setTheme(theme);
-            }}
-          />
+      <Navigation className="border-b">
+        <div className="flex w-full items-center">
+          <div className="flex grow items-center space-x-3">
+            <NavigationLogo />
+            <p className="font-bold uppercase tracking-widest">Studio</p>
+            <Divider className="fill-muted-foreground" />
+            <h1 className="text-base font-semibold text-foreground">{title}</h1>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Link
+              href="https://commonality.co/docs"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="link">Docs</Button>
+            </Link>
+            <ThemeButton
+              defaultTheme={theme as Theme}
+              onThemeChange={(theme) => {
+                setTheme(theme);
+              }}
+            />
+          </div>
         </div>
       </Navigation>
     </>

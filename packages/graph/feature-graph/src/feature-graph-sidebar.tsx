@@ -31,16 +31,13 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
     queryFn: () => props.getPackages(),
   });
 
-  const visiblePackages = useMemo(() => {
-    const graphPkgs: Package[] = state.context.elements.map(
-      (el) => el.data as Package
-    );
-    const graphPkgNames = graphPkgs.map((pkg) => pkg.name);
+  const visiblePackages = GraphContext.useSelector((state) => {
+    if (!state.context.renderGraph) return [];
 
-    return packages?.filter((pkg) => {
-      return graphPkgNames.includes(pkg.name);
-    });
-  }, []);
+    return state.context.renderGraph
+      .nodes()
+      .map((node) => node.data()) as Package[];
+  });
 
   if (!packages || !codeownersData) {
     return null;

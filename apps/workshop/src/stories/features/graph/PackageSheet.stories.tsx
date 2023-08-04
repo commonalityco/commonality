@@ -7,6 +7,7 @@ import {
   Package,
   TagsData,
 } from '@commonalityco/types';
+import { PackageType } from '@commonalityco/utils-core';
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
   title: 'Features/Graph/PackageSheet',
@@ -28,9 +29,7 @@ const pkg = {
   version: '1.0.0',
   description: 'This is a loooooooonnnnnnnnggggggg description.',
   path: './scope/test',
-  dependencies: [{ name: 'react', version: '18', type: 'PRODUCTION' as any }],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const documentsData = [

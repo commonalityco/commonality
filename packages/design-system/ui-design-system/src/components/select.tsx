@@ -93,7 +93,7 @@ function getClassNames<
           '!pointer-events-none !opacity-50': state.isDisabled,
           '!bg-secondary !text-foreground': state.isSelected && !state.isMulti,
           '!pr-2 !pl-7 ': state.isMulti,
-          '!bg-transparent hover:!bg-accent !text-foreground before:content-["•"] before:absolute before:my-auto before:left-2 before:!text-[24px] before:-translate-y-0.5':
+          '!bg-transparent hover:!bg-accent !text-foreground before:h-1 before:w-1 before:rounded-full before:absolute before:my-auto before:left-2.5 before:top-0 before:bottom-0 before:bg-foreground':
             state.isMulti && state.isSelected,
           '!px-2': !state.isMulti,
         }

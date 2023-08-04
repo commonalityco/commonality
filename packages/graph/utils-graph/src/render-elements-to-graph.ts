@@ -4,6 +4,7 @@ import { bindRenderGraphEvents } from './bind-render-graph-events';
 import { withTiming } from './utils/with-timing';
 
 import { Dependency, Package, Violation } from '@commonalityco/types';
+import { DependencyType } from '@commonalityco/utils-core';
 
 const updateStyles = ({
   graph,
@@ -37,12 +38,20 @@ const updateStyles = ({
       edge.addClass(edgeData.type);
       edge.addClass('focus');
     } else {
-      edge.removeClass(['DEVELOPMENT', 'PEER', 'PRODUCTION']);
+      edge.removeClass([
+        DependencyType.DEVELOPMENT,
+        DependencyType.PEER,
+        DependencyType.PRODUCTION,
+      ]);
       edge.removeClass('focus');
     }
 
     if (violationForEdge) {
-      edge.removeClass(['DEVELOPMENT', 'PEER', 'PRODUCTION']);
+      edge.removeClass([
+        DependencyType.DEVELOPMENT,
+        DependencyType.PEER,
+        DependencyType.PRODUCTION,
+      ]);
       edge.removeClass('focus');
 
       edge.addClass('violation');

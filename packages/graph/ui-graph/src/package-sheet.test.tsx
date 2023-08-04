@@ -4,6 +4,7 @@ import {
   Package,
   TagsData,
 } from '@commonalityco/types';
+import { PackageType } from '@commonalityco/utils-core';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import { PackageSheet } from './package-sheet';
@@ -13,9 +14,7 @@ const pkg = {
   version: '1.0.0',
   description: 'This is a loooooooonnnnnnnnggggggg description.',
   path: './scope/test',
-  dependencies: [{ name: 'react', version: '18', type: 'PRODUCTION' as any }],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const documentsData = [
@@ -75,7 +74,6 @@ describe('<PackageSheet/>', () => {
           tagsData={tagsData}
           codeownersData={codeownersData}
           documentsData={documentsData}
-          onSetTags={() => {}}
         />
       );
 
@@ -92,18 +90,17 @@ describe('<PackageSheet/>', () => {
   });
 
   describe('when there are no tags', () => {
-    test('shows the button to add a tag', () => {
+    test('shows the empty state', () => {
       render(
         <PackageSheet
           pkg={pkg}
           tagsData={[]}
           codeownersData={codeownersData}
           documentsData={documentsData}
-          onSetTags={() => {}}
         />
       );
 
-      expect(screen.getByRole('button', { name: 'Add tags' })).toBeTruthy();
+      expect(screen.getByText('Get started with tags')).toBeTruthy();
     });
   });
 });

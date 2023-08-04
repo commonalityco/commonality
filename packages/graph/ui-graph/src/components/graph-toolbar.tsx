@@ -30,7 +30,7 @@ import {
   ShieldClose,
   ChevronDown,
 } from 'lucide-react';
-import { ProjectConfig, Violation, Constraint } from '@commonalityco/types';
+import { Violation, Constraint } from '@commonalityco/types';
 import { useMemo } from 'react';
 import { cva } from 'class-variance-authority';
 import { ConstraintAccordionItem } from './constraint-accordion-item';
@@ -172,9 +172,15 @@ function ViolationsHoverCard({
             <p className="mb-3 text-xs">
               Create constraints to enforce boundaries in your dependency graph.
             </p>
-            <Button variant="secondary" size="sm" className="w-full">
-              Learn more
-              <ExternalLink className="ml-1 h-3 w-3" />
+            <Button variant="secondary" size="sm" className="w-full" asChild>
+              <a
+                href="https://comonality.co/docs/constraints"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Learn more
+                <ExternalLink className="ml-1 h-3 w-3" />
+              </a>
             </Button>
           </div>
         )}
