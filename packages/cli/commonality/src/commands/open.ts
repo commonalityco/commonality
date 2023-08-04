@@ -4,7 +4,6 @@ import getPort from 'get-port';
 import openUrl from 'open';
 import { validateProjectStructure } from '../utils/validate-project-structure';
 import { getRootDirectory } from '@commonalityco/data-project';
-import boxen from 'boxen';
 import chalk from 'chalk';
 
 const command = new Command();

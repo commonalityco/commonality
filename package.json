@@ -21,7 +21,8 @@
     "changeset:version": "changeset version",
     "changeset:release": "changeset publish",
     "commonality:publish": "commonality publish",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "type-check": "turbo run type-check"
   },
   "keywords": [],
   "author": "",

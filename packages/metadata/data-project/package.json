@@ -10,7 +10,8 @@
     "lint": "eslint ./src --fix",
     "build": "tsup-node",
     "dev": "tsup-node --watch",
-    "test": "vitest"
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "workspace:^",

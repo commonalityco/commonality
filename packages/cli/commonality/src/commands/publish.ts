@@ -6,11 +6,11 @@ import {
   getRootDirectory,
 } from '@commonalityco/data-project';
 import chalk from 'chalk';
-import { getPackages } from '@commonalityco/data-packages';
+import { getDependencies, getPackages } from '@commonalityco/data-packages';
 import { getTagsData } from '@commonalityco/data-tags';
 import { getDocumentsData } from '@commonalityco/data-documents';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
-import { getViolationsData } from '@commonalityco/data-violations';
+import { getViolations } from '@commonalityco/data-violations';
 import got, { HTTPError } from 'got';
 import path from 'node:path';
 
@@ -99,13 +99,14 @@ export const publish = command
   .action(async (options) => {
     const rootDirectory = await getRootDirectory();
     const packages = await getPackages({ rootDirectory });
+    const dependencies = await getDependencies({ rootDirectory });
     const documentsData = await getDocumentsData({ rootDirectory });
     const projectConfig = await getProjectConfig({ rootDirectory });
     const codeownersData = await getCodeownersData({ rootDirectory, packages });
     const tagsData = await getTagsData({ rootDirectory, packages });
-    const violations = await getViolationsData({
-      projectConfig,
-      packages,
+    const violations = await getViolations({
+      constraints: projectConfig.constraints,
+      dependencies,
       tagsData,
     });
 

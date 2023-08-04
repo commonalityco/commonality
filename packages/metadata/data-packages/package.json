@@ -11,7 +11,8 @@
     "build": "tsup-node",
     "dev": "tsup-node --watch",
     "lint": "eslint ./src --fix",
-    "test": "vitest"
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "fs-extra": "^11.1.1"

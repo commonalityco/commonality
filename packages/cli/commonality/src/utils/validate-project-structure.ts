@@ -22,6 +22,7 @@ export const validateProjectStructure = async ({
           exitCode: 1,
         }
       );
+      return;
     }
   };
 

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { ComponentPropsWithoutRef } from 'react';
 import { describe, expect, it } from 'vitest';
 import { Package } from '@commonalityco/types';
-import userEvent from '@testing-library/user-event';
+import { PackageType } from '@commonalityco/utils-core';
 
 const renderSidebar = (props: {
   initialSearch: ComponentPropsWithoutRef<typeof Sidebar>['initialSearch'];
@@ -34,53 +34,28 @@ const pkgOne = {
   path: `/path/to/package-one`,
   name: `@scope/one`,
   version: '1.0.0',
-  dependencies: [
-    {
-      name: '@scope/two',
-      version: '1.0.0',
-      type: 'PRODUCTION' as any,
-    },
-    {
-      name: '@scope/three',
-      version: '1.0.0',
-      type: 'DEVELOPMENT' as any,
-    },
-  ],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgTwo = {
   path: `/path/to/package-two`,
   name: `@scope/two`,
   version: '1.0.0',
-  dependencies: [],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgThree = {
   path: `/path/to/package-three`,
   name: `@scope/three`,
   version: '1.0.0',
-  dependencies: [
-    {
-      name: '@scope/four',
-      version: '1.0.0',
-      type: 'PRODUCTION' as any,
-    },
-  ],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgFour = {
   path: `/path/to/package-four`,
   name: `@scope/four`,
   version: '1.0.0',
-  dependencies: [],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgFive = {
@@ -89,15 +64,7 @@ const pkgFive = {
   version: '1.0.0',
   tags: ['tag-five'],
   owners: ['@team-five'],
-  dependencies: [
-    {
-      name: '@scope/four',
-      version: '1.0.0',
-      type: 'PEER' as any,
-    },
-  ],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 };
 
 describe('<Sidebar/>', () => {

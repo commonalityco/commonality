@@ -2,10 +2,10 @@ import {
   getProjectConfig,
   getRootDirectory,
 } from '@commonalityco/data-project';
-import { getPackages } from '@commonalityco/data-packages';
+import { getDependencies, getPackages } from '@commonalityco/data-packages';
 import { getTagsData } from '@commonalityco/data-tags';
 import { Command } from 'commander';
-import { getViolationsData } from '@commonalityco/data-violations';
+import { getViolations } from '@commonalityco/data-violations';
 import chalk from 'chalk';
 import path from 'node:path';
 import { formatTagName } from '@commonalityco/utils-core';
@@ -143,11 +143,12 @@ export const validate = command
   .action(async () => {
     const rootDirectory = await getRootDirectory();
     const packages = await getPackages({ rootDirectory });
+    const dependencies = await getDependencies({ rootDirectory });
     const tagsData = await getTagsData({ rootDirectory, packages });
     const projectConfig = await getProjectConfig({ rootDirectory });
-    const violations = await getViolationsData({
-      packages,
-      projectConfig,
+    const violations = await getViolations({
+      dependencies,
+      constraints: projectConfig.constraints,
       tagsData,
     });
 

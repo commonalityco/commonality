@@ -1,18 +1,10 @@
 import { validateAction } from './validate';
-import {
-  getProjectConfig,
-  getRootDirectory,
-} from '@commonalityco/data-project';
-import { getViolationsData } from '@commonalityco/data-violations';
 import { vi, describe, it, expect, beforeEach, test, afterEach } from 'vitest';
-import { getPackages } from '@commonalityco/data-packages';
-import { getTagsData } from '@commonalityco/data-tags';
 import { Command } from 'commander';
-import stripAnsi from 'strip-ansi';
 
 vi.mock('@commonalityco/data-violations', () => {
   return {
-    getViolationsData: vi.fn(),
+    getViolations: vi.fn(),
   };
 });
 

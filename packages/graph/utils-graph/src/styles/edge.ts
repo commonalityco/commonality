@@ -1,5 +1,5 @@
 import { DependencyType } from '@commonalityco/utils-core';
-import cytoscape, { Stylesheet } from 'cytoscape';
+import { Stylesheet } from 'cytoscape';
 
 const colors = {
   light: {

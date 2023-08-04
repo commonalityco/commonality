@@ -3,7 +3,6 @@ import {
   createRenderGraph,
   createTraversalGraph,
   focus,
-  getElementDefinitions,
   hide,
   hideAll,
   hideDependents,
@@ -16,7 +15,7 @@ import {
 } from '@commonalityco/utils-graph';
 import { Package, Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
-import { Actor, ActorRef, assign, createMachine, spawn } from 'xstate';
+import { assign, createMachine } from 'xstate';
 import {
   CollectionArgument,
   Core,
@@ -231,7 +230,7 @@ export const graphMachine = createMachine(
           onDone: {
             target: 'rendering',
             actions: assign({
-              elements: (context, event) => event.data,
+              elements: (_context, event) => event.data,
             }),
           },
           onError: {
@@ -262,7 +261,7 @@ export const graphMachine = createMachine(
   {
     services: {
       updateLayout: (context) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           if (!context.worker) {
             // Throw to ERROR STATE
             return resolve([]);
@@ -354,7 +353,7 @@ export const graphMachine = createMachine(
     actions: {
       createWorker: assign({
         worker: () =>
-          new Worker(new URL('../utils/worker.ts', import.meta.url), {
+          new Worker(new URL('../utils/worker.js', import.meta.url), {
             type: 'module',
           }),
       }),
@@ -372,17 +371,17 @@ export const graphMachine = createMachine(
 
           return setInitialElements({ renderGraph: context.renderGraph });
         },
-        violations: (context, event) => {
+        violations: (_context, event) => {
           return event.violations;
         },
       }),
       setTheme: assign({
-        theme: (context, event) => {
+        theme: (_context, event) => {
           return event.theme;
         },
       }),
       createRenderGraph: assign({
-        renderGraph: (context, event) => {
+        renderGraph: (_context, event) => {
           const container = document.getElementById('graph-container');
 
           if (!container) throw new Error('Could not find graph container');
@@ -394,7 +393,7 @@ export const graphMachine = createMachine(
         },
       }),
       createTraversalGraph: assign({
-        traversalGraph: (context, event) =>
+        traversalGraph: (_context, event) =>
           createTraversalGraph({
             elements: event.elements,
           }),
@@ -537,11 +536,11 @@ export const graphMachine = createMachine(
         });
       },
       setIsEdgeColorShown: assign({
-        isEdgeColorShown: (context, event) => {
+        isEdgeColorShown: (_context, event) => {
           return event.isShown;
         },
       }),
-      zoomOut: (context, event) => {
+      zoomOut: (context) => {
         if (!context.renderGraph) return;
 
         const currentZoom = context.renderGraph.zoom();
@@ -563,7 +562,7 @@ export const graphMachine = createMachine(
           return context.traversalGraph.$id(event.node.id());
           // return event.node;
         },
-        hoveredRenderNode: (context, event) => {
+        hoveredRenderNode: (_context, event) => {
           return event.node;
         },
       }),
@@ -577,7 +576,7 @@ export const graphMachine = createMachine(
       }),
       edgeClick: assign({
         selectedNode: undefined,
-        selectedEdge: (context, event) => {
+        selectedEdge: (_context, event) => {
           return event.edge;
         },
       }),
