@@ -2,7 +2,9 @@
   "name": "@commonalityco/data-tags",
   "description": "Utilities getting and setting metadata for a Commonality project",
   "version": "0.0.2",
-  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "types": "src/index.ts",
   "main": "dist/index.js",
   "scripts": {
