@@ -103,7 +103,7 @@ importers:
         specifier: '*'
         version: link:../../packages/graph/ui-graph
       '@commonalityco/utils-core':
-        specifier: ^0.0.1
+        specifier: ^0.0.2
         version: link:../../packages/core/utils-core
       '@commonalityco/utils-graph':
         specifier: '*'
