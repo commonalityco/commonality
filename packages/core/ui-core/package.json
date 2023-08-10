@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/ui-core",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "@commonalityco/types": "*",
     "@radix-ui/react-slot": "^1.0.2",

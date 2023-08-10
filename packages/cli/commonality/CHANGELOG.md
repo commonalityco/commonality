@@ -1,5 +1,20 @@
 # @commonalityco/cli
 
+## 0.0.15
+
+### Patch Changes
+
+- da2c556: Initial release
+- Updated dependencies [da2c556]
+  - @commonalityco/studio@0.1.3
+  - @commonalityco/utils-core@0.0.2
+  - @commonalityco/data-codeowners@0.0.7
+  - @commonalityco/data-documents@0.0.2
+  - @commonalityco/data-packages@0.0.7
+  - @commonalityco/data-project@0.0.2
+  - @commonalityco/data-tags@0.0.2
+  - @commonalityco/data-violations@0.0.7
+
 ## 0.0.13
 
 ### Patch Changes

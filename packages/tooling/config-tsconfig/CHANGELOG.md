@@ -1,5 +1,11 @@
 # @commonalityco/config-tsconfig
 
+## 0.0.5
+
+### Patch Changes
+
+- da2c556: Initial release
+
 ## 0.0.3
 
 ### Patch Changes
