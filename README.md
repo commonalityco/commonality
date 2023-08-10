@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Scale modular JavaScript projects from one to thousands of developers.
+  Build infinitely scalable front-end ecosystems.
 </p>
 
 <p align="center">
