@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/utils-graph",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "cytoscape-dagre": "^2.5.0",
     "lodash.uniqby": "^4.7.0",

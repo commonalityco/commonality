@@ -1,5 +1,13 @@
 # @commonalityco/snapshot
 
+## 0.0.2
+
+### Patch Changes
+
+- da2c556: Initial release
+- Updated dependencies [da2c556]
+  - @commonalityco/data-project@0.0.2
+
 ## 0.0.6
 
 ### Patch Changes

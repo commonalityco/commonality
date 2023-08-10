@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/studio",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "main": "dist/start.js",
   "types": "dist/start.d.ts",
@@ -33,7 +33,7 @@
     "@commonalityco/ui-core": "*",
     "@commonalityco/ui-design-system": "*",
     "@commonalityco/ui-graph": "*",
-    "@commonalityco/utils-core": "^0.0.1",
+    "@commonalityco/utils-core": "^0.0.2",
     "@commonalityco/utils-graph": "*",
     "@next/bundle-analyzer": "^13.4.12",
     "@tanstack/react-query": "^4.29.25",

@@ -1,5 +1,13 @@
 # @commonalityco/types
 
+## 0.0.9
+
+### Patch Changes
+
+- da2c556: Initial release
+- Updated dependencies [da2c556]
+  - @commonalityco/utils-core@0.0.2
+
 ## 0.0.7
 
 ### Patch Changes
