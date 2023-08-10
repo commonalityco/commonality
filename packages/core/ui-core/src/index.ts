@@ -1,4 +1,9 @@
-export { Navigation, NavigationLogo, Divider } from './navigation';
+export {
+  Navigation,
+  NavigationLogo,
+  Divider,
+  NavigationButton,
+} from './navigation';
 export { ThemeButton } from './theme-button';
 export { Logo } from './logo';
 export { GradientFade } from './gradient-fade';

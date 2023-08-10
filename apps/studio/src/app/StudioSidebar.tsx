@@ -14,7 +14,7 @@ const FeatureGraphSidebar = dynamic(
   }
 );
 
-export function DashboardSidebar(
+export function StudioSidebar(
   props: ComponentProps<typeof FeatureGraphSidebar>
 ) {
   return <FeatureGraphSidebar {...props} />;

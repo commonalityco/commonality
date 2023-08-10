@@ -9,8 +9,8 @@ import {
   FeatureGraphDependencySheet,
   FeatureGraphPackageSheet,
 } from '@commonalityco/feature-graph';
-import DashboardGraph from './DashboardGraph';
-import { DashboardSidebar } from './DashboardSidebar';
+import StudioGraph from './StudioGraph';
+import { StudioSidebar } from './StudioSidebar';
 import { getCodeownersData } from 'data/codeowners';
 import { getViolationsData } from 'data/violations';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -44,12 +44,12 @@ async function GraphPage() {
   return (
     <GraphProvider dehydratedState={dehydrate(queryClient)}>
       <FeatureGraphLayout>
-        <DashboardSidebar
+        <StudioSidebar
           getCodeownersData={getCodeownersData}
           getTags={getTagsData}
           getPackages={getPackagesData}
         />
-        <DashboardGraph
+        <StudioGraph
           getDependencies={getDependenciesData}
           packageManager={project.packageManager}
           getViolations={getViolationsData}

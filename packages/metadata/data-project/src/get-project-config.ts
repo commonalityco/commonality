@@ -8,7 +8,6 @@ const allPackagesWildcard = z.enum(['*']);
 const projectConfigSchema = z
   .object({
     projectId: z.string().optional(),
-    stripScopeFromPackageNames: z.boolean().default(true).optional(),
     constraints: z
       .array(
         z.union([

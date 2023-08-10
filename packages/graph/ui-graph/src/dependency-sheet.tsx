@@ -2,6 +2,7 @@ import { Constraint, Dependency, Violation } from '@commonalityco/types';
 import {
   Accordion,
   AccordionContent,
+  cn,
   Label,
   Sheet,
   SheetContent,
@@ -9,22 +10,11 @@ import {
   SheetTitle,
 } from '@commonalityco/ui-design-system';
 import { DependencyType } from '@commonalityco/utils-core';
-import { cva } from 'class-variance-authority';
 import { CornerDownRight } from 'lucide-react';
 import { ComponentProps } from 'react';
 import { ConstraintResult } from './components/constraint-result';
 import { ConstraintAccordionItem } from './components/constraint-accordion-item';
 import { ConstraintAccordionTrigger } from './components/constraint-accordion-trigger';
-
-const statusDotStyles = cva('h-2 w-2 rounded-full', {
-  variants: {
-    type: {
-      production: 'bg-green-600',
-      development: 'bg-blue-600',
-      peer: 'bg-purple-600',
-    },
-  },
-});
 
 const TextByType: Record<DependencyType, string> = {
   [DependencyType.PRODUCTION]: 'Production',
@@ -61,7 +51,13 @@ function DependencySheetContent({
         <div className="space-y-1">
           <Label>Type</Label>
           <div className="flex flex-nowrap items-center space-x-2">
-            <div className={statusDotStyles({ type: dependency.type })} />
+            <div
+              className={cn('h-2 w-2 rounded-full', {
+                'bg-green-600': dependency.type === DependencyType.PRODUCTION,
+                'bg-blue-600': dependency.type === DependencyType.DEVELOPMENT,
+                'bg-purple-600': dependency.type === DependencyType.PEER,
+              })}
+            />
             <p>{TextByType[dependency.type]}</p>
           </div>
         </div>

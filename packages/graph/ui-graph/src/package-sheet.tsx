@@ -96,7 +96,7 @@ function PackageSheetContent({
   codeownersData: PackageSheetProps['codeownersData'];
   getCreateTagsButton: PackageSheetProps['getCreateTagsButton'];
 }) {
-  const Icon = getIconForPackage(pkg);
+  const Icon = getIconForPackage(pkg.type);
 
   const tagDataForPkg = useMemo(() => {
     return tagsData.find((data) => data.packageName === pkg.name);

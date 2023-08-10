@@ -17,6 +17,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
+  cn,
 } from '@commonalityco/ui-design-system';
 import {
   MinusIcon,
@@ -32,7 +33,6 @@ import {
 } from 'lucide-react';
 import { Violation, Constraint } from '@commonalityco/types';
 import { useMemo } from 'react';
-import { cva } from 'class-variance-authority';
 import { ConstraintAccordionItem } from './constraint-accordion-item';
 import { ConstraintAccordionTrigger } from './constraint-accordion-trigger';
 import { ConstraintResult } from './constraint-result';
@@ -67,8 +67,12 @@ function ViolationsHoverCard({
       <PopoverTrigger asChild>
         <Button variant="ghost" size="sm" className="gap-2">
           <div
-            className={validateDotStyles({
-              variant: violations.length ? 'destructive' : 'success',
+            // className={validateDotStyles({
+            //   variant: violations.length ? 'destructive' : 'success',
+            // })}
+            className={cn('h-2 w-2 rounded-full', {
+              'bg-success': !violations.length,
+              'bg-destructive': violations.length,
             })}
           />
           {`${constraints.length} constraints with ${
@@ -188,15 +192,6 @@ function ViolationsHoverCard({
     </Popover>
   );
 }
-
-const validateDotStyles = cva('h-2 w-2 rounded-full', {
-  variants: {
-    variant: {
-      success: 'bg-emerald-600',
-      destructive: 'bg-destructive',
-    },
-  },
-});
 
 const IconByPackageManager = {
   [PackageManager.NPM]: NpmLogo,

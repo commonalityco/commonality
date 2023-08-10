@@ -18,8 +18,8 @@ import {
   CardTitle,
   CardDescription,
   CardFooter,
+  cn,
 } from '@commonalityco/ui-design-system';
-import { cva } from 'class-variance-authority';
 import {
   getIconForPackage,
   formatPackageName,
@@ -37,17 +37,6 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { GradientFade } from '@commonalityco/ui-core';
 import sortBy from 'lodash.sortby';
 
-const visibilityButton = cva(
-  'shrink-0 opacity-0 hover:opacity-100 flex items-center',
-  {
-    variants: {
-      visible: {
-        true: 'opacity-100',
-      },
-    },
-  }
-);
-
 function ShowHideButton({
   visible,
   onHide,
@@ -58,7 +47,11 @@ function ShowHideButton({
   onShow: ComponentProps<typeof Button>['onClick'];
 }) {
   return (
-    <div className={visibilityButton({ visible })}>
+    <div
+      className={cn('flex shrink-0 items-center opacity-0 hover:opacity-100', {
+        'opacity-100': visible,
+      })}
+    >
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -184,7 +177,7 @@ function PackagesFilterSection({
                   )
                 );
 
-                const IconForPackage = getIconForPackage(package_);
+                const IconForPackage = getIconForPackage(package_.type);
                 const formattedPackageName = formatPackageName(package_.name, {
                   stripScope: stripScopeFromPackageNames ?? true,
                 });

@@ -3,11 +3,11 @@
   "description": "State management utilities for the Commonality Dashboard graph",
   "version": "0.0.1",
   "devDependencies": {
-    "@commonalityco/config-eslint": "workspace:^",
-    "@commonalityco/config-tsconfig": "workspace:^",
-    "@commonalityco/utils-graph": "workspace:^",
-    "@commonalityco/utils-core": "workspace:^",
-    "@commonalityco/types": "workspace:^",
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/utils-graph": "*",
+    "@commonalityco/utils-core": "*",
+    "@commonalityco/types": "*",
     "@popperjs/core": "^2.11.8",
     "@types/cytoscape": "^3.19.10",
     "@types/lodash.debounce": "^4.0.7",
@@ -18,8 +18,8 @@
   "license": "MIT",
   "peerDependencies": {
     "xstate": "^4.37.2",
-    "@commonalityco/utils-graph": "workspace:^",
-    "@commonalityco/utils-core": "workspace:^"
+    "@commonalityco/utils-graph": "*",
+    "@commonalityco/utils-core": "*"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

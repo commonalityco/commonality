@@ -1,7 +1,6 @@
 'use client';
 import { forwardRef, memo } from 'react';
 import { GradientFade } from '@commonalityco/ui-core';
-import clsx from 'clsx';
 import { Loader2, PackageSearch } from 'lucide-react';
 import { Button, cn } from '@commonalityco/ui-design-system';
 
@@ -52,7 +51,7 @@ export const GraphChart = memo(
           />
 
           <div
-            className={clsx(
+            className={cn(
               'absolute left-0 top-0 flex h-full w-full items-center justify-center',
               {
                 'opacity-100': loading,
@@ -65,7 +64,7 @@ export const GraphChart = memo(
           <div
             id="graph-container"
             ref={ref}
-            className={clsx('h-full w-full', {
+            className={cn('h-full w-full', {
               'opacity-0': loading,
               'opacity-100 transition-opacity ': !loading,
             })}

@@ -11,7 +11,9 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-export const GraphContext = createActorContext(graphMachine);
+export const GraphContext: ReturnType<
+  typeof createActorContext<typeof graphMachine>
+> = createActorContext(graphMachine);
 
 export const GraphProvider = ({
   children,

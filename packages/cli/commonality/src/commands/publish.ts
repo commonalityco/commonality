@@ -96,14 +96,16 @@ export const publish = command
     '--cwd <path>',
     "A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile."
   )
-  .action(async (options) => {
+  .action(async (options: { key: string }) => {
     const rootDirectory = await getRootDirectory();
     const packages = await getPackages({ rootDirectory });
-    const dependencies = await getDependencies({ rootDirectory });
     const documentsData = await getDocumentsData({ rootDirectory });
     const projectConfig = await getProjectConfig({ rootDirectory });
+    const dependencies = await getDependencies({ rootDirectory });
+
     const codeownersData = await getCodeownersData({ rootDirectory, packages });
     const tagsData = await getTagsData({ rootDirectory, packages });
+
     const violations = await getViolations({
       constraints: projectConfig.constraints,
       dependencies,
@@ -117,11 +119,12 @@ export const publish = command
       documentsData,
       codeownersData,
       tagsData,
+      dependencies,
     } satisfies SnapshotData;
 
     await actionHandler({
       rootDirectory,
-      key: options,
+      key: options.key,
       action: command,
       snapshot,
       apiOrigin:

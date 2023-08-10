@@ -47,7 +47,7 @@ export const TooltipPackage = ({
   stripScope = false,
 }: TooltipPackageProperties) => {
   const pkg: Package = renderNode.data();
-  const Icon = getIconForPackage(pkg);
+  const Icon = getIconForPackage(pkg.type);
 
   const dependentsCount = traversalNode.incomers().nodes().length;
   const dependenciesCount = traversalNode.outgoers().nodes().length;

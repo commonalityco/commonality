@@ -101,4 +101,5 @@ export type SnapshotData = {
   codeownersData: CodeownersData[];
   violations: Violation[];
   projectConfig: ProjectConfig;
+  dependencies: Dependency[];
 };

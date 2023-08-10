@@ -1,12 +1,12 @@
 import './globals.css';
 import { clsx } from 'clsx';
-import DashboardNavigation from 'app/DashboardNavigation';
+import StudioNavigation from 'app/StudioNavigation';
 import { firaCode, inter, vollkorn } from 'constants/fonts';
 import { getProject } from 'data/project';
 import { Providers } from 'app/providers';
 
 export const metadata = {
-  title: 'Commonality',
+  title: 'Commonality Studio',
   icons: {
     icon: './favicon.png',
   },
@@ -35,7 +35,7 @@ export default async function RootLayout({
         )}
       >
         <Providers>
-          <DashboardNavigation title={project.name} />
+          <StudioNavigation title={project.name} />
           {children}
         </Providers>
       </body>

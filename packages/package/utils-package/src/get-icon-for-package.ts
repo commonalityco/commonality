@@ -1,4 +1,3 @@
-import { Package } from '@commonalityco/types';
 import { LogoNode } from './icons/logo-node';
 import { LogoReact } from './icons/logo-react';
 import { LogoNext } from './icons/logo-next';
@@ -10,6 +9,6 @@ const ComponentByType = {
   [PackageType.NODE]: LogoNode,
 };
 
-export const getIconForPackage = (package_: Package) => {
-  return ComponentByType[package_.type] ?? LogoNode;
+export const getIconForPackage = (type: PackageType) => {
+  return ComponentByType[type] ?? LogoNode;
 };

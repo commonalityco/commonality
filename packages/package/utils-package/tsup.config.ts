@@ -5,5 +5,4 @@ export default defineConfig({
   outDir: 'dist',
   clean: true,
   onSuccess: 'tsc --project tsconfig.json',
-  noExternal: ['lodash.debounce'],
 });
