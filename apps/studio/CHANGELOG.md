@@ -1,5 +1,14 @@
 # @commonalityco/dashboard
 
+## 0.1.4
+
+### Patch Changes
+
+- 3ff8242: Fix build target for CLI
+- Updated dependencies [3ff8242]
+  - @commonalityco/data-documents@0.0.3
+  - @commonalityco/data-tags@0.0.3
+
 ## 0.1.3
 
 ### Patch Changes

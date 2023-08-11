@@ -1,6 +1,6 @@
 {
   "name": "commonality",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "bin": {
     "commonality": "./bin/commonality.cjs",
     "co": "./bin/commonality.cjs"
