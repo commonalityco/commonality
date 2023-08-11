@@ -1,0 +1,6 @@
+.next/cache
+src
+scripts
+test
+cypress
+.turbo
