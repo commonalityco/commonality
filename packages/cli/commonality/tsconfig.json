@@ -14,8 +14,7 @@
     "rootDir": "src",
     "sourceMap": false,
     "strict": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "target": "es2021"
+    "target": "es2015"
   },
   "include": ["src/**/*.ts", "src/commands/validate.ts"],
   "exclude": ["node_modules"]

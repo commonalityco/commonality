@@ -5,7 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "src/index.ts",
+  "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint ./src --fix",

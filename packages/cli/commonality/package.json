@@ -17,8 +17,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup-node",
-    "dev": "tsup-node --watch",
+    "build": "tsup",
+    "build:exp": "ncc build src/index.ts -o ./dist-2",
+    "dev": "tsup --watch",
     "lint": "eslint ./src --fix",
     "test": "vitest",
     "type-check": "tsc --noEmit"
@@ -54,6 +55,7 @@
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^18.16.19",
     "@types/update-notifier": "^6.0.4",
+    "@vercel/ncc": "^0.36.1",
     "strip-ansi": "^7.1.0",
     "tsup": "^6.7.0",
     "typescript": "^4.9.5",

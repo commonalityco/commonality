@@ -1,11 +1,10 @@
 {
   "name": "@commonalityco/studio",
   "version": "0.1.3",
-  "private": true,
   "main": "dist/start.js",
   "types": "dist/start.d.ts",
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "scripts": {
     "dev": "pnpm run dev:script & pnpm run dev:app",

@@ -42,6 +42,7 @@ describe('publish.action', () => {
     it('should call action.error', async () => {
       const snapshot: SnapshotData = {
         packages: [],
+        dependencies: [],
         tagsData: [],
         documentsData: [],
         codeownersData: [],
@@ -67,6 +68,7 @@ describe('publish.action', () => {
     it('should call action.error', async () => {
       const snapshot: SnapshotData = {
         packages: [],
+        dependencies: [],
         tagsData: [],
         documentsData: [],
         codeownersData: [],
@@ -93,6 +95,7 @@ describe('publish.action', () => {
     it('should handle successful snapshot publishing', async () => {
       const snapshot: SnapshotData = {
         packages: [],
+        dependencies: [],
         tagsData: [],
         documentsData: [],
         codeownersData: [],
