@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.0.19
+
+### Patch Changes
+
+- d4515ef: prod to dev deps
+- Updated dependencies [d4515ef]
+  - @commonalityco/studio@0.1.8
+
 ## 0.0.18
 
 ### Patch Changes
