@@ -1,5 +1,11 @@
 # @commonalityco/snapshot
 
+## 0.0.3
+
+### Patch Changes
+
+- 3ff8242: Fix build target for CLI
+
 ## 0.0.2
 
 ### Patch Changes
