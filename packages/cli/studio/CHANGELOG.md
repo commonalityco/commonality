@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.1.10
+
+### Patch Changes
+
+- c8fe893: Remove bundle analyzer from prod deps
+
 ## 0.1.9
 
 ### Patch Changes

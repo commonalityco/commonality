@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.0.21
+
+### Patch Changes
+
+- c8fe893: Remove bundle analyzer from prod deps
+- Updated dependencies [c8fe893]
+  - @commonalityco/studio@0.1.10
+
 ## 0.0.20
 
 ### Patch Changes
