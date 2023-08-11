@@ -1,6 +1,6 @@
 {
   "name": "commonality",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "bin": {
     "commonality": "./bin/commonality.cjs",
     "co": "./bin/commonality.cjs"
@@ -24,7 +24,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@commonalityco/studio": "0.1.x"
+    "@commonalityco/studio": "0.1.13"
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "*",

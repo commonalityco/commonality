@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.0.24
+
+### Patch Changes
+
+- 7d2d1da: ignore weird files and point to latest studio
+- Updated dependencies [7d2d1da]
+  - @commonalityco/studio@0.1.13
+
 ## 0.0.23
 
 ### Patch Changes
