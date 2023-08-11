@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.0.23
+
+### Patch Changes
+
+- f82e714: "facepalm"
+- Updated dependencies [f82e714]
+  - @commonalityco/studio@0.1.12
+
 ## 0.0.22
 
 ### Patch Changes

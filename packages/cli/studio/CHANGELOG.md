@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.1.12
+
+### Patch Changes
+
+- f82e714: "facepalm"
+
 ## 0.1.11
 
 ### Patch Changes
