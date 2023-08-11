@@ -1,7 +1,6 @@
 const { createServer } = require('http');
 const { parse } = require('url');
 const next = require('next');
-const { getRootDirectory } = require('@commonalityco/data-project');
 
 const port = parseInt(process.env.PORT || '3000', 10);
 const dev = process.env.NODE_ENV !== 'production';
@@ -25,14 +24,7 @@ const startApplication = () => {
 };
 
 if (!process.env.COMMONALITY_ROOT_DIRECTORY) {
-  if (dev) {
-    getRootDirectory(process.cwd()).then((rootDir) => {
-      process.env.COMMONALITY_ROOT_DIRECTORY = rootDir;
-      startApplication();
-    });
-  } else {
-    throw new Error('A rootDirectory was not provided');
-  }
+  throw new Error('A rootDirectory was not provided');
 } else {
   startApplication();
 }

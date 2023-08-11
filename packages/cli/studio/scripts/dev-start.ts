@@ -6,7 +6,6 @@ import getPort from 'get-port';
   const port = await getPort({ port: 3000 });
 
   const PROJECT_PATH = '../test/fixtures/kitchen-sink';
-  // const PROJECT_PATH = '../../../../pnpm';
 
   start({
     port: port,
