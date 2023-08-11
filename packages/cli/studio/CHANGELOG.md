@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.1.7
+
+### Patch Changes
+
+- 76174e7: Add server.js to files
+
 ## 0.1.6
 
 ### Patch Changes
