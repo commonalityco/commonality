@@ -45,8 +45,7 @@
     "@commonalityco/types": "*",
     "lucide-react": "^0.248.0",
     "react": ">=17",
-    "react-dom": ">=17",
-    "tailwindcss": "^3.3.0"
+    "react-dom": ">=17"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

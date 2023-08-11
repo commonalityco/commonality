@@ -22,6 +22,7 @@ export const open = command
     const url = `http://localhost:${port}`;
     try {
       start({ port, rootDirectory, env: 'production' });
+
       console.log(`📦 Starting Commonality Studio...\n`);
       console.log(
         `Viewable at: ${chalk.blue.bold(url)} ${chalk.dim(

@@ -24,7 +24,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "cytoscape": "^3.25.0",
+    "cytoscape": "3.x",
     "react": ">=17",
     "react-dom": ">=17",
     "@commonalityco/utils-core": "*"

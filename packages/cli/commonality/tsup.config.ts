@@ -16,5 +16,6 @@ export default defineConfig({
     '@commonalityco/data-project',
     '@commonalityco/data-tags',
     '@commonalityco/data-violations',
+    '@commonalityco/utils-core',
   ],
 });
