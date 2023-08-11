@@ -24,7 +24,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@commonalityco/studio": "latest"
+    "@commonalityco/studio": "0.1.x"
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "*",
