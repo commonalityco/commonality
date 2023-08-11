@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.1.8
+
+### Patch Changes
+
+- d4515ef: prod to dev deps
+
 ## 0.1.7
 
 ### Patch Changes
