@@ -182,7 +182,7 @@ importers:
   packages/cli/commonality:
     dependencies:
       '@commonalityco/studio':
-        specifier: latest
+        specifier: 0.1.x
         version: link:../studio
     devDependencies:
       '@commonalityco/config-eslint':
