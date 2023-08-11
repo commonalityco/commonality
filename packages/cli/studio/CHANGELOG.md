@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.1.9
+
+### Patch Changes
+
+- 24d85da: Remove internal deps from server.js
+
 ## 0.1.8
 
 ### Patch Changes

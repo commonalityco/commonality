@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.0.20
+
+### Patch Changes
+
+- 24d85da: Remove internal deps from server.js
+- Updated dependencies [24d85da]
+  - @commonalityco/studio@0.1.9
+
 ## 0.0.19
 
 ### Patch Changes
