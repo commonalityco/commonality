@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.0.17
+
+### Patch Changes
+
+- 94f9a78: Fix build output
+- Updated dependencies [94f9a78]
+  - @commonalityco/studio@0.1.5
+
 ## 0.0.16
 
 ### Patch Changes

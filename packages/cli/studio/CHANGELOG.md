@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.1.5
+
+### Patch Changes
+
+- 94f9a78: Fix build output
+
 ## 0.1.4
 
 ### Patch Changes
