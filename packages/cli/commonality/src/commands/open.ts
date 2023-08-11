@@ -19,7 +19,8 @@ export const open = command
 
     const port = await getPort({ port: 8888 });
     const rootDirectory = await getRootDirectory();
-    const url = `http://localhost:${port}`;
+    const url = `http://127.0.0.1:${port}`;
+
     try {
       start({ port, rootDirectory, env: 'production' });
 
