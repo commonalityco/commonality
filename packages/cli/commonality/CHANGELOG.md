@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.0.18
+
+### Patch Changes
+
+- fb9e932: update
+- Updated dependencies [fb9e932]
+  - @commonalityco/studio@0.1.6
+
 ## 0.0.17
 
 ### Patch Changes

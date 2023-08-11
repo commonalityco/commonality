@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.1.6
+
+### Patch Changes
+
+- fb9e932: update
+
 ## 0.1.5
 
 ### Patch Changes
