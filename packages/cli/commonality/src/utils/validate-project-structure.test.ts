@@ -19,7 +19,7 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when there is no lockfile', () => {
-    const tmpDirPath = os.tmpdir();
+    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
       __dirname,
@@ -53,7 +53,7 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when there is no root package', () => {
-    const tmpDirPath = os.tmpdir();
+    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
       __dirname,
@@ -87,7 +87,7 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when there is an invalid root package.json', () => {
-    const tmpDirPath = os.tmpdir();
+    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
       __dirname,
@@ -121,7 +121,7 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when running at the root of a valid project', () => {
-    const tmpDirPath = os.tmpdir();
+    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
       __dirname,
@@ -154,7 +154,7 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when running within a sub-directory of a valid project', () => {
-    const tmpDirPath = os.tmpdir();
+    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
       __dirname,

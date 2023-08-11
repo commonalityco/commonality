@@ -6,7 +6,7 @@ import { setTags } from './set-tags';
 
 describe('setTags', () => {
   describe('when setting tags for a package with no configuration file', () => {
-    const tmpDirPath = os.tmpdir();
+    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const emptyFixturePath = path.resolve(
       __dirname,
@@ -47,7 +47,7 @@ describe('setTags', () => {
   });
 
   describe('when setting tags for a package with existing tags', () => {
-    const tmpDirPath = os.tmpdir();
+    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
       __dirname,

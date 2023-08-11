@@ -64,6 +64,7 @@
   "files": [
     ".next/",
     "next.config.js",
+    "server.js",
     "dist/"
   ],
   "devDependencies": {
