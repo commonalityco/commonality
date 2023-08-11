@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/studio",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "main": "dist/start.js",
   "types": "dist/start.d.ts",
   "publishConfig": {
