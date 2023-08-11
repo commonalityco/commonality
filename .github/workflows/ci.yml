@@ -11,10 +11,11 @@ jobs:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
     steps:
-      - name: Checkout Repo
+      - name: Checkout respository
         uses: actions/checkout@v3
 
-      - uses: pnpm/action-setup@v2
+      - name: 'Setup pnpm'
+        uses: pnpm/action-setup@v2
 
       - name: Setup Node.js 18.x
         uses: actions/setup-node@v3
@@ -22,7 +23,7 @@ jobs:
           node-version: 18
           cache: 'pnpm'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Lint
@@ -36,10 +37,11 @@ jobs:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
     steps:
-      - name: Checkout Repo
+      - name: Checkout respository
         uses: actions/checkout@v3
 
-      - uses: pnpm/action-setup@v2
+      - name: 'Setup pnpm'
+        uses: pnpm/action-setup@v2
 
       - name: Setup Node.js 18.x
         uses: actions/setup-node@v3
@@ -47,7 +49,7 @@ jobs:
           node-version: 18
           cache: 'pnpm'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build
@@ -62,10 +64,11 @@ jobs:
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
     steps:
-      - name: Checkout Repo
+      - name: Checkout respository
         uses: actions/checkout@v3
 
-      - uses: pnpm/action-setup@v2
+      - name: 'Setup pnpm'
+        uses: pnpm/action-setup@v2
 
       - name: Setup Node.js 18.x
         uses: actions/setup-node@v3
@@ -73,7 +76,7 @@ jobs:
           node-version: 18
           cache: 'pnpm'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Test
