@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.1.11
+
+### Patch Changes
+
+- 77244cc: Ugh
+
 ## 0.1.10
 
 ### Patch Changes
