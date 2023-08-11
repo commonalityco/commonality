@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.0.25
+
+### Patch Changes
+
+- 2cc0373: Open on 127.0.0.1 instead of localhost
+
 ## 0.0.24
 
 ### Patch Changes
