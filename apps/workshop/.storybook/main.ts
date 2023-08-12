@@ -14,7 +14,11 @@ const config: StorybookConfig = {
     return mergeConfig(config, {
       define: { 'process.env': {} },
       optimizeDeps: {
-        include: ['@commonalityco/utils-core'],
+        include: [
+          '@commonalityco/utils-core',
+          '@commonalityco/utils-package',
+          '@commonalityco/utils-graph',
+        ],
       },
     });
   },

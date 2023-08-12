@@ -67,6 +67,8 @@ export function FeatureGraph({
     return state.matches('success') && state.context.elements.length === 0;
   });
 
+  const isZero = !packages?.length;
+
   const isHovering = GraphContext.useSelector(
     (state) => state.context.hoveredRenderNode
   );
@@ -126,6 +128,7 @@ export function FeatureGraph({
       <GraphChart
         ref={containerRef}
         loading={isLoading}
+        isZero={isZero}
         isEmpty={isEmpty}
         className={cn({
           'cursor-pointer': isHovering,

@@ -6,10 +6,11 @@ import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Button } from '@commonalityco/ui-design-system';
 import Link from 'next/link';
+import { ThemeButtonLoading } from '@commonalityco/ui-core';
 
 const ThemeButton = dynamic(
   () => import('@commonalityco/ui-core').then((module) => module.ThemeButton),
-  { ssr: false }
+  { ssr: false, loading: ThemeButtonLoading }
 );
 
 function DashboardNavigation({ title }: { title: string }) {
@@ -26,13 +27,24 @@ function DashboardNavigation({ title }: { title: string }) {
             <h1 className="text-base font-semibold text-foreground">{title}</h1>
           </div>
           <div className="flex items-center space-x-2">
-            <Link
-              href="https://commonality.co/docs"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button variant="link">Docs</Button>
-            </Link>
+            <Button variant="outline" asChild>
+              <Link
+                href="https://commonality.co/feedback"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Feedback
+              </Link>
+            </Button>
+            <Button variant="link" asChild>
+              <Link
+                href="https://commonality.co/docs"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Docs
+              </Link>
+            </Button>
             <ThemeButton
               defaultTheme={theme as Theme}
               onThemeChange={(theme) => {

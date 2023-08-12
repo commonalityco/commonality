@@ -5,7 +5,7 @@ import getPort from 'get-port';
 (async () => {
   const port = await getPort({ port: 3000 });
 
-  const PROJECT_PATH = '../test/fixtures/kitchen-sink';
+  const PROJECT_PATH = '../../../../';
 
   start({
     port: port,

@@ -4,7 +4,7 @@ export {
   Divider,
   NavigationButton,
 } from './navigation';
-export { ThemeButton } from './theme-button';
+export { ThemeButton, ThemeButtonLoading } from './theme-button';
 export { Logo } from './logo';
 export { GradientFade } from './gradient-fade';
 

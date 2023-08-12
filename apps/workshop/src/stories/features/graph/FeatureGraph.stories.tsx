@@ -1,12 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FeatureGraph, FeatureGraphLayout } from '@commonalityco/feature-graph';
+import {
+  FeatureGraph,
+  FeatureGraphLayout,
+  GraphProvider,
+} from '@commonalityco/feature-graph';
 import {
   documentsKeys,
   getElementDefinitionsWithUpdatedLayout,
 } from '@commonalityco/utils-graph';
-import { DependencyType, PackageManager } from '@commonalityco/utils-core';
+import {
+  DependencyType,
+  PackageManager,
+  PackageType,
+} from '@commonalityco/utils-core';
 import {
   CodeownersData,
+  Constraint,
+  Dependency,
   DocumentsData,
   Package,
   ProjectConfig,
@@ -24,20 +34,17 @@ const meta = {
   args: {
     packageManager: PackageManager.PNPM,
     theme: 'light',
-    getElementDefinitionsWithUpdatedLayout,
-    onSetTags: () => Promise.resolve(),
     getViolations: () => Promise.resolve([]),
-    getTagsData: () =>
-      Promise.resolve([{ packageName: 'pkg-one', tags: ['tag-one'] }]),
-    getProjectConfig: () => Promise.resolve({}),
   },
   decorators: [
     (Story, props) => {
       return (
         <div style={{ height: '600px', width: '100%' }}>
-          <FeatureGraphLayout dehydratedState={{ queries: [], mutations: [] }}>
-            <Story {...props} />
-          </FeatureGraphLayout>
+          <GraphProvider dehydratedState={{ queries: [], mutations: [] }}>
+            <FeatureGraphLayout>
+              <Story {...props} />
+            </FeatureGraphLayout>
+          </GraphProvider>
         </div>
       );
     },
@@ -52,23 +59,7 @@ const pkgOne = {
   path: 'packages/pkg-a',
   version: '1.0.0',
   description: 'This is package A',
-
-  dependencies: [
-    {
-      name: '@scope/pkg-b',
-      version: '1.0.0',
-      type: DependencyType.PRODUCTION,
-    },
-    {
-      name: '@scope/pkg-c',
-      version: '1.0.0',
-      type: DependencyType.DEVELOPMENT,
-    },
-    { name: '@scope/pkg-d', version: '1.0.0', type: DependencyType.PEER },
-    { name: '@scope/pkg-e', version: '1.0.0', type: DependencyType.PEER },
-  ],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgTwo = {
@@ -76,9 +67,7 @@ const pkgTwo = {
   path: 'packages/pkg-b',
   version: '1.0.0',
   description: 'This is package B',
-  dependencies: [],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgThree = {
@@ -86,9 +75,7 @@ const pkgThree = {
   path: 'packages/pkg-c',
   version: '1.0.0',
   description: 'This is package C',
-  dependencies: [],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgFour = {
@@ -96,9 +83,7 @@ const pkgFour = {
   path: 'packages/pkg-d',
   version: '1.0.0',
   description: 'This is package D',
-  dependencies: [],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgFive = {
@@ -106,9 +91,7 @@ const pkgFive = {
   path: 'packages/pkg-e',
   version: '1.0.0',
   description: 'This is package E',
-  dependencies: [],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const tagData = [
@@ -155,16 +138,49 @@ const codeownersData = [
     packageName: pkgFive.name,
     codeowners: ['@team-one', '@team-two'],
   },
-] as CodeownersData[];
+] satisfies CodeownersData[];
 
-const packages = [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive];
+const packages = [
+  pkgOne,
+  pkgTwo,
+  pkgThree,
+  pkgFour,
+  pkgFive,
+] satisfies Package[];
+
+const dependencies = [
+  {
+    type: DependencyType.PRODUCTION,
+    version: '1.0.0',
+    source: '@scope/pkg-a',
+    target: '@scope/pkg-b',
+  },
+  {
+    type: DependencyType.DEVELOPMENT,
+    version: '1.0.0',
+    source: '@scope/pkg-a',
+    target: '@scope/pkg-c',
+  },
+  {
+    type: DependencyType.PEER,
+    version: '1.0.0',
+    source: '@scope/pkg-a',
+    target: '@scope/pkg-d',
+  },
+  {
+    type: DependencyType.PEER,
+    version: '1.0.0',
+    source: '@scope/pkg-a',
+    target: '@scope/pkg-e',
+  },
+] satisfies Dependency[];
 
 export const Default: Story = {
   args: {
     getPackages: () => Promise.resolve(packages),
-    getCodeownersData: () => Promise.resolve(codeownersData),
-    getDocumentsData: () => Promise.resolve([]),
+    getDependencies: () => Promise.resolve(dependencies),
     getViolations: () => Promise.resolve([]),
+    getConstraints: () => Promise.resolve([]),
   },
 };
 
@@ -182,19 +198,25 @@ const violations = [
 export const ConstraintsAndViolations: Story = {
   args: {
     getPackages: () => Promise.resolve(packages),
-    getCodeownersData: () => Promise.resolve(codeownersData),
-    getDocumentsData: () => Promise.resolve([]),
-    getProjectConfig: () =>
-      Promise.resolve({
-        constraints: [
-          {
-            applyTo: 'foo',
-            allow: ['bar'],
-            disallow: ['baz'],
-          },
-        ],
-      } satisfies ProjectConfig),
+    getDependencies: () => Promise.resolve(dependencies),
+    getConstraints: () =>
+      Promise.resolve([
+        {
+          applyTo: 'foo',
+          allow: ['bar'],
+          disallow: ['baz'],
+        },
+      ] satisfies Constraint[]),
 
     getViolations: () => Promise.resolve(violations),
+  },
+};
+
+export const Zero: Story = {
+  args: {
+    getPackages: () => Promise.resolve([]),
+    getDependencies: () => Promise.resolve([]),
+    getConstraints: () => Promise.resolve([]),
+    getViolations: () => Promise.resolve([]),
   },
 };

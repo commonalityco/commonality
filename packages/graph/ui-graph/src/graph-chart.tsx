@@ -1,29 +1,52 @@
 'use client';
 import { forwardRef, memo } from 'react';
 import { GradientFade } from '@commonalityco/ui-core';
-import { Loader2, PackageSearch } from 'lucide-react';
+import { Loader2, Package, PackageSearch } from 'lucide-react';
 import { Button, cn } from '@commonalityco/ui-design-system';
 
 interface GraphChartProperties {
-  stripScopeFromPackageNames?: boolean;
   loading?: boolean;
   children?: React.ReactNode;
   isEmpty?: boolean;
+  isZero?: boolean;
   onShowAllPackages?: () => void;
   className?: string;
 }
 
 export const GraphChart = memo(
   forwardRef<HTMLDivElement, GraphChartProperties>(
-    ({ loading, children, isEmpty, className, onShowAllPackages }, ref) => {
+    (
+      { loading, children, isEmpty, className, isZero, onShowAllPackages },
+      ref
+    ) => {
       return (
         <div className={cn('relative z-10 w-full shrink-0 grow', className)}>
+          <div
+            className={cn(
+              'bg-background absolute bottom-0 left-0 right-0 top-0 z-30 flex h-full w-full items-center justify-center transition-opacity',
+              {
+                'opacity-100': isZero,
+                'display-none opacity-0': !isZero,
+              }
+            )}
+          >
+            <div className="max-w-sm text-center">
+              <Package className="mx-auto h-8 w-8" />
+              <p className="mb-2 mt-4 text-base font-semibold">
+                Build your first package
+              </p>
+              <p className="text-muted-foreground">
+                You'll see your dependency graph here after you've created your
+                first package.
+              </p>
+            </div>
+          </div>
           <div
             className={cn(
               'bg-background absolute bottom-0 left-0 right-0 top-0 z-20 flex h-full w-full items-center justify-center transition-opacity',
               {
                 'opacity-100': isEmpty,
-                'pointer-events-none -z-10 opacity-0': !isEmpty,
+                'display-none opacity-0': !isEmpty,
               }
             )}
           >
