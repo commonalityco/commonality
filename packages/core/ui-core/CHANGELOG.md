@@ -1,5 +1,11 @@
 # @commonalityco/ui-core
 
+## 0.0.3
+
+### Patch Changes
+
+- d562884: Add zero state and feedback button
+
 ## 0.0.2
 
 ### Patch Changes

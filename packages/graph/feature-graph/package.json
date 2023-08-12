@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/feature-graph",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "dependencies": {
     "@tanstack/react-query": "^4.29.25",
     "@tanstack/react-query-devtools": "^4.29.25",
