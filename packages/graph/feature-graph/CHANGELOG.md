@@ -1,5 +1,13 @@
 # @commonalityco/feature-graph
 
+## 0.0.3
+
+### Patch Changes
+
+- d562884: Add zero state and feedback button
+- Updated dependencies [d562884]
+  - @commonalityco/ui-graph@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.1.14
+
+### Patch Changes
+
+- d562884: Add zero state and feedback button
+
 ## 0.1.13
 
 ### Patch Changes
