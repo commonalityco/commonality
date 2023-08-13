@@ -68,5 +68,8 @@
     "___experimentalFlags_WILL_CHANGE_IN_PATCH": {
       "importsConditions": true
     }
+  },
+  "devDependencies": {
+    "lint-staged": "^14.0.0"
   }
 }
