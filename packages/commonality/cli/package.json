@@ -1,5 +1,0 @@
-{
-  "name": "@commonality/cli",
-  "main": "../dist/commonality.cjs.js",
-  "module": "../dist/commonality.esm.js"
-}

@@ -4,8 +4,9 @@
   "bin": {
     "commonality": "./bin.js"
   },
+  "type": "module",
   "engines": {
-    "node": ">=16"
+    "node": "^16.18 || ^18.16 || ^20.3"
   },
   "description": "Infinitely scalable front-end ecosystems",
   "main": "dist/commonality.cjs.js",
@@ -49,7 +50,8 @@
     "get-port": "5.1.1",
     "got": "^11.8.6",
     "open": "^8.4.2",
-    "ora": "5.4.1"
+    "ora": "5.4.1",
+    "update-notifier": "^6.0.2"
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "*",
