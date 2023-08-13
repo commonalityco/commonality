@@ -67,7 +67,6 @@
     "@commonalityco/utils-core": "*",
     "@commonalityco/utils-graph": "*",
     "@commonalityco/utils-package": "*",
-    "@next/bundle-analyzer": "^13.4.12",
     "@tanstack/react-query": "^4.29.25",
     "@tanstack/react-query-devtools": "^4.29.25",
     "@testing-library/jest-dom": "^5.16.5",
