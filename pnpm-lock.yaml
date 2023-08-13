@@ -25,9 +25,9 @@ importers:
         version: 2.26.2
       '@commonalityco/config-eslint':
         specifier: 0.0.6
-        version: link:packages/config-eslint
+        version: 0.0.6(@typescript-eslint/eslint-plugin@5.62.0)(eslint@8.45.0)
       '@commonalityco/config-tsconfig':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:packages/config-tsconfig
       '@manypkg/cli':
         specifier: ^0.21.0
@@ -49,7 +49,7 @@ importers:
         version: 0.34.1(vitest@0.33.0)
       commonality:
         specifier: 0.0.26
-        version: link:packages/commonality
+        version: 0.0.26(@babel/core@7.22.10)
       eslint:
         specifier: ^8.45.0
         version: 8.45.0
@@ -208,28 +208,28 @@ importers:
   packages/commonality:
     dependencies:
       '@commonalityco/data-codeowners':
-        specifier: 0.x
+        specifier: 0.0.8
         version: link:../data-codeowners
       '@commonalityco/data-documents':
-        specifier: 0.x
+        specifier: 0.0.4
         version: link:../data-documents
       '@commonalityco/data-packages':
-        specifier: 0.x
+        specifier: 0.0.8
         version: link:../data-packages
       '@commonalityco/data-project':
-        specifier: 0.x
+        specifier: 0.0.3
         version: link:../data-project
       '@commonalityco/data-tags':
-        specifier: 0.x
+        specifier: 0.0.4
         version: link:../data-tags
       '@commonalityco/data-violations':
-        specifier: 0.x
+        specifier: 0.0.8
         version: link:../data-violations
       '@commonalityco/studio':
-        specifier: 0.x
+        specifier: 0.1.15
         version: link:../studio
       '@commonalityco/utils-core':
-        specifier: 0.x
+        specifier: 0.0.3
         version: link:../utils-core
       chalk:
         specifier: 4.1.2
@@ -345,7 +345,7 @@ importers:
   packages/config-tsup:
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-eslint
       typescript:
         specifier: ^4.9.5
@@ -364,16 +364,16 @@ importers:
         version: 5.2.4
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:../config-tsconfig
       '@commonalityco/config-tsup':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-tsup
       '@commonalityco/types':
-        specifier: 0.0.9
+        specifier: 0.0.10
         version: link:../types
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -388,7 +388,7 @@ importers:
   packages/data-documents:
     dependencies:
       '@commonalityco/data-project':
-        specifier: 0.0.2
+        specifier: 0.0.3
         version: link:../data-project
       fs-extra:
         specifier: ^11.1.1
@@ -398,16 +398,16 @@ importers:
         version: 11.0.4
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: 0.0.9
+        specifier: 0.0.10
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: 0.0.2
+        specifier: 0.0.3
         version: link:../utils-core
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -462,23 +462,23 @@ importers:
   packages/data-packages:
     dependencies:
       '@commonalityco/data-project':
-        specifier: 0.0.2
+        specifier: 0.0.3
         version: link:../data-project
       '@commonalityco/utils-core':
-        specifier: 0.0.2
+        specifier: 0.0.3
         version: link:../utils-core
       fs-extra:
         specifier: ^11.1.1
         version: 11.1.1
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: 0.0.9
+        specifier: 0.0.10
         version: link:../types
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -493,7 +493,7 @@ importers:
   packages/data-project:
     dependencies:
       '@commonalityco/utils-core':
-        specifier: 0.0.2
+        specifier: 0.0.3
         version: link:../utils-core
       chalk:
         specifier: 4.1.2
@@ -515,13 +515,13 @@ importers:
         version: 3.21.4
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: 0.0.9
+        specifier: 0.0.10
         version: link:../types
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -536,10 +536,10 @@ importers:
   packages/data-tags:
     dependencies:
       '@commonalityco/data-project':
-        specifier: 0.0.2
+        specifier: 0.0.3
         version: link:../data-project
       '@commonalityco/utils-core':
-        specifier: 0.0.2
+        specifier: 0.0.3
         version: link:../utils-core
       fs-extra:
         specifier: ^11.1.1
@@ -549,13 +549,13 @@ importers:
         version: 4.5.0
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: 0.0.9
+        specifier: 0.0.10
         version: link:../types
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -573,16 +573,16 @@ importers:
   packages/data-violations:
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: 0.0.9
+        specifier: 0.0.10
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: 0.0.2
+        specifier: 0.0.3
         version: link:../utils-core
       typescript:
         specifier: ^4.9.5
@@ -851,16 +851,16 @@ importers:
   packages/types:
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:../config-tsconfig
       '@commonalityco/config-tsup':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-tsup
       '@commonalityco/utils-core':
-        specifier: 0.0.2
+        specifier: 0.0.3
         version: link:../utils-core
       typescript:
         specifier: ^4.9.5
@@ -1009,16 +1009,16 @@ importers:
         version: 1.14.0
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-eslint
       '@commonalityco/config-tailwind':
-        specifier: 0.0.3
+        specifier: 0.0.4
         version: link:../config-tailwind
       '@commonalityco/config-tsconfig':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:../config-tsconfig
       '@commonalityco/config-tsup':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-tsup
       '@testing-library/jest-dom':
         specifier: ^5.16.5
@@ -1146,10 +1146,10 @@ importers:
         version: 1.6.6
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: 0.0.6
+        specifier: 0.0.7
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:../config-tsconfig
       typescript:
         specifier: ^4.9.5
@@ -1207,7 +1207,7 @@ importers:
   packages/utils-package:
     dependencies:
       '@commonalityco/utils-core':
-        specifier: 0.0.2
+        specifier: 0.0.3
         version: link:../utils-core
       '@popperjs/core':
         specifier: ^2.11.8
@@ -3722,6 +3722,86 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@commonalityco/config-eslint@0.0.6(@typescript-eslint/eslint-plugin@5.62.0)(eslint@8.45.0):
+    resolution: {integrity: sha512-/TERl8b19wllPC2Qg+E7ukTQ3dw6E0FZMdXUZ91LO9IeoApxk4H98gSyHWjOa4VG87BUv+1RSdNg+hxlLno0jA==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      eslint-plugin-unused-imports: 2.0.0(@typescript-eslint/eslint-plugin@5.62.0)(eslint@8.45.0)
+    transitivePeerDependencies:
+      - '@typescript-eslint/eslint-plugin'
+      - eslint
+    dev: false
+
+  /@commonalityco/data-codeowners@0.0.7:
+    resolution: {integrity: sha512-284pCRq0J17QDsyCYesIJTjOoWXEUalmXVAbWzYdn4Dj/wBfk5PeJKpNpZAWSs1/sLQsc1rLzT6rsrS5QLUMmQ==}
+    dependencies:
+      fast-glob: 3.3.0
+      fs-extra: 11.1.1
+      ignore: 5.2.4
+    dev: false
+
+  /@commonalityco/data-documents@0.0.3:
+    resolution: {integrity: sha512-eY7mGEZCPo6oWJBzXlWMzztzZFsNfr2ZeWZRG9KSBK0BaPuMU+/048fiVXa9xXw26IcQwAIExDjCH5rhUUU8NA==}
+    dependencies:
+      '@commonalityco/data-project': 0.0.2
+      fs-extra: 11.1.1
+      globby: 11.0.4
+    dev: false
+
+  /@commonalityco/data-packages@0.0.7:
+    resolution: {integrity: sha512-sJnJVCX6mjtTcMx6D5O13y5XxoHqS/G2LmWsmIBe4V0adlpGOcVivOKHctV2QdjJ4H14b1JccuSXb+fBSx4pGA==}
+    dependencies:
+      fs-extra: 11.1.1
+    dev: false
+
+  /@commonalityco/data-project@0.0.2:
+    resolution: {integrity: sha512-Hg1wk2FaUCfCV8sUsJrOx4njo5jveC88jtqcxhy81clUO1xQJCs0yW1nFB7abtp9HGNdN2nKCfS0GzOUV5ZHGw==}
+    dependencies:
+      '@commonalityco/utils-core': 0.0.2
+      chalk: 4.1.2
+      find-up: 5.0.0
+      fs-extra: 11.1.1
+      globby: 11.0.4
+      yaml: 2.3.1
+      zod: 3.21.4
+    dev: false
+
+  /@commonalityco/data-tags@0.0.3:
+    resolution: {integrity: sha512-T/tXRTTW2e8HFPFND+8TcHRFuWi/8I/LV8AX9yUEMcjD/nVW/YuaF60FuMzrujFvXRIK1cprXYJOO3VisLJTxw==}
+    dependencies:
+      '@commonalityco/data-project': 0.0.2
+      fs-extra: 11.1.1
+      lodash.uniq: 4.5.0
+    dev: false
+
+  /@commonalityco/data-violations@0.0.7:
+    resolution: {integrity: sha512-Kv4EPvH5tlM1Bcx+TTVJXdN4L5uHJHAaMUotKvKlccNXxICemSFEiq/KnGuM+RcBlmhEVaQekaq2Qr2DXJs4Yg==}
+    dev: false
+
+  /@commonalityco/studio@0.1.14(@babel/core@7.22.10):
+    resolution: {integrity: sha512-abCPSgG0x9eiPiLgi+ymnAEXbBHhehWRysB4aeTSleT+oniJFcEnbpQhlDrKIWHPgpehAjz0cFF7cATUtJV+gA==}
+    dependencies:
+      execa: 5.1.1
+      fs-extra: 11.1.1
+      get-port: 5.1.1
+      lodash: 4.17.21
+      next: 13.4.6(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@opentelemetry/api'
+      - babel-plugin-macros
+      - fibers
+      - sass
+    dev: false
+
+  /@commonalityco/utils-core@0.0.2:
+    resolution: {integrity: sha512-PR3PG5AwaQmFIn6RSC2egNv1XqYnkfx+DKGSsN/WjnmJAPUSo3//uqXLrrXXjESHZgXqTNFYMhLsMXfVRwAyZw==}
+    dependencies:
+      slugify: 1.6.6
+    dev: false
 
   /@cspotcode/source-map-support@0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -9800,6 +9880,34 @@ packages:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
     engines: {node: '>=4.0.0'}
     dev: true
+
+  /commonality@0.0.26(@babel/core@7.22.10):
+    resolution: {integrity: sha512-Hh3XazDLJdiIt69QN1BwG8r2rEoseA5f0pW1WXbjWmnNeEO0EyjVvFhwljs5JBvwvHlB1qRsiAw7xEwdKTJ3Ig==}
+    engines: {node: '>=14.6'}
+    hasBin: true
+    dependencies:
+      '@commonalityco/data-codeowners': 0.0.7
+      '@commonalityco/data-documents': 0.0.3
+      '@commonalityco/data-packages': 0.0.7
+      '@commonalityco/data-project': 0.0.2
+      '@commonalityco/data-tags': 0.0.3
+      '@commonalityco/data-violations': 0.0.7
+      '@commonalityco/studio': 0.1.14(@babel/core@7.22.10)
+      '@commonalityco/utils-core': 0.0.2
+      chalk: 4.1.2
+      cliui: 8.0.1
+      commander: 9.5.0
+      get-port: 5.1.1
+      got: 11.8.6
+      open: 8.4.2
+      ora: 5.4.1
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@opentelemetry/api'
+      - babel-plugin-macros
+      - fibers
+      - sass
+    dev: false
 
   /commondir@1.0.1:
     resolution: {integrity: sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==}
