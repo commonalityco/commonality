@@ -49,7 +49,7 @@ importers:
         version: 0.34.1(vitest@0.33.0)
       commonality:
         specifier: 0.0.27
-        version: link:packages/commonality
+        version: 0.0.27(@babel/core@7.22.10)
       eslint:
         specifier: ^8.45.0
         version: 8.45.0
@@ -226,7 +226,7 @@ importers:
         specifier: 0.0.8
         version: link:../data-violations
       '@commonalityco/studio':
-        specifier: 0.1.15
+        specifier: 0.2.0
         version: link:../studio
       '@commonalityco/utils-core':
         specifier: 0.0.3
@@ -3719,6 +3719,79 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@commonalityco/data-codeowners@0.0.8:
+    resolution: {integrity: sha512-1cK8g8s0zU2eOVtCsUzSyTrN45aQ3X8MzWeKXa5JryNCMZKKJbMd//F/VHlyLCmzTPpZnbMD74WEdD0NU6SxEw==}
+    dependencies:
+      fast-glob: 3.3.0
+      fs-extra: 11.1.1
+      ignore: 5.2.4
+    dev: false
+
+  /@commonalityco/data-documents@0.0.4:
+    resolution: {integrity: sha512-4e5iYhl6iUl0qw4OEwxRURjBHyayRyMO57wFzzLzYKbhShXKkQtSyWl/9tng0uqAxX5ZIcmExUePmkPdEtP44Q==}
+    dependencies:
+      '@commonalityco/data-project': 0.0.3
+      fs-extra: 11.1.1
+      globby: 11.0.4
+    dev: false
+
+  /@commonalityco/data-packages@0.0.8:
+    resolution: {integrity: sha512-4p5CQv1Bio1UVxnTWNujrY7KkXihdPRA0IaeggziM3AeHIw/XVwZHq6rBAlEqUj4dJyKTA7/qIAaIevGeRSGwA==}
+    dependencies:
+      '@commonalityco/data-project': 0.0.3
+      '@commonalityco/utils-core': 0.0.3
+      fs-extra: 11.1.1
+    dev: false
+
+  /@commonalityco/data-project@0.0.3:
+    resolution: {integrity: sha512-Q8uRqIrU/1XiiyIPWEv1l0RaJGs545TYi28r985qQNOJv1P4roKKhBcXTXGAfub69ZqUCpI4m30UuaaNbfauHg==}
+    dependencies:
+      '@commonalityco/utils-core': 0.0.3
+      chalk: 4.1.2
+      find-up: 5.0.0
+      fs-extra: 11.1.1
+      globby: 11.0.4
+      yaml: 2.3.1
+      zod: 3.21.4
+    dev: false
+
+  /@commonalityco/data-tags@0.0.4:
+    resolution: {integrity: sha512-OsoC5TPfniVnhAqr0+biiLmrcg+vXH6FVonbTPlUcnScFQG+ieNg3rUKE86ZLKR1yTsUmyQtkWMpVbADzAEY1g==}
+    dependencies:
+      '@commonalityco/data-project': 0.0.3
+      '@commonalityco/utils-core': 0.0.3
+      fs-extra: 11.1.1
+      lodash.uniq: 4.5.0
+    dev: false
+
+  /@commonalityco/data-violations@0.0.8:
+    resolution: {integrity: sha512-qWimtltjoj+wvZu3B7QAjhHWA9dpz8HWUd81Dx53iedvbcVjqjKD+8hM6k5D3eLuiMNCqRc83MLVhCQ7akaKqA==}
+    dev: false
+
+  /@commonalityco/studio@0.1.15(@babel/core@7.22.10):
+    resolution: {integrity: sha512-1pW6uqgvOfBUVwCWVIzGPiXYIyjG5Ktb9yXYFWehQL3Tilqiaq3dYVEPUjs5ECcA0wpkTnVuw+hzU/1okJFGhA==}
+    dependencies:
+      execa: 5.1.1
+      fs-extra: 11.1.1
+      get-port: 5.1.1
+      lodash: 4.17.21
+      next: 13.4.6(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@opentelemetry/api'
+      - babel-plugin-macros
+      - fibers
+      - sass
+    dev: false
+
+  /@commonalityco/utils-core@0.0.3:
+    resolution: {integrity: sha512-kwgepDZs2FoRUoQFsu5Yj03URFvhI0xs5tEyEIsZCtLdw4++/pxkCNZQYC26ymOIOpu+jimlPW4Fz++HHWHL/w==}
+    dependencies:
+      slugify: 1.6.6
+    dev: false
 
   /@cspotcode/source-map-support@0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -9779,6 +9852,35 @@ packages:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
     engines: {node: '>=4.0.0'}
     dev: true
+
+  /commonality@0.0.27(@babel/core@7.22.10):
+    resolution: {integrity: sha512-KrNGU1Liz37h4FKSBeHpgRv+u54mMY8q4HL3mM6R0sBedTzvE+2MyYtOF6OhYmoC1BE3pV/HzphwS8IKHiI/ug==}
+    engines: {node: ^16.18 || ^18.16 || ^20.3}
+    hasBin: true
+    dependencies:
+      '@commonalityco/data-codeowners': 0.0.8
+      '@commonalityco/data-documents': 0.0.4
+      '@commonalityco/data-packages': 0.0.8
+      '@commonalityco/data-project': 0.0.3
+      '@commonalityco/data-tags': 0.0.4
+      '@commonalityco/data-violations': 0.0.8
+      '@commonalityco/studio': 0.1.15(@babel/core@7.22.10)
+      '@commonalityco/utils-core': 0.0.3
+      chalk: 4.1.2
+      cliui: 8.0.1
+      commander: 9.5.0
+      get-port: 5.1.1
+      got: 11.8.6
+      open: 8.4.2
+      ora: 5.4.1
+      update-notifier: 6.0.2
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@opentelemetry/api'
+      - babel-plugin-macros
+      - fibers
+      - sass
+    dev: false
 
   /commondir@1.0.1:
     resolution: {integrity: sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==}
