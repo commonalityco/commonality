@@ -22,8 +22,6 @@
   },
   "scripts": {
     "lint": "eslint ./src --fix",
-    "build": "tsup-node",
-    "dev": "tsup-node --watch",
     "test": "vitest",
     "type-check": "tsc --noEmit"
   },

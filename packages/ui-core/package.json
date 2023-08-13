@@ -43,9 +43,7 @@
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "test": "vitest",
-    "build": "tsup",
-    "dev": "tsup --watch"
+    "test": "vitest"
   },
   "exports": {
     ".": {

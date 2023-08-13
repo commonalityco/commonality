@@ -21,8 +21,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsup-node",
-    "dev": "tsup-node --watch",
     "lint": "eslint ./src --fix",
     "test": "vitest",
     "type-check": "tsc --noEmit"

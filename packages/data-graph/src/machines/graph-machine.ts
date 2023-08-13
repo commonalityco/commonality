@@ -353,7 +353,7 @@ export const graphMachine = createMachine(
     actions: {
       createWorker: assign({
         worker: () =>
-          new Worker(new URL('../utils/worker.js', import.meta.url), {
+          new Worker('../utils/worker.js', {
             type: 'module',
           }),
       }),

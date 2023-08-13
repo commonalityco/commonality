@@ -1,6 +1,5 @@
 {
   "name": "@commonalityco/ui-design-system",
-  "type": "module",
   "version": "0.0.2",
   "types": "dist/commonalityco-ui-design-system.cjs.d.ts",
   "main": "dist/commonalityco-ui-design-system.cjs.js",
@@ -52,10 +51,6 @@
     "lucide-react": "^0.248.0",
     "react": ">=17",
     "react-dom": ">=17"
-  },
-  "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
   },
   "exports": {
     ".": {

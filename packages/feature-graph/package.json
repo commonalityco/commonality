@@ -49,8 +49,6 @@
     "xstate": "^4.37.2"
   },
   "scripts": {
-    "build": "tsup-node",
-    "dev": "tsup-node --watch",
     "type-check": "tsc --noEmit"
   },
   "exports": {

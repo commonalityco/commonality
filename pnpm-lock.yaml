@@ -199,28 +199,28 @@ importers:
   packages/commonality:
     dependencies:
       '@commonalityco/data-codeowners':
-        specifier: workspace:^
+        specifier: 0.x
         version: link:../data-codeowners
       '@commonalityco/data-documents':
-        specifier: workspace:^
+        specifier: 0.x
         version: link:../data-documents
       '@commonalityco/data-packages':
-        specifier: workspace:^
+        specifier: 0.x
         version: link:../data-packages
       '@commonalityco/data-project':
-        specifier: workspace:^
+        specifier: 0.x
         version: link:../data-project
       '@commonalityco/data-tags':
-        specifier: workspace:^
+        specifier: 0.x
         version: link:../data-tags
       '@commonalityco/data-violations':
-        specifier: workspace:^
+        specifier: 0.x
         version: link:../data-violations
       '@commonalityco/studio':
-        specifier: workspace:^
+        specifier: 0.x
         version: link:../studio
       '@commonalityco/utils-core':
-        specifier: workspace:^
+        specifier: 0.x
         version: link:../utils-core
       chalk:
         specifier: 4.1.2

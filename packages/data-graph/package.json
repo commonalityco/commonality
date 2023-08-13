@@ -42,8 +42,6 @@
     "lodash.debounce": "^4.0.8"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
     "type-check": "tsc --noEmit"
   }
 }
