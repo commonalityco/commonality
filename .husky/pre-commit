@@ -2,6 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 pnpm exec lint-staged
-pnpm exec manypkg fix
 pnpm exec manypkg check
 
