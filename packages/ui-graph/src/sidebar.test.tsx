@@ -1,3 +1,4 @@
+import React from 'react';
 import Sidebar from './sidebar';
 import { render, screen } from '@testing-library/react';
 import { ComponentPropsWithoutRef } from 'react';

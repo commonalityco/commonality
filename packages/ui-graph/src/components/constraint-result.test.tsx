@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ConstraintResult, TagDetails } from './constraint-result';
 import { describe, test, expect } from 'vitest';

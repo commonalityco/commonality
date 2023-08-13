@@ -1,6 +1,6 @@
 'use client';
 import cytoscape from 'cytoscape';
-import { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { usePopper } from 'react-popper';
 
 export interface NodeTooltipProps {
@@ -32,7 +32,7 @@ export const NodeTooltip = ({
 
   return (
     <div
-      className="relative z-50 rounded-lg border border-border bg-background font-sans text-sm text-foreground shadow"
+      className="border-border bg-background text-foreground relative z-50 rounded-lg border font-sans text-sm shadow"
       style={styles.popper}
       ref={(el) => {
         if (!el) return;

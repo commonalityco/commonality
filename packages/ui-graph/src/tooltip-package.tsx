@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 'use client';
+import React from 'react';
 import { Package } from '@commonalityco/types';
 import { Button, Text, Badge } from '@commonalityco/ui-design-system';
 import { getIconForPackage } from '@commonalityco/utils-package';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Constraint, Violation } from '@commonalityco/types';
 import {
   Label,

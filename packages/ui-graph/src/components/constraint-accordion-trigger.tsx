@@ -1,6 +1,6 @@
+import React from 'react';
 import { Constraint } from '@commonalityco/types';
 import { AccordionTrigger, Badge } from '@commonalityco/ui-design-system';
-import { ShieldCheck, ShieldClose } from 'lucide-react';
 
 export function ConstraintAccordionTrigger({
   constraint,

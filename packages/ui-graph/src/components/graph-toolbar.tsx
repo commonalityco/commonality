@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import { NpmLogo, PnpmLogo, YarnLogo } from '@commonalityco/ui-core';
 import { PackageManager } from '@commonalityco/utils-core';
 import {

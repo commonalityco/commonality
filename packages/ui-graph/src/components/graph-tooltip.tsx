@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import cytoscape from 'cytoscape';
 import { useMemo, useRef, useState } from 'react';
 import { usePopper } from 'react-popper';
@@ -48,7 +49,7 @@ export const GraphTooltip = ({
   return (
     <div className="animate-in fade-in">
       <div
-        className="relative z-50 rounded-lg border border-border bg-background font-sans text-sm text-foreground shadow"
+        className="border-border bg-background text-foreground relative z-50 rounded-lg border font-sans text-sm shadow"
         style={styles.popper}
         ref={setTooltipRef}
         {...attributes.popper}

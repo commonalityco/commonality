@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ConstraintAccordionTrigger } from './constraint-accordion-trigger';
 import { describe, test, expect } from 'vitest';

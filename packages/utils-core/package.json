@@ -24,9 +24,7 @@
   "devDependencies": {
     "@commonalityco/config-eslint": "0.0.6",
     "@commonalityco/config-tsconfig": "0.0.5",
-    "tsup": "^6.7.0",
-    "typescript": "^4.9.5",
-    "vitest": "^0.33.0"
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "slugify": "^1.6.6"

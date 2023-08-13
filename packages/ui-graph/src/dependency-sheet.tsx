@@ -1,3 +1,4 @@
+import React from 'react';
 import { Constraint, Dependency, Violation } from '@commonalityco/types';
 import {
   Accordion,

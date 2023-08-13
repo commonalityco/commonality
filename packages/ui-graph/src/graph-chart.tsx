@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import { forwardRef, memo } from 'react';
 import { GradientFade } from '@commonalityco/ui-core';
 import { Loader2, Package, PackageSearch } from 'lucide-react';

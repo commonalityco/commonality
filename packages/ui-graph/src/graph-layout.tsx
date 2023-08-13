@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function GraphLayoutRoot({ children }: { children?: React.ReactNode }) {
   return (
     <main className="bg-secondary relative grid h-full max-h-screen min-h-0 w-full grid-cols-[auto_1fr] items-stretch">

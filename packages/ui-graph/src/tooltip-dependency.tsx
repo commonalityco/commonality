@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import { cn, Heading, Label, Text } from '@commonalityco/ui-design-system';
 import { Dependency } from '@commonalityco/types';
 import { ArrowRight } from 'lucide-react';
