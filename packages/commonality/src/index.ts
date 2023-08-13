@@ -8,8 +8,7 @@ const program = new Command();
 
 program
   .name('commonality')
-  .description('Infinitely scale your front-end ecosystem')
-  .version('1.0.0');
+  .description('Infinitely scale your front-end ecosystem');
 
 program.addCommand(init);
 program.addCommand(publish);
