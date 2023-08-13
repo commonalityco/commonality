@@ -11,7 +11,7 @@
     "co:open": "pnpm exec commonality open",
     "build": "pnpm -F studio run build && preconstruct build",
     "clean": "rimraf **/node_modules **/dist **/.turbo **/lib",
-    "test": "CI=true turbo run test",
+    "test": "vitest run --coverage",
     "test:watch": "turbo run test:watch",
     "lint": "manypkg check && preconstruct validate && turbo run lint",
     "link-all": "ts-node scripts/link-all.ts",
@@ -70,5 +70,8 @@
     "___experimentalFlags_WILL_CHANGE_IN_PATCH": {
       "importsConditions": true
     }
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^0.34.1"
   }
 }
