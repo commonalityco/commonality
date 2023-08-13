@@ -1,5 +1,13 @@
 # @commonalityco/types
 
+## 0.0.10
+
+### Patch Changes
+
+- fb47c73: update build output
+- Updated dependencies [fb47c73]
+  - @commonalityco/utils-core@0.0.3
+
 ## 0.0.9
 
 ### Patch Changes

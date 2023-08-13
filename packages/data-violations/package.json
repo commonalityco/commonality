@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/data-violations",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "publishConfig": {
     "access": "public"
   },
@@ -25,10 +25,10 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "0.0.6",
-    "@commonalityco/config-tsconfig": "0.0.5",
-    "@commonalityco/types": "0.0.9",
-    "@commonalityco/utils-core": "0.0.2",
+    "@commonalityco/config-eslint": "0.0.7",
+    "@commonalityco/config-tsconfig": "0.0.6",
+    "@commonalityco/types": "0.0.10",
+    "@commonalityco/utils-core": "0.0.3",
     "typescript": "^4.9.5"
   }
 }

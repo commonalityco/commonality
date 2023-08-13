@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/ui-graph",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "lodash.sortby": "^4.7.0",

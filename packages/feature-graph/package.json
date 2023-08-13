@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/feature-graph",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "types": "dist/commonalityco-feature-graph.cjs.d.ts",
   "main": "dist/commonalityco-feature-graph.cjs.js",
   "module": "dist/commonalityco-feature-graph.esm.js",

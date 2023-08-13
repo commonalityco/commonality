@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.1.15
+
+### Patch Changes
+
+- fb47c73: update build output
+
 ## 0.1.14
 
 ### Patch Changes

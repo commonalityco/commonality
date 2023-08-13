@@ -1,5 +1,11 @@
 # @commonalityco/constraints
 
+## 0.0.8
+
+### Patch Changes
+
+- fb47c73: update build output
+
 ## 0.0.7
 
 ### Patch Changes

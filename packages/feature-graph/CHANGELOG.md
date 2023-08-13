@@ -1,5 +1,17 @@
 # @commonalityco/feature-graph
 
+## 0.0.4
+
+### Patch Changes
+
+- fb47c73: update build output
+- Updated dependencies [fb47c73]
+  - @commonalityco/data-graph@0.0.3
+  - @commonalityco/ui-design-system@0.0.3
+  - @commonalityco/ui-graph@0.0.4
+  - @commonalityco/utils-core@0.0.3
+  - @commonalityco/utils-graph@0.0.3
+
 ## 0.0.3
 
 ### Patch Changes

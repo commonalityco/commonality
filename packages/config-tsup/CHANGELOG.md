@@ -1,5 +1,11 @@
 # @commonalityco/config-tsup
 
+## 0.0.7
+
+### Patch Changes
+
+- fb47c73: update build output
+
 ## 0.0.6
 
 ### Patch Changes

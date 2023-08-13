@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/config-tsconfig",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "devDependencies": {
     "@tsconfig/create-react-app": "^1.0.3",
