@@ -1,6 +1,6 @@
 {
   "name": "commonality",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "bin": {
     "commonality": "./bin.js"
   },
@@ -36,14 +36,14 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@commonalityco/data-codeowners": "0.x",
-    "@commonalityco/data-documents": "0.x",
-    "@commonalityco/data-packages": "0.x",
-    "@commonalityco/data-project": "0.x",
-    "@commonalityco/data-tags": "0.x",
-    "@commonalityco/data-violations": "0.x",
-    "@commonalityco/studio": "0.x",
-    "@commonalityco/utils-core": "0.x",
+    "@commonalityco/data-codeowners": "0.0.8",
+    "@commonalityco/data-documents": "0.0.4",
+    "@commonalityco/data-packages": "0.0.8",
+    "@commonalityco/data-project": "0.0.3",
+    "@commonalityco/data-tags": "0.0.4",
+    "@commonalityco/data-violations": "0.0.8",
+    "@commonalityco/studio": "0.1.15",
+    "@commonalityco/utils-core": "0.0.3",
     "chalk": "4.1.2",
     "cliui": "^8.0.1",
     "commander": "^9.5.0",

@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/ui-design-system",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "types": "dist/commonalityco-ui-design-system.cjs.d.ts",
   "main": "dist/commonalityco-ui-design-system.cjs.js",
@@ -31,10 +31,10 @@
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "0.0.6",
-    "@commonalityco/config-tailwind": "0.0.3",
-    "@commonalityco/config-tsconfig": "0.0.5",
-    "@commonalityco/config-tsup": "0.0.6",
+    "@commonalityco/config-eslint": "0.0.7",
+    "@commonalityco/config-tailwind": "0.0.4",
+    "@commonalityco/config-tsconfig": "0.0.6",
+    "@commonalityco/config-tsup": "0.0.7",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@types/cytoscape": "^3.19.10",

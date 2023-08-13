@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/types",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "publishConfig": {
     "access": "public"
   },
@@ -27,10 +27,10 @@
     "@commonalityco/utils-core": "*"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "0.0.6",
-    "@commonalityco/config-tsconfig": "0.0.5",
-    "@commonalityco/config-tsup": "0.0.6",
-    "@commonalityco/utils-core": "0.0.2",
+    "@commonalityco/config-eslint": "0.0.7",
+    "@commonalityco/config-tsconfig": "0.0.6",
+    "@commonalityco/config-tsup": "0.0.7",
+    "@commonalityco/utils-core": "0.0.3",
     "typescript": "^4.9.5"
   }
 }

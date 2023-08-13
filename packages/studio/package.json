@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/studio",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "types": "dist/commonalityco-studio.cjs.d.ts",
   "main": "dist/commonalityco-studio.cjs.js",
   "module": "dist/commonalityco-studio.esm.js",

@@ -1,5 +1,20 @@
 # @commonalityco/cli
 
+## 0.0.27
+
+### Patch Changes
+
+- fb47c73: update build output
+- Updated dependencies [fb47c73]
+  - @commonalityco/data-codeowners@0.0.8
+  - @commonalityco/data-documents@0.0.4
+  - @commonalityco/data-packages@0.0.8
+  - @commonalityco/data-project@0.0.3
+  - @commonalityco/data-tags@0.0.4
+  - @commonalityco/data-violations@0.0.8
+  - @commonalityco/studio@0.1.15
+  - @commonalityco/utils-core@0.0.3
+
 ## 0.0.26
 
 ### Patch Changes

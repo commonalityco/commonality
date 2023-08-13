@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/utils-graph",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "dependencies": {
     "cytoscape-dagre": "^2.5.0",
     "cytoscape-popper": "^2.0.0",

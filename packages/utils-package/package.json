@@ -1,12 +1,12 @@
 {
   "name": "@commonalityco/utils-package",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publishConfig": {
     "access": "public"
   },
   "license": "MIT",
   "dependencies": {
-    "@commonalityco/utils-core": "0.0.2",
+    "@commonalityco/utils-core": "0.0.3",
     "@popperjs/core": "^2.11.8",
     "class-variance-authority": "^0.4.0",
     "next": "13.4.6",

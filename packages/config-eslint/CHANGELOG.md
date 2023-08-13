@@ -1,5 +1,11 @@
 # @commonalityco/config-eslint
 
+## 0.0.7
+
+### Patch Changes
+
+- fb47c73: update build output
+
 ## 0.0.6
 
 ### Patch Changes

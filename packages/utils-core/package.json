@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/utils-core",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Contains the common constants used in all Commonality applications and packages",
   "types": "dist/commonalityco-utils-core.cjs.d.ts",
   "main": "dist/commonalityco-utils-core.cjs.js",
@@ -22,8 +22,8 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "0.0.6",
-    "@commonalityco/config-tsconfig": "0.0.5",
+    "@commonalityco/config-eslint": "0.0.7",
+    "@commonalityco/config-tsconfig": "0.0.6",
     "typescript": "^4.9.5"
   },
   "dependencies": {
