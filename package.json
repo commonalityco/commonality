@@ -9,12 +9,11 @@
   ],
   "scripts": {
     "co:open": "pnpm exec commonality open",
-    "build": "turbo run build",
+    "build": "preconstruct build && turbo --filter @commonalityco/studio run build",
     "clean": "rimraf **/node_modules **/dist **/.turbo **/lib",
-    "dev": "turbo run dev",
     "test": "CI=true turbo run test",
     "test:watch": "turbo run test:watch",
-    "lint": "turbo run lint",
+    "lint": "manypkg check && preconstruct validate && turbo run lint",
     "link-all": "ts-node scripts/link-all.ts",
     "unlink-all": "ts-node scripts/unlink-all.ts",
     "changeset:create": "changeset",
@@ -22,28 +21,34 @@
     "changeset:release": "changeset publish",
     "commonality:publish": "commonality publish",
     "prepare": "husky install",
-    "type-check": "turbo run type-check"
+    "type-check": "turbo run type-check",
+    "postinstall": "preconstruct dev",
+    "conform": "manypkg fix && preconstruct fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "rimraf": "^3.0.2"
-  },
-  "devDependencies": {
+    "@babel/core": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
     "@changesets/cli": "^2.26.2",
-    "@commonalityco/config-eslint": "workspace:^",
-    "@commonalityco/config-tsconfig": "workspace:^",
+    "@commonalityco/config-eslint": "0.0.6",
+    "@commonalityco/config-tsconfig": "0.0.5",
+    "@manypkg/cli": "^0.21.0",
+    "@preconstruct/cli": "^2.8.1",
     "@types/node": "^18.16.19",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
-    "commonality": "workspace:^",
+    "commonality": "0.0.26",
     "eslint": "^8.45.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "execa": "5.1.1",
     "husky": "^8.0.3",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.2.8",
+    "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
     "turbo": "^1.10.7",
     "typescript": "^4.9.5"
@@ -51,5 +56,17 @@
   "lint-staged": {
     "*.js": "eslint --cache --fix",
     "*.{js,css,md}": "prettier --write"
+  },
+  "preconstruct": {
+    "packages": [
+      "packages/*",
+      "!packages/config-*"
+    ],
+    "exports": {
+      "importConditionDefaultExport": "default"
+    },
+    "___experimentalFlags_WILL_CHANGE_IN_PATCH": {
+      "importsConditions": true
+    }
   }
 }

@@ -1,0 +1,49 @@
+{
+  "name": "@commonalityco/data-graph",
+  "description": "State management utilities for the Commonality Dashboard graph",
+  "version": "0.0.2",
+  "devDependencies": {
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/types": "*",
+    "@commonalityco/utils-core": "*",
+    "@commonalityco/utils-graph": "*",
+    "@popperjs/core": "^2.11.8",
+    "@types/cytoscape": "^3.19.10",
+    "@types/lodash.debounce": "^4.0.7",
+    "tsup": "^6.7.0",
+    "typescript": "^4.9.5",
+    "vitest": "^0.33.0",
+    "xstate": "^4.38.1"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@commonalityco/utils-core": "*",
+    "@commonalityco/utils-graph": "*",
+    "xstate": "^4.37.2"
+  },
+  "types": "dist/commonalityco-data-graph.cjs.d.ts",
+  "main": "dist/commonalityco-data-graph.cjs.js",
+  "module": "dist/commonalityco-data-graph.esm.js",
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/commonalityco-data-graph.cjs.mjs",
+        "default": "./dist/commonalityco-data-graph.cjs.js"
+      },
+      "module": "./dist/commonalityco-data-graph.esm.js",
+      "import": "./dist/commonalityco-data-graph.cjs.mjs",
+      "default": "./dist/commonalityco-data-graph.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "cytoscape": "^3.25.0",
+    "lodash.debounce": "^4.0.8"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "type-check": "tsc --noEmit"
+  }
+}

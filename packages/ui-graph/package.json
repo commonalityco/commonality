@@ -1,0 +1,71 @@
+{
+  "name": "@commonalityco/ui-graph",
+  "type": "module",
+  "version": "0.0.3",
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "lodash.sortby": "^4.7.0",
+    "react-popper": "^2.3.0",
+    "react-resizable-panels": "^0.0.36",
+    "react-wrap-balancer": "^0.4.1"
+  },
+  "devDependencies": {
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-tailwind": "*",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/config-tsup": "*",
+    "@commonalityco/types": "*",
+    "@commonalityco/ui-core": "*",
+    "@commonalityco/ui-design-system": "*",
+    "@commonalityco/utils-core": "*",
+    "@commonalityco/utils-package": "*",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/cytoscape": "^3.19.10",
+    "@types/lodash.debounce": "^4.0.7",
+    "@types/lodash.sortby": "^4.7.7",
+    "@types/react": "^18.2.15",
+    "@types/testing-library__jest-dom": "^5.14.9",
+    "cytoscape": "^3.25.0",
+    "lucide-react": "^0.248.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.3",
+    "tsup": "^6.7.0",
+    "typescript": "^4.9.5",
+    "vitest": "^0.33.0"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@commonalityco/types": "*",
+    "@commonalityco/ui-core": "*",
+    "@commonalityco/ui-design-system": "*",
+    "@commonalityco/utils-core": "*",
+    "@commonalityco/utils-package": "*",
+    "lucide-react": "^0.248.0",
+    "react": ">=17",
+    "react-dom": ">=17"
+  },
+  "types": "dist/commonalityco-ui-graph.cjs.d.ts",
+  "main": "dist/commonalityco-ui-graph.cjs.js",
+  "module": "dist/commonalityco-ui-graph.esm.js",
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/commonalityco-ui-graph.cjs.mjs",
+        "default": "./dist/commonalityco-ui-graph.cjs.js"
+      },
+      "module": "./dist/commonalityco-ui-graph.esm.js",
+      "import": "./dist/commonalityco-ui-graph.cjs.mjs",
+      "default": "./dist/commonalityco-ui-graph.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  }
+}

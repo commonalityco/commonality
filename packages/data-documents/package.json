@@ -1,0 +1,46 @@
+{
+  "name": "@commonalityco/data-documents",
+  "description": "Utilities getting and setting metadata for a Commonality project",
+  "version": "0.0.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "dist/commonalityco-data-documents.cjs.d.ts",
+  "main": "dist/commonalityco-data-documents.cjs.js",
+  "module": "dist/commonalityco-data-documents.esm.js",
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/commonalityco-data-documents.cjs.mjs",
+        "default": "./dist/commonalityco-data-documents.cjs.js"
+      },
+      "module": "./dist/commonalityco-data-documents.esm.js",
+      "import": "./dist/commonalityco-data-documents.cjs.mjs",
+      "default": "./dist/commonalityco-data-documents.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "lint": "eslint ./src --fix",
+    "build": "tsup-node",
+    "dev": "tsup-node --watch",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@commonalityco/config-eslint": "0.0.6",
+    "@commonalityco/config-tsconfig": "0.0.5",
+    "@commonalityco/types": "0.0.9",
+    "@commonalityco/utils-core": "0.0.2",
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^18.16.19",
+    "tsup": "^6.7.0",
+    "typescript": "^4.9.5",
+    "vitest": "^0.33.0"
+  },
+  "dependencies": {
+    "@commonalityco/data-project": "0.0.2",
+    "fs-extra": "^11.1.1",
+    "globby": "11.0.4"
+  }
+}
