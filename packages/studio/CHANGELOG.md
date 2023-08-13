@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.0
+
+### Minor Changes
+
+- ed774a4: Lock step compatibility
+
 ## 0.1.15
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @commonalityco/cli
 
+## 0.1.0
+
+### Minor Changes
+
+- ed774a4: Lock step compatibility
+
+### Patch Changes
+
+- Updated dependencies [ed774a4]
+  - @commonalityco/studio@0.2.0
+
 ## 0.0.27
 
 ### Patch Changes

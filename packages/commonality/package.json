@@ -1,6 +1,6 @@
 {
   "name": "commonality",
-  "version": "0.0.27",
+  "version": "0.1.0",
   "bin": {
     "commonality": "./bin.js"
   },
@@ -42,7 +42,7 @@
     "@commonalityco/data-project": "0.0.3",
     "@commonalityco/data-tags": "0.0.4",
     "@commonalityco/data-violations": "0.0.8",
-    "@commonalityco/studio": "0.1.15",
+    "@commonalityco/studio": "0.2.0",
     "@commonalityco/utils-core": "0.0.3",
     "chalk": "4.1.2",
     "cliui": "^8.0.1",
