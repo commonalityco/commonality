@@ -16,10 +16,10 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true,
-    "jsx": "react-jsx",
-    "module": "ESNext",
+    "jsx": "preserve",
+    "module": "CommonJS",
     "lib": ["dom", "ES2015"],
-    "target": "ES2020",
+    "target": "esnext",
     "noEmit": true
   },
   "exclude": ["node_modules"]

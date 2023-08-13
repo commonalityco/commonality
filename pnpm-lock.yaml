@@ -742,55 +742,55 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../config-eslint
       '@commonalityco/config-tailwind':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../config-tailwind
       '@commonalityco/data-codeowners':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../data-codeowners
       '@commonalityco/data-documents':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../data-documents
       '@commonalityco/data-graph':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../data-graph
       '@commonalityco/data-packages':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../data-packages
       '@commonalityco/data-project':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../data-project
       '@commonalityco/data-tags':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../data-tags
       '@commonalityco/data-violations':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../data-violations
       '@commonalityco/feature-graph':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../feature-graph
       '@commonalityco/types':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../types
       '@commonalityco/ui-core':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../ui-core
       '@commonalityco/ui-design-system':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../ui-design-system
       '@commonalityco/ui-graph':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../ui-graph
       '@commonalityco/utils-core':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../utils-graph
       '@commonalityco/utils-package':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../utils-package
       '@next/bundle-analyzer':
         specifier: ^13.4.12

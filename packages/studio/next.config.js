@@ -5,6 +5,7 @@ const nextConfig = {
     serverActions: true,
     serverComponentsExternalPackages: ['canvas', 'jsdom'],
   },
+  transpilePackages: ['@commonalityco/feature-graph'],
 };
 
 module.exports = nextConfig;

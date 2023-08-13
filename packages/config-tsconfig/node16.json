@@ -9,7 +9,7 @@
     "lib": ["DOM", "DOM.Iterable", "ES2020"],
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": false,
-    "jsx": "react",
+    "jsx": "preserve",
     "declaration": true,
     "pretty": true,
     "newLine": "lf",

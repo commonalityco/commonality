@@ -1,6 +1,7 @@
 const { createServer } = require('http');
 const { parse } = require('url');
 const next = require('next');
+const path = require('path');
 
 const port = parseInt(process.env.PORT || '3000', 10);
 const dev = process.env.NODE_ENV !== 'production';
@@ -24,7 +25,9 @@ const startApplication = () => {
 };
 
 if (!process.env.COMMONALITY_ROOT_DIRECTORY) {
-  throw new Error('A rootDirectory was not provided');
-} else {
-  startApplication();
+  const devRootDir = path.resolve(__dirname, '../../');
+
+  process.env.COMMONALITY_ROOT_DIRECTORY = devRootDir;
 }
+
+startApplication();

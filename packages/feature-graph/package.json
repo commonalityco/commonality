@@ -51,6 +51,11 @@
   "scripts": {
     "type-check": "tsc --noEmit"
   },
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts"
+    ]
+  },
   "exports": {
     ".": {
       "types": {

@@ -3,10 +3,11 @@ const path = require('path');
 const baseConfig = require('@commonalityco/config-tailwind');
 
 const getPkgPattern = (pkgName) => {
-  return path.join(
-    path.dirname(require.resolve(pkgName)),
-    '**/*.{js,jsx,ts,tsx}'
-  );
+  const rootPath = path
+    .dirname(require.resolve(pkgName))
+    .replace('/dist', '/src');
+
+  return path.join(rootPath, '**/*.{js,jsx,ts,tsx}');
 };
 
 /** @type {import('tailwindcss').Config} */
