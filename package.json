@@ -51,7 +51,8 @@
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
     "turbo": "^1.10.7",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "lint-staged": "^14.0.0"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix",
@@ -68,8 +69,5 @@
     "___experimentalFlags_WILL_CHANGE_IN_PATCH": {
       "importsConditions": true
     }
-  },
-  "devDependencies": {
-    "lint-staged": "^14.0.0"
   }
 }
