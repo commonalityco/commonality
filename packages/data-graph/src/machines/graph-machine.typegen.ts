@@ -36,7 +36,6 @@ export interface Typegen0 {
   eventsCausingActions: {
     createRenderGraph: 'INITIALIZE';
     createTraversalGraph: 'INITIALIZE';
-    createWorker: 'INITIALIZE';
     destroy: 'DESTROY';
     edgeClick: 'EDGE_CLICK';
     fit: 'FIT';

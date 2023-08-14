@@ -1,0 +1,32 @@
+{
+  "name": "@commonalityco/data-graph-worker",
+  "version": "0.0.1",
+  "types": "dist/commonalityco-data-graph-worker.cjs.d.ts",
+  "main": "dist/commonalityco-data-graph-worker.cjs.js",
+  "module": "dist/commonalityco-data-graph-worker.esm.js",
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/commonalityco-data-graph-worker.cjs.mjs",
+        "default": "./dist/commonalityco-data-graph-worker.cjs.js"
+      },
+      "module": "./dist/commonalityco-data-graph-worker.esm.js",
+      "import": "./dist/commonalityco-data-graph-worker.cjs.mjs",
+      "default": "./dist/commonalityco-data-graph-worker.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "devDependencies": {
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/utils-graph": "*",
+    "@types/cytoscape": "^3.19.10",
+    "cytoscape": "^3.25.0"
+  },
+  "peerDependencies": {
+    "@commonalityco/utils-graph": "*",
+    "cytoscape": "3.x"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  }
+}

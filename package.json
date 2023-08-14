@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "co:open": "pnpm exec commonality open",
-    "build": "pnpm -F studio run build && preconstruct build",
+    "build": "preconstruct build && pnpm -F studio run build",
     "clean": "rimraf **/node_modules **/dist **/.turbo **/lib",
     "test": "vitest run --coverage",
     "test:watch": "turbo run test:watch",

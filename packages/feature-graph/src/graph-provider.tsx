@@ -18,16 +18,18 @@ export const GraphContext: ReturnType<
 export const GraphProvider = ({
   children,
   dehydratedState,
+  worker,
 }: {
   children: React.ReactNode;
   dehydratedState: DehydratedState;
+  worker: Worker;
 }) => {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={dehydratedState}>
-        <GraphContext.Provider>
+        <GraphContext.Provider options={{ context: { worker } }}>
           {children}
           <ReactQueryDevtools />
         </GraphContext.Provider>

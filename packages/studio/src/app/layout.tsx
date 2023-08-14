@@ -1,6 +1,6 @@
 import './globals.css';
 import { clsx } from 'clsx';
-import StudioNavigation from 'app/StudioNavigation';
+import StudioNavigation from 'app/studio-navigation';
 import { firaCode, inter, vollkorn } from 'constants/fonts';
 import { getProject } from 'data/project';
 import { Providers } from 'app/providers';

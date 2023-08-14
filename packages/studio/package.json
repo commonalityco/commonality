@@ -38,6 +38,7 @@
     "@commonalityco/data-codeowners": "0.0.8",
     "@commonalityco/data-documents": "0.0.4",
     "@commonalityco/data-graph": "0.0.3",
+    "@commonalityco/data-graph-worker": "0.0.1",
     "@commonalityco/data-packages": "0.0.8",
     "@commonalityco/data-project": "0.0.3",
     "@commonalityco/data-tags": "0.0.4",

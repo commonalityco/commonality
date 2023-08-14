@@ -104,7 +104,6 @@ export const graphMachine = createMachine(
           INITIALIZE: {
             target: 'updating',
             actions: [
-              'createWorker',
               'createTraversalGraph',
               'createRenderGraph',
               'setTheme',
@@ -351,12 +350,6 @@ export const graphMachine = createMachine(
     },
 
     actions: {
-      createWorker: assign({
-        worker: () =>
-          new Worker(new URL('../utils/worker.ts', import.meta.url), {
-            type: 'module',
-          }),
-      }),
       destroy: (context) => {
         if (!context.renderGraph || !context.traversalGraph) return;
 

@@ -465,6 +465,21 @@ importers:
         specifier: ^4.38.1
         version: 4.38.1
 
+  packages/data-graph-worker:
+    devDependencies:
+      '@commonalityco/config-eslint':
+        specifier: '*'
+        version: link:../config-eslint
+      '@commonalityco/utils-graph':
+        specifier: '*'
+        version: link:../utils-graph
+      '@types/cytoscape':
+        specifier: ^3.19.10
+        version: 3.19.10
+      cytoscape:
+        specifier: ^3.25.0
+        version: 3.25.0
+
   packages/data-packages:
     dependencies:
       '@commonalityco/data-project':
@@ -687,6 +702,9 @@ importers:
       '@commonalityco/data-graph':
         specifier: 0.0.3
         version: link:../data-graph
+      '@commonalityco/data-graph-worker':
+        specifier: 0.0.1
+        version: link:../data-graph-worker
       '@commonalityco/data-packages':
         specifier: 0.0.8
         version: link:../data-packages

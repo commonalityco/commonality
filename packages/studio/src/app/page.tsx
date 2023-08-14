@@ -4,13 +4,12 @@ import { getProject } from 'data/project';
 import {
   FeatureGraphOverlays,
   FeatureGraphLayout,
-  GraphProvider,
   FeatureGraphPackageTooltip,
   FeatureGraphDependencySheet,
   FeatureGraphPackageSheet,
 } from '@commonalityco/feature-graph';
-import StudioGraph from './StudioGraph';
-import { StudioSidebar } from './StudioSidebar';
+import StudioGraph from './studio-graph';
+import { StudioSidebar } from './studio-sidebar';
 import { getCodeownersData } from 'data/codeowners';
 import { getViolationsData } from 'data/violations';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -27,6 +26,7 @@ import {
 import { getDependenciesData } from 'data/dependencies';
 import { getConstraintsData } from 'data/constraints';
 import { getCreateTagsButton } from './CreateTagsButton';
+import { StudioGraphProvider } from './studio-graph-provider';
 
 async function GraphPage() {
   const project = await getProject();
@@ -42,7 +42,7 @@ async function GraphPage() {
   await queryClient.prefetchQuery(constraintsKeys, getConstraintsData);
 
   return (
-    <GraphProvider dehydratedState={dehydrate(queryClient)}>
+    <StudioGraphProvider dehydratedState={dehydrate(queryClient)}>
       <FeatureGraphLayout>
         <StudioSidebar
           getCodeownersData={getCodeownersData}
@@ -71,7 +71,7 @@ async function GraphPage() {
         />
         <FeatureGraphPackageTooltip />
       </FeatureGraphOverlays>
-    </GraphProvider>
+    </StudioGraphProvider>
   );
 }
 
