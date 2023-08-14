@@ -47,9 +47,6 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^0.34.1
         version: 0.34.1(vitest@0.33.0)
-      commonality:
-        specifier: 0.1.0
-        version: link:packages/commonality
       eslint:
         specifier: ^8.45.0
         version: 8.45.0
