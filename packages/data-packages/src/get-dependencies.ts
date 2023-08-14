@@ -83,12 +83,12 @@ export const getDependencies = async ({
         .map(formatDep(DependencyType.PRODUCTION))
         .filter((dep): dep is Dependency => Boolean(dep));
       const devDependencies = Object.entries(packageJson.devDependencies ?? {})
-        .map(formatDep(DependencyType.PRODUCTION))
+        .map(formatDep(DependencyType.DEVELOPMENT))
         .filter((dep): dep is Dependency => Boolean(dep));
       const peerDependencies = Object.entries(
         packageJson.peerDependencies ?? {}
       )
-        .map(formatDep(DependencyType.PRODUCTION))
+        .map(formatDep(DependencyType.PEER))
         .filter((dep): dep is Dependency => Boolean(dep));
 
       return [
