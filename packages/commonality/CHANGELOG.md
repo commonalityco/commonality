@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.1.1
+
+### Patch Changes
+
+- 30cdff1: Fix overlay for graph
+
 ## 0.1.0
 
 ### Minor Changes
