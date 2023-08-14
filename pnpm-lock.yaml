@@ -681,6 +681,48 @@ importers:
 
   packages/studio:
     dependencies:
+      '@commonalityco/data-codeowners':
+        specifier: '*'
+        version: link:../data-codeowners
+      '@commonalityco/data-documents':
+        specifier: '*'
+        version: link:../data-documents
+      '@commonalityco/data-graph':
+        specifier: '*'
+        version: link:../data-graph
+      '@commonalityco/data-packages':
+        specifier: '*'
+        version: link:../data-packages
+      '@commonalityco/data-project':
+        specifier: '*'
+        version: link:../data-project
+      '@commonalityco/data-tags':
+        specifier: '*'
+        version: link:../data-tags
+      '@commonalityco/data-violations':
+        specifier: '*'
+        version: link:../data-violations
+      '@commonalityco/feature-graph':
+        specifier: '*'
+        version: link:../feature-graph
+      '@commonalityco/ui-core':
+        specifier: '*'
+        version: link:../ui-core
+      '@commonalityco/ui-design-system':
+        specifier: '*'
+        version: link:../ui-design-system
+      '@commonalityco/ui-graph':
+        specifier: '*'
+        version: link:../ui-graph
+      '@commonalityco/utils-core':
+        specifier: '*'
+        version: link:../utils-core
+      '@commonalityco/utils-graph':
+        specifier: '*'
+        version: link:../utils-graph
+      '@commonalityco/utils-package':
+        specifier: '*'
+        version: link:../utils-package
       execa:
         specifier: 5.1.1
         version: 5.1.1
@@ -709,51 +751,9 @@ importers:
       '@commonalityco/config-tailwind':
         specifier: '*'
         version: link:../config-tailwind
-      '@commonalityco/data-codeowners':
-        specifier: '*'
-        version: link:../data-codeowners
-      '@commonalityco/data-documents':
-        specifier: '*'
-        version: link:../data-documents
-      '@commonalityco/data-graph':
-        specifier: '*'
-        version: link:../data-graph
-      '@commonalityco/data-packages':
-        specifier: '*'
-        version: link:../data-packages
-      '@commonalityco/data-project':
-        specifier: '*'
-        version: link:../data-project
-      '@commonalityco/data-tags':
-        specifier: '*'
-        version: link:../data-tags
-      '@commonalityco/data-violations':
-        specifier: '*'
-        version: link:../data-violations
-      '@commonalityco/feature-graph':
-        specifier: '*'
-        version: link:../feature-graph
       '@commonalityco/types':
         specifier: '*'
         version: link:../types
-      '@commonalityco/ui-core':
-        specifier: '*'
-        version: link:../ui-core
-      '@commonalityco/ui-design-system':
-        specifier: '*'
-        version: link:../ui-design-system
-      '@commonalityco/ui-graph':
-        specifier: '*'
-        version: link:../ui-graph
-      '@commonalityco/utils-core':
-        specifier: '*'
-        version: link:../utils-core
-      '@commonalityco/utils-graph':
-        specifier: '*'
-        version: link:../utils-graph
-      '@commonalityco/utils-package':
-        specifier: '*'
-        version: link:../utils-package
       '@tanstack/react-query':
         specifier: ^4.29.25
         version: 4.29.25(react-dom@18.2.0)(react@18.2.0)
