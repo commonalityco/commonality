@@ -1,5 +1,11 @@
 # @commonalityco/ui-graph
 
+## 0.0.5
+
+### Patch Changes
+
+- 30cdff1: Fix overlay for graph
+
 ## 0.0.4
 
 ### Patch Changes
