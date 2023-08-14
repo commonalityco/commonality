@@ -1,5 +1,12 @@
 # @commonalityco/dashboard
 
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [b03ab98]
+  - @commonalityco/data-packages@0.0.9
+
 ## 0.2.2
 
 ### Patch Changes
