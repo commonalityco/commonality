@@ -1,5 +1,15 @@
 # @commonalityco/dashboard
 
+## 0.2.2
+
+### Patch Changes
+
+- 597a229: Instantiate worker within application
+- Updated dependencies [597a229]
+  - @commonalityco/data-graph-worker@0.0.2
+  - @commonalityco/feature-graph@0.0.5
+  - @commonalityco/data-graph@0.0.4
+
 ## 0.2.0
 
 ### Minor Changes

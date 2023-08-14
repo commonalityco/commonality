@@ -1,5 +1,11 @@
 # @commonalityco/data-graph
 
+## 0.0.4
+
+### Patch Changes
+
+- 597a229: Instantiate worker within application
+
 ## 0.0.3
 
 ### Patch Changes

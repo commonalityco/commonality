@@ -1,5 +1,13 @@
 # @commonalityco/feature-graph
 
+## 0.0.5
+
+### Patch Changes
+
+- 597a229: Instantiate worker within application
+- Updated dependencies [597a229]
+  - @commonalityco/data-graph@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes
