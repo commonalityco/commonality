@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [b03ab98]
+  - @commonalityco/data-packages@0.0.9
+  - @commonalityco/studio@0.2.3
+
 ## 0.1.2
 
 ### Patch Changes

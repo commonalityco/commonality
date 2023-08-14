@@ -1,5 +1,11 @@
 # @commonalityco/constraints
 
+## 0.0.9
+
+### Patch Changes
+
+- b03ab98: Tag dependencies correctly
+
 ## 0.0.8
 
 ### Patch Changes
