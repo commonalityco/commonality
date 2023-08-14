@@ -223,7 +223,7 @@ importers:
         specifier: 0.0.8
         version: link:../data-violations
       '@commonalityco/studio':
-        specifier: 0.2.0
+        specifier: 0.2.1
         version: link:../studio
       '@commonalityco/utils-core':
         specifier: 0.0.3
@@ -679,46 +679,46 @@ importers:
   packages/studio:
     dependencies:
       '@commonalityco/data-codeowners':
-        specifier: '*'
+        specifier: 0.0.8
         version: link:../data-codeowners
       '@commonalityco/data-documents':
-        specifier: '*'
+        specifier: 0.0.4
         version: link:../data-documents
       '@commonalityco/data-graph':
-        specifier: '*'
+        specifier: 0.0.3
         version: link:../data-graph
       '@commonalityco/data-packages':
-        specifier: '*'
+        specifier: 0.0.8
         version: link:../data-packages
       '@commonalityco/data-project':
-        specifier: '*'
+        specifier: 0.0.3
         version: link:../data-project
       '@commonalityco/data-tags':
-        specifier: '*'
+        specifier: 0.0.4
         version: link:../data-tags
       '@commonalityco/data-violations':
-        specifier: '*'
+        specifier: 0.0.8
         version: link:../data-violations
       '@commonalityco/feature-graph':
-        specifier: '*'
+        specifier: 0.0.4
         version: link:../feature-graph
       '@commonalityco/ui-core':
-        specifier: '*'
+        specifier: 0.0.4
         version: link:../ui-core
       '@commonalityco/ui-design-system':
-        specifier: '*'
+        specifier: 0.0.3
         version: link:../ui-design-system
       '@commonalityco/ui-graph':
-        specifier: '*'
+        specifier: 0.0.5
         version: link:../ui-graph
       '@commonalityco/utils-core':
-        specifier: '*'
+        specifier: 0.0.3
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: '*'
+        specifier: 0.0.3
         version: link:../utils-graph
       '@commonalityco/utils-package':
-        specifier: '*'
+        specifier: 0.0.3
         version: link:../utils-package
       execa:
         specifier: 5.1.1
