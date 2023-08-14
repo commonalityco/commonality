@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/data-graph-worker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "types": "dist/commonalityco-data-graph-worker.cjs.d.ts",
   "main": "dist/commonalityco-data-graph-worker.cjs.js",
   "module": "dist/commonalityco-data-graph-worker.esm.js",
