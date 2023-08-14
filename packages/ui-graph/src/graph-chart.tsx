@@ -27,7 +27,7 @@ export const GraphChart = memo(
               'bg-background absolute bottom-0 left-0 right-0 top-0 z-30 flex h-full w-full items-center justify-center transition-opacity',
               {
                 'opacity-100': isZero,
-                'display-none opacity-0': !isZero,
+                'hidden opacity-0': !isZero,
               }
             )}
           >
@@ -47,7 +47,7 @@ export const GraphChart = memo(
               'bg-background absolute bottom-0 left-0 right-0 top-0 z-20 flex h-full w-full items-center justify-center transition-opacity',
               {
                 'opacity-100': isEmpty,
-                'display-none opacity-0': !isEmpty,
+                'hidden opacity-0': !isEmpty,
               }
             )}
           >

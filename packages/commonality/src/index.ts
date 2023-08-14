@@ -12,7 +12,7 @@ const program = new Command();
 
 program
   .name('commonality')
-  .description('Infinitely scale your front-end ecosystem')
+  .description('Infinitely scalable front-end ecosystems')
   .version(packageJson.version);
 
 program.addCommand(init);
