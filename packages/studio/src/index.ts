@@ -26,6 +26,6 @@ export const start = async ({
   if (stderr) {
     console.log(stderr);
   } else {
-    console.log({ stdout });
+    console.log(stdout);
   }
 };

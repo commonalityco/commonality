@@ -5,6 +5,7 @@ import openUrl from 'open';
 import { validateProjectStructure } from '../utils/validate-project-structure';
 import { getRootDirectory } from '@commonalityco/data-project';
 import chalk from 'chalk';
+import waitOn from 'wait-on';
 
 const command = new Command();
 
@@ -22,9 +23,12 @@ export const open = command
     const url = `http://127.0.0.1:${port}`;
 
     try {
+      console.log(`📦 Starting Commonality Studio...\n`);
+
       start({ port, rootDirectory, env: 'production' });
 
-      console.log(`📦 Starting Commonality Studio...\n`);
+      await waitOn({ resources: [url] });
+
       console.log(
         `Viewable at: ${chalk.blue.bold(url)} ${chalk.dim(
           '(press ctrl-c to quit)'
@@ -33,6 +37,6 @@ export const open = command
 
       await openUrl(url);
     } catch (error) {
-      console.log(error);
+      console.log(chalk.red('Unable to start Commonality Studio'));
     }
   });
