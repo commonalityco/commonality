@@ -223,7 +223,7 @@ importers:
         specifier: 0.0.8
         version: link:../data-violations
       '@commonalityco/studio':
-        specifier: 0.2.3
+        specifier: 0.2.4
         version: link:../studio
       '@commonalityco/utils-core':
         specifier: 0.0.3
@@ -721,13 +721,13 @@ importers:
         specifier: 0.0.5
         version: link:../feature-graph
       '@commonalityco/ui-core':
-        specifier: 0.0.4
+        specifier: 0.0.5
         version: link:../ui-core
       '@commonalityco/ui-design-system':
         specifier: 0.0.3
         version: link:../ui-design-system
       '@commonalityco/ui-graph':
-        specifier: 0.0.5
+        specifier: 0.0.6
         version: link:../ui-graph
       '@commonalityco/utils-core':
         specifier: 0.0.3
