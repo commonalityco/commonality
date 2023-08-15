@@ -29,7 +29,15 @@ export const GraphProvider = ({
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={dehydratedState}>
-        <GraphContext.Provider options={{ context: { worker } }}>
+        <GraphContext.Provider
+          options={{
+            context: { worker },
+            actions: {},
+            delays: {},
+            guards: {},
+            services: {},
+          }}
+        >
           {children}
           <ReactQueryDevtools />
         </GraphContext.Provider>
