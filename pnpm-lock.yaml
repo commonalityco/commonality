@@ -87,25 +87,25 @@ importers:
   apps/workshop:
     dependencies:
       '@commonalityco/feature-graph':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../packages/feature-graph
       '@commonalityco/types':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../packages/types
       '@commonalityco/ui-core':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../packages/ui-core
       '@commonalityco/ui-design-system':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../packages/ui-design-system
       '@commonalityco/ui-graph':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../packages/ui-graph
       '@commonalityco/utils-core':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../packages/utils-core
       '@commonalityco/utils-graph':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../packages/utils-graph
       next:
         specifier: 13.4.16
@@ -124,7 +124,7 @@ importers:
         version: 0.2.0(@storybook/addons@7.2.3)(@storybook/api@6.5.16)(@storybook/components@6.5.16)(@storybook/core-events@6.5.16)(@storybook/theming@6.5.16)(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
       '@commonalityco/config-tailwind':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../../packages/config-tailwind
       '@storybook/addon-a11y':
         specifier: ^7.2.3
@@ -257,16 +257,16 @@ importers:
         version: 7.0.1(debug@4.3.4)
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/config-tsup':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tsup
       '@commonalityco/types':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../types
       '@swc/core':
         specifier: ^1.3.76
@@ -423,19 +423,19 @@ importers:
         version: 4.0.8
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../utils-graph
       '@popperjs/core':
         specifier: ^2.11.8
@@ -456,10 +456,10 @@ importers:
   packages/data-graph-worker:
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/utils-graph':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../utils-graph
       '@types/cytoscape':
         specifier: ^3.19.10
@@ -613,34 +613,34 @@ importers:
         version: 0.268.0(react@18.2.0)
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tailwind':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tailwind
       '@commonalityco/config-tsconfig':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/config-tsup':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tsup
       '@commonalityco/data-graph':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../data-graph
       '@commonalityco/types':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../types
       '@commonalityco/ui-design-system':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../ui-design-system
       '@commonalityco/ui-graph':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../ui-graph
       '@commonalityco/utils-core':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../utils-graph
       '@testing-library/jest-dom':
         specifier: ^6.0.0
@@ -749,13 +749,13 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tailwind':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tailwind
       '@commonalityco/types':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../types
       '@tanstack/react-query':
         specifier: ^4.32.6
@@ -878,7 +878,7 @@ importers:
   packages/ui-core:
     dependencies:
       '@commonalityco/types':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../types
       '@radix-ui/react-slot':
         specifier: ^1.0.2
@@ -900,19 +900,19 @@ importers:
         version: 1.14.0
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tailwind':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tailwind
       '@commonalityco/config-tsconfig':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/config-tsup':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tsup
       '@commonalityco/ui-design-system':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../ui-design-system
       '@testing-library/react':
         specifier: ^14.0.0
@@ -1079,31 +1079,31 @@ importers:
         version: 1.0.0(react@18.2.0)
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tailwind':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tailwind
       '@commonalityco/config-tsconfig':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/config-tsup':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tsup
       '@commonalityco/types':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../types
       '@commonalityco/ui-core':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../ui-core
       '@commonalityco/ui-design-system':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../ui-design-system
       '@commonalityco/utils-core':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../utils-core
       '@commonalityco/utils-package':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../utils-package
       '@testing-library/jest-dom':
         specifier: ^6.0.0
@@ -1177,16 +1177,16 @@ importers:
         version: 4.7.0
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../utils-core
       '@types/cytoscape':
         specifier: ^3.19.10
@@ -1238,13 +1238,13 @@ importers:
         version: 1.6.6
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../types
       '@types/react':
         specifier: ^18.2.20
