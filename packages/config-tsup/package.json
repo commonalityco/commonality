@@ -16,7 +16,7 @@
     "node": ">=14.6"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "0.0.7",
+    "@commonalityco/config-eslint": "*",
     "typescript": "^4.9.5"
   }
 }
