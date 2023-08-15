@@ -10,7 +10,6 @@
     "lucide-react": "^0.268.0"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "*",
     "@commonalityco/config-tailwind": "*",
     "@commonalityco/config-tsconfig": "*",
     "@commonalityco/data-graph": "*",
@@ -25,6 +24,7 @@
     "@types/react": "^18.2.20",
     "@xstate/react": "^3.2.2",
     "cytoscape": "^3.26.0",
+    "eslint-config-commonality": "*",
     "postcss": "^8.4.27",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -45,6 +45,8 @@
     "xstate": "^4.37.2"
   },
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build": "tsc",
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit"

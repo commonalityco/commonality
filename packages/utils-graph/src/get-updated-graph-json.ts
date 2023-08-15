@@ -6,22 +6,21 @@ import { edgeStyles } from './styles/edge.js';
 
 cytoscape.use(dagre);
 
-export type OffloadRenderFn = ({
+export type OffloadRenderFunction = ({
   elements,
 }: {
   elements: ElementDefinition[];
 }) => Promise<ElementDefinition[]>;
 
-export const getElementDefinitionsWithUpdatedLayout: OffloadRenderFn = async ({
-  elements,
-}) => {
-  const graph = cytoscape({
-    styleEnabled: true,
-    style: [...nodeStyles, ...edgeStyles],
-    elements,
-  });
+export const getElementDefinitionsWithUpdatedLayout: OffloadRenderFunction =
+  async ({ elements }) => {
+    const graph = cytoscape({
+      styleEnabled: true,
+      style: [...nodeStyles, ...edgeStyles],
+      elements,
+    });
 
-  graph.layout(layoutOptions).run();
+    graph.layout(layoutOptions).run();
 
-  return graph.elements().jsons() as any;
-};
+    return graph.elements().jsons() as unknown as ElementDefinition[];
+  };

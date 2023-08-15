@@ -3,7 +3,6 @@
   "description": "State management utilities for the Commonality Dashboard graph",
   "version": "0.0.4",
   "devDependencies": {
-    "@commonalityco/config-eslint": "*",
     "@commonalityco/config-tsconfig": "*",
     "@commonalityco/types": "*",
     "@commonalityco/utils-core": "*",
@@ -11,6 +10,7 @@
     "@popperjs/core": "^2.11.8",
     "@types/cytoscape": "^3.19.10",
     "@types/lodash.debounce": "^4.0.7",
+    "eslint-config-commonality": "*",
     "typescript": "^5.1.6",
     "xstate": "^4.38.2"
   },
@@ -31,6 +31,8 @@
     "lodash.debounce": "^4.0.8"
   },
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build": "tsc --build",
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit"

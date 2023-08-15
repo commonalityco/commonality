@@ -12,10 +12,10 @@ export const getCodeownersData = async ({
   const codeownersData: CodeownersData[] = [];
   const codeowners = await getCodeowners({ rootDirectory });
 
-  for (const pkg of packages) {
-    const ownersForPath = getOwnersForPath({ path: pkg.path, codeowners });
+  for (const package_ of packages) {
+    const ownersForPath = getOwnersForPath({ path: package_.path, codeowners });
 
-    codeownersData.push({ packageName: pkg.name, codeowners: ownersForPath });
+    codeownersData.push({ packageName: package_.name, codeowners: ownersForPath });
   }
 
   return codeownersData;

@@ -5,9 +5,8 @@
       "dependsOn": ["^build"]
     },
     "test": {},
-    "lint": {
-      "outputs": []
-    },
+    "lint": {},
+    "lint:fix": {},
     "type-check": {
       "outputs": []
     },

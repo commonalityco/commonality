@@ -3,7 +3,7 @@ import { Slot } from '@radix-ui/react-slot';
 import React from 'react';
 import { Logo } from './logo';
 
-interface NavigationButtonProps
+interface NavigationButtonProperties
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   asChild?: boolean;
   active?: boolean;
@@ -11,8 +11,8 @@ interface NavigationButtonProps
 
 export const NavigationButton = React.forwardRef<
   HTMLAnchorElement,
-  NavigationButtonProps
->(({ asChild, active, className, ...props }, ref) => {
+  NavigationButtonProperties
+>(({ asChild, active, className, ...properties }, reference) => {
   const Comp = asChild ? Slot : 'a';
 
   return (
@@ -25,8 +25,8 @@ export const NavigationButton = React.forwardRef<
         },
         className
       )}
-      ref={ref}
-      {...props}
+      ref={reference}
+      {...properties}
     />
   );
 });

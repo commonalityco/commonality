@@ -18,7 +18,7 @@ export const GraphChart = memo(
   forwardRef<HTMLDivElement, GraphChartProperties>(
     (
       { loading, children, isEmpty, className, isZero, onShowAllPackages },
-      ref
+      reference
     ) => {
       return (
         <div className={cn('relative z-10 w-full shrink-0 grow', className)}>
@@ -87,7 +87,7 @@ export const GraphChart = memo(
           </div>
           <div
             id="graph-container"
-            ref={ref}
+            ref={reference}
             className={cn('h-full w-full', {
               'opacity-0': loading,
               'opacity-100 transition-opacity ': !loading,

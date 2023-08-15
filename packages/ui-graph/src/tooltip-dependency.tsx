@@ -3,7 +3,10 @@ import React from 'react';
 import { cn, Heading, Label, Text } from '@commonalityco/ui-design-system';
 import { Dependency } from '@commonalityco/types';
 import { ArrowRight } from 'lucide-react';
-import { GraphTooltip, GraphTooltipProps } from './components/graph-tooltip';
+import {
+  GraphTooltip,
+  GraphTooltipProperties,
+} from './components/graph-tooltip';
 import { useState } from 'react';
 import { DependencyType } from '@commonalityco/utils-core';
 
@@ -14,16 +17,20 @@ const TextByType = {
 };
 
 export interface TooltipDependencyProperties {
-  edge: GraphTooltipProps['element'];
+  edge: GraphTooltipProperties['element'];
 }
 
 export function TooltipDependency({ edge }: TooltipDependencyProperties) {
-  const [anchor, setAnchor] = useState<HTMLElement | null>(null);
+  const [anchor, setAnchor] = useState<HTMLElement | undefined>();
   const dependency: Dependency & { target: string; source: string } =
     edge.data();
 
   return (
-    <div ref={(el) => setAnchor(el)}>
+    <div
+      ref={(element) => {
+        if (element) setAnchor(element);
+      }}
+    >
       {anchor && (
         <GraphTooltip element={edge}>
           <div className="bg-background grid gap-3 rounded-md p-3">

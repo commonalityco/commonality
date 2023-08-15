@@ -11,7 +11,7 @@ const getAllDependencies = (
   dependencies: Dependency[],
   packageName: string,
   visitedNodes: Set<string> = new Set(),
-  resultEdges: Set<string> = new Set()
+  resultEdges: Set<string> = new Set(),
 ): Dependency[] => {
   if (visitedNodes.has(packageName)) {
     return [];
@@ -19,7 +19,7 @@ const getAllDependencies = (
   visitedNodes.add(packageName);
 
   const connectedDependencies = dependencies.filter(
-    (dep) => dep.source === packageName && !resultEdges.has(edgeKey(dep))
+    (dep) => dep.source === packageName && !resultEdges.has(edgeKey(dep)),
   );
 
   for (const dep of connectedDependencies) {
@@ -27,15 +27,15 @@ const getAllDependencies = (
     getAllDependencies(dependencies, dep.target, visitedNodes, resultEdges);
   }
 
-  return Array.from(resultEdges)
+  return [...resultEdges]
     .map((key) => {
       const [source, target] = key.split('|');
 
       return dependencies.find(
-        (dep) => dep.source === source && dep.target === target
+        (dep) => dep.source === source && dep.target === target,
       );
     })
-    .filter((dep): dep is Dependency => Boolean(dep));
+    .filter((dep): dep is Dependency => !!dep);
 };
 
 export async function getViolations({
@@ -50,10 +50,10 @@ export async function getViolations({
   const violations: Violation[] = [];
 
   const tagsByPackageName = new Map(
-    tagsData.map((data) => [data.packageName, data.tags])
+    tagsData.map((data) => [data.packageName, data.tags]),
   );
 
-  if (!constraints.length) {
+  if (constraints.length === 0) {
     return violations;
   }
 
@@ -68,7 +68,7 @@ export async function getViolations({
     });
 
     const allowsAll = constraintsForDependency.some(
-      (constraint) => 'allow' in constraint && constraint.allow === '*'
+      (constraint) => 'allow' in constraint && constraint.allow === '*',
     );
 
     for (const constraint of constraintsForDependency) {
@@ -83,8 +83,8 @@ export async function getViolations({
 
       if (disallowed === '*') {
         for (const directDependencyPackageName of directDependencyPackageNames) {
-          const tagsForTargetPkg = tagsByPackageName.get(
-            directDependencyPackageName
+          const tagsForTargetPackage = tagsByPackageName.get(
+            directDependencyPackageName,
           );
 
           violations.push({
@@ -93,7 +93,7 @@ export async function getViolations({
             appliedTo: constraint.applyTo,
             allowed: hasAllow ? constraint.allow : [],
             disallowed: hasDisallow ? constraint.disallow : [],
-            found: tagsForTargetPkg,
+            found: tagsForTargetPackage,
           });
         }
 
@@ -110,14 +110,14 @@ export async function getViolations({
           .map((dep) => dep.target);
 
         for (const directDependencyPackageName of directDependencyPackageNames) {
-          const tagsForTargetPkg = tagsByPackageName.get(
-            directDependencyPackageName
+          const tagsForTargetPackage = tagsByPackageName.get(
+            directDependencyPackageName,
           );
 
           const hasMatch = Boolean(
-            tagsForTargetPkg?.some((tag) =>
-              allowed?.some((allowedTag) => allowedTag === tag)
-            )
+            tagsForTargetPackage?.some(
+              (tag) => allowed?.some((allowedTag) => allowedTag === tag),
+            ),
           );
 
           if (!hasMatch) {
@@ -127,7 +127,7 @@ export async function getViolations({
               appliedTo: constraint.applyTo,
               allowed: constraint.allow,
               disallowed: hasDisallow ? constraint.disallow : [],
-              found: tagsForTargetPkg,
+              found: tagsForTargetPackage,
             });
           }
         }
@@ -136,16 +136,16 @@ export async function getViolations({
       if (hasDisallow && disallowed) {
         const allDependencies = getAllDependencies(
           dependencies,
-          dependency.source
+          dependency.source,
         );
 
         for (const targetDependency of allDependencies) {
-          const tagsForTargetPkg = tagsByPackageName.get(
-            targetDependency.target
+          const tagsForTargetPackage = tagsByPackageName.get(
+            targetDependency.target,
           );
 
-          const hasMatch = tagsForTargetPkg?.some((tag) =>
-            disallowed.some((disallowedTag) => disallowedTag === tag)
+          const hasMatch = tagsForTargetPackage?.some((tag) =>
+            disallowed.includes(tag),
           );
 
           if (hasMatch) {
@@ -155,7 +155,7 @@ export async function getViolations({
               appliedTo: constraint.applyTo,
               allowed: hasAllow ? constraint.allow : [],
               disallowed: constraint.disallow,
-              found: tagsForTargetPkg,
+              found: tagsForTargetPackage,
             });
           }
         }

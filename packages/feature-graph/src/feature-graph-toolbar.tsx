@@ -10,7 +10,7 @@ import {
   violationsKeys,
 } from '@commonalityco/utils-graph';
 
-interface FeatureGraphToolbarProps
+interface FeatureGraphToolbarProperties
   extends Omit<
     ComponentProps<typeof GraphToolbar>,
     | 'shownPackageCount'
@@ -29,8 +29,8 @@ export function FeatureGraphToolbar({
   getViolations,
   getConstraints,
   getPackages,
-  ...props
-}: FeatureGraphToolbarProps) {
+  ...properties
+}: FeatureGraphToolbarProperties) {
   const [state, send] = GraphContext.useActor();
   const { data: violations } = useQuery({
     queryKey: violationsKeys,
@@ -50,12 +50,12 @@ export function FeatureGraphToolbar({
     : packages?.length ?? 0;
 
   if (!violations || !constraints) {
-    return null;
+    return;
   }
 
   return (
     <GraphToolbar
-      {...props}
+      {...properties}
       totalPackageCount={packages?.length ?? 0}
       constraints={constraints}
       violations={violations}

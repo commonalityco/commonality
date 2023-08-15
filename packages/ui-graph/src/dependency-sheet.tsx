@@ -75,7 +75,7 @@ function DependencySheetContent({
         <div>
           <Label>Constraints</Label>
           <Accordion type="multiple">
-            {constraints.length ? (
+            {constraints.length > 0 ? (
               constraints.map((constraint) => {
                 const violation = violations.find(
                   (violation) => violation.appliedTo === constraint.applyTo
@@ -110,7 +110,7 @@ function DependencySheetContent({
   );
 }
 
-interface DependencySheetProps extends ComponentProps<typeof Sheet> {
+interface DependencySheetProperties extends ComponentProps<typeof Sheet> {
   constraints: Constraint[];
   violations: Violation[];
   dependency?: Dependency;
@@ -118,17 +118,17 @@ interface DependencySheetProps extends ComponentProps<typeof Sheet> {
   source: string;
 }
 
-export function DependencySheet(props: DependencySheetProps) {
+export function DependencySheet(properties: DependencySheetProperties) {
   return (
-    <Sheet {...props}>
+    <Sheet {...properties}>
       <SheetContent className="sm:max-w-[300px] md:max-w-[450px]">
-        {props.dependency && (
+        {properties.dependency && (
           <DependencySheetContent
-            constraints={props.constraints}
-            violations={props.violations}
-            dependency={props.dependency}
-            target={props.target}
-            source={props.source}
+            constraints={properties.constraints}
+            violations={properties.violations}
+            dependency={properties.dependency}
+            target={properties.target}
+            source={properties.source}
           />
         )}
       </SheetContent>

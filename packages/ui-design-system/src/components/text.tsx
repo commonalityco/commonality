@@ -1,7 +1,7 @@
 import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
 
-interface TextProps
+interface TextProperties
   extends React.DetailedHTMLProps<
       React.HTMLAttributes<HTMLParagraphElement>,
       HTMLParagraphElement
@@ -25,10 +25,10 @@ export const Text = ({
   children,
   use = 'default',
   className,
-  ...restProps
-}: TextProps) => {
+  ...restProperties
+}: TextProperties) => {
   return (
-    <p {...restProps} className={cn(textStyles({ use }), className)}>
+    <p {...restProperties} className={cn(textStyles({ use }), className)}>
       {children}
     </p>
   );

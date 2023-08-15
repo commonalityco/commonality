@@ -119,9 +119,9 @@ function PackagesFilterSection({
   visiblePackages: Package[];
   packages: Package[];
   stripScopeFromPackageNames?: boolean;
-  onHide: (pkgName: string) => void;
-  onShow: (pkgName: string) => void;
-  onFocus: (pkgName: string) => void;
+  onHide: (packageName: string) => void;
+  onShow: (packageName: string) => void;
+  onFocus: (packageName: string) => void;
   search: string;
 }) {
   const getPlaceholder = () => {
@@ -297,12 +297,12 @@ function TagsFilterSection({
           ? allTags.map((tag) => {
               const isTagVisible = Boolean(
                 visiblePackages?.some((package_) => {
-                  const tagsForPkg = tagData.find(
+                  const tagsForPackage = tagData.find(
                     (data) => data.packageName === package_.name
                   );
 
-                  if (tagsForPkg) {
-                    return tagsForPkg.tags.includes(tag);
+                  if (tagsForPackage) {
+                    return tagsForPackage.tags.includes(tag);
                   }
 
                   return false;
@@ -423,12 +423,12 @@ function CodeownersFilterSection({
           ? allOwners.map((owner) => {
               const isTeamVisible = Boolean(
                 visiblePackages?.some((package_) => {
-                  const ownersForPkg = ownerData.find(
+                  const ownersForPackage = ownerData.find(
                     (data) => data.packageName === package_.name
                   );
 
-                  if (ownersForPkg) {
-                    return ownersForPkg.codeowners.includes(owner);
+                  if (ownersForPackage) {
+                    return ownersForPackage.codeowners.includes(owner);
                   }
 
                   return false;

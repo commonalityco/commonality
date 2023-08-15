@@ -1,11 +1,16 @@
-import path from 'path';
+import path from 'node:path';
 import { getProjectConfig } from '../src/get-project-config';
 import { describe, expect, it } from 'vitest';
+import { fileURLToPath } from 'node:url';
 
 describe('getProjectConfig', () => {
   describe('when run in an un-initialized project', () => {
     it('returns an empty object', async () => {
-      const rootDirectory = path.join(__dirname, './fixtures', 'uninitialized');
+      const rootDirectory = path.join(
+        path.dirname(fileURLToPath(import.meta.url)),
+        './fixtures',
+        'uninitialized',
+      );
 
       const config = await getProjectConfig({ rootDirectory });
 
@@ -16,7 +21,7 @@ describe('getProjectConfig', () => {
   describe('when run in an initialized project', () => {
     it('should return the parsed project config if the file exists and is valid', async () => {
       const rootDirectory = path.join(
-        __dirname,
+        path.dirname(fileURLToPath(import.meta.url)),
         './fixtures',
         'valid-project-config',
       );
@@ -52,7 +57,7 @@ describe('getProjectConfig', () => {
 
     it('should throw an error if the file exists but is invalid', async () => {
       const rootDirectory = path.join(
-        __dirname,
+        path.dirname(fileURLToPath(import.meta.url)),
         '../fixtures',
         'invalid-project-config',
       );

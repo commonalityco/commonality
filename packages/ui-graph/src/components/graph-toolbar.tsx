@@ -50,8 +50,7 @@ function ViolationsHoverCard({
   const violationsByConstraintTag = useMemo(() => {
     const map: Record<string, Violation[] | undefined> = {};
 
-    for (let i = 0; i < violations.length; i++) {
-      const violation = violations[i];
+    for (const violation of violations) {
 
       const currentViolations = map[violation.appliedTo];
 
@@ -72,7 +71,7 @@ function ViolationsHoverCard({
             //   variant: violations.length ? 'destructive' : 'success',
             // })}
             className={cn('h-2 w-2 rounded-full', {
-              'bg-success': !violations.length,
+              'bg-success': violations.length === 0,
               'bg-destructive': violations.length,
             })}
           />
@@ -83,7 +82,7 @@ function ViolationsHoverCard({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="grid w-auto p-0" align="start">
-        {constraints.length ? (
+        {constraints.length > 0 ? (
           <ScrollArea className="h-full max-h-[400px] px-4 pb-0 pt-0">
             <Accordion
               type="multiple"
@@ -200,7 +199,7 @@ const IconByPackageManager = {
   [PackageManager.YARN]: YarnLogo,
 };
 
-export interface GraphToolbarProps {
+export interface GraphToolbarProperties {
   packageManager?: PackageManager;
   totalPackageCount: number;
   shownPackageCount: number;
@@ -226,7 +225,7 @@ export function GraphToolbar({
   onPackageClick = () => {},
   constraints = [],
   violations = [],
-}: GraphToolbarProps) {
+}: GraphToolbarProperties) {
   const Icon = packageManager
     ? IconByPackageManager[packageManager]
     : undefined;

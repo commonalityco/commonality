@@ -15,7 +15,6 @@ import {
 import {
   constraintsKeys,
   documentsKeys,
-  metadataKey,
   tagsKeys,
   violationsKeys,
 } from '@commonalityco/utils-graph';
@@ -26,10 +25,10 @@ import { GraphContext } from './graph-provider';
 function FeatureGraphPackageTooltip() {
   const actor = GraphContext.useActorRef();
   const hoveredRenderNode = GraphContext.useSelector(
-    (state) => state.context.hoveredRenderNode
+    (state) => state.context.hoveredRenderNode,
   );
   const hoveredTraversalNode = GraphContext.useSelector(
-    (state) => state.context.hoveredTraversalNode
+    (state) => state.context.hoveredTraversalNode,
   );
 
   return (
@@ -38,23 +37,29 @@ function FeatureGraphPackageTooltip() {
         <TooltipPackage
           renderNode={hoveredRenderNode}
           traversalNode={hoveredTraversalNode}
-          onFocus={(pkg) =>
-            actor.send({ type: 'FOCUS', selector: `node[id="${pkg.name}"]` })
+          onFocus={(package_) =>
+            actor.send({
+              type: 'FOCUS',
+              selector: `node[id="${package_.name}"]`,
+            })
           }
-          onHide={(pkg) => {
-            actor.send({ type: 'HIDE', selector: `node[id="${pkg.name}"]` });
+          onHide={(package_) => {
+            actor.send({
+              type: 'HIDE',
+              selector: `node[id="${package_.name}"]`,
+            });
           }}
-          onDependenciesHide={(pkg) => {
-            actor.send({ type: 'HIDE_DEPENDENCIES', pkg });
+          onDependenciesHide={(package_) => {
+            actor.send({ type: 'HIDE_DEPENDENCIES', pkg: package_ });
           }}
-          onDependenciesShow={(pkg) => {
-            actor.send({ type: 'SHOW_DEPENDENCIES', pkg });
+          onDependenciesShow={(package_) => {
+            actor.send({ type: 'SHOW_DEPENDENCIES', pkg: package_ });
           }}
-          onDependentsHide={(pkg) => {
-            actor.send({ type: 'HIDE_DEPENDANTS', pkg });
+          onDependentsHide={(package_) => {
+            actor.send({ type: 'HIDE_DEPENDANTS', pkg: package_ });
           }}
-          onDependentsShow={(pkg) => {
-            actor.send({ type: 'SHOW_DEPENDANTS', pkg });
+          onDependentsShow={(package_) => {
+            actor.send({ type: 'SHOW_DEPENDANTS', pkg: package_ });
           }}
         />
       )}
@@ -88,7 +93,7 @@ function FeatureGraphDependencySheet({
 
   const actor = GraphContext.useActorRef();
   const selectedEdge = GraphContext.useSelector(
-    (state) => state.context.selectedEdge
+    (state) => state.context.selectedEdge,
   );
 
   const dependencyConstraints = useMemo(() => {
@@ -96,12 +101,12 @@ function FeatureGraphDependencySheet({
 
     const dependencyConstraints =
       constraints?.filter((constraint) => {
-        const sourcePkg: Package = selectedEdge.source().data();
-        const tagsForPkg = tagsData?.find(
-          (data) => data.packageName === sourcePkg.name
+        const sourcePackage: Package = selectedEdge.source().data();
+        const tagsForPackage = tagsData?.find(
+          (data) => data.packageName === sourcePackage.name,
         );
 
-        return tagsForPkg?.tags.includes(constraint.applyTo);
+        return tagsForPackage?.tags.includes(constraint.applyTo);
       }) ?? [];
 
     return dependencyConstraints;
@@ -136,7 +141,7 @@ function FeatureGraphPackageSheet({
 }) {
   const actor = GraphContext.useActorRef();
   const selectedNode = GraphContext.useSelector(
-    (state) => state.context.selectedNode
+    (state) => state.context.selectedNode,
   );
 
   const { data: documentsData } = useQuery({
@@ -155,7 +160,7 @@ function FeatureGraphPackageSheet({
   });
 
   if (!documentsData || !codeownersData) {
-    return null;
+    return;
   }
 
   return (

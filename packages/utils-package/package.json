@@ -15,10 +15,10 @@
     "@commonalityco/utils-core": "*"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "*",
     "@commonalityco/config-tsconfig": "*",
     "@commonalityco/types": "*",
     "@types/react": "^18.2.20",
+    "eslint-config-commonality": "*",
     "postcss": "^8.4.27",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,6 +30,8 @@
     "react-dom": ">=17"
   },
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build": "tsc --build",
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit"

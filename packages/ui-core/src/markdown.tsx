@@ -47,16 +47,16 @@ const CustomPre = ({ ...properties }: HTMLAttributes<HTMLPreElement>) => {
   );
 };
 
-interface MarkdownProps {
+interface MarkdownProperties {
   theme?: 'light' | 'dark';
   children?: string;
 }
 
-export function Markdown({ theme = 'light', children }: MarkdownProps) {
+export function Markdown({ theme = 'light', children }: MarkdownProperties) {
   const components: Components = useMemo(() => {
     return {
-      a: ({ node: _node, ...props }) => (
-        <a {...props} target="_blank" rel="noopener noreferrer" />
+      a: ({ ...properties }) => (
+        <a {...properties} target="_blank" rel="noopener noreferrer" />
       ),
       pre: CustomPre,
       code({ inline, className, children, ...properties }) {

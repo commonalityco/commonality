@@ -1,1 +1,4 @@
-module.exports = require('@commonalityco/config-eslint');
+module.exports = {
+  root: true,
+  extends: ['commonality'],
+};

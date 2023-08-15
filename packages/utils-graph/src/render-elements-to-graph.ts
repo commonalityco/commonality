@@ -1,7 +1,6 @@
 'use client';
 import { Core, ElementDefinition } from 'cytoscape';
 import { bindRenderGraphEvents } from './bind-render-graph-events.js';
-import { withTiming } from './utils/with-timing.js';
 
 import { Dependency, Package, Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
@@ -19,7 +18,7 @@ const updateStyles = ({
 }) => {
   graph.elements().removeClass(['dark', 'light']).addClass(theme);
 
-  graph.edges().forEach((edge) => {
+  for (const edge of graph.edges()) {
     const edgeData = edge.data() as Dependency;
 
     const violationForEdge = edgeData
@@ -32,7 +31,7 @@ const updateStyles = ({
             violation.targetPackageName === target.name
           );
         })
-      : null;
+      : undefined;
 
     if (forceEdgeColor) {
       edge.addClass(edgeData.type);
@@ -56,41 +55,38 @@ const updateStyles = ({
 
       edge.addClass('violation');
     }
-  });
+  }
 };
 
-const updateGraphElements = withTiming(
-  'updateGraphElements',
-  async ({
+const updateGraphElements = async ({
+  renderGraph,
+  traversalGraph,
+  theme,
+  forceEdgeColor,
+  violations,
+  elements,
+}: {
+  renderGraph: Core;
+  traversalGraph: Core;
+  theme: string;
+  forceEdgeColor: boolean;
+  violations: Violation[];
+  elements: ElementDefinition[];
+}) => {
+  // Clear the graph
+  renderGraph.json({ elements });
+
+  updateStyles({ graph: renderGraph, theme, forceEdgeColor, violations });
+
+  renderGraph.fit(undefined, 24);
+
+  // Bind graph events, these events are all fired by the Cytoscape library
+  bindRenderGraphEvents({
     renderGraph,
-    traversalGraph,
     theme,
-    forceEdgeColor,
+    traversalGraph,
     violations,
-    elements,
-  }: {
-    renderGraph: Core;
-    traversalGraph: Core;
-    theme: string;
-    forceEdgeColor: boolean;
-    violations: Violation[];
-    elements: ElementDefinition[];
-  }) => {
-    // Clear the graph
-    renderGraph.json({ elements });
-
-    updateStyles({ graph: renderGraph, theme, forceEdgeColor, violations });
-
-    renderGraph.fit(undefined, 24);
-
-    // Bind graph events, these events are all fired by the Cytoscape library
-    bindRenderGraphEvents({
-      renderGraph,
-      theme,
-      traversalGraph,
-      violations,
-    });
-  },
-);
+  });
+};
 
 export { updateGraphElements };

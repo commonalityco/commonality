@@ -5,15 +5,15 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...properties }, reference) => (
   <div className="w-full overflow-auto">
     <table
-      ref={ref}
+      ref={reference}
       className={cn(
         'w-full caption-bottom border-separate border-spacing-0 text-sm',
         className
       )}
-      {...props}
+      {...properties}
     />
   </div>
 ));
@@ -22,19 +22,19 @@ Table.displayName = 'Table';
 const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn(className)} {...props} />
+>(({ className, ...properties }, reference) => (
+  <thead ref={reference} className={cn(className)} {...properties} />
 ));
 TableHeader.displayName = 'TableHeader';
 
 const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...properties }, reference) => (
   <tbody
-    ref={ref}
+    ref={reference}
     className={cn('[&_tr:last-child]:border-0', className)}
-    {...props}
+    {...properties}
   />
 ));
 TableBody.displayName = 'TableBody';
@@ -42,11 +42,11 @@ TableBody.displayName = 'TableBody';
 const TableFooter = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...properties }, reference) => (
   <tfoot
-    ref={ref}
+    ref={reference}
     className={cn('bg-primary text-primary-foreground font-medium', className)}
-    {...props}
+    {...properties}
   />
 ));
 TableFooter.displayName = 'TableFooter';
@@ -54,14 +54,14 @@ TableFooter.displayName = 'TableFooter';
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...properties }, reference) => (
   <tr
-    ref={ref}
+    ref={reference}
     className={cn(
       'hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors',
       className
     )}
-    {...props}
+    {...properties}
   />
 ));
 TableRow.displayName = 'TableRow';
@@ -69,14 +69,14 @@ TableRow.displayName = 'TableRow';
 const TableHead = React.forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...properties }, reference) => (
   <th
-    ref={ref}
+    ref={reference}
     className={cn(
       'text-muted-foreground bg-secondary h-9 border-y px-4 text-left align-middle text-xs font-medium first:rounded-l-md first:border-l last:rounded-r-md last:border-r [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
       className
     )}
-    {...props}
+    {...properties}
   />
 ));
 TableHead.displayName = 'TableHead';
@@ -84,14 +84,14 @@ TableHead.displayName = 'TableHead';
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...properties }, reference) => (
   <td
-    ref={ref}
+    ref={reference}
     className={cn(
       'border-b p-4 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
       className
     )}
-    {...props}
+    {...properties}
   />
 ));
 TableCell.displayName = 'TableCell';
@@ -99,11 +99,11 @@ TableCell.displayName = 'TableCell';
 const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
   React.HTMLAttributes<HTMLTableCaptionElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...properties }, reference) => (
   <caption
-    ref={ref}
+    ref={reference}
     className={cn('text-muted-foreground mt-4 text-sm', className)}
-    {...props}
+    {...properties}
   />
 ));
 TableCaption.displayName = 'TableCaption';
@@ -111,7 +111,7 @@ TableCaption.displayName = 'TableCaption';
 const TableHeadSortButton = ({
   children,
   sort,
-  ...props
+  ...properties
 }: React.HTMLAttributes<HTMLButtonElement> & {
   sort: false | 'asc' | 'desc';
 }) => {
@@ -134,7 +134,7 @@ const TableHeadSortButton = ({
   return (
     <button
       className="text-muted-foreground hover:text-foreground flex items-center gap-1 text-xs"
-      {...props}
+      {...properties}
     >
       <span>{children}</span>
       {sortIcon}

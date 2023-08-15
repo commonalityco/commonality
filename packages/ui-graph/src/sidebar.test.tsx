@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { Package } from '@commonalityco/types';
 import { PackageType } from '@commonalityco/utils-core';
 
-const renderSidebar = (props: {
+const renderSidebar = (properties: {
   initialSearch: ComponentPropsWithoutRef<typeof Sidebar>['initialSearch'];
   visiblePackages: ComponentPropsWithoutRef<typeof Sidebar>['visiblePackages'];
   packages: ComponentPropsWithoutRef<typeof Sidebar>['packages'];
@@ -15,7 +15,7 @@ const renderSidebar = (props: {
 }) => {
   render(
     <Sidebar
-      {...props}
+      {...properties}
       onShowAll={() => {}}
       onHideAll={() => {}}
       onTagHide={() => {}}
@@ -31,35 +31,35 @@ const renderSidebar = (props: {
   );
 };
 
-const pkgOne = {
+const packageOne = {
   path: `/path/to/package-one`,
   name: `@scope/one`,
   version: '1.0.0',
   type: PackageType.NODE,
 } satisfies Package;
 
-const pkgTwo = {
+const packageTwo = {
   path: `/path/to/package-two`,
   name: `@scope/two`,
   version: '1.0.0',
   type: PackageType.NODE,
 } satisfies Package;
 
-const pkgThree = {
+const packageThree = {
   path: `/path/to/package-three`,
   name: `@scope/three`,
   version: '1.0.0',
   type: PackageType.NODE,
 } satisfies Package;
 
-const pkgFour = {
+const packageFour = {
   path: `/path/to/package-four`,
   name: `@scope/four`,
   version: '1.0.0',
   type: PackageType.NODE,
 } satisfies Package;
 
-const pkgFive = {
+const packageFive = {
   path: `/path/to/package-five-looooooooooooooonnnnnngggggggg`,
   name: `@scope/five-looooooooooooooonnnnnngggggggg`,
   version: '1.0.0',
@@ -90,8 +90,8 @@ describe('<Sidebar/>', () => {
       it('displays the empty state', () => {
         renderSidebar({
           initialSearch,
-          visiblePackages: [pkgOne, pkgTwo, pkgThree],
-          packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
+          visiblePackages: [packageOne, packageTwo, packageThree],
+          packages: [packageOne, packageTwo, packageThree, packageFour, packageFive],
           tagsData: [],
           codeownersData: [
             {
@@ -132,8 +132,8 @@ describe('<Sidebar/>', () => {
       it('displays the empty state', () => {
         renderSidebar({
           initialSearch,
-          visiblePackages: [pkgOne, pkgTwo, pkgThree],
-          packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
+          visiblePackages: [packageOne, packageTwo, packageThree],
+          packages: [packageOne, packageTwo, packageThree, packageFour, packageFive],
           tagsData: [
             { packageName: '@scope/one', tags: ['tag-one', 'tag-two'] },
             { packageName: '@scope/two', tags: ['tag-three'] },
@@ -189,8 +189,8 @@ describe('<Sidebar/>', () => {
       it('displays the zero state', () => {
         renderSidebar({
           initialSearch: '@scope',
-          visiblePackages: [pkgOne, pkgTwo, pkgThree],
-          packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
+          visiblePackages: [packageOne, packageTwo, packageThree],
+          packages: [packageOne, packageTwo, packageThree, packageFour, packageFive],
           tagsData: [],
           codeownersData: [
             {
@@ -224,8 +224,8 @@ describe('<Sidebar/>', () => {
       it('displays the zero state', () => {
         renderSidebar({
           initialSearch: 'tag',
-          visiblePackages: [pkgOne, pkgTwo, pkgThree],
-          packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
+          visiblePackages: [packageOne, packageTwo, packageThree],
+          packages: [packageOne, packageTwo, packageThree, packageFour, packageFive],
           tagsData: [
             { packageName: '@scope/one', tags: ['tag-one', 'tag-two'] },
             { packageName: '@scope/two', tags: ['tag-three'] },

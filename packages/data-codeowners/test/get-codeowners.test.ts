@@ -2,12 +2,13 @@
 import path from 'node:path';
 import { getCodeowners } from '../src/core/get-codeowners.js';
 import { describe, it, expect } from 'vitest';
+import { fileURLToPath } from 'node:url';
 
 describe.only('getCodeOwners', () => {
   describe('when the file is at the root of the repo', () => {
     it('returns an object containing the correct owners for each glob', async () => {
       const rootDirectory = path.resolve(
-        __dirname,
+        path.dirname(fileURLToPath(import.meta.url)),
         './fixtures/github-example',
       );
       const ownership = await getCodeowners({ rootDirectory });
@@ -33,7 +34,10 @@ describe.only('getCodeOwners', () => {
   describe('when there is no CODEOWNERS file', () => {
     it('returns an empty object', async () => {
       const ownership = await getCodeowners({
-        rootDirectory: path.resolve(__dirname, './fixtures/missing-file'),
+        rootDirectory: path.resolve(
+          path.dirname(fileURLToPath(import.meta.url)),
+          './fixtures/missing-file',
+        ),
       });
 
       expect(ownership).toEqual({});

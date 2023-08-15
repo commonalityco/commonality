@@ -21,7 +21,7 @@ export const getOwnersForPath = ({
 
   const allPatterns = matchingPatterns
     .flatMap((pattern) => codeowners[pattern])
-    .filter((str): str is string => Boolean(str));
+    .filter(Boolean);
 
   return [...new Set(allPatterns)];
 };

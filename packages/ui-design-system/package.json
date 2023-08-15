@@ -29,13 +29,13 @@
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "*",
     "@commonalityco/config-tailwind": "*",
     "@commonalityco/config-tsconfig": "*",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/cytoscape": "^3.19.10",
     "@types/react": "^18.2.20",
+    "eslint-config-commonality": "*",
     "lucide-react": "^0.268.0",
     "postcss": "^8.4.27",
     "react": "^18.2.0",
@@ -54,7 +54,10 @@
   },
   "main": "./dist/index.js",
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit"
   }
 }

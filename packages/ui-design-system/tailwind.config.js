@@ -1,6 +1,7 @@
-const baseConfig = require('@commonalityco/config-tailwind');
+import baseConfig from '@commonalityco/config-tailwind';
 
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
   ...baseConfig,
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
 };

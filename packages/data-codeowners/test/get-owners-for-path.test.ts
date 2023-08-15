@@ -2,6 +2,7 @@ import nodePath from 'node:path';
 import { getCodeowners } from '../src/core/get-codeowners.js';
 import { getOwnersForPath } from '../src/core/get-owners-for-path.js';
 import { describe, test, expect } from 'vitest';
+import { fileURLToPath } from 'node:url';
 
 const globalOwners = ['@global-owner1', '@global-owner2'];
 
@@ -29,7 +30,10 @@ describe('get-owners-for-path', () => {
     },
   ])('$path', async ({ path, owners }) => {
     const codeowners = await getCodeowners({
-      rootDirectory: nodePath.resolve(__dirname, './fixtures/github-example'),
+      rootDirectory: nodePath.resolve(
+        nodePath.dirname(fileURLToPath(import.meta.url)),
+        './fixtures/github-example',
+      ),
     });
 
     const ownersForPath = getOwnersForPath({ codeowners, path });

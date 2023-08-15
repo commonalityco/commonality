@@ -20,7 +20,7 @@ import { useQuery } from '@tanstack/react-query';
 import { cn } from '@commonalityco/ui-design-system';
 import debounce from 'lodash.debounce';
 
-interface GraphProps {
+interface GraphProperties {
   theme?: string;
   packageManager?: PackageManager;
   getPackages: () => Promise<Package[]>;
@@ -36,8 +36,8 @@ export function FeatureGraph({
   getPackages,
   getConstraints,
   getDependencies,
-}: GraphProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+}: GraphProperties) {
+  const containerReference = useRef<HTMLDivElement>(null);
 
   const { data: packages } = useQuery({
     queryKey: packagesKeys,
@@ -93,10 +93,10 @@ export function FeatureGraph({
       return;
     }
 
-    if (containerRef.current && packages && dependencies) {
+    if (containerReference.current && packages && dependencies) {
       actor.send({
         type: 'INITIALIZE',
-        containerId: containerRef.current.id,
+        containerId: containerReference.current.id,
         elements: getElementDefinitions({ packages, dependencies }),
         theme: theme ?? 'light',
         violations,
@@ -126,7 +126,7 @@ export function FeatureGraph({
         }}
       />
       <GraphChart
-        ref={containerRef}
+        ref={containerReference}
         loading={isLoading}
         isZero={isZero}
         isEmpty={isEmpty}

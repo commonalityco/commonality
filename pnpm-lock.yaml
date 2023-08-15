@@ -11,9 +11,6 @@ importers:
       '@changesets/cli':
         specifier: ^2.26.2
         version: 2.26.2
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:packages/config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:packages/config-tsconfig
@@ -35,6 +32,9 @@ importers:
       eslint:
         specifier: ^8.47.0
         version: 8.47.0
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:packages/config-eslint
       eslint-plugin-unused-imports:
         specifier: ^3.0.0
         version: 3.0.0(@typescript-eslint/eslint-plugin@6.4.0)(eslint@8.47.0)
@@ -241,9 +241,6 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(debug@4.3.4)
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
@@ -271,6 +268,9 @@ importers:
       esbuild:
         specifier: ^0.19.2
         version: 0.19.2
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       fs-extra:
         specifier: ^11.1.1
         version: 11.1.1
@@ -292,6 +292,15 @@ importers:
 
   packages/config-eslint:
     dependencies:
+      eslint-plugin-import:
+        specifier: ^2.28.0
+        version: 2.28.0(@typescript-eslint/parser@6.4.0)(eslint-import-resolver-typescript@3.6.0)(eslint@8.47.0)
+      eslint-plugin-n:
+        specifier: ^16.0.1
+        version: 16.0.1(eslint@8.47.0)
+      eslint-plugin-unicorn:
+        specifier: ^48.0.1
+        version: 48.0.1(eslint@8.47.0)
       eslint-plugin-unused-imports:
         specifier: ^3.0.0
         version: 3.0.0(@typescript-eslint/eslint-plugin@6.4.0)(eslint@8.47.0)
@@ -336,9 +345,6 @@ importers:
         specifier: ^4.0.5
         version: 4.0.5
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
@@ -351,6 +357,9 @@ importers:
       '@types/node':
         specifier: ^20.5.0
         version: 20.5.0
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       minimatch:
         specifier: ^9.0.3
         version: 9.0.3
@@ -370,9 +379,6 @@ importers:
         specifier: ^13.2.2
         version: 13.2.2
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
@@ -388,6 +394,9 @@ importers:
       '@types/node':
         specifier: ^20.5.0
         version: 20.5.0
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
@@ -401,9 +410,6 @@ importers:
         specifier: ^4.0.8
         version: 4.0.8
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
@@ -425,6 +431,9 @@ importers:
       '@types/lodash.debounce':
         specifier: ^4.0.7
         version: 4.0.7
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
@@ -434,9 +443,6 @@ importers:
 
   packages/data-graph-worker:
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/utils-graph':
         specifier: '*'
         version: link:../utils-graph
@@ -446,6 +452,9 @@ importers:
       cytoscape:
         specifier: ^3.26.0
         version: 3.26.0
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
 
   packages/data-packages:
     dependencies:
@@ -459,9 +468,6 @@ importers:
         specifier: ^11.1.1
         version: 11.1.1
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
@@ -474,6 +480,9 @@ importers:
       '@types/node':
         specifier: ^20.5.0
         version: 20.5.0
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
@@ -502,9 +511,6 @@ importers:
         specifier: ^3.22.0
         version: 3.22.0
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
@@ -517,6 +523,9 @@ importers:
       '@types/node':
         specifier: ^20.5.0
         version: 20.5.0
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
@@ -536,9 +545,6 @@ importers:
         specifier: ^4.5.0
         version: 4.5.0
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
@@ -554,15 +560,15 @@ importers:
       '@types/node':
         specifier: ^20.5.0
         version: 20.5.0
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
 
   packages/data-violations:
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
@@ -572,6 +578,9 @@ importers:
       '@commonalityco/utils-core':
         specifier: '*'
         version: link:../utils-core
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
@@ -591,9 +600,6 @@ importers:
         specifier: ^0.268.0
         version: 0.268.0(react@18.2.0)
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tailwind':
         specifier: '*'
         version: link:../config-tailwind
@@ -636,6 +642,9 @@ importers:
       cytoscape:
         specifier: ^3.26.0
         version: 3.26.0
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       postcss:
         specifier: ^8.4.27
         version: 8.4.27
@@ -724,9 +733,6 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tailwind':
         specifier: '*'
         version: link:../config-tailwind
@@ -787,6 +793,9 @@ importers:
       eslint:
         specifier: ^8.47.0
         version: 8.47.0
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       eslint-config-next:
         specifier: 13.4.16
         version: 13.4.16(eslint@8.47.0)(typescript@5.1.6)
@@ -835,15 +844,15 @@ importers:
 
   packages/types:
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/utils-core':
         specifier: '*'
         version: link:../utils-core
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
@@ -872,9 +881,6 @@ importers:
         specifier: ^1.14.0
         version: 1.14.0
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tailwind':
         specifier: '*'
         version: link:../config-tailwind
@@ -893,6 +899,9 @@ importers:
       '@types/react-syntax-highlighter':
         specifier: ^15.5.7
         version: 15.5.7
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       lucide-react:
         specifier: ^0.268.0
         version: 0.268.0(react@18.2.0)
@@ -987,9 +996,6 @@ importers:
         specifier: ^1.14.0
         version: 1.14.0
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tailwind':
         specifier: '*'
         version: link:../config-tailwind
@@ -1008,6 +1014,9 @@ importers:
       '@types/react':
         specifier: ^18.2.20
         version: 18.2.20
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       lucide-react:
         specifier: ^0.268.0
         version: 0.268.0(react@18.2.0)
@@ -1045,9 +1054,6 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(react@18.2.0)
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tailwind':
         specifier: '*'
         version: link:../config-tailwind
@@ -1096,6 +1102,9 @@ importers:
       cytoscape:
         specifier: ^3.26.0
         version: 3.26.0
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       lucide-react:
         specifier: ^0.268.0
         version: 0.268.0(react@18.2.0)
@@ -1118,12 +1127,12 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
@@ -1140,9 +1149,6 @@ importers:
         specifier: ^4.7.0
         version: 4.7.0
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
@@ -1167,6 +1173,9 @@ importers:
       cytoscape:
         specifier: ^3.26.0
         version: 3.26.0
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -1183,9 +1192,6 @@ importers:
         specifier: '*'
         version: link:../utils-core
     devDependencies:
-      '@commonalityco/config-eslint':
-        specifier: '*'
-        version: link:../config-eslint
       '@commonalityco/config-tsconfig':
         specifier: '*'
         version: link:../config-tsconfig
@@ -1195,6 +1201,9 @@ importers:
       '@types/react':
         specifier: ^18.2.20
         version: 18.2.20
+      eslint-config-commonality:
+        specifier: '*'
+        version: link:../config-eslint
       postcss:
         specifier: ^8.4.27
         version: 8.4.27
@@ -6692,7 +6701,6 @@ packages:
 
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
-    dev: true
 
   /@types/jsonfile@6.1.1:
     resolution: {integrity: sha512-GSgiRCVeapDN+3pqA35IkQwasaCh/0YFH5dEF6S88iDvEn901DjOeH3/QPY+XYP1DFzDZPvIvfeEgk+7br5png==}
@@ -7548,7 +7556,6 @@ packages:
       es-abstract: 1.22.1
       get-intrinsic: 1.2.1
       is-string: 1.0.7
-    dev: true
 
   /array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
@@ -7563,7 +7570,6 @@ packages:
       es-abstract: 1.22.1
       es-shim-unscopables: 1.0.0
       get-intrinsic: 1.2.1
-    dev: true
 
   /array.prototype.flat@1.3.1:
     resolution: {integrity: sha512-roTU0KWIOmJ4DRLmwKd19Otg0/mT3qPNt0Qb3GWW8iObuZXxrjB/pzn0R3hqpRSWg4HCwqx+0vwOnWnvlOyeIA==}
@@ -7582,7 +7588,6 @@ packages:
       define-properties: 1.2.0
       es-abstract: 1.22.1
       es-shim-unscopables: 1.0.0
-    dev: true
 
   /array.prototype.tosorted@1.1.1:
     resolution: {integrity: sha512-pZYPXPRl2PqWcsUs6LOMn+1f1532nEoPTYowBtqLwAW+W8vSVhkIGnmOX1t/UQjD6YGI0vcD2B1U7ZFGQH9jnQ==}
@@ -8032,8 +8037,19 @@ packages:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
+  /builtin-modules@3.3.0:
+    resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
+    engines: {node: '>=6'}
+    dev: false
+
   /builtins@1.0.3:
     resolution: {integrity: sha512-uYBjakWipfaO/bXI7E8rq6kpwHRZK5cNYrUv2OzZSI/FvmdMyXJ2tG9dKcjEC5YHmHpUAwsargWIZNWdxb/bnQ==}
+    dev: false
+
+  /builtins@5.0.1:
+    resolution: {integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==}
+    dependencies:
+      semver: 7.5.4
     dev: false
 
   /bundle-name@3.0.0:
@@ -8295,6 +8311,13 @@ packages:
     resolution: {integrity: sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==}
     dependencies:
       clsx: 2.0.0
+
+  /clean-regexp@1.0.0:
+    resolution: {integrity: sha512-GfisEZEJvzKrmGWkvfhgzcz/BllN1USeqD2V6tg14OAOgaCD2Z/PUEuxnAZ/nPvmaHRG7a8y77p1T/IRQ4D1Hw==}
+    engines: {node: '>=4'}
+    dependencies:
+      escape-string-regexp: 1.0.5
+    dev: false
 
   /clean-stack@2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
@@ -9094,7 +9117,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       esutils: 2.0.3
-    dev: true
 
   /doctrine@3.0.0:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
@@ -9219,7 +9241,6 @@ packages:
     dependencies:
       graceful-fs: 4.2.11
       tapable: 2.2.1
-    dev: true
 
   /enquirer@2.4.1:
     resolution: {integrity: sha512-rRqJg/6gd538VHvR3PSrdRBb/1Vy2YfzHqzvbhGIQpDRKIa4FgV/54b5Q1xYSxOOwKvjXweS26E0Q+nAMwp2pQ==}
@@ -9493,7 +9514,6 @@ packages:
       resolve: 1.22.4
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /eslint-import-resolver-typescript@3.6.0(@typescript-eslint/parser@6.4.0)(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.0)(eslint@8.47.0):
     resolution: {integrity: sha512-QTHR9ddNnn35RTxlaEnx2gCxqFlF2SEN0SE2d17SqwyM7YOSI2GHWRYp5BiRkObTUNYPupC/3Fq2a0PpT+EKpg==}
@@ -9516,7 +9536,6 @@ packages:
       - eslint-import-resolver-node
       - eslint-import-resolver-webpack
       - supports-color
-    dev: true
 
   /eslint-module-utils@2.8.0(@typescript-eslint/parser@6.4.0)(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.0)(eslint@8.47.0):
     resolution: {integrity: sha512-aWajIYfsqCKRDgUfjEXNN/JlrzauMuSEy5sbd7WXbtW3EH6A6MpwEh42c7qD+MqQo9QMJ6fWLAeIJynx0g6OAw==}
@@ -9546,7 +9565,17 @@ packages:
       eslint-import-resolver-typescript: 3.6.0(@typescript-eslint/parser@6.4.0)(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.28.0)(eslint@8.47.0)
     transitivePeerDependencies:
       - supports-color
-    dev: true
+
+  /eslint-plugin-es-x@7.2.0(eslint@8.47.0):
+    resolution: {integrity: sha512-9dvv5CcvNjSJPqnS5uZkqb3xmbeqRLnvXKK7iI5+oK/yTusyc46zbBZKENGsOfojm/mKfszyZb+wNqNPAPeGXA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      eslint: '>=8'
+    dependencies:
+      '@eslint-community/eslint-utils': 4.4.0(eslint@8.47.0)
+      '@eslint-community/regexpp': 4.6.2
+      eslint: 8.47.0
+    dev: false
 
   /eslint-plugin-import@2.28.0(@typescript-eslint/parser@6.4.0)(eslint-import-resolver-typescript@3.6.0)(eslint@8.47.0):
     resolution: {integrity: sha512-B8s/n+ZluN7sxj9eUf7/pRFERX0r5bnFA2dCaLHy2ZeaQEAz0k+ZZkFWRFHJAqxfxQDx6KLv9LeIki7cFdwW+Q==}
@@ -9582,7 +9611,6 @@ packages:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
-    dev: true
 
   /eslint-plugin-jsx-a11y@6.7.1(eslint@8.47.0):
     resolution: {integrity: sha512-63Bog4iIethyo8smBklORknVjB0T2dwB8Mr/hIC+fBS0uyHdYYpzM/Ed+YC8VxTjlXHEWFOdmgwcDn1U2L9VCA==}
@@ -9608,6 +9636,23 @@ packages:
       object.fromentries: 2.0.6
       semver: 6.3.1
     dev: true
+
+  /eslint-plugin-n@16.0.1(eslint@8.47.0):
+    resolution: {integrity: sha512-CDmHegJN0OF3L5cz5tATH84RPQm9kG+Yx39wIqIwPR2C0uhBGMWfbbOtetR83PQjjidA5aXMu+LEFw1jaSwvTA==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      '@eslint-community/eslint-utils': 4.4.0(eslint@8.47.0)
+      builtins: 5.0.1
+      eslint: 8.47.0
+      eslint-plugin-es-x: 7.2.0(eslint@8.47.0)
+      ignore: 5.2.4
+      is-core-module: 2.13.0
+      minimatch: 3.1.2
+      resolve: 1.22.4
+      semver: 7.5.4
+    dev: false
 
   /eslint-plugin-react-hooks@5.0.0-canary-7118f5dd7-20230705(eslint@8.47.0):
     resolution: {integrity: sha512-AZYbMo/NW9chdL7vk6HQzQhT+PvTAEVqWk9ziruUoW2kAOcN5qNyelv70e0F1VNQAbvutOC9oc+xfWycI9FxDw==}
@@ -9641,6 +9686,30 @@ packages:
       semver: 6.3.1
       string.prototype.matchall: 4.0.8
     dev: true
+
+  /eslint-plugin-unicorn@48.0.1(eslint@8.47.0):
+    resolution: {integrity: sha512-FW+4r20myG/DqFcCSzoumaddKBicIPeFnTrifon2mWIzlfyvzwyqZjqVP7m4Cqr/ZYisS2aiLghkUWaPg6vtCw==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      eslint: '>=8.44.0'
+    dependencies:
+      '@babel/helper-validator-identifier': 7.22.5
+      '@eslint-community/eslint-utils': 4.4.0(eslint@8.47.0)
+      ci-info: 3.8.0
+      clean-regexp: 1.0.0
+      eslint: 8.47.0
+      esquery: 1.5.0
+      indent-string: 4.0.0
+      is-builtin-module: 3.2.1
+      jsesc: 3.0.2
+      lodash: 4.17.21
+      pluralize: 8.0.0
+      read-pkg-up: 7.0.1
+      regexp-tree: 0.1.27
+      regjsparser: 0.10.0
+      semver: 7.5.4
+      strip-indent: 3.0.0
+    dev: false
 
   /eslint-plugin-unused-imports@3.0.0(@typescript-eslint/eslint-plugin@6.4.0)(eslint@8.47.0):
     resolution: {integrity: sha512-sduiswLJfZHeeBJ+MQaG+xYzSWdRXoSw61DpU13mzWumCkR0ufD0HmO4kdNokjrkluMHpj/7PJeN35pgbhW3kw==}
@@ -10378,7 +10447,6 @@ packages:
     resolution: {integrity: sha512-pmjiZ7xtB8URYm74PlGJozDNyhvsVLUcpBa8DZBG3bWHwaHa9bPiRpiSfovw+fjhwONSCWKRyk+JQHEGZmMrzw==}
     dependencies:
       resolve-pkg-maps: 1.0.0
-    dev: true
 
   /getos@3.2.1:
     resolution: {integrity: sha512-U56CfOK17OKgTVqozZjUKNdkfEv6jk5WISBJ8SHoagjE6L69zOwl3Z+O8myjY9MEW3i2HPWQBt/LTbCgcC973Q==}
@@ -10996,6 +11064,13 @@ packages:
   /is-buffer@2.0.5:
     resolution: {integrity: sha512-i2R6zNFDwgEHJyQUtJEk0XFi1i0dPFn/oqjK3/vPCcDeJvW5NQ83V8QbicfF1SupOaB0h8ntgBC2YiE7dfyctQ==}
     engines: {node: '>=4'}
+    dev: false
+
+  /is-builtin-module@3.2.1:
+    resolution: {integrity: sha512-BSLE3HnV2syZ0FK0iMA/yUGplUeMmNz4AW5fnTunbCIqZi4vG3WjJT9FHMy5D69xmAYBHXQhJdALdpwVxV501A==}
+    engines: {node: '>=6'}
+    dependencies:
+      builtin-modules: 3.3.0
     dev: false
 
   /is-callable@1.2.7:
@@ -11933,12 +12008,17 @@ packages:
   /jsesc@0.5.0:
     resolution: {integrity: sha512-uZz5UnB7u4T9LvwmFqXii7pZSouaRPorGs5who1Ip7VO0wxanFvBL7GkM6dTHlgX+jhBApRetaWpnDabOeTcnA==}
     hasBin: true
-    dev: true
 
   /jsesc@2.5.2:
     resolution: {integrity: sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==}
     engines: {node: '>=4'}
     hasBin: true
+
+  /jsesc@3.0.2:
+    resolution: {integrity: sha512-xKqzzWXDttJuOcawBt4KnKHHIf5oQ/Cxax+0PWFG+DFDgHNAdi+TXECADI+RYiFUMmx8792xsMbbgXj4CwnP4g==}
+    engines: {node: '>=6'}
+    hasBin: true
+    dev: false
 
   /json-buffer@3.0.0:
     resolution: {integrity: sha512-CuUqjv0FUZIdXkHPI8MezCnFCdaTAacej1TZYulLoAg1h/PhwkdXFN4V/gzY4g+fMBCOV2xF+rp7t2XD2ns/NQ==}
@@ -11970,7 +12050,6 @@ packages:
     hasBin: true
     dependencies:
       minimist: 1.2.8
-    dev: true
 
   /json5@2.2.3:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
@@ -13267,7 +13346,6 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.2.0
       es-abstract: 1.22.1
-    dev: true
 
   /object.groupby@1.0.0:
     resolution: {integrity: sha512-70MWG6NfRH9GnbZOikuhPPYzpUpof9iW2J9E4dW7FXTqPNb6rllE6u39SKwwiNh8lCwX3DDb5OgcKGiEBrTTyw==}
@@ -13276,7 +13354,6 @@ packages:
       define-properties: 1.2.0
       es-abstract: 1.22.1
       get-intrinsic: 1.2.1
-    dev: true
 
   /object.hasown@1.1.2:
     resolution: {integrity: sha512-B5UIT3J1W+WuWIU55h0mjlwaqxiE5vYENJXIXZ4VFe05pNYrkKuK0U/6aFcb0pKywYJh7IhfoqUfKVmrJJHZHw==}
@@ -13292,7 +13369,6 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.2.0
       es-abstract: 1.22.1
-    dev: true
 
   /on-exit-leak-free@2.1.0:
     resolution: {integrity: sha512-VuCaZZAjReZ3vUwgOB8LxAosIurDiAW0s13rI1YwmaP++jvcxP77AWoQvenZebpCA2m8WC1/EosPYPMjnRAp/w==}
@@ -13723,6 +13799,11 @@ packages:
       jsonc-parser: 3.2.0
       mlly: 1.4.0
       pathe: 1.1.1
+
+  /pluralize@8.0.0:
+    resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
+    engines: {node: '>=4'}
+    dev: false
 
   /polished@4.2.2:
     resolution: {integrity: sha512-Sz2Lkdxz6F2Pgnpi9U5Ng/WdWAUZxmHrNPoVlm3aAemxoy2Qy7LGjQg4uf8qKelDAUW94F4np3iH2YPf2qefcQ==}
@@ -14636,6 +14717,11 @@ packages:
     resolution: {integrity: sha512-jbD/FT0+9MBU2XAZluI7w2OBs1RBi6p9M83nkoZayQXXU9e8Robt69FcZc7wU4eJD/YFTjn1JdCk3rbMJajz8Q==}
     dev: true
 
+  /regexp-tree@0.1.27:
+    resolution: {integrity: sha512-iETxpjK6YoRWJG5o6hXLwvjYAoW+FEZn9os0PD/b6AP6xQwsa/Y7lCVgIixBbUPMfhu+i2LtdeAqVTgGlQarfA==}
+    hasBin: true
+    dev: false
+
   /regexp.prototype.flags@1.5.0:
     resolution: {integrity: sha512-0SutC3pNudRKgquxGoRGIz946MZVHqbNfPjBdxeOhBrdgDKlRoXmYLQN9xRbrR09ZXWeGAdPuif7egofn6v5LA==}
     engines: {node: '>= 0.4'}
@@ -14682,6 +14768,13 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       rc: 1.2.8
+    dev: false
+
+  /regjsparser@0.10.0:
+    resolution: {integrity: sha512-qx+xQGZVsy55CH0a1hiVwHmqjLryfh7wQyF5HO07XJ9f7dQMY/gPQHhlyDkIzJKC+x2fUCpCcUODUUUFrm7SHA==}
+    hasBin: true
+    dependencies:
+      jsesc: 0.5.0
     dev: false
 
   /regjsparser@0.9.1:
@@ -14781,7 +14874,6 @@ packages:
 
   /resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
-    dev: true
 
   /resolve-url-loader@5.0.0:
     resolution: {integrity: sha512-uZtduh8/8srhBoMx//5bwqjQ+rfYOUq8zC9NrMUGtjBiGTtFJM42s58/36+hTqeqINcnYe08Nj3LkK9lW4N8Xg==}
@@ -15697,7 +15789,6 @@ packages:
   /tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
-    dev: true
 
   /tar-fs@2.1.1:
     resolution: {integrity: sha512-V0r2Y9scmbDRLCNex/+hYzvp/zyYjvFbHPNgVTKfQvVrb6guiE/fxP+XblDNR011utopbkex2nM4dHNV6GDsng==}
@@ -16018,7 +16109,6 @@ packages:
       json5: 1.0.2
       minimist: 1.2.8
       strip-bom: 3.0.0
-    dev: true
 
   /tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}

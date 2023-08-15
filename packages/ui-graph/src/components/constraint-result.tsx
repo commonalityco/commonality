@@ -83,7 +83,7 @@ export function ConstraintResult({
           appliedTo={violation.found}
           helpText="These tags were found in the package's configuration"
         />
-      ) : null}
+      ) : undefined}
     </div>
   );
 }

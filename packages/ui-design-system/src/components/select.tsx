@@ -34,13 +34,13 @@ const controlStyles = cva(
     defaultVariants: {
       variant: 'default',
     },
-  }
+  },
 );
 
 function getClassNames<
   Option,
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >(className?: string, variant?: VariantProps<typeof controlStyles>['variant']) {
   return {
     multiValue: () =>
@@ -62,10 +62,10 @@ function getClassNames<
     },
     multiValueLabel: () =>
       '!rounded-sm !text-foreground !text-sm !py-1 !pl-2 !pr-1',
-    input: (props: InputProps<Option, IsMulti, Group>) => {
+    input: (properties: InputProps<Option, IsMulti, Group>) => {
       return cn('!text-foreground antialiased', {
-        '!p-0 !m-0': props.isMulti,
-        '!px-0 !m-0': !props.isMulti,
+        '!p-0 !m-0': properties.isMulti,
+        '!px-0 !m-0': !properties.isMulti,
       });
     },
 
@@ -78,11 +78,11 @@ function getClassNames<
           '!animate-in !fade-in-80 !bg-popover !shadow-md !border !z-50':
             !isInline,
         },
-        '!overflow-hidden !min-w-[8rem] !text-popover-foreground !bg-background !rounded-md antialiased'
+        '!overflow-hidden !min-w-[8rem] !text-popover-foreground !bg-background !rounded-md antialiased',
       );
     },
     noOptionsMessage: () => '!text-muted-foreground !text-sm antialiased !py-6',
-    menuList: (state: MenuListProps<Option, IsMulti, Group>) => {
+    menuList: () => {
       return cn('!relative !p-1 !flex !flex-col !gap-1');
     },
     option: (state: OptionProps<Option, IsMulti, Group>) => {
@@ -96,7 +96,7 @@ function getClassNames<
           '!bg-transparent hover:!bg-accent !text-foreground before:h-1 before:w-1 before:rounded-full before:absolute before:my-auto before:left-2.5 before:top-0 before:bottom-0 before:bg-foreground':
             state.isMulti && state.isSelected,
           '!px-2': !state.isMulti,
-        }
+        },
       );
     },
     control: (state: ControlProps<Option, IsMulti, Group>) => {
@@ -106,7 +106,7 @@ function getClassNames<
           isFocused: state.isFocused,
           variant,
         }),
-        className
+        className,
       );
     },
   } as const;
@@ -115,38 +115,40 @@ function getClassNames<
 function getComponents<
   Option,
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >() {
   return {
-    IndicatorSeparator: () => null,
-    ClearIndicator: (props: ClearIndicatorProps<Option, IsMulti, Group>) => {
+    IndicatorSeparator: () => <></>,
+    ClearIndicator: (
+      properties: ClearIndicatorProps<Option, IsMulti, Group>,
+    ) => {
       const {
         getStyles,
-        innerProps: { ref, ...restInnerProps },
-      } = props;
+        innerProps: { ref, ...restInnerProperties },
+      } = properties;
 
       return (
         <div
-          {...restInnerProps}
+          {...restInnerProperties}
           ref={ref}
-          style={getStyles('clearIndicator', props) as CSSProperties}
+          style={getStyles('clearIndicator', properties) as CSSProperties}
         >
           <X className="text-muted-foreground hover:text-foreground h-4 w-4 cursor-pointer transition-colors" />
         </div>
       );
     },
     DropdownIndicator: (
-      props: DropdownIndicatorProps<Option, IsMulti, Group>
+      properties: DropdownIndicatorProps<Option, IsMulti, Group>,
     ) => {
       const {
         getStyles,
-        innerProps: { ref, ...restInnerProps },
-      } = props;
+        innerProps: { ref, ...restInnerProperties },
+      } = properties;
 
       return (
         <div
-          style={getStyles('dropdownIndicator', props) as CSSProperties}
-          {...restInnerProps}
+          style={getStyles('dropdownIndicator', properties) as CSSProperties}
+          {...restInnerProperties}
           ref={ref}
         >
           <ChevronDown className="text-muted-foreground hover:text-foreground h-4 w-4 cursor-pointer transition-colors" />
@@ -159,16 +161,16 @@ function getComponents<
 function Select<
   Option,
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >({
   className,
   variant,
   placeholder = 'Search...',
-  ...restProps
+  ...restProperties
 }: Props<Option, IsMulti, Group> & VariantProps<typeof controlStyles>) {
   return (
     <ReactSelect
-      {...restProps}
+      {...restProperties}
       placeholder={placeholder}
       classNames={getClassNames<Option, IsMulti, Group>(className, variant)}
       components={getComponents<Option, IsMulti, Group>()}
@@ -179,17 +181,17 @@ function Select<
 function CreatebleSelect<
   Option,
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >({
   className,
   variant,
   placeholder = 'Search...',
-  ...restProps
+  ...restProperties
 }: CreatableProps<Option, IsMulti, Group> &
   VariantProps<typeof controlStyles>) {
   return (
     <Creatable
-      {...restProps}
+      {...restProperties}
       placeholder={placeholder}
       classNames={getClassNames<Option, IsMulti, Group>(className, variant)}
       components={getComponents<Option, IsMulti, Group>()}

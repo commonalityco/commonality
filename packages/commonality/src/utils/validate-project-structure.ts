@@ -12,9 +12,8 @@ export const validateProjectStructure = async ({
 }) => {
   const getRootDirectoryWithErrorHandling = async (cwd?: string) => {
     try {
-      const rootDir = await getRootDirectory(cwd);
-      return rootDir;
-    } catch (error) {
+      return await getRootDirectory(cwd);
+    } catch {
       command.error(
         chalk.red.bold('No lockfile detected') +
           '\nYou must have a package-lock.json, yarn.lock, or pnpm-lock.yaml file at the root of your project',
@@ -32,7 +31,7 @@ export const validateProjectStructure = async ({
 
   try {
     await getRootPackageName({ rootDirectory });
-  } catch (error) {
+  } catch {
     command.error(
       chalk.red.bold('No valid root package detected') +
         '\n You must have a package.json file within the same directory as your lockfile. Your package.json file must also have a name property.',
@@ -42,7 +41,7 @@ export const validateProjectStructure = async ({
 
   try {
     await getPackages({ rootDirectory });
-  } catch (error: any) {
-    command.error(chalk.red(error?.message), { exitCode: 1 });
+  } catch (error) {
+    console.log(error);
   }
 };

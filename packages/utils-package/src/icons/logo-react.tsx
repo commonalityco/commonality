@@ -1,4 +1,4 @@
-export function LogoReact(props: JSX.IntrinsicElements['svg']) {
+export function LogoReact(properties: JSX.IntrinsicElements['svg']) {
   return (
     <svg
       width="24"
@@ -6,7 +6,7 @@ export function LogoReact(props: JSX.IntrinsicElements['svg']) {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...properties}
     >
       <path
         d="M12.2108 13.998C13.3144 13.998 14.2092 13.1033 14.2092 11.9996C14.2092 10.8959 13.3144 10.0012 12.2108 10.0012C11.1071 10.0012 10.2123 10.8959 10.2123 11.9996C10.2123 13.1033 11.1071 13.998 12.2108 13.998Z"

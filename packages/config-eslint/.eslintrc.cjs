@@ -1,9 +1,17 @@
 module.exports = {
   ignorePatterns: ['dist/**/*', 'node_modules/**/*'],
   env: {
-    node: true,
+    es2024: true,
   },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:unicorn/recommended',
+  ],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'unused-imports'],
   rules: {

@@ -29,9 +29,9 @@ describe('<TagDetails />', () => {
     render(
       <TagDetails label="Test Label" helpText="Test Help" appliedTo={tags} />
     );
-    tags.forEach((tag) => {
+    for (const tag of tags) {
       expect(screen.getByText(`#${tag}`)).toBeInTheDocument();
-    });
+    }
   });
 });
 

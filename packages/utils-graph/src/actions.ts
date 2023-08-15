@@ -10,12 +10,16 @@ type Filter =
   | Selector
   | ((ele: NodeSingular, index: number, eles: CollectionArgument) => boolean);
 
-type GraphActionFn<Args> = (args: Args) => CollectionArgument;
-function withSerialization<Args>(fn: GraphActionFn<Args>) {
-  return (args: Args): ElementDefinition[] => {
-    const result = fn(args);
+type GraphActionFunction<Arguments> = (
+  arguments_: Arguments,
+) => CollectionArgument;
+function withSerialization<Arguments>(
+  function_: GraphActionFunction<Arguments>,
+) {
+  return (arguments_: Arguments): ElementDefinition[] => {
+    const result = function_(arguments_);
 
-    return result.jsons() as any;
+    return result.jsons() as unknown as ElementDefinition[];
   };
 }
 
@@ -29,14 +33,19 @@ export const show = withSerialization(
     renderGraph: Core;
     selector: Filter;
   }) => {
-    const matchingNodes = traversalGraph.nodes().filter(selector);
+    const matchingNodes = traversalGraph.nodes().filter((...rest) => {
+      if (typeof selector === 'function') {
+        return selector(...rest);
+      }
+      return false;
+    });
     const existingNodes = renderGraph.nodes();
     const nodesToRender = existingNodes.union(matchingNodes);
     const edgesToRender = nodesToRender.nodes().edgesTo(nodesToRender.nodes());
     const elementsToRender = nodesToRender.union(edgesToRender);
 
     return elementsToRender;
-  }
+  },
 );
 
 export const showDependencies = withSerialization(
@@ -54,7 +63,7 @@ export const showDependencies = withSerialization(
     const elementsToRender = renderGraph.elements().union(nodeAndDependants);
 
     return elementsToRender;
-  }
+  },
 );
 
 export const showDependants = withSerialization(
@@ -79,13 +88,13 @@ export const showDependants = withSerialization(
       .union(edgesToRender);
 
     return elementsToRender;
-  }
+  },
 );
 
 export const setInitialElements = withSerialization(
   ({ renderGraph }: { renderGraph: Core }) => {
     return renderGraph.elements();
-  }
+  },
 );
 
 export const focus = withSerialization(
@@ -96,26 +105,31 @@ export const focus = withSerialization(
     traversalGraph: Core;
     selector: Filter;
   }) => {
-    const nodesToRender = traversalGraph.nodes().filter(selector);
+    const nodesToRender = traversalGraph.nodes().filter((...rest) => {
+      if (typeof selector === 'function') {
+        return selector(...rest);
+      }
+      return false;
+    });
     const edgesToRender = nodesToRender.edgesTo(nodesToRender);
 
     return traversalGraph
       .collection()
       .union(nodesToRender)
       .union(edgesToRender);
-  }
+  },
 );
 
 export const showAll = withSerialization(
   ({ traversalGraph }: { traversalGraph: Core }) => {
     return traversalGraph.elements();
-  }
+  },
 );
 
 export const hideAll = withSerialization(
   ({ traversalGraph }: { traversalGraph: Core }) => {
     return traversalGraph.collection();
-  }
+  },
 );
 
 export const hideDependents = withSerialization(
@@ -134,16 +148,14 @@ export const hideDependents = withSerialization(
       .incomers()
       .successors();
 
-    if (successorsOfDirectDependents.length) {
-      return traversalGraph
-        .collection()
-        .union(traversalGraph.$id(id))
-        .union(successorsOfNode)
-        .intersection(successorsOfDirectDependents);
-    } else {
-      return renderGraph.elements();
-    }
-  }
+    return successorsOfDirectDependents.length > 0
+      ? traversalGraph
+          .collection()
+          .union(traversalGraph.$id(id))
+          .union(successorsOfNode)
+          .intersection(successorsOfDirectDependents)
+      : renderGraph.elements();
+  },
 );
 
 export const hideDependencies = withSerialization(
@@ -159,7 +171,7 @@ export const hideDependencies = withSerialization(
     const elementsToHide = traversalGraph.$id(id).successors();
 
     return renderGraph.elements().difference(elementsToHide);
-  }
+  },
 );
 
 export const hide = withSerialization(
@@ -173,11 +185,16 @@ export const hide = withSerialization(
     selector: Filter;
   }) => {
     const elementsToHide = traversalGraph.collection();
-    const nodesToHide = traversalGraph.nodes().filter(selector);
+    const nodesToHide = traversalGraph.nodes().filter((...rest) => {
+      if (typeof selector === 'function') {
+        return selector(...rest);
+      }
+      return false;
+    });
     const edgesForElements = nodesToHide.connectedEdges();
 
     elementsToHide.merge(nodesToHide).merge(edgesForElements);
 
     return renderGraph.elements().difference(elementsToHide);
-  }
+  },
 );

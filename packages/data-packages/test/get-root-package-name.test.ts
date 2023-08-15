@@ -1,11 +1,12 @@
-import path from 'path';
+import path from 'node:path';
 import { getRootPackageName } from '../src/get-root-package-name';
 import { describe, expect, it } from 'vitest';
+import { fileURLToPath } from 'node:url';
 
 describe('getRootPackageName', () => {
   it('returns undefined when the ', async () => {
     const rootDirectory = path.join(
-      __dirname,
+      path.dirname(fileURLToPath(import.meta.url)),
       './fixtures',
       'missing-json-root',
     );
@@ -15,7 +16,7 @@ describe('getRootPackageName', () => {
 
   it('should throw an error if package.json does not contain a name property', async () => {
     const rootDirectory = path.join(
-      __dirname,
+      path.dirname(fileURLToPath(import.meta.url)),
       './fixtures',
       'missing-name-root',
     );
@@ -24,7 +25,11 @@ describe('getRootPackageName', () => {
   });
 
   it('should return a package object with correct properties', async () => {
-    const rootDirectory = path.join(__dirname, './fixtures', 'kitchen-sink');
+    const rootDirectory = path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './fixtures',
+      'kitchen-sink',
+    );
 
     const packageObject = await getRootPackageName({
       rootDirectory: rootDirectory,

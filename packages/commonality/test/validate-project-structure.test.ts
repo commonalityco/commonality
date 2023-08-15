@@ -9,9 +9,10 @@ import {
   afterAll,
   beforeEach,
 } from 'vitest';
-import os from 'os';
-import path from 'path';
+import os from 'node:os';
+import path from 'node:path';
 import { copy, remove, mkdtempSync } from 'fs-extra';
+import { fileURLToPath } from 'node:url';
 
 describe('validateProjectStructure', () => {
   afterEach(() => {
@@ -22,7 +23,7 @@ describe('validateProjectStructure', () => {
     const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
-      __dirname,
+      path.dirname(fileURLToPath(import.meta.url)),
       '../../test/fixtures/missing-lockfile',
     );
 
@@ -56,7 +57,7 @@ describe('validateProjectStructure', () => {
     const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
-      __dirname,
+      path.dirname(fileURLToPath(import.meta.url)),
       '../../test/fixtures/missing-root-package',
     );
 
@@ -90,7 +91,7 @@ describe('validateProjectStructure', () => {
     const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
-      __dirname,
+      path.dirname(fileURLToPath(import.meta.url)),
       '../../test/fixtures/invalid-root-package',
     );
 
@@ -124,7 +125,7 @@ describe('validateProjectStructure', () => {
     const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
-      __dirname,
+      path.dirname(fileURLToPath(import.meta.url)),
       '../../test/fixtures/kitchen-sink',
     );
 
@@ -140,7 +141,7 @@ describe('validateProjectStructure', () => {
       const command = new Command();
       const spy = vi.spyOn(command, 'error');
       const fixturePath = path.resolve(
-        __dirname,
+        path.dirname(fileURLToPath(import.meta.url)),
         '../../test/fixtures/kitchen-sink',
       );
 
@@ -157,7 +158,7 @@ describe('validateProjectStructure', () => {
     const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
-      __dirname,
+      path.dirname(fileURLToPath(import.meta.url)),
       '../../test/fixtures/kitchen-sink/packages/pkg-one',
     );
 
@@ -173,7 +174,7 @@ describe('validateProjectStructure', () => {
       const command = new Command();
       const spy = vi.spyOn(command, 'error');
       const fixturePath = path.resolve(
-        __dirname,
+        path.dirname(fileURLToPath(import.meta.url)),
         '../../test/fixtures/kitchen-sink',
       );
 

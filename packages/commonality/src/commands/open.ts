@@ -36,7 +36,7 @@ export const open = command
       );
 
       await openUrl(url);
-    } catch (error) {
+    } catch {
       console.log(chalk.red('Unable to start Commonality Studio'));
     }
   });

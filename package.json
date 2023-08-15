@@ -13,6 +13,7 @@
     "test": "vitest run --coverage",
     "test:watch": "turbo run test:watch",
     "lint": "manypkg check && turbo run lint",
+    "lint:fix": "turbo run lint:fix",
     "link-all": "ts-node scripts/link-all.ts",
     "unlink-all": "ts-node scripts/unlink-all.ts",
     "changeset:create": "changeset",
@@ -28,7 +29,6 @@
   "license": "ISC",
   "dependencies": {
     "@changesets/cli": "^2.26.2",
-    "@commonalityco/config-eslint": "*",
     "@commonalityco/config-tsconfig": "*",
     "@manypkg/cli": "^0.21.0",
     "@types/node": "^20.5.0",
@@ -36,6 +36,7 @@
     "@typescript-eslint/parser": "^6.4.0",
     "@vitest/coverage-v8": "^0.34.1",
     "eslint": "^8.47.0",
+    "eslint-config-commonality": "*",
     "eslint-plugin-unused-imports": "^3.0.0",
     "execa": "^7.2.0",
     "husky": "^8.0.3",

@@ -2,7 +2,7 @@ import { Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
 import { Core, EdgeSingular, EventObject, NodeSingular } from 'cytoscape';
 
-interface EventHandlerArgs {
+interface EventHandlerArguments {
   renderGraph: Core;
   traversalGraph: Core;
   theme: string;
@@ -15,7 +15,7 @@ interface EventHandlerArgs {
 export const handleNodeMouseover = ({
   target,
   renderGraph,
-}: EventHandlerArgs & { target: NodeSingular }) => {
+}: EventHandlerArguments & { target: NodeSingular }) => {
   const neighborhood = target.closedNeighborhood();
 
   renderGraph
@@ -42,7 +42,7 @@ export const handleNodeMouseover = ({
 export const handleNodeMouseout = ({
   target,
   renderGraph,
-}: EventHandlerArgs & { target: NodeSingular }) => {
+}: EventHandlerArguments & { target: NodeSingular }) => {
   const neighborhood = target.neighborhood();
   const focusedElements = renderGraph.collection([neighborhood, target]);
 
@@ -70,7 +70,7 @@ export const handleEdgeMouseover = ({
   target,
   renderGraph,
   violations = [],
-}: EventHandlerArgs & { target: EdgeSingular }) => {
+}: EventHandlerArguments & { target: EdgeSingular }) => {
   const forceEdgeColor = renderGraph.scratch('forceEdgeColor');
 
   target.addClass('hover');
@@ -96,7 +96,7 @@ export const handleEdgeMouseover = ({
 export const handleEdgeMouseout = ({
   target,
   renderGraph,
-}: EventHandlerArgs & { target: EventObject['target'] }) => {
+}: EventHandlerArguments & { target: EventObject['target'] }) => {
   const forceEdgeColor = renderGraph.scratch('forceEdgeColor');
 
   target.removeClass('hover');
@@ -114,28 +114,28 @@ export const handleEdgeMouseout = ({
  *         GENERAL               *
  **********************************/
 
-export const bindRenderGraphEvents = (args: EventHandlerArgs) => {
-  const { renderGraph } = args;
+export const bindRenderGraphEvents = (arguments_: EventHandlerArguments) => {
+  const { renderGraph } = arguments_;
 
   renderGraph
     .nodes()
     .on('mouseover', (event) =>
-      handleNodeMouseover({ ...args, target: event.target })
+      handleNodeMouseover({ ...arguments_, target: event.target })
     );
   renderGraph
     .nodes()
     .on('mouseout', (event) =>
-      handleNodeMouseout({ ...args, target: event.target })
+      handleNodeMouseout({ ...arguments_, target: event.target })
     );
 
   renderGraph
     .edges()
     .on('mouseover', (event) =>
-      handleEdgeMouseover({ ...args, target: event.target })
+      handleEdgeMouseover({ ...arguments_, target: event.target })
     );
   renderGraph
     .edges()
     .on('mouseout', (event) =>
-      handleEdgeMouseout({ ...args, target: event.target })
+      handleEdgeMouseout({ ...arguments_, target: event.target })
     );
 };

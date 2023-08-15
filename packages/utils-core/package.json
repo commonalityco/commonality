@@ -10,13 +10,15 @@
   "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build": "tsc",
     "dev": "tsc --watch",
     "test": "vitest"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "*",
     "@commonalityco/config-tsconfig": "*",
+    "eslint-config-commonality": "*",
     "typescript": "^5.1.6"
   },
   "dependencies": {

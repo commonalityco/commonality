@@ -1,9 +1,9 @@
 'use client';
 import cytoscape from 'cytoscape';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { usePopper } from 'react-popper';
 
-export interface NodeTooltipProps {
+export interface NodeTooltipProperties {
   children: React.ReactNode;
   element: cytoscape.EventObject['target'];
 }
@@ -12,13 +12,14 @@ export const NodeTooltip = ({
   children,
 
   element,
-}: NodeTooltipProps) => {
-  const [tooltipRef, setTooltipRef] = useState<HTMLElement | undefined>();
-  const arrowRef = useRef(null);
+}: NodeTooltipProperties) => {
+  const [tooltipReference, setTooltipReference] = useState<
+    HTMLElement | undefined
+  >();
 
-  const popperRef = useMemo(() => element.popperRef(), [element]);
+  const popperReference = useMemo(() => element.popperRef(), [element]);
 
-  const { styles, attributes } = usePopper(popperRef, tooltipRef, {
+  const { styles, attributes } = usePopper(popperReference, tooltipReference, {
     placement: 'top',
     modifiers: [
       {
@@ -34,15 +35,14 @@ export const NodeTooltip = ({
     <div
       className="border-border bg-background text-foreground relative z-50 rounded-lg border font-sans text-sm shadow"
       style={styles.popper}
-      ref={(el) => {
-        if (!el) return;
+      ref={(element_) => {
+        if (!element_) return;
 
-        setTooltipRef(el);
+        setTooltipReference(element_);
       }}
       {...attributes.popper}
     >
       <div>{children}</div>
-      {/* <div ref={arrowRef} style={styles.arrow} /> */}
     </div>
   );
 };

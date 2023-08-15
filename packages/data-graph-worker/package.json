@@ -8,16 +8,18 @@
   },
   "main": "./dist/index.js",
   "devDependencies": {
-    "@commonalityco/config-eslint": "*",
     "@commonalityco/utils-graph": "*",
     "@types/cytoscape": "^3.19.10",
-    "cytoscape": "^3.26.0"
+    "cytoscape": "^3.26.0",
+    "eslint-config-commonality": "*"
   },
   "peerDependencies": {
     "@commonalityco/utils-graph": "*",
     "cytoscape": "3.x"
   },
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build": "tsc --build",
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit"

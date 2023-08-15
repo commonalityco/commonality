@@ -1,5 +1,5 @@
 import { Package, PackageJson } from '@commonalityco/types';
-import path from 'path';
+import path from 'node:path';
 import fs from 'fs-extra';
 import { PackageType } from '@commonalityco/utils-core';
 

@@ -1,7 +1,7 @@
 import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
 
-export interface SnippetProps
+export interface SnippetProperties
   extends React.DetailedHTMLProps<
       React.HTMLAttributes<HTMLDivElement>,
       HTMLDivElement
@@ -25,10 +25,10 @@ export function Snippet({
   children,
   className,
   size = 'sm',
-  ...restProps
-}: SnippetProps) {
+  ...restProperties
+}: SnippetProperties) {
   return (
-    <span {...restProps} className={cn(snippetStyles({ size }), className)}>
+    <span {...restProperties} className={cn(snippetStyles({ size }), className)}>
       {children}
     </span>
   );

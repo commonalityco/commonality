@@ -14,7 +14,7 @@ export const slugifyPackageName = (packageName: string) => {
     return '';
   }
 
-  const packageNameWithoutScopeSlash = packageName.replace(
+  const packageNameWithoutScopeSlash = packageName.replaceAll(
     replacementRegex,
     '-',
   );

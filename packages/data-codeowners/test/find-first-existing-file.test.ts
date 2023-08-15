@@ -2,9 +2,13 @@ import { findFirstExistingFile } from '../src/utils/find-first-existing-file.js'
 import path from 'node:path';
 import fs from 'fs-extra';
 import { describe, beforeAll, afterAll, test, expect } from 'vitest';
+import { fileURLToPath } from 'node:url';
 
 describe('findFirstExistingFile', () => {
-  const testDirectory = path.join(__dirname, 'test-files');
+  const testDirectory = path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    'test-files',
+  );
   const existingFiles = ['file1.txt', 'file2.txt', 'file3.txt'];
 
   beforeAll(async () => {

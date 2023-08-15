@@ -1,12 +1,16 @@
 import { Package, TagsData } from '@commonalityco/types';
-import path from 'path';
+import path from 'node:path';
 import { describe, test, expect } from 'vitest';
 import { getTagsData } from '../src/get-tags-data.js';
 import { PackageType } from '@commonalityco/utils-core';
+import { fileURLToPath } from 'node:url';
 
 describe('getTagsData', () => {
   describe('when in a project with tags', () => {
-    const testDirectory = path.join(__dirname, './fixtures/kitchen-sink');
+    const testDirectory = path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './fixtures/kitchen-sink',
+    );
 
     test('returns the correct data', async () => {
       const packages = [
@@ -46,7 +50,10 @@ describe('getTagsData', () => {
 
   describe('when in a project with no tags', () => {
     test('returns an empty array', async () => {
-      const testDirectory = path.join(__dirname, './fixtures/empty-project');
+      const testDirectory = path.join(
+        path.dirname(fileURLToPath(import.meta.url)),
+        './fixtures/empty-project',
+      );
 
       const packages = [
         {

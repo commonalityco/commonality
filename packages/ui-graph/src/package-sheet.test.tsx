@@ -10,7 +10,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import { PackageSheet } from './package-sheet';
 
-const pkg = {
+const package_ = {
   name: '@scope/test',
   version: '1.0.0',
   description: 'This is a loooooooonnnnnnnnggggggg description.',
@@ -20,7 +20,7 @@ const pkg = {
 
 const documentsData = [
   {
-    packageName: pkg.name,
+    packageName: package_.name,
     documents: [
       {
         filename: 'README',
@@ -34,7 +34,7 @@ const documentsData = [
 
 const codeownersData = [
   {
-    packageName: pkg.name,
+    packageName: package_.name,
     codeowners: [
       '@team-one',
       '@team-two',
@@ -51,7 +51,7 @@ const codeownersData = [
 
 const tagsData = [
   {
-    packageName: pkg.name,
+    packageName: package_.name,
     tags: [
       'tag-one',
       'tag-two',
@@ -71,7 +71,7 @@ describe('<PackageSheet/>', () => {
     test('shows all tags', () => {
       render(
         <PackageSheet
-          pkg={pkg}
+          pkg={package_}
           tagsData={tagsData}
           codeownersData={codeownersData}
           documentsData={documentsData}
@@ -94,7 +94,7 @@ describe('<PackageSheet/>', () => {
     test('shows the empty state', () => {
       render(
         <PackageSheet
-          pkg={pkg}
+          pkg={package_}
           tagsData={[]}
           codeownersData={codeownersData}
           documentsData={documentsData}

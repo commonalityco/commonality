@@ -3,19 +3,18 @@
 import React from 'react';
 import { Package } from '@commonalityco/types';
 import { Button, Text, Badge } from '@commonalityco/ui-design-system';
-import { getIconForPackage } from '@commonalityco/utils-package';
 import type cytoscape from 'cytoscape';
 import { ComponentProps } from 'react';
 import { Package as PackageIcon, ArrowUp, ArrowDown } from 'lucide-react';
 import { GraphTooltip } from './components/graph-tooltip';
 
 export interface TooltipPackageProperties {
-  onHide?: (pkg: Package) => void;
-  onFocus?: (pkg: Package) => void;
-  onDependenciesShow?: (pkg: Package) => void;
-  onDependenciesHide?: (pkg: Package) => void;
-  onDependentsShow?: (pkg: Package) => void;
-  onDependentsHide?: (pkg: Package) => void;
+  onHide?: (package_: Package) => void;
+  onFocus?: (package_: Package) => void;
+  onDependenciesShow?: (package_: Package) => void;
+  onDependenciesHide?: (package_: Package) => void;
+  onDependentsShow?: (package_: Package) => void;
+  onDependentsHide?: (package_: Package) => void;
   traversalNode: cytoscape.NodeSingular & { data: () => Package };
   renderNode: cytoscape.NodeSingular & { data: () => Package };
   stripScope?: boolean;
@@ -45,10 +44,8 @@ export const TooltipPackage = ({
   onDependentsHide = () => {},
   renderNode,
   traversalNode,
-  stripScope = false,
 }: TooltipPackageProperties) => {
-  const pkg: Package = renderNode.data();
-  const Icon = getIconForPackage(pkg.type);
+  const package_: Package = renderNode.data();
 
   const dependentsCount = traversalNode.incomers().nodes().length;
   const dependenciesCount = traversalNode.outgoers().nodes().length;
@@ -63,10 +60,12 @@ export const TooltipPackage = ({
               <Text className="text-foreground font-medium">Package</Text>
             </div>
             <div className="flex flex-nowrap items-center gap-1">
-              <DropdownButton onClick={() => onFocus(pkg)}>
+              <DropdownButton onClick={() => onFocus(package_)}>
                 Focus
               </DropdownButton>
-              <DropdownButton onClick={() => onHide(pkg)}>Hide</DropdownButton>
+              <DropdownButton onClick={() => onHide(package_)}>
+                Hide
+              </DropdownButton>
             </div>
           </div>
           <div className="grid gap-2">
@@ -82,13 +81,13 @@ export const TooltipPackage = ({
             <div className="flex items-center gap-1">
               <DropdownButton
                 disabled={dependentsCount === 0}
-                onClick={() => onDependentsShow(pkg)}
+                onClick={() => onDependentsShow(package_)}
               >
                 Show all
               </DropdownButton>
               <DropdownButton
                 disabled={dependentsCount === 0}
-                onClick={() => onDependentsHide(pkg)}
+                onClick={() => onDependentsHide(package_)}
               >
                 Hide all
               </DropdownButton>
@@ -107,13 +106,13 @@ export const TooltipPackage = ({
             <div className="flex gap-1">
               <DropdownButton
                 disabled={dependenciesCount === 0}
-                onClick={() => onDependenciesShow(pkg)}
+                onClick={() => onDependenciesShow(package_)}
               >
                 Show all
               </DropdownButton>
               <DropdownButton
                 disabled={dependenciesCount === 0}
-                onClick={() => onDependenciesHide(pkg)}
+                onClick={() => onDependenciesHide(package_)}
               >
                 Hide all
               </DropdownButton>

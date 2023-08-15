@@ -36,7 +36,7 @@ describe('getIsEmail', () => {
   });
 
   test('should return false for non-string input', () => {
-    const nonStringInputs = [123, null, undefined, {}, []] as any[];
+    const nonStringInputs = [123, undefined, {}, []];
 
     for (const input of nonStringInputs) {
       expect(getIsEmail(input)).toBe(false);

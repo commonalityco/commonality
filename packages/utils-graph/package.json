@@ -13,7 +13,6 @@
     "lodash.uniqby": "^4.7.0"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "*",
     "@commonalityco/config-tsconfig": "*",
     "@commonalityco/types": "*",
     "@commonalityco/utils-core": "*",
@@ -22,6 +21,7 @@
     "@types/cytoscape-popper": "^2.0.0",
     "@types/lodash.uniqby": "^4.7.7",
     "cytoscape": "^3.26.0",
+    "eslint-config-commonality": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.1.6"
@@ -34,6 +34,8 @@
     "react-dom": ">=17"
   },
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build": "tsc",
     "dev": "tsc --watch",
     "test": "vitest",

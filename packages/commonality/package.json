@@ -42,7 +42,6 @@
     "wait-on": "^7.0.1"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "*",
     "@commonalityco/config-tsconfig": "*",
     "@commonalityco/types": "*",
     "@swc/core": "^1.3.76",
@@ -52,6 +51,7 @@
     "@types/update-notifier": "^6.0.4",
     "@types/wait-on": "^5.3.1",
     "esbuild": "^0.19.2",
+    "eslint-config-commonality": "*",
     "fs-extra": "^11.1.1",
     "ncp": "^2.0.0",
     "strip-ansi": "^7.1.0",

@@ -2,7 +2,7 @@ import process from 'node:process';
 import path from 'node:path';
 import { Lockfile } from '@commonalityco/utils-core';
 import { findUp } from 'find-up';
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'node:url';
 
 export const getRootDirectory = async (cwd?: string) => {
   const __filename = fileURLToPath(import.meta.url);

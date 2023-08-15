@@ -1,4 +1,4 @@
-export function LogoNext(props: JSX.IntrinsicElements['svg']) {
+export function LogoNext(properties: JSX.IntrinsicElements['svg']) {
   return (
     <svg
       width="24"
@@ -6,7 +6,7 @@ export function LogoNext(props: JSX.IntrinsicElements['svg']) {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
+      {...properties}
     >
       <g clipPath="url(#clip0_569_471)">
         <g clipPath="url(#clip1_569_471)">

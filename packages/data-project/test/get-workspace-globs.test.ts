@@ -1,12 +1,17 @@
 import { PackageManager } from '@commonalityco/utils-core';
-import path from 'path';
-import { getWorkspaceGlobs } from './get-workspace-globs';
+import path from 'node:path';
+import { getWorkspaceGlobs } from '../src/get-workspace-globs';
 import { describe, expect, it } from 'vitest';
+import { fileURLToPath } from 'node:url';
 
 describe('getWorkspaceGlobs', () => {
   describe('when run in an un-initialized project', () => {
     it('returns the default globs', async () => {
-      const rootDirectory = path.join(__dirname, './fixtures', 'uninitialized');
+      const rootDirectory = path.join(
+        path.dirname(fileURLToPath(import.meta.url)),
+        './fixtures',
+        'uninitialized',
+      );
 
       const config = await getWorkspaceGlobs({
         rootDirectory,
@@ -23,7 +28,7 @@ describe('getWorkspaceGlobs', () => {
 
       it(`should return the correct globs for an NPM workspace`, async () => {
         const rootDirectory = path.join(
-          __dirname,
+          path.dirname(fileURLToPath(import.meta.url)),
           './fixtures',
           'npm-workspace',
         );
@@ -37,7 +42,7 @@ describe('getWorkspaceGlobs', () => {
 
       it(`should return the correct globs for a Yarn workspace`, async () => {
         const rootDirectory = path.join(
-          __dirname,
+          path.dirname(fileURLToPath(import.meta.url)),
           './fixtures',
           'yarn-workspace',
         );
@@ -51,7 +56,7 @@ describe('getWorkspaceGlobs', () => {
 
       it(`should return the correct globs for a pnpm workspace`, async () => {
         const rootDirectory = path.join(
-          __dirname,
+          path.dirname(fileURLToPath(import.meta.url)),
           './fixtures',
           'pnpm-workspace',
         );
@@ -67,7 +72,7 @@ describe('getWorkspaceGlobs', () => {
     describe('when the workspace option does not exist', () => {
       it(`should return the default globs`, async () => {
         const rootDirectory = path.join(
-          __dirname,
+          path.dirname(fileURLToPath(import.meta.url)),
           './fixtures',
           'missing-workspace-globs',
         );

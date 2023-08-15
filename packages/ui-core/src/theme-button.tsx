@@ -34,7 +34,7 @@ export function ThemeButton({
 }: ThemeButtonProperties) {
   const [theme, setTheme] = useState(defaultTheme);
 
-  const Icon = theme ? IconByTheme[theme] : null;
+  const Icon = theme ? IconByTheme[theme] : undefined;
 
   return (
     <DropdownMenu>

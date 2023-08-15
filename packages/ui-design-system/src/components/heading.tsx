@@ -2,12 +2,12 @@ import React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../utils/cn';
 
-type HeaderProps = React.DetailedHTMLProps<
+type HeaderProperties = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLHeadingElement>,
   HTMLHeadingElement
 >;
 
-type ParagraphProps = React.DetailedHTMLProps<
+type ParagraphProperties = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLParagraphElement>,
   HTMLParagraphElement
 >;
@@ -27,20 +27,20 @@ const headingVariants = cva('font-semibold text-foreground antialiased', {
   },
 });
 
-export interface HeadingProps
-  extends HeaderProps,
+export interface HeadingProperties
+  extends HeaderProperties,
     VariantProps<typeof headingVariants> {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
 }
 
 const elementComponentsBySize = {
-  h1: (props: HeaderProps) => <h1 {...props} />,
-  h2: (props: HeaderProps) => <h2 {...props} />,
-  h3: (props: HeaderProps) => <h3 {...props} />,
-  h4: (props: HeaderProps) => <h4 {...props} />,
-  h5: (props: HeaderProps) => <h5 {...props} />,
-  h6: (props: HeaderProps) => <h6 {...props} />,
-  p: (props: ParagraphProps) => <p {...props} />,
+  h1: (properties: HeaderProperties) => <h1 {...properties} />,
+  h2: (properties: HeaderProperties) => <h2 {...properties} />,
+  h3: (properties: HeaderProperties) => <h3 {...properties} />,
+  h4: (properties: HeaderProperties) => <h4 {...properties} />,
+  h5: (properties: HeaderProperties) => <h5 {...properties} />,
+  h6: (properties: HeaderProperties) => <h6 {...properties} />,
+  p: (properties: ParagraphProperties) => <p {...properties} />,
 };
 
 export function Heading({
@@ -48,13 +48,13 @@ export function Heading({
   as = 'h2',
   size = '4xl',
   className,
-  ...restProps
-}: HeadingProps) {
+  ...restProperties
+}: HeadingProperties) {
   const Component = elementComponentsBySize[as];
 
   return (
     <Component
-      {...restProps}
+      {...restProperties}
       className={cn(headingVariants({ size, className }))}
     >
       {children}

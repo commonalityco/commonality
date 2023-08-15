@@ -60,15 +60,15 @@ export const validateAction = async ({
       (violation) => violation.appliedTo === constraint.applyTo,
     );
 
-    const hasViolations = Boolean(violationsForConstraint.length);
+    const hasViolations = violationsForConstraint.length > 0;
 
     if (hasViolations) {
       const tagText = chalk.inverse(
         chalk.red.bold(
           ` ${
-            constraint.applyTo !== '*'
-              ? formatTagName(constraint.applyTo)
-              : getText(constraint.applyTo)
+            constraint.applyTo === '*'
+              ? getText(constraint.applyTo)
+              : formatTagName(constraint.applyTo)
           } `,
         ),
       );
@@ -78,17 +78,17 @@ export const validateAction = async ({
       );
       console.log(`\n${tagText} ${violationsText}`);
 
-      violationsForConstraint.forEach((violation) => {
+      for (const violation of violationsForConstraint) {
         const sourcePackageLink = violation.sourcePackageName;
 
         const targetPackageLink = violation.targetPackageName;
 
         ui.div(`${sourcePackageLink} ${chalk.red('→')} ${targetPackageLink}`);
 
-        const allowedText = violation.allowed.length
+        const allowedText = violation.allowed.length > 0
           ? `${chalk.dim('Allowed')} \t${getText(violation.allowed)}\n`
           : '';
-        const disallowedText = violation.disallowed.length
+        const disallowedText = violation.disallowed.length > 0
           ? `${chalk.dim('Disallowed')} \t${getText(violation.disallowed)}\n`
           : '';
         const foundText = violation.found
@@ -98,7 +98,7 @@ export const validateAction = async ({
         ui.div(allowedText + disallowedText + foundText);
         console.log(ui.toString());
         ui.resetOutput();
-      });
+      }
     } else {
       const tagText = chalk.green.inverse.bold(
         ` ${
@@ -119,7 +119,7 @@ export const validateAction = async ({
 
   const constraintSuffix = chalk.gray(`(${constraints.length})`);
 
-  const violationsText = violations.length
+  const violationsText = violations.length > 0
     ? chalk.red.bold(`${violations.length} violations`)
     : chalk.green.bold(`No violations`);
 
@@ -128,7 +128,7 @@ export const validateAction = async ({
       `\n${chalk.dim('Violations')}\t ${violationsText}`,
   );
 
-  if (violations.length) {
+  if (violations.length > 0) {
     command.error(ui.toString(), { exitCode: 1 });
   }
 

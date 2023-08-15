@@ -1,4 +1,4 @@
-# @commonalityco/config-eslint
+# eslint-config-commonality
 
 ## 0.0.7
 

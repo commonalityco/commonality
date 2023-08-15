@@ -13,10 +13,10 @@ export const getTagsData = async ({
   const tagData: TagsData[] = [];
 
   await Promise.all(
-    packages.map(async (pkg) => {
+    packages.map(async (package_) => {
       const packageConfigPath = path.join(
         rootDirectory,
-        pkg.path,
+        package_.path,
         'commonality.json'
       );
 
@@ -32,7 +32,7 @@ export const getTagsData = async ({
           .filter(Boolean);
 
         tagData.push({
-          packageName: pkg.name,
+          packageName: package_.name,
           tags: formattedTags,
         });
       }

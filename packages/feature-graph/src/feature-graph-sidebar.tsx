@@ -8,27 +8,26 @@ import {
   packagesKeys,
   tagsKeys,
 } from '@commonalityco/utils-graph';
-import { useMemo } from 'react';
 
-interface FeatureGraphSidebarProps {
+interface FeatureGraphSidebarProperties {
   getCodeownersData: () => Promise<CodeownersData[]>;
   getTags: () => Promise<TagsData[]>;
   getPackages: () => Promise<Package[]>;
 }
 
-export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
+export function FeatureGraphSidebar(properties: FeatureGraphSidebarProperties) {
   const [state, send] = GraphContext.useActor();
   const { data: tagsData } = useQuery({
     queryKey: tagsKeys,
-    queryFn: () => props.getTags(),
+    queryFn: () => properties.getTags(),
   });
   const { data: codeownersData } = useQuery({
     queryKey: codeownersKeys,
-    queryFn: () => props.getCodeownersData(),
+    queryFn: () => properties.getCodeownersData(),
   });
   const { data: packages } = useQuery({
     queryKey: packagesKeys,
-    queryFn: () => props.getPackages(),
+    queryFn: () => properties.getPackages(),
   });
 
   const visiblePackages = GraphContext.useSelector((state) => {
@@ -40,37 +39,37 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
   });
 
   if (!packages || !codeownersData) {
-    return null;
+    return;
   }
 
   return (
     <GraphLayoutAside>
       <Sidebar
-        {...props}
+        {...properties}
         onHideAll={() => send({ type: 'HIDE_ALL' })}
         onShowAll={() => send({ type: 'SHOW_ALL' })}
-        onPackageHide={(pkg) =>
+        onPackageHide={(package_) =>
           send({
             type: 'HIDE',
-            selector: `node[name="${pkg}"]`,
+            selector: `node[name="${package_}"]`,
           })
         }
-        onPackageShow={(pkg) =>
-          send({ type: 'SHOW', selector: `node[name="${pkg}"]` })
+        onPackageShow={(package_) =>
+          send({ type: 'SHOW', selector: `node[name="${package_}"]` })
         }
-        onPackageFocus={(pkg) =>
-          send({ type: 'FOCUS', selector: `node[name="${pkg}"]` })
+        onPackageFocus={(package_) =>
+          send({ type: 'FOCUS', selector: `node[name="${package_}"]` })
         }
         onTagHide={(tag) =>
           send({
             type: 'HIDE',
             selector: (element) => {
-              const pkg: Package = element.data();
-              const tagDataForPkg = tagsData?.find(
-                (data) => data.packageName === pkg.name,
+              const package_: Package = element.data();
+              const tagDataForPackage = tagsData?.find(
+                (data) => data.packageName === package_.name,
               );
 
-              return tagDataForPkg?.tags.includes(tag) ?? false;
+              return tagDataForPackage?.tags.includes(tag) ?? false;
             },
           })
         }
@@ -78,29 +77,29 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
           send({
             type: 'SHOW',
             selector: (element) => {
-              const pkg: Package = element.data();
-              const tagDataForPkg = tagsData?.find(
-                (data) => data.packageName === pkg.name,
+              const package_: Package = element.data();
+              const tagDataForPackage = tagsData?.find(
+                (data) => data.packageName === package_.name,
               );
 
-              return tagDataForPkg?.tags.includes(tag) ?? false;
+              return tagDataForPackage?.tags.includes(tag) ?? false;
             },
           })
         }
         onTagFocus={(tag) =>
           send({
             type: 'FOCUS',
-            selector: (el) => {
-              if (el.isEdge()) {
+            selector: (element) => {
+              if (element.isEdge()) {
                 return false;
               }
 
-              const pkg: Package = el.data();
-              const tagDataForPkg = tagsData?.find(
-                (data) => data.packageName === pkg.name,
+              const package_: Package = element.data();
+              const tagDataForPackage = tagsData?.find(
+                (data) => data.packageName === package_.name,
               );
 
-              return tagDataForPkg?.tags.includes(tag) ?? false;
+              return tagDataForPackage?.tags.includes(tag) ?? false;
             },
           })
         }
@@ -108,12 +107,12 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
           send({
             type: 'HIDE',
             selector: (element) => {
-              const pkg: Package = element.data();
-              const ownerDataForPkg = codeownersData?.find(
-                (data) => data.packageName === pkg.name,
+              const package_: Package = element.data();
+              const ownerDataForPackage = codeownersData?.find(
+                (data) => data.packageName === package_.name,
               );
 
-              return ownerDataForPkg?.codeowners.includes(team) ?? false;
+              return ownerDataForPackage?.codeowners.includes(team) ?? false;
             },
           });
         }}
@@ -121,29 +120,29 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
           send({
             type: 'SHOW',
             selector: (element) => {
-              const pkg: Package = element.data();
-              const ownerDataForPkg = codeownersData?.find(
-                (data) => data.packageName === pkg.name,
+              const package_: Package = element.data();
+              const ownerDataForPackage = codeownersData?.find(
+                (data) => data.packageName === package_.name,
               );
 
-              return ownerDataForPkg?.codeowners.includes(team) ?? false;
+              return ownerDataForPackage?.codeowners.includes(team) ?? false;
             },
           });
         }}
         onTeamFocus={(team) =>
           send({
             type: 'FOCUS',
-            selector: (el) => {
-              if (el.isEdge()) {
+            selector: (element) => {
+              if (element.isEdge()) {
                 return false;
               }
 
-              const pkg: Package = el.data();
-              const ownerDataForPkg = codeownersData?.find(
-                (data) => data.packageName === pkg.name,
+              const package_: Package = element.data();
+              const ownerDataForPackage = codeownersData?.find(
+                (data) => data.packageName === package_.name,
               );
 
-              return ownerDataForPkg?.codeowners.includes(team) ?? false;
+              return ownerDataForPackage?.codeowners.includes(team) ?? false;
             },
           })
         }
