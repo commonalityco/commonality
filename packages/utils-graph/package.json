@@ -1,6 +1,12 @@
 {
   "name": "@commonalityco/utils-graph",
   "version": "0.0.3",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
   "dependencies": {
     "cytoscape-dagre": "^2.5.0",
     "cytoscape-popper": "^2.0.0",
@@ -27,22 +33,9 @@
     "react": ">=17",
     "react-dom": ">=17"
   },
-  "types": "dist/commonalityco-utils-graph.cjs.d.ts",
-  "main": "dist/commonalityco-utils-graph.cjs.js",
-  "module": "dist/commonalityco-utils-graph.esm.js",
-  "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-utils-graph.cjs.mjs",
-        "default": "./dist/commonalityco-utils-graph.cjs.js"
-      },
-      "module": "./dist/commonalityco-utils-graph.esm.js",
-      "import": "./dist/commonalityco-utils-graph.cjs.mjs",
-      "default": "./dist/commonalityco-utils-graph.cjs.js"
-    },
-    "./package.json": "./package.json"
-  },
   "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "test": "vitest",
     "type-check": "tsc --noEmit"
   }

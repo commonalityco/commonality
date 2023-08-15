@@ -8,7 +8,7 @@ describe('getDocumentsData', () => {
     const rootDirectory = path.join(
       __dirname,
       '../test/fixtures',
-      'kitchen-sink'
+      'kitchen-sink',
     );
 
     const documentsData = await getDocumentsData({ rootDirectory });
@@ -45,7 +45,7 @@ describe('getDocumentsData', () => {
     const rootDirectory = path.join(
       __dirname,
       '../test/fixtures',
-      'no-documents'
+      'no-documents',
     );
 
     const documentsData = await getDocumentsData({ rootDirectory });
@@ -66,7 +66,7 @@ describe('getDocumentsData', () => {
     const rootDirectory = '/path/to/nonexistent/directory';
 
     await expect(getDocumentsData({ rootDirectory })).rejects.toThrow(
-      'Could not detect package manager'
+      'Could not detect package manager',
     );
   });
 });

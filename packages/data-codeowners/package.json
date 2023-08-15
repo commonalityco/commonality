@@ -4,23 +4,16 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "dist/commonalityco-data-codeowners.cjs.d.ts",
-  "main": "dist/commonalityco-data-codeowners.cjs.js",
-  "module": "dist/commonalityco-data-codeowners.esm.js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-data-codeowners.cjs.mjs",
-        "default": "./dist/commonalityco-data-codeowners.cjs.js"
-      },
-      "module": "./dist/commonalityco-data-codeowners.esm.js",
-      "import": "./dist/commonalityco-data-codeowners.cjs.mjs",
-      "default": "./dist/commonalityco-data-codeowners.cjs.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.js"
   },
+  "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "lint": "eslint ./src --fix",
     "test": "vitest",
     "type-check": "tsc --noEmit"
@@ -33,7 +26,6 @@
   "devDependencies": {
     "@commonalityco/config-eslint": "^0.0.7",
     "@commonalityco/config-tsconfig": "^0.0.6",
-    "@commonalityco/config-tsup": "^0.0.7",
     "@commonalityco/types": "^0.0.10",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^20.5.0",

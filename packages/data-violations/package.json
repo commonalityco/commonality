@@ -1,25 +1,14 @@
 {
   "name": "@commonalityco/data-violations",
   "version": "0.0.8",
-  "publishConfig": {
-    "access": "public"
-  },
-  "types": "dist/commonalityco-data-violations.cjs.d.ts",
-  "main": "dist/commonalityco-data-violations.cjs.js",
-  "module": "dist/commonalityco-data-violations.esm.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-data-violations.cjs.mjs",
-        "default": "./dist/commonalityco-data-violations.cjs.js"
-      },
-      "module": "./dist/commonalityco-data-violations.esm.js",
-      "import": "./dist/commonalityco-data-violations.cjs.mjs",
-      "default": "./dist/commonalityco-data-violations.cjs.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.js"
   },
+  "main": "./dist/index.js",
   "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "lint": "eslint ./src --fix",
     "test": "vitest",
     "type-check": "tsc --noEmit"

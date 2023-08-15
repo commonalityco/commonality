@@ -13,7 +13,6 @@
     "@commonalityco/config-eslint": "*",
     "@commonalityco/config-tailwind": "*",
     "@commonalityco/config-tsconfig": "*",
-    "@commonalityco/config-tsup": "*",
     "@commonalityco/types": "*",
     "@commonalityco/ui-core": "*",
     "@commonalityco/ui-design-system": "*",
@@ -45,22 +44,14 @@
     "react": ">=17",
     "react-dom": ">=17"
   },
-  "types": "dist/commonalityco-ui-graph.cjs.d.ts",
-  "main": "dist/commonalityco-ui-graph.cjs.js",
-  "module": "dist/commonalityco-ui-graph.esm.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-ui-graph.cjs.mjs",
-        "default": "./dist/commonalityco-ui-graph.cjs.js"
-      },
-      "module": "./dist/commonalityco-ui-graph.esm.js",
-      "import": "./dist/commonalityco-ui-graph.cjs.mjs",
-      "default": "./dist/commonalityco-ui-graph.cjs.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.js"
   },
+  "main": "./dist/index.js",
   "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "test": "vitest",
     "type-check": "tsc --noEmit"
   }

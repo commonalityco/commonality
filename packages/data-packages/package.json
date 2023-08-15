@@ -1,26 +1,16 @@
 {
   "name": "@commonalityco/data-packages",
   "version": "0.0.9",
-  "publishConfig": {
-    "access": "public"
-  },
-  "types": "dist/commonalityco-data-packages.cjs.d.ts",
-  "main": "dist/commonalityco-data-packages.cjs.js",
-  "module": "dist/commonalityco-data-packages.esm.js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-data-packages.cjs.mjs",
-        "default": "./dist/commonalityco-data-packages.cjs.js"
-      },
-      "module": "./dist/commonalityco-data-packages.esm.js",
-      "import": "./dist/commonalityco-data-packages.cjs.mjs",
-      "default": "./dist/commonalityco-data-packages.cjs.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.js"
   },
+  "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "lint": "eslint ./src --fix",
     "test": "vitest",
     "type-check": "tsc --noEmit"

@@ -1,18 +1,18 @@
 {
   "name": "@commonalityco/utils-package",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
   "version": "0.0.3",
   "publishConfig": {
     "access": "public"
   },
   "license": "MIT",
   "dependencies": {
-    "@commonalityco/utils-core": "^0.0.3",
-    "@popperjs/core": "^2.11.8",
-    "class-variance-authority": "^0.7.0",
-    "next": "13.4.16",
-    "react-popper": "^2.3.0",
-    "react-use": "^17.4.0",
-    "slugify": "^1.6.6"
+    "@commonalityco/utils-core": "^0.0.3"
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "*",
@@ -30,21 +30,8 @@
     "react-dom": ">=17"
   },
   "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "type-check": "tsc --noEmit"
-  },
-  "types": "dist/commonalityco-utils-package.cjs.d.ts",
-  "main": "dist/commonalityco-utils-package.cjs.js",
-  "module": "dist/commonalityco-utils-package.esm.js",
-  "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-utils-package.cjs.mjs",
-        "default": "./dist/commonalityco-utils-package.cjs.js"
-      },
-      "module": "./dist/commonalityco-utils-package.esm.js",
-      "import": "./dist/commonalityco-utils-package.cjs.mjs",
-      "default": "./dist/commonalityco-utils-package.cjs.js"
-    },
-    "./package.json": "./package.json"
   }
 }

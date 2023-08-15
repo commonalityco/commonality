@@ -1,26 +1,19 @@
 {
   "name": "@commonalityco/types",
   "version": "0.0.10",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
-  "types": "dist/commonalityco-types.cjs.d.ts",
-  "main": "dist/commonalityco-types.cjs.js",
-  "module": "dist/commonalityco-types.esm.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-types.cjs.mjs",
-        "default": "./dist/commonalityco-types.cjs.js"
-      },
-      "module": "./dist/commonalityco-types.esm.js",
-      "import": "./dist/commonalityco-types.cjs.mjs",
-      "default": "./dist/commonalityco-types.cjs.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.js"
   },
+  "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "lint": "eslint ./src --fix"
   },
   "peerDependencies": {
@@ -29,7 +22,6 @@
   "devDependencies": {
     "@commonalityco/config-eslint": "^0.0.7",
     "@commonalityco/config-tsconfig": "^0.0.6",
-    "@commonalityco/config-tsup": "^0.0.7",
     "@commonalityco/utils-core": "^0.0.3",
     "typescript": "^5.1.6"
   }

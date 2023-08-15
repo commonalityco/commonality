@@ -1,6 +1,6 @@
 export const formatPackageName = (
   name: string,
-  options: { stripScope: boolean }
+  options: { stripScope: boolean },
 ) => {
   const { stripScope = false } = options;
 

@@ -1,12 +1,17 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Node 16",
+  "display": "React",
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "node",
+    "jsx": "react-jsx",
     "declaration": true,
+    "outDir": "dist",
     "strict": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"]
 }

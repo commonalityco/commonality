@@ -1,24 +1,17 @@
 {
   "name": "@commonalityco/utils-core",
   "version": "0.0.3",
+  "type": "module",
   "description": "Contains the common constants used in all Commonality applications and packages",
-  "types": "dist/commonalityco-utils-core.cjs.d.ts",
-  "main": "dist/commonalityco-utils-core.cjs.js",
-  "module": "dist/commonalityco-utils-core.esm.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-utils-core.cjs.mjs",
-        "default": "./dist/commonalityco-utils-core.cjs.js"
-      },
-      "module": "./dist/commonalityco-utils-core.esm.js",
-      "import": "./dist/commonalityco-utils-core.cjs.mjs",
-      "default": "./dist/commonalityco-utils-core.cjs.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.js"
   },
+  "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "test": "vitest"
   },
   "devDependencies": {

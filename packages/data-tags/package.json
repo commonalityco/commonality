@@ -5,22 +5,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "types": "dist/commonalityco-data-tags.cjs.d.ts",
-  "main": "dist/commonalityco-data-tags.cjs.js",
-  "module": "dist/commonalityco-data-tags.esm.js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-data-tags.cjs.mjs",
-        "default": "./dist/commonalityco-data-tags.cjs.js"
-      },
-      "module": "./dist/commonalityco-data-tags.esm.js",
-      "import": "./dist/commonalityco-data-tags.cjs.mjs",
-      "default": "./dist/commonalityco-data-tags.cjs.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.js"
   },
+  "main": "./dist/index.js",
   "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "lint": "eslint ./src --fix",
     "test": "vitest",
     "type-check": "tsc --noEmit"

@@ -20,26 +20,19 @@
     "@commonalityco/utils-graph": "*",
     "xstate": "^4.37.2"
   },
-  "types": "dist/commonalityco-data-graph.cjs.d.ts",
-  "main": "dist/commonalityco-data-graph.cjs.js",
-  "module": "dist/commonalityco-data-graph.esm.js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-data-graph.cjs.mjs",
-        "default": "./dist/commonalityco-data-graph.cjs.js"
-      },
-      "module": "./dist/commonalityco-data-graph.esm.js",
-      "import": "./dist/commonalityco-data-graph.cjs.mjs",
-      "default": "./dist/commonalityco-data-graph.cjs.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.js"
   },
+  "main": "./dist/index.js",
   "dependencies": {
     "cytoscape": "^3.26.0",
     "lodash.debounce": "^4.0.8"
   },
   "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "type-check": "tsc --noEmit"
   }
 }

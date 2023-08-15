@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import globby from 'globby';
+import { globby } from 'globby';
 
 export const getPackageDirectories = async ({
   rootDirectory,
@@ -21,7 +21,7 @@ export const getPackageDirectories = async ({
       const localPackageJsonPath = path.join(
         rootDirectory,
         directory,
-        'package.json'
+        'package.json',
       );
 
       try {
@@ -33,7 +33,7 @@ export const getPackageDirectories = async ({
       } catch {
         return;
       }
-    })
+    }),
   );
 
   return packageDirectoryPatterns.filter(Boolean) as string[];

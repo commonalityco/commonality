@@ -1,26 +1,19 @@
 {
   "name": "@commonalityco/data-documents",
   "description": "Utilities getting and setting metadata for a Commonality project",
+  "type": "module",
   "version": "0.0.4",
   "publishConfig": {
     "access": "public"
   },
-  "types": "dist/commonalityco-data-documents.cjs.d.ts",
-  "main": "dist/commonalityco-data-documents.cjs.js",
-  "module": "dist/commonalityco-data-documents.esm.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-data-documents.cjs.mjs",
-        "default": "./dist/commonalityco-data-documents.cjs.js"
-      },
-      "module": "./dist/commonalityco-data-documents.esm.js",
-      "import": "./dist/commonalityco-data-documents.cjs.mjs",
-      "default": "./dist/commonalityco-data-documents.cjs.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./dist/index.js"
   },
+  "main": "./dist/index.js",
   "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "lint": "eslint ./src --fix",
     "test": "vitest",
     "type-check": "tsc --noEmit"

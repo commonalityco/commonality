@@ -67,7 +67,7 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
             selector: (element) => {
               const pkg: Package = element.data();
               const tagDataForPkg = tagsData?.find(
-                (data) => data.packageName === pkg.name
+                (data) => data.packageName === pkg.name,
               );
 
               return tagDataForPkg?.tags.includes(tag) ?? false;
@@ -80,7 +80,7 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
             selector: (element) => {
               const pkg: Package = element.data();
               const tagDataForPkg = tagsData?.find(
-                (data) => data.packageName === pkg.name
+                (data) => data.packageName === pkg.name,
               );
 
               return tagDataForPkg?.tags.includes(tag) ?? false;
@@ -97,7 +97,7 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
 
               const pkg: Package = el.data();
               const tagDataForPkg = tagsData?.find(
-                (data) => data.packageName === pkg.name
+                (data) => data.packageName === pkg.name,
               );
 
               return tagDataForPkg?.tags.includes(tag) ?? false;
@@ -110,7 +110,7 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
             selector: (element) => {
               const pkg: Package = element.data();
               const ownerDataForPkg = codeownersData?.find(
-                (data) => data.packageName === pkg.name
+                (data) => data.packageName === pkg.name,
               );
 
               return ownerDataForPkg?.codeowners.includes(team) ?? false;
@@ -123,7 +123,7 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
             selector: (element) => {
               const pkg: Package = element.data();
               const ownerDataForPkg = codeownersData?.find(
-                (data) => data.packageName === pkg.name
+                (data) => data.packageName === pkg.name,
               );
 
               return ownerDataForPkg?.codeowners.includes(team) ?? false;
@@ -140,7 +140,7 @@ export function FeatureGraphSidebar(props: FeatureGraphSidebarProps) {
 
               const pkg: Package = el.data();
               const ownerDataForPkg = codeownersData?.find(
-                (data) => data.packageName === pkg.name
+                (data) => data.packageName === pkg.name,
               );
 
               return ownerDataForPkg?.codeowners.includes(team) ?? false;

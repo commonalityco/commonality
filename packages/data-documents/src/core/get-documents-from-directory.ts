@@ -1,6 +1,6 @@
 import { Document } from '@commonalityco/types';
 import { readFile } from 'fs-extra';
-import globby from 'globby';
+import { globby } from 'globby';
 import path from 'node:path';
 
 export const getDocumentsFromDirectory = async ({
@@ -26,7 +26,7 @@ export const getDocumentsFromDirectory = async ({
           const content = await readFile(fullPath, 'utf8');
           const filename = path.basename(
             documentPath,
-            path.extname(documentPath)
+            path.extname(documentPath),
           );
 
           return {
@@ -38,11 +38,11 @@ export const getDocumentsFromDirectory = async ({
         } catch {
           return;
         }
-      })
+      }),
     );
 
     const filteredDocuments = documents.filter(
-      (document) => document !== undefined
+      (document) => document !== undefined,
     ) as Document[];
 
     documentation = [...documentation, ...filteredDocuments];
