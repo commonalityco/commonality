@@ -1,5 +1,13 @@
 # @commonalityco/utils-package
 
+## 0.0.4
+
+### Patch Changes
+
+- dadeafb: Convert to ESM
+- Updated dependencies [dadeafb]
+  - @commonalityco/utils-core@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

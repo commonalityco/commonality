@@ -1,5 +1,17 @@
 # @commonalityco/ui-graph
 
+## 0.0.7
+
+### Patch Changes
+
+- dadeafb: Convert to ESM
+- Updated dependencies [dadeafb]
+  - @commonalityco/types@0.0.11
+  - @commonalityco/ui-core@0.0.6
+  - @commonalityco/ui-design-system@0.0.4
+  - @commonalityco/utils-core@0.0.4
+  - @commonalityco/utils-package@0.0.4
+
 ## 0.0.6
 
 ### Patch Changes

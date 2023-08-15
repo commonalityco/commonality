@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/data-tags",
   "description": "Utilities getting and setting metadata for a Commonality project",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publishConfig": {
     "access": "public"
   },

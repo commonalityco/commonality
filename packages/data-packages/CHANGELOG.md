@@ -1,5 +1,14 @@
 # @commonalityco/constraints
 
+## 0.0.10
+
+### Patch Changes
+
+- dadeafb: Convert to ESM
+- Updated dependencies [dadeafb]
+  - @commonalityco/data-project@0.0.4
+  - @commonalityco/utils-core@0.0.4
+
 ## 0.0.9
 
 ### Patch Changes

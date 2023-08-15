@@ -1,5 +1,11 @@
 # @commonalityco/ui-design-system
 
+## 0.0.4
+
+### Patch Changes
+
+- dadeafb: Convert to ESM
+
 ## 0.0.3
 
 ### Patch Changes

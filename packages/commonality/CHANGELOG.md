@@ -1,5 +1,20 @@
 # @commonalityco/cli
 
+## 0.1.5
+
+### Patch Changes
+
+- dadeafb: Convert to ESM
+- Updated dependencies [dadeafb]
+  - @commonalityco/data-codeowners@0.0.9
+  - @commonalityco/data-documents@0.0.5
+  - @commonalityco/data-packages@0.0.10
+  - @commonalityco/data-project@0.0.4
+  - @commonalityco/data-tags@0.0.5
+  - @commonalityco/data-violations@0.0.9
+  - @commonalityco/studio@0.2.5
+  - @commonalityco/utils-core@0.0.4
+
 ## 0.1.4
 
 ### Patch Changes
