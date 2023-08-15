@@ -1,5 +1,13 @@
 # @commonalityco/dashboard
 
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies [479b297]
+  - @commonalityco/ui-graph@0.0.6
+  - @commonalityco/ui-core@0.0.5
+
 ## 0.2.3
 
 ### Patch Changes
