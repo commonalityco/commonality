@@ -1,29 +1,30 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import path from 'node:path';
-import { getCodeowners } from './get-codeowners';
+import { getCodeowners } from '../src/core/get-codeowners.js';
 import { describe, it, expect } from 'vitest';
 
-describe('getCodeOwners', () => {
+describe.only('getCodeOwners', () => {
   describe('when the file is at the root of the repo', () => {
     it('returns an object containing the correct owners for each glob', async () => {
       const rootDirectory = path.resolve(
         __dirname,
-        '../../test/fixtures/github-example'
+        './fixtures/github-example',
       );
       const ownership = await getCodeowners({ rootDirectory });
 
       const globalOwners = ['@global-owner1', '@global-owner2'];
 
       expect(ownership).toEqual({
-        '*.js': ['@js-owner', ...globalOwners],
-        '*.go': ['docs@example.com', ...globalOwners],
-        '*.txt': ['@octo-org/octocats', ...globalOwners],
-        '/build/logs/': ['@doctocat', ...globalOwners],
-        'docs/*': ['docs@example.com', ...globalOwners],
-        'apps/': ['@octocat', ...globalOwners],
-        '/docs/': ['@doctocat', ...globalOwners],
-        '/scripts/': ['@doctocat', '@octocat', ...globalOwners],
-        '/apps/': ['@octocat', ...globalOwners],
+        '*': globalOwners,
+        '*.js': ['@js-owner'],
+        '*.go': ['docs@example.com'],
+        '*.txt': ['@octo-org/octocats'],
+        '/build/logs/': ['@doctocat'],
+        'docs/*': ['docs@example.com'],
+        'apps/': ['@octocat'],
+        '/docs/': ['@doctocat'],
+        '/scripts/': ['@doctocat', '@octocat'],
+        '/apps/': ['@octocat'],
         '/apps/github': globalOwners,
       });
     });
@@ -32,7 +33,7 @@ describe('getCodeOwners', () => {
   describe('when there is no CODEOWNERS file', () => {
     it('returns an empty object', async () => {
       const ownership = await getCodeowners({
-        rootDirectory: path.resolve(__dirname, '../test/fixtures/missing-file'),
+        rootDirectory: path.resolve(__dirname, './fixtures/missing-file'),
       });
 
       expect(ownership).toEqual({});

@@ -1,4 +1,4 @@
-import { pathExists, readJsonSync } from 'fs-extra';
+import fs from 'fs-extra';
 import path from 'node:path';
 import { DocumentsData } from '@commonalityco/types';
 import {
@@ -6,7 +6,7 @@ import {
   getPackageManager,
   getWorkspaceGlobs,
 } from '@commonalityco/data-project';
-import { getDocumentsFromDirectory } from './core/get-documents-from-directory';
+import { getDocumentsFromDirectory } from './core/get-documents-from-directory.js';
 
 export const getDocumentsData = async ({
   rootDirectory,
@@ -31,10 +31,10 @@ export const getDocumentsData = async ({
   });
 
   const rootPackageJsonPath = path.join(rootDirectory, 'package.json');
-  const rootPackageJsonExists = await pathExists(rootPackageJsonPath);
+  const rootPackageJsonExists = await fs.pathExists(rootPackageJsonPath);
 
   if (rootPackageJsonExists) {
-    const rootPackageJson = readJsonSync(rootPackageJsonPath);
+    const rootPackageJson = fs.readJsonSync(rootPackageJsonPath);
 
     documentData.push({
       packageName: rootPackageJson.name,
@@ -49,8 +49,8 @@ export const getDocumentsData = async ({
       directory,
     });
 
-    const packageJson = readJsonSync(
-      path.join(rootDirectory, directory, 'package.json')
+    const packageJson = fs.readJsonSync(
+      path.join(rootDirectory, directory, 'package.json'),
     );
 
     documentData.push({

@@ -1,4 +1,4 @@
-import { getIsEmail } from './get-is-email';
+import { getIsEmail } from '../src/core/get-is-email.js';
 import { describe, test, expect } from 'vitest';
 
 describe('getIsEmail', () => {
@@ -36,10 +36,10 @@ describe('getIsEmail', () => {
   });
 
   test('should return false for non-string input', () => {
-    const nonStringInputs = [123, null, undefined, {}, []];
+    const nonStringInputs = [123, null, undefined, {}, []] as any[];
 
     for (const input of nonStringInputs) {
-      expect(getIsEmail(input as any)).toBe(false);
+      expect(getIsEmail(input)).toBe(false);
     }
   });
 });

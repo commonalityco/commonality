@@ -12,7 +12,7 @@
   "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc",
     "dev": "tsc --watch",
     "lint": "eslint ./src --fix",
     "test": "vitest",
@@ -21,14 +21,16 @@
   "dependencies": {
     "fast-glob": "^3.3.1",
     "fs-extra": "^11.1.1",
-    "ignore": "^5.2.4"
+    "ignore": "^5.2.4",
+    "micromatch": "^4.0.5"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "^0.0.7",
-    "@commonalityco/config-tsconfig": "^0.0.6",
-    "@commonalityco/types": "^0.0.10",
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/types": "*",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^20.5.0",
+    "minimatch": "^9.0.3",
     "typescript": "^5.1.6"
   }
 }

@@ -20,15 +20,15 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "^0.0.7",
-    "@commonalityco/config-tsconfig": "^0.0.6",
-    "@commonalityco/types": "^0.0.10",
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-tsconfig": "*",
+    "@commonalityco/types": "*",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^20.5.0",
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@commonalityco/utils-core": "^0.0.3",
+    "@commonalityco/utils-core": "*",
     "chalk": "^5.3.0",
     "find-up": "^6.3.0",
     "fs-extra": "^11.1.1",

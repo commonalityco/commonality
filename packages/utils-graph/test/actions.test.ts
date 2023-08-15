@@ -4,7 +4,7 @@ import {
   showDependants,
   hideDependents,
   hideDependencies,
-} from './actions';
+} from '../src/actions.js';
 import cytoscape, {
   EdgeDefinition,
   ElementDefinition,
@@ -116,7 +116,7 @@ describe('show', () => {
             expect.objectContaining(edgeOneToTwo),
             expect.objectContaining(edgeTwoToThree),
             expect.objectContaining(edgeOneToFour),
-          ])
+          ]),
         );
       });
     });
@@ -143,7 +143,7 @@ describe('show', () => {
             expect.not.objectContaining(edgeOneToTwo),
             expect.not.objectContaining(edgeTwoToThree),
             expect.not.objectContaining(edgeOneToFour),
-          ])
+          ]),
         );
       });
     });
@@ -167,7 +167,7 @@ describe('show', () => {
             expect.not.objectContaining(edgeOneToTwo),
             expect.not.objectContaining(edgeTwoToThree),
             expect.not.objectContaining(edgeOneToFour),
-          ])
+          ]),
         );
       });
     });
@@ -195,7 +195,7 @@ describe('showDependencies', () => {
           expect.objectContaining(edgeOneToTwo),
           expect.objectContaining(edgeTwoToThree),
           expect.objectContaining(edgeOneToFour),
-        ])
+        ]),
       );
     });
   });
@@ -220,7 +220,7 @@ describe('showDependencies', () => {
           expect.objectContaining(edgeOneToTwo),
           expect.not.objectContaining(edgeTwoToThree),
           expect.objectContaining(edgeOneToFour),
-        ])
+        ]),
       );
     });
   });
@@ -248,7 +248,7 @@ describe('showDependencies', () => {
           expect.objectContaining(edgeOneToTwo),
           expect.objectContaining(edgeTwoToThree),
           expect.objectContaining(edgeOneToFour),
-        ])
+        ]),
       );
     });
   });

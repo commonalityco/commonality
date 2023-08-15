@@ -1,15 +1,11 @@
 import path from 'path';
-import { getPackages } from './get-packages';
+import { getPackages } from '../src/get-packages';
 import { describe, expect, it } from 'vitest';
 import { PackageType } from '@commonalityco/utils-core';
 
 describe('getPackages', () => {
   it('should return an array of packages with internal dependencies excluding the root package', async () => {
-    const rootDirectory = path.join(
-      __dirname,
-      '../test/fixtures',
-      'kitchen-sink'
-    );
+    const rootDirectory = path.join(__dirname, './fixtures', 'kitchen-sink');
 
     const packages = await getPackages({ rootDirectory });
 
@@ -32,11 +28,7 @@ describe('getPackages', () => {
   });
 
   it('should return an empty array if no packages are found', async () => {
-    const rootDirectory = path.join(
-      __dirname,
-      '../test/fixtures',
-      'no-packages'
-    );
+    const rootDirectory = path.join(__dirname, './fixtures', 'no-packages');
 
     const packages = await getPackages({ rootDirectory });
 
@@ -46,8 +38,8 @@ describe('getPackages', () => {
   it('should throw an error if a lockfile does not exist', async () => {
     const rootDirectory = path.join(
       __dirname,
-      '../test/fixtures',
-      'missing-lockfile'
+      './fixtures',
+      'missing-lockfile',
     );
 
     await expect(getPackages({ rootDirectory })).rejects.toThrow();

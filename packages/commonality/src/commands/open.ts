@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import { start } from '@commonalityco/studio';
 import getPort from 'get-port';
 import openUrl from 'open';
-import { validateProjectStructure } from '../utils/validate-project-structure';
+import { validateProjectStructure } from '../utils/validate-project-structure.js';
 import { getRootDirectory } from '@commonalityco/data-project';
 import chalk from 'chalk';
 import waitOn from 'wait-on';
@@ -31,8 +31,8 @@ export const open = command
 
       console.log(
         `Viewable at: ${chalk.blue.bold(url)} ${chalk.dim(
-          '(press ctrl-c to quit)'
-        )}`
+          '(press ctrl-c to quit)',
+        )}`,
       );
 
       await openUrl(url);

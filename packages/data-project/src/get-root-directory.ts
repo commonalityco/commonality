@@ -2,9 +2,14 @@ import process from 'node:process';
 import path from 'node:path';
 import { Lockfile } from '@commonalityco/utils-core';
 import { findUp } from 'find-up';
+import { fileURLToPath } from 'url';
 
 export const getRootDirectory = async (cwd?: string) => {
-  const workingDirectory = cwd ? path.resolve(__dirname, cwd) : process.cwd();
+  const __filename = fileURLToPath(import.meta.url);
+
+  const workingDirectory = cwd
+    ? path.resolve(path.dirname(__filename), cwd)
+    : process.cwd();
 
   const rootDirectory = await findUp(
     [Lockfile.NPM_LOCKFILE, Lockfile.YARN_LOCKFILE, Lockfile.PNPM_LOCKFILE],

@@ -93,7 +93,7 @@ export const graphMachine = createMachine(
       theme: 'light',
       violations: [],
     },
-    tsTypes: {} as import('./graph-machine.typegen').Typegen0,
+    tsTypes: {} as import('./graph-machine.typegen.d.ts').Typegen0,
     schema: {
       events: {} as Event,
       context: {} as Context,
@@ -267,7 +267,7 @@ export const graphMachine = createMachine(
           }
 
           context.worker.onmessage = async (
-            event: MessageEvent<ElementDefinition[]>
+            event: MessageEvent<ElementDefinition[]>,
           ) => {
             if (!context.renderGraph || !context.traversalGraph) {
               return resolve([]);
@@ -343,8 +343,8 @@ export const graphMachine = createMachine(
               callback({ type: 'UNSELECT' });
             },
             1000,
-            { leading: true, trailing: false }
-          )
+            { leading: true, trailing: false },
+          ),
         );
       },
     },
@@ -588,5 +588,5 @@ export const graphMachine = createMachine(
         context.renderGraph !== undefined ||
         context.traversalGraph !== undefined,
     },
-  }
+  },
 );

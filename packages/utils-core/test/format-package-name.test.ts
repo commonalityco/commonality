@@ -1,4 +1,4 @@
-import { formatPackageName } from './format-package-name';
+import { formatPackageName } from '../src/format-package-name.js';
 import { describe, expect, test } from 'vitest';
 
 describe('when stripScope is true', () => {

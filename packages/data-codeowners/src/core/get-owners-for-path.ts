@@ -1,4 +1,4 @@
-import ignore from 'ignore';
+import { minimatch } from 'minimatch';
 
 export const getOwnersForPath = ({
   path,
@@ -8,14 +8,13 @@ export const getOwnersForPath = ({
   codeowners: Record<string, string[]>;
 }): string[] => {
   const patterns = Object.keys(codeowners);
-
   const matchingPatterns = [];
 
   for (const pattern of patterns) {
-    const ig = ignore({ allowRelativePaths: true }).add([pattern]);
-    const result = ig.test(path);
+    console.log({ path, pattern });
+    const isMatch = minimatch(path, pattern);
 
-    if (result.ignored && !result.unignored) {
+    if (isMatch) {
       matchingPatterns.push(pattern);
     }
   }

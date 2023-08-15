@@ -4,7 +4,7 @@ import {
   getWorkspaceGlobs,
   getPackageManager,
 } from '@commonalityco/data-project';
-import { getPackage } from './get-package';
+import { getPackage } from './get-package.js';
 
 export const getPackages = async ({
   rootDirectory,
@@ -27,7 +27,7 @@ export const getPackages = async ({
         rootDirectory,
         directory,
       });
-    })
+    }),
   );
 
   return packageResults;

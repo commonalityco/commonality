@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { slugifyTagName } from './slugify-tag-name';
+import { slugifyTagName } from './slugify-tag-name.js';
 
 describe('when passed a tag name with special characters', () => {
   test('returns the correct tag', () => {

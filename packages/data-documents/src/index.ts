@@ -1,1 +1,1 @@
-export { getDocumentsData } from './get-documents-data';
+export { getDocumentsData } from './get-documents-data.js';

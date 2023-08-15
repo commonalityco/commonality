@@ -48,16 +48,16 @@ export const validateAction = async ({
 
   console.log(
     `Validating constraints...\n` +
-      chalk.dim(path.join(rootDirectory, '.commonality/config.json'))
+      chalk.dim(path.join(rootDirectory, '.commonality/config.json')),
   );
 
   const constraintsWithViolationCount = constraints.filter((constraint) =>
-    violations.some((violation) => violation.appliedTo === constraint.applyTo)
+    violations.some((violation) => violation.appliedTo === constraint.applyTo),
   ).length;
 
   for (const constraint of constraints) {
     const violationsForConstraint = violations.filter(
-      (violation) => violation.appliedTo === constraint.applyTo
+      (violation) => violation.appliedTo === constraint.applyTo,
     );
 
     const hasViolations = Boolean(violationsForConstraint.length);
@@ -69,12 +69,12 @@ export const validateAction = async ({
             constraint.applyTo !== '*'
               ? formatTagName(constraint.applyTo)
               : getText(constraint.applyTo)
-          } `
-        )
+          } `,
+        ),
       );
 
       const violationsText = chalk.red(
-        `${violationsForConstraint.length} violations`
+        `${violationsForConstraint.length} violations`,
       );
       console.log(`\n${tagText} ${violationsText}`);
 
@@ -105,7 +105,7 @@ export const validateAction = async ({
           constraint.applyTo === '*'
             ? 'All packages'
             : formatTagName(constraint.applyTo)
-        } `
+        } `,
       );
 
       console.log(`\n${tagText} ${chalk.dim('No violations')}`);
@@ -125,7 +125,7 @@ export const validateAction = async ({
 
   ui.div(
     `\n${constraintPrefix}\t ${constraintPrimaryText} ${constraintSuffix}` +
-      `\n${chalk.dim('Violations')}\t ${violationsText}`
+      `\n${chalk.dim('Violations')}\t ${violationsText}`,
   );
 
   if (violations.length) {

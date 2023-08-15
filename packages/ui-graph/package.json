@@ -7,7 +7,7 @@
     "lodash.sortby": "^4.7.0",
     "react-popper": "^2.3.0",
     "react-resizable-panels": "^0.0.55",
-    "react-wrap-balancer": "^1.0.0"
+    "react-wrap-balancer": "^1.1.0"
   },
   "devDependencies": {
     "@commonalityco/config-eslint": "*",
@@ -50,7 +50,7 @@
   },
   "main": "./dist/index.js",
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc",
     "dev": "tsc --watch",
     "test": "vitest",
     "type-check": "tsc --noEmit"

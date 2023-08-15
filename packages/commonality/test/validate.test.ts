@@ -1,4 +1,4 @@
-import { validateAction } from './validate';
+import { validateAction } from '../src/commands/validate.js';
 import { vi, describe, it, expect, beforeEach, test, afterEach } from 'vitest';
 import { Command } from 'commander';
 
@@ -58,7 +58,7 @@ describe('validateAction', () => {
       });
 
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('No constraints found')
+        expect.stringContaining('No constraints found'),
       );
     });
   });
@@ -92,13 +92,13 @@ describe('validateAction', () => {
 
       test('when applied to all packages logs violations in the correct format', async () => {
         expect(console.log).toHaveBeenCalledWith(
-          expect.stringContaining('All packages')
+          expect.stringContaining('All packages'),
         );
         expect(console.log).toHaveBeenCalledWith(
-          expect.stringContaining('1 violations')
+          expect.stringContaining('1 violations'),
         );
         expect(console.log).toHaveBeenCalledWith(
-          expect.stringContaining('pkg-one → pkg-two')
+          expect.stringContaining('pkg-one → pkg-two'),
         );
       });
     });
@@ -132,13 +132,13 @@ describe('validateAction', () => {
       });
 
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('1 violations')
+        expect.stringContaining('1 violations'),
       );
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('1 failed')
+        expect.stringContaining('1 failed'),
       );
       expect(console.log).toHaveBeenCalledWith(
-        expect.stringContaining('pkg-one → pkg-two')
+        expect.stringContaining('pkg-one → pkg-two'),
       );
     });
 
@@ -198,7 +198,7 @@ describe('validateAction', () => {
 
       it('should display the correct tags', () => {
         expect(console.log).toHaveBeenCalledWith(
-          expect.stringContaining('All packages')
+          expect.stringContaining('All packages'),
         );
       });
     });
@@ -222,7 +222,7 @@ describe('validateAction', () => {
 
       it('should display the correct tags', () => {
         expect(console.log).toHaveBeenCalledWith(
-          expect.stringContaining('#tag-one')
+          expect.stringContaining('#tag-one'),
         );
       });
 
@@ -232,7 +232,7 @@ describe('validateAction', () => {
 
       it('should display that there were no violations', () => {
         expect(console.log).toHaveBeenCalledWith(
-          expect.stringContaining('No violations')
+          expect.stringContaining('No violations'),
         );
       });
     });

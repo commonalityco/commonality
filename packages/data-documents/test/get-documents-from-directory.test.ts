@@ -1,15 +1,11 @@
-import { getDocumentsFromDirectory } from './get-documents-from-directory';
+import { getDocumentsFromDirectory } from '../src/core/get-documents-from-directory.js';
 import path from 'path';
 import { Document } from '@commonalityco/types';
 import { describe, it, expect } from 'vitest';
 
 describe('getPagesFromDirectory', () => {
   it('should return documents for a package when they exist', async () => {
-    const rootDirectory = path.join(
-      __dirname,
-      '../../test/fixtures',
-      'kitchen-sink'
-    );
+    const rootDirectory = path.join(__dirname, './fixtures', 'kitchen-sink');
 
     const documents = await getDocumentsFromDirectory({
       rootDirectory,
@@ -30,11 +26,7 @@ describe('getPagesFromDirectory', () => {
   });
 
   it('should return no documents for a package no markdown files exist', async () => {
-    const rootDirectory = path.join(
-      __dirname,
-      '../../test/fixtures',
-      'no-documents'
-    );
+    const rootDirectory = path.join(__dirname, './fixtures', 'no-documents');
 
     const documents = await getDocumentsFromDirectory({
       rootDirectory,

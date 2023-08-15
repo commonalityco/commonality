@@ -7,7 +7,7 @@ import {
   Violation,
 } from '@commonalityco/types';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
-import { getViolations } from './get-violations';
+import { getViolations } from '../src/get-violations.js';
 import { describe, it, expect } from 'vitest';
 
 const basePkgOne = {
@@ -238,7 +238,7 @@ describe('getViolations', () => {
                 sourcePackageName: '@scope/pkg-one',
                 targetPackageName: '@scope/pkg-two',
               },
-            ])
+            ]),
           );
         });
       });
@@ -266,7 +266,7 @@ describe('getViolations', () => {
                 sourcePackageName: '@scope/pkg-one',
                 targetPackageName: '@scope/pkg-two',
               },
-            ])
+            ]),
           );
         });
       });
@@ -626,7 +626,7 @@ describe('getViolations', () => {
             allowed: ['config'],
             disallowed: [],
           },
-        ])
+        ]),
       );
     });
   });

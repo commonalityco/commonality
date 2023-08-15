@@ -45,7 +45,7 @@
     "xstate": "^4.37.2"
   },
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc",
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit"
   },

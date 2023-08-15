@@ -6,11 +6,7 @@ import { describe, expect, it } from 'vitest';
 describe('getWorkspaceGlobs', () => {
   describe('when run in an un-initialized project', () => {
     it('returns the default globs', async () => {
-      const rootDirectory = path.join(
-        __dirname,
-        '../fixtures',
-        'uninitialized'
-      );
+      const rootDirectory = path.join(__dirname, './fixtures', 'uninitialized');
 
       const config = await getWorkspaceGlobs({
         rootDirectory,
@@ -28,8 +24,8 @@ describe('getWorkspaceGlobs', () => {
       it(`should return the correct globs for an NPM workspace`, async () => {
         const rootDirectory = path.join(
           __dirname,
-          '../fixtures',
-          'npm-workspace'
+          './fixtures',
+          'npm-workspace',
         );
         const workspaceGlobs = await getWorkspaceGlobs({
           rootDirectory,
@@ -42,8 +38,8 @@ describe('getWorkspaceGlobs', () => {
       it(`should return the correct globs for a Yarn workspace`, async () => {
         const rootDirectory = path.join(
           __dirname,
-          '../fixtures',
-          'yarn-workspace'
+          './fixtures',
+          'yarn-workspace',
         );
         const workspaceGlobs = await getWorkspaceGlobs({
           rootDirectory,
@@ -56,8 +52,8 @@ describe('getWorkspaceGlobs', () => {
       it(`should return the correct globs for a pnpm workspace`, async () => {
         const rootDirectory = path.join(
           __dirname,
-          '../fixtures',
-          'pnpm-workspace'
+          './fixtures',
+          'pnpm-workspace',
         );
         const workspaceGlobs = await getWorkspaceGlobs({
           rootDirectory,
@@ -72,8 +68,8 @@ describe('getWorkspaceGlobs', () => {
       it(`should return the default globs`, async () => {
         const rootDirectory = path.join(
           __dirname,
-          '../fixtures',
-          'missing-workspace-globs'
+          './fixtures',
+          'missing-workspace-globs',
         );
         const workspaceGlobs = await getWorkspaceGlobs({
           rootDirectory,

@@ -1,1 +1,1 @@
-export * from './get-codeowners-data';
+export * from './get-codeowners-data.js';

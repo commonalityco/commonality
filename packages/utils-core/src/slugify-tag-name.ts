@@ -1,4 +1,4 @@
-import slugify from 'slugify';
+import slugify from '@sindresorhus/slugify';
 
 /**
  * Takes a tag name and converts it into a URL-friendly slug.
@@ -12,8 +12,5 @@ export const slugifyTagName = (tagName: string) => {
     return '';
   }
 
-  return slugify(tagName, {
-    strict: true,
-    lower: true,
-  });
+  return slugify(tagName);
 };

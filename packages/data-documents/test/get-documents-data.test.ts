@@ -1,15 +1,11 @@
-import { getDocumentsData } from './get-documents-data';
+import { getDocumentsData } from '../src/get-documents-data';
 import path from 'path';
 import { DocumentsData } from '@commonalityco/types';
 import { describe, it, expect } from 'vitest';
 
 describe('getDocumentsData', () => {
   it('should return documents when they exist', async () => {
-    const rootDirectory = path.join(
-      __dirname,
-      '../test/fixtures',
-      'kitchen-sink',
-    );
+    const rootDirectory = path.join(__dirname, './fixtures', 'kitchen-sink');
 
     const documentsData = await getDocumentsData({ rootDirectory });
 
@@ -42,11 +38,7 @@ describe('getDocumentsData', () => {
   });
 
   it('should return a data with empty arrays if no documents are found', async () => {
-    const rootDirectory = path.join(
-      __dirname,
-      '../test/fixtures',
-      'no-documents',
-    );
+    const rootDirectory = path.join(__dirname, './fixtures', 'no-documents');
 
     const documentsData = await getDocumentsData({ rootDirectory });
 

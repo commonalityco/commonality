@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { formatTagName } from './format-tag-name';
+import { formatTagName } from './format-tag-name.js';
 
 describe('when passed a tag name', () => {
   test('returns the correct string', () => {

@@ -1,3 +1,2 @@
-export { getTagsData } from './get-tags-data';
-
-export { setTags } from './set-tags';
+export { getTagsData } from './get-tags-data.js';
+export { setTags } from './set-tags.js';

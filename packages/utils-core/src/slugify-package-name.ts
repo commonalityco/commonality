@@ -1,4 +1,4 @@
-import slugify from 'slugify';
+import slugify from '@sindresorhus/slugify';
 
 /**
  * Takes a package name and converts it into a URL-friendly slug.
@@ -16,8 +16,8 @@ export const slugifyPackageName = (packageName: string) => {
 
   const packageNameWithoutScopeSlash = packageName.replace(
     replacementRegex,
-    '-'
+    '-',
   );
 
-  return slugify(packageNameWithoutScopeSlash, { strict: true, lower: true });
+  return slugify(packageNameWithoutScopeSlash);
 };

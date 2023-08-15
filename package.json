@@ -21,15 +21,16 @@
     "commonality:publish": "commonality publish",
     "prepare": "husky install",
     "type-check": "turbo run type-check",
-    "conform": "manypkg fix && preconstruct fix"
+    "conform": "manypkg fix && preconstruct fix",
+    "postinstall": "manypkg check"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@changesets/cli": "^2.26.2",
-    "@commonalityco/config-eslint": "^0.0.7",
-    "@commonalityco/config-tsconfig": "^0.0.6",
+    "@commonalityco/config-eslint": "*",
+    "@commonalityco/config-tsconfig": "*",
     "@manypkg/cli": "^0.21.0",
     "@types/node": "^20.5.0",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
@@ -40,7 +41,7 @@
     "execa": "^7.2.0",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.0",
-    "prettier": "^3.0.1",
+    "prettier": "^3.0.2",
     "prettier-plugin-tailwindcss": "^0.5.3",
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",

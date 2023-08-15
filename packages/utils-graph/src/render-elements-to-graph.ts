@@ -1,7 +1,7 @@
 'use client';
 import { Core, ElementDefinition } from 'cytoscape';
-import { bindRenderGraphEvents } from './bind-render-graph-events';
-import { withTiming } from './utils/with-timing';
+import { bindRenderGraphEvents } from './bind-render-graph-events.js';
+import { withTiming } from './utils/with-timing.js';
 
 import { Dependency, Package, Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
@@ -90,7 +90,7 @@ const updateGraphElements = withTiming(
       traversalGraph,
       violations,
     });
-  }
+  },
 );
 
 export { updateGraphElements };

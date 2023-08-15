@@ -2,7 +2,7 @@ import { copy, remove, mkdtempSync, pathExists } from 'fs-extra';
 import { afterAll, beforeEach, describe, expect, test } from 'vitest';
 import os from 'os';
 import path from 'path';
-import { setTags } from './set-tags';
+import { setTags } from '../src/set-tags';
 
 describe('setTags', () => {
   describe('when setting tags for a package with no configuration file', () => {
@@ -10,7 +10,7 @@ describe('setTags', () => {
     const tempPath = mkdtempSync(tmpDirPath);
     const emptyFixturePath = path.resolve(
       __dirname,
-      '../test/fixtures/empty-project'
+      './fixtures/empty-project',
     );
 
     beforeEach(async () => {
@@ -29,7 +29,7 @@ describe('setTags', () => {
       });
 
       const isFileCreated = await pathExists(
-        path.join(tempPath, 'packages/pkg-one/commonality.json')
+        path.join(tempPath, 'packages/pkg-one/commonality.json'),
       );
 
       expect(isFileCreated).toEqual(true);
@@ -49,10 +49,7 @@ describe('setTags', () => {
   describe('when setting tags for a package with existing tags', () => {
     const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const tempPath = mkdtempSync(tmpDirPath);
-    const fixturePath = path.resolve(
-      __dirname,
-      '../test/fixtures/kitchen-sink'
-    );
+    const fixturePath = path.resolve(__dirname, './fixtures/kitchen-sink');
 
     beforeEach(async () => {
       await copy(fixturePath, tempPath);
@@ -70,7 +67,7 @@ describe('setTags', () => {
       });
 
       const isFileCreated = await pathExists(
-        path.join(tempPath, 'packages/pkg-one/commonality.json')
+        path.join(tempPath, 'packages/pkg-one/commonality.json'),
       );
 
       expect(isFileCreated).toEqual(true);

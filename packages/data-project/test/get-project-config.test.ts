@@ -1,15 +1,11 @@
 import path from 'path';
-import { getProjectConfig } from './get-project-config';
+import { getProjectConfig } from '../src/get-project-config';
 import { describe, expect, it } from 'vitest';
 
 describe('getProjectConfig', () => {
   describe('when run in an un-initialized project', () => {
     it('returns an empty object', async () => {
-      const rootDirectory = path.join(
-        __dirname,
-        '../fixtures',
-        'uninitialized'
-      );
+      const rootDirectory = path.join(__dirname, './fixtures', 'uninitialized');
 
       const config = await getProjectConfig({ rootDirectory });
 
@@ -21,8 +17,8 @@ describe('getProjectConfig', () => {
     it('should return the parsed project config if the file exists and is valid', async () => {
       const rootDirectory = path.join(
         __dirname,
-        '../fixtures',
-        'valid-project-config'
+        './fixtures',
+        'valid-project-config',
       );
 
       const config = await getProjectConfig({ rootDirectory });
@@ -58,7 +54,7 @@ describe('getProjectConfig', () => {
       const rootDirectory = path.join(
         __dirname,
         '../fixtures',
-        'invalid-project-config'
+        'invalid-project-config',
       );
 
       await expect(getProjectConfig({ rootDirectory })).rejects.toThrow();

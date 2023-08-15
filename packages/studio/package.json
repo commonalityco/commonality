@@ -1,27 +1,17 @@
 {
   "name": "@commonalityco/studio",
   "version": "0.2.4",
-  "types": "dist/commonalityco-studio.cjs.d.ts",
-  "main": "dist/commonalityco-studio.cjs.js",
-  "module": "dist/commonalityco-studio.esm.js",
-  "exports": {
-    ".": {
-      "types": {
-        "import": "./dist/commonalityco-studio.cjs.mjs",
-        "default": "./dist/commonalityco-studio.cjs.js"
-      },
-      "module": "./dist/commonalityco-studio.esm.js",
-      "import": "./dist/commonalityco-studio.cjs.mjs",
-      "default": "./dist/commonalityco-studio.cjs.js"
-    },
-    "./package.json": "./package.json"
-  },
   "publishConfig": {
     "access": "public"
   },
+  "types": "./dist/index.d.mts",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": "./dist/index.mjs"
+  },
   "scripts": {
     "dev": "NODE_ENV=development node server.js",
-    "build": "next build",
+    "build": "next build && tsc scripts/index.mts --outDir dist --target ES2020 --module esnext --moduleResolution Node16 --declaration --esModuleInterop",
     "analyze": "ANALYZE=true next build",
     "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
@@ -29,27 +19,22 @@
     "e2e": "pnpm run build:script &&  start-server-and-test e2e:run-script http://localhost:3000 \"cypress open --e2e\"",
     "e2e:headless": "pnpm run build:script && start-server-and-test e2e:run-script http://localhost:3000 \"cypress run --e2e\""
   },
-  "preconstruct": {
-    "entrypoints": [
-      "index.ts"
-    ]
-  },
   "dependencies": {
-    "@commonalityco/data-codeowners": "^0.0.8",
-    "@commonalityco/data-documents": "^0.0.4",
-    "@commonalityco/data-graph": "^0.0.4",
-    "@commonalityco/data-graph-worker": "^0.0.2",
-    "@commonalityco/data-packages": "^0.0.9",
-    "@commonalityco/data-project": "^0.0.3",
-    "@commonalityco/data-tags": "^0.0.4",
-    "@commonalityco/data-violations": "^0.0.8",
-    "@commonalityco/feature-graph": "^0.0.5",
-    "@commonalityco/ui-core": "^0.0.5",
-    "@commonalityco/ui-design-system": "^0.0.3",
-    "@commonalityco/ui-graph": "^0.0.6",
-    "@commonalityco/utils-core": "^0.0.3",
-    "@commonalityco/utils-graph": "^0.0.3",
-    "@commonalityco/utils-package": "^0.0.3",
+    "@commonalityco/data-codeowners": "*",
+    "@commonalityco/data-documents": "*",
+    "@commonalityco/data-graph": "*",
+    "@commonalityco/data-graph-worker": "*",
+    "@commonalityco/data-packages": "*",
+    "@commonalityco/data-project": "*",
+    "@commonalityco/data-tags": "*",
+    "@commonalityco/data-violations": "*",
+    "@commonalityco/feature-graph": "*",
+    "@commonalityco/ui-core": "*",
+    "@commonalityco/ui-design-system": "*",
+    "@commonalityco/ui-graph": "*",
+    "@commonalityco/utils-core": "*",
+    "@commonalityco/utils-graph": "*",
+    "@commonalityco/utils-package": "*",
     "execa": "^7.2.0",
     "fs-extra": "^11.1.1",
     "get-port": "^7.0.0",
@@ -61,8 +46,7 @@
   "files": [
     ".next/",
     "next.config.js",
-    "server.js",
-    "dist/"
+    "server.js"
   ],
   "devDependencies": {
     "@commonalityco/config-eslint": "*",
@@ -94,7 +78,7 @@
     "pino": "^8.15.0",
     "pino-pretty": "^10.2.0",
     "postcss": "^8.4.27",
-    "prettier": "^3.0.1",
+    "prettier": "^3.0.2",
     "prettier-plugin-tailwindcss": "^0.5.3",
     "server-only": "^0.0.1",
     "start-server-and-test": "^2.0.0",

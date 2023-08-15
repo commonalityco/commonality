@@ -20,7 +20,7 @@ export const validateProjectStructure = async ({
           '\nYou must have a package-lock.json, yarn.lock, or pnpm-lock.yaml file at the root of your project',
         {
           exitCode: 1,
-        }
+        },
       );
       return;
     }
@@ -36,7 +36,7 @@ export const validateProjectStructure = async ({
     command.error(
       chalk.red.bold('No valid root package detected') +
         '\n You must have a package.json file within the same directory as your lockfile. Your package.json file must also have a name property.',
-      { exitCode: 1 }
+      { exitCode: 1 },
     );
   }
 

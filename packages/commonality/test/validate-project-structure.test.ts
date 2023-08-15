@@ -1,4 +1,4 @@
-import { validateProjectStructure } from './validate-project-structure';
+import { validateProjectStructure } from '../src/utils/validate-project-structure.js';
 import { Command } from 'commander';
 import {
   describe,
@@ -23,7 +23,7 @@ describe('validateProjectStructure', () => {
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
       __dirname,
-      '../../test/fixtures/missing-lockfile'
+      '../../test/fixtures/missing-lockfile',
     );
 
     beforeEach(async () => {
@@ -47,7 +47,7 @@ describe('validateProjectStructure', () => {
 
       expect(spy).toHaveBeenCalledWith(
         expect.stringContaining('No lockfile detected'),
-        expect.objectContaining({ exitCode: 1 })
+        expect.objectContaining({ exitCode: 1 }),
       );
     });
   });
@@ -57,7 +57,7 @@ describe('validateProjectStructure', () => {
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
       __dirname,
-      '../../test/fixtures/missing-root-package'
+      '../../test/fixtures/missing-root-package',
     );
 
     beforeEach(async () => {
@@ -81,7 +81,7 @@ describe('validateProjectStructure', () => {
 
       expect(spy).toHaveBeenCalledWith(
         expect.stringContaining('No valid root package detected'),
-        expect.objectContaining({ exitCode: 1 })
+        expect.objectContaining({ exitCode: 1 }),
       );
     });
   });
@@ -91,7 +91,7 @@ describe('validateProjectStructure', () => {
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
       __dirname,
-      '../../test/fixtures/invalid-root-package'
+      '../../test/fixtures/invalid-root-package',
     );
 
     beforeEach(async () => {
@@ -115,7 +115,7 @@ describe('validateProjectStructure', () => {
 
       expect(spy).toHaveBeenCalledWith(
         expect.stringContaining('No valid root package detected'),
-        expect.objectContaining({ exitCode: 1 })
+        expect.objectContaining({ exitCode: 1 }),
       );
     });
   });
@@ -125,7 +125,7 @@ describe('validateProjectStructure', () => {
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
       __dirname,
-      '../../test/fixtures/kitchen-sink'
+      '../../test/fixtures/kitchen-sink',
     );
 
     beforeEach(async () => {
@@ -141,7 +141,7 @@ describe('validateProjectStructure', () => {
       const spy = vi.spyOn(command, 'error');
       const fixturePath = path.resolve(
         __dirname,
-        '../../test/fixtures/kitchen-sink'
+        '../../test/fixtures/kitchen-sink',
       );
 
       await validateProjectStructure({
@@ -158,7 +158,7 @@ describe('validateProjectStructure', () => {
     const tempPath = mkdtempSync(tmpDirPath);
     const fixturePath = path.resolve(
       __dirname,
-      '../../test/fixtures/kitchen-sink/packages/pkg-one'
+      '../../test/fixtures/kitchen-sink/packages/pkg-one',
     );
 
     beforeEach(async () => {
@@ -174,7 +174,7 @@ describe('validateProjectStructure', () => {
       const spy = vi.spyOn(command, 'error');
       const fixturePath = path.resolve(
         __dirname,
-        '../../test/fixtures/kitchen-sink'
+        '../../test/fixtures/kitchen-sink',
       );
 
       await validateProjectStructure({

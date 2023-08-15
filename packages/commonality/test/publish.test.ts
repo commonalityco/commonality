@@ -1,6 +1,6 @@
 import { SnapshotData } from '@commonalityco/types';
-import { actionHandler } from './publish';
-import got, { HTTPError } from 'got';
+import { actionHandler } from '../src/commands/publish';
+import got from 'got';
 
 import { vi, describe, it, afterEach, expect, beforeEach } from 'vitest';
 import { Command } from 'commander';
@@ -59,7 +59,7 @@ describe('publish.action', () => {
       });
 
       expect(action.error).toHaveBeenCalledWith(
-        expect.stringContaining(chalk.red.bold('No projectId found'))
+        expect.stringContaining(chalk.red.bold('No projectId found')),
       );
     });
   });
@@ -86,7 +86,7 @@ describe('publish.action', () => {
       });
 
       expect(action.error).toHaveBeenCalledWith(
-        expect.stringContaining(chalk.red.bold('Missing API key'))
+        expect.stringContaining(chalk.red.bold('Missing API key')),
       );
     });
   });
@@ -115,8 +115,8 @@ describe('publish.action', () => {
 
       expect(console.log).toHaveBeenCalledWith(
         expect.stringContaining(
-          `View your graph at ${chalk.bold.blue('https://example.com')}`
-        )
+          `View your graph at ${chalk.bold.blue('https://example.com')}`,
+        ),
       );
     });
   });

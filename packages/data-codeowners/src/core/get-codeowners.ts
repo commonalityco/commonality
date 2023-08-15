@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { findFirstExistingFile } from '../utils/find-first-existing-file';
+import { findFirstExistingFile } from '../utils/find-first-existing-file.js';
 
 // Returns an object that represents the project's CODEOWNERS file.
 export const getCodeowners = async ({
@@ -16,7 +16,7 @@ export const getCodeowners = async ({
     ],
     {
       cwd: rootDirectory,
-    }
+    },
   );
 
   if (!filePath) {

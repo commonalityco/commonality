@@ -1,5 +1,5 @@
 import { Document } from '@commonalityco/types';
-import { readFile } from 'fs-extra';
+import fs from 'fs-extra';
 import { globby } from 'globby';
 import path from 'node:path';
 
@@ -23,7 +23,7 @@ export const getDocumentsFromDirectory = async ({
       documentPaths.map(async (documentPath) => {
         try {
           const fullPath = path.join(rootDirectory, directory, documentPath);
-          const content = await readFile(fullPath, 'utf8');
+          const content = await fs.readFile(fullPath, 'utf8');
           const filename = path.basename(
             documentPath,
             path.extname(documentPath),

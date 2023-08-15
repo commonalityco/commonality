@@ -1,4 +1,3 @@
-'use server';
 import path from 'node:path';
 import fs from 'fs-extra';
 import type { PackageConfig, PackageJson } from '@commonalityco/types';
@@ -45,7 +44,7 @@ export const setTags = async ({
     const packageConfigPath = path.join(
       rootDirectory,
       directory,
-      'commonality.json'
+      'commonality.json',
     );
 
     if (!fs.existsSync(packageConfigPath)) {

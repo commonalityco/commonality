@@ -3,8 +3,8 @@
   "display": "Node 16",
   "compilerOptions": {
     "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "esnext",
+    "moduleResolution": "Node16",
     "declaration": true,
     "strict": true,
     "esModuleInterop": true
