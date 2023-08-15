@@ -26,16 +26,16 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@commonalityco/data-project": "*",
-    "@commonalityco/utils-core": "*",
+    "@commonalityco/data-project": "^0.0.3",
+    "@commonalityco/utils-core": "^0.0.3",
     "fs-extra": "^11.1.1"
   },
   "devDependencies": {
-    "@commonalityco/config-eslint": "*",
-    "@commonalityco/config-tsconfig": "*",
-    "@commonalityco/types": "*",
+    "@commonalityco/config-eslint": "^0.0.7",
+    "@commonalityco/config-tsconfig": "^0.0.6",
+    "@commonalityco/types": "^0.0.10",
     "@types/fs-extra": "^11.0.1",
-    "@types/node": "^18.17.5",
-    "typescript": "^4.9.5"
+    "@types/node": "^20.5.0",
+    "typescript": "^5.1.6"
   }
 }

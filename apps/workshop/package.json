@@ -7,21 +7,21 @@
     "dev": "storybook dev -p 6006"
   },
   "dependencies": {
-    "@commonalityco/feature-graph": "^0.0.5",
-    "@commonalityco/types": "^0.0.10",
-    "@commonalityco/ui-core": "^0.0.5",
-    "@commonalityco/ui-design-system": "^0.0.3",
-    "@commonalityco/ui-graph": "^0.0.6",
-    "@commonalityco/utils-core": "^0.0.3",
-    "@commonalityco/utils-graph": "^0.0.3",
-    "next": "13.4.6",
+    "@commonalityco/feature-graph": "*",
+    "@commonalityco/types": "*",
+    "@commonalityco/ui-core": "*",
+    "@commonalityco/ui-design-system": "*",
+    "@commonalityco/ui-graph": "*",
+    "@commonalityco/utils-core": "*",
+    "@commonalityco/utils-graph": "*",
+    "next": "13.4.16",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook-addon-variants": "^0.2.0"
   },
   "devDependencies": {
-    "@commonalityco/config-tailwind": "^0.0.4",
+    "@commonalityco/config-tailwind": "*",
     "@storybook/addon-a11y": "^7.2.3",
     "@storybook/addon-docs": "^7.2.3",
     "@storybook/addon-essentials": "^7.2.3",
@@ -33,10 +33,10 @@
     "@storybook/cli": "^7.2.3",
     "@storybook/react": "^7.2.3",
     "@storybook/react-vite": "^7.2.3",
-    "@storybook/testing-library": "0.0.14-next.2",
+    "@storybook/testing-library": "0.2.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react": "^4.0.4",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.27",
@@ -45,7 +45,7 @@
     "storybook": "^7.2.3",
     "storybook-dark-mode": "^3.0.1",
     "tailwindcss": "^3.3.3",
-    "typescript": "^4.9.5",
+    "typescript": "^5.1.6",
     "vite": "^4.4.9"
   }
 }
