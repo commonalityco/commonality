@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import remarkGfm from 'remark-gfm';
