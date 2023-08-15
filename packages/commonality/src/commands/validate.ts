@@ -9,9 +9,10 @@ import { getViolations } from '@commonalityco/data-violations';
 import chalk from 'chalk';
 import path from 'node:path';
 import { formatTagName } from '@commonalityco/utils-core';
-import cliui from 'cliui';
+import cliuiUntyped from 'cliui';
 import { ProjectConfig, Violation } from '@commonalityco/types';
 
+const cliui = cliuiUntyped as unknown as typeof cliuiUntyped.default;
 const ui = cliui({ width: process.stdout.columns });
 
 const getText = (application?: string[] | '*'): string => {
@@ -85,12 +86,14 @@ export const validateAction = async ({
 
         ui.div(`${sourcePackageLink} ${chalk.red('→')} ${targetPackageLink}`);
 
-        const allowedText = violation.allowed.length > 0
-          ? `${chalk.dim('Allowed')} \t${getText(violation.allowed)}\n`
-          : '';
-        const disallowedText = violation.disallowed.length > 0
-          ? `${chalk.dim('Disallowed')} \t${getText(violation.disallowed)}\n`
-          : '';
+        const allowedText =
+          violation.allowed.length > 0
+            ? `${chalk.dim('Allowed')} \t${getText(violation.allowed)}\n`
+            : '';
+        const disallowedText =
+          violation.disallowed.length > 0
+            ? `${chalk.dim('Disallowed')} \t${getText(violation.disallowed)}\n`
+            : '';
         const foundText = violation.found
           ? `${chalk.red('Found')} \t${getText(violation.found)}\n`
           : '';
@@ -119,9 +122,10 @@ export const validateAction = async ({
 
   const constraintSuffix = chalk.gray(`(${constraints.length})`);
 
-  const violationsText = violations.length > 0
-    ? chalk.red.bold(`${violations.length} violations`)
-    : chalk.green.bold(`No violations`);
+  const violationsText =
+    violations.length > 0
+      ? chalk.red.bold(`${violations.length} violations`)
+      : chalk.green.bold(`No violations`);
 
   ui.div(
     `\n${constraintPrefix}\t ${constraintPrimaryText} ${constraintSuffix}` +
