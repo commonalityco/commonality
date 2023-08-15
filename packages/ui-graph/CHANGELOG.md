@@ -1,5 +1,13 @@
 # @commonalityco/ui-graph
 
+## 0.0.6
+
+### Patch Changes
+
+- 479b297: Fix range of peerDependencies
+- Updated dependencies [479b297]
+  - @commonalityco/ui-core@0.0.5
+
 ## 0.0.5
 
 ### Patch Changes
