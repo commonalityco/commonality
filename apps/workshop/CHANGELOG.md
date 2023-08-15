@@ -1,5 +1,19 @@
 # workshop
 
+## 1.0.4
+
+### Patch Changes
+
+- dadeafb: Convert to ESM
+- Updated dependencies [dadeafb]
+  - @commonalityco/feature-graph@0.0.6
+  - @commonalityco/types@0.0.11
+  - @commonalityco/ui-core@0.0.6
+  - @commonalityco/ui-design-system@0.0.4
+  - @commonalityco/ui-graph@0.0.7
+  - @commonalityco/utils-core@0.0.4
+  - @commonalityco/utils-graph@0.0.4
+
 ## 1.0.3
 
 ### Patch Changes

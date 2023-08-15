@@ -1,5 +1,27 @@
 # @commonalityco/dashboard
 
+## 0.2.5
+
+### Patch Changes
+
+- dadeafb: Convert to ESM
+- Updated dependencies [dadeafb]
+  - @commonalityco/data-codeowners@0.0.9
+  - @commonalityco/data-documents@0.0.5
+  - @commonalityco/data-graph@0.0.5
+  - @commonalityco/data-graph-worker@0.0.3
+  - @commonalityco/data-packages@0.0.10
+  - @commonalityco/data-project@0.0.4
+  - @commonalityco/data-tags@0.0.5
+  - @commonalityco/data-violations@0.0.9
+  - @commonalityco/feature-graph@0.0.6
+  - @commonalityco/ui-core@0.0.6
+  - @commonalityco/ui-design-system@0.0.4
+  - @commonalityco/ui-graph@0.0.7
+  - @commonalityco/utils-core@0.0.4
+  - @commonalityco/utils-graph@0.0.4
+  - @commonalityco/utils-package@0.0.4
+
 ## 0.2.4
 
 ### Patch Changes

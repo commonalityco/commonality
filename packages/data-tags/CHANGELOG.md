@@ -1,5 +1,14 @@
 # @commonalityco/snapshot
 
+## 0.0.5
+
+### Patch Changes
+
+- dadeafb: Convert to ESM
+- Updated dependencies [dadeafb]
+  - @commonalityco/data-project@0.0.4
+  - @commonalityco/utils-core@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes

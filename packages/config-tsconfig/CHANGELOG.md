@@ -1,5 +1,11 @@
 # @commonalityco/config-tsconfig
 
+## 0.0.7
+
+### Patch Changes
+
+- dadeafb: Convert to ESM
+
 ## 0.0.6
 
 ### Patch Changes

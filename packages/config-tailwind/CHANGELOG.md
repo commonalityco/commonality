@@ -1,5 +1,11 @@
 # @commonalityco/config-tailwind
 
+## 0.0.5
+
+### Patch Changes
+
+- dadeafb: Convert to ESM
+
 ## 0.0.4
 
 ### Patch Changes
