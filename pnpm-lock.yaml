@@ -24,10 +24,10 @@ importers:
         specifier: ^2.26.2
         version: 2.26.2
       '@commonalityco/config-eslint':
-        specifier: workspace:*
+        specifier: '*'
         version: link:packages/config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:*
+        specifier: '*'
         version: link:packages/config-tsconfig
       '@manypkg/cli':
         specifier: ^0.21.0
@@ -69,8 +69,8 @@ importers:
         specifier: ^0.2.8
         version: 0.2.8(prettier@2.8.8)
       rimraf:
-        specifier: ^3.0.2
-        version: 3.0.2
+        specifier: ^5.0.1
+        version: 5.0.1
       ts-node:
         specifier: ^10.9.1
         version: 10.9.1(@swc/core@1.3.76)(@types/node@18.17.5)(typescript@4.9.5)
@@ -205,28 +205,28 @@ importers:
   packages/commonality:
     dependencies:
       '@commonalityco/data-codeowners':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-codeowners
       '@commonalityco/data-documents':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-documents
       '@commonalityco/data-packages':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-packages
       '@commonalityco/data-project':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-project
       '@commonalityco/data-tags':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-tags
       '@commonalityco/data-violations':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-violations
       '@commonalityco/studio':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../studio
       '@commonalityco/utils-core':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../utils-core
       chalk:
         specifier: 4.1.2
@@ -351,7 +351,7 @@ importers:
   packages/config-tsup:
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-eslint
       typescript:
         specifier: ^4.9.5
@@ -370,16 +370,16 @@ importers:
         version: 5.2.4
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/config-tsup':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsup
       '@commonalityco/types':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../types
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -394,7 +394,7 @@ importers:
   packages/data-documents:
     dependencies:
       '@commonalityco/data-project':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-project
       fs-extra:
         specifier: ^11.1.1
@@ -404,16 +404,16 @@ importers:
         version: 11.0.4
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../utils-core
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -483,23 +483,23 @@ importers:
   packages/data-packages:
     dependencies:
       '@commonalityco/data-project':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-project
       '@commonalityco/utils-core':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../utils-core
       fs-extra:
         specifier: ^11.1.1
         version: 11.1.1
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../types
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -514,7 +514,7 @@ importers:
   packages/data-project:
     dependencies:
       '@commonalityco/utils-core':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../utils-core
       chalk:
         specifier: 4.1.2
@@ -536,13 +536,13 @@ importers:
         version: 3.22.0
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../types
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -557,10 +557,10 @@ importers:
   packages/data-tags:
     dependencies:
       '@commonalityco/data-project':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-project
       '@commonalityco/utils-core':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../utils-core
       fs-extra:
         specifier: ^11.1.1
@@ -570,13 +570,13 @@ importers:
         version: 4.5.0
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../types
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -594,16 +594,16 @@ importers:
   packages/data-violations:
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../utils-core
       typescript:
         specifier: ^4.9.5
@@ -694,49 +694,49 @@ importers:
   packages/studio:
     dependencies:
       '@commonalityco/data-codeowners':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-codeowners
       '@commonalityco/data-documents':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-documents
       '@commonalityco/data-graph':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-graph
       '@commonalityco/data-graph-worker':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-graph-worker
       '@commonalityco/data-packages':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-packages
       '@commonalityco/data-project':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-project
       '@commonalityco/data-tags':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-tags
       '@commonalityco/data-violations':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../data-violations
       '@commonalityco/feature-graph':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../feature-graph
       '@commonalityco/ui-core':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../ui-core
       '@commonalityco/ui-design-system':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../ui-design-system
       '@commonalityco/ui-graph':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../ui-graph
       '@commonalityco/utils-core':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../utils-graph
       '@commonalityco/utils-package':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../utils-package
       execa:
         specifier: 5.1.1
@@ -872,16 +872,16 @@ importers:
   packages/types:
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/config-tsup':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsup
       '@commonalityco/utils-core':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../utils-core
       typescript:
         specifier: ^4.9.5
@@ -1030,16 +1030,16 @@ importers:
         version: 1.14.0
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tailwind':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tailwind
       '@commonalityco/config-tsconfig':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsconfig
       '@commonalityco/config-tsup':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsup
       '@testing-library/jest-dom':
         specifier: ^5.17.0
@@ -1167,10 +1167,10 @@ importers:
         version: 1.6.6
     devDependencies:
       '@commonalityco/config-eslint':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-eslint
       '@commonalityco/config-tsconfig':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../config-tsconfig
       typescript:
         specifier: ^4.9.5
@@ -1228,7 +1228,7 @@ importers:
   packages/utils-package:
     dependencies:
       '@commonalityco/utils-core':
-        specifier: workspace:*
+        specifier: '*'
         version: link:../utils-core
       '@popperjs/core':
         specifier: ^2.11.8
@@ -3375,7 +3375,6 @@ packages:
       strip-ansi-cjs: /strip-ansi@6.0.1
       wrap-ansi: 8.1.0
       wrap-ansi-cjs: /wrap-ansi@7.0.0
-    dev: true
 
   /@istanbuljs/load-nyc-config@1.1.0:
     resolution: {integrity: sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ==}
@@ -3862,7 +3861,6 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
     requiresBuild: true
-    dev: true
     optional: true
 
   /@pnpm/config.env-replace@1.1.0:
@@ -8112,7 +8110,6 @@ packages:
     resolution: {integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==}
     dependencies:
       balanced-match: 1.0.2
-    dev: true
 
   /braces@3.0.2:
     resolution: {integrity: sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==}
@@ -10379,7 +10376,6 @@ packages:
     dependencies:
       cross-spawn: 7.0.3
       signal-exit: 4.1.0
-    dev: true
 
   /forever-agent@0.6.1:
     resolution: {integrity: sha512-j0KLYPhm6zeac4lz3oJ3o65qvgQCcPubiyotZrXqEaG4hNagNYO8qdlUrX5vwqv9ohqeT/Z3j6+yW067yWWdUw==}
@@ -10658,7 +10654,6 @@ packages:
       minimatch: 9.0.3
       minipass: 7.0.3
       path-scurry: 1.10.1
-    dev: true
 
   /glob@7.1.6:
     resolution: {integrity: sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==}
@@ -11605,7 +11600,6 @@ packages:
       '@isaacs/cliui': 8.0.2
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
-    dev: true
 
   /jake@10.8.7:
     resolution: {integrity: sha512-ZDi3aP+fG/LchyBzUM804VjddnwfSfsdeYkwt8NcbKRvo4rFkjhs456iLFn3k2ZUWvNe4i48WACDbza8fhq2+w==}
@@ -12042,7 +12036,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.5.0
+      '@types/node': 18.17.5
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
@@ -12597,7 +12591,6 @@ packages:
   /lru-cache@10.0.1:
     resolution: {integrity: sha512-IJ4uwUTi2qCccrioU6g9g/5rvvVl13bsdczUUcqbciD9iLr095yj8DQKdObriEvuNSx325N1rV1O0sJFszx75g==}
     engines: {node: 14 || >=16.14}
-    dev: true
 
   /lru-cache@4.1.5:
     resolution: {integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==}
@@ -13249,7 +13242,6 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
       brace-expansion: 2.0.1
-    dev: true
 
   /minimist-options@4.1.0:
     resolution: {integrity: sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==}
@@ -13278,7 +13270,6 @@ packages:
   /minipass@7.0.3:
     resolution: {integrity: sha512-LhbbwCfz3vsb12j/WkWQPZfKTsgqIe1Nf/ti1pKjYESGLHIVjWU96G9/ljLH4F9mWNVhlQOm0VySdAWzf05dpg==}
     engines: {node: '>=16 || 14 >=14.17'}
-    dev: true
 
   /minizlib@2.1.2:
     resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
@@ -13899,7 +13890,6 @@ packages:
     dependencies:
       lru-cache: 10.0.1
       minipass: 7.0.3
-    dev: true
 
   /path-to-regexp@0.1.7:
     resolution: {integrity: sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==}
@@ -15223,6 +15213,14 @@ packages:
     dependencies:
       glob: 7.2.3
 
+  /rimraf@5.0.1:
+    resolution: {integrity: sha512-OfFZdwtd3lZ+XZzYP/6gTACubwFcHdLRqS9UX3UwpU2dnGQYkPFISRwvM3w9IiB2w7bW5qGo/uAwE4SmXXSKvg==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      glob: 10.3.3
+    dev: false
+
   /rollup@2.79.1:
     resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==}
     engines: {node: '>=10.0.0'}
@@ -15494,7 +15492,6 @@ packages:
   /signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
-    dev: true
 
   /simple-update-notifier@2.0.0:
     resolution: {integrity: sha512-a2B9Y0KlNXl9u/vsW6sTIu9vGEpfKu2wRV6l1H3XEas/0gUIzGzBoP/IouTcUQbm9JWZLH3COxyn03TYlFax6w==}
