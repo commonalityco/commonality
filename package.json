@@ -21,7 +21,6 @@
     "commonality:publish": "commonality publish",
     "prepare": "husky install",
     "type-check": "turbo run type-check",
-    "conform": "manypkg fix && preconstruct fix",
     "postinstall": "manypkg check"
   },
   "keywords": [],
