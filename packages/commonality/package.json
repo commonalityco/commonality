@@ -44,7 +44,7 @@
     "@commonalityco/data-violations": "*",
     "@commonalityco/studio": "*",
     "@commonalityco/utils-core": "*",
-    "chalk": "4.1.2",
+    "chalk": "5.3.0",
     "cliui": "^8.0.1",
     "commander": "^11.0.0",
     "get-port": "5.1.1",
