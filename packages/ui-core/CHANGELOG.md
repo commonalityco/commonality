@@ -1,5 +1,11 @@
 # @commonalityco/ui-core
 
+## 0.0.7
+
+### Patch Changes
+
+- 5fafb8f: use client for markdown
+
 ## 0.0.6
 
 ### Patch Changes
