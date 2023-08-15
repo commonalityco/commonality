@@ -41,7 +41,7 @@
     "@commonalityco/ui-design-system": "*",
     "@commonalityco/utils-core": "*",
     "@commonalityco/utils-package": "*",
-    "lucide-react": "^0.248.0",
+    "lucide-react": "^0.x",
     "react": ">=17",
     "react-dom": ">=17"
   },
