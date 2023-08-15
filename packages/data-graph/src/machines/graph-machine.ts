@@ -93,7 +93,7 @@ export const graphMachine = createMachine(
       theme: 'light',
       violations: [],
     },
-    tsTypes: {} as import('./graph-machine.typegen.d.ts').Typegen0,
+    tsTypes: {} as import('./graph-machine.typegen').Typegen0,
     schema: {
       events: {} as Event,
       context: {} as Context,
