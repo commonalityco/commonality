@@ -29,6 +29,6 @@
     "@commonalityco/config-tsconfig": "*",
     "@commonalityco/types": "*",
     "@commonalityco/utils-core": "*",
-    "typescript": "^4.9.5"
+    "typescript": "^5.1.6"
   }
 }
