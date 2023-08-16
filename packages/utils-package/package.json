@@ -12,14 +12,14 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@commonalityco/utils-core": "*"
+    "@commonalityco/utils-core": "^0.0.4"
   },
   "devDependencies": {
-    "@commonalityco/config-tsconfig": "*",
-    "@commonalityco/types": "*",
+    "@commonalityco/config-tsconfig": "^0.0.7",
+    "@commonalityco/types": "^0.0.11",
     "@types/react": "^18.2.20",
-    "eslint-config-commonality": "*",
-    "postcss": "^8.4.27",
+    "eslint-config-commonality": "^0.0.8",
+    "postcss": "^8.4.28",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.3.3",

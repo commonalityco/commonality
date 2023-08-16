@@ -20,9 +20,9 @@
     "@commonalityco/utils-core": "*"
   },
   "devDependencies": {
-    "@commonalityco/config-tsconfig": "*",
-    "@commonalityco/utils-core": "*",
-    "eslint-config-commonality": "*",
+    "@commonalityco/config-tsconfig": "^0.0.7",
+    "@commonalityco/utils-core": "^0.0.4",
+    "eslint-config-commonality": "^0.0.8",
     "typescript": "^5.1.6"
   }
 }
