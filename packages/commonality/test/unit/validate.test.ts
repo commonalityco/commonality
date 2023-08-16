@@ -1,4 +1,4 @@
-import { validateAction } from '../src/commands/validate.js';
+import { validateAction } from '../../src/commands/validate.js';
 import { vi, describe, it, expect, beforeEach, test, afterEach } from 'vitest';
 import { Command } from 'commander';
 
@@ -25,7 +25,9 @@ describe('validateAction', () => {
   const command = new Command();
 
   beforeEach(() => {
-    vi.spyOn(command, 'error').mockImplementation((() => {}) as any);
+    vi.spyOn(command, 'error').mockImplementation(
+      (() => {}) as unknown as typeof command.error,
+    );
     vi.spyOn(console, 'log').mockImplementation(() => {});
   });
 
@@ -37,7 +39,7 @@ describe('validateAction', () => {
     test('does not error', async () => {
       const errorSpy = vi
         .spyOn(command, 'error')
-        .mockImplementation((() => {}) as any);
+        .mockImplementation((() => {}) as unknown as typeof command.error);
 
       await validateAction({
         projectConfig: {},

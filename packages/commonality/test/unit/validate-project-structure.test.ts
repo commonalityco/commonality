@@ -1,4 +1,4 @@
-import { validateProjectStructure } from '../src/utils/validate-project-structure.js';
+import { validateProjectStructure } from '../../src/utils/validate-project-structure.js';
 import { Command } from 'commander';
 import {
   describe,
@@ -11,7 +11,7 @@ import {
 } from 'vitest';
 import os from 'node:os';
 import path from 'node:path';
-import { copy, remove, mkdtempSync } from 'fs-extra';
+import fs from 'fs-extra';
 import { fileURLToPath } from 'node:url';
 
 describe('validateProjectStructure', () => {
@@ -20,29 +20,29 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when there is no lockfile', () => {
-    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
-    const tempPath = mkdtempSync(tmpDirPath);
+    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
+    const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
       '../../test/fixtures/missing-lockfile',
     );
 
     beforeEach(async () => {
-      await copy(fixturePath, tempPath);
+      await fs.copy(fixturePath, temporaryPath);
     });
 
     afterAll(async () => {
-      await remove(tempPath);
+      await fs.remove(temporaryPath);
     });
 
     it('should throw an error if no lockfile is detected', async () => {
       const command = new Command();
       const spy = vi
         .spyOn(command, 'error')
-        .mockImplementation((() => {}) as any);
+        .mockImplementation((() => {}) as unknown as typeof command.error);
 
       await validateProjectStructure({
-        directory: tempPath,
+        directory: temporaryPath,
         command,
       });
 
@@ -54,29 +54,31 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when there is no root package', () => {
-    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
-    const tempPath = mkdtempSync(tmpDirPath);
+    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
+    const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
       '../../test/fixtures/missing-root-package',
     );
 
     beforeEach(async () => {
-      await copy(fixturePath, tempPath);
+      await fs.copy(fixturePath, temporaryPath);
     });
 
     afterAll(async () => {
-      await remove(tempPath);
+      await fs.remove(temporaryPath);
     });
 
     it('should throw an error', async () => {
       const command = new Command();
       const spy = vi.spyOn(command, 'error');
 
-      spy.mockImplementation((async () => {}) as any);
+      spy.mockImplementation(
+        (async () => {}) as unknown as typeof command.error,
+      );
 
       await validateProjectStructure({
-        directory: tempPath,
+        directory: temporaryPath,
         command,
       });
 
@@ -88,29 +90,31 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when there is an invalid root package.json', () => {
-    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
-    const tempPath = mkdtempSync(tmpDirPath);
+    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
+    const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
       '../../test/fixtures/invalid-root-package',
     );
 
     beforeEach(async () => {
-      await copy(fixturePath, tempPath);
+      await fs.copy(fixturePath, temporaryPath);
     });
 
     afterAll(async () => {
-      await remove(tempPath);
+      await fs.remove(temporaryPath);
     });
 
     it('should throw an error', async () => {
       const command = new Command();
-      const spy = vi.spyOn(command, 'error');
-
-      spy.mockImplementation((async () => {}) as any);
+      const spy = vi
+        .spyOn(command, 'error')
+        .mockImplementation(
+          (async () => {}) as unknown as typeof command.error,
+        );
 
       await validateProjectStructure({
-        directory: tempPath,
+        directory: temporaryPath,
         command,
       });
 
@@ -122,19 +126,19 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when running at the root of a valid project', () => {
-    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
-    const tempPath = mkdtempSync(tmpDirPath);
+    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
+    const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
       '../../test/fixtures/kitchen-sink',
     );
 
     beforeEach(async () => {
-      await copy(fixturePath, tempPath);
+      await fs.copy(fixturePath, temporaryPath);
     });
 
     afterAll(async () => {
-      await remove(tempPath);
+      await fs.remove(temporaryPath);
     });
 
     it('does not throw an error', async () => {
@@ -155,19 +159,19 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when running within a sub-directory of a valid project', () => {
-    const tmpDirPath = process.env['RUNNER_TEMP'] || os.tmpdir();
-    const tempPath = mkdtempSync(tmpDirPath);
+    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
+    const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
       '../../test/fixtures/kitchen-sink/packages/pkg-one',
     );
 
     beforeEach(async () => {
-      await copy(fixturePath, tempPath);
+      await fs.copy(fixturePath, temporaryPath);
     });
 
     afterAll(async () => {
-      await remove(tempPath);
+      await fs.remove(temporaryPath);
     });
 
     it('does not throw an error', async () => {

@@ -1,5 +1,5 @@
 import { SnapshotData } from '@commonalityco/types';
-import { actionHandler } from '../src/commands/publish';
+import { actionHandler } from '../../src/commands/publish.js';
 import got from 'got';
 
 import { vi, describe, it, afterEach, expect, beforeEach } from 'vitest';
@@ -28,9 +28,11 @@ describe('publish.action', () => {
 
     vi.spyOn(got, 'post').mockReturnValue({
       json: vi.fn().mockResolvedValue({ url: 'https://example.com' }),
-    } as any);
+    } as unknown as ReturnType<typeof got.post>);
 
-    vi.spyOn(action, 'error').mockImplementation((() => {}) as any);
+    vi.spyOn(action, 'error').mockImplementation(
+      (() => {}) as unknown as typeof action.error,
+    );
     vi.spyOn(console, 'log').mockImplementation(() => {});
   });
 
