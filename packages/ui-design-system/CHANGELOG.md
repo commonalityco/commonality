@@ -1,5 +1,11 @@
 # @commonalityco/ui-design-system
 
+## 0.0.5
+
+### Patch Changes
+
+- ee3504f: Distribute studio /dist
+
 ## 0.0.4
 
 ### Patch Changes

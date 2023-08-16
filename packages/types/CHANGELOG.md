@@ -1,5 +1,13 @@
 # @commonalityco/types
 
+## 0.0.12
+
+### Patch Changes
+
+- ee3504f: Distribute studio /dist
+- Updated dependencies [ee3504f]
+  - @commonalityco/utils-core@0.0.5
+
 ## 0.0.11
 
 ### Patch Changes

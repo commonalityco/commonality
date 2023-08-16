@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/data-graph-worker",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -8,7 +8,7 @@
   },
   "main": "./dist/index.js",
   "devDependencies": {
-    "@commonalityco/utils-graph": "^0.0.4",
+    "@commonalityco/utils-graph": "^0.0.5",
     "@types/cytoscape": "^3.19.10",
     "cytoscape": "^3.26.0",
     "eslint-config-commonality": "^0.0.8"

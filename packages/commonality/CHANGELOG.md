@@ -1,5 +1,20 @@
 # @commonalityco/cli
 
+## 0.1.6
+
+### Patch Changes
+
+- ee3504f: Distribute studio /dist
+- Updated dependencies [ee3504f]
+  - @commonalityco/data-codeowners@0.0.10
+  - @commonalityco/data-violations@0.0.10
+  - @commonalityco/data-documents@0.0.6
+  - @commonalityco/data-packages@0.0.11
+  - @commonalityco/data-project@0.0.5
+  - @commonalityco/utils-core@0.0.5
+  - @commonalityco/data-tags@0.0.6
+  - @commonalityco/studio@0.2.6
+
 ## 0.1.5
 
 ### Patch Changes

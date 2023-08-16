@@ -1,5 +1,27 @@
 # @commonalityco/dashboard
 
+## 0.2.6
+
+### Patch Changes
+
+- ee3504f: Distribute studio /dist
+- Updated dependencies [ee3504f]
+  - @commonalityco/data-graph-worker@0.0.4
+  - @commonalityco/ui-design-system@0.0.5
+  - @commonalityco/data-codeowners@0.0.10
+  - @commonalityco/data-violations@0.0.10
+  - @commonalityco/data-documents@0.0.6
+  - @commonalityco/data-packages@0.0.11
+  - @commonalityco/feature-graph@0.0.7
+  - @commonalityco/utils-package@0.0.5
+  - @commonalityco/data-project@0.0.5
+  - @commonalityco/utils-graph@0.0.5
+  - @commonalityco/data-graph@0.0.6
+  - @commonalityco/utils-core@0.0.5
+  - @commonalityco/data-tags@0.0.6
+  - @commonalityco/ui-graph@0.0.8
+  - @commonalityco/ui-core@0.0.8
+
 ## 0.2.5
 
 ### Patch Changes
