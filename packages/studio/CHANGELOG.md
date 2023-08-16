@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.7
+
+### Patch Changes
+
+- 37f1a87: Distribute dist/
+
 ## 0.2.6
 
 ### Patch Changes
