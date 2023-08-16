@@ -1,5 +1,11 @@
 # @commonalityco/traverse
 
+## 0.0.11
+
+### Patch Changes
+
+- a4e018c: Bundle CLI
+
 ## 0.0.10
 
 ### Patch Changes
