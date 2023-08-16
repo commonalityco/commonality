@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/types",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "^0.0.7",
-    "@commonalityco/utils-core": "^0.0.4",
+    "@commonalityco/utils-core": "^0.0.5",
     "eslint-config-commonality": "^0.0.8",
     "typescript": "^5.1.6"
   }

@@ -1,5 +1,14 @@
 # @commonalityco/snapshot
 
+## 0.0.6
+
+### Patch Changes
+
+- ee3504f: Distribute studio /dist
+- Updated dependencies [ee3504f]
+  - @commonalityco/data-project@0.0.5
+  - @commonalityco/utils-core@0.0.5
+
 ## 0.0.5
 
 ### Patch Changes

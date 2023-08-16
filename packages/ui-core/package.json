@@ -1,10 +1,10 @@
 {
   "name": "@commonalityco/ui-core",
   "type": "module",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@commonalityco/types": "^0.0.11",
+    "@commonalityco/types": "^0.0.12",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "react-markdown": "^8.0.7",
@@ -15,7 +15,7 @@
   "devDependencies": {
     "@commonalityco/config-tailwind": "^0.0.5",
     "@commonalityco/config-tsconfig": "^0.0.7",
-    "@commonalityco/ui-design-system": "^0.0.4",
+    "@commonalityco/ui-design-system": "^0.0.5",
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.2.20",
     "@types/react-syntax-highlighter": "^15.5.7",

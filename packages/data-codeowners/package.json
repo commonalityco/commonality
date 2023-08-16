@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/data-codeowners",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "publishConfig": {
     "access": "public"
   },
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "^0.0.7",
-    "@commonalityco/types": "^0.0.11",
+    "@commonalityco/types": "^0.0.12",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^20.5.0",
     "eslint-config-commonality": "^0.0.8",

@@ -1,5 +1,17 @@
 # @commonalityco/ui-graph
 
+## 0.0.8
+
+### Patch Changes
+
+- ee3504f: Distribute studio /dist
+- Updated dependencies [ee3504f]
+  - @commonalityco/ui-design-system@0.0.5
+  - @commonalityco/utils-package@0.0.5
+  - @commonalityco/utils-core@0.0.5
+  - @commonalityco/ui-core@0.0.8
+  - @commonalityco/types@0.0.12
+
 ## 0.0.7
 
 ### Patch Changes

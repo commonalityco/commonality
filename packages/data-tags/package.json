@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/data-tags",
   "description": "Utilities getting and setting metadata for a Commonality project",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "publishConfig": {
     "access": "public"
   },
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "^0.0.7",
-    "@commonalityco/types": "^0.0.11",
+    "@commonalityco/types": "^0.0.12",
     "@types/fs-extra": "^11.0.1",
     "@types/lodash.uniq": "^4.5.7",
     "@types/node": "^20.5.0",
@@ -29,8 +29,8 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@commonalityco/data-project": "^0.0.4",
-    "@commonalityco/utils-core": "^0.0.4",
+    "@commonalityco/data-project": "^0.0.5",
+    "@commonalityco/utils-core": "^0.0.5",
     "fs-extra": "^11.1.1",
     "lodash.uniq": "^4.5.0"
   }

@@ -1,5 +1,11 @@
 # @commonalityco/constraints
 
+## 0.0.10
+
+### Patch Changes
+
+- ee3504f: Distribute studio /dist
+
 ## 0.0.9
 
 ### Patch Changes

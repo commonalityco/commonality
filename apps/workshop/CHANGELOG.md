@@ -1,5 +1,19 @@
 # workshop
 
+## 1.0.5
+
+### Patch Changes
+
+- ee3504f: Distribute studio /dist
+- Updated dependencies [ee3504f]
+  - @commonalityco/ui-design-system@0.0.5
+  - @commonalityco/feature-graph@0.0.7
+  - @commonalityco/utils-graph@0.0.5
+  - @commonalityco/utils-core@0.0.5
+  - @commonalityco/ui-graph@0.0.8
+  - @commonalityco/ui-core@0.0.8
+  - @commonalityco/types@0.0.12
+
 ## 1.0.4
 
 ### Patch Changes
