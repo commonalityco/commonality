@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.1.7
+
+### Patch Changes
+
+- a4e018c: Bundle CLI
+- Updated dependencies [a4e018c]
+  - @commonalityco/studio@0.2.8
+
 ## 0.1.6
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @commonalityco/dashboard
 
+## 0.2.8
+
+### Patch Changes
+
+- a4e018c: Bundle CLI
+- Updated dependencies [a4e018c]
+  - @commonalityco/data-codeowners@0.0.11
+
 ## 0.2.7
 
 ### Patch Changes
