@@ -189,30 +189,9 @@ importers:
 
   packages/commonality:
     dependencies:
-      '@commonalityco/data-codeowners':
-        specifier: ^0.0.10
-        version: link:../data-codeowners
-      '@commonalityco/data-documents':
-        specifier: ^0.0.6
-        version: link:../data-documents
-      '@commonalityco/data-packages':
-        specifier: ^0.0.11
-        version: link:../data-packages
-      '@commonalityco/data-project':
-        specifier: ^0.0.5
-        version: link:../data-project
-      '@commonalityco/data-tags':
-        specifier: ^0.0.6
-        version: link:../data-tags
-      '@commonalityco/data-violations':
-        specifier: ^0.0.10
-        version: link:../data-violations
       '@commonalityco/studio':
         specifier: ^0.2.6
         version: link:../studio
-      '@commonalityco/utils-core':
-        specifier: ^0.0.5
-        version: link:../utils-core
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
@@ -244,9 +223,30 @@ importers:
       '@commonalityco/config-tsconfig':
         specifier: ^0.0.7
         version: link:../config-tsconfig
+      '@commonalityco/data-codeowners':
+        specifier: ^0.0.10
+        version: link:../data-codeowners
+      '@commonalityco/data-documents':
+        specifier: ^0.0.6
+        version: link:../data-documents
+      '@commonalityco/data-packages':
+        specifier: ^0.0.11
+        version: link:../data-packages
+      '@commonalityco/data-project':
+        specifier: ^0.0.5
+        version: link:../data-project
+      '@commonalityco/data-tags':
+        specifier: ^0.0.6
+        version: link:../data-tags
+      '@commonalityco/data-violations':
+        specifier: ^0.0.10
+        version: link:../data-violations
       '@commonalityco/types':
         specifier: ^0.0.12
         version: link:../types
+      '@commonalityco/utils-core':
+        specifier: ^0.0.5
+        version: link:../utils-core
       '@swc/core':
         specifier: ^1.3.77
         version: 1.3.77
@@ -341,9 +341,9 @@ importers:
       ignore:
         specifier: ^5.2.4
         version: 5.2.4
-      micromatch:
-        specifier: ^4.0.5
-        version: 4.0.5
+      minimatch:
+        specifier: ^9.0.3
+        version: 9.0.3
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: ^0.0.7
@@ -360,9 +360,6 @@ importers:
       eslint-config-commonality:
         specifier: ^0.0.8
         version: link:../config-eslint
-      minimatch:
-        specifier: ^9.0.3
-        version: 9.0.3
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
@@ -711,6 +708,12 @@ importers:
       '@commonalityco/utils-package':
         specifier: ^0.0.5
         version: link:../utils-package
+      '@xstate/react':
+        specifier: ^3.2.2
+        version: 3.2.2(@types/react@18.2.20)(react@18.2.0)(xstate@4.38.2)
+      cytoscape:
+        specifier: ^3.26.0
+        version: 3.26.0
       execa:
         specifier: ^7.2.0
         version: 7.2.0
@@ -732,6 +735,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      xstate:
+        specifier: ^4.38.2
+        version: 4.38.2
     devDependencies:
       '@commonalityco/config-tailwind':
         specifier: ^0.0.5
@@ -772,9 +778,6 @@ importers:
       '@types/resolve':
         specifier: ^1.20.2
         version: 1.20.2
-      '@xstate/react':
-        specifier: ^3.2.2
-        version: 3.2.2(@types/react@18.2.20)(react@18.2.0)(xstate@4.38.2)
       autoprefixer:
         specifier: ^10.4.15
         version: 10.4.15(postcss@8.4.28)
@@ -787,9 +790,6 @@ importers:
       cypress:
         specifier: ^12.17.4
         version: 12.17.4
-      cytoscape:
-        specifier: ^3.26.0
-        version: 3.26.0
       eslint:
         specifier: ^8.47.0
         version: 8.47.0
@@ -838,9 +838,6 @@ importers:
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
-      xstate:
-        specifier: ^4.38.2
-        version: 4.38.2
 
   packages/types:
     devDependencies:
@@ -6777,7 +6774,7 @@ packages:
   /@types/node-fetch@2.6.4:
     resolution: {integrity: sha512-1ZX9fcN4Rvkvgv4E6PAY5WXUFWFcRWxZa3EW83UjycOB9ljJCedb2CupIP4RZMEwF/M3eTcCihbBRgwtGbg5Rg==}
     dependencies:
-      '@types/node': 16.18.40
+      '@types/node': 20.5.0
       form-data: 3.0.1
     dev: true
 
@@ -7277,7 +7274,6 @@ packages:
       xstate: 4.38.2
     transitivePeerDependencies:
       - '@types/react'
-    dev: true
 
   /@xtuc/ieee754@1.2.0:
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -17205,7 +17201,6 @@ packages:
 
   /xstate@4.38.2:
     resolution: {integrity: sha512-Fba/DwEPDLneHT3tbJ9F3zafbQXszOlyCJyQqqdzmtlY/cwE2th462KK48yaANf98jHlP6lJvxfNtN0LFKXPQg==}
-    dev: true
 
   /xtend@4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}

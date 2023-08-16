@@ -1,3 +1,9 @@
 #!/usr/bin/env node
+import updateNotifier from 'update-notifier';
+import fs from 'fs-extra';
 
-import './dist/index.js';
+const packageJson = fs.readJsonSync('./package.json');
+
+updateNotifier({ pkg: packageJson }).notify();
+
+import('./dist/index.js');

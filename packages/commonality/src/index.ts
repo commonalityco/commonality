@@ -3,10 +3,7 @@ import { publish } from './commands/publish.js';
 import { init } from './commands/init.js';
 import { validate } from './commands/validate.js';
 import { open } from './commands/open.js';
-import updateNotifier from 'update-notifier';
 import packageJson from '../package.json';
-
-updateNotifier({ pkg: packageJson }).notify();
 
 const program = new Command();
 
