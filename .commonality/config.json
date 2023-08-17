@@ -1,1 +1,11 @@
-{"projectId":"123abc","constraints":[{"applyTo":"*","disallow":["deliverable"]},{"applyTo":"feature","allow":"*"},{"applyTo":"config","allow":["config"]},{"applyTo":"ui","allow":["ui","utility","config"]},{"applyTo":"data","allow":["data","utility","config"]},{"applyTo":"utility","allow":["data","utility","config"]}]}
+{
+  "projectId": "123abc",
+  "constraints": [
+    { "applyTo": "*", "disallow": ["deliverable"] },
+    { "applyTo": "feature", "allow": "*" },
+    { "applyTo": "config", "allow": ["config"] },
+    { "applyTo": "ui", "allow": ["ui", "utility", "config"] },
+    { "applyTo": "data", "allow": ["data", "utility", "config"] },
+    { "applyTo": "utility", "allow": ["data", "utility", "config"] }
+  ]
+}
