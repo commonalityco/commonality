@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.1.8
+
+### Patch Changes
+
+- 0457822: add link command
+- Updated dependencies [0457822]
+  - @commonalityco/studio@0.2.9
+
 ## 0.1.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @commonalityco/traverse
 
+## 0.0.12
+
+### Patch Changes
+
+- 0457822: add link command
+
 ## 0.0.11
 
 ### Patch Changes
