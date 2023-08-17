@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/studio",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "publishConfig": {
     "access": "public"
   },
@@ -20,7 +20,7 @@
     "e2e:headless": "pnpm run build:script && start-server-and-test e2e:run-script http://localhost:3000 \"cypress run --e2e\""
   },
   "dependencies": {
-    "@commonalityco/data-codeowners": "^0.0.11",
+    "@commonalityco/data-codeowners": "^0.0.12",
     "@commonalityco/data-documents": "^0.0.6",
     "@commonalityco/data-graph": "^0.0.6",
     "@commonalityco/data-graph-worker": "^0.0.4",

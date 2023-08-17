@@ -1,5 +1,13 @@
 # @commonalityco/dashboard
 
+## 0.2.9
+
+### Patch Changes
+
+- 0457822: add link command
+- Updated dependencies [0457822]
+  - @commonalityco/data-codeowners@0.0.12
+
 ## 0.2.8
 
 ### Patch Changes
