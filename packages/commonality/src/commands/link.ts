@@ -3,6 +3,7 @@ import { getRootDirectory } from '@commonalityco/data-project';
 import path from 'node:path';
 import fs from 'fs-extra';
 import { validateProjectStructure } from '../utils/validate-project-structure.js';
+import chalk from 'chalk';
 
 const command = new Command();
 
@@ -32,6 +33,9 @@ export const linkAction = async (options: { project: string }) => {
         projectId: options.project,
       });
     }
+
+    console.log(chalk.green.bold('Successfully updated configuration file'));
+    console.log(chalk.dim(projectConfigPath));
   } catch (error) {
     console.log(error);
     command.error('Failed to link project');
