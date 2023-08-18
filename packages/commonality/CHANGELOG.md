@@ -1,5 +1,12 @@
 # @commonalityco/cli
 
+## 0.1.9
+
+### Patch Changes
+
+- a7691a8: Add skeleton and dep updates
+  - @commonalityco/studio@0.2.10
+
 ## 0.1.8
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @commonalityco/utils-graph
 
+## 0.0.6
+
+### Patch Changes
+
+- a7691a8: Add skeleton and dep updates
+- Updated dependencies [a7691a8]
+  - @commonalityco/utils-core@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes

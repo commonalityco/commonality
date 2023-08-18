@@ -5,8 +5,8 @@
   "devDependencies": {
     "@commonalityco/config-tsconfig": "^0.0.7",
     "@commonalityco/types": "^0.0.12",
-    "@commonalityco/utils-core": "^0.0.5",
-    "@commonalityco/utils-graph": "^0.0.5",
+    "@commonalityco/utils-core": "^0.0.6",
+    "@commonalityco/utils-graph": "^0.0.6",
     "@popperjs/core": "^2.11.8",
     "@types/cytoscape": "^3.19.10",
     "@types/lodash.debounce": "^4.0.7",

@@ -1,5 +1,11 @@
 # @commonalityco/utils-core
 
+## 0.0.6
+
+### Patch Changes
+
+- a7691a8: Add skeleton and dep updates
+
 ## 0.0.5
 
 ### Patch Changes
