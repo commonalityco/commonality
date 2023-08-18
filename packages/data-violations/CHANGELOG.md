@@ -1,5 +1,11 @@
 # @commonalityco/constraints
 
+## 0.0.11
+
+### Patch Changes
+
+- a7691a8: Add skeleton and dep updates
+
 ## 0.0.10
 
 ### Patch Changes

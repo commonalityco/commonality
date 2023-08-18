@@ -1,5 +1,11 @@
 # @commonalityco/traverse
 
+## 0.0.13
+
+### Patch Changes
+
+- a7691a8: Add skeleton and dep updates
+
 ## 0.0.12
 
 ### Patch Changes

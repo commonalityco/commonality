@@ -1,5 +1,14 @@
 # @commonalityco/snapshot
 
+## 0.0.7
+
+### Patch Changes
+
+- a7691a8: Add skeleton and dep updates
+- Updated dependencies [a7691a8]
+  - @commonalityco/data-project@0.0.6
+  - @commonalityco/utils-core@0.0.6
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @commonalityco/constraints
 
+## 0.0.12
+
+### Patch Changes
+
+- a7691a8: Add skeleton and dep updates
+- Updated dependencies [a7691a8]
+  - @commonalityco/data-project@0.0.6
+  - @commonalityco/utils-core@0.0.6
+
 ## 0.0.11
 
 ### Patch Changes
