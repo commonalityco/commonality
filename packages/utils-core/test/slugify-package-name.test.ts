@@ -1,11 +1,11 @@
-import { slugifyPackageName } from './slugify-package-name';
+import { slugifyPackageName } from '../src/slugify-package-name';
 import { describe, test, expect } from 'vitest';
 
 describe('when the package name has a scope', () => {
   describe('when passed a package name with special characters', () => {
     test('returns the correct string', () => {
       const packageName = slugifyPackageName(
-        '@scope/This is a @package name!  '
+        '@scope/This is a @package name!  ',
       );
 
       expect(packageName).toEqual('scope-this-is-a-package-name');

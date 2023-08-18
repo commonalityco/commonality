@@ -4,7 +4,7 @@ import { getCodeowners } from '../src/core/get-codeowners.js';
 import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 
-describe.only('getCodeOwners', () => {
+describe('getCodeOwners', () => {
   describe('when the file is at the root of the repo', () => {
     it('returns an object containing the correct owners for each glob', async () => {
       const rootDirectory = path.resolve(
@@ -13,20 +13,18 @@ describe.only('getCodeOwners', () => {
       );
       const ownership = await getCodeowners({ rootDirectory });
 
-      const globalOwners = ['@global-owner1', '@global-owner2'];
-
       expect(ownership).toEqual({
-        '*': globalOwners,
-        '*.js': ['@js-owner'],
-        '*.go': ['docs@example.com'],
-        '*.txt': ['@octo-org/octocats'],
-        '/build/logs/': ['@doctocat'],
-        'docs/*': ['docs@example.com'],
-        'apps/': ['@octocat'],
-        '/docs/': ['@doctocat'],
-        '/scripts/': ['@doctocat', '@octocat'],
-        '/apps/': ['@octocat'],
-        '/apps/github': globalOwners,
+        '**': ['@global-owner1', '@global-owner2'],
+        '**/*.js': ['@js-owner'],
+        '**/*.go': ['docs@example.com'],
+        '**/*.txt': ['@octo-org/octocats'],
+        'build/logs/**': ['@doctocat'],
+        '**/docs/*': ['docs@example.com'],
+        '**/apps/**': ['@octocat'],
+        'docs/**': ['@doctocat'],
+        'scripts/**': ['@doctocat', '@octocat'],
+        'apps/**': ['@octocat'],
+        'apps/github/*': [],
       });
     });
   });

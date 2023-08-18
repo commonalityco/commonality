@@ -376,7 +376,9 @@ describe('hideDependencies', () => {
       traversalGraph,
       id: 'one',
     });
-    console.log({ shownElements: shownElements.map((element) => element.data) });
+    console.log({
+      shownElements: shownElements.map((element) => element.data),
+    });
     expect(shownElements).toMatchObject([nodeOne]);
   });
 });
