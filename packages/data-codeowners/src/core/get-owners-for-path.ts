@@ -8,20 +8,19 @@ export const getOwnersForPath = ({
   codeowners: Record<string, string[]>;
 }): string[] => {
   const patterns = Object.keys(codeowners);
-  const matchingPatterns = [];
+  let matchingPattern: undefined | string = undefined;
 
   for (const pattern of patterns) {
-    console.log({ path, pattern });
     const isMatch = minimatch(path, pattern);
 
     if (isMatch) {
-      matchingPatterns.push(pattern);
+      matchingPattern = pattern;
     }
   }
 
-  const allPatterns = matchingPatterns
-    .flatMap((pattern) => codeowners[pattern])
-    .filter(Boolean);
+  if (!matchingPattern) {
+    return [];
+  }
 
-  return [...new Set(allPatterns)];
+  return codeowners[matchingPattern];
 };

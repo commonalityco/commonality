@@ -55,10 +55,10 @@ describe('getProjectConfig', () => {
       });
     });
 
-    it('should throw an error if the file exists but is invalid', async () => {
+    it('should return the parsed project config without invalid properties', async () => {
       const rootDirectory = path.join(
         path.dirname(fileURLToPath(import.meta.url)),
-        '../fixtures',
+        './fixtures',
         'invalid-project-config',
       );
 

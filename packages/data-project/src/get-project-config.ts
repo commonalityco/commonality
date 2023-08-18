@@ -24,7 +24,7 @@ const projectConfigSchema = z
             applyTo: z.string(),
             disallow: z.union([z.array(z.string()), allPackagesWildcard]),
           }),
-        ])
+        ]),
       )
       .optional(),
   })
@@ -37,7 +37,7 @@ export const getProjectConfig = async ({
 }): Promise<z.infer<typeof projectConfigSchema>> => {
   const projectConfigPath = path.join(
     rootDirectory,
-    '.commonality/config.json'
+    '.commonality/config.json',
   );
 
   if (!fs.pathExistsSync(projectConfigPath)) {

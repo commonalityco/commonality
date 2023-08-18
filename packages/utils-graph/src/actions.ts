@@ -33,12 +33,9 @@ export const show = withSerialization(
     renderGraph: Core;
     selector: Filter;
   }) => {
-    const matchingNodes = traversalGraph.nodes().filter((...rest) => {
-      if (typeof selector === 'function') {
-        return selector(...rest);
-      }
-      return false;
-    });
+    // eslint-disable-next-line unicorn/no-array-callback-reference
+    const matchingNodes = traversalGraph.nodes().filter(selector);
+
     const existingNodes = renderGraph.nodes();
     const nodesToRender = existingNodes.union(matchingNodes);
     const edgesToRender = nodesToRender.nodes().edgesTo(nodesToRender.nodes());
@@ -105,17 +102,13 @@ export const focus = withSerialization(
     traversalGraph: Core;
     selector: Filter;
   }) => {
-    const nodesToRender = traversalGraph.nodes().filter((...rest) => {
-      if (typeof selector === 'function') {
-        return selector(...rest);
-      }
-      return false;
-    });
-    const edgesToRender = nodesToRender.edgesTo(nodesToRender);
+    // eslint-disable-next-line unicorn/no-array-callback-reference
+    const matchingNodes = traversalGraph.nodes().filter(selector);
+    const edgesToRender = matchingNodes.edgesTo(matchingNodes);
 
     return traversalGraph
       .collection()
-      .union(nodesToRender)
+      .union(matchingNodes)
       .union(edgesToRender);
   },
 );
@@ -185,15 +178,11 @@ export const hide = withSerialization(
     selector: Filter;
   }) => {
     const elementsToHide = traversalGraph.collection();
-    const nodesToHide = traversalGraph.nodes().filter((...rest) => {
-      if (typeof selector === 'function') {
-        return selector(...rest);
-      }
-      return false;
-    });
-    const edgesForElements = nodesToHide.connectedEdges();
+    // eslint-disable-next-line unicorn/no-array-callback-reference
+    const matchingNodes = traversalGraph.nodes().filter(selector);
+    const edgesForElements = matchingNodes.connectedEdges();
 
-    elementsToHide.merge(nodesToHide).merge(edgesForElements);
+    elementsToHide.merge(matchingNodes).merge(edgesForElements);
 
     return renderGraph.elements().difference(elementsToHide);
   },
