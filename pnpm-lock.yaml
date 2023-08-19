@@ -81,10 +81,10 @@ importers:
         specifier: ^0.0.8
         version: link:../../packages/ui-core
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../../packages/ui-design-system
       '@commonalityco/ui-graph':
-        specifier: ^0.0.8
+        specifier: ^0.0.9
         version: link:../../packages/ui-graph
       '@commonalityco/utils-core':
         specifier: ^0.0.6
@@ -610,10 +610,10 @@ importers:
         specifier: ^0.0.12
         version: link:../types
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../ui-design-system
       '@commonalityco/ui-graph':
-        specifier: ^0.0.8
+        specifier: ^0.0.9
         version: link:../ui-graph
       '@commonalityco/utils-core':
         specifier: ^0.0.6
@@ -694,10 +694,10 @@ importers:
         specifier: ^0.0.8
         version: link:../ui-core
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../ui-design-system
       '@commonalityco/ui-graph':
-        specifier: ^0.0.8
+        specifier: ^0.0.9
         version: link:../ui-graph
       '@commonalityco/utils-core':
         specifier: ^0.0.6
@@ -885,7 +885,7 @@ importers:
         specifier: ^0.0.7
         version: link:../config-tsconfig
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../ui-design-system
       '@testing-library/react':
         specifier: ^14.0.0
@@ -1064,7 +1064,7 @@ importers:
         specifier: ^0.0.8
         version: link:../ui-core
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../ui-design-system
       '@commonalityco/utils-core':
         specifier: ^0.0.6
