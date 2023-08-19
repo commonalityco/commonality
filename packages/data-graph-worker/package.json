@@ -2,6 +2,9 @@
   "name": "@commonalityco/data-graph-worker",
   "version": "0.0.4",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js"

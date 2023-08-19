@@ -2,6 +2,9 @@
   "name": "@commonalityco/data-graph",
   "description": "State management utilities for the Commonality Dashboard graph",
   "version": "0.0.6",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "^0.0.7",
     "@commonalityco/types": "^0.0.12",

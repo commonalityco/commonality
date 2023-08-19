@@ -2,6 +2,9 @@
   "name": "@commonalityco/ui-core",
   "type": "module",
   "version": "0.0.8",
+  "publishConfig": {
+    "access": "public"
+  },
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@commonalityco/types": "^0.0.12",

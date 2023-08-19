@@ -3,6 +3,9 @@
   "version": "0.0.6",
   "type": "module",
   "description": "Contains the common constants used in all Commonality applications and packages",
+  "publishConfig": {
+    "access": "public"
+  },
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js"

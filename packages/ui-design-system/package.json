@@ -1,6 +1,9 @@
 {
   "name": "@commonalityco/ui-design-system",
   "version": "0.0.7",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "types": "./dist/index.d.ts",
   "dependencies": {
