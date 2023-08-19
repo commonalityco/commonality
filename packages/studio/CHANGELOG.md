@@ -1,5 +1,25 @@
 # @commonalityco/dashboard
 
+## 0.2.12
+
+### Patch Changes
+
+- Updated dependencies [26e1636]
+  - @commonalityco/data-graph-worker@0.0.5
+  - @commonalityco/ui-design-system@0.0.8
+  - @commonalityco/data-violations@0.0.12
+  - @commonalityco/data-packages@0.0.13
+  - @commonalityco/feature-graph@0.0.8
+  - @commonalityco/utils-graph@0.0.7
+  - @commonalityco/data-graph@0.0.7
+  - @commonalityco/utils-core@0.0.7
+  - @commonalityco/ui-graph@0.0.10
+  - @commonalityco/ui-core@0.0.9
+  - @commonalityco/data-documents@0.0.8
+  - @commonalityco/data-project@0.0.7
+  - @commonalityco/data-tags@0.0.8
+  - @commonalityco/utils-package@0.0.7
+
 ## 0.2.11
 
 ### Patch Changes

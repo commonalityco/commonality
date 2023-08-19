@@ -1,5 +1,11 @@
 # @commonalityco/utils-core
 
+## 0.0.7
+
+### Patch Changes
+
+- 26e1636: Publish foundational packages
+
 ## 0.0.6
 
 ### Patch Changes

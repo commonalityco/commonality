@@ -1,5 +1,11 @@
 # @commonalityco/constraints
 
+## 0.0.12
+
+### Patch Changes
+
+- 26e1636: Publish foundational packages
+
 ## 0.0.11
 
 ### Patch Changes

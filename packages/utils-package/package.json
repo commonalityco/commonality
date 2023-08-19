@@ -6,13 +6,13 @@
     ".": "./dist/index.js"
   },
   "main": "./dist/index.js",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "publishConfig": {
     "access": "public"
   },
   "license": "MIT",
   "dependencies": {
-    "@commonalityco/utils-core": "^0.0.6"
+    "@commonalityco/utils-core": "^0.0.7"
   },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "^0.0.7",

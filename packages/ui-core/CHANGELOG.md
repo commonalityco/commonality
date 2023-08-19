@@ -1,5 +1,13 @@
 # @commonalityco/ui-core
 
+## 0.0.9
+
+### Patch Changes
+
+- 26e1636: Publish foundational packages
+- Updated dependencies [26e1636]
+  - @commonalityco/ui-design-system@0.0.8
+
 ## 0.0.8
 
 ### Patch Changes

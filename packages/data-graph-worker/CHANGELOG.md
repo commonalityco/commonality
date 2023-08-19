@@ -1,5 +1,13 @@
 # @commonalityco/data-graph-worker
 
+## 0.0.5
+
+### Patch Changes
+
+- 26e1636: Publish foundational packages
+- Updated dependencies [26e1636]
+  - @commonalityco/utils-graph@0.0.7
+
 ## 0.0.4
 
 ### Patch Changes
