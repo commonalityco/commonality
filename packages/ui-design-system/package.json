@@ -45,7 +45,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "lucide-react": "^0.268.0",
+    "lucide-react": "^0.x",
     "react": ">=18",
     "react-dom": ">=18"
   },
