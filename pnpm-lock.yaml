@@ -72,25 +72,25 @@ importers:
   apps/workshop:
     dependencies:
       '@commonalityco/feature-graph':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../../packages/feature-graph
       '@commonalityco/types':
         specifier: ^0.0.12
         version: link:../../packages/types
       '@commonalityco/ui-core':
-        specifier: ^0.0.8
+        specifier: ^0.0.9
         version: link:../../packages/ui-core
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../../packages/ui-design-system
       '@commonalityco/ui-graph':
-        specifier: ^0.0.9
+        specifier: ^0.0.10
         version: link:../../packages/ui-graph
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../../packages/utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../../packages/utils-graph
       next:
         specifier: 13.4.16
@@ -190,7 +190,7 @@ importers:
   packages/commonality:
     dependencies:
       '@commonalityco/studio':
-        specifier: ^0.2.10
+        specifier: ^0.2.12
         version: link:../studio
       chalk:
         specifier: ^5.3.0
@@ -227,25 +227,25 @@ importers:
         specifier: ^0.0.13
         version: link:../data-codeowners
       '@commonalityco/data-documents':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../data-documents
       '@commonalityco/data-packages':
-        specifier: ^0.0.12
+        specifier: ^0.0.13
         version: link:../data-packages
       '@commonalityco/data-project':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../data-project
       '@commonalityco/data-tags':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../data-tags
       '@commonalityco/data-violations':
-        specifier: ^0.0.11
+        specifier: ^0.0.12
         version: link:../data-violations
       '@commonalityco/types':
         specifier: ^0.0.12
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       '@swc/core':
         specifier: ^1.3.77
@@ -367,7 +367,7 @@ importers:
   packages/data-documents:
     dependencies:
       '@commonalityco/data-project':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../data-project
       fs-extra:
         specifier: ^11.1.1
@@ -383,7 +383,7 @@ importers:
         specifier: ^0.0.12
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       '@types/fs-extra':
         specifier: ^11.0.1
@@ -414,10 +414,10 @@ importers:
         specifier: ^0.0.12
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-graph
       '@popperjs/core':
         specifier: ^2.11.8
@@ -441,7 +441,7 @@ importers:
   packages/data-graph-worker:
     devDependencies:
       '@commonalityco/utils-graph':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-graph
       '@types/cytoscape':
         specifier: ^3.19.10
@@ -456,10 +456,10 @@ importers:
   packages/data-packages:
     dependencies:
       '@commonalityco/data-project':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../data-project
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       fs-extra:
         specifier: ^11.1.1
@@ -487,7 +487,7 @@ importers:
   packages/data-project:
     dependencies:
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       chalk:
         specifier: ^5.3.0
@@ -530,10 +530,10 @@ importers:
   packages/data-tags:
     dependencies:
       '@commonalityco/data-project':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../data-project
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       fs-extra:
         specifier: ^11.1.1
@@ -573,7 +573,7 @@ importers:
         specifier: ^0.0.12
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       eslint-config-commonality:
         specifier: ^0.0.8
@@ -604,22 +604,22 @@ importers:
         specifier: ^0.0.7
         version: link:../config-tsconfig
       '@commonalityco/data-graph':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../data-graph
       '@commonalityco/types':
         specifier: ^0.0.12
         version: link:../types
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../ui-design-system
       '@commonalityco/ui-graph':
-        specifier: ^0.0.9
+        specifier: ^0.0.10
         version: link:../ui-graph
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-graph
       '@testing-library/jest-dom':
         specifier: ^6.0.0
@@ -667,46 +667,46 @@ importers:
         specifier: ^0.0.13
         version: link:../data-codeowners
       '@commonalityco/data-documents':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../data-documents
       '@commonalityco/data-graph':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../data-graph
       '@commonalityco/data-graph-worker':
-        specifier: ^0.0.4
+        specifier: ^0.0.5
         version: link:../data-graph-worker
       '@commonalityco/data-packages':
-        specifier: ^0.0.12
+        specifier: ^0.0.13
         version: link:../data-packages
       '@commonalityco/data-project':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../data-project
       '@commonalityco/data-tags':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../data-tags
       '@commonalityco/data-violations':
-        specifier: ^0.0.11
+        specifier: ^0.0.12
         version: link:../data-violations
       '@commonalityco/feature-graph':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../feature-graph
       '@commonalityco/ui-core':
-        specifier: ^0.0.8
+        specifier: ^0.0.9
         version: link:../ui-core
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../ui-design-system
       '@commonalityco/ui-graph':
-        specifier: ^0.0.9
+        specifier: ^0.0.10
         version: link:../ui-graph
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-graph
       '@commonalityco/utils-package':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-package
       '@xstate/react':
         specifier: ^3.2.2
@@ -845,7 +845,7 @@ importers:
         specifier: ^0.0.7
         version: link:../config-tsconfig
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       eslint-config-commonality:
         specifier: ^0.0.8
@@ -885,7 +885,7 @@ importers:
         specifier: ^0.0.7
         version: link:../config-tsconfig
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../ui-design-system
       '@testing-library/react':
         specifier: ^14.0.0
@@ -1061,16 +1061,16 @@ importers:
         specifier: ^0.0.12
         version: link:../types
       '@commonalityco/ui-core':
-        specifier: ^0.0.8
+        specifier: ^0.0.9
         version: link:../ui-core
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../ui-design-system
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       '@commonalityco/utils-package':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-package
       '@testing-library/jest-dom':
         specifier: ^6.0.0
@@ -1153,7 +1153,7 @@ importers:
         specifier: ^0.0.12
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
       '@types/cytoscape':
         specifier: ^3.19.10
@@ -1186,7 +1186,7 @@ importers:
   packages/utils-package:
     dependencies:
       '@commonalityco/utils-core':
-        specifier: ^0.0.6
+        specifier: ^0.0.7
         version: link:../utils-core
     devDependencies:
       '@commonalityco/config-tsconfig':
