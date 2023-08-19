@@ -2,6 +2,9 @@
   "name": "@commonalityco/data-packages",
   "version": "0.0.12",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js"

@@ -1,5 +1,8 @@
 {
   "name": "@commonalityco/feature-graph",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "version": "0.0.7",
   "types": "./dist/index.d.ts",
