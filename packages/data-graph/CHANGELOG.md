@@ -1,5 +1,14 @@
 # @commonalityco/data-graph
 
+## 0.0.7
+
+### Patch Changes
+
+- 26e1636: Publish foundational packages
+- Updated dependencies [26e1636]
+  - @commonalityco/utils-graph@0.0.7
+  - @commonalityco/utils-core@0.0.7
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @commonalityco/ui-design-system
 
+## 0.0.8
+
+### Patch Changes
+
+- 26e1636: Publish foundational packages
+
 ## 0.0.7
 
 ### Patch Changes

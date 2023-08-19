@@ -1,5 +1,12 @@
 # @commonalityco/utils-package
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [26e1636]
+  - @commonalityco/utils-core@0.0.7
+
 ## 0.0.6
 
 ### Patch Changes

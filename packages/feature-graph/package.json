@@ -4,7 +4,7 @@
     "access": "public"
   },
   "type": "module",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@tanstack/react-query": "^4.32.6",
@@ -15,12 +15,12 @@
   "devDependencies": {
     "@commonalityco/config-tailwind": "^0.0.5",
     "@commonalityco/config-tsconfig": "^0.0.7",
-    "@commonalityco/data-graph": "^0.0.6",
+    "@commonalityco/data-graph": "^0.0.7",
     "@commonalityco/types": "^0.0.12",
-    "@commonalityco/ui-design-system": "^0.0.7",
-    "@commonalityco/ui-graph": "^0.0.9",
-    "@commonalityco/utils-core": "^0.0.6",
-    "@commonalityco/utils-graph": "^0.0.6",
+    "@commonalityco/ui-design-system": "^0.0.8",
+    "@commonalityco/ui-graph": "^0.0.10",
+    "@commonalityco/utils-core": "^0.0.7",
+    "@commonalityco/utils-graph": "^0.0.7",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/lodash.debounce": "^4.0.7",

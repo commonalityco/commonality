@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/utils-core",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "type": "module",
   "description": "Contains the common constants used in all Commonality applications and packages",
   "publishConfig": {

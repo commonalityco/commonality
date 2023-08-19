@@ -1,5 +1,16 @@
 # @commonalityco/ui-graph
 
+## 0.0.10
+
+### Patch Changes
+
+- 26e1636: Publish foundational packages
+- Updated dependencies [26e1636]
+  - @commonalityco/ui-design-system@0.0.8
+  - @commonalityco/utils-core@0.0.7
+  - @commonalityco/ui-core@0.0.9
+  - @commonalityco/utils-package@0.0.7
+
 ## 0.0.9
 
 ### Patch Changes

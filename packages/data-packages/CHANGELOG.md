@@ -1,5 +1,14 @@
 # @commonalityco/constraints
 
+## 0.0.13
+
+### Patch Changes
+
+- 26e1636: Publish foundational packages
+- Updated dependencies [26e1636]
+  - @commonalityco/utils-core@0.0.7
+  - @commonalityco/data-project@0.0.7
+
 ## 0.0.12
 
 ### Patch Changes
