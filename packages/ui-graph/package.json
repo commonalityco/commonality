@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/ui-graph",
   "type": "module",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "lodash.sortby": "^4.7.0",
@@ -14,7 +14,7 @@
     "@commonalityco/config-tsconfig": "^0.0.7",
     "@commonalityco/types": "^0.0.12",
     "@commonalityco/ui-core": "^0.0.8",
-    "@commonalityco/ui-design-system": "^0.0.6",
+    "@commonalityco/ui-design-system": "^0.0.7",
     "@commonalityco/utils-core": "^0.0.6",
     "@commonalityco/utils-package": "^0.0.6",
     "@testing-library/jest-dom": "^6.0.0",
