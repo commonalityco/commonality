@@ -37,6 +37,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
+          version: ./scripts/update-lockfile.sh
           publish: pnpm run changeset:release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
