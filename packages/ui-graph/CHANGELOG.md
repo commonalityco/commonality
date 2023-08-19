@@ -1,5 +1,14 @@
 # @commonalityco/ui-graph
 
+## 0.0.9
+
+### Patch Changes
+
+- 986fdbf: Fix peers
+- Updated dependencies [986fdbf]
+  - @commonalityco/ui-design-system@0.0.7
+  - @commonalityco/ui-core@0.0.8
+
 ## 0.0.8
 
 ### Patch Changes
