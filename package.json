@@ -9,7 +9,7 @@
   "scripts": {
     "co:open": "pnpm exec commonality open",
     "build": "turbo run build",
-    "clean": "rimraf ./coverage ./node_modules ./packages/**/dist ./packages/**/.turbo ./packages/*/node_modules",
+    "clean": "rimraf ./packages/**/dist ./packages/**/.turbo ./packages/*/node_modules ./coverage ./node_modules",
     "test": "vitest run --coverage",
     "test:watch": "vitest run --coverage --watch",
     "lint": "manypkg check && turbo run lint",

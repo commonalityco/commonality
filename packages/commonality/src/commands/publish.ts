@@ -37,7 +37,7 @@ export const actionHandler = async ({
     action.error(
       chalk.red.bold('No projectId found') +
         `\nYou must include a projectId in your project configuration` +
-        `\n${chalk.dim(configPath)}`
+        `\n${chalk.dim(configPath)}`,
     );
     return;
   }
@@ -49,7 +49,7 @@ export const actionHandler = async ({
   }
 
   const spinner = ora(
-    `Publishing ${snapshot.packages.length} packages...`
+    `Publishing ${snapshot.packages.length} packages...`,
   ).start();
 
   try {
@@ -65,14 +65,22 @@ export const actionHandler = async ({
     spinner.succeed('Successfully published snapshot');
     console.log(`View your graph at ${chalk.bold.blue(result.url)}`);
   } catch (error: unknown) {
-    // console.log({ error });
     spinner.stop();
     if (error instanceof HTTPError) {
       const responseBody = error.response.body as string;
 
       try {
         const body = JSON.parse(responseBody) as Error;
-        action.error(body.message);
+
+        if (body.message) {
+          action.error(
+            `${chalk.red.bold('Failed to publish snapshot')}\n${chalk.reset(
+              body.message,
+            )}`,
+          );
+        }
+
+        action.error(chalk.red.bold('Failed to publish snapshot'));
         return;
       } catch {
         action.error(chalk.red.bold('Failed to publish snapshot'));
@@ -90,11 +98,11 @@ export const publish = command
   .requiredOption(
     '--key <key>',
     'The key used to authenticate with Commonality APIs. By default this will be read from the COMMONALITY_API_KEY environment variable.',
-    process.env['COMMONALITY_API_KEY']
+    process.env['COMMONALITY_API_KEY'],
   )
   .option(
     '--cwd <path>',
-    "A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile."
+    "A relative path to the root of your monorepo. We will attempt to automatically detect this by looking for your package manager's lockfile.",
   )
   .action(async (options: { key: string }) => {
     const rootDirectory = await getRootDirectory();

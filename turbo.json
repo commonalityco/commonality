@@ -4,6 +4,10 @@
       "outputs": ["dist/**", ".next/**", "storybook-static/**"],
       "dependsOn": ["^build"]
     },
+    "dev": {
+      "cache": false,
+      "dependsOn": ["^build"]
+    },
     "test": {
       "dependsOn": ["^build"]
     },
@@ -15,9 +19,6 @@
     },
     "type-check": {
       "dependsOn": ["^build"]
-    },
-    "dev": {
-      "cache": false
     },
     "e2e": {
       "dependsOn": ["build"]
