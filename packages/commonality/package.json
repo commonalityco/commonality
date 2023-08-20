@@ -1,6 +1,6 @@
 {
   "name": "commonality",
-  "version": "0.1.9",
+  "version": "0.2.13",
   "bin": {
     "commonality": "./bin.js"
   },
@@ -24,7 +24,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@commonalityco/studio": "^0.2.12",
+    "@commonalityco/studio": "^0.2.13",
     "chalk": "^5.3.0",
     "cliui": "^8.0.1",
     "commander": "^11.0.0",

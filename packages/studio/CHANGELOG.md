@@ -1,5 +1,12 @@
 # @commonalityco/dashboard
 
+## 0.2.13
+
+### Patch Changes
+
+- Updated dependencies [e4075d7]
+  - @commonalityco/utils-graph@0.0.8
+
 ## 0.2.12
 
 ### Patch Changes

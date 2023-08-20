@@ -1,5 +1,12 @@
 # workshop
 
+## 1.0.9
+
+### Patch Changes
+
+- Updated dependencies [e4075d7]
+  - @commonalityco/utils-graph@0.0.8
+
 ## 1.0.8
 
 ### Patch Changes

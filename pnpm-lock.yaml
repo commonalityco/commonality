@@ -90,7 +90,7 @@ importers:
         specifier: ^0.0.7
         version: link:../../packages/utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../../packages/utils-graph
       next:
         specifier: 13.4.16
@@ -190,7 +190,7 @@ importers:
   packages/commonality:
     dependencies:
       '@commonalityco/studio':
-        specifier: ^0.2.12
+        specifier: ^0.2.13
         version: link:../studio
       chalk:
         specifier: ^5.3.0
@@ -417,7 +417,7 @@ importers:
         specifier: ^0.0.7
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../utils-graph
       '@popperjs/core':
         specifier: ^2.11.8
@@ -441,7 +441,7 @@ importers:
   packages/data-graph-worker:
     devDependencies:
       '@commonalityco/utils-graph':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../utils-graph
       '@types/cytoscape':
         specifier: ^3.19.10
@@ -619,7 +619,7 @@ importers:
         specifier: ^0.0.7
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../utils-graph
       '@testing-library/jest-dom':
         specifier: ^6.0.0
@@ -703,7 +703,7 @@ importers:
         specifier: ^0.0.7
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../utils-graph
       '@commonalityco/utils-package':
         specifier: ^0.0.7
