@@ -1,5 +1,12 @@
 # @commonalityco/cli
 
+## 0.2.13
+
+### Patch Changes
+
+- e4075d7: Update publish messaging
+  - @commonalityco/studio@0.2.13
+
 ## 0.1.9
 
 ### Patch Changes

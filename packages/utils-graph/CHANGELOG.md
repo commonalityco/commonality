@@ -1,5 +1,11 @@
 # @commonalityco/utils-graph
 
+## 0.0.8
+
+### Patch Changes
+
+- e4075d7: Update publish messaging
+
 ## 0.0.7
 
 ### Patch Changes

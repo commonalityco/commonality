@@ -2,7 +2,7 @@
   "name": "workshop",
   "description": "The Storybook application for developing Commonality UI components",
   "private": true,
-  "version": "1.0.8",
+  "version": "1.0.9",
   "scripts": {
     "dev": "storybook dev -p 6006"
   },
@@ -13,7 +13,7 @@
     "@commonalityco/ui-design-system": "^0.0.8",
     "@commonalityco/ui-graph": "^0.0.10",
     "@commonalityco/utils-core": "^0.0.7",
-    "@commonalityco/utils-graph": "^0.0.7",
+    "@commonalityco/utils-graph": "^0.0.8",
     "next": "13.4.16",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",

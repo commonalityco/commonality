@@ -20,7 +20,7 @@
     "@commonalityco/ui-design-system": "^0.0.8",
     "@commonalityco/ui-graph": "^0.0.10",
     "@commonalityco/utils-core": "^0.0.7",
-    "@commonalityco/utils-graph": "^0.0.7",
+    "@commonalityco/utils-graph": "^0.0.8",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/lodash.debounce": "^4.0.7",
