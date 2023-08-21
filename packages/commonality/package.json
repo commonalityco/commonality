@@ -17,7 +17,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup && scripts/build.js",
+    "build": "scripts/build.js",
     "dev": "tsup --watch",
     "lint": "eslint ./src --fix",
     "test": "vitest",
