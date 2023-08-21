@@ -1,14 +1,10 @@
 #!/usr/bin/env node
 /* eslint-disable no-undef */
 // @ts-check
-import { $ } from 'execa';
 import fs from 'fs-extra';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import resolve from 'resolve';
-
-const { stdout } = await $`tsup`;
-console.log(stdout);
 
 resolve(
   '@commonalityco/studio' + '/package.json',
@@ -58,20 +54,3 @@ resolve(
     }
   },
 );
-
-// fs.copy(
-//   '/tmp/mydir',
-//   '/tmp/mynewdir',
-//   {
-//     filter: (source) => {
-//       if (source.includes('cache')) {
-//         return false;
-//       }
-//       return true;
-//     },
-//   },
-//   (error) => {
-//     if (error) return console.error(error);
-//     console.log('success!');
-//   },
-// );
