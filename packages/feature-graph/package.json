@@ -7,8 +7,8 @@
   "version": "0.0.9",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@tanstack/react-query": "^4.32.6",
-    "@tanstack/react-query-devtools": "^4.33.0",
+    "@tanstack/react-query": "^4.33.0",
+    "@tanstack/react-query-devtools": "^4.32.6",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.268.0"
   },
