@@ -1,5 +1,13 @@
 # @commonalityco/snapshot
 
+## 0.0.9
+
+### Patch Changes
+
+- 91bfd71: Unify into commonality package
+- Updated dependencies [91bfd71]
+  - @commonalityco/data-project@0.0.8
+
 ## 0.0.8
 
 ### Patch Changes

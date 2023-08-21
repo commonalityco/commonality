@@ -1,5 +1,16 @@
 # workshop
 
+## 1.0.10
+
+### Patch Changes
+
+- Updated dependencies [91bfd71]
+  - @commonalityco/ui-design-system@0.0.9
+  - @commonalityco/feature-graph@0.0.9
+  - @commonalityco/ui-graph@0.0.11
+  - @commonalityco/ui-core@0.0.10
+  - @commonalityco/types@0.0.13
+
 ## 1.0.9
 
 ### Patch Changes

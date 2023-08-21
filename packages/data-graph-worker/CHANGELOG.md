@@ -1,5 +1,12 @@
 # @commonalityco/data-graph-worker
 
+## 0.0.6
+
+### Patch Changes
+
+- 91bfd71: Unify into commonality package
+  - @commonalityco/utils-graph@0.0.8
+
 ## 0.0.5
 
 ### Patch Changes
