@@ -1,5 +1,11 @@
 # @commonalityco/ui-design-system
 
+## 0.0.9
+
+### Patch Changes
+
+- 91bfd71: Unify into commonality package
+
 ## 0.0.8
 
 ### Patch Changes

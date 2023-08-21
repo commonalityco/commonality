@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "^0.0.7",
-    "@commonalityco/types": "^0.0.12",
+    "@commonalityco/types": "^0.0.13",
     "@types/react": "^18.2.20",
     "eslint-config-commonality": "^0.0.8",
     "postcss": "^8.4.28",

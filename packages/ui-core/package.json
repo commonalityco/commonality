@@ -1,13 +1,13 @@
 {
   "name": "@commonalityco/ui-core",
   "type": "module",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "publishConfig": {
     "access": "public"
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@commonalityco/types": "^0.0.12",
+    "@commonalityco/types": "^0.0.13",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "react-markdown": "^8.0.7",

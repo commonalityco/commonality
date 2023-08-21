@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.14
+
+### Patch Changes
+
+- 91bfd71: Unify into commonality package
+
 ## 0.2.13
 
 ### Patch Changes

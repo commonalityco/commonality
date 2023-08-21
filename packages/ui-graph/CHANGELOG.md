@@ -1,5 +1,15 @@
 # @commonalityco/ui-graph
 
+## 0.0.11
+
+### Patch Changes
+
+- 91bfd71: Unify into commonality package
+- Updated dependencies [91bfd71]
+  - @commonalityco/ui-design-system@0.0.9
+  - @commonalityco/ui-core@0.0.10
+  - @commonalityco/utils-package@0.0.7
+
 ## 0.0.10
 
 ### Patch Changes

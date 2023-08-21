@@ -1,5 +1,11 @@
 # @commonalityco/traverse
 
+## 0.0.14
+
+### Patch Changes
+
+- 91bfd71: Unify into commonality package
+
 ## 0.0.13
 
 ### Patch Changes

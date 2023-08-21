@@ -1,5 +1,11 @@
 # @commonalityco/snapshot
 
+## 0.0.8
+
+### Patch Changes
+
+- 91bfd71: Unify into commonality package
+
 ## 0.0.7
 
 ### Patch Changes

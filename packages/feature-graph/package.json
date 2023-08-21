@@ -4,7 +4,7 @@
     "access": "public"
   },
   "type": "module",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@tanstack/react-query": "^4.32.6",

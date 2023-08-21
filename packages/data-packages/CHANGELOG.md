@@ -1,5 +1,13 @@
 # @commonalityco/constraints
 
+## 0.0.14
+
+### Patch Changes
+
+- 91bfd71: Unify into commonality package
+- Updated dependencies [91bfd71]
+  - @commonalityco/data-project@0.0.8
+
 ## 0.0.13
 
 ### Patch Changes
