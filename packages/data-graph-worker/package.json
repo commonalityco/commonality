@@ -11,10 +11,10 @@
   },
   "main": "./dist/index.js",
   "devDependencies": {
-    "@commonalityco/utils-graph": "^0.0.8",
+    "@commonalityco/utils-graph": "workspace:*",
     "@types/cytoscape": "^3.19.10",
     "cytoscape": "^3.26.0",
-    "eslint-config-commonality": "^0.0.8"
+    "eslint-config-commonality": "workspace:*"
   },
   "peerDependencies": {
     "@commonalityco/utils-graph": "*",

@@ -20,13 +20,13 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@commonalityco/data-project": "^0.0.7",
-    "@commonalityco/utils-core": "^0.0.7",
+    "@commonalityco/data-project": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
     "fs-extra": "^11.1.1"
   },
   "devDependencies": {
-    "@commonalityco/config-tsconfig": "^0.0.7",
-    "@commonalityco/types": "^0.0.12",
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^20.5.0",
     "eslint-config-commonality": "^0.0.8",

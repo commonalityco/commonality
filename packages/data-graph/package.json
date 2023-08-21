@@ -6,14 +6,14 @@
     "access": "public"
   },
   "devDependencies": {
-    "@commonalityco/config-tsconfig": "^0.0.7",
-    "@commonalityco/types": "^0.0.12",
-    "@commonalityco/utils-core": "^0.0.7",
-    "@commonalityco/utils-graph": "^0.0.8",
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "@commonalityco/utils-graph": "workspace:*",
     "@popperjs/core": "^2.11.8",
     "@types/cytoscape": "^3.19.10",
     "@types/lodash.debounce": "^4.0.7",
-    "eslint-config-commonality": "^0.0.8",
+    "eslint-config-commonality": "workspace:*",
     "typescript": "^5.1.6",
     "xstate": "^4.38.2"
   },

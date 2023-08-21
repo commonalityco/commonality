@@ -32,8 +32,8 @@
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
-    "@commonalityco/config-tailwind": "^0.0.5",
-    "@commonalityco/config-tsconfig": "^0.0.7",
+    "@commonalityco/config-tailwind": "workspace:*",
+    "@commonalityco/config-tsconfig": "workspace:*",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/cytoscape": "^3.19.10",

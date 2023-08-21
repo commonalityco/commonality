@@ -19,10 +19,10 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@commonalityco/config-tsconfig": "^0.0.7",
-    "@commonalityco/types": "^0.0.12",
-    "@commonalityco/utils-core": "^0.0.7",
-    "eslint-config-commonality": "^0.0.8",
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "eslint-config-commonality": "workspace:*",
     "typescript": "^5.1.6"
   }
 }

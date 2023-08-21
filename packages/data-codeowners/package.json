@@ -26,11 +26,11 @@
     "minimatch": "^9.0.3"
   },
   "devDependencies": {
-    "@commonalityco/config-tsconfig": "^0.0.7",
-    "@commonalityco/types": "^0.0.12",
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^20.5.0",
-    "eslint-config-commonality": "^0.0.8",
+    "eslint-config-commonality": "workspace:*",
     "typescript": "^5.1.6"
   }
 }
