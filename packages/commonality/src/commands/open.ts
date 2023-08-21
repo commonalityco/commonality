@@ -29,35 +29,27 @@ export const open = command
     const rootDirectory = await getRootDirectory();
     const url = `http://127.0.0.1:${port}`;
     const isDebug = Boolean(options.debug);
-
+    process.env.NODE_DEBUG = 'execa';
     try {
       console.log(`📦 Starting Commonality Studio...\n`);
 
-      const pathToServer = path.resolve(__dirname, './studio/server.js');
-      const serverExists = await fs.exists(pathToServer);
-      console.log({ pathToServer, serverExists });
-      if (!serverExists) {
+      const pathToStudio = path.resolve(__dirname, './studio');
+      const studioExists = await fs.exists(pathToStudio);
+
+      if (!studioExists) {
         command.error('Commonality Studio was not found');
         return;
       }
 
-      const { stdout, stderr } = await execa('node', [pathToServer], {
-        stdout: isDebug ? 'inherit' : 'ignore',
-        cwd: path.resolve(__dirname, '..'),
+      execa('node', ['server.js'], {
+        stdout: 'inherit',
+        cwd: pathToStudio,
         env: {
-          NODE_ENV: isDebug ? 'development' : 'production',
+          NODE_ENV: 'production',
           PORT: port?.toString(),
           COMMONALITY_ROOT_DIRECTORY: rootDirectory,
         },
       });
-
-      if (isDebug && stdout) {
-        console.log(stdout);
-      }
-
-      if (isDebug && stderr) {
-        console.log(stderr);
-      }
 
       await waitOn({ resources: [url] });
 
@@ -69,9 +61,10 @@ export const open = command
 
       await openUrl(url);
     } catch (error) {
-      if (isDebug) {
-        console.log(error);
-      }
+      // if (isDebug) {
+      console.log(error);
+      // }
+
       console.log(chalk.red('Unable to start Commonality Studio'));
     }
   });
