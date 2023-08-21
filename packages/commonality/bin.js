@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// @ts-check
 import updateNotifier from 'update-notifier';
 import fs from 'fs-extra';
 import path from 'node:path';
@@ -10,7 +11,8 @@ const packageJsonPath = path.resolve(
 );
 
 const packageJson = fs.readJsonSync(packageJsonPath);
+const notifier = updateNotifier({ pkg: packageJson });
 
-updateNotifier({ pkg: packageJson }).notify();
+notifier.notify({ isGlobal: true });
 
 import('./dist/index.js');
