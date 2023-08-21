@@ -29,7 +29,7 @@ export const open = command
     const rootDirectory = await getRootDirectory();
     const url = `http://127.0.0.1:${port}`;
     const isDebug = Boolean(options.debug);
-    process.env.NODE_DEBUG = 'execa';
+
     try {
       console.log(`📦 Starting Commonality Studio...\n`);
 
@@ -42,7 +42,7 @@ export const open = command
       }
 
       execa('node', ['server.js'], {
-        stdout: 'inherit',
+        stdout: isDebug ? 'inherit' : 'ignore',
         cwd: pathToStudio,
         env: {
           NODE_ENV: 'production',
@@ -61,9 +61,9 @@ export const open = command
 
       await openUrl(url);
     } catch (error) {
-      // if (isDebug) {
-      console.log(error);
-      // }
+      if (isDebug) {
+        console.log(error);
+      }
 
       console.log(chalk.red('Unable to start Commonality Studio'));
     }
