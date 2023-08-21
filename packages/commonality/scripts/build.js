@@ -22,6 +22,9 @@ resolve(
           path.join(packageDirectory, '.next'),
           path.join(destinationFolder, '.next'),
           {
+            overwrite: false,
+            errorOnExist: true,
+            dereference: true,
             filter: (source) => {
               if (source.includes('cache')) {
                 return false;
@@ -34,16 +37,19 @@ resolve(
         await fs.copy(
           path.join(packageDirectory, 'next.config.js'),
           path.join(destinationFolder, 'next.config.js'),
+          { overwrite: false, errorOnExist: true, dereference: true },
         );
 
         await fs.copy(
           path.join(packageDirectory, 'server.js'),
           path.join(destinationFolder, 'server.js'),
+          { overwrite: false, errorOnExist: true, dereference: true },
         );
 
         await fs.copy(
           path.join(packageDirectory, 'package.json'),
           path.join(destinationFolder, 'package.json'),
+          { overwrite: false, errorOnExist: true, dereference: true },
         );
 
         console.log('Successfully copied Commonality Studio');
