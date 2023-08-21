@@ -12,7 +12,7 @@
     "clean": "rimraf ./packages/**/dist ./packages/**/.turbo ./packages/*/node_modules ./coverage ./node_modules",
     "test": "vitest run --coverage",
     "test:watch": "vitest run --coverage --watch",
-    "lint": "manypkg check && turbo run lint",
+    "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "link-all": "ts-node scripts/link-all.ts",
     "unlink-all": "ts-node scripts/unlink-all.ts",
@@ -21,8 +21,7 @@
     "changeset:release": "changeset publish",
     "commonality:publish": "commonality publish",
     "prepare": "husky install",
-    "type-check": "turbo run type-check",
-    "postinstall": "manypkg check"
+    "type-check": "turbo run type-check"
   },
   "keywords": [],
   "author": "",
