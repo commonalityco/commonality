@@ -1,4 +1,4 @@
-import { cn } from '@commonalityco/ui-design-system';
+import { cn } from '@commonalityco/ui-design-system/cn';
 
 export function GraphLayoutRoot({
   children,
