@@ -1,5 +1,5 @@
 import { getElementDefinitionsWithUpdatedLayout } from '@commonalityco/utils-graph';
-import { ElementDefinition } from 'cytoscape';
+import type { ElementDefinition } from 'cytoscape';
 
 addEventListener(
   'message',
@@ -14,5 +14,5 @@ addEventListener(
     } catch (error) {
       console.error(error);
     }
-  }
+  },
 );

@@ -5,6 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@commonalityco/types": "^0.0.13",
@@ -48,7 +49,8 @@
     "test": "vitest"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js"
   },
   "main": "./dist/index.js",
   "engines": {

@@ -1,10 +1,10 @@
 'use client';
 import { CodeownersData, DocumentsData, TagsData } from '@commonalityco/types';
 import { PackageSheet } from '@commonalityco/ui-graph';
-import { documentsKeys, tagsKeys } from '@commonalityco/utils-graph';
+import { documentsKeys, tagsKeys } from '@commonalityco/utils-graph/query-keys';
 import { useQuery } from '@tanstack/react-query';
 import { ComponentProps } from 'react';
-import { GraphContext } from './graph-provider';
+import { GraphContext } from './graph-provider.js';
 
 export function FeatureGraphPackageSheet({
   getTagsData,

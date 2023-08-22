@@ -6,7 +6,7 @@ import ReactMarkdown, { Components } from 'react-markdown';
 import { HTMLAttributes, useMemo } from 'react';
 import atomOneDark from 'react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark';
 import atomOneLight from 'react-syntax-highlighter/dist/esm/styles/hljs/atom-one-light';
-import { cn } from '@commonalityco/ui-design-system';
+import { cn } from '@commonalityco/ui-design-system/cn';
 
 const CodeBlock = ({
   language,
@@ -88,3 +88,5 @@ export function Markdown({ theme = 'light', children }: MarkdownProperties) {
     </ReactMarkdown>
   );
 }
+
+export default Markdown;

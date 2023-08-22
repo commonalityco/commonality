@@ -6,7 +6,7 @@ import { Button, Text, Badge } from '@commonalityco/ui-design-system';
 import type cytoscape from 'cytoscape';
 import { ComponentProps } from 'react';
 import { Package as PackageIcon, ArrowUp, ArrowDown } from 'lucide-react';
-import { GraphTooltip } from './components/graph-tooltip';
+import { GraphTooltip } from './components/graph-tooltip.js';
 
 export interface TooltipPackageProperties {
   onHide?: (package_: Package) => void;

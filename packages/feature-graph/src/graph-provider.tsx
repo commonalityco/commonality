@@ -20,7 +20,7 @@ export const GraphProvider = ({
   dehydratedState,
   worker,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   dehydratedState: DehydratedState;
   worker: Worker;
 }) => {

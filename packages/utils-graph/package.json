@@ -5,14 +5,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
     "./*": "./dist/*.js"
   },
-  "files": [
-    "./dist/*"
-  ],
   "dependencies": {
     "cytoscape-dagre": "^2.5.0",
     "cytoscape-popper": "^2.0.0",

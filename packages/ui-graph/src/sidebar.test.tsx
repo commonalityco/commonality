@@ -1,5 +1,5 @@
 import React from 'react';
-import Sidebar from './sidebar';
+import Sidebar from './sidebar.js';
 import { render, screen } from '@testing-library/react';
 import { ComponentPropsWithoutRef } from 'react';
 import { describe, expect, it } from 'vitest';
@@ -27,7 +27,7 @@ const renderSidebar = (properties: {
       onPackageHide={() => {}}
       onPackageShow={() => {}}
       onPackageFocus={() => {}}
-    />
+    />,
   );
 };
 
@@ -91,7 +91,13 @@ describe('<Sidebar/>', () => {
         renderSidebar({
           initialSearch,
           visiblePackages: [packageOne, packageTwo, packageThree],
-          packages: [packageOne, packageTwo, packageThree, packageFour, packageFive],
+          packages: [
+            packageOne,
+            packageTwo,
+            packageThree,
+            packageFour,
+            packageFive,
+          ],
           tagsData: [],
           codeownersData: [
             {
@@ -123,7 +129,7 @@ describe('<Sidebar/>', () => {
 
         expect(link).toBeTruthy();
         expect(link.getAttribute('href')).toEqual(
-          'https://commonality.co/docs/tags'
+          'https://commonality.co/docs/tags',
         );
       });
     });
@@ -133,7 +139,13 @@ describe('<Sidebar/>', () => {
         renderSidebar({
           initialSearch,
           visiblePackages: [packageOne, packageTwo, packageThree],
-          packages: [packageOne, packageTwo, packageThree, packageFour, packageFive],
+          packages: [
+            packageOne,
+            packageTwo,
+            packageThree,
+            packageFour,
+            packageFive,
+          ],
           tagsData: [
             { packageName: '@scope/one', tags: ['tag-one', 'tag-two'] },
             { packageName: '@scope/two', tags: ['tag-three'] },
@@ -190,7 +202,13 @@ describe('<Sidebar/>', () => {
         renderSidebar({
           initialSearch: '@scope',
           visiblePackages: [packageOne, packageTwo, packageThree],
-          packages: [packageOne, packageTwo, packageThree, packageFour, packageFive],
+          packages: [
+            packageOne,
+            packageTwo,
+            packageThree,
+            packageFour,
+            packageFive,
+          ],
           tagsData: [],
           codeownersData: [
             {
@@ -225,7 +243,13 @@ describe('<Sidebar/>', () => {
         renderSidebar({
           initialSearch: 'tag',
           visiblePackages: [packageOne, packageTwo, packageThree],
-          packages: [packageOne, packageTwo, packageThree, packageFour, packageFive],
+          packages: [
+            packageOne,
+            packageTwo,
+            packageThree,
+            packageFour,
+            packageFive,
+          ],
           tagsData: [
             { packageName: '@scope/one', tags: ['tag-one', 'tag-two'] },
             { packageName: '@scope/two', tags: ['tag-three'] },

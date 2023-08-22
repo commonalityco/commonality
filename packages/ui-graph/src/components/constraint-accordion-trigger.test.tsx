@@ -1,9 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { ConstraintAccordionTrigger } from './constraint-accordion-trigger';
+import { ConstraintAccordionTrigger } from './constraint-accordion-trigger.js';
 import { describe, test, expect } from 'vitest';
 import { Constraint } from '@commonalityco/types';
-import { Accordion, AccordionItem } from '@commonalityco/ui-design-system';
+import {
+  Accordion,
+  AccordionItem,
+} from '@commonalityco/ui-design-system/accordion';
 
 describe('<ConstraintAccordionTrigger />', () => {
   test('renders the given constraint.applyTo value', () => {
@@ -18,7 +21,7 @@ describe('<ConstraintAccordionTrigger />', () => {
         <AccordionItem value="test-tag">
           <ConstraintAccordionTrigger constraint={constraint} variant="pass" />
         </AccordionItem>
-      </Accordion>
+      </Accordion>,
     );
 
     expect(screen.getByText('#test-tag')).toBeInTheDocument();
@@ -32,7 +35,7 @@ describe('<ConstraintAccordionTrigger />', () => {
         <AccordionItem value="test-tag">
           <ConstraintAccordionTrigger constraint={constraint} variant="pass" />
         </AccordionItem>
-      </Accordion>
+      </Accordion>,
     );
 
     expect(screen.getByText('All packages')).toBeInTheDocument();

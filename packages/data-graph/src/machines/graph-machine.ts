@@ -2,6 +2,9 @@ import type { VirtualElement } from '@popperjs/core';
 import {
   createRenderGraph,
   createTraversalGraph,
+  updateGraphElements,
+} from '@commonalityco/utils-graph';
+import {
   focus,
   hide,
   hideAll,
@@ -12,12 +15,11 @@ import {
   showAll,
   showDependants,
   showDependencies,
-  updateGraphElements,
-} from '@commonalityco/utils-graph';
+} from '@commonalityco/utils-graph/actions';
 import type { Package, Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
 import { assign, createMachine } from 'xstate';
-import {
+import type {
   CollectionArgument,
   Core,
   EdgeSingular,
@@ -93,7 +95,7 @@ export const graphMachine = createMachine(
       theme: 'light',
       violations: [],
     },
-    tsTypes: {} as import('./graph-machine.typegen').Typegen0,
+    tsTypes: {} as import('./graph-machine.typegen.d.ts').Typegen0,
     schema: {
       events: {} as Event,
       context: {} as Context,

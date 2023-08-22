@@ -13,7 +13,7 @@ const gradientFadeStyles = cva(
         right: 'w-6 right-0 bg-gradient-to-l',
       },
     },
-  }
+  },
 );
 
 interface GradientFadeProperties
@@ -25,3 +25,5 @@ export function GradientFade({ placement, className }: GradientFadeProperties) {
     <div className={twMerge(gradientFadeStyles({ placement }), className)} />
   );
 }
+
+export default GradientFade;

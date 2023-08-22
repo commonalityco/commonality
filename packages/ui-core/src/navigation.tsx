@@ -1,7 +1,6 @@
-import { cn } from '@commonalityco/ui-design-system';
+import { cn } from '@commonalityco/ui-design-system/cn';
 import { Slot } from '@radix-ui/react-slot';
 import React from 'react';
-import { Logo } from './logo';
 
 interface NavigationButtonProperties
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -23,32 +22,13 @@ export const NavigationButton = React.forwardRef<
           'before:border-foreground text-foreground before:absolute before:bottom-0 before:left-0 before:right-0 before:border-b-2 before:content-[""]':
             active,
         },
-        className
+        className,
       )}
       ref={reference}
       {...properties}
     />
   );
 });
-
-export function Divider({ className }: { className?: string }) {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-    >
-      <path d="M16 1L8 23" className="stroke-border" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-export function NavigationLogo() {
-  return <Logo width={24} height={24} className="text-foreground" />;
-}
 
 interface NavigationProperties {
   children?: React.ReactNode;
@@ -60,10 +40,12 @@ export function Navigation({ children, className }: NavigationProperties) {
     <div
       className={cn(
         'relative flex h-14 w-full shrink-0 items-center justify-between px-6',
-        className
+        className,
       )}
     >
       {children}
     </div>
   );
 }
+
+export default Navigation;

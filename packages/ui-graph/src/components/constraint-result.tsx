@@ -1,13 +1,13 @@
 import React from 'react';
 import { Constraint, Violation } from '@commonalityco/types';
+import { Badge } from '@commonalityco/ui-design-system/badge';
+import { Label } from '@commonalityco/ui-design-system/label';
 import {
-  Label,
-  Badge,
   TooltipProvider,
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-} from '@commonalityco/ui-design-system';
+} from '@commonalityco/ui-design-system/tooltip';
 import { Info } from 'lucide-react';
 
 export function TagDetails({

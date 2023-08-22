@@ -1,6 +1,6 @@
 import { Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
-import { Core, EdgeSingular, EventObject, NodeSingular } from 'cytoscape';
+import type { Core, EdgeSingular, EventObject, NodeSingular } from 'cytoscape';
 
 interface EventHandlerArguments {
   renderGraph: Core;
@@ -120,22 +120,22 @@ export const bindRenderGraphEvents = (arguments_: EventHandlerArguments) => {
   renderGraph
     .nodes()
     .on('mouseover', (event) =>
-      handleNodeMouseover({ ...arguments_, target: event.target })
+      handleNodeMouseover({ ...arguments_, target: event.target }),
     );
   renderGraph
     .nodes()
     .on('mouseout', (event) =>
-      handleNodeMouseout({ ...arguments_, target: event.target })
+      handleNodeMouseout({ ...arguments_, target: event.target }),
     );
 
   renderGraph
     .edges()
     .on('mouseover', (event) =>
-      handleEdgeMouseover({ ...arguments_, target: event.target })
+      handleEdgeMouseover({ ...arguments_, target: event.target }),
     );
   renderGraph
     .edges()
     .on('mouseout', (event) =>
-      handleEdgeMouseout({ ...arguments_, target: event.target })
+      handleEdgeMouseout({ ...arguments_, target: event.target }),
     );
 };

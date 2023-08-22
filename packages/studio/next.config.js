@@ -5,14 +5,26 @@ const nextConfig = {
     serverActions: true,
     serverComponentsExternalPackages: ['canvas', 'jsdom'],
   },
-  transpilePackages: ['@commonalityco/feature-graph'],
+  transpilePackages: [
+    '@commonalityco/data-codeowners',
+    '@commonalityco/data-documents',
+    '@commonalityco/data-graph',
+    '@commonalityco/data-graph-worker',
+    '@commonalityco/data-packages',
+    '@commonalityco/data-project',
+    '@commonalityco/data-tags',
+    '@commonalityco/data-violations',
+    '@commonalityco/feature-graph',
+    '@commonalityco/types',
+    '@commonalityco/ui-core',
+    '@commonalityco/ui-design-system',
+    '@commonalityco/ui-graph',
+    '@commonalityco/utils-core',
+    '@commonalityco/utils-graph',
+    '@commonalityco/utils-package',
+  ],
+
   modularizeImports: {
-    lodash: {
-      transform: 'lodash/{{member}}',
-    },
-    '@commonalityco/utils-graph': {
-      transform: '@commonalityco/utils-graph/{{kebabCase member}}',
-    },
     '@commonalityco/feature-graph': {
       transform: '@commonalityco/feature-graph/{{kebabCase member}}',
     },

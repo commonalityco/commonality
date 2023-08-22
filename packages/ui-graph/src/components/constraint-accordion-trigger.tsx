@@ -1,6 +1,7 @@
 import React from 'react';
 import { Constraint } from '@commonalityco/types';
-import { AccordionTrigger, Badge } from '@commonalityco/ui-design-system';
+import { AccordionTrigger } from '@commonalityco/ui-design-system/accordion';
+import { Badge } from '@commonalityco/ui-design-system/badge';
 
 export function ConstraintAccordionTrigger({
   constraint,

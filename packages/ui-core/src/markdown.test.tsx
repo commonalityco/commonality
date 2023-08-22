@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Markdown } from './markdown';
+import { Markdown } from './markdown.js';
 import { describe, it, expect } from 'vitest';
 
 describe('<Markdown/>', () => {

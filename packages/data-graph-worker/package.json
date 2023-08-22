@@ -5,6 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js"

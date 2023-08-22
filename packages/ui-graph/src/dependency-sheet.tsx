@@ -13,9 +13,9 @@ import {
 import { DependencyType } from '@commonalityco/utils-core';
 import { CornerDownRight } from 'lucide-react';
 import { ComponentProps } from 'react';
-import { ConstraintResult } from './components/constraint-result';
-import { ConstraintAccordionItem } from './components/constraint-accordion-item';
-import { ConstraintAccordionTrigger } from './components/constraint-accordion-trigger';
+import { ConstraintResult } from './components/constraint-result.js';
+import { ConstraintAccordionItem } from './components/constraint-accordion-item.js';
+import { ConstraintAccordionTrigger } from './components/constraint-accordion-trigger.js';
 
 const TextByType: Record<DependencyType, string> = {
   [DependencyType.PRODUCTION]: 'Production',
@@ -78,7 +78,7 @@ function DependencySheetContent({
             {constraints.length > 0 ? (
               constraints.map((constraint) => {
                 const violation = violations.find(
-                  (violation) => violation.appliedTo === constraint.applyTo
+                  (violation) => violation.appliedTo === constraint.applyTo,
                 );
                 return (
                   <ConstraintAccordionItem

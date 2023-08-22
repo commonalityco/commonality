@@ -1,6 +1,6 @@
 'use client';
 import { ComponentProps } from 'react';
-import { GraphContext } from './graph-provider';
+import { GraphContext } from './graph-provider.js';
 import { GraphToolbar } from '@commonalityco/ui-graph';
 import { useQuery } from '@tanstack/react-query';
 import { Constraint, Package, Violation } from '@commonalityco/types';
@@ -8,7 +8,7 @@ import {
   constraintsKeys,
   packagesKeys,
   violationsKeys,
-} from '@commonalityco/utils-graph';
+} from '@commonalityco/utils-graph/query-keys';
 
 interface FeatureGraphToolbarProperties
   extends Omit<

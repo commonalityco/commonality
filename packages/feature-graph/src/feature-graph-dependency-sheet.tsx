@@ -5,10 +5,10 @@ import {
   constraintsKeys,
   tagsKeys,
   violationsKeys,
-} from '@commonalityco/utils-graph';
+} from '@commonalityco/utils-graph/query-keys';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { GraphContext } from './graph-provider';
+import { GraphContext } from './graph-provider.js';
 
 export function FeatureGraphDependencySheet({
   getViolations,

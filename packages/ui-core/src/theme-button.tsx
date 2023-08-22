@@ -2,13 +2,13 @@
 'use client';
 import React, { ComponentProps, useState } from 'react';
 import {
-  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from '@commonalityco/ui-design-system';
+} from '@commonalityco/ui-design-system/dropdown-menu';
+import { Button } from '@commonalityco/ui-design-system/button';
 import { Monitor, Sun, Moon, LucideIcon } from 'lucide-react';
 
 interface ThemeButtonProperties
@@ -22,10 +22,6 @@ const IconByTheme: Record<string, LucideIcon> = {
   light: Sun,
   system: Monitor,
 };
-
-export function ThemeButtonLoading() {
-  return <div className="h-9 w-9" />;
-}
 
 export function ThemeButton({
   onThemeChange = () => {},

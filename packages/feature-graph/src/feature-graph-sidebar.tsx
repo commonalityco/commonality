@@ -1,5 +1,5 @@
 'use client';
-import { GraphContext } from './graph-provider';
+import { GraphContext } from './graph-provider.js';
 import { CodeownersData, Package, TagsData } from '@commonalityco/types';
 import { GraphLayoutAside, Sidebar } from '@commonalityco/ui-graph';
 import { useQuery } from '@tanstack/react-query';
@@ -7,7 +7,7 @@ import {
   codeownersKeys,
   packagesKeys,
   tagsKeys,
-} from '@commonalityco/utils-graph';
+} from '@commonalityco/utils-graph/query-keys';
 
 interface FeatureGraphSidebarProperties {
   getCodeownersData: () => Promise<CodeownersData[]>;
@@ -16,7 +16,8 @@ interface FeatureGraphSidebarProperties {
 }
 
 export function FeatureGraphSidebar(properties: FeatureGraphSidebarProperties) {
-  const [state, send] = GraphContext.useActor();
+  const { send } = GraphContext.useActorRef();
+
   const { data: tagsData } = useQuery({
     queryKey: tagsKeys,
     queryFn: () => properties.getTags(),

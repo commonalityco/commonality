@@ -1,14 +1,11 @@
-export {
-  Navigation,
-  NavigationLogo,
-  Divider,
-  NavigationButton,
-} from './navigation';
-export { ThemeButton, ThemeButtonLoading } from './theme-button';
-export { Logo } from './logo';
-export { GradientFade } from './gradient-fade';
-
-export { NpmLogo } from './images/npm-logo';
-export { PnpmLogo } from './images/pnpm-logo';
-export { YarnLogo } from './images/yarn-logo';
-export { Markdown } from './markdown';
+export { Navigation, NavigationButton } from './navigation.js';
+export { ThemeButton } from './theme-button.js';
+export { Logo } from './logo.js';
+export { GradientFade } from './gradient-fade.js';
+export { NpmLogo } from './npm-logo.js';
+export { PnpmLogo } from './pnpm-logo.js';
+export { YarnLogo } from './yarn-logo.js';
+export { Markdown } from './markdown.js';
+export { NavigationLogo } from './navigation-logo.js';
+export { Divider } from './divider.js';
+export { ThemeButtonLoading } from './theme-button-loading.js';
