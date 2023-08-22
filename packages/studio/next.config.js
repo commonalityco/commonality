@@ -5,6 +5,15 @@ const nextConfig = {
     serverActions: true,
     serverComponentsExternalPackages: ['canvas', 'jsdom'],
   },
+  modularizeImports: {
+    lodash: {
+      transform: 'lodash/{{member}}',
+    },
+  },
 };
 
-module.exports = nextConfig;
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer(nextConfig);

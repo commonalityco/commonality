@@ -19,6 +19,9 @@
     "e2e": "pnpm run build:script &&  start-server-and-test e2e:run-script http://localhost:3000 \"cypress open --e2e\"",
     "e2e:headless": "pnpm run build:script && start-server-and-test e2e:run-script http://localhost:3000 \"cypress run --e2e\""
   },
+  "dependencies": {
+    "@next/bundle-analyzer": "^13.4.19"
+  },
   "peerDependencies": {
     "@commonalityco/data-codeowners": "*",
     "@commonalityco/data-documents": "*",

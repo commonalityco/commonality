@@ -1,13 +1,7 @@
 import { getPackagesData } from 'data/packages';
 import { getTagsData } from 'data/tags';
 import { getProject } from 'data/project';
-import {
-  FeatureGraphOverlays,
-  FeatureGraphLayout,
-  FeatureGraphPackageTooltip,
-  FeatureGraphDependencySheet,
-  FeatureGraphPackageSheet,
-} from '@commonalityco/feature-graph';
+import { FeatureGraphLayout } from '@commonalityco/feature-graph';
 import StudioGraph from './studio-graph';
 import { StudioSidebar } from './studio-sidebar';
 import { getCodeownersData } from 'data/codeowners';
@@ -25,8 +19,13 @@ import {
 } from '@commonalityco/utils-graph';
 import { getDependenciesData } from 'data/dependencies';
 import { getConstraintsData } from 'data/constraints';
-import { getCreateTagsButton } from './CreateTagsButton';
 import { StudioGraphProvider } from './studio-graph-provider';
+import dynamic from 'next/dynamic';
+
+const StudioGraphOverlays = dynamic(
+  () => import('./studio-graph-overlays'),
+  {},
+);
 
 async function GraphPage() {
   const project = await getProject();
@@ -57,20 +56,13 @@ async function GraphPage() {
           getConstraints={getConstraintsData}
         />
       </FeatureGraphLayout>
-      <FeatureGraphOverlays>
-        <FeatureGraphPackageSheet
-          getTagsData={getTagsData}
-          getDocumentsData={getDocumentsData}
-          getCodeownersData={getCodeownersData}
-          getCreateTagsButton={getCreateTagsButton}
-        />
-        <FeatureGraphDependencySheet
-          getViolations={getViolationsData}
-          getConstraints={getConstraintsData}
-          getTagsData={getTagsData}
-        />
-        <FeatureGraphPackageTooltip />
-      </FeatureGraphOverlays>
+      <StudioGraphOverlays
+        getConstraints={getConstraintsData}
+        getViolations={getViolationsData}
+        getCodeownersData={getCodeownersData}
+        getTagsData={getTagsData}
+        getDocumentsData={getDocumentsData}
+      />
     </StudioGraphProvider>
   );
 }
