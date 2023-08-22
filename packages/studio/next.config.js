@@ -23,7 +23,6 @@ const nextConfig = {
     '@commonalityco/utils-graph',
     '@commonalityco/utils-package',
   ],
-
   modularizeImports: {
     '@commonalityco/feature-graph': {
       transform: '@commonalityco/feature-graph/{{kebabCase member}}',
