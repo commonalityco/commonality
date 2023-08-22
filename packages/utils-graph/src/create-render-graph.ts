@@ -4,6 +4,9 @@ import { nodeStyles } from './styles/node.js';
 import { edgeStyles } from './styles/edge.js';
 import popper from 'cytoscape-popper';
 
+cytoscape.use(dagre);
+cytoscape.use(popper);
+
 interface CreateRenderGraphOptions {
   container: HTMLElement;
   elements: ElementDefinition[];
@@ -26,9 +29,6 @@ export const createRenderGraph = ({
   container,
   elements,
 }: CreateRenderGraphOptions) => {
-  cytoscape.use(dagre);
-  cytoscape.use(popper);
-
   const renderGraph = cytoscape({
     container,
     style: [...nodeStyles, ...edgeStyles],
