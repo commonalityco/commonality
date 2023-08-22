@@ -27,11 +27,10 @@ const nextConfig = {
     '@commonalityco/feature-graph': {
       transform: '@commonalityco/feature-graph/{{kebabCase member}}',
     },
+    lodash: {
+      transform: 'lodash/{{member}}',
+    },
   },
 };
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
-
-module.exports = withBundleAnalyzer(nextConfig);
+module.exports = nextConfig;

@@ -36,7 +36,6 @@ import {
 } from 'lucide-react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { GradientFade } from '@commonalityco/ui-core';
-import sortBy from 'lodash.sortby';
 
 function ShowHideButton({
   visible,
@@ -174,8 +173,8 @@ function PackagesFilterSection({
             ? packages.map((package_) => {
                 const isPackageVisible = Boolean(
                   visiblePackages?.some(
-                    (packageName) => packageName.name === package_.name
-                  )
+                    (packageName) => packageName.name === package_.name,
+                  ),
                 );
 
                 const IconForPackage = getIconForPackage(package_.type);
@@ -243,11 +242,11 @@ function TagsFilterSection({
         tagData
           ?.map((data) => data.tags)
           .flat()
-          .filter(Boolean)
+          .filter(Boolean),
       ),
     ];
 
-    return sortBy(uniqueTags, (item) => item);
+    return uniqueTags.sort((a, b) => a.localeCompare(b));
   }, [tagData]);
 
   const getPlaceholder = () => {
@@ -298,7 +297,7 @@ function TagsFilterSection({
               const isTagVisible = Boolean(
                 visiblePackages?.some((package_) => {
                   const tagsForPackage = tagData.find(
-                    (data) => data.packageName === package_.name
+                    (data) => data.packageName === package_.name,
                   );
 
                   if (tagsForPackage) {
@@ -306,7 +305,7 @@ function TagsFilterSection({
                   }
 
                   return false;
-                })
+                }),
               );
 
               return (
@@ -370,11 +369,11 @@ function CodeownersFilterSection({
         ownerData
           ?.map((data) => data.codeowners)
           .flat()
-          .filter(Boolean)
+          .filter(Boolean),
       ),
     ];
 
-    return sortBy(uniqueOwners, (item) => item);
+    return uniqueOwners.sort((a, b) => a.localeCompare(b));
   }, [ownerData]);
 
   const getPlaceholder = () => {
@@ -424,7 +423,7 @@ function CodeownersFilterSection({
               const isTeamVisible = Boolean(
                 visiblePackages?.some((package_) => {
                   const ownersForPackage = ownerData.find(
-                    (data) => data.packageName === package_.name
+                    (data) => data.packageName === package_.name,
                   );
 
                   if (ownersForPackage) {
@@ -432,7 +431,7 @@ function CodeownersFilterSection({
                   }
 
                   return false;
-                })
+                }),
               );
 
               return (
@@ -516,7 +515,7 @@ export function Sidebar({
 
   const filteredOwners = search
     ? codeownersData.filter((data) =>
-        data.codeowners.some((codeowner) => codeowner.includes(search))
+        data.codeowners.some((codeowner) => codeowner.includes(search)),
       )
     : codeownersData;
 

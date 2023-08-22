@@ -8,8 +8,7 @@ import {
   useToast,
 } from '@commonalityco/ui-design-system';
 import { formatTagName } from '@commonalityco/utils-core';
-import { TagsData, Package } from '@commonalityco/types';
-import { sortBy } from 'lodash';
+import { Package } from '@commonalityco/types';
 import { useMemo } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { metadataKey, tagsKeys } from '@commonalityco/utils-graph/query-keys';
@@ -54,7 +53,7 @@ export function CreateTagsButton({ pkg }: { pkg: Package }) {
       ),
     ];
 
-    return sortBy(uniqueTags, (item) => item);
+    return uniqueTags.sort((a, b) => a.localeCompare(b));
   }, [tagsData]);
 
   const tagDataForPkg = useMemo(() => {

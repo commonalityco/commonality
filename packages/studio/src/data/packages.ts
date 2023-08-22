@@ -7,7 +7,6 @@ import {
   getWorkspaceGlobs,
 } from '@commonalityco/data-project';
 import { getPackages } from '@commonalityco/data-packages';
-import { sortBy } from 'lodash';
 
 export const getPackageDirectoriesData = cache(async () => {
   const packageManager = await getPackageManager({
@@ -29,5 +28,5 @@ export const getPackagesData = async () => {
     rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
   });
 
-  return sortBy(packagesData, 'name');
+  return packagesData.sort((a, b) => a.name.localeCompare(b.name));
 };

@@ -8,7 +8,6 @@
   "sideEffects": false,
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "lodash.sortby": "^4.7.0",
     "react-popper": "^2.3.0",
     "react-resizable-panels": "^0.0.55",
     "react-wrap-balancer": "^1.1.0"
@@ -21,12 +20,12 @@
     "@commonalityco/ui-design-system": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-package": "workspace:*",
+    "@testing-library/dom": "^9.3.1",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/cytoscape": "^3.19.10",
     "@types/lodash.debounce": "^4.0.7",
-    "@types/lodash.sortby": "^4.7.7",
     "@types/react": "^18.2.20",
     "@types/testing-library__jest-dom": "^5.14.9",
     "cytoscape": "^3.26.0",
