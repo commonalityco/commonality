@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.15
+
+### Patch Changes
+
+- 5b61b0e: Reduce bundle size
+
 ## 0.2.14
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @commonalityco/utils-package
 
+## 0.0.8
+
+### Patch Changes
+
+- 5b61b0e: Reduce bundle size
+- Updated dependencies [5b61b0e]
+  - @commonalityco/utils-core@0.0.8
+
 ## 0.0.7
 
 ### Patch Changes

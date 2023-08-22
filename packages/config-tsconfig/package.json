@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/config-tsconfig",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "devDependencies": {
     "typescript": "^5.1.6"

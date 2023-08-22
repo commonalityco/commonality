@@ -1,5 +1,17 @@
 # @commonalityco/feature-graph
 
+## 0.0.10
+
+### Patch Changes
+
+- 5b61b0e: Reduce bundle size
+- Updated dependencies [5b61b0e]
+  - @commonalityco/ui-design-system@0.0.10
+  - @commonalityco/utils-graph@0.0.9
+  - @commonalityco/data-graph@0.0.9
+  - @commonalityco/utils-core@0.0.8
+  - @commonalityco/ui-graph@0.0.12
+
 ## 0.0.9
 
 ### Patch Changes
