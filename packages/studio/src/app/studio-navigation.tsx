@@ -2,7 +2,6 @@
 import { Theme } from '@commonalityco/utils-core';
 import { Navigation, NavigationLogo, Divider } from '@commonalityco/ui-core';
 import { useTheme } from 'next-themes';
-import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Button } from '@commonalityco/ui-design-system';
 import Link from 'next/link';
@@ -10,7 +9,7 @@ import { ThemeButtonLoading } from '@commonalityco/ui-core';
 
 const ThemeButton = dynamic(
   () => import('@commonalityco/ui-core').then((module) => module.ThemeButton),
-  { ssr: false, loading: ThemeButtonLoading }
+  { ssr: false, loading: ThemeButtonLoading },
 );
 
 function DashboardNavigation({ title }: { title: string }) {

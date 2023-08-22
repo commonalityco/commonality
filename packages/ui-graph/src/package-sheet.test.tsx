@@ -8,7 +8,7 @@ import {
 import { PackageType } from '@commonalityco/utils-core';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
-import { PackageSheet } from './package-sheet';
+import { PackageSheet } from './package-sheet.js';
 
 const package_ = {
   name: '@scope/test',
@@ -75,7 +75,7 @@ describe('<PackageSheet/>', () => {
           tagsData={tagsData}
           codeownersData={codeownersData}
           documentsData={documentsData}
-        />
+        />,
       );
 
       expect(screen.getByText('#tag-one')).toBeTruthy();
@@ -98,7 +98,7 @@ describe('<PackageSheet/>', () => {
           tagsData={[]}
           codeownersData={codeownersData}
           documentsData={documentsData}
-        />
+        />,
       );
 
       expect(screen.getByText('Get started with tags')).toBeTruthy();

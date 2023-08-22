@@ -2,10 +2,10 @@
 import { GraphChart, GraphLayoutMain } from '@commonalityco/ui-graph';
 import {
   dependenciesKeys,
-  getElementDefinitions,
   packagesKeys,
   violationsKeys,
-} from '@commonalityco/utils-graph';
+} from '@commonalityco/utils-graph/query-keys';
+import { getElementDefinitions } from '@commonalityco/utils-graph';
 import { useEffect, useRef } from 'react';
 import { PackageManager } from '@commonalityco/utils-core';
 import {
@@ -14,10 +14,10 @@ import {
   Package,
   Violation,
 } from '@commonalityco/types';
-import { GraphContext } from './graph-provider';
-import FeatureGraphToolbar from './feature-graph-toolbar';
+import { GraphContext } from './graph-provider.js';
+import FeatureGraphToolbar from './feature-graph-toolbar.js';
 import { useQuery } from '@tanstack/react-query';
-import { cn } from '@commonalityco/ui-design-system';
+import { cn } from '@commonalityco/ui-design-system/cn';
 import debounce from 'lodash.debounce';
 
 interface GraphProperties {

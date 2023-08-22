@@ -1,6 +1,6 @@
 import React from 'react';
 import { Constraint } from '@commonalityco/types';
-import { AccordionItem } from '@commonalityco/ui-design-system';
+import { AccordionItem } from '@commonalityco/ui-design-system/accordion';
 
 export function ConstraintAccordionItem({
   constraint,

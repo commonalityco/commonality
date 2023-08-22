@@ -4,6 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "type": "module",
   "types": "./dist/index.d.ts",
   "dependencies": {
@@ -36,7 +37,6 @@
     "@commonalityco/config-tsconfig": "workspace:*",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
-    "@types/cytoscape": "^3.19.10",
     "@types/react": "^18.2.20",
     "eslint-config-commonality": "^0.0.8",
     "lucide-react": "^0.268.0",
@@ -53,9 +53,9 @@
     "react-dom": ">=18"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js"
   },
-  "main": "./dist/index.js",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

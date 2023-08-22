@@ -26,7 +26,7 @@ import type {
 import { Markdown, GradientFade } from '@commonalityco/ui-core';
 import { ExternalLink, File, FileText, Tags, Users } from 'lucide-react';
 import { getIconForPackage } from '@commonalityco/utils-package';
-import ReactWrapBalancer from 'react-wrap-balancer';
+import { Balancer } from 'react-wrap-balancer';
 
 interface PackageSheetProperties extends ComponentProps<typeof Sheet> {
   pkg?: Package;
@@ -215,10 +215,10 @@ function PackageSheetContent({
                   <CardContent className="flex flex-col justify-center gap-3 text-center">
                     <FileText className="mx-auto h-6 w-6" />
                     <p className="text-muted-foreground pb-3">
-                      <ReactWrapBalancer>
+                      <Balancer>
                         Create a README.md to help your team understand what
                         this package does
-                      </ReactWrapBalancer>
+                      </Balancer>
                     </p>
                   </CardContent>
                 </Card>

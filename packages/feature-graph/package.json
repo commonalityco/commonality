@@ -4,6 +4,7 @@
     "access": "public"
   },
   "type": "module",
+  "sideEffects": false,
   "version": "0.0.9",
   "types": "./dist/index.d.ts",
   "dependencies": {

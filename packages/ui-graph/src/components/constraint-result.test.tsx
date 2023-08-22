@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { ConstraintResult, TagDetails } from './constraint-result';
+import { ConstraintResult, TagDetails } from './constraint-result.js';
 import { describe, test, expect } from 'vitest';
 
 describe('<TagDetails />', () => {
@@ -12,14 +12,14 @@ describe('<TagDetails />', () => {
 
   test('shows "All packages" when appliedTo is a wildcard', () => {
     render(
-      <TagDetails label="Test Label" helpText="Test Help" appliedTo="*" />
+      <TagDetails label="Test Label" helpText="Test Help" appliedTo="*" />,
     );
     expect(screen.getByText('All packages')).toBeInTheDocument();
   });
 
   test('shows "No tags found" when appliedTo is an empty array', () => {
     render(
-      <TagDetails label="Test Label" helpText="Test Help" appliedTo={[]} />
+      <TagDetails label="Test Label" helpText="Test Help" appliedTo={[]} />,
     );
     expect(screen.getByText('No tags found')).toBeInTheDocument();
   });
@@ -27,7 +27,7 @@ describe('<TagDetails />', () => {
   test('lists all tags when appliedTo has some tags', () => {
     const tags = ['tag1', 'tag2'];
     render(
-      <TagDetails label="Test Label" helpText="Test Help" appliedTo={tags} />
+      <TagDetails label="Test Label" helpText="Test Help" appliedTo={tags} />,
     );
     for (const tag of tags) {
       expect(screen.getByText(`#${tag}`)).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe('<TagDetails />', () => {
 describe('<ConstraintResult />', () => {
   test('renders "Allowed" section when allow property is in constraint', () => {
     render(
-      <ConstraintResult constraint={{ applyTo: 'foo', allow: ['tagA'] }} />
+      <ConstraintResult constraint={{ applyTo: 'foo', allow: ['tagA'] }} />,
     );
     expect(screen.getByText('Allowed')).toBeInTheDocument();
     expect(screen.queryByText('Disallowed')).not.toBeInTheDocument();
@@ -47,7 +47,7 @@ describe('<ConstraintResult />', () => {
 
   test('renders "Disallowed" section when disallow property is in constraint', () => {
     render(
-      <ConstraintResult constraint={{ applyTo: 'foo', disallow: ['tagB'] }} />
+      <ConstraintResult constraint={{ applyTo: 'foo', disallow: ['tagB'] }} />,
     );
     expect(screen.getByText('Disallowed')).toBeInTheDocument();
   });
@@ -68,7 +68,7 @@ describe('<ConstraintResult />', () => {
           disallowed: ['tag-three'],
           found: ['tagC'],
         }}
-      />
+      />,
     );
     expect(screen.getByText('Found')).toBeInTheDocument();
   });

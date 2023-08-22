@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import {
   GraphTooltip,
   GraphTooltipProperties,
-} from './components/graph-tooltip';
+} from './components/graph-tooltip.js';
 import { useState } from 'react';
 import { DependencyType } from '@commonalityco/utils-core';
 

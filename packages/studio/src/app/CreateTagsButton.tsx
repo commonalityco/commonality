@@ -17,11 +17,7 @@ import { setTagsAction } from 'actions/metadata';
 import { getTagsData } from 'data/tags';
 import { Plus } from 'lucide-react';
 
-export const getCreateTagsButton = (pkg: Package) => {
-  return <CreateTagsButton pkg={pkg} />;
-};
-
-function CreateTagsButton({ pkg }: { pkg: Package }) {
+export function CreateTagsButton({ pkg }: { pkg: Package }) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -116,3 +112,5 @@ function CreateTagsButton({ pkg }: { pkg: Package }) {
     </Popover>
   );
 }
+
+export default CreateTagsButton;

@@ -1,6 +1,6 @@
 'use client';
 import { TooltipPackage } from '@commonalityco/ui-graph';
-import { GraphContext } from './graph-provider';
+import { GraphContext } from './graph-provider.js';
 
 export function FeatureGraphPackageTooltip() {
   const actor = GraphContext.useActorRef();

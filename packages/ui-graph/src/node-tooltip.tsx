@@ -1,5 +1,5 @@
 'use client';
-import cytoscape from 'cytoscape';
+import type cytoscape from 'cytoscape';
 import React, { useMemo, useState } from 'react';
 import { usePopper } from 'react-popper';
 

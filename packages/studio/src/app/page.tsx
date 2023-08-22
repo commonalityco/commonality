@@ -2,8 +2,6 @@ import { getPackagesData } from 'data/packages';
 import { getTagsData } from 'data/tags';
 import { getProject } from 'data/project';
 import { FeatureGraphLayout } from '@commonalityco/feature-graph';
-import StudioGraph from './studio-graph';
-import { StudioSidebar } from './studio-sidebar';
 import { getCodeownersData } from 'data/codeowners';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { getDocumentsData } from 'data/documents';
@@ -18,16 +16,12 @@ import {
 } from '@commonalityco/utils-graph/query-keys';
 import { getDependenciesData } from 'data/dependencies';
 import { getConstraintsData } from 'data/constraints';
-import { StudioGraphProvider } from './studio-graph-provider';
-import dynamic from 'next/dynamic';
-import {
-  FeatureGraphOverlays,
-  FeatureGraphPackageTooltip,
-  FeatureGraphDependencySheet,
-  FeatureGraphPackageSheet,
-} from '@commonalityco/feature-graph';
-import { getCreateTagsButton } from './CreateTagsButton';
 import { getViolationsData } from 'data/violations';
+import StudioSidebar from './studio-sidebar';
+import StudioGraphProvider from './studio-graph-provider';
+import StudioGraphOverlays from './studio-graph-overlays';
+import { getCreateTagsButton } from './getCreateTagsButton';
+import { StudioGraph } from './studio-graph';
 
 async function GraphPage() {
   const project = await getProject();
@@ -58,20 +52,14 @@ async function GraphPage() {
           getConstraints={getConstraintsData}
         />
       </FeatureGraphLayout>
-      <FeatureGraphOverlays>
-        <FeatureGraphPackageSheet
-          getTagsData={getTagsData}
-          getDocumentsData={getDocumentsData}
-          getCodeownersData={getCodeownersData}
-          getCreateTagsButton={getCreateTagsButton}
-        />
-        <FeatureGraphDependencySheet
-          getViolations={getViolationsData}
-          getConstraints={getConstraintsData}
-          getTagsData={getTagsData}
-        />
-        <FeatureGraphPackageTooltip />
-      </FeatureGraphOverlays>
+      <StudioGraphOverlays
+        getCodeownersData={getCodeownersData}
+        getConstraints={getConstraintsData}
+        getDocumentsData={getDocumentsData}
+        getTagsData={getTagsData}
+        getViolations={getViolationsData}
+        getCreateTagsButton={getCreateTagsButton}
+      />
     </StudioGraphProvider>
   );
 }

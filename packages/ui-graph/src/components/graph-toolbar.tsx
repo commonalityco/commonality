@@ -34,9 +34,9 @@ import {
 } from 'lucide-react';
 import { Violation, Constraint } from '@commonalityco/types';
 import { useMemo } from 'react';
-import { ConstraintAccordionItem } from './constraint-accordion-item';
-import { ConstraintAccordionTrigger } from './constraint-accordion-trigger';
-import { ConstraintResult } from './constraint-result';
+import { ConstraintAccordionItem } from './constraint-accordion-item.js';
+import { ConstraintAccordionTrigger } from './constraint-accordion-trigger.js';
+import { ConstraintResult } from './constraint-result.js';
 
 function ViolationsHoverCard({
   constraints = [],
@@ -51,7 +51,6 @@ function ViolationsHoverCard({
     const map: Record<string, Violation[] | undefined> = {};
 
     for (const violation of violations) {
-
       const currentViolations = map[violation.appliedTo];
 
       map[violation.appliedTo] = currentViolations
@@ -128,7 +127,7 @@ function ViolationsHoverCard({
                                     variant="link"
                                     onClick={() =>
                                       onPackageClick(
-                                        violation.sourcePackageName
+                                        violation.sourcePackageName,
                                       )
                                     }
                                   >
@@ -142,7 +141,7 @@ function ViolationsHoverCard({
                                       variant="link"
                                       onClick={() =>
                                         onPackageClick(
-                                          violation.targetPackageName
+                                          violation.targetPackageName,
                                         )
                                       }
                                     >

@@ -1,6 +1,10 @@
 'use client';
-import { GraphProvider } from '@commonalityco/feature-graph';
 import { ComponentProps, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+
+const GraphProvider = dynamic(
+  () => import('@commonalityco/feature-graph/graph-provider'),
+);
 
 export function StudioGraphProvider(
   props: Omit<ComponentProps<typeof GraphProvider>, 'worker'>,
@@ -20,11 +24,10 @@ export function StudioGraphProvider(
   }
 
   return (
-    <GraphProvider
-      dehydratedState={props.dehydratedState}
-      worker={new Worker(new URL('./worker.ts', import.meta.url))}
-    >
+    <GraphProvider dehydratedState={props.dehydratedState} worker={worker}>
       {props.children}
     </GraphProvider>
   );
 }
+
+export default StudioGraphProvider;

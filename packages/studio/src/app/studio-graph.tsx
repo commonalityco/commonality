@@ -1,17 +1,21 @@
 'use client';
 import React, { ComponentPropsWithoutRef } from 'react';
 import { useTheme } from 'next-themes';
-import { FeatureGraph } from '@commonalityco/feature-graph';
+import dynamic from 'next/dynamic';
 
-function DashboardGraph(
+const FeatureGraph = dynamic(() =>
+  import('@commonalityco/feature-graph').then((module) => module.FeatureGraph),
+);
+
+export function StudioGraph(
   props: Omit<
     ComponentPropsWithoutRef<typeof FeatureGraph>,
     'theme' | 'onSetTags' | 'getElementDefinitionsWithUpdatedLayout'
-  >
+  >,
 ) {
   const { resolvedTheme } = useTheme();
 
   return <FeatureGraph {...props} theme={resolvedTheme} />;
 }
 
-export default DashboardGraph;
+export default StudioGraph;

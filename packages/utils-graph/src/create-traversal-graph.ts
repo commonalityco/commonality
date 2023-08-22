@@ -9,3 +9,5 @@ export const createTraversalGraph = ({
     headless: true,
     elements,
   });
+
+export default createTraversalGraph;

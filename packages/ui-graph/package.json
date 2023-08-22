@@ -5,6 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "lodash.sortby": "^4.7.0",
@@ -46,11 +47,12 @@
     "react": ">=17",
     "react-dom": ">=17"
   },
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js"
   },
-  "main": "./dist/index.js",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
