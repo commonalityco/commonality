@@ -1,9 +1,22 @@
 'use client';
 import { ComponentProps, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import {
+  FeatureGraphLayout,
+  FeatureGraphLoading,
+  FeatureGraphSidebarLoading,
+} from '@commonalityco/feature-graph';
 
 const GraphProvider = dynamic(
   () => import('@commonalityco/feature-graph/graph-provider'),
+  {
+    loading: () => (
+      <FeatureGraphLayout>
+        <FeatureGraphSidebarLoading />
+        <FeatureGraphLoading />
+      </FeatureGraphLayout>
+    ),
+  },
 );
 
 export function StudioGraphProvider(
