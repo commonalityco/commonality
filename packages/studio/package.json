@@ -10,7 +10,7 @@
     ".": "./dist/index.mjs"
   },
   "scripts": {
-    "dev": "NODE_ENV=development node server.js",
+    "dev": "NODE_ENV=development node dev-server.js",
     "build": "next build",
     "analyze": "ANALYZE=true next build",
     "start": "NODE_ENV=production node server.js",

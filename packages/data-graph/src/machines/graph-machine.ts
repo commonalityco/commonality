@@ -271,6 +271,7 @@ export const graphMachine = createMachine(
           context.worker.addEventListener(
             'message',
             async (event: MessageEvent<ElementDefinition[]>) => {
+              console.log('WORKER RESPONSE');
               if (!context.renderGraph || !context.traversalGraph) {
                 return resolve([]);
               }
@@ -278,10 +279,7 @@ export const graphMachine = createMachine(
               resolve(event.data);
             },
           );
-
-          const message = JSON.parse(JSON.stringify(context.elements));
-
-          console.log({ elements: context.elements, message });
+          console.log('POST MESSAGE');
           context.worker.postMessage(context.elements);
         });
       },

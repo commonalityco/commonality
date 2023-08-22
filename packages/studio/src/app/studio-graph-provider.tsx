@@ -13,7 +13,7 @@ export function StudioGraphProvider(
 
   useEffect(() => {
     const newWorker = new Worker(new URL('./worker.ts', import.meta.url));
-
+    console.log({ newWorker });
     setWorker(newWorker);
 
     return () => newWorker.terminate();

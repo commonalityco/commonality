@@ -1,18 +1,21 @@
 import { getElementDefinitionsWithUpdatedLayout } from '@commonalityco/utils-graph';
 import type { ElementDefinition } from 'cytoscape';
 
-addEventListener(
-  'message',
-  async (event: MessageEvent<ElementDefinition[]>) => {
-    const updatedElelementDefinitions =
-      await getElementDefinitionsWithUpdatedLayout({
-        elements: event.data,
-      });
+export const createWorker = () => {
+  addEventListener(
+    'message',
+    async (event: MessageEvent<ElementDefinition[]>) => {
+      console.log('RECEIVED MESSAGE');
+      const updatedElelementDefinitions =
+        await getElementDefinitionsWithUpdatedLayout({
+          elements: event.data,
+        });
 
-    try {
-      postMessage(updatedElelementDefinitions);
-    } catch (error) {
-      console.error(error);
-    }
-  },
-);
+      try {
+        postMessage(updatedElelementDefinitions);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  );
+};

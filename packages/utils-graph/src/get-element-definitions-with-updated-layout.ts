@@ -4,6 +4,8 @@ import dagre from 'cytoscape-dagre';
 import { nodeStyles } from './styles/node.js';
 import { edgeStyles } from './styles/edge.js';
 
+cytoscape.use(dagre);
+
 export type OffloadRenderFunction = ({
   elements,
 }: {
@@ -12,8 +14,6 @@ export type OffloadRenderFunction = ({
 
 export const getElementDefinitionsWithUpdatedLayout: OffloadRenderFunction =
   async ({ elements }) => {
-    cytoscape.use(dagre);
-
     const graph = cytoscape({
       styleEnabled: true,
       style: [...nodeStyles, ...edgeStyles],
