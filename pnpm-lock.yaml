@@ -12,7 +12,7 @@ importers:
         specifier: ^2.26.2
         version: 2.26.2
       '@commonalityco/config-tsconfig':
-        specifier: ^0.0.7
+        specifier: workspace:*
         version: link:packages/config-tsconfig
       '@manypkg/cli':
         specifier: ^0.21.0
@@ -1122,10 +1122,10 @@ importers:
         version: 2.2.1
     devDependencies:
       '@commonalityco/config-tsconfig':
-        specifier: ^0.0.7
+        specifier: workspace:*
         version: link:../config-tsconfig
       eslint-config-commonality:
-        specifier: ^0.0.8
+        specifier: workspace:*
         version: link:../config-eslint
       typescript:
         specifier: ^5.1.6
@@ -1144,13 +1144,13 @@ importers:
         version: 4.7.0
     devDependencies:
       '@commonalityco/config-tsconfig':
-        specifier: ^0.0.7
+        specifier: workspace:*
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: ^0.0.13
+        specifier: workspace:*
         version: link:../types
       '@commonalityco/utils-core':
-        specifier: ^0.0.7
+        specifier: workspace:*
         version: link:../utils-core
       '@types/cytoscape':
         specifier: ^3.19.10
@@ -1183,20 +1183,20 @@ importers:
   packages/utils-package:
     dependencies:
       '@commonalityco/utils-core':
-        specifier: ^0.0.7
+        specifier: workspace:*
         version: link:../utils-core
     devDependencies:
       '@commonalityco/config-tsconfig':
-        specifier: ^0.0.7
+        specifier: workspace:*
         version: link:../config-tsconfig
       '@commonalityco/types':
-        specifier: ^0.0.13
+        specifier: workspace:*
         version: link:../types
       '@types/react':
         specifier: ^18.2.20
         version: 18.2.20
       eslint-config-commonality:
-        specifier: ^0.0.8
+        specifier: workspace:*
         version: link:../config-eslint
       postcss:
         specifier: ^8.4.28

@@ -13,13 +13,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@commonalityco/utils-core": "^0.0.7"
+    "@commonalityco/utils-core": "workspace:*"
   },
   "devDependencies": {
-    "@commonalityco/config-tsconfig": "^0.0.7",
-    "@commonalityco/types": "^0.0.13",
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
     "@types/react": "^18.2.20",
-    "eslint-config-commonality": "^0.0.8",
+    "eslint-config-commonality": "workspace:*",
     "postcss": "^8.4.28",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
