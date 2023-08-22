@@ -43,6 +43,7 @@ export const open = command
 
       execa('node', ['server.js'], {
         stdout: isDebug ? 'inherit' : 'ignore',
+        stderr: isDebug ? 'inherit' : 'ignore',
         cwd: pathToStudio,
         env: {
           NODE_ENV: 'production',
@@ -65,6 +66,6 @@ export const open = command
         console.log(error);
       }
 
-      console.log(chalk.red('Unable to start Commonality Studio'));
+      console.log(chalk.red('Failed to start Commonality Studio'));
     }
   });

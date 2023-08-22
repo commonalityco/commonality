@@ -32,7 +32,8 @@
     "open": "^9.1.0",
     "ora": "^7.0.1",
     "update-notifier": "^6.0.2",
-    "wait-on": "^7.0.1"
+    "wait-on": "^7.0.1",
+    "next": "13.4.16"
   },
   "devDependencies": {
     "@commonalityco/studio": "workspace:*",
