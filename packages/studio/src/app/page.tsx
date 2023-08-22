@@ -37,30 +37,32 @@ async function GraphPage() {
   await queryClient.prefetchQuery(constraintsKeys, getConstraintsData);
 
   return (
-    <StudioGraphProvider dehydratedState={dehydrate(queryClient)}>
-      <FeatureGraphLayout>
-        <StudioSidebar
+    <div className="bg-secondary h-full">
+      <StudioGraphProvider dehydratedState={dehydrate(queryClient)}>
+        <FeatureGraphLayout>
+          <StudioSidebar
+            getCodeownersData={getCodeownersData}
+            getTags={getTagsData}
+            getPackages={getPackagesData}
+          />
+          <StudioGraph
+            getDependencies={getDependenciesData}
+            packageManager={project.packageManager}
+            getViolations={getViolationsData}
+            getPackages={getPackagesData}
+            getConstraints={getConstraintsData}
+          />
+        </FeatureGraphLayout>
+        <StudioGraphOverlays
           getCodeownersData={getCodeownersData}
-          getTags={getTagsData}
-          getPackages={getPackagesData}
-        />
-        <StudioGraph
-          getDependencies={getDependenciesData}
-          packageManager={project.packageManager}
-          getViolations={getViolationsData}
-          getPackages={getPackagesData}
           getConstraints={getConstraintsData}
+          getDocumentsData={getDocumentsData}
+          getTagsData={getTagsData}
+          getViolations={getViolationsData}
+          getCreateTagsButton={getCreateTagsButton}
         />
-      </FeatureGraphLayout>
-      <StudioGraphOverlays
-        getCodeownersData={getCodeownersData}
-        getConstraints={getConstraintsData}
-        getDocumentsData={getDocumentsData}
-        getTagsData={getTagsData}
-        getViolations={getViolationsData}
-        getCreateTagsButton={getCreateTagsButton}
-      />
-    </StudioGraphProvider>
+      </StudioGraphProvider>
+    </div>
   );
 }
 

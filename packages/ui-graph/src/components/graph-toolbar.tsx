@@ -230,7 +230,7 @@ export function GraphToolbar({
     : undefined;
 
   return (
-    <div className="bg-background flex w-full px-3 pb-1 pt-3">
+    <div className="bg-background flex w-full px-3 pt-3">
       <div className="flex items-center gap-2">
         <div className="flex flex-nowrap items-center gap-2 pl-2">
           {Icon && <Icon />}
