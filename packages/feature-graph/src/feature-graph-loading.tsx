@@ -1,4 +1,4 @@
-import { GraphLayoutMain } from '@commonalityco/ui-graph';
+import { GraphLayoutMain } from '@commonalityco/ui-graph/graph-layout';
 import { Loader2 } from 'lucide-react';
 
 export function FeatureGraphLoading() {
