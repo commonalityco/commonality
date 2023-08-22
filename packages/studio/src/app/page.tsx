@@ -5,7 +5,6 @@ import { FeatureGraphLayout } from '@commonalityco/feature-graph';
 import StudioGraph from './studio-graph';
 import { StudioSidebar } from './studio-sidebar';
 import { getCodeownersData } from 'data/codeowners';
-import { getViolationsData } from 'data/violations';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { getDocumentsData } from 'data/documents';
 import {
@@ -16,16 +15,19 @@ import {
   packagesKeys,
   tagsKeys,
   violationsKeys,
-} from '@commonalityco/utils-graph';
+} from '@commonalityco/utils-graph/query-keys';
 import { getDependenciesData } from 'data/dependencies';
 import { getConstraintsData } from 'data/constraints';
 import { StudioGraphProvider } from './studio-graph-provider';
 import dynamic from 'next/dynamic';
-
-const StudioGraphOverlays = dynamic(
-  () => import('./studio-graph-overlays'),
-  {},
-);
+import {
+  FeatureGraphOverlays,
+  FeatureGraphPackageTooltip,
+  FeatureGraphDependencySheet,
+  FeatureGraphPackageSheet,
+} from '@commonalityco/feature-graph';
+import { getCreateTagsButton } from './CreateTagsButton';
+import { getViolationsData } from 'data/violations';
 
 async function GraphPage() {
   const project = await getProject();
@@ -56,13 +58,20 @@ async function GraphPage() {
           getConstraints={getConstraintsData}
         />
       </FeatureGraphLayout>
-      <StudioGraphOverlays
-        getConstraints={getConstraintsData}
-        getViolations={getViolationsData}
-        getCodeownersData={getCodeownersData}
-        getTagsData={getTagsData}
-        getDocumentsData={getDocumentsData}
-      />
+      <FeatureGraphOverlays>
+        <FeatureGraphPackageSheet
+          getTagsData={getTagsData}
+          getDocumentsData={getDocumentsData}
+          getCodeownersData={getCodeownersData}
+          getCreateTagsButton={getCreateTagsButton}
+        />
+        <FeatureGraphDependencySheet
+          getViolations={getViolationsData}
+          getConstraints={getConstraintsData}
+          getTagsData={getTagsData}
+        />
+        <FeatureGraphPackageTooltip />
+      </FeatureGraphOverlays>
     </StudioGraphProvider>
   );
 }

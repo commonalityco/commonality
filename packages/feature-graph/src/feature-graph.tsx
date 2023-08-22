@@ -15,7 +15,7 @@ import {
   Violation,
 } from '@commonalityco/types';
 import { GraphContext } from './graph-provider';
-import { FeatureGraphToolbar } from './feature-graph-toolbar';
+import FeatureGraphToolbar from './feature-graph-toolbar';
 import { useQuery } from '@tanstack/react-query';
 import { cn } from '@commonalityco/ui-design-system';
 import debounce from 'lodash.debounce';
@@ -60,7 +60,7 @@ export function FeatureGraph({
     (state) =>
       state.matches('updating') ||
       state.matches('rendering') ||
-      state.matches('uninitialized')
+      state.matches('uninitialized'),
   );
 
   const isEmpty = GraphContext.useSelector((state) => {
@@ -70,11 +70,11 @@ export function FeatureGraph({
   const isZero = !packages?.length;
 
   const isHovering = GraphContext.useSelector(
-    (state) => state.context.hoveredRenderNode
+    (state) => state.context.hoveredRenderNode,
   );
 
   const renderGraph = GraphContext.useSelector(
-    (state) => state.context.renderGraph
+    (state) => state.context.renderGraph,
   );
 
   useEffect(() => {
@@ -141,3 +141,5 @@ export function FeatureGraph({
     </GraphLayoutMain>
   );
 }
+
+export default FeatureGraph;

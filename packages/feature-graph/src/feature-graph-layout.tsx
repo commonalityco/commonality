@@ -7,3 +7,5 @@ export function FeatureGraphLayout({
 }) {
   return <GraphLayoutRoot>{children}</GraphLayoutRoot>;
 }
+
+export default FeatureGraphLayout;

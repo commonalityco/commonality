@@ -154,3 +154,5 @@ export function FeatureGraphSidebar(properties: FeatureGraphSidebarProperties) {
     </GraphLayoutAside>
   );
 }
+
+export default FeatureGraphSidebar;

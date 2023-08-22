@@ -12,7 +12,7 @@ import { TagsData, Package } from '@commonalityco/types';
 import { sortBy } from 'lodash';
 import { useMemo } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { metadataKey, tagsKeys } from '@commonalityco/utils-graph';
+import { metadataKey, tagsKeys } from '@commonalityco/utils-graph/query-keys';
 import { setTagsAction } from 'actions/metadata';
 import { getTagsData } from 'data/tags';
 import { Plus } from 'lucide-react';
@@ -54,7 +54,7 @@ function CreateTagsButton({ pkg }: { pkg: Package }) {
         tagsData
           ?.map((data) => data.tags)
           .flat()
-          .filter(Boolean)
+          .filter(Boolean),
       ),
     ];
 
