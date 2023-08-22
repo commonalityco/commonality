@@ -1,5 +1,11 @@
 # @commonalityco/ui-design-system
 
+## 0.0.10
+
+### Patch Changes
+
+- 5b61b0e: Reduce bundle size
+
 ## 0.0.9
 
 ### Patch Changes

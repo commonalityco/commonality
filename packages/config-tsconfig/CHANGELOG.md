@@ -1,5 +1,11 @@
 # @commonalityco/config-tsconfig
 
+## 0.0.8
+
+### Patch Changes
+
+- 5b61b0e: Reduce bundle size
+
 ## 0.0.7
 
 ### Patch Changes

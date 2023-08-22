@@ -1,5 +1,25 @@
 # @commonalityco/dashboard
 
+## 0.2.15
+
+### Patch Changes
+
+- 5b61b0e: Reduce bundle size
+- Updated dependencies [5b61b0e]
+  - @commonalityco/data-graph-worker@0.0.7
+  - @commonalityco/ui-design-system@0.0.10
+  - @commonalityco/feature-graph@0.0.10
+  - @commonalityco/utils-package@0.0.8
+  - @commonalityco/utils-graph@0.0.9
+  - @commonalityco/data-graph@0.0.9
+  - @commonalityco/utils-core@0.0.8
+  - @commonalityco/ui-graph@0.0.12
+  - @commonalityco/ui-core@0.0.11
+  - @commonalityco/data-documents@0.0.10
+  - @commonalityco/data-packages@0.0.15
+  - @commonalityco/data-project@0.0.9
+  - @commonalityco/data-tags@0.0.10
+
 ## 0.2.14
 
 ### Patch Changes

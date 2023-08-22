@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/data-packages",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "type": "module",
   "publishConfig": {
     "access": "public"
