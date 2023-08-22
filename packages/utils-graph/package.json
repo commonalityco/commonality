@@ -7,9 +7,12 @@
   },
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js"
   },
-  "main": "./dist/index.js",
+  "files": [
+    "./dist/*"
+  ],
   "dependencies": {
     "cytoscape-dagre": "^2.5.0",
     "cytoscape-popper": "^2.0.0",

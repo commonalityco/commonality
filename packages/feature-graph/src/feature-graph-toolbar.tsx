@@ -70,3 +70,5 @@ export function FeatureGraphToolbar({
     />
   );
 }
+
+export default FeatureGraphToolbar;

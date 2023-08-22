@@ -54,5 +54,8 @@
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit"
   },
-  "exports": "./dist/index.js"
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js"
+  }
 }

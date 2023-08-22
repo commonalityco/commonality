@@ -45,3 +45,5 @@ export const GraphProvider = ({
     </QueryClientProvider>
   );
 };
+
+export default GraphProvider;
