@@ -36,11 +36,7 @@ export function StudioGraphProvider(
     return null;
   }
 
-  return (
-    <GraphProvider dehydratedState={props.dehydratedState} worker={worker}>
-      {props.children}
-    </GraphProvider>
-  );
+  return <GraphProvider worker={worker}>{props.children}</GraphProvider>;
 }
 
 export default StudioGraphProvider;

@@ -30,6 +30,7 @@
     "cytoscape": "^3.26.0",
     "eslint-config-commonality": "workspace:*",
     "lucide-react": "^0.268.0",
+    "next-themes": "^0.2.1",
     "postcss": "^8.4.28",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -48,7 +49,8 @@
     "lucide-react": "^0.x",
     "react": ">=17",
     "react-dom": ">=17",
-    "xstate": "^4.37.2"
+    "xstate": "^4.37.2",
+    "next-themes": "^0.x"
   },
   "scripts": {
     "lint": "eslint .",

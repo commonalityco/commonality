@@ -1,7 +1,12 @@
 {
   "pipeline": {
     "build": {
-      "outputs": ["dist/**", ".next/**", "storybook-static/**"],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "storybook-static/**",
+        "node_modules/.cache/tsbuildinfo.json"
+      ],
       "dependsOn": ["^build"]
     },
     "dev": {

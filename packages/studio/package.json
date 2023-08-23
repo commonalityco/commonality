@@ -42,7 +42,7 @@
     "xstate": "^4.38.2"
   },
   "peerDependencies": {
-    "next": "13.4.16"
+    "next": "canary"
   },
   "files": [
     ".next/",

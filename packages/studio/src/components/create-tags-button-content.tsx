@@ -8,32 +8,27 @@ import {
   useToast,
 } from '@commonalityco/ui-design-system';
 import { formatTagName } from '@commonalityco/utils-core';
-import { Package } from '@commonalityco/types';
+import { Package, TagsData } from '@commonalityco/types';
 import { useMemo } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { metadataKey, tagsKeys } from '@commonalityco/utils-graph/query-keys';
 import { setTagsAction } from 'actions/metadata';
-import { getTagsData } from 'data/tags';
 import { Plus } from 'lucide-react';
 
-export function CreateTagsButton({ pkg }: { pkg: Package }) {
+export function CreateTagsButtonContent({
+  pkg,
+  tagsData,
+}: {
+  pkg: Package;
+  tagsData: TagsData[];
+}) {
   const { toast } = useToast();
-  const queryClient = useQueryClient();
-
-  const { data: tagsData } = useQuery({
-    queryKey: tagsKeys,
-    queryFn: () => getTagsData(),
-  });
-
+  console.log({ tagsData });
   const onSetTags = async (options: {
     packageName: string;
     tags: string[];
   }) => {
+    console.log({ packageName: options.packageName, tags: options.tags });
     await setTagsAction(options);
 
-    await queryClient.invalidateQueries({
-      queryKey: [metadataKey],
-    });
     toast({
       description: 'Successfully updated package configuration',
     });
@@ -111,5 +106,3 @@ export function CreateTagsButton({ pkg }: { pkg: Package }) {
     </Popover>
   );
 }
-
-export default CreateTagsButton;
