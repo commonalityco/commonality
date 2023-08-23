@@ -5,28 +5,24 @@ import {
   Package,
   Violation,
 } from '@commonalityco/types';
-import FeatureGraphContent from './feature-graph-content.js';
+import FeatureGraphChartContent from './feature-graph-chart-content.js';
 import { Package as PackageIcon } from 'lucide-react';
 
 interface GraphProperties {
   packageManager?: PackageManager;
-  getPackages: () => Promise<Package[]>;
-  getViolations: () => Promise<Violation[]>;
-  getConstraints: () => Promise<Constraint[]>;
-  getDependencies: () => Promise<Dependency[]>;
+  packages: Package[];
+  violations: Violation[];
+  constraints: Constraint[];
+  dependencies: Dependency[];
 }
 
-export async function FeatureGraph({
+export async function FeatureGraphChart({
   packageManager,
-  getViolations,
-  getPackages,
-  getConstraints,
-  getDependencies,
+  violations,
+  packages,
+  constraints,
+  dependencies,
 }: GraphProperties) {
-  const packages = await getPackages();
-  const dependencies = await getDependencies();
-  const violations = await getViolations();
-  const constraints = await getConstraints();
   const isZero = !packages?.length;
 
   if (isZero) {
@@ -47,7 +43,7 @@ export async function FeatureGraph({
   }
 
   return (
-    <FeatureGraphContent
+    <FeatureGraphChartContent
       packages={packages}
       dependencies={dependencies}
       violations={violations}
@@ -57,4 +53,4 @@ export async function FeatureGraph({
   );
 }
 
-export default FeatureGraph;
+export default FeatureGraphChart;

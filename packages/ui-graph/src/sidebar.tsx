@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import { ComponentProps, useMemo, useState } from 'react';
 import { CodeownersData, Package, TagsData } from '@commonalityco/types';
 import {
@@ -572,7 +571,7 @@ export function Sidebar({
           </div>
         ) : (
           <PanelGroup direction="vertical" autoSaveId="graph-sidebar">
-            <Panel defaultSize={20} minSize={5} className="grid content-start">
+            <Panel defaultSize={33} minSize={5} className="grid content-start">
               <PackagesFilterSection
                 packages={filteredPackages}
                 stripScopeFromPackageNames={stripScopeFromPackageNames}
@@ -584,7 +583,7 @@ export function Sidebar({
               />
             </Panel>
             <ResizeBar />
-            <Panel defaultSize={20} minSize={5} className="grid content-start">
+            <Panel defaultSize={33} minSize={5} className="grid content-start">
               <TagsFilterSection
                 className="min-height-0 shrink"
                 tagData={filteredTags}
@@ -596,7 +595,7 @@ export function Sidebar({
               />
             </Panel>
             <ResizeBar />
-            <Panel defaultSize={20} minSize={5} className="grid content-start">
+            <Panel defaultSize={33} minSize={5} className="grid content-start">
               <CodeownersFilterSection
                 className="min-height-0 shrink"
                 ownerData={filteredOwners}

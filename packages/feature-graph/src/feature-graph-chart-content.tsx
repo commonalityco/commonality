@@ -1,5 +1,5 @@
 'use client';
-import { GraphChart, GraphLayoutMain } from '@commonalityco/ui-graph';
+import { GraphChart } from '@commonalityco/ui-graph';
 import { getElementDefinitions } from '@commonalityco/utils-graph';
 import { useEffect, useRef } from 'react';
 import { PackageManager } from '@commonalityco/utils-core';
@@ -87,7 +87,7 @@ export function FeatureGraphContent({
   }, [theme, actor.send]);
 
   return (
-    <GraphLayoutMain>
+    <>
       <FeatureGraphToolbar
         packageManager={packageManager}
         constraints={constraints}
@@ -109,7 +109,7 @@ export function FeatureGraphContent({
           actor.send({ type: 'SHOW_ALL' });
         }}
       />
-    </GraphLayoutMain>
+    </>
   );
 }
 

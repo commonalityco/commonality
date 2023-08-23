@@ -11,7 +11,8 @@
     "@tanstack/react-query": "^4.33.0",
     "@tanstack/react-query-devtools": "^4.32.6",
     "lodash.debounce": "^4.0.8",
-    "lucide-react": "^0.268.0"
+    "lucide-react": "^0.268.0",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@commonalityco/config-tailwind": "workspace:*",
@@ -47,10 +48,10 @@
     "@commonalityco/utils-graph": "*",
     "@xstate/react": "^3.2.2",
     "lucide-react": "^0.x",
+    "next-themes": "^0.x",
     "react": ">=17",
     "react-dom": ">=17",
-    "xstate": "^4.37.2",
-    "next-themes": "^0.x"
+    "xstate": "^4.37.2"
   },
   "scripts": {
     "lint": "eslint .",

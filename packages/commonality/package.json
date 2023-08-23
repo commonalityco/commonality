@@ -29,14 +29,14 @@
     "commander": "^11.0.0",
     "get-port": "^7.0.0",
     "got": "^13.0.0",
+    "kill-port": "^2.0.1",
+    "next": "canary",
     "open": "^9.1.0",
     "ora": "^7.0.1",
     "update-notifier": "^6.0.2",
-    "wait-on": "^7.0.1",
-    "next": "13.4.16"
+    "wait-on": "^7.0.1"
   },
   "devDependencies": {
-    "@commonalityco/studio": "workspace:*",
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/data-codeowners": "workspace:*",
     "@commonalityco/data-documents": "workspace:*",
@@ -44,6 +44,7 @@
     "@commonalityco/data-project": "workspace:*",
     "@commonalityco/data-tags": "workspace:*",
     "@commonalityco/data-violations": "workspace:*",
+    "@commonalityco/studio": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@swc/core": "^1.3.77",

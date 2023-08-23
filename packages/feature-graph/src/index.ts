@@ -1,5 +1,6 @@
+export { FeatureGraphSidebarLayout } from './feature-graph-sidebar-layout.js';
 export { FeatureGraphLayout } from './feature-graph-layout.js';
-export { FeatureGraph } from './feature-graph.js';
+export { FeatureGraphChart } from './feature-graph-chart.js';
 export { FeatureGraphLoading } from './feature-graph-loading.js';
 export { FeatureGraphSidebar } from './feature-graph-sidebar.js';
 export { FeatureGraphPackageTooltip } from './feature-graph-package-tooltip.js';
@@ -9,3 +10,4 @@ export { FeatureGraphSidebarLoading } from './feature-graph-sidebar-loading.js';
 export { FeatureGraphToolbar } from './feature-graph-toolbar.js';
 export { FeatureGraphOverlays } from './feature-graph-overlays.js';
 export { GraphProvider, GraphContext } from './graph-provider.js';
+export { FeatureGraphChartLayout } from './feature-graph-chart-layout.js';
