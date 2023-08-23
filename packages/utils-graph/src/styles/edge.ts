@@ -28,7 +28,7 @@ export const edgeStyles: Stylesheet[] = [
       'curve-style': 'unbundled-bezier',
       'source-endpoint': '0% 50%',
       'target-endpoint': '0% -50%',
-      'arrow-scale': 1.3,
+      'arrow-scale': 1.5,
       'line-color': colors.light.default,
     },
   },

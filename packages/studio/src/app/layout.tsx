@@ -4,6 +4,12 @@ import StudioNavigation from 'app/studio-navigation';
 import { firaCode, inter, vollkorn } from 'constants/fonts';
 import { getProject } from 'data/project';
 import { Providers } from 'app/providers';
+import StudioGraphProvider from './studio-graph-provider';
+import {
+  FeatureGraphChartLayout,
+  FeatureGraphLayout,
+  FeatureGraphSidebarLayout,
+} from '@commonalityco/feature-graph';
 
 export const metadata = {
   title: 'Commonality Studio',
@@ -14,8 +20,12 @@ export const metadata = {
 
 export default async function RootLayout({
   children,
+  sidebar,
+  chart,
 }: {
   children: React.ReactNode;
+  sidebar: React.ReactNode;
+  chart: React.ReactNode;
 }) {
   const project = await getProject();
 
@@ -31,12 +41,20 @@ export default async function RootLayout({
           inter.variable,
           firaCode.variable,
           vollkorn.variable,
-          'flex h-full flex-col font-sans'
+          'flex h-full flex-col font-sans',
         )}
       >
         <Providers>
           <StudioNavigation title={project.name} />
-          {children}
+          <div className="bg-secondary h-full">
+            <StudioGraphProvider>
+              <FeatureGraphLayout>
+                <FeatureGraphSidebarLayout>{sidebar}</FeatureGraphSidebarLayout>
+                <FeatureGraphChartLayout>{chart}</FeatureGraphChartLayout>
+              </FeatureGraphLayout>
+              {children}
+            </StudioGraphProvider>
+          </div>
         </Providers>
       </body>
     </html>

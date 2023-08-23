@@ -1,23 +1,11 @@
 'use client';
 import { ComponentProps, useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
 import {
   FeatureGraphLayout,
   FeatureGraphLoading,
   FeatureGraphSidebarLoading,
+  GraphProvider,
 } from '@commonalityco/feature-graph';
-
-const GraphProvider = dynamic(
-  () => import('@commonalityco/feature-graph/graph-provider'),
-  {
-    loading: () => (
-      <FeatureGraphLayout>
-        <FeatureGraphSidebarLoading />
-        <FeatureGraphLoading />
-      </FeatureGraphLayout>
-    ),
-  },
-);
 
 export function StudioGraphProvider(
   props: Omit<ComponentProps<typeof GraphProvider>, 'worker'>,
@@ -33,7 +21,12 @@ export function StudioGraphProvider(
   }, []);
 
   if (!worker) {
-    return null;
+    return (
+      <FeatureGraphLayout>
+        <FeatureGraphSidebarLoading />
+        <FeatureGraphLoading />
+      </FeatureGraphLayout>
+    );
   }
 
   return <GraphProvider worker={worker}>{props.children}</GraphProvider>;

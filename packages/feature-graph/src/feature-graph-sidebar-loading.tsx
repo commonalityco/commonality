@@ -1,4 +1,4 @@
-import { GraphLayoutAside } from '@commonalityco/ui-graph';
+import { GraphLayoutAside } from '@commonalityco/ui-graph/graph-layout';
 
 export function FeatureGraphSidebarLoading() {
   return <GraphLayoutAside />;

@@ -1,4 +1,3 @@
-'use client';
 import { CodeownersData, Package, TagsData } from '@commonalityco/types';
 import FeatureGraphSidebarContent from './feature-graph-sidebar-content.js';
 

@@ -1,10 +1,9 @@
-import { FeatureGraphSidebar } from '@commonalityco/feature-graph';
-import React from 'react';
 import { getPackagesData } from 'data/packages';
 import { getTagsData } from 'data/tags';
 import { getCodeownersData } from 'data/codeowners';
+import { FeatureGraphSidebar } from '@commonalityco/feature-graph';
 
-async function StudioSidebar() {
+async function GraphSidebarPage() {
   const tagsData = await getTagsData();
   const codeownersData = await getCodeownersData();
   const packages = await getPackagesData();
@@ -12,10 +11,10 @@ async function StudioSidebar() {
   return (
     <FeatureGraphSidebar
       tagsData={tagsData}
-      packages={packages}
       codeownersData={codeownersData}
+      packages={packages}
     />
   );
 }
 
-export default StudioSidebar;
+export default GraphSidebarPage;

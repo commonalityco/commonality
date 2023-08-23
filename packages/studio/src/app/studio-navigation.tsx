@@ -2,10 +2,10 @@
 import { Theme } from '@commonalityco/utils-core';
 import { Navigation, NavigationLogo, Divider } from '@commonalityco/ui-core';
 import { useTheme } from 'next-themes';
-import dynamic from 'next/dynamic';
 import { Button } from '@commonalityco/ui-design-system';
 import Link from 'next/link';
 import { ThemeButtonLoading } from '@commonalityco/ui-core';
+import dynamic from 'next/dynamic';
 
 const ThemeButton = dynamic(
   () => import('@commonalityco/ui-core').then((module) => module.ThemeButton),
@@ -20,7 +20,9 @@ function DashboardNavigation({ title }: { title: string }) {
       <Navigation className="border-b">
         <div className="flex w-full items-center">
           <div className="flex grow items-center space-x-3">
-            <NavigationLogo />
+            <Link href="/">
+              <NavigationLogo />
+            </Link>
             <p className="font-bold uppercase tracking-widest">Studio</p>
             <Divider className="fill-muted-foreground" />
             <h1 className="text-base font-semibold text-foreground">{title}</h1>

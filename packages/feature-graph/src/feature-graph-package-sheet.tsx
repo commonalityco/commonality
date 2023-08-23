@@ -1,3 +1,4 @@
+import 'server-only';
 import { CodeownersData, DocumentsData, TagsData } from '@commonalityco/types';
 import FeatureGraphPackageSheetContent from './feature-graph-package-sheet-content.js';
 
