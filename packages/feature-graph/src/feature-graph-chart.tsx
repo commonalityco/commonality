@@ -1,4 +1,4 @@
-import { PackageManager } from '@commonalityco/utils-core';
+import { PackageManager } from '@commonalityco/utils-core/constants';
 import {
   Constraint,
   Dependency,
@@ -16,7 +16,7 @@ interface GraphProperties {
   dependencies: Dependency[];
 }
 
-export async function FeatureGraphChart({
+export function FeatureGraphChart({
   packageManager,
   violations,
   packages,
