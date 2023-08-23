@@ -651,6 +651,9 @@ importers:
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../config-eslint
+      next-themes:
+        specifier: ^0.2.1
+        version: 0.2.1(next@13.4.16)(react-dom@18.2.0)(react@18.2.0)
       postcss:
         specifier: ^8.4.28
         version: 8.4.28

@@ -1,5 +1,4 @@
 'use client';
-
 import { Toaster } from '@commonalityco/ui-design-system/toaster';
 import { ThemeProvider } from 'next-themes';
 

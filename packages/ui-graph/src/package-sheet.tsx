@@ -33,7 +33,6 @@ interface PackageSheetProperties extends ComponentProps<typeof Sheet> {
   tagsData: TagsData[];
   codeownersData: CodeownersData[];
   documentsData: DocumentsData[];
-  getCreateTagsButton?: (package_: Package) => React.ReactNode | undefined;
 }
 
 function TagsButton({ pkgTags: packageTags = [] }: { pkgTags: string[] }) {
@@ -83,13 +82,11 @@ function PackageSheetContent({
   tagsData,
   documentsData,
   codeownersData,
-  getCreateTagsButton,
 }: {
   pkg: Package;
   documentsData: PackageSheetProperties['documentsData'];
   tagsData: PackageSheetProperties['tagsData'];
   codeownersData: PackageSheetProperties['codeownersData'];
-  getCreateTagsButton?: PackageSheetProperties['getCreateTagsButton'];
 }) {
   const Icon = getIconForPackage(pkg.type);
 
@@ -109,11 +106,6 @@ function PackageSheetContent({
     (document) => document.isReadme,
   );
 
-  const createTagsButton = useMemo(
-    () => (getCreateTagsButton ? getCreateTagsButton(pkg) : undefined),
-    [pkg],
-  );
-
   return (
     <>
       <SheetHeader className="px-6 pt-6">
@@ -131,10 +123,8 @@ function PackageSheetContent({
         <GradientFade placement="top" />
         <div className="space-y-4 px-6">
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label>Tags</Label>
-              {createTagsButton}
-            </div>
+            <Label>Tags</Label>
+
             <div className="w-full">
               <TagsButton pkgTags={tagDataForPackage?.tags ?? []} />
             </div>
@@ -242,7 +232,6 @@ export function PackageSheet(properties: PackageSheetProperties) {
             tagsData={properties.tagsData}
             documentsData={properties.documentsData}
             codeownersData={properties.codeownersData}
-            getCreateTagsButton={properties.getCreateTagsButton}
           />
         )}
       </SheetContent>

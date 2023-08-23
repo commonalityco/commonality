@@ -1,32 +1,21 @@
 'use server';
-import { cache } from 'react';
 import 'server-only';
-import {
-  getPackageDirectories,
-  getPackageManager,
-  getWorkspaceGlobs,
-} from '@commonalityco/data-project';
 import { getPackages } from '@commonalityco/data-packages';
-
-export const getPackageDirectoriesData = cache(async () => {
-  const packageManager = await getPackageManager({
-    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
-  });
-  const workspaceGlobs = await getWorkspaceGlobs({
-    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
-    packageManager,
-  });
-
-  return getPackageDirectories({
-    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
-    workspaceGlobs,
-  });
-});
+import { unstable_cache } from 'next/cache';
+import { packagesKeys } from '@commonalityco/utils-graph/query-keys';
 
 export const getPackagesData = async () => {
-  const packagesData = await getPackages({
-    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
-  });
+  return unstable_cache(
+    async () => {
+      const packagesData = await getPackages({
+        rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+      });
 
-  return packagesData.sort((a, b) => a.name.localeCompare(b.name));
+      return packagesData.sort((a, b) => a.name.localeCompare(b.name));
+    },
+    [`${process.env.COMMONALITY_ROOT_DIRECTORY}-packages`],
+    {
+      tags: packagesKeys,
+    },
+  )();
 };

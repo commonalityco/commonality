@@ -2,13 +2,7 @@
 import { ComponentProps } from 'react';
 import { GraphContext } from './graph-provider.js';
 import { GraphToolbar } from '@commonalityco/ui-graph';
-import { useQuery } from '@tanstack/react-query';
 import { Constraint, Package, Violation } from '@commonalityco/types';
-import {
-  constraintsKeys,
-  packagesKeys,
-  violationsKeys,
-} from '@commonalityco/utils-graph/query-keys';
 
 interface FeatureGraphToolbarProperties
   extends Omit<
@@ -20,30 +14,18 @@ interface FeatureGraphToolbarProperties
     | 'constraints'
     | 'totalPackageCount'
   > {
-  getViolations: () => Promise<Violation[]>;
-  getPackages: () => Promise<Package[]>;
-  getConstraints: () => Promise<Constraint[]>;
+  violations: Violation[];
+  constraints: Constraint[];
+  packages: Package[];
 }
 
 export function FeatureGraphToolbar({
-  getViolations,
-  getConstraints,
-  getPackages,
+  violations,
+  constraints,
+  packages,
   ...properties
 }: FeatureGraphToolbarProperties) {
   const [state, send] = GraphContext.useActor();
-  const { data: violations } = useQuery({
-    queryKey: violationsKeys,
-    queryFn: () => getViolations(),
-  });
-  const { data: constraints } = useQuery({
-    queryKey: constraintsKeys,
-    queryFn: () => getConstraints(),
-  });
-  const { data: packages } = useQuery({
-    queryKey: packagesKeys,
-    queryFn: () => getPackages(),
-  });
 
   const shownPackageCount = state.context.renderGraph
     ? state.context.renderGraph.nodes().length

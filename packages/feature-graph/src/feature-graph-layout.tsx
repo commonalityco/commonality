@@ -1,3 +1,4 @@
+'use client';
 import { GraphLayoutRoot } from '@commonalityco/ui-graph/graph-layout';
 
 export function FeatureGraphLayout({

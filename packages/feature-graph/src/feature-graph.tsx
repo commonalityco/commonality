@@ -1,12 +1,3 @@
-'use client';
-import { GraphChart, GraphLayoutMain } from '@commonalityco/ui-graph';
-import {
-  dependenciesKeys,
-  packagesKeys,
-  violationsKeys,
-} from '@commonalityco/utils-graph/query-keys';
-import { getElementDefinitions } from '@commonalityco/utils-graph';
-import { useEffect, useRef } from 'react';
 import { PackageManager } from '@commonalityco/utils-core';
 import {
   Constraint,
@@ -14,14 +5,10 @@ import {
   Package,
   Violation,
 } from '@commonalityco/types';
-import { GraphContext } from './graph-provider.js';
-import FeatureGraphToolbar from './feature-graph-toolbar.js';
-import { useQuery } from '@tanstack/react-query';
-import { cn } from '@commonalityco/ui-design-system/cn';
-import debounce from 'lodash.debounce';
+import FeatureGraphContent from './feature-graph-content.js';
+import { Package as PackageIcon } from 'lucide-react';
 
 interface GraphProperties {
-  theme?: string;
   packageManager?: PackageManager;
   getPackages: () => Promise<Package[]>;
   getViolations: () => Promise<Violation[]>;
@@ -29,116 +16,44 @@ interface GraphProperties {
   getDependencies: () => Promise<Dependency[]>;
 }
 
-export function FeatureGraph({
-  theme,
+export async function FeatureGraph({
   packageManager,
   getViolations,
   getPackages,
   getConstraints,
   getDependencies,
 }: GraphProperties) {
-  const containerReference = useRef<HTMLDivElement>(null);
-
-  const { data: packages } = useQuery({
-    queryKey: packagesKeys,
-    queryFn: () => getPackages(),
-  });
-
-  const { data: dependencies } = useQuery({
-    queryKey: dependenciesKeys,
-    queryFn: () => getDependencies(),
-  });
-
-  const { data: violations } = useQuery({
-    queryKey: violationsKeys,
-    queryFn: getViolations,
-  });
-
-  const actor = GraphContext.useActorRef();
-
-  const isLoading = GraphContext.useSelector(
-    (state) =>
-      state.matches('updating') ||
-      state.matches('rendering') ||
-      state.matches('uninitialized'),
-  );
-
-  const isEmpty = GraphContext.useSelector((state) => {
-    return state.matches('success') && state.context.elements.length === 0;
-  });
-
+  const packages = await getPackages();
+  const dependencies = await getDependencies();
+  const violations = await getViolations();
+  const constraints = await getConstraints();
   const isZero = !packages?.length;
 
-  const isHovering = GraphContext.useSelector(
-    (state) => state.context.hoveredRenderNode,
-  );
-
-  const renderGraph = GraphContext.useSelector(
-    (state) => state.context.renderGraph,
-  );
-
-  useEffect(() => {
-    const listener = debounce(() => {
-      renderGraph?.resize();
-      actor.send('FIT');
-    }, 50);
-
-    window.addEventListener('resize', listener);
-
-    return () => window.removeEventListener('resize', listener);
-  }, [renderGraph]);
-
-  useEffect(() => {
-    if (!violations || !packages) {
-      return;
-    }
-
-    if (containerReference.current && packages && dependencies) {
-      actor.send({
-        type: 'INITIALIZE',
-        containerId: containerReference.current.id,
-        elements: getElementDefinitions({ packages, dependencies }),
-        theme: theme ?? 'light',
-        violations,
-      });
-    }
-
-    return () => {
-      actor.send({ type: 'DESTROY' });
-    };
-  }, [violations, packages]);
-
-  useEffect(() => {
-    if (!theme) return;
-
-    actor.send({ type: 'SET_THEME', theme });
-  }, [theme, actor.send]);
+  if (isZero) {
+    return (
+      <div className="bg-background absolute bottom-0 left-0 right-0 top-0 z-30 flex h-full w-full items-center justify-center transition-opacity">
+        <div className="max-w-sm text-center">
+          <PackageIcon className="mx-auto h-8 w-8" />
+          <p className="mb-2 mt-4 text-base font-semibold">
+            Build your first package
+          </p>
+          <p className="text-muted-foreground">
+            You'll see your dependency graph here after you've created your
+            first package.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <GraphLayoutMain>
-      <FeatureGraphToolbar
-        packageManager={packageManager}
-        getConstraints={getConstraints}
-        getPackages={getPackages}
-        getViolations={getViolations}
-        onPackageClick={(packageName) => {
-          actor.send({ type: 'NODE_SELECT', packageName });
-        }}
-      />
-      <GraphChart
-        ref={containerReference}
-        loading={isLoading}
-        isZero={isZero}
-        isEmpty={isEmpty}
-        className={cn({
-          'cursor-pointer': isHovering,
-          'cursor-grab active:cursor-grabbing': !isHovering,
-        })}
-        onShowAllPackages={() => {
-          actor.send({ type: 'SHOW_ALL' });
-        }}
-      />
-    </GraphLayoutMain>
+    <FeatureGraphContent
+      packages={packages}
+      dependencies={dependencies}
+      violations={violations}
+      constraints={constraints}
+      packageManager={packageManager}
+    />
   );
 }
 

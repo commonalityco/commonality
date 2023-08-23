@@ -1,20 +1,21 @@
-'use client';
-import { FeatureGraphSidebarLoading } from '@commonalityco/feature-graph';
-import dynamic from 'next/dynamic';
-import React, { ComponentProps } from 'react';
+import { FeatureGraphSidebar } from '@commonalityco/feature-graph';
+import React from 'react';
+import { getPackagesData } from 'data/packages';
+import { getTagsData } from 'data/tags';
+import { getCodeownersData } from 'data/codeowners';
 
-const FeatureGraphSidebar = dynamic(
-  () =>
-    import('@commonalityco/feature-graph').then(
-      (module) => module.FeatureGraphSidebar,
-    ),
-  {
-    loading: FeatureGraphSidebarLoading,
-  },
-);
+async function StudioSidebar() {
+  const tagsData = await getTagsData();
+  const codeownersData = await getCodeownersData();
+  const packages = await getPackagesData();
 
-function StudioSidebar(props: ComponentProps<typeof FeatureGraphSidebar>) {
-  return <FeatureGraphSidebar {...props} />;
+  return (
+    <FeatureGraphSidebar
+      tagsData={tagsData}
+      packages={packages}
+      codeownersData={codeownersData}
+    />
+  );
 }
 
 export default StudioSidebar;
