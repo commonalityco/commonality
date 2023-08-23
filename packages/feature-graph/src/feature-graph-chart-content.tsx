@@ -1,8 +1,8 @@
 'use client';
-import { GraphChart } from '@commonalityco/ui-graph';
-import { getElementDefinitions } from '@commonalityco/utils-graph';
+import { GraphChart } from '@commonalityco/ui-graph/graph-chart';
+import { getElementDefinitions } from '@commonalityco/utils-graph/get-element-definitions';
 import { useEffect, useRef } from 'react';
-import { PackageManager } from '@commonalityco/utils-core';
+import { PackageManager } from '@commonalityco/utils-core/constants';
 import {
   Constraint,
   Dependency,

@@ -9,7 +9,8 @@
   },
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js"
   },
   "main": "./dist/index.js",
   "license": "MIT",

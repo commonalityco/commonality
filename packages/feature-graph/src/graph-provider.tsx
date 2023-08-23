@@ -1,4 +1,3 @@
-'use client';
 import 'xstate';
 import { createActorContext } from '@xstate/react';
 import { graphMachine } from '@commonalityco/data-graph';

@@ -1,7 +1,7 @@
 'use client';
 import { GraphContext } from './graph-provider.js';
-import { CodeownersData, Package, TagsData } from '@commonalityco/types';
-import { Sidebar } from '@commonalityco/ui-graph';
+import type { CodeownersData, Package, TagsData } from '@commonalityco/types';
+import { Sidebar } from '@commonalityco/ui-graph/sidebar';
 
 interface FeatureGraphSidebarContentProperties {
   codeownersData: CodeownersData[];

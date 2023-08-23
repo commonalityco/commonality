@@ -13,14 +13,14 @@ function StudioGraphOverlays(
   return (
     <FeatureGraphOverlays>
       <FeatureGraphPackageSheet
-        getTagsData={props.getTagsData}
-        getDocumentsData={props.getDocumentsData}
-        getCodeownersData={props.getCodeownersData}
+        tagsData={props.tagsData}
+        documentsData={props.documentsData}
+        codeownersData={props.codeownersData}
       />
       <FeatureGraphDependencySheet
-        getViolations={props.getViolations}
-        getConstraints={props.getConstraints}
-        getTagsData={props.getTagsData}
+        violations={props.violations}
+        constraints={props.constraints}
+        tagsData={props.tagsData}
       />
       <FeatureGraphPackageTooltip />
     </FeatureGraphOverlays>
