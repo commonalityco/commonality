@@ -4,9 +4,11 @@ import { getCodeownersData } from 'data/codeowners';
 import { FeatureGraphSidebar } from '@commonalityco/feature-graph';
 
 async function GraphSidebarPage() {
-  const tagsData = await getTagsData();
-  const codeownersData = await getCodeownersData();
-  const packages = await getPackagesData();
+  const [tagsData, codeownersData, packages] = await Promise.all([
+    getTagsData(),
+    getCodeownersData(),
+    getPackagesData(),
+  ]);
 
   return (
     <FeatureGraphSidebar
