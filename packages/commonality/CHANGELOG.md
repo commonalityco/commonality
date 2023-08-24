@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.16
+
+### Patch Changes
+
+- ffbc45c: Fixed graph color and reduced bundle size dramatically
+
 ## 0.2.15
 
 ### Patch Changes

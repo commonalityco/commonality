@@ -1,5 +1,11 @@
 # @commonalityco/snapshot
 
+## 0.0.11
+
+### Patch Changes
+
+- @commonalityco/data-project@0.0.10
+
 ## 0.0.10
 
 ### Patch Changes

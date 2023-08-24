@@ -1,5 +1,25 @@
 # @commonalityco/dashboard
 
+## 0.2.16
+
+### Patch Changes
+
+- ffbc45c: Fixed graph color and reduced bundle size dramatically
+- Updated dependencies [ffbc45c]
+  - @commonalityco/ui-design-system@0.0.11
+  - @commonalityco/data-violations@0.0.14
+  - @commonalityco/feature-graph@0.0.11
+  - @commonalityco/utils-package@0.0.9
+  - @commonalityco/utils-graph@0.0.10
+  - @commonalityco/data-graph@0.0.10
+  - @commonalityco/utils-core@0.0.9
+  - @commonalityco/ui-graph@0.0.13
+  - @commonalityco/ui-core@0.0.12
+  - @commonalityco/data-documents@0.0.11
+  - @commonalityco/data-packages@0.0.16
+  - @commonalityco/data-project@0.0.10
+  - @commonalityco/data-tags@0.0.11
+
 ## 0.2.15
 
 ### Patch Changes

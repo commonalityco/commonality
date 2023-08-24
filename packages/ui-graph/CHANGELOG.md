@@ -1,5 +1,16 @@
 # @commonalityco/ui-graph
 
+## 0.0.13
+
+### Patch Changes
+
+- ffbc45c: Fixed graph color and reduced bundle size dramatically
+- Updated dependencies [ffbc45c]
+  - @commonalityco/ui-design-system@0.0.11
+  - @commonalityco/utils-package@0.0.9
+  - @commonalityco/utils-core@0.0.9
+  - @commonalityco/ui-core@0.0.12
+
 ## 0.0.12
 
 ### Patch Changes
