@@ -1,3 +1,14 @@
 import { defineConfig } from 'vitest/config';
 
-export default defineConfig({});
+export default defineConfig({
+  test: {
+    exclude: [
+      './test/integration/**',
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/cypress/**',
+      '**/.{idea,git,cache,output,temp}/**',
+      '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
+    ],
+  },
+});

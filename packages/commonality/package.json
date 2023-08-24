@@ -19,7 +19,8 @@
   "scripts": {
     "build": "scripts/build.js",
     "lint": "eslint ./src --fix",
-    "test": "vitest",
+    "test": "vitest --config=vite.config.ts",
+    "test:integration": "vitest --config=vite.integration.config.ts",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

@@ -19,6 +19,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
+    'unicorn/prevent-abbreviations': 'off',
   },
   overrides: [
     {

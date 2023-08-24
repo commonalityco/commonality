@@ -16,6 +16,7 @@
     "test": {
       "dependsOn": ["^build"]
     },
+    "test:integration": {},
     "lint": {
       "dependsOn": ["^build"]
     },
