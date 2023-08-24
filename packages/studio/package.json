@@ -70,7 +70,6 @@
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/fs-extra": "^11.0.1",
-    "@types/kill-port": "^2.0.0",
     "@types/lodash": "^4.14.197",
     "@types/node": "^20.5.0",
     "@types/react": "^18.2.20",
