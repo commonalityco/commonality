@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 
 const CreateTagsButton = dynamic(
   () => import('../components/create-tags-button'),
+  { loading: () => <div className="h-8" /> },
 );
 
 const FeatureGraphPackageSheet = dynamic(

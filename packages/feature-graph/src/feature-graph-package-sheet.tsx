@@ -1,8 +1,10 @@
+'use client';
 import { CodeownersData, DocumentsData, TagsData } from '@commonalityco/types';
-import FeatureGraphPackageSheetContent from './feature-graph-package-sheet-content.js';
+import { PackageSheet } from '@commonalityco/ui-graph';
+import { GraphContext } from './graph-provider.js';
 import { ComponentProps } from 'react';
 
-export async function FeatureGraphPackageSheet({
+export function FeatureGraphPackageSheet({
   tagsData,
   documentsData,
   codeownersData,
@@ -11,16 +13,23 @@ export async function FeatureGraphPackageSheet({
   tagsData: TagsData[];
   documentsData: DocumentsData[];
   codeownersData: CodeownersData[];
-  createTagsButton?: ComponentProps<
-    typeof FeatureGraphPackageSheetContent
-  >['createTagsButton'];
+  createTagsButton?: ComponentProps<typeof PackageSheet>['createTagsButton'];
 }) {
+  const actor = GraphContext.useActorRef();
+  const selectedNode = GraphContext.useSelector(
+    (state) => state.context.selectedNode,
+  );
+
   return (
-    <FeatureGraphPackageSheetContent
-      tagsData={tagsData}
-      codeownersData={codeownersData}
-      documentsData={documentsData}
+    <PackageSheet
       createTagsButton={createTagsButton}
+      documentsData={documentsData}
+      codeownersData={codeownersData}
+      tagsData={tagsData ?? []}
+      pkg={selectedNode?.data()}
+      defaultOpen={Boolean(selectedNode)}
+      open={Boolean(selectedNode)}
+      onOpenChange={() => actor.send('UNSELECT')}
     />
   );
 }
