@@ -22,6 +22,7 @@ interface GraphProperties {
   violations: Violation[];
   constraints: Constraint[];
   dependencies: Dependency[];
+  theme?: string;
 }
 
 export function FeatureGraphChart({
@@ -30,9 +31,10 @@ export function FeatureGraphChart({
   packages,
   constraints,
   dependencies,
+  theme,
 }: GraphProperties) {
   const containerReference = useRef<HTMLDivElement>(null);
-  const { resolvedTheme: theme } = useTheme();
+
   const actor = GraphContext.useActorRef();
   const isLoading = GraphContext.useSelector(
     (state) =>

@@ -1,5 +1,4 @@
 'use client';
-import { Theme } from '@commonalityco/utils-core';
 import {
   Navigation,
   NavigationLogo,
@@ -9,19 +8,18 @@ import {
 import { useTheme } from 'next-themes';
 import { Button } from '@commonalityco/ui-design-system';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-import { getCookie, setCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 
 const COOKIE_KEY = 'commonality:theme';
 
-function DashboardNavigation({
+function StudioNavigation({
   title,
   defaultTheme,
 }: {
   title: string;
   defaultTheme?: string;
 }) {
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
 
   return (
     <>
@@ -68,4 +66,4 @@ function DashboardNavigation({
   );
 }
 
-export default DashboardNavigation;
+export default StudioNavigation;
