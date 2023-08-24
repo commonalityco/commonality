@@ -73,7 +73,7 @@ export function CreateTagsButtonContent({
             </>
           ) : (
             <>
-              <Plus className="h-4 w-4" />
+              <Plus className="h-3 w-3" />
               <span>Add tags</span>
             </>
           )}
