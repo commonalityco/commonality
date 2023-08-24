@@ -1,5 +1,11 @@
 # @commonalityco/feature-graph
 
+## 0.0.12
+
+### Patch Changes
+
+- a7a22e3: bundle CLI
+
 ## 0.0.11
 
 ### Patch Changes
