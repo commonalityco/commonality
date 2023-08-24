@@ -48,6 +48,7 @@
   ],
   "devDependencies": {
     "@commonalityco/config-tailwind": "workspace:*",
+    "@commonalityco/types": "workspace:*",
     "@tanstack/react-query": "^4.33.0",
     "@tanstack/react-query-devtools": "^4.32.6",
     "@testing-library/jest-dom": "^6.0.0",
