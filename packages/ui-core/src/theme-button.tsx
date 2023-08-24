@@ -25,7 +25,7 @@ const IconByTheme: Record<string, LucideIcon> = {
 
 export function ThemeButton({
   onThemeChange = () => {},
-  defaultTheme,
+  defaultTheme = 'system',
   ...properties
 }: ThemeButtonProperties) {
   const [theme, setTheme] = useState(defaultTheme);
