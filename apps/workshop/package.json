@@ -2,12 +2,12 @@
   "name": "workshop",
   "description": "The Storybook application for developing Commonality UI components",
   "private": true,
-  "version": "1.0.12",
+  "version": "1.0.13",
   "scripts": {
     "dev": "storybook dev -p 6006"
   },
   "dependencies": {
-    "@commonalityco/feature-graph": "^0.0.11",
+    "@commonalityco/feature-graph": "^0.0.12",
     "@commonalityco/types": "^0.0.13",
     "@commonalityco/ui-core": "^0.0.12",
     "@commonalityco/ui-design-system": "^0.0.11",

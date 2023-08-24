@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.17
+
+### Patch Changes
+
+- a7a22e3: bundle CLI
+
 ## 0.2.16
 
 ### Patch Changes

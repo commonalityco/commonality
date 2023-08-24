@@ -1,5 +1,13 @@
 # @commonalityco/dashboard
 
+## 0.2.17
+
+### Patch Changes
+
+- a7a22e3: bundle CLI
+- Updated dependencies [a7a22e3]
+  - @commonalityco/feature-graph@0.0.12
+
 ## 0.2.16
 
 ### Patch Changes
