@@ -491,14 +491,25 @@ export const graphMachine = createMachine(
       fit: (context, event) => {
         if (!context.renderGraph) return;
 
-        const elements = context.renderGraph
-          .nodes()
-          .filter((node, index, eles) => {
-            if (typeof event.selector === 'function') {
-              return event.selector(node, index, eles);
-            }
-            return false;
-          });
+        if (!event.selector) {
+          return context.renderGraph.fit(undefined, 24);
+        }
+
+        const getElements = () => {
+          if (typeof event.selector === 'function') {
+            return context.renderGraph?.nodes().filter((node, index, eles) => {
+              if (typeof event.selector === 'function') {
+                return event.selector(node, index, eles);
+              }
+
+              return false;
+            });
+          }
+
+          return context.renderGraph?.filter(event.selector);
+        };
+
+        const elements = getElements();
 
         context.renderGraph.fit(elements, 24);
       },
