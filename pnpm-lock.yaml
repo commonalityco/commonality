@@ -72,25 +72,25 @@ importers:
   apps/workshop:
     dependencies:
       '@commonalityco/feature-graph':
-        specifier: ^0.0.10
+        specifier: ^0.0.11
         version: link:../../packages/feature-graph
       '@commonalityco/types':
         specifier: ^0.0.13
         version: link:../../packages/types
       '@commonalityco/ui-core':
-        specifier: ^0.0.11
+        specifier: ^0.0.12
         version: link:../../packages/ui-core
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.10
+        specifier: ^0.0.11
         version: link:../../packages/ui-design-system
       '@commonalityco/ui-graph':
-        specifier: ^0.0.12
+        specifier: ^0.0.13
         version: link:../../packages/ui-graph
       '@commonalityco/utils-core':
-        specifier: ^0.0.8
+        specifier: ^0.0.9
         version: link:../../packages/utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.9
+        specifier: ^0.0.10
         version: link:../../packages/utils-graph
       next:
         specifier: 13.4.16

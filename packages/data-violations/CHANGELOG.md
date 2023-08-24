@@ -1,5 +1,11 @@
 # @commonalityco/constraints
 
+## 0.0.14
+
+### Patch Changes
+
+- ffbc45c: Fixed graph color and reduced bundle size dramatically
+
 ## 0.0.13
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @commonalityco/utils-graph
 
+## 0.0.10
+
+### Patch Changes
+
+- ffbc45c: Fixed graph color and reduced bundle size dramatically
+- Updated dependencies [ffbc45c]
+  - @commonalityco/utils-core@0.0.9
+
 ## 0.0.9
 
 ### Patch Changes

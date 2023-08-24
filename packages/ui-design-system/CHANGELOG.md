@@ -1,5 +1,11 @@
 # @commonalityco/ui-design-system
 
+## 0.0.11
+
+### Patch Changes
+
+- ffbc45c: Fixed graph color and reduced bundle size dramatically
+
 ## 0.0.10
 
 ### Patch Changes

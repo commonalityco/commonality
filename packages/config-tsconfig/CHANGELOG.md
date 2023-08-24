@@ -1,5 +1,11 @@
 # @commonalityco/config-tsconfig
 
+## 0.0.9
+
+### Patch Changes
+
+- ffbc45c: Fixed graph color and reduced bundle size dramatically
+
 ## 0.0.8
 
 ### Patch Changes
