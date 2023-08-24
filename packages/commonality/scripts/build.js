@@ -5,8 +5,8 @@ import fs from 'fs-extra';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import resolve from 'resolve';
-import { execa } from 'execa';
 import { rimraf } from 'rimraf';
+import * as esbuild from 'esbuild';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -14,7 +14,18 @@ try {
   await rimraf(path.join(__dirname, '../dist'));
   console.log('Successfully cleaned /dist');
 
-  await execa('tsup');
+  await esbuild.build({
+    format: 'esm',
+    bundle: true,
+    banner: {
+      js: "import { createRequire } from 'module'; const require = createRequire(import.meta.url);",
+    },
+    platform: 'node',
+    minify: true,
+    entryPoints: ['./src/index.ts'],
+    outdir: './dist',
+  });
+
   console.log('Successfully built CLI');
 
   resolve(

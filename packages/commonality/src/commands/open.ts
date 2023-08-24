@@ -27,8 +27,11 @@ export const open = command
     });
 
     process.on('SIGINT', async function () {
-      await killPort(8888);
-      process.exit();
+      try {
+        await killPort(8888);
+      } finally {
+        process.exit();
+      }
     });
 
     const port = await getPort({ port: 8888 });
