@@ -745,6 +745,9 @@ importers:
       '@commonalityco/config-tailwind':
         specifier: workspace:*
         version: link:../config-tailwind
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../types
       '@next/bundle-analyzer':
         specifier: ^13.4.19
         version: 13.4.19
