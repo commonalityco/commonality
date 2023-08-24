@@ -11,6 +11,7 @@
     "build": "turbo run build",
     "clean": "rimraf ./packages/**/dist ./packages/**/.turbo ./packages/*/node_modules ./coverage ./node_modules",
     "test": "vitest run --coverage",
+    "test:integration": "CI=true turbo run test:integration",
     "test:watch": "vitest run --coverage --watch",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
