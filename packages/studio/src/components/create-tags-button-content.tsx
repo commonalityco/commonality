@@ -11,7 +11,7 @@ import { formatTagName } from '@commonalityco/utils-core';
 import { Package, TagsData } from '@commonalityco/types';
 import { useMemo } from 'react';
 import { setTagsAction } from 'actions/metadata';
-import { Plus } from 'lucide-react';
+import { Pencil, Plus } from 'lucide-react';
 
 export function CreateTagsButtonContent({
   pkg,
@@ -65,9 +65,12 @@ export function CreateTagsButtonContent({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="link" className="h-auto space-x-1 px-0 py-0">
+        <Button variant="ghost" className="space-x-1" size="sm">
           {tagDataForPkg?.tags.length ? (
-            <>Edit tags</>
+            <>
+              <Pencil className="h-3 w-3" />
+              <span>Edit tags</span>
+            </>
           ) : (
             <>
               <Plus className="h-4 w-4" />

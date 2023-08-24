@@ -32,6 +32,10 @@ interface PackageSheetProperties extends ComponentProps<typeof Sheet> {
   tagsData: TagsData[];
   codeownersData: CodeownersData[];
   documentsData: DocumentsData[];
+  createTagsButton?: React.ComponentType<{
+    pkg: Package;
+    tagsData: TagsData[];
+  }>;
 }
 
 function TagsButton({ pkgTags: packageTags = [] }: { pkgTags: string[] }) {
@@ -81,11 +85,13 @@ function PackageSheetContent({
   tagsData,
   documentsData,
   codeownersData,
+  createTagsButton,
 }: {
   pkg: Package;
   documentsData: PackageSheetProperties['documentsData'];
   tagsData: PackageSheetProperties['tagsData'];
   codeownersData: PackageSheetProperties['codeownersData'];
+  createTagsButton?: PackageSheetProperties['createTagsButton'];
 }) {
   const Icon = getIconForPackage(pkg.type);
 
@@ -105,6 +111,8 @@ function PackageSheetContent({
     (document) => document.isReadme,
   );
 
+  const CreateTagsComponent = createTagsButton;
+
   return (
     <>
       <SheetHeader className="px-6 pt-6">
@@ -122,7 +130,12 @@ function PackageSheetContent({
         <GradientFade placement="top" />
         <div className="space-y-4 px-6">
           <div className="space-y-2">
-            <Label>Tags</Label>
+            <div className="flex items-center justify-between">
+              <Label>Tags</Label>
+              {CreateTagsComponent && (
+                <CreateTagsComponent pkg={pkg} tagsData={tagsData} />
+              )}
+            </div>
 
             <div className="w-full">
               <TagsButton pkgTags={tagDataForPackage?.tags ?? []} />
@@ -227,6 +240,7 @@ export function PackageSheet(properties: PackageSheetProperties) {
       <SheetContent className="flex flex-col gap-2 p-0 sm:max-w-[300px] md:max-w-[650px]">
         {properties.pkg && (
           <PackageSheetContent
+            createTagsButton={properties.createTagsButton}
             pkg={properties.pkg}
             tagsData={properties.tagsData}
             documentsData={properties.documentsData}
