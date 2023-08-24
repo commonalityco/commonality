@@ -216,7 +216,7 @@ export function GraphToolbar({
   packageManager,
   totalPackageCount = 0,
   shownPackageCount = 0,
-  isEdgeColorShown = false,
+  isEdgeColorShown,
   onSetIsEdgeColorShown = () => {},
   onZoomIn = () => {},
   onZoomOut = () => {},
@@ -253,16 +253,17 @@ export function GraphToolbar({
       <div className="flex items-center gap-1">
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger asChild>
-              <Toggle
-                onPressedChange={(pressed) => {
-                  onSetIsEdgeColorShown(pressed);
-                }}
-                pressed={isEdgeColorShown}
-              >
+            <Toggle
+              asChild
+              onPressedChange={(pressed) => {
+                onSetIsEdgeColorShown(pressed);
+              }}
+              pressed={isEdgeColorShown}
+            >
+              <TooltipTrigger>
                 <Palette className="h-4 w-4" />
-              </Toggle>
-            </TooltipTrigger>
+              </TooltipTrigger>
+            </Toggle>
             <TooltipContent>Toggle dependency colors</TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -305,8 +306,9 @@ export function GraphToolbar({
                   variant="ghost"
                   size="icon"
                   aria-label="Show entire graph"
+                  onClick={() => onFit()}
                 >
-                  <Maximize className="h-4 w-4" onClick={() => onFit()} />
+                  <Maximize className="h-4 w-4" />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>Fit graph</TooltipContent>

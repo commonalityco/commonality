@@ -25,11 +25,16 @@ export function FeatureGraphToolbar({
   packages,
   ...properties
 }: FeatureGraphToolbarProperties) {
-  const [state, send] = GraphContext.useActor();
-
-  const shownPackageCount = state.context.renderGraph
-    ? state.context.renderGraph.nodes().length
-    : packages?.length ?? 0;
+  const { send } = GraphContext.useActorRef();
+  const isEdgeColorShown = GraphContext.useSelector(
+    (state) => state.context.isEdgeColorShown,
+  );
+  console.log({ isEdgeColorShown });
+  const shownPackageCount = GraphContext.useSelector((state) =>
+    state.context.renderGraph
+      ? state.context.renderGraph.nodes().length
+      : packages?.length ?? 0,
+  );
 
   if (!violations || !constraints) {
     return;
@@ -41,9 +46,9 @@ export function FeatureGraphToolbar({
       totalPackageCount={packages?.length ?? 0}
       constraints={constraints}
       violations={violations}
-      isEdgeColorShown={state.context.isEdgeColorShown}
-      onSetIsEdgeColorShown={(isEdgeColorShown) =>
-        send({ type: 'SET_IS_EDGE_COLOR_SHOWN', isShown: isEdgeColorShown })
+      isEdgeColorShown={isEdgeColorShown}
+      onSetIsEdgeColorShown={(newIsEdgeColorShown) =>
+        send({ type: 'SET_IS_EDGE_COLOR_SHOWN', isShown: newIsEdgeColorShown })
       }
       shownPackageCount={shownPackageCount}
       onFit={() => send({ type: 'FIT', selector: 'node, edge' })}
