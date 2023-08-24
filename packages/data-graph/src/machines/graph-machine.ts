@@ -81,7 +81,7 @@ type Event =
   | { type: 'UNHOVER' }
   | { type: 'UNSELECT' };
 
-const ZOOM_FACTOR = 0.2 as const;
+const ZOOM_FACTOR = 0.5 as const;
 
 export const graphMachine = createMachine(
   {
@@ -491,41 +491,61 @@ export const graphMachine = createMachine(
       fit: (context, event) => {
         if (!context.renderGraph) return;
 
-        if (!event.selector) {
-          return context.renderGraph.fit(undefined, 24);
+        if (event.selector) {
+          const elements =
+            typeof event.selector === 'function'
+              ? context.renderGraph?.nodes().filter((node, index, eles) => {
+                  if (typeof event.selector === 'function') {
+                    return event.selector(node, index, eles);
+                  }
+
+                  return false;
+                })
+              : context.renderGraph?.filter(event.selector);
+
+          context.renderGraph.fit(elements, 24);
+        } else {
+          context.renderGraph.fit(undefined, 24);
         }
-
-        const getElements = () => {
-          if (typeof event.selector === 'function') {
-            return context.renderGraph?.nodes().filter((node, index, eles) => {
-              if (typeof event.selector === 'function') {
-                return event.selector(node, index, eles);
-              }
-
-              return false;
-            });
-          }
-
-          return context.renderGraph?.filter(event.selector);
-        };
-
-        const elements = getElements();
-
-        context.renderGraph.fit(elements, 24);
       },
       zoomIn: (context) => {
         if (!context.renderGraph) return;
 
         const currentZoom = context.renderGraph.zoom();
 
-        const newZoom = currentZoom + currentZoom * ZOOM_FACTOR;
+        const extent = context.renderGraph.extent();
+        const centerX = extent.x1 + (extent.x2 - extent.x1) / 2;
+        const centerY = extent.y1 + (extent.y2 - extent.y1) / 2;
 
-        const x = context.renderGraph.width() / 2;
-        const y = context.renderGraph.height() / 2;
+        context.renderGraph.animate({
+          duration: 100,
+          zoom: {
+            level: currentZoom + currentZoom * ZOOM_FACTOR,
+            position: {
+              x: centerX,
+              y: centerY,
+            },
+          },
+        });
+      },
+      zoomOut: (context) => {
+        if (!context.renderGraph) return;
 
-        context.renderGraph.zoom({
-          level: newZoom,
-          position: { x, y },
+        const currentZoom = context.renderGraph.zoom();
+
+        const extent = context.renderGraph.extent();
+        const centerX = extent.x1 + (extent.x2 - extent.x1) / 2;
+        const centerY = extent.y1 + (extent.y2 - extent.y1) / 2;
+
+        context.renderGraph.animate({
+          duration: 100,
+          zoom: {
+            level: currentZoom - currentZoom * ZOOM_FACTOR,
+            position: {
+              x: centerX,
+              y: centerY,
+            },
+          },
         });
       },
       renderIsEdgeColorShown: (context, event) => {
@@ -553,21 +573,7 @@ export const graphMachine = createMachine(
           return event.isShown;
         },
       }),
-      zoomOut: (context) => {
-        if (!context.renderGraph) return;
 
-        const currentZoom = context.renderGraph.zoom();
-
-        const newZoom = currentZoom - currentZoom * ZOOM_FACTOR;
-
-        const x = context.renderGraph.width() / 2;
-        const y = context.renderGraph.height() / 2;
-
-        context.renderGraph.zoom({
-          level: newZoom,
-          position: { x, y },
-        });
-      },
       nodeMouseOver: assign({
         hoveredTraversalNode: (context, event) => {
           if (!context.traversalGraph) return;
