@@ -1,15 +1,14 @@
-import { GraphLayoutMain } from '@commonalityco/ui-graph/graph-layout';
 import { Loader2 } from 'lucide-react';
 
-export function FeatureGraphLoading() {
+export function FeatureGraphChartLoading() {
   return (
-    <GraphLayoutMain>
+    <div className="grow align-stretch h-full flex flex-col">
       <div className="h-12" />
       <div className="grow flex items-center justify-center">
         <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
       </div>
-    </GraphLayoutMain>
+    </div>
   );
 }
 
-export default FeatureGraphLoading;
+export default FeatureGraphChartLoading;

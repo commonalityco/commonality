@@ -1,6 +1,6 @@
 import {
   FeatureGraphLayout,
-  FeatureGraphLoading,
+  FeatureGraphChartLoading,
   FeatureGraphSidebarLoading,
 } from '@commonalityco/feature-graph';
 
@@ -8,7 +8,7 @@ function LoadingPage() {
   return (
     <FeatureGraphLayout>
       <FeatureGraphSidebarLoading />
-      <FeatureGraphLoading />
+      <FeatureGraphChartLoading />
     </FeatureGraphLayout>
   );
 }
