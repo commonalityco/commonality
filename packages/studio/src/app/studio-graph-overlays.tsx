@@ -3,6 +3,10 @@ import { FeatureGraphOverlays } from '@commonalityco/feature-graph/feature-graph
 import { ComponentProps } from 'react';
 import dynamic from 'next/dynamic';
 
+const CreateTagsButton = dynamic(
+  () => import('../components/create-tags-button'),
+);
+
 const FeatureGraphPackageSheet = dynamic(
   () => import('@commonalityco/feature-graph/feature-graph-package-sheet'),
 );
@@ -25,6 +29,7 @@ function StudioGraphOverlays(
         tagsData={props.tagsData}
         documentsData={props.documentsData}
         codeownersData={props.codeownersData}
+        createTagsButton={CreateTagsButton}
       />
       <FeatureGraphDependencySheet
         violations={props.violations}
