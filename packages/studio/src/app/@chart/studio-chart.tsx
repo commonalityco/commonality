@@ -11,7 +11,7 @@ const FeatureGraphChart = dynamic(
 
 function StudioChart(props: ComponentProps<typeof FeatureGraphChart>) {
   const { resolvedTheme } = useTheme();
-  console.log({ studioTheme: resolvedTheme });
+
   return <FeatureGraphChart {...props} theme={resolvedTheme} />;
 }
 
