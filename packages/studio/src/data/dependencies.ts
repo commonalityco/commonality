@@ -4,6 +4,10 @@ import { getDependencies } from '@commonalityco/data-packages';
 import { unstable_cache } from 'next/cache';
 import { dependenciesKeys } from '@commonalityco/utils-graph/query-keys';
 
+export const preload = () => {
+  getDependenciesData();
+};
+
 export const getDependenciesData = async () => {
   return unstable_cache(
     async () => {

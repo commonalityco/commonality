@@ -23,10 +23,6 @@ export function FeatureGraphSidebarContent({
       .map((node) => node.data()) as Package[];
   });
 
-  if (!packages || !codeownersData) {
-    return;
-  }
-
   return (
     <Sidebar
       onHideAll={() => send({ type: 'HIDE_ALL' })}

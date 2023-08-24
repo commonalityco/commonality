@@ -1,7 +1,7 @@
 import { getPackagesData } from 'data/packages';
 import { getTagsData } from 'data/tags';
 import { getCodeownersData } from 'data/codeowners';
-import { FeatureGraphSidebar } from '@commonalityco/feature-graph';
+import StudioSidebar from './studio-sidebar';
 
 async function GraphSidebarPage() {
   const [tagsData, codeownersData, packages] = await Promise.all([
@@ -11,7 +11,7 @@ async function GraphSidebarPage() {
   ]);
 
   return (
-    <FeatureGraphSidebar
+    <StudioSidebar
       tagsData={tagsData}
       codeownersData={codeownersData}
       packages={packages}
