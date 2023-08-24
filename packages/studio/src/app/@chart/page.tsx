@@ -7,11 +7,14 @@ import { getProject } from 'data/project';
 import StudioChart from './studio-chart';
 
 async function ChartPage() {
-  const project = await getProject();
-  const packages = await getPackagesData();
-  const dependencies = await getDependenciesData();
-  const violations = await getViolationsData();
-  const constraints = await getConstraintsData();
+  const [project, packages, dependencies, violations, constraints] =
+    await Promise.all([
+      getProject(),
+      getPackagesData(),
+      getDependenciesData(),
+      getViolationsData(),
+      getConstraintsData(),
+    ]);
 
   return (
     <StudioChart

@@ -6,11 +6,14 @@ import { getViolationsData } from 'data/violations';
 import StudioGraphOverlays from './studio-graph-overlays';
 
 async function GraphPage() {
-  const documentsData = await getDocumentsData();
-  const codeownersData = await getCodeownersData();
-  const tagsData = await getTagsData();
-  const violations = await getViolationsData();
-  const constraints = await getConstraintsData();
+  const [documentsData, codeownersData, tagsData, violations, constraints] =
+    await Promise.all([
+      getDocumentsData(),
+      getCodeownersData(),
+      getTagsData(),
+      getViolationsData(),
+      getConstraintsData(),
+    ]);
 
   return (
     <StudioGraphOverlays
