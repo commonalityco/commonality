@@ -1,19 +1,27 @@
 'use client';
 import { Theme } from '@commonalityco/utils-core';
-import { Navigation, NavigationLogo, Divider } from '@commonalityco/ui-core';
+import {
+  Navigation,
+  NavigationLogo,
+  Divider,
+  ThemeButton,
+} from '@commonalityco/ui-core';
 import { useTheme } from 'next-themes';
 import { Button } from '@commonalityco/ui-design-system';
 import Link from 'next/link';
-import { ThemeButtonLoading } from '@commonalityco/ui-core';
 import dynamic from 'next/dynamic';
+import { getCookie, setCookie } from 'cookies-next';
 
-const ThemeButton = dynamic(
-  () => import('@commonalityco/ui-core').then((module) => module.ThemeButton),
-  { ssr: false, loading: ThemeButtonLoading },
-);
+const COOKIE_KEY = 'commonality:theme';
 
-function DashboardNavigation({ title }: { title: string }) {
-  const { setTheme, theme } = useTheme();
+function DashboardNavigation({
+  title,
+  defaultTheme,
+}: {
+  title: string;
+  defaultTheme?: string;
+}) {
+  const { theme, setTheme } = useTheme();
 
   return (
     <>
@@ -47,8 +55,9 @@ function DashboardNavigation({ title }: { title: string }) {
               </Link>
             </Button>
             <ThemeButton
-              defaultTheme={theme as Theme}
+              defaultTheme={defaultTheme}
               onThemeChange={(theme) => {
+                setCookie(COOKIE_KEY, theme);
                 setTheme(theme);
               }}
             />

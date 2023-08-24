@@ -10,6 +10,7 @@ import {
   FeatureGraphLayout,
   FeatureGraphSidebarLayout,
 } from '@commonalityco/feature-graph';
+import { cookies } from 'next/headers';
 
 export const metadata = {
   title: 'Commonality Studio',
@@ -28,6 +29,8 @@ export default async function RootLayout({
   chart: React.ReactNode;
 }) {
   const project = await getProject();
+  const cookieStore = cookies();
+  const defaultTheme = cookieStore.get('commonality:theme')?.value;
 
   return (
     <html
@@ -44,8 +47,8 @@ export default async function RootLayout({
           'flex h-full flex-col font-sans',
         )}
       >
-        <Providers>
-          <StudioNavigation title={project.name} />
+        <Providers defaultTheme={defaultTheme}>
+          <StudioNavigation title={project.name} defaultTheme={defaultTheme} />
           <div className="bg-secondary h-full">
             <StudioGraphProvider>
               <FeatureGraphLayout>
