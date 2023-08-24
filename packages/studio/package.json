@@ -31,14 +31,15 @@
     "@commonalityco/utils-graph": "*",
     "@commonalityco/utils-package": "*",
     "@xstate/react": "^3.2.2",
+    "cookies-next": "^3.0.0",
     "cytoscape": "^3.26.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "xstate": "^4.38.2"
   },
   "peerDependencies": {
-    "next": "canary",
-    "@next/bundle-analyzer": "^13.4.19"
+    "@next/bundle-analyzer": "^13.4.19",
+    "next": "canary"
   },
   "files": [
     ".next/",
