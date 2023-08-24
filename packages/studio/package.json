@@ -37,7 +37,8 @@
     "xstate": "^4.38.2"
   },
   "peerDependencies": {
-    "next": "canary"
+    "next": "canary",
+    "@next/bundle-analyzer": "^13.4.19"
   },
   "files": [
     ".next/",
@@ -63,12 +64,12 @@
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-graph": "workspace:*",
     "@commonalityco/utils-package": "workspace:*",
-    "@next/bundle-analyzer": "^13.4.19",
     "@tanstack/react-query": "^4.33.0",
     "@tanstack/react-query-devtools": "^4.32.6",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/fs-extra": "^11.0.1",
+    "@types/kill-port": "^2.0.0",
     "@types/lodash": "^4.14.197",
     "@types/node": "^20.5.0",
     "@types/react": "^18.2.20",

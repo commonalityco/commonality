@@ -9,6 +9,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import fs from 'fs-extra';
 import { execa } from 'execa';
+import killPort from 'kill-port';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +24,11 @@ export const open = command
     await validateProjectStructure({
       directory: process.cwd(),
       command,
+    });
+
+    process.on('SIGINT', async function () {
+      await killPort(8888);
+      process.exit();
     });
 
     const port = await getPort({ port: 8888 });

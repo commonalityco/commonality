@@ -1,7 +1,7 @@
 export { FeatureGraphSidebarLayout } from './feature-graph-sidebar-layout.js';
 export { FeatureGraphLayout } from './feature-graph-layout.js';
 export { FeatureGraphChart } from './feature-graph-chart.js';
-export { FeatureGraphLoading } from './feature-graph-loading.js';
+export { FeatureGraphChartLoading } from './feature-graph-chart-loading.js';
 export { FeatureGraphSidebar } from './feature-graph-sidebar.js';
 export { FeatureGraphPackageTooltip } from './feature-graph-package-tooltip.js';
 export { FeatureGraphDependencySheet } from './feature-graph-dependency-sheet.js';
