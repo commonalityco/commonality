@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.18
+
+### Patch Changes
+
+- ec7d204: Fix missing package and add test
+
 ## 0.2.17
 
 ### Patch Changes
