@@ -9,6 +9,9 @@ import { useTheme } from 'next-themes';
 import { Button } from '@commonalityco/ui-design-system';
 import Link from 'next/link';
 import { setCookie } from 'cookies-next';
+import { NavigationButton } from '@commonalityco/ui-core';
+import { Box, Network } from 'lucide-react';
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation';
 
 const COOKIE_KEY = 'commonality:theme';
 
@@ -20,10 +23,11 @@ function StudioNavigation({
   defaultTheme?: string;
 }) {
   const { setTheme } = useTheme();
+  const pathname = usePathname();
 
   return (
-    <>
-      <Navigation className="border-b">
+    <div>
+      <Navigation>
         <div className="flex w-full items-center">
           <div className="flex grow items-center space-x-3">
             <Link href="/">
@@ -62,7 +66,25 @@ function StudioNavigation({
           </div>
         </div>
       </Navigation>
-    </>
+      <div className="px-6 flex space-x-2 border-b">
+        <NavigationButton
+          className="flex gap-2 items-center"
+          href="/"
+          active={pathname === '/'}
+        >
+          <Network className="h-4 w-4" />
+          <span>Graph</span>
+        </NavigationButton>
+        <NavigationButton
+          className="flex gap-2 items-center"
+          href="/packages"
+          active={pathname === '/packages'}
+        >
+          <Box className="h-4 w-4" />
+          <span>Packages</span>
+        </NavigationButton>
+      </div>
+    </div>
   );
 }
 
