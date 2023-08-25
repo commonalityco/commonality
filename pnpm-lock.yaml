@@ -723,6 +723,9 @@ importers:
       '@commonalityco/utils-package':
         specifier: '*'
         version: link:../utils-package
+      '@tanstack/react-table':
+        specifier: ^8.9.3
+        version: 8.9.3(react-dom@18.2.0)(react@18.2.0)
       '@xstate/react':
         specifier: ^3.2.2
         version: 3.2.2(@types/react@18.2.20)(react@18.2.0)(xstate@4.38.2)
@@ -732,6 +735,9 @@ importers:
       cytoscape:
         specifier: ^3.26.0
         version: 3.26.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -6758,6 +6764,23 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: true
+
+  /@tanstack/react-table@8.9.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Ng9rdm3JPoSCi6cVZvANsYnF+UoGVRxflMb270tVj0+LjeT/ZtZ9ckxF6oLPLcKesza6VKBqtdF9mQ+vaz24Aw==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      '@tanstack/table-core': 8.9.3
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@tanstack/table-core@8.9.3:
+    resolution: {integrity: sha512-NpHZBoHTfqyJk0m/s/+CSuAiwtebhYK90mDuf5eylTvgViNOujiaOaxNDxJkQQAsVvHWZftUGAx1EfO1rkKtLg==}
+    engines: {node: '>=12'}
+    dev: false
 
   /@testing-library/dom@9.3.1:
     resolution: {integrity: sha512-0DGPd9AR3+iDTjGoMpxIkAsUihHZ3Ai6CneU6bRRrffXMgzCdlNk43jTrD2/5LT6CBb3MWTP8v510JzYtahD2w==}

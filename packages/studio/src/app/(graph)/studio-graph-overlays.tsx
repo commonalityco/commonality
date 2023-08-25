@@ -3,10 +3,9 @@ import { FeatureGraphOverlays } from '@commonalityco/feature-graph/feature-graph
 import { ComponentProps } from 'react';
 import dynamic from 'next/dynamic';
 
-const CreateTagsButton = dynamic(
-  () => import('../components/create-tags-button'),
-  { loading: () => <div className="h-8" /> },
-);
+const CreateTagsButton = dynamic(() => import('./create-tags-button'), {
+  loading: () => <div className="h-8" />,
+});
 
 const FeatureGraphPackageSheet = dynamic(
   () => import('@commonalityco/feature-graph/feature-graph-package-sheet'),

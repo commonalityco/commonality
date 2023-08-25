@@ -1,4 +1,4 @@
-export { Navigation, NavigationButton } from './navigation.js';
+export { Navigation } from './navigation.js';
 export { ThemeButton } from './theme-button.js';
 export { Logo } from './logo.js';
 export { GradientFade } from './gradient-fade.js';
@@ -9,3 +9,4 @@ export { Markdown } from './markdown.js';
 export { NavigationLogo } from './navigation-logo.js';
 export { Divider } from './divider.js';
 export { ThemeButtonLoading } from './theme-button-loading.js';
+export { NavigationButton } from './navigation-button.js';
