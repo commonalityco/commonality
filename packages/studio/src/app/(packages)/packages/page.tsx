@@ -3,9 +3,15 @@ import { PackagesTable, columns } from './packages-table';
 import { getPackagesData } from 'data/packages';
 import { getDocumentsData } from 'data/documents';
 import { getTagsData } from 'data/tags';
-import keyBy from 'lodash/keyBy';
 import { getCodeownersData } from 'data/codeowners';
-import { Input } from '@commonalityco/ui-design-system';
+import { Card, CardContent, Input } from '@commonalityco/ui-design-system';
+
+function keyBy<Data extends Record<string, any>>(
+  array: Data[],
+  key: string,
+): Record<string, Data> {
+  return (array || []).reduce((r, x) => ({ ...r, [key ? x[key] : x]: x }), {});
+}
 
 async function PackagesPage() {
   const [packages, documentsData, tagsData, codeownersData] = await Promise.all(
@@ -27,12 +33,21 @@ async function PackagesPage() {
     };
   });
 
+  const uniqueTags = Array.from(new Set(tagsData.flatMap((pkg) => pkg.tags)));
+  const uniqueCodeowners = Array.from(
+    new Set(codeownersData.flatMap((codeowner) => codeowner.codeowners)),
+  );
+
   return (
-    <div className="container mx-auto w-full pt-6 space-y-6">
-      <div>
-        <Input />
-      </div>
-      <PackagesTable columns={columns} data={data} />
+    <div className="bg-secondary w-full px-6 py-4">
+      <Card className="p-6">
+        <PackagesTable
+          columns={columns}
+          data={data}
+          codeowners={uniqueCodeowners}
+          tags={uniqueTags}
+        />
+      </Card>
     </div>
   );
 }

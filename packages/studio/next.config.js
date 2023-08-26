@@ -27,9 +27,6 @@ const nextConfig = {
     '@commonalityco/feature-graph': {
       transform: '@commonalityco/feature-graph/{{kebabCase member}}',
     },
-    lodash: {
-      transform: 'lodash/{{member}}',
-    },
   },
 };
 

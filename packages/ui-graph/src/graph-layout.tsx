@@ -1,3 +1,4 @@
+import { Card } from '@commonalityco/ui-design-system';
 import { cn } from '@commonalityco/ui-design-system/cn';
 
 export function GraphLayoutRoot({
@@ -27,10 +28,8 @@ export function GraphLayoutAside({
   className?: string;
 }) {
   return (
-    <div className={cn('h-full p-3', className)}>
-      <div className="bg-background h-full w-72 rounded-lg border">
-        {children}
-      </div>
+    <div className={cn('h-full pl-6 py-4 pr-4', className)}>
+      <Card className="h-full w-72 rounded-lg">{children}</Card>
     </div>
   );
 }
@@ -43,16 +42,13 @@ export function GraphLayoutMain({
   className?: string;
 }) {
   return (
-    <div className="align-stretch flex h-full grow overflow-hidden py-3 pr-3">
-      <div
-        className={cn(
-          'bg-background flex h-full w-full flex-col overflow-hidden rounded-lg border',
-          className,
-        )}
+    <div className="align-stretch flex h-full grow overflow-hidden py-4 pr-6">
+      <Card
+        className={cn('flex h-full w-full flex-col overflow-hidden', className)}
         id="graph-layout-root"
       >
         {children}
-      </div>
+      </Card>
     </div>
   );
 }
