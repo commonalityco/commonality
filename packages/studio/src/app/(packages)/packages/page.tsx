@@ -4,7 +4,10 @@ import { getPackagesData } from 'data/packages';
 import { getDocumentsData } from 'data/documents';
 import { getTagsData } from 'data/tags';
 import { getCodeownersData } from 'data/codeowners';
-import { Card, CardContent, Input } from '@commonalityco/ui-design-system';
+import { Card, CardContent, Input, cn } from '@commonalityco/ui-design-system';
+import TagsFilterButton from './tags-filter-button';
+import CodeownersFilterButton from './codeowners-filter-button';
+import PackageTableFilters from './package-table-filters';
 
 function keyBy<Data extends Record<string, any>>(
   array: Data[],
@@ -13,7 +16,15 @@ function keyBy<Data extends Record<string, any>>(
   return (array || []).reduce((r, x) => ({ ...r, [key ? x[key] : x]: x }), {});
 }
 
-async function PackagesPage() {
+async function PackagesPage({
+  searchParams,
+}: {
+  searchParams: {
+    name?: string;
+    tags: string[] | string;
+    codeowners: string[] | string;
+  };
+}) {
   const [packages, documentsData, tagsData, codeownersData] = await Promise.all(
     [getPackagesData(), getDocumentsData(), getTagsData(), getCodeownersData()],
   );
@@ -22,16 +33,47 @@ async function PackagesPage() {
   const normalizedTags = keyBy(tagsData, 'packageName');
   const normalizedCodeowners = keyBy(codeownersData, 'packageName');
 
-  const data = packages.map((pkg) => {
-    return {
-      name: pkg.name,
-      version: pkg.version,
-      type: pkg.type,
-      documents: normalizedDocuments[pkg.name]?.documents ?? [],
-      tags: normalizedTags[pkg.name]?.tags ?? [],
-      codeowners: normalizedCodeowners[pkg.name]?.codeowners ?? [],
-    };
-  });
+  const data = packages
+    .map((pkg) => {
+      return {
+        name: pkg.name,
+        version: pkg.version,
+        type: pkg.type,
+        documents: normalizedDocuments[pkg.name]?.documents ?? [],
+        tags: normalizedTags[pkg.name]?.tags ?? [],
+        codeowners: normalizedCodeowners[pkg.name]?.codeowners ?? [],
+      };
+    })
+    .filter((pkg) => {
+      if (searchParams.name) {
+        return pkg.name.toLowerCase().includes(searchParams.name.toLowerCase());
+      }
+      return true;
+    })
+    .filter((pkg) => {
+      if (typeof searchParams.tags === 'string') {
+        return pkg.tags.includes(searchParams.tags);
+      }
+      if (Array.isArray(searchParams.tags)) {
+        return pkg.tags.some((pkgTag) =>
+          (searchParams.tags as string[]).some((tag) => tag === pkgTag),
+        );
+      }
+      return true;
+    })
+    .filter((pkg) => {
+      if (typeof searchParams.codeowners === 'string') {
+        return pkg.codeowners.includes(searchParams.codeowners);
+      }
+      if (searchParams.codeowners) {
+        return pkg.codeowners.some((pkgCodeowner) =>
+          (searchParams.codeowners as string[]).some(
+            (codeowner) => codeowner === pkgCodeowner,
+          ),
+        );
+      }
+      return true;
+    });
 
   const uniqueTags = Array.from(new Set(tagsData.flatMap((pkg) => pkg.tags)));
   const uniqueCodeowners = Array.from(
@@ -39,14 +81,22 @@ async function PackagesPage() {
   );
 
   return (
-    <div className="bg-secondary w-full px-6 py-4">
-      <Card className="p-6">
-        <PackagesTable
-          columns={columns}
-          data={data}
-          codeowners={uniqueCodeowners}
-          tags={uniqueTags}
-        />
+    <div className={cn('bg-secondary w-full px-6 py-4 grow')}>
+      <Card className="p-6 min-h-full">
+        <div className="space-y-6">
+          <div className="flex items-center gap-2">
+            <PackageTableFilters
+              tags={uniqueTags}
+              codeowners={uniqueCodeowners}
+            />
+          </div>
+          <PackagesTable
+            columns={columns}
+            data={data}
+            codeowners={uniqueCodeowners}
+            tags={uniqueTags}
+          />
+        </div>
       </Card>
     </div>
   );
