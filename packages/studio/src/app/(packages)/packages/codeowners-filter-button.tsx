@@ -55,6 +55,7 @@ export function CodeownersFilterButton({
           codeowners.map((codeowner) => {
             return (
               <DropdownMenuCheckboxItem
+                onSelect={(event) => event.preventDefault()}
                 key={codeowner}
                 checked={value.some(
                   (selectedCodeowner) => selectedCodeowner === codeowner,

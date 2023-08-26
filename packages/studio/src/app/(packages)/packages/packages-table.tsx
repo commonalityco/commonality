@@ -20,13 +20,12 @@ import {
   TableRow,
   TableHeadSortButton,
   Input,
+  Card,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
 import { PackageType, formatTagName } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import { Document } from '@commonalityco/types';
-import CodeownersFilterButton from './codeowners-filter-button';
-import TagsFilterButton from './tags-filter-button';
 
 function SortableHeader<TData, TValue>(props: {
   column: Column<TData, TValue>;
@@ -71,21 +70,22 @@ export const columns = [
     header: ({ column }) => {
       return <SortableHeader column={column} title="Version" />;
     },
-  },
-
-  {
-    accessorKey: 'codeowners',
-    header: 'Codeowners',
     cell: ({ row }) => {
-      const codeowners: string[] = row.getValue('codeowners');
+      const version: string = row.getValue('version');
 
-      if (!codeowners.length) {
-        return <span className="text-muted-foreground">None</span>;
-      }
+      return <div className="font-mono">{version}</div>;
+    },
+  },
+  {
+    accessorKey: 'documents',
+    header: 'Documents',
+    cell: ({ row }) => {
+      const documents: Document[] = row.getValue('documents');
+
       return (
         <div>
-          {codeowners.map((codeowner) => (
-            <span key={codeowner}>{codeowner}</span>
+          {documents.map((document) => (
+            <span key={document.filename}>{document.filename}</span>
           ))}
         </div>
       );
@@ -109,15 +109,18 @@ export const columns = [
     },
   },
   {
-    accessorKey: 'documents',
-    header: 'Documents',
+    accessorKey: 'codeowners',
+    header: 'Codeowners',
     cell: ({ row }) => {
-      const documents: Document[] = row.getValue('documents');
+      const codeowners: string[] = row.getValue('codeowners');
 
+      if (!codeowners.length) {
+        return <span className="text-muted-foreground">None</span>;
+      }
       return (
         <div>
-          {documents.map((document) => (
-            <span key={document.filename}>{document.filename}</span>
+          {codeowners.map((codeowner) => (
+            <span key={codeowner}>{codeowner}</span>
           ))}
         </div>
       );
@@ -156,6 +159,25 @@ export function PackagesTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    filterFns: {
+      hasCodeowners: (row, columnIds, filterValue: string[]) => {
+        console.log({ columnIds });
+        const codeowners: string[] = row.getValue('codeowners');
+
+        return codeowners.some((codeowner) =>
+          filterValue.some(
+            (filteredCodeowner) => filteredCodeowner === codeowner,
+          ),
+        );
+      },
+      hasTags: (row, columnIds, filterValue: string[]) => {
+        const tags: string[] = row.getValue('tags');
+
+        return tags.some((tag) =>
+          filterValue.some((filteredTag) => filteredTag === tag),
+        );
+      },
+    },
     state: {
       sorting,
       columnFilters,
@@ -163,65 +185,47 @@ export function PackagesTable<TData, TValue>({
   });
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between gap-2">
-        <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('name')?.setFilterValue(event.target.value)
-          }
-        />
-
-        <TagsFilterButton tags={tags} />
-        <CodeownersFilterButton codeowners={codeowners} />
-      </div>
-
-      <Table className="table-fixed">
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead
-                    key={header.id}
-                    style={{ width: header.getSize() }}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </TableHead>
-                );
-              })}
+    <Table className="table-fixed">
+      <TableHeader>
+        {table.getHeaderGroups().map((headerGroup) => (
+          <TableRow key={headerGroup.id}>
+            {headerGroup.headers.map((header) => {
+              return (
+                <TableHead key={header.id} style={{ width: header.getSize() }}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                </TableHead>
+              );
+            })}
+          </TableRow>
+        ))}
+      </TableHeader>
+      <TableBody>
+        {table.getRowModel().rows?.length ? (
+          table.getRowModel().rows.map((row) => (
+            <TableRow
+              key={row.id}
+              data-state={row.getIsSelected() && 'selected'}
+            >
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
             </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && 'selected'}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+          ))
+        ) : (
+          <TableRow>
+            <TableCell colSpan={columns.length} className="h-36 text-center">
+              No packages match your current filters
+            </TableCell>
+          </TableRow>
+        )}
+      </TableBody>
+    </Table>
   );
 }

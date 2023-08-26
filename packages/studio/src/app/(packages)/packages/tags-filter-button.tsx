@@ -11,8 +11,16 @@ import { useState } from 'react';
 import { formatTagName } from '@commonalityco/utils-core';
 import { Check, ChevronsUpDown, Tags } from 'lucide-react';
 
-export function TagsFilterButton({ tags }: { tags: string[] }) {
-  const [value, setValue] = useState<string[]>(tags);
+export function TagsFilterButton({
+  tags,
+  onChange,
+  defaultSelectedTags,
+}: {
+  tags: string[];
+  defaultSelectedTags?: string[];
+  onChange: (selectedTags: string[]) => void;
+}) {
+  const [value, setValue] = useState<string[]>(defaultSelectedTags ?? tags);
 
   const handleCheckedChange = ({
     checked,
@@ -21,13 +29,12 @@ export function TagsFilterButton({ tags }: { tags: string[] }) {
     checked: boolean;
     tag: string;
   }) => {
-    if (checked) {
-      const newTags = Array.from(new Set([...value, tag]));
-      setValue(newTags);
-    } else {
-      const newTags = value.filter((selectedTag) => selectedTag !== tag);
-      setValue(newTags);
-    }
+    const newTags = checked
+      ? Array.from(new Set([...value, tag]))
+      : value.filter((selectedTag) => selectedTag !== tag);
+
+    setValue(newTags);
+    onChange(newTags);
   };
 
   return (
@@ -51,6 +58,7 @@ export function TagsFilterButton({ tags }: { tags: string[] }) {
             return (
               <DropdownMenuCheckboxItem
                 key={tag}
+                onSelect={(event) => event.preventDefault()}
                 checked={value.some((selectedTag) => selectedTag === tag)}
                 onCheckedChange={(checked) =>
                   handleCheckedChange({ checked, tag })

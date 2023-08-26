@@ -34,7 +34,7 @@ export default async function RootLayout({
           inter.variable,
           firaCode.variable,
           vollkorn.variable,
-          'flex h-full flex-col font-sans',
+          'flex h-full flex-col justify-stretch font-sans',
         )}
       >
         <Providers defaultTheme={defaultTheme}>
