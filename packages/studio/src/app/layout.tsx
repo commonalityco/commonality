@@ -38,7 +38,11 @@ export default async function RootLayout({
         )}
       >
         <Providers defaultTheme={defaultTheme}>
-          <StudioNavigation title={project.name} defaultTheme={defaultTheme} />
+          <StudioNavigation
+            title={project.name}
+            defaultTheme={defaultTheme}
+            packageManager={project.packageManager}
+          />
           {children}
         </Providers>
       </body>

@@ -29,6 +29,22 @@ describe('getCodeOwners', () => {
     });
   });
 
+  describe('when there is a simple CODEOWNERS file', () => {
+    it('returns an object containing the correct owners for each glob', async () => {
+      const ownership = await getCodeowners({
+        rootDirectory: path.resolve(
+          path.dirname(fileURLToPath(import.meta.url)),
+          './fixtures/simple',
+        ),
+      });
+
+      expect(ownership).toEqual({
+        apps: ['@app-team'],
+        packages: ['@package-team'],
+      });
+    });
+  });
+
   describe('when there is no CODEOWNERS file', () => {
     it('returns an empty object', async () => {
       const ownership = await getCodeowners({

@@ -12,8 +12,10 @@ import { ChevronsUpDown, Users } from 'lucide-react';
 
 export function CodeownersFilterButton({
   codeowners,
+  onChange,
 }: {
   codeowners: string[];
+  onChange: (selectedCodeowners: string[]) => void;
 }) {
   const [value, setValue] = useState<string[]>(codeowners);
 
@@ -24,15 +26,12 @@ export function CodeownersFilterButton({
     checked: boolean;
     codeowner: string;
   }) => {
-    if (checked) {
-      const newCodeowners = Array.from(new Set([...value, codeowner]));
-      setValue(newCodeowners);
-    } else {
-      const newCodeowners = value.filter(
-        (selectedTag) => selectedTag !== codeowner,
-      );
-      setValue(newCodeowners);
-    }
+    const newCodeowners = checked
+      ? Array.from(new Set([...value, codeowner]))
+      : value.filter((selectedCodeowner) => selectedCodeowner !== codeowner);
+
+    setValue(newCodeowners);
+    onChange(newCodeowners);
   };
 
   return (
