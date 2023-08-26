@@ -14,7 +14,6 @@ import { GraphContext } from './graph-provider.js';
 import FeatureGraphToolbar from './feature-graph-toolbar.js';
 import { cn } from '@commonalityco/ui-design-system/cn';
 import debounce from 'lodash.debounce';
-import { useTheme } from 'next-themes';
 
 interface GraphProperties {
   packageManager?: PackageManager;

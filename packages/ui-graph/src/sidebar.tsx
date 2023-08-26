@@ -29,7 +29,7 @@ import {
   ExternalLink,
   Eye,
   EyeOff,
-  FileText,
+  Users,
   Focus,
   Tags,
 } from 'lucide-react';
@@ -385,7 +385,7 @@ function CodeownersFilterSection({
         <CardHeader>
           <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
             <div className="bg-secondary rounded-full p-1.5">
-              <FileText className="h-5 w-5" />
+              <Users className="h-5 w-5" />
             </div>
           </div>
 

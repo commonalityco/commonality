@@ -7,10 +7,11 @@ import {
   getSortedRowModel,
   SortingState,
   Column,
+  ColumnFiltersState,
+  getFilteredRowModel,
 } from '@tanstack/react-table';
 import {
   Badge,
-  Button,
   Table,
   TableBody,
   TableCell,
@@ -18,16 +19,14 @@ import {
   TableHeader,
   TableRow,
   TableHeadSortButton,
+  Input,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
-import {
-  DependencyType,
-  PackageType,
-  formatTagName,
-} from '@commonalityco/utils-core';
+import { PackageType, formatTagName } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import { Document } from '@commonalityco/types';
+import CodeownersFilterButton from './codeowners-filter-button';
+import TagsFilterButton from './tags-filter-button';
 
 function SortableHeader<TData, TValue>(props: {
   column: Column<TData, TValue>;
@@ -48,9 +47,11 @@ function SortableHeader<TData, TValue>(props: {
 export const columns = [
   {
     accessorKey: 'name',
+
     header: ({ column }) => {
       return <SortableHeader column={column} title="Name" />;
     },
+    size: 300,
     cell: ({ row }) => {
       const name: PackageType = row.getValue('name');
       const type = row.original.type;
@@ -58,7 +59,7 @@ export const columns = [
       const Icon = getIconForPackage(type);
 
       return (
-        <div className="flex gap-2 flex-nowrap items-center">
+        <div className="flex gap-2 flex-nowrap items-center font-medium">
           <Icon />
           {name}
         </div>
@@ -84,9 +85,7 @@ export const columns = [
       return (
         <div>
           {codeowners.map((codeowner) => (
-            <Badge variant="outline" className="rounded-full" key={codeowner}>
-              {codeowner}
-            </Badge>
+            <span key={codeowner}>{codeowner}</span>
           ))}
         </div>
       );
@@ -118,7 +117,7 @@ export const columns = [
       return (
         <div>
           {documents.map((document) => (
-            <Badge key={document.filename}>{document.filename}</Badge>
+            <span key={document.filename}>{document.filename}</span>
           ))}
         </div>
       );
@@ -136,13 +135,18 @@ export const columns = [
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  tags: string[];
+  codeowners: string[];
 }
 
 export function PackagesTable<TData, TValue>({
   columns,
   data,
+  tags,
+  codeowners,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
     data,
@@ -150,53 +154,74 @@ export function PackagesTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      columnFilters,
     },
   });
 
   return (
-    <Table>
-      <TableHeader>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
-              return (
-                <TableHead key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                </TableHead>
-              );
-            })}
-          </TableRow>
-        ))}
-      </TableHeader>
-      <TableBody>
-        {table.getRowModel().rows?.length ? (
-          table.getRowModel().rows.map((row) => (
-            <TableRow
-              key={row.id}
-              data-state={row.getIsSelected() && 'selected'}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
+    <div className="space-y-6">
+      <div className="flex items-center justify-between gap-2">
+        <Input
+          placeholder="Filter emails..."
+          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+          onChange={(event) =>
+            table.getColumn('name')?.setFilterValue(event.target.value)
+          }
+        />
+
+        <TagsFilterButton tags={tags} />
+        <CodeownersFilterButton codeowners={codeowners} />
+      </div>
+
+      <Table className="table-fixed">
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead
+                    key={header.id}
+                    style={{ width: header.getSize() }}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </TableHead>
+                );
+              })}
             </TableRow>
-          ))
-        ) : (
-          <TableRow>
-            <TableCell colSpan={columns.length} className="h-24 text-center">
-              No results.
-            </TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow
+                key={row.id}
+                data-state={row.getIsSelected() && 'selected'}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No results.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
   );
 }
