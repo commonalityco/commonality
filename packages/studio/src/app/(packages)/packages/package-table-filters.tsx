@@ -35,7 +35,13 @@ function PackageTableFilters({
     }
   };
 
-  const setCodeownersQuery = (event: React.ChangeEvent<HTMLInputElement>) => {};
+  const setCodeownersQuery = (selectedCodeowners: string[]) => {
+    if (selectedCodeowners.length) {
+      setQuery('codeowners', selectedCodeowners);
+    } else {
+      deleteQuery('codeowners');
+    }
+  };
 
   const queryTags = query.getAll('tags');
 
@@ -51,7 +57,10 @@ function PackageTableFilters({
         onChange={setTagsQuery}
         defaultSelectedTags={queryTags.length ? queryTags : undefined}
       />
-      <CodeownersFilterButton codeowners={codeowners} />
+      <CodeownersFilterButton
+        codeowners={codeowners}
+        onChange={setCodeownersQuery}
+      />
     </>
   );
 }

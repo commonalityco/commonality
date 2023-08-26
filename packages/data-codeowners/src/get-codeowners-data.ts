@@ -15,8 +15,13 @@ export const getCodeownersData = async ({
   for (const package_ of packages) {
     const ownersForPath = getOwnersForPath({ path: package_.path, codeowners });
 
-    codeownersData.push({ packageName: package_.name, codeowners: ownersForPath });
+    codeownersData.push({
+      packageName: package_.name,
+      codeowners: ownersForPath,
+    });
   }
+
+  console.log({ codeownersData });
 
   return codeownersData;
 };

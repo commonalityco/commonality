@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { NpmLogo, PnpmLogo, YarnLogo } from '@commonalityco/ui-core';
 import { PackageManager } from '@commonalityco/utils-core';
 import {
   Separator,
@@ -66,9 +65,6 @@ function ViolationsHoverCard({
       <PopoverTrigger asChild>
         <Button variant="ghost" size="sm" className="gap-2">
           <div
-            // className={validateDotStyles({
-            //   variant: violations.length ? 'destructive' : 'success',
-            // })}
             className={cn('h-2 w-2 rounded-full', {
               'bg-success': violations.length === 0,
               'bg-destructive': violations.length,
@@ -192,12 +188,6 @@ function ViolationsHoverCard({
   );
 }
 
-const IconByPackageManager = {
-  [PackageManager.NPM]: NpmLogo,
-  [PackageManager.PNPM]: PnpmLogo,
-  [PackageManager.YARN]: YarnLogo,
-};
-
 export interface GraphToolbarProperties {
   packageManager?: PackageManager;
   totalPackageCount: number;
@@ -225,23 +215,13 @@ export function GraphToolbar({
   constraints = [],
   violations = [],
 }: GraphToolbarProperties) {
-  const Icon = packageManager
-    ? IconByPackageManager[packageManager]
-    : undefined;
-
   return (
     <div className="bg-background flex w-full px-3 pt-3">
       <div className="flex items-center gap-2">
-        <div className="flex flex-nowrap items-center gap-2 pl-2">
-          {Icon && <Icon />}
-          <HoverCard>
-            <HoverCardTrigger asChild>
-              <Button variant="link" size="sm">
-                {`${shownPackageCount} of ${totalPackageCount} packages`}
-              </Button>
-            </HoverCardTrigger>
-          </HoverCard>
-        </div>
+        <Button variant="link" size="sm">
+          {`${shownPackageCount} of ${totalPackageCount} packages`}
+        </Button>
+
         <Separator orientation="vertical" />
         <ViolationsHoverCard
           onPackageClick={onPackageClick}

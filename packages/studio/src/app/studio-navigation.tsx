@@ -11,18 +11,29 @@ import Link from 'next/link';
 import { setCookie } from 'cookies-next';
 import { NavigationButton } from '@commonalityco/ui-core';
 import { Box, Network } from 'lucide-react';
-import { usePathname, useSelectedLayoutSegments } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { PackageManager } from '@commonalityco/utils-core';
+import { NpmLogo, PnpmLogo, YarnLogo } from '@commonalityco/ui-core';
 
 const COOKIE_KEY = 'commonality:theme';
+
+const IconByPackageManager = {
+  [PackageManager.NPM]: NpmLogo,
+  [PackageManager.PNPM]: PnpmLogo,
+  [PackageManager.YARN]: YarnLogo,
+};
 
 function StudioNavigation({
   title,
   defaultTheme,
+  packageManager,
 }: {
   title: string;
   defaultTheme?: string;
+  packageManager: PackageManager;
 }) {
   const { setTheme } = useTheme();
+  const PackageManagerIcon = IconByPackageManager[packageManager];
   const pathname = usePathname();
 
   return (
@@ -35,6 +46,7 @@ function StudioNavigation({
             </Link>
             <p className="font-bold uppercase tracking-widest">Studio</p>
             <Divider className="fill-muted-foreground" />
+            <PackageManagerIcon />
             <h1 className="text-base font-semibold text-foreground">{title}</h1>
           </div>
           <div className="flex items-center space-x-2">
