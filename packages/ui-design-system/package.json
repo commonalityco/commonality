@@ -37,7 +37,7 @@
     "@commonalityco/config-tsconfig": "workspace:*",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
-    "@types/react": "^18.2.20",
+    "@types/react": "^18.2.21",
     "eslint-config-commonality": "^0.0.8",
     "lucide-react": "^0.268.0",
     "postcss": "^8.4.28",

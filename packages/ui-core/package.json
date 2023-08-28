@@ -21,7 +21,7 @@
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
     "@testing-library/react": "^14.0.0",
-    "@types/react": "^18.2.20",
+    "@types/react": "^18.2.21",
     "@types/react-syntax-highlighter": "^15.5.7",
     "eslint-config-commonality": "^0.0.8",
     "lucide-react": "^0.268.0",

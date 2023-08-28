@@ -23,7 +23,7 @@
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/lodash.debounce": "^4.0.7",
-    "@types/react": "^18.2.20",
+    "@types/react": "^18.2.21",
     "@xstate/react": "^3.2.2",
     "cytoscape": "^3.26.0",
     "eslint-config-commonality": "workspace:*",
