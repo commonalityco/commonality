@@ -39,7 +39,7 @@
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.2.20",
     "eslint-config-commonality": "^0.0.8",
-    "lucide-react": "^0.268.0",
+    "lucide-react": "^0.269.0",
     "postcss": "^8.4.28",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
