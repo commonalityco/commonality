@@ -21,7 +21,5 @@ export const getCodeownersData = async ({
     });
   }
 
-  console.log({ codeownersData });
-
   return codeownersData;
 };

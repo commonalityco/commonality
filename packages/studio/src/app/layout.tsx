@@ -1,6 +1,6 @@
 import './globals.css';
 import { clsx } from 'clsx';
-import { firaCode, inter, vollkorn } from 'constants/fonts';
+import { firaCode, inter } from 'constants/fonts';
 import { Providers } from 'app/providers';
 import { cookies } from 'next/headers';
 import StudioNavigation from './studio-navigation';
@@ -33,7 +33,6 @@ export default async function RootLayout({
           inter.className,
           inter.variable,
           firaCode.variable,
-          vollkorn.variable,
           'flex h-full flex-col justify-stretch font-sans',
         )}
       >

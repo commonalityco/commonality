@@ -1,5 +1,4 @@
 'use client';
-import { PackageManager } from '@commonalityco/utils-core/constants';
 import {
   Constraint,
   Dependency,
@@ -16,21 +15,21 @@ import { cn } from '@commonalityco/ui-design-system/cn';
 import debounce from 'lodash.debounce';
 
 interface GraphProperties {
-  packageManager?: PackageManager;
   packages: Package[];
   violations: Violation[];
   constraints: Constraint[];
   dependencies: Dependency[];
   theme?: string;
+  onPackageClick: (packageName: string) => void;
 }
 
 export function FeatureGraphChart({
-  packageManager,
   violations,
   packages,
   constraints,
   dependencies,
   theme,
+  onPackageClick,
 }: GraphProperties) {
   const containerReference = useRef<HTMLDivElement>(null);
 
@@ -110,12 +109,11 @@ export function FeatureGraphChart({
   return (
     <>
       <FeatureGraphToolbar
-        packageManager={packageManager}
         constraints={constraints}
         packages={packages}
         violations={violations}
         onPackageClick={(packageName) => {
-          actor.send({ type: 'NODE_SELECT', packageName });
+          onPackageClick(packageName);
         }}
       />
       <GraphChart

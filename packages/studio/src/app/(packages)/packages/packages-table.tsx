@@ -1,4 +1,3 @@
-'use client';
 import {
   ColumnDef,
   flexRender,
@@ -9,6 +8,7 @@ import {
   Column,
   ColumnFiltersState,
   getFilteredRowModel,
+  CellContext,
 } from '@tanstack/react-table';
 import {
   Badge,
@@ -21,13 +21,34 @@ import {
   TableHeadSortButton,
   Input,
   Card,
+  Button,
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipContent,
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
-import { PackageType, formatTagName } from '@commonalityco/utils-core';
+import {
+  DocumentName,
+  PackageType,
+  formatTagName,
+} from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-package';
-import { Document } from '@commonalityco/types';
+import { Document, Package } from '@commonalityco/types';
+import { File, FileDigit, FileText } from 'lucide-react';
 
-function SortableHeader<TData, TValue>(props: {
+export type ColumnData = Package & {
+  codeowners: string[];
+  tags: string[];
+  documents: Document[];
+};
+
+export type PackageTableColumns = ColumnDef<ColumnData>[];
+
+export function SortableHeader<TData, TValue>(props: {
   column: Column<TData, TValue>;
   title: string;
 }) {
@@ -43,97 +64,150 @@ function SortableHeader<TData, TValue>(props: {
   );
 }
 
-export const columns = [
-  {
-    accessorKey: 'name',
+export function NameCell({ row }: CellContext<ColumnData, unknown>) {
+  const name: PackageType = row.getValue('name');
+  const type = row.original.type;
+  const description = row.original.description || 'No description';
 
-    header: ({ column }) => {
-      return <SortableHeader column={column} title="Name" />;
-    },
-    size: 300,
-    cell: ({ row }) => {
-      const name: PackageType = row.getValue('name');
-      const type = row.original.type;
+  const Icon = getIconForPackage(type);
 
-      const Icon = getIconForPackage(type);
-
-      return (
-        <div className="flex gap-2 flex-nowrap items-center font-medium">
-          <Icon />
-          {name}
+  return (
+    <Button
+      asChild
+      variant="link"
+      className="gap-2 group hover:no-underline h-auto py-0 px-0 w-full justify-start"
+    >
+      <div>
+        <Icon />
+        <div className="text-left space-y-2">
+          <span className="font-semibold block group-hover:underline">
+            {name}
+          </span>
+          <span className="text-xs text-muted-foreground block group-hover:no-underline">
+            {description}
+          </span>
         </div>
-      );
-    },
-  },
-  {
-    accessorKey: 'version',
-    header: ({ column }) => {
-      return <SortableHeader column={column} title="Version" />;
-    },
-    cell: ({ row }) => {
-      const version: string = row.getValue('version');
+      </div>
+    </Button>
+  );
+}
 
-      return <div className="font-mono">{version}</div>;
-    },
-  },
-  {
-    accessorKey: 'documents',
-    header: 'Documents',
-    cell: ({ row }) => {
-      const documents: Document[] = row.getValue('documents');
+export function VersionCell({ row }: CellContext<ColumnData, unknown>) {
+  const version: string = row.getValue('version');
 
-      return (
-        <div>
-          {documents.map((document) => (
-            <span key={document.filename}>{document.filename}</span>
-          ))}
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: 'tags',
-    header: 'Tags',
-    cell: ({ row }) => {
-      const tags: string[] = row.getValue('tags');
+  return <div className="font-mono">{version}</div>;
+}
 
-      return (
-        <div>
-          {tags.map((tag) => (
-            <Badge key={tag} variant="secondary">
-              {formatTagName(tag)}
-            </Badge>
-          ))}
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: 'codeowners',
-    header: 'Codeowners',
-    cell: ({ row }) => {
-      const codeowners: string[] = row.getValue('codeowners');
+export function DocumentsCell({
+  row,
+  onDocumentClick,
+}: CellContext<ColumnData, unknown> & {
+  onDocumentClick: (document: Document) => Promise<void>;
+}) {
+  const documents: Document[] = row.getValue('documents');
+  const readme = documents.find((doc) => doc.filename === DocumentName.README);
+  const changelog = documents.find(
+    (doc) => doc.filename === DocumentName.CHANGELOG,
+  );
+  const extraDocs = documents.filter(
+    (doc) =>
+      doc.filename !== DocumentName.README &&
+      doc.filename !== DocumentName.CHANGELOG,
+  );
 
-      if (!codeowners.length) {
-        return <span className="text-muted-foreground">None</span>;
-      }
-      return (
-        <div>
-          {codeowners.map((codeowner) => (
-            <span key={codeowner}>{codeowner}</span>
-          ))}
-        </div>
-      );
-    },
-  },
-] satisfies ColumnDef<{
-  type: PackageType;
-  name: string;
-  version: string;
-  codeowners: string[];
-  tags: string[];
-  documents: Document[];
-}>[];
+  return (
+    <div className="flex flex-nowrap gap-2 items-center">
+      {readme ? (
+        <TooltipProvider>
+          <Tooltip delayDuration={200}>
+            <TooltipTrigger asChild>
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={() => onDocumentClick(readme)}
+              >
+                <FileText className="w-4 h-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <span>Open </span>
+              <span className="font-mono font-medium">README.md</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ) : null}
+      {changelog ? (
+        <TooltipProvider>
+          <Tooltip delayDuration={200}>
+            <TooltipTrigger asChild>
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={() => onDocumentClick(changelog)}
+              >
+                <FileDigit className="w-4 h-4" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <span>Open </span>
+              <span className="font-mono font-medium">CHANGELOG.md</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ) : null}
+      {extraDocs.length ? (
+        <HoverCard openDelay={200}>
+          <HoverCardTrigger asChild>
+            <Button
+              variant="link"
+              className="px-0"
+            >{`+ ${extraDocs.length} document(s)`}</Button>
+          </HoverCardTrigger>
+          <HoverCardContent>
+            {extraDocs.map((document) => (
+              <Button
+                className="w-full justify-start"
+                variant="ghost"
+                key={document.filename}
+              >
+                {document.filename}
+              </Button>
+            ))}
+          </HoverCardContent>
+        </HoverCard>
+      ) : null}
+    </div>
+  );
+}
+
+export function TagsCell({ row }: CellContext<ColumnData, unknown>) {
+  const tags: string[] = row.getValue('tags');
+
+  return (
+    <div className="flex gap-1">
+      {tags.map((tag) => (
+        <Badge key={tag} variant="secondary">
+          {formatTagName(tag)}
+        </Badge>
+      ))}
+    </div>
+  );
+}
+
+export function CodeownersCell({ row }: CellContext<ColumnData, unknown>) {
+  const codeowners: string[] = row.getValue('codeowners');
+
+  if (!codeowners.length) {
+    return <span className="text-muted-foreground">None</span>;
+  }
+  return (
+    <div>
+      {codeowners.map((codeowner) => (
+        <span key={codeowner}>{codeowner}</span>
+      ))}
+    </div>
+  );
+}
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -145,8 +219,6 @@ interface DataTableProps<TData, TValue> {
 export function PackagesTable<TData, TValue>({
   columns,
   data,
-  tags,
-  codeowners,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -161,7 +233,6 @@ export function PackagesTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     filterFns: {
       hasCodeowners: (row, columnIds, filterValue: string[]) => {
-        console.log({ columnIds });
         const codeowners: string[] = row.getValue('codeowners');
 
         return codeowners.some((codeowner) =>
@@ -185,8 +256,8 @@ export function PackagesTable<TData, TValue>({
   });
 
   return (
-    <Table className="table-fixed">
-      <TableHeader>
+    <Table className="table-fixed relative">
+      <TableHeader className="sticky top-0 z-10">
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
@@ -220,7 +291,10 @@ export function PackagesTable<TData, TValue>({
           ))
         ) : (
           <TableRow>
-            <TableCell colSpan={columns.length} className="h-36 text-center">
+            <TableCell
+              colSpan={columns.length}
+              className="h-36 text-center font-medium"
+            >
               No packages match your current filters
             </TableCell>
           </TableRow>

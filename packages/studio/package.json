@@ -34,9 +34,11 @@
     "@xstate/react": "^3.2.2",
     "cookies-next": "^3.0.0",
     "cytoscape": "^3.26.0",
+    "open-editor": "^4.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "xstate": "^4.38.2"
+    "xstate": "^4.38.2",
+    "zod": "^3.22.1"
   },
   "peerDependencies": {
     "next": "canary"

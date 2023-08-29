@@ -37,7 +37,7 @@ export function CodeownersFilterButton({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className={'justify-between'}>
+        <Button variant="outline" className="justify-between shrink-0 w-56">
           <div className="flex gap-2 items-center">
             <Users className="h-4 w-4 text-muted-foreground" />
             <span>Codeowners</span>

@@ -29,7 +29,7 @@ export function FeatureGraphToolbar({
   const isEdgeColorShown = GraphContext.useSelector(
     (state) => state.context.isEdgeColorShown,
   );
-  console.log({ isEdgeColorShown });
+
   const shownPackageCount = GraphContext.useSelector((state) =>
     state.context.renderGraph
       ? state.context.renderGraph.nodes().length

@@ -8,5 +8,4 @@ db/migrations
 .yarn
 .pnp.*
 node_modules
-README.md
 dist

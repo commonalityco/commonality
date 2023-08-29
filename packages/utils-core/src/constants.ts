@@ -28,4 +28,9 @@ export enum PackageManager {
   NPM = 'npm',
 }
 
+export enum DocumentName {
+  README = 'README',
+  CHANGELOG = 'CHANGELOG',
+}
+
 export const AllPackagesWildcard = '*' as const;

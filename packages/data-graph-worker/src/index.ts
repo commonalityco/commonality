@@ -5,7 +5,6 @@ export const createWorker = () => {
   addEventListener(
     'message',
     async (event: MessageEvent<ElementDefinition[]>) => {
-      console.log('RECEIVED MESSAGE');
       const updatedElelementDefinitions =
         await getElementDefinitionsWithUpdatedLayout({
           elements: event.data,

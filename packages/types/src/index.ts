@@ -49,9 +49,9 @@ export type CodeownersData = {
 
 export type Document = {
   filename: string;
-  isReadme: boolean;
   isRoot: boolean;
   content: string;
+  path: string;
 };
 
 export type DocumentsData = {
