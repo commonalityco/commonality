@@ -1,13 +1,16 @@
-import React from 'react';
-import { PackagesTable, columns } from './packages-table';
+'use server';
+import React, { Suspense } from 'react';
 import { getPackagesData } from 'data/packages';
 import { getDocumentsData } from 'data/documents';
 import { getTagsData } from 'data/tags';
 import { getCodeownersData } from 'data/codeowners';
-import { Card, CardContent, Input, cn } from '@commonalityco/ui-design-system';
-import TagsFilterButton from './tags-filter-button';
-import CodeownersFilterButton from './codeowners-filter-button';
+import { Badge, Button } from '@commonalityco/ui-design-system';
 import PackageTableFilters from './package-table-filters';
+import StudioPackagesTable from './studio-packages-table';
+import { z } from 'zod';
+import StudioPackagesTablePaginator from './studio-packages-table-paginator';
+import openEditor from 'open-editor';
+import { openEditorAction } from 'actions/editor';
 
 function keyBy<Data extends Record<string, any>>(
   array: Data[],
@@ -16,64 +19,79 @@ function keyBy<Data extends Record<string, any>>(
   return (array || []).reduce((r, x) => ({ ...r, [key ? x[key] : x]: x }), {});
 }
 
-async function PackagesPage({
-  searchParams,
-}: {
-  searchParams: {
-    name?: string;
-    tags: string[] | string;
-    codeowners: string[] | string;
-  };
-}) {
+async function PackagesPage({ searchParams }: { searchParams: unknown }) {
   const [packages, documentsData, tagsData, codeownersData] = await Promise.all(
     [getPackagesData(), getDocumentsData(), getTagsData(), getCodeownersData()],
   );
 
+  const parsedSearchParams = z
+    .object({
+      name: z.string().optional(),
+      package: z.string().optional(),
+      page: z.coerce.number().optional().default(0),
+      pageCount: z.coerce.number().optional().default(25),
+      tags: z
+        .union([z.string().transform((arg) => [arg]), z.array(z.string())])
+        .optional(),
+      codeowners: z
+        .union([z.string().transform((arg) => [arg]), z.array(z.string())])
+        .optional(),
+    })
+    .parse(searchParams);
+
   const normalizedDocuments = keyBy(documentsData, 'packageName');
   const normalizedTags = keyBy(tagsData, 'packageName');
   const normalizedCodeowners = keyBy(codeownersData, 'packageName');
+  const pageCount = parsedSearchParams.pageCount;
+  const skip = parsedSearchParams.page
+    ? parsedSearchParams.page * parsedSearchParams.pageCount
+    : 0;
 
   const data = packages
     .map((pkg) => {
+      console.log({
+        documentsData: normalizedDocuments[pkg.name].documents ?? [],
+      });
+
       return {
-        name: pkg.name,
-        version: pkg.version,
-        type: pkg.type,
+        ...pkg,
         documents: normalizedDocuments[pkg.name]?.documents ?? [],
         tags: normalizedTags[pkg.name]?.tags ?? [],
         codeowners: normalizedCodeowners[pkg.name]?.codeowners ?? [],
       };
     })
     .filter((pkg) => {
-      if (searchParams.name) {
-        return pkg.name.toLowerCase().includes(searchParams.name.toLowerCase());
+      if (parsedSearchParams.name) {
+        return pkg.name
+          .toLowerCase()
+          .includes(parsedSearchParams.name.toLowerCase());
       }
       return true;
     })
     .filter((pkg) => {
-      if (typeof searchParams.tags === 'string') {
-        return pkg.tags.includes(searchParams.tags);
-      }
-      if (Array.isArray(searchParams.tags)) {
-        return pkg.tags.some((pkgTag) =>
-          (searchParams.tags as string[]).some((tag) => tag === pkgTag),
-        );
+      if (parsedSearchParams.tags) {
+        return pkg.tags.some((pkgTag) => {
+          if (!parsedSearchParams.tags) return;
+
+          return parsedSearchParams.tags.some((tag) => tag === pkgTag);
+        });
       }
       return true;
     })
     .filter((pkg) => {
-      if (typeof searchParams.codeowners === 'string') {
-        return pkg.codeowners.includes(searchParams.codeowners);
-      }
-      if (searchParams.codeowners) {
-        return pkg.codeowners.some((pkgCodeowner) =>
-          (searchParams.codeowners as string[]).some(
+      if (parsedSearchParams.codeowners) {
+        return pkg.codeowners.some((pkgCodeowner) => {
+          if (!parsedSearchParams.codeowners) return;
+
+          return parsedSearchParams.codeowners.some(
             (codeowner) => codeowner === pkgCodeowner,
-          ),
-        );
+          );
+        });
       }
       return true;
     });
+
+  const paginatedData = data.slice(skip, pageCount);
 
   const uniqueTags = Array.from(new Set(tagsData.flatMap((pkg) => pkg.tags)));
   const uniqueCodeowners = Array.from(
@@ -81,24 +99,39 @@ async function PackagesPage({
   );
 
   return (
-    <div className={cn('bg-secondary w-full px-6 py-4 grow')}>
-      <Card className="p-6 min-h-full">
-        <div className="space-y-6">
-          <div className="flex items-center gap-2">
+    <>
+      <div className="grow p-6 w-full space-y-6 flex flex-col">
+        <div className="w-full space-y-6">
+          <div className="flex gap-4 items-center">
+            <h1 className="font-medium text-2xl leading-none">Packages</h1>
+            <Badge
+              variant="outline"
+              className="text-muted-foreground"
+            >{`${data.length}/${packages.length}`}</Badge>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0 relative z-10">
             <PackageTableFilters
               tags={uniqueTags}
               codeowners={uniqueCodeowners}
             />
           </div>
-          <PackagesTable
-            columns={columns}
-            data={data}
+        </div>
+        <div className="grow">
+          <StudioPackagesTable
+            data={paginatedData}
             codeowners={uniqueCodeowners}
             tags={uniqueTags}
+            onDocumentClick={openEditorAction}
           />
         </div>
-      </Card>
-    </div>
+        <StudioPackagesTablePaginator
+          totalCount={data.length}
+          pageCount={pageCount}
+          page={parsedSearchParams.page}
+        />
+      </div>
+    </>
   );
 }
 

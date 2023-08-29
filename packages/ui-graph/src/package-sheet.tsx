@@ -1,4 +1,3 @@
-'use client';
 import {
   Label,
   Sheet,
@@ -15,28 +14,13 @@ import {
   CardDescription,
   CardFooter,
 } from '@commonalityco/ui-design-system';
-import { ComponentProps, useMemo } from 'react';
-import type {
-  CodeownersData,
-  DocumentsData,
-  Package,
-  TagsData,
-} from '@commonalityco/types';
+import { ComponentProps } from 'react';
+import type { Codeowner, Document, Package } from '@commonalityco/types';
 import { Markdown, GradientFade } from '@commonalityco/ui-core';
 import { ExternalLink, File, FileText, Tags, Users } from 'lucide-react';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import { Balancer } from 'react-wrap-balancer';
-
-interface PackageSheetProperties extends ComponentProps<typeof Sheet> {
-  pkg?: Package;
-  tagsData: TagsData[];
-  codeownersData: CodeownersData[];
-  documentsData: DocumentsData[];
-  createTagsButton?: React.ComponentType<{
-    pkg: Package;
-    tagsData: TagsData[];
-  }>;
-}
+import { DocumentName } from '@commonalityco/utils-core';
 
 function TagsButton({ pkgTags: packageTags = [] }: { pkgTags: string[] }) {
   return (
@@ -80,38 +64,23 @@ function TagsButton({ pkgTags: packageTags = [] }: { pkgTags: string[] }) {
   );
 }
 
-function PackageSheetContent({
+export function PackageSheet({
   pkg,
-  tagsData,
-  documentsData,
-  codeownersData,
+  tags,
+  documents,
+  codeowners,
   createTagsButton,
 }: {
   pkg: Package;
-  documentsData: PackageSheetProperties['documentsData'];
-  tagsData: PackageSheetProperties['tagsData'];
-  codeownersData: PackageSheetProperties['codeownersData'];
-  createTagsButton?: PackageSheetProperties['createTagsButton'];
+  tags: string[];
+  codeowners: Codeowner[];
+  documents: Document[];
+  createTagsButton?: React.ReactNode;
 }) {
   const Icon = getIconForPackage(pkg.type);
-
-  const tagDataForPackage = useMemo(() => {
-    return tagsData.find((data) => data.packageName === pkg.name);
-  }, [pkg, tagsData]);
-
-  const ownerDataForPackage = useMemo(() => {
-    return codeownersData.find((data) => data.packageName === pkg.name);
-  }, [pkg, codeownersData]);
-
-  const documentsForPackage = useMemo(() => {
-    return documentsData.find((data) => data.packageName === pkg.name);
-  }, [documentsData]);
-
-  const readmeDocument = documentsForPackage?.documents.find(
-    (document) => document.isReadme,
+  const readmeDocument = documents.find(
+    (document) => document.filename === DocumentName.README,
   );
-
-  const CreateTagsComponent = createTagsButton;
 
   return (
     <>
@@ -132,21 +101,19 @@ function PackageSheetContent({
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <Label>Tags</Label>
-              {CreateTagsComponent && (
-                <CreateTagsComponent pkg={pkg} tagsData={tagsData} />
-              )}
+              {createTagsButton}
             </div>
 
             <div className="w-full">
-              <TagsButton pkgTags={tagDataForPackage?.tags ?? []} />
+              <TagsButton pkgTags={tags} />
             </div>
           </div>
           <div className="space-y-2">
             <Label>Owners</Label>
             <div>
-              {ownerDataForPackage?.codeowners?.length ? (
+              {codeowners?.length ? (
                 <div className="flex flex-wrap gap-1">
-                  {ownerDataForPackage.codeowners.map((codeowner) => (
+                  {codeowners.map((codeowner) => (
                     <Badge
                       key={codeowner}
                       className="rounded-full"
@@ -234,19 +201,14 @@ function PackageSheetContent({
   );
 }
 
-export function PackageSheet(properties: PackageSheetProperties) {
+export function PackageSheetLayout({
+  children,
+  ...rest
+}: ComponentProps<typeof Sheet>) {
   return (
-    <Sheet {...properties} open={Boolean(properties.pkg)}>
+    <Sheet {...rest}>
       <SheetContent className="flex flex-col gap-2 p-0 sm:max-w-[300px] md:max-w-[650px]">
-        {properties.pkg && (
-          <PackageSheetContent
-            createTagsButton={properties.createTagsButton}
-            pkg={properties.pkg}
-            tagsData={properties.tagsData}
-            documentsData={properties.documentsData}
-            codeownersData={properties.codeownersData}
-          />
-        )}
+        {children}
       </SheetContent>
     </Sheet>
   );

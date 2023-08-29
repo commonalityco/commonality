@@ -95,7 +95,7 @@ export const graphMachine = createMachine(
       theme: 'light',
       violations: [],
     },
-    tsTypes: {} as import('./graph-machine.typegen.d.ts').Typegen0,
+    tsTypes: {} as import('./graph-machine.typegen.js').Typegen0,
     schema: {
       events: {} as Event,
       context: {} as Context,
@@ -271,7 +271,6 @@ export const graphMachine = createMachine(
           context.worker.addEventListener(
             'message',
             async (event: MessageEvent<ElementDefinition[]>) => {
-              console.log('WORKER RESPONSE');
               if (!context.renderGraph || !context.traversalGraph) {
                 return resolve([]);
               }
@@ -279,7 +278,7 @@ export const graphMachine = createMachine(
               resolve(event.data);
             },
           );
-          console.log('POST MESSAGE');
+
           context.worker.postMessage(context.elements);
         });
       },
@@ -586,13 +585,7 @@ export const graphMachine = createMachine(
         },
       }),
 
-      nodeSelect: assign({
-        selectedNode: (context, event) => {
-          return context.traversalGraph?.$id(event.packageName);
-        },
-        hoveredRenderNode: undefined,
-        hoveredTraversalNode: undefined,
-      }),
+      nodeSelect: () => {},
       edgeClick: assign({
         selectedNode: undefined,
         selectedEdge: (_context, event) => {

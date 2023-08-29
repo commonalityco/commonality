@@ -28,7 +28,7 @@ export function GraphLayoutAside({
   className?: string;
 }) {
   return (
-    <div className={cn('h-full pl-6 py-4 pr-4', className)}>
+    <div className={cn('h-full pl-4 py-4 pr-4', className)}>
       <Card className="h-full w-72 rounded-lg">{children}</Card>
     </div>
   );
@@ -42,7 +42,7 @@ export function GraphLayoutMain({
   className?: string;
 }) {
   return (
-    <div className="align-stretch flex h-full grow overflow-hidden py-4 pr-6">
+    <div className="align-stretch flex h-full grow overflow-hidden py-4 pr-4">
       <Card
         className={cn('flex h-full w-full flex-col overflow-hidden', className)}
         id="graph-layout-root"

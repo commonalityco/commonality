@@ -8,6 +8,12 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@commonalityco/ui-design-system/dropdown-menu';
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipProvider,
+  TooltipContent,
+} from '@commonalityco/ui-design-system/tooltip';
 import { Button } from '@commonalityco/ui-design-system/button';
 import { Monitor, Sun, Moon, LucideIcon } from 'lucide-react';
 
@@ -28,25 +34,43 @@ export function ThemeButton({
   defaultTheme = 'system',
   ...properties
 }: ThemeButtonProperties) {
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [theme, setTheme] = useState(defaultTheme);
   const Icon = theme ? IconByTheme[theme] : undefined;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          {...properties}
-          variant="ghost"
-          size="icon"
-          aria-label="Choose theme"
-          className="group"
+    <DropdownMenu onOpenChange={() => setIsTooltipOpen(false)}>
+      <TooltipProvider>
+        <Tooltip
+          open={isTooltipOpen}
+          onOpenChange={setIsTooltipOpen}
+          delayDuration={200}
         >
-          {Icon && (
-            <Icon className="text-muted-foreground group-hover:text-foreground h-4 w-4 transition-colors" />
-          )}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+          <DropdownMenuTrigger asChild>
+            <TooltipTrigger asChild>
+              <Button
+                {...properties}
+                variant="ghost"
+                size="icon"
+                aria-label="Choose theme"
+                className="group"
+              >
+                {Icon && (
+                  <Icon className="text-muted-foreground group-hover:text-foreground h-4 w-4 transition-colors" />
+                )}
+              </Button>
+            </TooltipTrigger>
+          </DropdownMenuTrigger>
+
+          <TooltipContent align="end" side="bottom" alignOffset={8}>
+            Change theme
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      <DropdownMenuContent
+        align="end"
+        onCloseAutoFocus={(event) => event.preventDefault()}
+      >
         {theme && (
           <DropdownMenuRadioGroup
             value={theme}

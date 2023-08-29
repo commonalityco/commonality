@@ -1,5 +1,6 @@
 'use server';
 import { setTags } from '@commonalityco/data-tags';
+import { metadataKey } from '@commonalityco/utils-graph/query-keys';
 import { revalidateTag } from 'next/cache';
 
 export async function setTagsAction({
@@ -14,5 +15,6 @@ export async function setTagsAction({
     tags,
     rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
   });
-  return revalidateTag('metadata');
+
+  revalidateTag(metadataKey);
 }

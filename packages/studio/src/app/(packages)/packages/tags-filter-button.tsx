@@ -40,7 +40,7 @@ export function TagsFilterButton({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className={'justify-between'}>
+        <Button variant="outline" className="justify-between shrink-0 w-56">
           <div className="flex gap-2 items-center">
             <Tags className="h-4 w-4 text-muted-foreground" />
             <span>Tags</span>
@@ -64,7 +64,7 @@ export function TagsFilterButton({
                   handleCheckedChange({ checked, tag })
                 }
               >
-                {formatTagName(tag)}
+                <Badge variant="secondary">{formatTagName(tag)}</Badge>
               </DropdownMenuCheckboxItem>
             );
           })

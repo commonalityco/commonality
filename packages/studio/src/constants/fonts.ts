@@ -3,13 +3,6 @@ import { Inter, Fira_Code, Vollkorn } from 'next/font/google';
 export const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  display: 'swap',
-});
-
-export const vollkorn = Vollkorn({
-  subsets: ['latin'],
-  variable: '--font-vollkorn',
-  display: 'swap',
 });
 
 export const firaCode = Fira_Code({

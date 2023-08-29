@@ -1,8 +1,11 @@
 import React from 'react';
 import {
+  Codeowner,
   CodeownersData,
+  Document,
   DocumentsData,
   Package,
+  Tag,
   TagsData,
 } from '@commonalityco/types';
 import { PackageType } from '@commonalityco/utils-core';
@@ -20,51 +23,36 @@ const package_ = {
 
 const documentsData = [
   {
-    packageName: package_.name,
-    documents: [
-      {
-        filename: 'README',
-        isReadme: true,
-        isRoot: false,
-        content: '# This is a title',
-      },
-    ],
+    filename: 'README',
+    path: '/packages/test/README.md',
+    isRoot: false,
+    content: '# This is a title',
   },
-] satisfies DocumentsData[];
+] satisfies Document[];
 
 const codeownersData = [
-  {
-    packageName: package_.name,
-    codeowners: [
-      '@team-one',
-      '@team-two',
-      '@team-three',
-      '@team-four',
-      '@team-five',
-      '@team-six',
-      '@team-seven',
-      '@team-eight',
-      '@team-nine',
-    ],
-  },
-] satisfies CodeownersData[];
+  '@team-one',
+  '@team-two',
+  '@team-three',
+  '@team-four',
+  '@team-five',
+  '@team-six',
+  '@team-seven',
+  '@team-eight',
+  '@team-nine',
+] satisfies Codeowner[];
 
 const tagsData = [
-  {
-    packageName: package_.name,
-    tags: [
-      'tag-one',
-      'tag-two',
-      'tag-three',
-      'tag-four',
-      'tag-five',
-      'tag-six',
-      'tag-seven',
-      'tag-eight',
-      'tag-nine',
-    ],
-  },
-] satisfies TagsData[];
+  'tag-one',
+  'tag-two',
+  'tag-three',
+  'tag-four',
+  'tag-five',
+  'tag-six',
+  'tag-seven',
+  'tag-eight',
+  'tag-nine',
+] satisfies Tag[];
 
 describe('<PackageSheet/>', () => {
   describe('when there are tags', () => {
@@ -72,9 +60,9 @@ describe('<PackageSheet/>', () => {
       render(
         <PackageSheet
           pkg={package_}
-          tagsData={tagsData}
-          codeownersData={codeownersData}
-          documentsData={documentsData}
+          tags={tagsData}
+          codeowners={codeownersData}
+          documents={documentsData}
         />,
       );
 
@@ -95,9 +83,9 @@ describe('<PackageSheet/>', () => {
       render(
         <PackageSheet
           pkg={package_}
-          tagsData={[]}
-          codeownersData={codeownersData}
-          documentsData={documentsData}
+          tags={[]}
+          codeowners={codeownersData}
+          documents={documentsData}
         />,
       );
 

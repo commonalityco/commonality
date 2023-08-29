@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { PackageManager } from '@commonalityco/utils-core';
 import {
   Separator,
   Toggle,
@@ -9,8 +8,6 @@ import {
   TooltipTrigger,
   TooltipProvider,
   TooltipContent,
-  HoverCard,
-  HoverCardTrigger,
   ScrollArea,
   Accordion,
   AccordionContent,
@@ -189,7 +186,6 @@ function ViolationsHoverCard({
 }
 
 export interface GraphToolbarProperties {
-  packageManager?: PackageManager;
   totalPackageCount: number;
   shownPackageCount: number;
   isEdgeColorShown?: boolean;
@@ -203,7 +199,6 @@ export interface GraphToolbarProperties {
 }
 
 export function GraphToolbar({
-  packageManager,
   totalPackageCount = 0,
   shownPackageCount = 0,
   isEdgeColorShown,

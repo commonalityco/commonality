@@ -1,9 +1,8 @@
 'use client';
 import { Input } from '@commonalityco/ui-design-system';
-import React from 'react';
+import React, { useMemo } from 'react';
 import TagsFilterButton from './tags-filter-button';
 import CodeownersFilterButton from './codeowners-filter-button';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useQueryParams } from 'hooks/use-query-params';
 import { debounce } from 'utils/debounce';
 

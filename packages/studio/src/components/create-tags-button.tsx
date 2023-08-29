@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import {
   Button,
   CreatebleSelect,
@@ -20,18 +21,17 @@ export function CreateTagsButton({
   pkg: Package;
   tagsData: TagsData[];
 }) {
-  const { toast } = useToast();
-  console.log({ tagsData });
+  // const { toast } = useToast();
+
   const onSetTags = async (options: {
     packageName: string;
     tags: string[];
   }) => {
-    console.log({ packageName: options.packageName, tags: options.tags });
     await setTagsAction(options);
 
-    toast({
-      description: 'Successfully updated package configuration',
-    });
+    // toast({
+    //   description: 'Successfully updated package configuration',
+    // });
   };
 
   const allTags: string[] = useMemo(() => {
@@ -65,8 +65,8 @@ export function CreateTagsButton({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" className="space-x-1" size="sm">
-          {tagDataForPkg?.tags.length ? (
+        <Button className="space-x-1" size="sm">
+          {tagsData.length ? (
             <>
               <Pencil className="h-3 w-3" />
               <span>Edit tags</span>
@@ -80,12 +80,17 @@ export function CreateTagsButton({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-[300px] p-0" align="end">
+      <PopoverContent
+        onFocusOutside={(e) => e.preventDefault()}
+        className="w-[300px] p-0"
+        align="end"
+      >
         <CreatebleSelect
           variant="inline"
           menuIsOpen={true}
           autoFocus={true}
           isMulti
+          blurInputOnSelect={false}
           backspaceRemovesValue={false}
           closeMenuOnSelect={false}
           controlShouldRenderValue={false}
@@ -109,5 +114,3 @@ export function CreateTagsButton({
     </Popover>
   );
 }
-
-export default CreateTagsButton;

@@ -14,9 +14,12 @@ export const getDocumentsFromDirectory = async ({
 }): Promise<Document[]> => {
   let documentation: Document[] = [];
 
-  const documentPaths = await globby(['*.md'], {
-    cwd: path.join(rootDirectory, directory),
-  });
+  const documentPaths = await globby(
+    ['README.md', 'CHANGELOG.md', 'docs/**.md'],
+    {
+      cwd: path.join(rootDirectory, directory),
+    },
+  );
 
   if (documentPaths.length > 0) {
     const documents = await Promise.all(
@@ -32,8 +35,8 @@ export const getDocumentsFromDirectory = async ({
           return {
             filename,
             isRoot,
-            isReadme: filename === 'README',
             content,
+            path: path.join(directory, documentPath),
           } satisfies Document;
         } catch {
           return;

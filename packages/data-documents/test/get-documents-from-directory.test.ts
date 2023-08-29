@@ -22,7 +22,13 @@ describe('getPagesFromDirectory', () => {
       {
         filename: 'README',
         content: '# This is a title',
-        isReadme: true,
+        path: 'packages/pkg-one/README.md',
+        isRoot: false,
+      },
+      {
+        content: '# Here is how to get started\n',
+        filename: 'getting-started',
+        path: 'packages/pkg-one/docs/getting-started.md',
         isRoot: false,
       },
     ] satisfies Document[];
