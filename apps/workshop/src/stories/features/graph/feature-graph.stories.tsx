@@ -1,46 +1,29 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-  FeatureGraph,
+  FeatureGraphChart,
   FeatureGraphLayout,
   GraphProvider,
 } from '@commonalityco/feature-graph';
-import {
-  documentsKeys,
-  getElementDefinitionsWithUpdatedLayout,
-} from '@commonalityco/utils-graph';
-import {
-  DependencyType,
-  PackageManager,
-  PackageType,
-} from '@commonalityco/utils-core';
-import {
-  CodeownersData,
-  Constraint,
-  Dependency,
-  DocumentsData,
-  Package,
-  ProjectConfig,
-  TagsData,
-  Violation,
-} from '@commonalityco/types';
+import { DependencyType, PackageType } from '@commonalityco/utils-core';
+import { Dependency, Package, Violation } from '@commonalityco/types';
 
 const meta = {
-  title: 'Features/Graph/FeatureGraph',
-  component: FeatureGraph,
+  title: 'Features/Graph/FeatureGraphChart',
+  component: FeatureGraphChart,
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
   },
   args: {
-    packageManager: PackageManager.PNPM,
     theme: 'light',
-    getViolations: () => Promise.resolve([]),
   },
   decorators: [
     (Story, props) => {
+      const newWorker = new Worker(new URL('./feature-graph-worker.ts'));
+
       return (
         <div style={{ height: '600px', width: '100%' }}>
-          <GraphProvider dehydratedState={{ queries: [], mutations: [] }}>
+          <GraphProvider worker={newWorker}>
             <FeatureGraphLayout>
               <Story {...props} />
             </FeatureGraphLayout>
@@ -49,7 +32,7 @@ const meta = {
       );
     },
   ],
-} satisfies Meta<typeof FeatureGraph>;
+} satisfies Meta<typeof FeatureGraphChart>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -94,52 +77,6 @@ const pkgFive = {
   type: PackageType.NODE,
 } satisfies Package;
 
-const tagData = [
-  {
-    packageName: pkgOne.name,
-    tags: ['tag1', 'tag2'],
-  },
-  {
-    packageName: pkgTwo.name,
-    tags: ['tag1', 'tag2'],
-  },
-  {
-    packageName: pkgThree.name,
-    tags: ['tag1', 'tag2'],
-  },
-  {
-    packageName: pkgFour.name,
-    tags: ['tag1', 'tag2'],
-  },
-  {
-    packageName: pkgFive.name,
-    tags: ['tag1', 'tag2'],
-  },
-] as TagsData[];
-
-const codeownersData = [
-  {
-    packageName: pkgOne.name,
-    codeowners: ['@team-one', '@team-two'],
-  },
-  {
-    packageName: pkgTwo.name,
-    codeowners: ['@team-one', '@team-two'],
-  },
-  {
-    packageName: pkgThree.name,
-    codeowners: ['@team-one', '@team-two'],
-  },
-  {
-    packageName: pkgFour.name,
-    codeowners: ['@team-one', '@team-two'],
-  },
-  {
-    packageName: pkgFive.name,
-    codeowners: ['@team-one', '@team-two'],
-  },
-] satisfies CodeownersData[];
-
 const packages = [
   pkgOne,
   pkgTwo,
@@ -177,10 +114,10 @@ const dependencies = [
 
 export const Default: Story = {
   args: {
-    getPackages: () => Promise.resolve(packages),
-    getDependencies: () => Promise.resolve(dependencies),
-    getViolations: () => Promise.resolve([]),
-    getConstraints: () => Promise.resolve([]),
+    packages,
+    dependencies,
+    violations: [],
+    constraints: [],
   },
 };
 
@@ -197,26 +134,24 @@ const violations = [
 
 export const ConstraintsAndViolations: Story = {
   args: {
-    getPackages: () => Promise.resolve(packages),
-    getDependencies: () => Promise.resolve(dependencies),
-    getConstraints: () =>
-      Promise.resolve([
-        {
-          applyTo: 'foo',
-          allow: ['bar'],
-          disallow: ['baz'],
-        },
-      ] satisfies Constraint[]),
-
-    getViolations: () => Promise.resolve(violations),
+    packages,
+    dependencies,
+    constraints: [
+      {
+        applyTo: 'foo',
+        allow: ['bar'],
+        disallow: ['baz'],
+      },
+    ],
+    violations,
   },
 };
 
 export const Zero: Story = {
   args: {
-    getPackages: () => Promise.resolve([]),
-    getDependencies: () => Promise.resolve([]),
-    getConstraints: () => Promise.resolve([]),
-    getViolations: () => Promise.resolve([]),
+    packages: [],
+    dependencies: [],
+    constraints: [],
+    violations: [],
   },
 };

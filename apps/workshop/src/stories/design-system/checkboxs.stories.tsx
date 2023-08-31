@@ -11,7 +11,7 @@ const meta = {
     id: 'foo',
   },
   decorators: [
-    (Story: any) => (
+    (Story) => (
       <div className="flex gap-2 items-center">
         <Story />
         <Label htmlFor="foo">Hello</Label>

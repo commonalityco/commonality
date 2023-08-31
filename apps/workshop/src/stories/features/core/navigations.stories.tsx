@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Divider, Navigation, NavigationLogo } from '@commonalityco/ui-core';
-import { Button } from '@commonalityco/ui-design-system';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {

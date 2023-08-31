@@ -9,6 +9,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@commonalityco/data-graph-worker": "workspace:*",
     "@commonalityco/feature-graph": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
@@ -24,7 +25,6 @@
   },
   "devDependencies": {
     "@commonalityco/config-tailwind": "workspace:*",
-    "eslint-config-commonality": "workspace:*",
     "@storybook/addon-a11y": "^7.3.1",
     "@storybook/addon-docs": "^7.3.1",
     "@storybook/addon-essentials": "^7.3.1",
@@ -42,6 +42,7 @@
     "@vitejs/plugin-react": "^4.0.4",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "autoprefixer": "^10.4.15",
+    "eslint-config-commonality": "workspace:*",
     "postcss": "^8.4.28",
     "postcss-loader": "^7.3.3",
     "prop-types": "^15.8.1",
