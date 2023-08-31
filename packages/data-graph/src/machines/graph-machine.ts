@@ -84,6 +84,7 @@ type Event =
 
 const ZOOM_FACTOR = 0.5 as const;
 
+// Write a debounce function
 export const graphMachine = createMachine(
   {
     /** @xstate-layout N4IgpgJg5mDOIC5RQE4EMAOALAdAVwDsBLYgFyLQBsiAvSAYgEkA5RgFUYEEAZRgLQCiAbQAMAXUSgMAe1hFy0gpJAAPRAFYAbAGYc2gOzqRARmMj9ADk2GATABoQAT0QXjOIyM+bNN7Zs-qACwAvsEOqJi4sHgAxjFwsEysHDz8wuLKMnIKSkiqGjp6hiZmltbq9k6I2iKBesY2Fb4iAJy+Lcah4ejYONFxCfQAIgIAymwASgDyAJqiEnlZ8kSKymoIppo4+mYtgYGNFjaBRy0Ozhs2hjiN3i17Fi2aRyFhIBG9-fGwiQASjCN5plZMtVnl1lpdAYjKZzFZbOcNCItnDmiIbK4WhZtNouu8elFYt8-gCBAB9EYABQEzBGzAAwowxkDFiCcmsClDirCygiqgh-DYcCJtMYcTZPKKari3h9CQMfvR-iMKQJqbTOMw2KMWVI2StcqAIYVoSU4eVKhdNC19DgsYF1PdGvpRZY8XK+kTBsryTxuLqQEt2eDOUUYaV4RVEQh9C1dHH9PoTL4bMcse6CZ6FYlRr8pgB1ANBg0chCQsNm3lR-kWR44R4iCwiiU7VwWDORLPE+i5guq9V0xnMjKs7IlkNlk3ciMW6NY9T1wLaFoidTGI6mbTt2WZr6DXv5-s0oaa7VF-Vgo2h008yOWxBmVzbG2eHbqJOBTQdz5exUHsl+ueY6Xvkk5cuG5p8hcpiJtsMKtGKxg2kc37yt2ABiUz0gAqjqI56sBhqgeWN4zlBD5XLoSbaDYphmNaZg2KhXb7gIbBkmwvwCAAsukCwEaCRHGuBlZ3tGYrWjgmiQmKjbrgcrzdJ2e6Kuh7BAYJpZihYODGLGzzSYE+iaGKxniXpLR6CKjqGMYRlGExO7Kb+iR8FMUzcWSLAacGV4bHp2zaEuFhLjaca1oE4mNlCRg4ui-haFczEqa57meVM2FsD545+bsegrjoNSaIE676Ccc4WLay76KmRwWJC5jJS5PZsV5oxkgIQwAOLkvSUzcFMExkgezDZSB6wHNGVh1PcZjGCZexGOo25KT+2b0MwUwqtxGWjAIUwAGoCBMY1CYgsb5ciNQNO+RnaOo0ZlUKy2fluLw3eoTXrZt227ftmWnaW2LuMYiUhTosapsY0Y+CIumWAc1hxV4X3dj9vW8PSADSgMTmYC7mCKoNPI6WLSdGgQ2tsNW0Z+JWVeoWio4MnU9WS9KYzj+GBheZ0bMiNylctlWHNamjRtCejeJ4jRGMUX5OWt3bYcwe3cAI9JZdzxbjQ+DRFJTYWBLUxXPNGjRCi0Nkrg6TzOsxlDSGgEAkFA9AQIoYA4CQABu0gANZeygYAEBAYAoAAtHKuN+f4dSWA00n3GuxXaObWj1jdtHLUjHQO07LsEG74coNIKA4BglBoKQABmZcALY4MHofh1HBIx6BDRtIFS5BJ+9UhVNEpScVjTri90nbm8BDSGH8B5HKwKEaWEfi-yEcLvcW-bzvMqrbghAkMsVC0JAS+aXj1j1vasuyc8TzifsODGz4rb+E8q76MzPzn75ndWyPY2joU47HmmnfkpktgSixCYOmJl9jMRLmXX+OVO4+AXA6Go5gabGVXFNJCgDGj3EMEYbw+dnauxQbrBAWIdIhQMDoRm75PBnH5PpXSo9jJWx0I2RyoQgA */
@@ -309,22 +310,6 @@ export const graphMachine = createMachine(
 
             callback({ type: 'UNSELECT' });
           }
-        });
-
-        context.renderGraph.nodes().on('mousemove', () => {
-          callback({ type: 'SET_HOVERING', isHovering: true });
-        });
-
-        context.renderGraph.nodes().on('mouseout', () => {
-          callback({ type: 'SET_HOVERING', isHovering: false });
-        });
-
-        context.renderGraph.edges().on('mousemove', () => {
-          callback({ type: 'SET_HOVERING', isHovering: true });
-        });
-
-        context.renderGraph.edges().on('mouseout', () => {
-          callback({ type: 'SET_HOVERING', isHovering: false });
         });
 
         context.renderGraph.nodes().on('click', (event) => {
