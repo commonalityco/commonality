@@ -1,23 +1,29 @@
 'use client';
-import { Constraint, Package, TagsData, Violation } from '@commonalityco/types';
-import { DependencySheet } from '@commonalityco/ui-graph';
-import { useMemo } from 'react';
+import { TooltipDependency } from '@commonalityco/ui-graph';
 import { GraphContext } from './graph-provider.js';
+import {
+  Constraint,
+  Dependency,
+  Package,
+  TagsData,
+  Violation,
+} from '@commonalityco/types';
+import { GraphTooltip } from '@commonalityco/ui-graph';
+import { useMemo } from 'react';
 
-export function FeatureGraphDependencySheet({
-  violations,
+export function FeatureGraphDependencyTooltip({
   constraints,
+  violations,
   tagsData,
 }: {
-  violations: Violation[];
   constraints: Constraint[];
+  violations: Violation[];
   tagsData: TagsData[];
 }) {
-  const actor = GraphContext.useActorRef();
   const selectedEdge = GraphContext.useSelector(
     (state) => state.context.selectedEdge,
   );
-
+  const dependency: Dependency | undefined = selectedEdge?.data();
   const dependencyConstraints = useMemo(() => {
     if (!selectedEdge || !constraints) return [];
 
@@ -35,17 +41,18 @@ export function FeatureGraphDependencySheet({
   }, [selectedEdge, constraints]);
 
   return (
-    <DependencySheet
-      dependency={selectedEdge?.data()}
-      defaultOpen={Boolean(selectedEdge)}
-      open={Boolean(selectedEdge)}
-      onOpenChange={() => actor.send('UNSELECT')}
-      violations={violations ?? []}
-      constraints={dependencyConstraints}
-      source={selectedEdge?.source().id() ?? 'Source pkg'}
-      target={selectedEdge?.target().id() ?? 'Target pkg'}
-    />
+    <>
+      {selectedEdge && dependency && (
+        <GraphTooltip element={selectedEdge}>
+          <TooltipDependency
+            dependency={dependency}
+            constraints={dependencyConstraints}
+            violations={violations}
+          />
+        </GraphTooltip>
+      )}
+    </>
   );
 }
 
-export default FeatureGraphDependencySheet;
+export default FeatureGraphDependencyTooltip;

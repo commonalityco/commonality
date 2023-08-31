@@ -11,7 +11,7 @@ export function GraphLayoutRoot({
   return (
     <main
       className={cn(
-        'bg-secondary relative grid h-full max-h-screen min-h-0 w-full grid-cols-[auto_1fr] items-stretch',
+        'bg-secondary relative grid h-full max-h-screen min-h-0 w-full grid-cols-[auto_1fr] items-stretch overflow-hidden',
         className,
       )}
     >
@@ -42,7 +42,7 @@ export function GraphLayoutMain({
   className?: string;
 }) {
   return (
-    <div className="align-stretch flex h-full grow overflow-hidden py-4 pr-4">
+    <div className="align-stretch flex h-full grow py-4 pr-4">
       <Card
         className={cn('flex h-full w-full flex-col overflow-hidden', className)}
         id="graph-layout-root"

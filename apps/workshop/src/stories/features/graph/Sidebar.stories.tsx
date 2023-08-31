@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Sidebar } from '@commonalityco/ui-graph';
-import type { Package } from '@commonalityco/types';
+import type {
+  CodeownersData,
+  Dependency,
+  Package,
+  TagsData,
+} from '@commonalityco/types';
+import { DependencyType, PackageType } from '@commonalityco/utils-core';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
@@ -22,75 +28,81 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/7.0/react/writing-stories/args
 
+const dependencies = [
+  {
+    source: '@scope/one',
+    target: '@scope/two',
+    type: DependencyType.PRODUCTION,
+    version: '1.0.0',
+  },
+  {
+    source: '@scope/one',
+    target: '@scope/three',
+    type: DependencyType.DEVELOPMENT,
+    version: '1.0.0',
+  },
+  {
+    source: '@scope/three',
+    target: '@scope/four',
+    type: DependencyType.PRODUCTION,
+    version: '1.0.0',
+  },
+  {
+    source: '@scope/five-looooooooooooooonnnnnngggggggg',
+    target: '@scope/four',
+    version: '1.0.0',
+    type: DependencyType.PEER,
+  },
+] satisfies Dependency[];
+
 const pkgOne = {
   path: `/path/to/package-one`,
   name: `@scope/one`,
   version: '1.0.0',
-  dependencies: [
-    {
-      name: '@scope/two',
-      version: '1.0.0',
-      type: 'PRODUCTION' as any,
-    },
-    {
-      name: '@scope/three',
-      version: '1.0.0',
-      type: 'DEVELOPMENT' as any,
-    },
-  ],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgTwo = {
   path: `/path/to/package-two`,
   name: `@scope/two`,
   version: '1.0.0',
-  dependencies: [],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgThree = {
   path: `/path/to/package-three`,
   name: `@scope/three`,
   version: '1.0.0',
-  dependencies: [
-    {
-      name: '@scope/four',
-      version: '1.0.0',
-      type: 'PRODUCTION' as any,
-    },
-  ],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgFour = {
   path: `/path/to/package-four`,
   name: `@scope/four`,
   version: '1.0.0',
-  dependencies: [],
-  devDependencies: [],
-  peerDependencies: [],
+  type: PackageType.NODE,
 } satisfies Package;
 
 const pkgFive = {
   path: `/path/to/package-five-looooooooooooooonnnnnngggggggg`,
   name: `@scope/five-looooooooooooooonnnnnngggggggg`,
   version: '1.0.0',
-  tags: ['tag-five'],
-  owners: ['@team-five'],
-  dependencies: [
-    {
-      name: '@scope/four',
-      version: '1.0.0',
-      type: 'PEER' as any,
-    },
-  ],
-  devDependencies: [],
-  peerDependencies: [],
-};
+  type: PackageType.NODE,
+} satisfies Package;
+
+const tagsData = [
+  {
+    packageName: '@scope/five-looooooooooooooonnnnnngggggggg',
+    tags: ['tag-five'],
+  },
+] as TagsData[];
+
+const codeownersData = [
+  {
+    packageName: '@scope/five-looooooooooooooonnnnnngggggggg',
+    codeowners: ['@team-five'],
+  },
+] as CodeownersData[];
 
 export const KitchenSink: Story = {
   args: {

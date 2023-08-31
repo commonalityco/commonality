@@ -33,7 +33,7 @@ export default async function RootLayout({
           inter.className,
           inter.variable,
           firaCode.variable,
-          'flex h-full flex-col justify-stretch font-sans',
+          'flex h-full flex-col justify-stretch font-sans relative',
         )}
       >
         <Providers defaultTheme={defaultTheme}>

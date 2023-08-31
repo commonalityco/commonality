@@ -1,4 +1,3 @@
-'use client';
 import {
   Button,
   DropdownMenu,
@@ -9,7 +8,7 @@ import {
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
 import { formatTagName } from '@commonalityco/utils-core';
-import { Check, ChevronsUpDown, Tags } from 'lucide-react';
+import { ChevronsUpDown, Tags } from 'lucide-react';
 
 export function TagsFilterButton({
   tags,

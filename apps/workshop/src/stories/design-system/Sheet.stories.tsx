@@ -19,6 +19,9 @@ const meta = {
   title: 'Design System/Sheet',
   component: Sheet,
   tags: ['autodocs'],
+  args: {
+    open: true,
+  },
 } satisfies Meta<typeof Sheet>;
 
 export default meta;

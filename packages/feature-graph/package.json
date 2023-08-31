@@ -1,5 +1,6 @@
 {
   "name": "@commonalityco/feature-graph",
+  "description": "Full-featured drop-in components to build the dependency graph view",
   "publishConfig": {
     "access": "public"
   },

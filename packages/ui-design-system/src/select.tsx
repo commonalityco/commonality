@@ -1,12 +1,10 @@
 'use client';
 import ReactSelect, {
   ClearIndicatorProps,
-  ControlProps,
   DropdownIndicatorProps,
   GroupBase,
-  InputProps,
-  OptionProps,
   Props,
+  ClassNamesConfig,
 } from 'react-select';
 import { ChevronDown, X } from 'lucide-react';
 import { CSSProperties } from 'react';
@@ -15,7 +13,7 @@ import Creatable, { CreatableProps } from 'react-select/creatable';
 import { cva, VariantProps } from 'class-variance-authority';
 
 const controlStyles = cva(
-  '!flex !min-h-0 !w-full !items-center !justify-between !rounded-md !border !text-sm antialiased h-9',
+  '!flex !min-h-0 !w-full !items-center !justify-between !rounded-md !border !text-sm antialiased',
   {
     variants: {
       variant: {
@@ -29,6 +27,7 @@ const controlStyles = cva(
         false: '!ring-offset-background',
       },
       isDisabled: { true: '!disabled:cursor-not-allowed !disabled:opacity-50' },
+      isMulti: { true: 'h-auto', false: 'h-9' },
     },
     defaultVariants: {
       variant: 'default',
@@ -45,10 +44,12 @@ function getClassNames<
     multiValue: () =>
       '!bg-secondary !text-foreground !rounded-sm !font-regular',
     placeholder: () => '!text-muted-foreground antialiased',
-    valueContainer: () => {
+    valueContainer: (state) => {
       return cn('!m-0', {
-        '!px-2 !py-0': variant !== 'inline',
-        '!px-3 !py-0': variant === 'inline',
+        '!px-2 !py-0': variant !== 'inline' && !state.isMulti,
+        '!px-3 !py-0': variant === 'inline' && !state.isMulti,
+        '!p-1': state.isMulti && state.getValue().length > 0,
+        '!py-2.5': state.isMulti && state.getValue().length === 0,
       });
     },
     multiValueRemove: () => {
@@ -61,7 +62,7 @@ function getClassNames<
     },
     multiValueLabel: () =>
       '!rounded-sm !text-foreground !text-sm !py-1 !pl-2 !pr-1',
-    input: (properties: InputProps<Option, IsMulti, Group>) => {
+    input: (properties) => {
       return cn('!text-foreground antialiased', {
         '!p-0 !m-0': properties.isMulti,
         '!px-0 !m-0': !properties.isMulti,
@@ -84,7 +85,7 @@ function getClassNames<
     menuList: () => {
       return cn('!relative !p-1 !flex !flex-col !gap-1');
     },
-    option: (state: OptionProps<Option, IsMulti, Group>) => {
+    option: (state) => {
       return cn(
         '!relative !block !truncate !w-full !cursor-pointer !select-none !items-center !rounded-sm !font-normal antialiased !py-1.5 !outline-none !font-sans !shrink-0',
         {
@@ -98,17 +99,19 @@ function getClassNames<
         },
       );
     },
-    control: (state: ControlProps<Option, IsMulti, Group>) => {
+
+    control: (state) => {
       return cn(
         controlStyles({
           isDisabled: state.isDisabled,
           isFocused: state.isFocused,
+          isMulti: state.isMulti,
           variant,
         }),
         className,
       );
     },
-  } as const;
+  } satisfies ClassNamesConfig<Option, IsMulti, Group>;
 }
 
 function getComponents<
@@ -123,16 +126,20 @@ function getComponents<
     ) => {
       const {
         getStyles,
-        innerProps: { ref, ...restInnerProperties },
+        innerProps: { ref, className, ...restInnerProperties },
       } = properties;
 
       return (
         <div
+          className={cn(
+            className,
+            'h-6 w-6 hover:bg-secondary cursor-pointer transition-colors group flex items-center justify-center rounded-sm',
+          )}
           {...restInnerProperties}
           ref={ref}
           style={getStyles('clearIndicator', properties) as CSSProperties}
         >
-          <X className="text-muted-foreground hover:text-foreground h-4 w-4 cursor-pointer transition-colors" />
+          <X className="h-4 w-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
         </div>
       );
     },
@@ -141,16 +148,20 @@ function getComponents<
     ) => {
       const {
         getStyles,
-        innerProps: { ref, ...restInnerProperties },
+        innerProps: { ref, className, ...restInnerProperties },
       } = properties;
 
       return (
         <div
           style={getStyles('dropdownIndicator', properties) as CSSProperties}
+          className={cn(
+            className,
+            'h-6 w-6 hover:bg-secondary cursor-pointer transition-colors group flex items-center justify-center rounded-sm',
+          )}
           {...restInnerProperties}
           ref={ref}
         >
-          <ChevronDown className="text-muted-foreground hover:text-foreground h-4 w-4 cursor-pointer transition-colors" />
+          <ChevronDown className="h-4 w-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors" />
         </div>
       );
     },

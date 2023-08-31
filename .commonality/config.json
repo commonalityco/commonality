@@ -1,1 +1,30 @@
-{"projectId":"me9y6ztiy87f0","constraints":[{"applyTo":"*","disallow":["deliverable"]},{"applyTo":"feature","allow":"*"},{"applyTo":"config","allow":["config"]},{"applyTo":"ui","allow":["ui","utility","config"]},{"applyTo":"data","allow":["data","utility","config"]},{"applyTo":"utility","allow":["data","utility","config"]}]}
+{
+  "projectId": "me9y6ztiy87f0",
+  "constraints": [
+    { "applyTo": "*", "disallow": ["deliverable"] },
+    {
+      "applyTo": "feature",
+      "allow": "*"
+    },
+    {
+      "applyTo": "config",
+      "allow": ["config"],
+      "disallow": ["feature"]
+    },
+    {
+      "applyTo": "ui",
+      "allow": ["ui", "utility", "config"],
+      "disallow": ["feature"]
+    },
+    {
+      "applyTo": "data",
+      "allow": ["data", "utility", "config"],
+      "disallow": ["feature"]
+    },
+    {
+      "applyTo": "utility",
+      "allow": ["data", "utility", "config"],
+      "disallow": ["feature"]
+    }
+  ]
+}

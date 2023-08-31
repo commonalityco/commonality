@@ -216,7 +216,6 @@ function PackagesFilterSection({
 
 function TagsFilterSection({
   tagData,
-  className,
   visiblePackages,
   onHide,
   onFocus,
@@ -224,7 +223,6 @@ function TagsFilterSection({
   search,
 }: {
   visiblePackages?: Package[];
-  className?: string;
   onHide: (tag: string) => void;
   onShow: (tag: string) => void;
   onFocus: (tag: string) => void;
@@ -343,7 +341,6 @@ function TagsFilterSection({
 
 function CodeownersFilterSection({
   ownerData,
-  className,
   visiblePackages,
   onHide,
   onShow,
@@ -352,7 +349,6 @@ function CodeownersFilterSection({
 }: {
   search: string;
   ownerData: CodeownersData[];
-  className?: string;
   visiblePackages?: Package[];
   onHide: (team: string) => void;
   onShow: (team: string) => void;
@@ -585,7 +581,6 @@ export function Sidebar({
             <ResizeBar />
             <Panel defaultSize={33} minSize={5} className="grid content-start">
               <TagsFilterSection
-                className="min-height-0 shrink"
                 tagData={filteredTags}
                 visiblePackages={visiblePackages}
                 onFocus={onTagFocus}
@@ -597,7 +592,6 @@ export function Sidebar({
             <ResizeBar />
             <Panel defaultSize={33} minSize={5} className="grid content-start">
               <CodeownersFilterSection
-                className="min-height-0 shrink"
                 ownerData={filteredOwners}
                 visiblePackages={visiblePackages}
                 onFocus={onTeamFocus}

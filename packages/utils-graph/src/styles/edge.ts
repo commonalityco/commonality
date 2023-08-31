@@ -30,7 +30,7 @@ export const edgeStyles: Stylesheet[] = [
       'target-endpoint': '0% -50%',
       'arrow-scale': 1.5,
       'line-color': colors.light.default,
-    },
+    } as cytoscape.Css.Edge,
   },
 
   {
@@ -45,64 +45,63 @@ export const edgeStyles: Stylesheet[] = [
     style: {
       'line-color': colors.light.production,
       'target-arrow-color': colors.light.production,
-      'overlay-color': colors.light.production,
+      'underlay-color': colors.light.production,
       width: 3,
-    },
+    } as cytoscape.Css.Edge,
   },
   {
     selector: `edge.${DependencyType.DEVELOPMENT}`,
     style: {
       'line-color': colors.light.development,
       'target-arrow-color': colors.light.development,
-      'overlay-color': colors.light.development,
+      'underlay-color': colors.light.development,
       width: 3,
-    },
+    } as cytoscape.Css.Edge,
   },
   {
     selector: `edge.${DependencyType.PEER}`,
     style: {
       'line-color': colors.light.peer,
       'target-arrow-color': colors.light.peer,
-      'overlay-color': colors.light.peer,
+      'underlay-color': colors.light.peer,
       width: 3,
-    },
+    } as cytoscape.Css.Edge,
   },
   {
     selector: `edge.dark.${DependencyType.PRODUCTION}`,
     style: {
       'line-color': colors.dark.production,
       'target-arrow-color': colors.dark.production,
-      'overlay-color': colors.dark.production,
+      'underlay-color': colors.dark.production,
       width: 3,
-    },
+    } as cytoscape.Css.Edge,
   },
   {
     selector: `edge.dark.${DependencyType.DEVELOPMENT}`,
     style: {
       'line-color': colors.dark.development,
       'target-arrow-color': colors.dark.development,
-      'overlay-color': colors.dark.development,
+      'underlay-color': colors.dark.development,
       width: 3,
-    },
+    } as cytoscape.Css.Edge,
   },
   {
     selector: `edge.dark.${DependencyType.PEER}`,
     style: {
       'line-color': colors.dark.peer,
       'target-arrow-color': colors.dark.peer,
-      'overlay-color': colors.dark.peer,
-
+      'underlay-color': colors.dark.peer,
       width: 3,
-    },
+    } as cytoscape.Css.Edge,
   },
   {
     selector: 'edge.violation',
     style: {
       'line-color': colors.dark.violation,
       'target-arrow-color': colors.dark.violation,
-      'overlay-color': colors.dark.violation,
+      'underlay-color': colors.dark.violation,
       'z-index': 10,
-    },
+    } as cytoscape.Css.Edge,
   },
   {
     selector: 'edge.dim',
@@ -122,8 +121,8 @@ export const edgeStyles: Stylesheet[] = [
     selector: 'edge.hover',
     style: {
       'z-index': 100,
-      'overlay-padding': 8,
-      'overlay-opacity': 0.35,
-    },
+      'underlay-padding': 10,
+      'underlay-opacity': 0.35,
+    } as cytoscape.Css.Edge,
   },
 ];

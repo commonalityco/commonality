@@ -1,5 +1,6 @@
 {
   "name": "@commonalityco/utils-package",
+  "description": "Utilities for formatting package data",
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {

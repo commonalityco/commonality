@@ -1,5 +1,5 @@
 'use client';
-import React, { ComponentProps, useMemo } from 'react';
+import React, { ComponentProps, Suspense, useMemo, useState } from 'react';
 import {
   CodeownersCell,
   DocumentsCell,
@@ -8,24 +8,80 @@ import {
   PackagesTable,
   SortableHeader,
   TagsCell,
-  VersionCell,
   ColumnData,
 } from './packages-table';
-import { useQueryParams } from 'hooks/use-query-params';
 import { slugifyPackageName } from '@commonalityco/utils-core';
 import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@commonalityco/ui-design-system/dropdown-menu';
+import { Button } from '@commonalityco/ui-design-system';
+import { MoreHorizontal } from 'lucide-react';
+import { Package } from '@commonalityco/types';
+import { openEditorAction } from 'actions/editor';
+import {
+  CreateTagsDialog,
+  CreateTagsDialogContent,
+} from 'components/create-tags-dialog';
+
+function ActionButton({
+  data,
+  tags,
+}: {
+  data: Package & { tags: string[] };
+  tags: string[];
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <CreateTagsDialog open={open} onOpenChange={setOpen}>
+        <CreateTagsDialogContent
+          tags={tags}
+          existingTags={data.tags}
+          packageName={data.name}
+        />
+      </CreateTagsDialog>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0" size="icon">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem onSelect={() => openEditorAction(data.path)}>
+            Open package.json
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => openEditorAction(data.path)}>
+            Open commonality.json
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onSelect={() => setOpen(true)}>
+            Edit tags
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
+  );
+}
 
 function StudioPackagesTable({
-  onDocumentClick,
+  onEditorOpen,
   ...props
 }: Omit<
   ComponentProps<typeof PackagesTable<ColumnData, unknown>>,
   'columns'
 > & {
-  onDocumentClick: ComponentProps<typeof DocumentsCell>['onDocumentClick'];
+  onEditorOpen: (path: string) => Promise<void>;
 }) {
-  const { setQuery } = useQueryParams();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -51,17 +107,10 @@ function StudioPackagesTable({
         },
       },
       {
-        accessorKey: 'version',
-        header: ({ column }) => {
-          return <SortableHeader column={column} title="Version" />;
-        },
-        cell: VersionCell,
-      },
-      {
         accessorKey: 'documents',
         header: 'Documents',
         cell: (props) => (
-          <DocumentsCell {...props} onDocumentClick={onDocumentClick} />
+          <DocumentsCell {...props} onDocumentOpen={onEditorOpen} />
         ),
       },
       {
@@ -74,8 +123,19 @@ function StudioPackagesTable({
         header: 'Codeowners',
         cell: CodeownersCell,
       },
+      {
+        id: 'actions',
+        size: 64,
+        cell: ({ row }) => {
+          return (
+            <Suspense fallback={null}>
+              <ActionButton data={row.original} tags={props.tags} />
+            </Suspense>
+          );
+        },
+      },
     ] satisfies PackageTableColumns;
-  }, [onDocumentClick, searchParams, pathname]);
+  }, [onEditorOpen, pathname, searchParams, props.tags]);
 
   return <PackagesTable {...props} columns={columns} />;
 }
