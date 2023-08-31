@@ -1,12 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Sidebar } from '@commonalityco/ui-graph';
-import type {
-  CodeownersData,
-  Dependency,
-  Package,
-  TagsData,
-} from '@commonalityco/types';
-import { DependencyType, PackageType } from '@commonalityco/utils-core';
+import type { Package } from '@commonalityco/types';
+import { PackageType } from '@commonalityco/utils-core';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
@@ -25,35 +20,6 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
-// More on writing stories with args: https://storybook.js.org/docs/7.0/react/writing-stories/args
-
-const dependencies = [
-  {
-    source: '@scope/one',
-    target: '@scope/two',
-    type: DependencyType.PRODUCTION,
-    version: '1.0.0',
-  },
-  {
-    source: '@scope/one',
-    target: '@scope/three',
-    type: DependencyType.DEVELOPMENT,
-    version: '1.0.0',
-  },
-  {
-    source: '@scope/three',
-    target: '@scope/four',
-    type: DependencyType.PRODUCTION,
-    version: '1.0.0',
-  },
-  {
-    source: '@scope/five-looooooooooooooonnnnnngggggggg',
-    target: '@scope/four',
-    version: '1.0.0',
-    type: DependencyType.PEER,
-  },
-] satisfies Dependency[];
 
 const pkgOne = {
   path: `/path/to/package-one`,
@@ -89,20 +55,6 @@ const pkgFive = {
   version: '1.0.0',
   type: PackageType.NODE,
 } satisfies Package;
-
-const tagsData = [
-  {
-    packageName: '@scope/five-looooooooooooooonnnnnngggggggg',
-    tags: ['tag-five'],
-  },
-] as TagsData[];
-
-const codeownersData = [
-  {
-    packageName: '@scope/five-looooooooooooooonnnnnngggggggg',
-    codeowners: ['@team-five'],
-  },
-] as CodeownersData[];
 
 export const KitchenSink: Story = {
   args: {

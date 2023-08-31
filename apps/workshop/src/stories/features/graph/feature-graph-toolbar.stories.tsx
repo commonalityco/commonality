@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-  FeatureGraphLayout,
   FeatureGraphToolbar,
   GraphProvider,
 } from '@commonalityco/feature-graph';
 import { PackageManager } from '@commonalityco/utils-core';
-import { ProjectConfig, Violation } from '@commonalityco/types';
+import { Violation } from '@commonalityco/types';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
@@ -21,7 +20,7 @@ const meta = {
   decorators: [
     (Story, props) => {
       return (
-        <GraphProvider dehydratedState={{ mutations: [], queries: [] }}>
+        <GraphProvider>
           <Story {...props} />
         </GraphProvider>
       );
