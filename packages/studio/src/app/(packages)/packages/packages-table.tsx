@@ -80,9 +80,14 @@ export function NameCell({ row }: CellContext<ColumnData, unknown>) {
       <div>
         <Icon />
         <div className="text-left space-y-2">
-          <span className="font-semibold block group-hover:underline">
-            {name}
-          </span>
+          <div className="flex flex-nowrap gap-2 items-center">
+            <span className="font-semibold block group-hover:underline">
+              {name}
+            </span>
+            <div className="font-mono leading-none mt-px">
+              {row.original.version}
+            </div>
+          </div>
           <span className="text-xs text-muted-foreground block group-hover:no-underline">
             {description}
           </span>
@@ -92,17 +97,11 @@ export function NameCell({ row }: CellContext<ColumnData, unknown>) {
   );
 }
 
-export function VersionCell({ row }: CellContext<ColumnData, unknown>) {
-  const version: string = row.getValue('version');
-
-  return <div className="font-mono">{version}</div>;
-}
-
 export function DocumentsCell({
   row,
-  onDocumentClick,
+  onDocumentOpen,
 }: CellContext<ColumnData, unknown> & {
-  onDocumentClick: (document: Document) => Promise<void>;
+  onDocumentOpen: (filePath: string) => Promise<void>;
 }) {
   const documents: Document[] = row.getValue('documents');
   const readme = documents.find((doc) => doc.filename === DocumentName.README);
@@ -124,7 +123,7 @@ export function DocumentsCell({
               <Button
                 size="icon"
                 variant="outline"
-                onClick={() => onDocumentClick(readme)}
+                onClick={() => onDocumentOpen(readme.path)}
               >
                 <FileText className="w-4 h-4" />
               </Button>
@@ -143,7 +142,7 @@ export function DocumentsCell({
               <Button
                 size="icon"
                 variant="outline"
-                onClick={() => onDocumentClick(changelog)}
+                onClick={() => onDocumentOpen(changelog.path)}
               >
                 <FileDigit className="w-4 h-4" />
               </Button>

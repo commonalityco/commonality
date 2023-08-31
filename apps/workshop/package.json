@@ -4,16 +4,18 @@
   "private": true,
   "version": "1.0.13",
   "scripts": {
-    "dev": "storybook dev -p 6006"
+    "dev": "storybook dev -p 6006",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@commonalityco/feature-graph": "^0.0.12",
-    "@commonalityco/types": "^0.0.13",
-    "@commonalityco/ui-core": "^0.0.12",
-    "@commonalityco/ui-design-system": "^0.0.11",
-    "@commonalityco/ui-graph": "^0.0.13",
-    "@commonalityco/utils-core": "^0.0.9",
-    "@commonalityco/utils-graph": "^0.0.10",
+    "@commonalityco/feature-graph": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/ui-core": "workspace:*",
+    "@commonalityco/ui-design-system": "workspace:*",
+    "@commonalityco/ui-graph": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "@commonalityco/utils-graph": "workspace:*",
     "next": "13.4.16",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
@@ -21,7 +23,8 @@
     "storybook-addon-variants": "^0.2.0"
   },
   "devDependencies": {
-    "@commonalityco/config-tailwind": "^0.0.5",
+    "@commonalityco/config-tailwind": "workspace:*",
+    "eslint-config-commonality": "workspace:*",
     "@storybook/addon-a11y": "^7.3.1",
     "@storybook/addon-docs": "^7.3.1",
     "@storybook/addon-essentials": "^7.3.1",

@@ -1,4 +1,3 @@
-import StudioPackageSheetLayout from 'components/studio-package-sheet-layout';
 import StudioGraphProvider from './studio-graph-provider';
 import {
   FeatureGraphChartLayout,
@@ -10,12 +9,10 @@ export default async function RootLayout({
   children,
   sidebar,
   chart,
-  packageSheet,
 }: {
   children: React.ReactNode;
   sidebar: React.ReactNode;
   chart: React.ReactNode;
-  packageSheet: React.ReactNode;
 }) {
   return (
     <div className="bg-secondary h-full">
@@ -26,7 +23,6 @@ export default async function RootLayout({
         </FeatureGraphLayout>
         {children}
       </StudioGraphProvider>
-      <StudioPackageSheetLayout>{packageSheet}</StudioPackageSheetLayout>
     </div>
   );
 }

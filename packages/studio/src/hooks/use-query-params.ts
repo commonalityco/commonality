@@ -16,8 +16,9 @@ export const useQueryParams = () => {
       query.set(key, value);
       router.push(`${pathname}?${query.toString()}`);
     } else if (Array.isArray(value)) {
+      query.delete(key);
       for (const item of value) {
-        query.set(key, item);
+        query.append(key, item);
       }
 
       const newPath = `${pathname}?${query.toString()}`;

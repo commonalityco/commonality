@@ -28,7 +28,7 @@ export interface Typegen0 {
     updateLayout: 'done.invoke.update-layout';
   };
   missingImplementations: {
-    actions: never;
+    actions: 'unhover';
     delays: never;
     guards: never;
     services: never;
@@ -54,9 +54,9 @@ export interface Typegen0 {
       | 'HIDE_DEPENDANTS'
       | 'HIDE_DEPENDENCIES'
       | 'INITIALIZE'
+      | 'NODE_CLICK'
       | 'NODE_MOUSEOUT'
-      | 'NODE_MOUSEOVER'
-      | 'NODE_SELECT'
+      | 'SET_HOVERING'
       | 'SET_IS_EDGE_COLOR_SHOWN'
       | 'SET_THEME'
       | 'SHOW'
@@ -69,9 +69,9 @@ export interface Typegen0 {
       | 'done.invoke.render-graph'
       | 'error.platform.render-graph'
       | 'error.platform.update-layout';
-    nodeMouseOver: 'NODE_MOUSEOVER';
-    nodeSelect: 'NODE_SELECT';
+    nodeClick: 'NODE_CLICK';
     renderIsEdgeColorShown: 'SET_IS_EDGE_COLOR_SHOWN';
+    setHovering: 'SET_HOVERING';
     setInitialElements: 'INITIALIZE';
     setIsEdgeColorShown: 'SET_IS_EDGE_COLOR_SHOWN';
     setTheme: 'INITIALIZE' | 'SET_THEME';
@@ -106,9 +106,8 @@ export interface Typegen0 {
       | 'HIDE_ALL'
       | 'HIDE_DEPENDANTS'
       | 'HIDE_DEPENDENCIES'
+      | 'NODE_CLICK'
       | 'NODE_MOUSEOUT'
-      | 'NODE_MOUSEOVER'
-      | 'NODE_SELECT'
       | 'SET_IS_EDGE_COLOR_SHOWN'
       | 'SET_THEME'
       | 'SHOW'

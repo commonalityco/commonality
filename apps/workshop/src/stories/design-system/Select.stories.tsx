@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import {
   Button,
   Popover,
@@ -198,16 +198,26 @@ export const SynchronousGhost: Story = {
 
 export const SynchronousMulti: Story = {
   args: {
-    menuIsOpen: true,
+    closeMenuOnSelect: false,
+    // menuIsOpen: true,
     isMulti: true,
     defaultValue: [
-      { value: 'chocolate', label: 'Chocolate' },
-      { value: 'strawberry', label: 'Strawberry' },
+      { value: 'chocolate-1', label: 'Chocolate' },
+      { value: 'strawberry-1', label: 'Strawberry' },
     ],
     options: [
-      { value: 'chocolate', label: 'Chocolate' },
-      { value: 'strawberry', label: 'Strawberry' },
-      { value: 'vanilla', label: 'Vanilla' },
+      { value: 'chocolate-1', label: 'Chocolate' },
+      { value: 'strawberry-1', label: 'Strawberry' },
+      { value: 'vanilla-1', label: 'Vanilla' },
+      { value: 'chocolate-2', label: 'Chocolate' },
+      { value: 'strawberry-2', label: 'Strawberry' },
+      { value: 'vanilla-2', label: 'Vanilla' },
+      { value: 'chocolate-3', label: 'Chocolate' },
+      { value: 'strawberry-3', label: 'Strawberry' },
+      { value: 'vanilla-3', label: 'Vanilla' },
+      { value: 'chocolate-4', label: 'Chocolate' },
+      { value: 'strawberry-4', label: 'Strawberry' },
+      { value: 'vanilla-4', label: 'Vanilla' },
     ],
   },
 };

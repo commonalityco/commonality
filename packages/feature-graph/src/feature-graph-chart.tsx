@@ -44,7 +44,7 @@ export function FeatureGraphChart({
     return state.matches('success') && state.context.elements.length === 0;
   });
   const isHovering = GraphContext.useSelector(
-    (state) => state.context.hoveredRenderNode,
+    (state) => state.context.isHovering,
   );
   const renderGraph = GraphContext.useSelector(
     (state) => state.context.renderGraph,
@@ -120,13 +120,13 @@ export function FeatureGraphChart({
         ref={containerReference}
         loading={isLoading}
         isEmpty={isEmpty}
+        onShowAllPackages={() => {
+          actor.send({ type: 'SHOW_ALL' });
+        }}
         className={cn({
           'cursor-pointer': isHovering,
           'cursor-grab active:cursor-grabbing': !isHovering,
         })}
-        onShowAllPackages={() => {
-          actor.send({ type: 'SHOW_ALL' });
-        }}
       />
     </>
   );

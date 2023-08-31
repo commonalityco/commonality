@@ -20,8 +20,6 @@ export const GraphTooltip = ({
 
   const referenceReference = useMemo(() => element.popperRef(), [element]);
 
-  const boundaryElement = document.querySelector('#graph-layout-root');
-
   const { styles, attributes } = usePopper(
     referenceReference,
     tooltipReference,
@@ -31,7 +29,6 @@ export const GraphTooltip = ({
           name: 'flip',
           options: {
             allowedAutoPlacements: ['top', 'bottom'],
-            boundary: boundaryElement ?? undefined,
             padding: 8,
           },
         },

@@ -11,6 +11,10 @@ import { z } from 'zod';
 import StudioPackagesTablePaginator from './studio-packages-table-paginator';
 import openEditor from 'open-editor';
 import { openEditorAction } from 'actions/editor';
+import {
+  CreateTagsDialog,
+  CreateTagsDialogContent,
+} from 'components/create-tags-dialog';
 
 function keyBy<Data extends Record<string, any>>(
   array: Data[],
@@ -26,6 +30,7 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
 
   const parsedSearchParams = z
     .object({
+      editTags: z.coerce.boolean().optional(),
       name: z.string().optional(),
       package: z.string().optional(),
       page: z.coerce.number().optional().default(0),
@@ -49,10 +54,6 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
 
   const data = packages
     .map((pkg) => {
-      console.log({
-        documentsData: normalizedDocuments[pkg.name].documents ?? [],
-      });
-
       return {
         ...pkg,
         documents: normalizedDocuments[pkg.name]?.documents ?? [],
@@ -105,7 +106,7 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
           <div className="flex gap-4 items-center">
             <h1 className="font-medium text-2xl leading-none">Packages</h1>
             <Badge
-              variant="outline"
+              variant="secondary"
               className="text-muted-foreground"
             >{`${data.length}/${packages.length}`}</Badge>
           </div>
@@ -122,7 +123,7 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
             data={paginatedData}
             codeowners={uniqueCodeowners}
             tags={uniqueTags}
-            onDocumentClick={openEditorAction}
+            onEditorOpen={openEditorAction}
           />
         </div>
         <StudioPackagesTablePaginator

@@ -6,7 +6,7 @@ import '@commonalityco/config-tailwind/globals.css';
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <div className="antialiased">
+      <div className="antialiased relative">
         <Story />
       </div>
     ),

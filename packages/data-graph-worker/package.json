@@ -1,5 +1,6 @@
 {
   "name": "@commonalityco/data-graph-worker",
+  "description": "Instantiate a web worker to process Commonality graph calculations",
   "version": "0.0.7",
   "type": "module",
   "publishConfig": {

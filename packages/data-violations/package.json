@@ -1,5 +1,6 @@
 {
   "name": "@commonalityco/data-violations",
+  "description": "Get violations information about a local project",
   "publishConfig": {
     "access": "public"
   },

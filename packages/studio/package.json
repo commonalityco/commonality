@@ -1,5 +1,6 @@
 {
   "name": "@commonalityco/studio",
+  "description": "The Next.js application that powers Commonality Studio",
   "version": "0.2.17",
   "publishConfig": {
     "access": "public"
@@ -30,6 +31,7 @@
     "@commonalityco/utils-core": "*",
     "@commonalityco/utils-graph": "*",
     "@commonalityco/utils-package": "*",
+    "@hookform/resolvers": "^3.2.0",
     "@tanstack/react-table": "^8.9.3",
     "@xstate/react": "^3.2.2",
     "cookies-next": "^3.0.0",
@@ -41,7 +43,13 @@
     "zod": "^3.22.1"
   },
   "peerDependencies": {
-    "next": "canary"
+    "next": "canary",
+    "react-hook-form": "7.x"
+  },
+  "peerDependenciesMeta": {
+    "react-hook-form": {
+      "optional": true
+    }
   },
   "files": [
     ".next/",
@@ -79,6 +87,7 @@
     "next": "canary",
     "next-themes": "^0.2.1",
     "pino": "^8.15.0",
+    "react-hook-form": "^7.45.4",
     "pino-pretty": "^10.2.0",
     "postcss": "^8.4.28",
     "prettier": "^3.0.2",

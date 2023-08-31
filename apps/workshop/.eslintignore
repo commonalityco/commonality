@@ -1,2 +1,5 @@
 graph-machine.typegen.d.ts
 graph-machine.typegen.ts
+postcss.config.js
+tailwind.config.js
+README.ts

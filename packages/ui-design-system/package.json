@@ -1,5 +1,6 @@
 {
   "name": "@commonalityco/ui-design-system",
+  "description": "UI primitives built with shadcn",
   "version": "0.0.11",
   "publishConfig": {
     "access": "public"

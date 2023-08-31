@@ -21,7 +21,7 @@ export function CreateTagsButton({
   pkg: Package;
   tagsData: TagsData[];
 }) {
-  // const { toast } = useToast();
+  const { toast } = useToast();
 
   const onSetTags = async (options: {
     packageName: string;
@@ -29,9 +29,9 @@ export function CreateTagsButton({
   }) => {
     await setTagsAction(options);
 
-    // toast({
-    //   description: 'Successfully updated package configuration',
-    // });
+    toast({
+      description: 'Successfully updated package configuration',
+    });
   };
 
   const allTags: string[] = useMemo(() => {

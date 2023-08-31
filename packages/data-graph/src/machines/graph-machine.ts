@@ -35,12 +35,12 @@ type Filter =
 
 export interface Context {
   worker?: Worker;
+  isHovering: boolean;
   renderGraph?: Core;
   traversalGraph?: Core;
   elements: ElementDefinition[];
-  hoveredRenderNode?: NodeSingular & { data: () => Package };
-  hoveredTraversalNode?: NodeSingular & { data: () => Package };
-  selectedNode?: NodeSingular;
+  selectedRenderNode?: NodeSingular & { data: () => Package };
+  selectedTraversalNode?: NodeSingular & { data: () => Package };
   selectedEdge?: EdgeSingular;
   popoverRef?: VirtualElement;
   isEdgeColorShown: boolean;
@@ -76,8 +76,9 @@ type Event =
   | { type: 'SET_THEME'; theme: string }
   | { type: 'NODE_MOUSEOVER'; node: NodeSingular }
   | { type: 'NODE_MOUSEOUT'; node: NodeSingular }
-  | { type: 'NODE_SELECT'; packageName: string }
+  | { type: 'NODE_CLICK'; node: NodeSingular }
   | { type: 'EDGE_CLICK'; edge: EdgeSingular }
+  | { type: 'SET_HOVERING'; isHovering: boolean }
   | { type: 'UNHOVER' }
   | { type: 'UNSELECT' };
 
@@ -90,6 +91,7 @@ export const graphMachine = createMachine(
     id: 'graph',
     initial: 'uninitialized',
     context: {
+      isHovering: false,
       elements: [],
       isEdgeColorShown: false,
       theme: 'light',
@@ -201,17 +203,16 @@ export const graphMachine = createMachine(
             actions: ['zoomOut', 'log'],
           },
           // Events triggered by the graph
-          NODE_MOUSEOVER: {
-            cond: 'renderGraphExists',
-            actions: ['nodeMouseOver', 'log'],
-          },
           NODE_MOUSEOUT: {
             cond: 'renderGraphExists',
             actions: ['unselect', 'log'],
           },
-          NODE_SELECT: {
+          SET_HOVERING: {
+            actions: ['setHovering', 'log'],
+          },
+          NODE_CLICK: {
             cond: 'renderGraphExists',
-            actions: ['nodeSelect', 'log'],
+            actions: ['nodeClick', 'log'],
           },
           EDGE_CLICK: {
             cond: 'renderGraphExists',
@@ -294,38 +295,42 @@ export const graphMachine = createMachine(
           violations: context.violations,
         });
 
-        context.renderGraph.on('tap', function (event) {
+        context.renderGraph.on('click', function (event) {
           const eventTarget = event.target;
 
           if (eventTarget === context.renderGraph) {
-            if (context.selectedNode) {
-              callback({ type: 'UNSELECT' });
+            if (
+              context.selectedRenderNode ||
+              context.selectedTraversalNode ||
+              context.selectedEdge
+            ) {
+              return;
             }
 
-            if (context.selectedEdge) {
-              callback({ type: 'UNSELECT' });
-            }
+            callback({ type: 'UNSELECT' });
           }
+        });
+
+        context.renderGraph.nodes().on('mousemove', () => {
+          callback({ type: 'SET_HOVERING', isHovering: true });
+        });
+
+        context.renderGraph.nodes().on('mouseout', () => {
+          callback({ type: 'SET_HOVERING', isHovering: false });
+        });
+
+        context.renderGraph.edges().on('mousemove', () => {
+          callback({ type: 'SET_HOVERING', isHovering: true });
+        });
+
+        context.renderGraph.edges().on('mouseout', () => {
+          callback({ type: 'SET_HOVERING', isHovering: false });
         });
 
         context.renderGraph.nodes().on('click', (event) => {
           if (!context.renderGraph) return;
 
-          const data: Package = event.target.data();
-
-          callback({ type: 'NODE_SELECT', packageName: data.name });
-        });
-
-        context.renderGraph.nodes().on('mouseover', (event) => {
-          if (!context.renderGraph) return;
-
-          callback({ type: 'NODE_MOUSEOVER', node: event.target });
-        });
-
-        context.renderGraph.nodes().on('mouseout', (event) => {
-          if (!context.renderGraph) return;
-
-          callback({ type: 'NODE_MOUSEOUT', node: event.target });
+          callback({ type: 'NODE_CLICK', node: event.target });
         });
 
         context.renderGraph.edges().on('click', (event) => {
@@ -431,10 +436,6 @@ export const graphMachine = createMachine(
 
           return hideAll({ traversalGraph: context.traversalGraph });
         },
-      }),
-      unhover: assign({
-        hoveredRenderNode: undefined,
-        hoveredTraversalNode: undefined,
       }),
       show: assign({
         elements: (context, event) => {
@@ -572,31 +573,32 @@ export const graphMachine = createMachine(
           return event.isShown;
         },
       }),
-
-      nodeMouseOver: assign({
-        hoveredTraversalNode: (context, event) => {
+      nodeClick: assign({
+        selectedEdge: undefined,
+        selectedRenderNode: (_context, event) => {
+          return event.node;
+        },
+        selectedTraversalNode: (context, event) => {
           if (!context.traversalGraph) return;
 
           return context.traversalGraph.$id(event.node.id());
           // return event.node;
         },
-        hoveredRenderNode: (_context, event) => {
-          return event.node;
-        },
       }),
-
-      nodeSelect: () => {},
       edgeClick: assign({
-        selectedNode: undefined,
+        selectedRenderNode: undefined,
+        selectedTraversalNode: undefined,
         selectedEdge: (_context, event) => {
           return event.edge;
         },
       }),
+      setHovering: assign({
+        isHovering: (context, event) => event.isHovering,
+      }),
       unselect: assign({
-        selectedNode: undefined,
+        selectedRenderNode: undefined,
+        selectedTraversalNode: undefined,
         selectedEdge: undefined,
-        hoveredRenderNode: undefined,
-        hoveredTraversalNode: undefined,
       }),
       log: (context, event) => {
         console.log(event.type, { context, event });

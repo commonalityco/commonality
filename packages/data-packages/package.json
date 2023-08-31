@@ -1,5 +1,6 @@
 {
   "name": "@commonalityco/data-packages",
+  "description": "Get package information about a local project",
   "version": "0.0.16",
   "type": "module",
   "publishConfig": {

@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/data-graph",
-  "description": "State management utilities for the Commonality Dashboard graph",
+  "description": "State management utilities for the Commonality dependency graph",
   "version": "0.0.10",
   "publishConfig": {
     "access": "public"
