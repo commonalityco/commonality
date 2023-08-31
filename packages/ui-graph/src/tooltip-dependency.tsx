@@ -74,7 +74,7 @@ export function TooltipDependency({
                   (violation) => violation.appliedTo === constraint.applyTo,
                 );
                 return (
-                  <div className="group">
+                  <div className="group" key={constraint.applyTo}>
                     <ConstraintAccordionItem
                       key={constraint.applyTo}
                       constraint={constraint}
