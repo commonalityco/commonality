@@ -1,15 +1,10 @@
 'use client';
 import { FeatureGraphChartLoading } from '@commonalityco/feature-graph/feature-graph-chart-loading';
-import dynamic from 'next/dynamic';
 import { ComponentProps, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { useQueryParams } from 'hooks/use-query-params';
 import { slugifyPackageName } from '@commonalityco/utils-core';
-
-const FeatureGraphChart = dynamic(
-  () => import('@commonalityco/feature-graph/feature-graph-chart'),
-  { loading: FeatureGraphChartLoading },
-);
+import { FeatureGraphChart } from '@commonalityco/feature-graph';
 
 function StudioChart(
   props: Omit<

@@ -37,11 +37,9 @@ import { ConstraintResult } from './constraint-result.js';
 function ViolationsHoverCard({
   constraints = [],
   violations = [],
-  onPackageClick = () => {},
 }: {
   constraints?: Constraint[];
   violations?: Violation[];
-  onPackageClick: (packageName: string) => void;
 }) {
   const violationsByConstraintTag = useMemo(() => {
     const map: Record<string, Violation[] | undefined> = {};
@@ -118,11 +116,6 @@ function ViolationsHoverCard({
                                     className="block h-auto w-full truncate px-0 py-1 text-left text-xs font-semibold"
                                     size="sm"
                                     variant="link"
-                                    onClick={() =>
-                                      onPackageClick(
-                                        violation.sourcePackageName,
-                                      )
-                                    }
                                   >
                                     {violation.sourcePackageName}
                                   </Button>
@@ -132,11 +125,6 @@ function ViolationsHoverCard({
                                       className="block h-auto truncate px-0 py-1 text-left text-xs font-semibold"
                                       size="sm"
                                       variant="link"
-                                      onClick={() =>
-                                        onPackageClick(
-                                          violation.targetPackageName,
-                                        )
-                                      }
                                     >
                                       {violation.targetPackageName}
                                     </Button>
@@ -193,7 +181,6 @@ export interface GraphToolbarProperties {
   onZoomIn?: () => void;
   onZoomOut?: () => void;
   onFit?: () => void;
-  onPackageClick: (packageName: string) => void;
   constraints: Constraint[];
   violations: Violation[];
 }
@@ -206,7 +193,6 @@ export function GraphToolbar({
   onZoomIn = () => {},
   onZoomOut = () => {},
   onFit = () => {},
-  onPackageClick = () => {},
   constraints = [],
   violations = [],
 }: GraphToolbarProperties) {
@@ -219,7 +205,6 @@ export function GraphToolbar({
 
         <Separator orientation="vertical" />
         <ViolationsHoverCard
-          onPackageClick={onPackageClick}
           violations={violations}
           constraints={constraints}
         />

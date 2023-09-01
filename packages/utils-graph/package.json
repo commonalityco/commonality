@@ -26,10 +26,10 @@
     "@types/cytoscape-popper": "^2.0.0",
     "@types/lodash.uniqby": "^4.7.7",
     "cytoscape": "^3.26.0",
-    "eslint-config-commonality": "^0.0.8",
+    "eslint-config-commonality": "workspace:^",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   },
   "license": "MIT",
   "peerDependencies": {

@@ -24,6 +24,6 @@
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "eslint-config-commonality": "workspace:*",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   }
 }
