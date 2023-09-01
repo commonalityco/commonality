@@ -1,8 +1,8 @@
-import StudioGraphProvider from './studio-graph-provider';
 import {
   FeatureGraphChartLayout,
   FeatureGraphLayout,
   FeatureGraphSidebarLayout,
+  GraphProvider,
 } from '@commonalityco/feature-graph';
 
 export default async function RootLayout({
@@ -16,13 +16,13 @@ export default async function RootLayout({
 }) {
   return (
     <div className="bg-secondary h-full">
-      <StudioGraphProvider>
+      <GraphProvider>
         <FeatureGraphLayout>
           <FeatureGraphSidebarLayout>{sidebar}</FeatureGraphSidebarLayout>
           <FeatureGraphChartLayout>{chart}</FeatureGraphChartLayout>
         </FeatureGraphLayout>
         {children}
-      </StudioGraphProvider>
+      </GraphProvider>
     </div>
   );
 }

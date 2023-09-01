@@ -1,13 +1,15 @@
 'use client';
-import dynamic from 'next/dynamic';
+import { FeatureGraphSidebar } from '@commonalityco/feature-graph';
+import { setCookie } from 'cookies-next';
 import { ComponentProps } from 'react';
 
-const FeatureGraphSidebar = dynamic(
-  () => import('@commonalityco/feature-graph/feature-graph-sidebar'),
-);
-
 function StudioSidebar(props: ComponentProps<typeof FeatureGraphSidebar>) {
-  return <FeatureGraphSidebar {...props} />;
+  const onLayout = (sizes: number[]) => {
+    console.log('setting');
+    setCookie('commonality:sidebar-layout', sizes);
+  };
+
+  return <FeatureGraphSidebar {...props} onLayout={onLayout} />;
 }
 
 export default StudioSidebar;

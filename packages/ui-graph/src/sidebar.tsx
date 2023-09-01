@@ -486,6 +486,8 @@ export function Sidebar({
   onPackageHide = () => {},
   onPackageShow = () => {},
   onPackageFocus = () => {},
+  onLayout,
+  defaultLayout,
   initialSearch = '',
 }: {
   visiblePackages: Package[];
@@ -504,6 +506,8 @@ export function Sidebar({
   onPackageHide: (packageName: string) => void;
   onPackageShow: (packageName: string) => void;
   onPackageFocus: (packageName: string) => void;
+  onLayout?: ComponentProps<typeof PanelGroup>['onLayout'];
+  defaultLayout?: [number, number, number];
   initialSearch?: string;
 }) {
   const [search, setSearch] = useState(initialSearch);
@@ -566,8 +570,16 @@ export function Sidebar({
             <Text use="help">No matches found</Text>
           </div>
         ) : (
-          <PanelGroup direction="vertical" autoSaveId="graph-sidebar">
-            <Panel defaultSize={33} minSize={5} className="grid content-start">
+          <PanelGroup
+            direction="vertical"
+            autoSaveId="graph-sidebar"
+            onLayout={onLayout}
+          >
+            <Panel
+              defaultSize={defaultLayout?.[0] ?? 33}
+              minSize={5}
+              className="grid content-start"
+            >
               <PackagesFilterSection
                 packages={filteredPackages}
                 stripScopeFromPackageNames={stripScopeFromPackageNames}
@@ -579,7 +591,11 @@ export function Sidebar({
               />
             </Panel>
             <ResizeBar />
-            <Panel defaultSize={33} minSize={5} className="grid content-start">
+            <Panel
+              defaultSize={defaultLayout?.[1] ?? 33}
+              minSize={5}
+              className="grid content-start"
+            >
               <TagsFilterSection
                 tagData={filteredTags}
                 visiblePackages={visiblePackages}
@@ -590,7 +606,11 @@ export function Sidebar({
               />
             </Panel>
             <ResizeBar />
-            <Panel defaultSize={33} minSize={5} className="grid content-start">
+            <Panel
+              defaultSize={defaultLayout?.[2] ?? 33}
+              minSize={5}
+              className="grid content-start"
+            >
               <CodeownersFilterSection
                 ownerData={filteredOwners}
                 visiblePackages={visiblePackages}
