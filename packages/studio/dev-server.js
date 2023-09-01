@@ -21,7 +21,6 @@ app.prepare().then(() => {
     const parsedUrl = parse(req.url, true);
 
     if (!hasInitialized) {
-      console.log('CREATING SOCKET CONNECTION');
       const io = socketIO(server);
 
       const chokidar = require('chokidar');
