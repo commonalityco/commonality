@@ -28,7 +28,7 @@ export interface Typegen0 {
     updateLayout: 'done.invoke.update-layout';
   };
   missingImplementations: {
-    actions: 'unhover';
+    actions: never;
     delays: never;
     guards: never;
     services: never;
@@ -80,7 +80,6 @@ export interface Typegen0 {
     showAll: 'SHOW_ALL';
     showDependants: 'SHOW_DEPENDANTS';
     showDependencies: 'SHOW_DEPENDENCIES';
-    unhover: 'FOCUS' | 'HIDE' | 'HIDE_DEPENDENCIES' | 'SHOW';
     unselect:
       | 'FOCUS'
       | 'HIDE'

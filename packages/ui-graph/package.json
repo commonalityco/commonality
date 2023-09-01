@@ -28,7 +28,6 @@
     "@types/cytoscape": "^3.19.10",
     "@types/lodash.debounce": "^4.0.7",
     "@types/react": "^18.2.21",
-    "@types/testing-library__jest-dom": "^5.14.9",
     "cytoscape": "^3.26.0",
     "eslint-config-commonality": "workspace:*",
     "lucide-react": "^0.268.0",

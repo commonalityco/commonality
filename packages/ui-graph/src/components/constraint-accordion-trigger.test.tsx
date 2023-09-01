@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ConstraintAccordionTrigger } from './constraint-accordion-trigger.js';
 import { describe, test, expect } from 'vitest';
@@ -24,7 +23,7 @@ describe('<ConstraintAccordionTrigger />', () => {
       </Accordion>,
     );
 
-    expect(screen.getByText('#test-tag')).toBeInTheDocument();
+    expect(screen.getByText('#test-tag')).toBeTruthy();
   });
 
   test('displays "All packages" when constraint.applyTo is "*"', () => {
@@ -38,7 +37,7 @@ describe('<ConstraintAccordionTrigger />', () => {
       </Accordion>,
     );
 
-    expect(screen.getByText('All packages')).toBeInTheDocument();
-    expect(screen.queryByText('#*')).not.toBeInTheDocument();
+    expect(screen.getByText('All packages')).toBeTruthy();
+    expect(screen.queryByText('#*')).not.toBeTruthy();
   });
 });
