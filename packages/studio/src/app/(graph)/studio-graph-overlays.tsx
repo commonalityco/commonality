@@ -1,5 +1,4 @@
 'use client';
-import { FeatureGraphOverlays } from '@commonalityco/feature-graph/feature-graph-overlays';
 import { ComponentProps } from 'react';
 import dynamic from 'next/dynamic';
 import { FeatureGraphDependencyTooltip } from '@commonalityco/feature-graph';
