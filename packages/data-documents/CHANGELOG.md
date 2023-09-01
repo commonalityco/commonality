@@ -1,5 +1,13 @@
 # @commonalityco/snapshot
 
+## 0.0.12
+
+### Patch Changes
+
+- e9a5bc2: Add table view to Studio
+- Updated dependencies [e9a5bc2]
+  - @commonalityco/data-project@0.0.11
+
 ## 0.0.11
 
 ### Patch Changes

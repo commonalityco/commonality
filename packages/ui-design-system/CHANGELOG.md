@@ -1,5 +1,11 @@
 # @commonalityco/ui-design-system
 
+## 0.0.12
+
+### Patch Changes
+
+- e9a5bc2: Add table view to Studio
+
 ## 0.0.11
 
 ### Patch Changes

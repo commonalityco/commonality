@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/config-tsconfig",
   "description": "Standard TypeScript configuration for Commonality projects",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": true,
   "devDependencies": {
     "typescript": "^5.2.2"

@@ -685,49 +685,49 @@ importers:
   packages/studio:
     dependencies:
       '@commonalityco/data-codeowners':
-        specifier: ^0.0.14
+        specifier: ^0.0.15
         version: link:../data-codeowners
       '@commonalityco/data-documents':
-        specifier: ^0.0.11
+        specifier: ^0.0.12
         version: link:../data-documents
       '@commonalityco/data-graph':
-        specifier: ^0.0.10
+        specifier: ^0.0.11
         version: link:../data-graph
       '@commonalityco/data-graph-worker':
-        specifier: ^0.0.7
+        specifier: ^0.0.8
         version: link:../data-graph-worker
       '@commonalityco/data-packages':
-        specifier: ^0.0.16
+        specifier: ^0.0.17
         version: link:../data-packages
       '@commonalityco/data-project':
-        specifier: ^0.0.10
+        specifier: ^0.0.11
         version: link:../data-project
       '@commonalityco/data-tags':
-        specifier: ^0.0.11
+        specifier: ^0.0.12
         version: link:../data-tags
       '@commonalityco/data-violations':
-        specifier: ^0.0.14
+        specifier: ^0.0.15
         version: link:../data-violations
       '@commonalityco/feature-graph':
-        specifier: ^0.0.12
+        specifier: ^0.0.13
         version: link:../feature-graph
       '@commonalityco/ui-core':
-        specifier: ^0.0.12
+        specifier: ^0.0.13
         version: link:../ui-core
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.11
+        specifier: ^0.0.12
         version: link:../ui-design-system
       '@commonalityco/ui-graph':
-        specifier: ^0.0.13
+        specifier: ^0.0.14
         version: link:../ui-graph
       '@commonalityco/utils-core':
-        specifier: ^0.0.9
+        specifier: ^0.0.10
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.10
+        specifier: ^0.0.11
         version: link:../utils-graph
       '@commonalityco/utils-package':
-        specifier: ^0.0.9
+        specifier: ^0.0.10
         version: link:../utils-package
       '@hookform/resolvers':
         specifier: ^3.3.1
