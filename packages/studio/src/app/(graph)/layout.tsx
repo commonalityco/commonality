@@ -1,9 +1,9 @@
+import { GraphProvider } from '@commonalityco/feature-graph';
 import {
-  FeatureGraphChartLayout,
-  FeatureGraphLayout,
-  FeatureGraphSidebarLayout,
-  GraphProvider,
-} from '@commonalityco/feature-graph';
+  GraphLayoutAside,
+  GraphLayoutMain,
+  GraphLayoutRoot,
+} from '@commonalityco/ui-graph';
 
 export default async function RootLayout({
   children,
@@ -17,10 +17,10 @@ export default async function RootLayout({
   return (
     <div className="bg-secondary h-full">
       <GraphProvider>
-        <FeatureGraphLayout>
-          <FeatureGraphSidebarLayout>{sidebar}</FeatureGraphSidebarLayout>
-          <FeatureGraphChartLayout>{chart}</FeatureGraphChartLayout>
-        </FeatureGraphLayout>
+        <GraphLayoutRoot>
+          <GraphLayoutAside>{sidebar}</GraphLayoutAside>
+          <GraphLayoutMain>{chart}</GraphLayoutMain>
+        </GraphLayoutRoot>
         {children}
       </GraphProvider>
     </div>
