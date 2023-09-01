@@ -658,8 +658,8 @@ importers:
         specifier: workspace:*
         version: link:../config-eslint
       lucide-react:
-        specifier: ^0.268.0
-        version: 0.268.0(react@18.2.0)
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
       next-themes:
         specifier: ^0.2.1
         version: 0.2.1(next@13.4.16)(react-dom@18.2.0)(react@18.2.0)
@@ -854,8 +854,8 @@ importers:
         specifier: ^29.6.4
         version: 29.6.4(bufferutil@4.0.7)(utf-8-validate@6.0.3)
       lucide-react:
-        specifier: ^0.268.0
-        version: 0.268.0(react@18.2.0)
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
       next:
         specifier: canary
         version: 13.4.20-canary.15(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
@@ -954,8 +954,8 @@ importers:
         specifier: workspace:^
         version: link:../config-eslint
       lucide-react:
-        specifier: ^0.268.0
-        version: 0.268.0(react@18.2.0)
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
       next:
         specifier: 13.4.16
         version: 13.4.16(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
@@ -1066,8 +1066,8 @@ importers:
         specifier: workspace:^
         version: link:../config-eslint
       lucide-react:
-        specifier: ^0.268.0
-        version: 0.268.0(react@18.2.0)
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
       postcss:
         specifier: ^8.4.29
         version: 8.4.29
@@ -1148,8 +1148,8 @@ importers:
         specifier: workspace:*
         version: link:../config-eslint
       lucide-react:
-        specifier: ^0.268.0
-        version: 0.268.0(react@18.2.0)
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -12745,8 +12745,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react@0.268.0(react@18.2.0):
-    resolution: {integrity: sha512-XP/xY3ASJAViqNqVnDRcEfdxfRB7uNST8sqTLwZhL983ikmHMQ7qQak7ZxrnXOVhB3QDBawdr3ANq0P+iWHP/g==}
+  /lucide-react@0.274.0(react@18.2.0):
+    resolution: {integrity: sha512-qiWcojRXEwDiSimMX1+arnxha+ROJzZjJaVvCC0rsG6a9pUPjZePXSq7em4ZKMp0NDm1hyzPNkM7UaWC3LU2AA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
