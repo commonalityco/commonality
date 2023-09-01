@@ -14,7 +14,7 @@ import { Box, Network } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { PackageManager } from '@commonalityco/utils-core';
 import { NpmLogo, PnpmLogo, YarnLogo } from '@commonalityco/ui-core';
-import io from 'Socket.IO-client';
+import io from 'socket.io-client';
 import { useEffect, useState } from 'react';
 import { formatRelative } from 'date-fns';
 
