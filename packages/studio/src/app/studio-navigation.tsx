@@ -14,6 +14,9 @@ import { Box, Network } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { PackageManager } from '@commonalityco/utils-core';
 import { NpmLogo, PnpmLogo, YarnLogo } from '@commonalityco/ui-core';
+import io from 'Socket.IO-client';
+import { useEffect, useState } from 'react';
+import { formatRelative } from 'date-fns';
 
 const COOKIE_KEY = 'commonality:theme';
 
@@ -22,6 +25,45 @@ const IconByPackageManager = {
   [PackageManager.PNPM]: PnpmLogo,
   [PackageManager.YARN]: YarnLogo,
 };
+
+function LastUpdateTime() {
+  const [count, setCount] = useState(0);
+  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+
+  useEffect(() => {
+    const createSocketConnection = async () => {
+      const socket = io();
+
+      socket.on('project-updated', async () => {
+        await fetch('/api/revalidate?tag=metadata');
+        setLastUpdated(new Date());
+      });
+      socket.on('disconnect', () => {
+        console.log('disconnected');
+      });
+    };
+
+    createSocketConnection();
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount(count + 1);
+
+      if (count > 60) {
+        clearInterval(id);
+      }
+    }, 1000);
+
+    return () => clearInterval(id);
+  }, [count]);
+
+  return (
+    <div className="text-muted-foreground text-xs">
+      {`Last updated ${formatRelative(new Date(), lastUpdated)}`}
+    </div>
+  );
+}
 
 function StudioNavigation({
   title,
@@ -78,23 +120,26 @@ function StudioNavigation({
           </div>
         </div>
       </Navigation>
-      <div className="px-6 flex space-x-2 border-b">
-        <NavigationButton
-          className="flex gap-2 items-center"
-          href="/"
-          active={pathname === '/'}
-        >
-          <Network className="h-4 w-4" />
-          <span>Graph</span>
-        </NavigationButton>
-        <NavigationButton
-          className="flex gap-2 items-center"
-          href="/packages"
-          active={pathname === '/packages'}
-        >
-          <Box className="h-4 w-4" />
-          <span>Packages</span>
-        </NavigationButton>
+      <div className="px-6 border-b flex justify-between items-center">
+        <div className="flex space-x-2">
+          <NavigationButton
+            className="flex gap-2 items-center"
+            href="/"
+            active={pathname === '/'}
+          >
+            <Network className="h-4 w-4" />
+            <span>Graph</span>
+          </NavigationButton>
+          <NavigationButton
+            className="flex gap-2 items-center"
+            href="/packages"
+            active={pathname === '/packages'}
+          >
+            <Box className="h-4 w-4" />
+            <span>Packages</span>
+          </NavigationButton>
+        </div>
+        <LastUpdateTime />
       </div>
     </div>
   );

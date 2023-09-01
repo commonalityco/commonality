@@ -23,7 +23,7 @@ export const nodeStyles: Stylesheet[] = [
       'font-weight': fontWeight,
       'background-color': '#fafafa',
       'padding-top': '0px',
-      'padding-botom': '0px',
+      'padding-bottom': '0px',
       'padding-left': '16px',
       'padding-right': '16px',
       color: '#27272a',

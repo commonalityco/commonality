@@ -30,7 +30,6 @@ export function FeatureGraphChart({
   constraints,
   dependencies,
   theme,
-  onPackageClick,
   worker,
 }: GraphProperties) {
   const containerReference = useRef<HTMLDivElement>(null);
@@ -115,9 +114,6 @@ export function FeatureGraphChart({
         constraints={constraints}
         packages={packages}
         violations={violations}
-        onPackageClick={(packageName) => {
-          onPackageClick(packageName);
-        }}
       />
       <GraphChart
         ref={containerReference}
