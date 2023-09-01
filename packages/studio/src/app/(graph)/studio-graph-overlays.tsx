@@ -12,14 +12,14 @@ function StudioGraphOverlays(
   props: ComponentProps<typeof FeatureGraphDependencyTooltip>,
 ) {
   return (
-    <FeatureGraphOverlays>
+    <div className="relative z-20">
       <FeatureGraphDependencyTooltip
         constraints={props.constraints}
         violations={props.violations}
         tagsData={props.tagsData}
       />
       <FeatureGraphPackageTooltip />
-    </FeatureGraphOverlays>
+    </div>
   );
 }
 

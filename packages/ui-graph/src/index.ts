@@ -9,3 +9,4 @@ export { TooltipPackage } from './tooltip-package.js';
 export { TooltipDependency } from './tooltip-dependency.js';
 export { GraphToolbar } from './components/graph-toolbar.js';
 export { GraphTooltip } from './graph-tooltip.js';
+export { GraphChartLoading } from './graph-chart-loading.js';

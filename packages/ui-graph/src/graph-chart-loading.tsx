@@ -1,6 +1,6 @@
 import { Loader2 } from 'lucide-react';
 
-export function FeatureGraphChartLoading() {
+export function GraphChartLoading() {
   return (
     <div className="grow align-stretch h-full flex flex-col">
       <div className="h-12" />
@@ -11,4 +11,4 @@ export function FeatureGraphChartLoading() {
   );
 }
 
-export default FeatureGraphChartLoading;
+export default GraphChartLoading;

@@ -1,7 +1,7 @@
-import { FeatureGraphChartLoading } from '@commonalityco/feature-graph/feature-graph-chart-loading';
+import { GraphChartLoading } from '@commonalityco/ui-graph/graph-chart-loading';
 
 function ChartLoading() {
-  return <FeatureGraphChartLoading />;
+  return <GraphChartLoading />;
 }
 
 export default ChartLoading;
