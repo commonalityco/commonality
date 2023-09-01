@@ -75,6 +75,7 @@ export interface Typegen0 {
     setInitialElements: 'INITIALIZE';
     setIsEdgeColorShown: 'SET_IS_EDGE_COLOR_SHOWN';
     setTheme: 'INITIALIZE' | 'SET_THEME';
+    setWorker: 'INITIALIZE';
     show: 'SHOW';
     showAll: 'SHOW_ALL';
     showDependants: 'SHOW_DEPENDANTS';
@@ -97,7 +98,7 @@ export interface Typegen0 {
   };
   eventsCausingDelays: {};
   eventsCausingGuards: {
-    renderGraphExists:
+    hasInitialized:
       | 'DESTROY'
       | 'EDGE_CLICK'
       | 'FIT'

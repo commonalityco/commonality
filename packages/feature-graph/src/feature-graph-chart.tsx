@@ -21,6 +21,7 @@ interface GraphProperties {
   dependencies: Dependency[];
   theme?: string;
   onPackageClick: (packageName: string) => void;
+  worker: Worker;
 }
 
 export function FeatureGraphChart({
@@ -30,6 +31,7 @@ export function FeatureGraphChart({
   dependencies,
   theme,
   onPackageClick,
+  worker,
 }: GraphProperties) {
   const containerReference = useRef<HTMLDivElement>(null);
 
@@ -66,20 +68,21 @@ export function FeatureGraphChart({
       return;
     }
 
-    if (containerReference.current && packages && dependencies) {
+    if (containerReference.current && packages && dependencies && worker) {
       actor.send({
         type: 'INITIALIZE',
         containerId: containerReference.current.id,
         elements: getElementDefinitions({ packages, dependencies }),
         theme: theme ?? 'light',
         violations,
+        worker,
       });
     }
 
     return () => {
       actor.send({ type: 'DESTROY' });
     };
-  }, [violations, packages]);
+  }, [violations, packages, worker]);
 
   useEffect(() => {
     if (!theme) return;

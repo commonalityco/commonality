@@ -2,17 +2,22 @@
 import { GraphContext } from './graph-provider.js';
 import type { CodeownersData, Package, TagsData } from '@commonalityco/types';
 import { Sidebar } from '@commonalityco/ui-graph/sidebar';
+import { ComponentProps } from 'react';
 
 interface FeatureGraphSidebarProperties {
   codeownersData: CodeownersData[];
   tagsData: TagsData[];
   packages: Package[];
+  onLayout?: ComponentProps<typeof Sidebar>['onLayout'];
+  defaultLayout?: ComponentProps<typeof Sidebar>['defaultLayout'];
 }
 
 export function FeatureGraphSidebar({
   codeownersData,
   tagsData,
   packages,
+  onLayout,
+  defaultLayout,
 }: FeatureGraphSidebarProperties) {
   const { send } = GraphContext.useActorRef();
   const visiblePackages = GraphContext.useSelector((state) => {
@@ -25,6 +30,8 @@ export function FeatureGraphSidebar({
 
   return (
     <Sidebar
+      onLayout={onLayout}
+      defaultLayout={defaultLayout}
       onHideAll={() => send({ type: 'HIDE_ALL' })}
       onShowAll={() => send({ type: 'SHOW_ALL' })}
       onPackageHide={(package_) =>

@@ -57,6 +57,7 @@ type Event =
       elements: ElementDefinition[];
       theme: string;
       violations: Violation[];
+      worker: Worker;
     }
 
   // Interactions
@@ -98,7 +99,7 @@ export const graphMachine = createMachine(
       theme: 'light',
       violations: [],
     },
-    tsTypes: {} as import('./graph-machine.typegen.js').Typegen0,
+    tsTypes: {} as import('./graph-machine.typegen').Typegen0,
     schema: {
       events: {} as Event,
       context: {} as Context,
@@ -109,6 +110,7 @@ export const graphMachine = createMachine(
           INITIALIZE: {
             target: 'updating',
             actions: [
+              'setWorker',
               'createTraversalGraph',
               'createRenderGraph',
               'setTheme',
@@ -131,96 +133,96 @@ export const graphMachine = createMachine(
             ],
           },
           DESTROY: {
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['destroy', 'log'],
           },
           // Graph interactions
           HIDE: {
             target: 'updating',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['hide', 'unselect', 'unhover', 'log'],
           },
           HIDE_DEPENDENCIES: {
             target: 'updating',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['hideDependencies', 'unselect', 'unhover', 'log'],
           },
           HIDE_DEPENDANTS: {
             target: 'updating',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['hideDependents', 'unselect', 'log'],
           },
           HIDE_ALL: {
             target: 'updating',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['hideAll', 'unselect', 'log'],
           },
           SHOW: {
             target: 'updating',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['show', 'unselect', 'unhover', 'log'],
           },
           SHOW_DEPENDENCIES: {
             target: 'updating',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['showDependencies', 'unselect', 'log'],
           },
           SHOW_DEPENDANTS: {
             target: 'updating',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['showDependants', 'unselect', 'log'],
           },
           SHOW_ALL: {
             target: 'updating',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['showAll', 'unselect', 'log'],
           },
           FOCUS: {
             target: 'updating',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['focus', 'unselect', 'unhover', 'log'],
           },
           SET_THEME: {
             target: 'updating',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['setTheme', 'log'],
           },
           SET_IS_EDGE_COLOR_SHOWN: {
             target: 'updating',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['renderIsEdgeColorShown', 'setIsEdgeColorShown', 'log'],
           },
           // Graph toolbar events triggered by the user
           FIT: {
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['fit', 'log'],
           },
           ZOOM_IN: {
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['zoomIn', 'log'],
           },
           ZOOM_OUT: {
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['zoomOut', 'log'],
           },
           // Events triggered by the graph
           NODE_MOUSEOUT: {
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['unselect', 'log'],
           },
           SET_HOVERING: {
             actions: ['setHovering', 'log'],
           },
           NODE_CLICK: {
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['nodeClick', 'log'],
           },
           EDGE_CLICK: {
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['edgeClick', 'log'],
           },
           UNSELECT: {
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['unselect', 'log'],
           },
         },
@@ -238,7 +240,7 @@ export const graphMachine = createMachine(
           },
           onError: {
             target: 'error',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['log'],
           },
         },
@@ -249,12 +251,12 @@ export const graphMachine = createMachine(
           src: 'renderGraph',
           onDone: {
             target: 'success',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['log'],
           },
           onError: {
             target: 'error',
-            cond: 'renderGraphExists',
+            cond: 'hasInitialized',
             actions: ['log'],
           },
         },
@@ -346,7 +348,11 @@ export const graphMachine = createMachine(
         context.renderGraph?.destroy();
         context.traversalGraph?.destroy();
       },
-
+      setWorker: assign({
+        worker: (_context, event) => {
+          return event.worker;
+        },
+      }),
       setInitialElements: assign({
         elements: (context) => {
           if (!context.renderGraph) return [];
@@ -590,9 +596,10 @@ export const graphMachine = createMachine(
       },
     },
     guards: {
-      renderGraphExists: (context) =>
+      hasInitialized: (context) =>
         context.renderGraph !== undefined ||
-        context.traversalGraph !== undefined,
+        context.traversalGraph !== undefined ||
+        context.worker !== undefined,
     },
   },
 );
