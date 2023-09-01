@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.19
+
+### Patch Changes
+
+- e9a5bc2: Add table view to Studio
+
 ## 0.2.18
 
 ### Patch Changes

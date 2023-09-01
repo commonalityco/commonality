@@ -6,7 +6,7 @@
   },
   "type": "module",
   "sideEffects": false,
-  "version": "0.0.12",
+  "version": "0.0.13",
   "types": "./dist/index.d.ts",
   "dependencies": {
     "lodash.debounce": "^4.0.8",

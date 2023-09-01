@@ -1,5 +1,13 @@
 # @commonalityco/data-graph-worker
 
+## 0.0.8
+
+### Patch Changes
+
+- e9a5bc2: Add table view to Studio
+- Updated dependencies [e9a5bc2]
+  - @commonalityco/utils-graph@0.0.11
+
 ## 0.0.7
 
 ### Patch Changes

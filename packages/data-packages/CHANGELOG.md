@@ -1,5 +1,14 @@
 # @commonalityco/constraints
 
+## 0.0.17
+
+### Patch Changes
+
+- e9a5bc2: Add table view to Studio
+- Updated dependencies [e9a5bc2]
+  - @commonalityco/data-project@0.0.11
+  - @commonalityco/utils-core@0.0.10
+
 ## 0.0.16
 
 ### Patch Changes

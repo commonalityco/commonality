@@ -1,5 +1,17 @@
 # @commonalityco/feature-graph
 
+## 0.0.13
+
+### Patch Changes
+
+- e9a5bc2: Add table view to Studio
+- Updated dependencies [e9a5bc2]
+  - @commonalityco/ui-design-system@0.0.12
+  - @commonalityco/utils-graph@0.0.11
+  - @commonalityco/data-graph@0.0.11
+  - @commonalityco/utils-core@0.0.10
+  - @commonalityco/ui-graph@0.0.14
+
 ## 0.0.12
 
 ### Patch Changes

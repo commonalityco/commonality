@@ -1,5 +1,11 @@
 # @commonalityco/traverse
 
+## 0.0.15
+
+### Patch Changes
+
+- e9a5bc2: Add table view to Studio
+
 ## 0.0.14
 
 ### Patch Changes

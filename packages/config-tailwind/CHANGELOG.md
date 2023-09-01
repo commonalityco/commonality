@@ -1,5 +1,11 @@
 # @commonalityco/config-tailwind
 
+## 0.0.6
+
+### Patch Changes
+
+- e9a5bc2: Add table view to Studio
+
 ## 0.0.5
 
 ### Patch Changes

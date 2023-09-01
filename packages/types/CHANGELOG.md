@@ -1,5 +1,13 @@
 # @commonalityco/types
 
+## 0.0.14
+
+### Patch Changes
+
+- e9a5bc2: Add table view to Studio
+- Updated dependencies [e9a5bc2]
+  - @commonalityco/utils-core@0.0.10
+
 ## 0.0.13
 
 ### Patch Changes

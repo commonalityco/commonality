@@ -1,5 +1,11 @@
 # @commonalityco/config-tsconfig
 
+## 0.0.10
+
+### Patch Changes
+
+- e9a5bc2: Add table view to Studio
+
 ## 0.0.9
 
 ### Patch Changes
