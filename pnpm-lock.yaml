@@ -89,6 +89,9 @@ importers:
       '@commonalityco/ui-graph':
         specifier: workspace:*
         version: link:../../packages/ui-graph
+      '@commonalityco/ui-package':
+        specifier: workspace:*
+        version: link:../../packages/ui-package
       '@commonalityco/utils-core':
         specifier: workspace:*
         version: link:../../packages/utils-core

@@ -15,6 +15,7 @@
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
     "@commonalityco/ui-graph": "workspace:*",
+    "@commonalityco/ui-package": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-graph": "workspace:*",
     "next": "13.4.16",
