@@ -66,7 +66,9 @@ export function CodeownersFilterButton({
             );
           })
         ) : (
-          <div className="py-6 text-center">No codeowners found</div>
+          <div className="py-6 text-center text-muted-foreground">
+            No codeowners found
+          </div>
         )}
       </DropdownMenuContent>
     </DropdownMenu>
