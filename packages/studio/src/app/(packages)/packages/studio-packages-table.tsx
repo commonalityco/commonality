@@ -9,7 +9,7 @@ import {
   SortableHeader,
   TagsCell,
   ColumnData,
-} from './packages-table';
+} from '@commonalityco/ui-package/packages-table';
 import { slugifyPackageName } from '@commonalityco/utils-core';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';

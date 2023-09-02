@@ -2,15 +2,14 @@ import {
   Button,
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@commonalityco/ui-design-system';
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import React from 'react';
 
-function PackagesTablePaginator({
+export function PackagesTablePaginator({
   totalCount,
   pageCount,
   page,

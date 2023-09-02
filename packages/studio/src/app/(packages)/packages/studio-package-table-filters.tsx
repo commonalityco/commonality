@@ -1,12 +1,14 @@
 'use client';
 import { Input } from '@commonalityco/ui-design-system';
-import React, { useMemo } from 'react';
-import TagsFilterButton from './tags-filter-button';
-import CodeownersFilterButton from './codeowners-filter-button';
+import React from 'react';
+import {
+  TagsFilterButton,
+  CodeownersFilterButton,
+} from '@commonalityco/ui-package';
 import { useQueryParams } from 'hooks/use-query-params';
 import { debounce } from 'utils/debounce';
 
-function PackageTableFilters({
+function StudioPackageTableFilters({
   tags,
   codeowners,
 }: {
@@ -64,4 +66,4 @@ function PackageTableFilters({
   );
 }
 
-export default PackageTableFilters;
+export default StudioPackageTableFilters;

@@ -1,6 +1,6 @@
 'use client';
 import React, { ComponentProps } from 'react';
-import PackagesTablePaginator from './packages-table-paginator';
+import { PackagesTablePaginator } from '@commonalityco/ui-package';
 import { useQueryParams } from 'hooks/use-query-params';
 
 function StudioPackagesTablePaginator(

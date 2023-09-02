@@ -685,49 +685,52 @@ importers:
   packages/studio:
     dependencies:
       '@commonalityco/data-codeowners':
-        specifier: ^0.0.15
+        specifier: workspace:*
         version: link:../data-codeowners
       '@commonalityco/data-documents':
-        specifier: ^0.0.12
+        specifier: workspace:*
         version: link:../data-documents
       '@commonalityco/data-graph':
-        specifier: ^0.0.11
+        specifier: workspace:*
         version: link:../data-graph
       '@commonalityco/data-graph-worker':
-        specifier: ^0.0.8
+        specifier: workspace:*
         version: link:../data-graph-worker
       '@commonalityco/data-packages':
-        specifier: ^0.0.17
+        specifier: workspace:*
         version: link:../data-packages
       '@commonalityco/data-project':
-        specifier: ^0.0.11
+        specifier: workspace:*
         version: link:../data-project
       '@commonalityco/data-tags':
-        specifier: ^0.0.12
+        specifier: workspace:*
         version: link:../data-tags
       '@commonalityco/data-violations':
-        specifier: ^0.0.15
+        specifier: workspace:*
         version: link:../data-violations
       '@commonalityco/feature-graph':
-        specifier: ^0.0.13
+        specifier: workspace:*
         version: link:../feature-graph
       '@commonalityco/ui-core':
-        specifier: ^0.0.13
+        specifier: workspace:*
         version: link:../ui-core
       '@commonalityco/ui-design-system':
-        specifier: ^0.0.12
+        specifier: workspace:*
         version: link:../ui-design-system
       '@commonalityco/ui-graph':
-        specifier: ^0.0.14
+        specifier: workspace:*
         version: link:../ui-graph
+      '@commonalityco/ui-package':
+        specifier: workspace:*
+        version: link:../ui-package
       '@commonalityco/utils-core':
-        specifier: ^0.0.10
+        specifier: workspace:*
         version: link:../utils-core
       '@commonalityco/utils-graph':
-        specifier: ^0.0.11
+        specifier: workspace:*
         version: link:../utils-graph
       '@commonalityco/utils-package':
-        specifier: ^0.0.10
+        specifier: workspace:*
         version: link:../utils-package
       '@hookform/resolvers':
         specifier: ^3.3.1
@@ -1144,6 +1147,66 @@ importers:
       cytoscape:
         specifier: ^3.26.0
         version: 3.26.0
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../config-eslint
+      lucide-react:
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      tailwindcss:
+        specifier: ^3.3.3
+        version: 3.3.3(ts-node@10.9.1)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+
+  packages/ui-package:
+    devDependencies:
+      '@commonalityco/config-tailwind':
+        specifier: workspace:*
+        version: link:../config-tailwind
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../config-tsconfig
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../types
+      '@commonalityco/ui-core':
+        specifier: workspace:*
+        version: link:../ui-core
+      '@commonalityco/ui-design-system':
+        specifier: workspace:*
+        version: link:../ui-design-system
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../utils-core
+      '@commonalityco/utils-package':
+        specifier: workspace:*
+        version: link:../utils-package
+      '@tanstack/react-table':
+        specifier: ^8.9.3
+        version: 8.9.3(react-dom@18.2.0)(react@18.2.0)
+      '@testing-library/dom':
+        specifier: ^9.3.1
+        version: 9.3.1
+      '@testing-library/jest-dom':
+        specifier: ^6.1.2
+        version: 6.1.2(jest@29.6.4)(vitest@0.34.3)
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@testing-library/user-event':
+        specifier: ^14.4.3
+        version: 14.4.3(@testing-library/dom@9.3.1)
+      '@types/react':
+        specifier: ^18.2.21
+        version: 18.2.21
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../config-eslint
@@ -6538,12 +6601,10 @@ packages:
       '@tanstack/table-core': 8.9.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-    dev: false
 
   /@tanstack/table-core@8.9.3:
     resolution: {integrity: sha512-NpHZBoHTfqyJk0m/s/+CSuAiwtebhYK90mDuf5eylTvgViNOujiaOaxNDxJkQQAsVvHWZftUGAx1EfO1rkKtLg==}
     engines: {node: '>=12'}
-    dev: false
 
   /@testing-library/dom@9.3.1:
     resolution: {integrity: sha512-0DGPd9AR3+iDTjGoMpxIkAsUihHZ3Ai6CneU6bRRrffXMgzCdlNk43jTrD2/5LT6CBb3MWTP8v510JzYtahD2w==}
