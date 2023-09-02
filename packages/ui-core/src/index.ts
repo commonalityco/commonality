@@ -5,7 +5,6 @@ export { GradientFade } from './gradient-fade.js';
 export { NpmLogo } from './npm-logo.js';
 export { PnpmLogo } from './pnpm-logo.js';
 export { YarnLogo } from './yarn-logo.js';
-export { Markdown } from './markdown.js';
 export { NavigationLogo } from './navigation-logo.js';
 export { Divider } from './divider.js';
 export { ThemeButtonLoading } from './theme-button-loading.js';
