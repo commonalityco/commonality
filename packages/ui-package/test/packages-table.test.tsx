@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
   NameCell,
@@ -73,6 +73,43 @@ describe('DocumentsCell', () => {
 
     await userEvent.click(screen.getByLabelText('Open CHANGELOG in editor'));
     expect(onDocumentOpen).toHaveBeenCalledWith('/path/to/changelog');
+  });
+
+  it('fires callback when selecting a document from the extra docs dropdown', async () => {
+    const onDocumentOpen = vi.fn();
+    const extraDocs = [
+      { filename: 'EXTRA_DOC_1', path: '/path/to/extra/doc1' },
+      { filename: 'EXTRA_DOC_2', path: '/path/to/extra/doc2' },
+    ];
+    render(
+      <DocumentsCell
+        row={
+          {
+            getValue: () => [
+              { filename: 'README', path: '/path/to/readme' },
+              { filename: 'CHANGELOG', path: '/path/to/changelog' },
+              ...extraDocs,
+            ],
+          } as unknown as Row<ColumnData>
+        }
+        onDocumentOpen={onDocumentOpen}
+      />,
+    );
+
+    await userEvent.hover(
+      screen.getByRole('button', { name: '+ 2 document(s)' }),
+    );
+
+    await waitFor(
+      () => expect(screen.getByText('Open EXTRA_DOC_1')).toBeInTheDocument(),
+      {
+        timeout: 700,
+      },
+    );
+
+    await userEvent.click(screen.getByText('Open EXTRA_DOC_1'));
+
+    expect(onDocumentOpen).toHaveBeenCalledWith('/path/to/extra/doc1');
   });
 
   it('displays "No documents" when there are no documents', () => {
