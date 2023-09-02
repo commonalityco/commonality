@@ -19,8 +19,6 @@ import {
   TableHeader,
   TableRow,
   TableHeadSortButton,
-  Input,
-  Card,
   Button,
   Tooltip,
   TooltipProvider,
@@ -38,7 +36,7 @@ import {
 } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import { Document, Package } from '@commonalityco/types';
-import { File, FileDigit, FileText } from 'lucide-react';
+import { FileDigit, FileText } from 'lucide-react';
 
 export type ColumnData = Package & {
   codeowners: string[];
@@ -134,7 +132,7 @@ export function DocumentsCell({
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-      ) : null}
+      ) : undefined}
       {changelog ? (
         <TooltipProvider>
           <Tooltip delayDuration={200}>
@@ -153,8 +151,8 @@ export function DocumentsCell({
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-      ) : null}
-      {extraDocs.length ? (
+      ) : undefined}
+      {extraDocs.length > 0 ? (
         <HoverCard openDelay={200}>
           <HoverCardTrigger asChild>
             <Button
@@ -174,7 +172,7 @@ export function DocumentsCell({
             ))}
           </HoverCardContent>
         </HoverCard>
-      ) : null}
+      ) : undefined}
     </div>
   );
 }
@@ -196,7 +194,7 @@ export function TagsCell({ row }: CellContext<ColumnData, unknown>) {
 export function CodeownersCell({ row }: CellContext<ColumnData, unknown>) {
   const codeowners: string[] = row.getValue('codeowners');
 
-  if (!codeowners.length) {
+  if (codeowners.length === 0) {
     return <span className="text-muted-foreground">None</span>;
   }
   return (
@@ -234,18 +232,12 @@ export function PackagesTable<TData, TValue>({
       hasCodeowners: (row, columnIds, filterValue: string[]) => {
         const codeowners: string[] = row.getValue('codeowners');
 
-        return codeowners.some((codeowner) =>
-          filterValue.some(
-            (filteredCodeowner) => filteredCodeowner === codeowner,
-          ),
-        );
+        return codeowners.some((codeowner) => filterValue.includes(codeowner));
       },
       hasTags: (row, columnIds, filterValue: string[]) => {
         const tags: string[] = row.getValue('tags');
 
-        return tags.some((tag) =>
-          filterValue.some((filteredTag) => filteredTag === tag),
-        );
+        return tags.some((tag) => filterValue.includes(tag));
       },
     },
     state: {
@@ -263,7 +255,7 @@ export function PackagesTable<TData, TValue>({
               return (
                 <TableHead key={header.id} style={{ width: header.getSize() }}>
                   {header.isPlaceholder
-                    ? null
+                    ? undefined
                     : flexRender(
                         header.column.columnDef.header,
                         header.getContext(),

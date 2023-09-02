@@ -1,3 +1,4 @@
+'use client';
 import {
   Button,
   DropdownMenu,
@@ -7,33 +8,30 @@ import {
   Badge,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
-import { formatTagName } from '@commonalityco/utils-core';
-import { ChevronsUpDown, Tags } from 'lucide-react';
+import { ChevronsUpDown, Users } from 'lucide-react';
 
-export function TagsFilterButton({
-  tags,
+export function CodeownersFilterButton({
+  codeowners,
   onChange,
-  defaultSelectedTags,
 }: {
-  tags: string[];
-  defaultSelectedTags?: string[];
-  onChange: (selectedTags: string[]) => void;
+  codeowners: string[];
+  onChange: (selectedCodeowners: string[]) => void;
 }) {
-  const [value, setValue] = useState<string[]>(defaultSelectedTags ?? tags);
+  const [value, setValue] = useState<string[]>(codeowners);
 
   const handleCheckedChange = ({
     checked,
-    tag,
+    codeowner,
   }: {
     checked: boolean;
-    tag: string;
+    codeowner: string;
   }) => {
-    const newTags = checked
-      ? Array.from(new Set([...value, tag]))
-      : value.filter((selectedTag) => selectedTag !== tag);
+    const newCodeowners = checked
+      ? [...new Set([...value, codeowner])]
+      : value.filter((selectedCodeowner) => selectedCodeowner !== codeowner);
 
-    setValue(newTags);
-    onChange(newTags);
+    setValue(newCodeowners);
+    onChange(newCodeowners);
   };
 
   return (
@@ -41,38 +39,38 @@ export function TagsFilterButton({
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="justify-between shrink-0 w-56">
           <div className="flex gap-2 items-center">
-            <Tags className="h-4 w-4 text-muted-foreground" />
-            <span>Tags</span>
+            <Users className="h-4 w-4 text-muted-foreground" />
+            <span>Codeowners</span>
             <Badge
               variant="outline"
               className="rounded-full"
-            >{`${value.length}/${tags.length}`}</Badge>
+            >{`${value.length}/${codeowners.length}`}</Badge>
           </div>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        {tags.length ? (
-          tags.map((tag) => {
+        {codeowners.length > 0 ? (
+          codeowners.map((codeowner) => {
             return (
               <DropdownMenuCheckboxItem
-                key={tag}
                 onSelect={(event) => event.preventDefault()}
-                checked={value.some((selectedTag) => selectedTag === tag)}
+                key={codeowner}
+                checked={value.includes(codeowner)}
                 onCheckedChange={(checked) =>
-                  handleCheckedChange({ checked, tag })
+                  handleCheckedChange({ checked, codeowner })
                 }
               >
-                <Badge variant="secondary">{formatTagName(tag)}</Badge>
+                {codeowner}
               </DropdownMenuCheckboxItem>
             );
           })
         ) : (
-          <div className="py-6 text-center">No tags found</div>
+          <div className="py-6 text-center">No codeowners found</div>
         )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-export default TagsFilterButton;
+export default CodeownersFilterButton;

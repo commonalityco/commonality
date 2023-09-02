@@ -1,20 +1,15 @@
 'use server';
-import React, { Suspense } from 'react';
-import { getPackagesData } from 'data/packages';
-import { getDocumentsData } from 'data/documents';
-import { getTagsData } from 'data/tags';
+import { Badge } from '@commonalityco/ui-design-system';
 import { getCodeownersData } from 'data/codeowners';
-import { Badge, Button } from '@commonalityco/ui-design-system';
-import PackageTableFilters from './package-table-filters';
-import StudioPackagesTable from './studio-packages-table';
-import { z } from 'zod';
-import StudioPackagesTablePaginator from './studio-packages-table-paginator';
-import openEditor from 'open-editor';
+import { getDocumentsData } from 'data/documents';
+import { getPackagesData } from 'data/packages';
+import { getTagsData } from 'data/tags';
 import { openEditorAction } from 'actions/editor';
-import {
-  CreateTagsDialog,
-  CreateTagsDialogContent,
-} from 'components/create-tags-dialog';
+import { z } from 'zod';
+import PackageTableFilters from './studio-package-table-filters';
+import React from 'react';
+import StudioPackagesTable from './studio-packages-table';
+import StudioPackagesTablePaginator from './studio-packages-table-paginator';
 
 function keyBy<Data extends Record<string, any>>(
   array: Data[],
