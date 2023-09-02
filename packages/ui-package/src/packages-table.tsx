@@ -8,7 +8,7 @@ import {
   Column,
   ColumnFiltersState,
   getFilteredRowModel,
-  CellContext,
+  Row,
 } from '@tanstack/react-table';
 import {
   Badge,
@@ -44,7 +44,7 @@ export type ColumnData = Package & {
   documents: Document[];
 };
 
-export type PackageTableColumns = ColumnDef<ColumnData>[];
+export type PackageTableColumns = ColumnDef<ColumnData, unknown>[];
 
 export function SortableHeader<TData, TValue>(props: {
   column: Column<TData, TValue>;
@@ -62,7 +62,7 @@ export function SortableHeader<TData, TValue>(props: {
   );
 }
 
-export function NameCell({ row }: CellContext<ColumnData, unknown>) {
+export function NameCell({ row }: { row: Row<ColumnData> }) {
   const name: PackageType = row.getValue('name');
   const type = row.original.type;
   const description = row.original.description || 'No description';
@@ -70,38 +70,32 @@ export function NameCell({ row }: CellContext<ColumnData, unknown>) {
   const Icon = getIconForPackage(type);
 
   return (
-    <Button
-      asChild
-      variant="link"
-      className="gap-2 group hover:no-underline h-auto py-0 px-0 w-full justify-start"
-    >
-      <div>
-        <Icon />
-        <div className="text-left space-y-2">
-          <div className="flex flex-nowrap gap-2 items-center">
-            <span className="font-semibold block group-hover:underline">
-              {name}
-            </span>
-            <div className="font-mono leading-none mt-px">
-              {row.original.version}
-            </div>
+    <div className="flex items-center gap-3 h-auto py-0 px-0 w-full justify-start">
+      <Icon />
+      <div className="text-left space-y-1">
+        <div className="flex flex-nowrap gap-2 items-center">
+          <span className="font-semibold block">{name}</span>
+          <div className="font-mono leading-none mt-px">
+            {row.original.version}
           </div>
-          <span className="text-xs text-muted-foreground block group-hover:no-underline">
-            {description}
-          </span>
         </div>
+        <span className="text-xs text-muted-foreground block">
+          {description}
+        </span>
       </div>
-    </Button>
+    </div>
   );
 }
 
 export function DocumentsCell({
   row,
   onDocumentOpen,
-}: CellContext<ColumnData, unknown> & {
+}: {
+  row: Row<ColumnData>;
   onDocumentOpen: (filePath: string) => Promise<void>;
 }) {
   const documents: Document[] = row.getValue('documents');
+  console.log({ documents });
   const readme = documents.find((doc) => doc.filename === DocumentName.README);
   const changelog = documents.find(
     (doc) => doc.filename === DocumentName.CHANGELOG,
@@ -112,8 +106,12 @@ export function DocumentsCell({
       doc.filename !== DocumentName.CHANGELOG,
   );
 
+  if (documents.length === 0) {
+    return <div className="text-muted-foreground">No documents</div>;
+  }
+
   return (
-    <div className="flex flex-nowrap gap-2 items-center">
+    <div className="flex flex-nowrap gap-2 items-center overflow-hidden min-w-0">
       {readme ? (
         <TooltipProvider>
           <Tooltip delayDuration={200}>
@@ -122,13 +120,14 @@ export function DocumentsCell({
                 size="icon"
                 variant="outline"
                 onClick={() => onDocumentOpen(readme.path)}
+                aria-label="Open README in editor"
               >
                 <FileText className="w-4 h-4" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>
               <span>Open </span>
-              <span className="font-mono font-medium">README.md</span>
+              <span className="font-mono font-medium">README</span>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -141,13 +140,14 @@ export function DocumentsCell({
                 size="icon"
                 variant="outline"
                 onClick={() => onDocumentOpen(changelog.path)}
+                aria-label="Open CHANGELOG in editor"
               >
                 <FileDigit className="w-4 h-4" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>
               <span>Open </span>
-              <span className="font-mono font-medium">CHANGELOG.md</span>
+              <span className="font-mono font-medium">CHANGELOG</span>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -157,17 +157,19 @@ export function DocumentsCell({
           <HoverCardTrigger asChild>
             <Button
               variant="link"
-              className="px-0"
+              className="px-0 truncate min-w-0 justify-start block"
             >{`+ ${extraDocs.length} document(s)`}</Button>
           </HoverCardTrigger>
-          <HoverCardContent>
+
+          <HoverCardContent className="p-1">
             {extraDocs.map((document) => (
               <Button
                 className="w-full justify-start"
                 variant="ghost"
                 key={document.filename}
+                onClick={() => onDocumentOpen(document.path)}
               >
-                {document.filename}
+                {`Open ${document.filename}`}
               </Button>
             ))}
           </HoverCardContent>
@@ -177,11 +179,15 @@ export function DocumentsCell({
   );
 }
 
-export function TagsCell({ row }: CellContext<ColumnData, unknown>) {
+export function TagsCell({ row }: { row: Row<ColumnData> }) {
   const tags: string[] = row.getValue('tags');
 
+  if (tags.length === 0) {
+    return <div className="text-muted-foreground">No tags</div>;
+  }
+
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-1 flex-wrap">
       {tags.map((tag) => (
         <Badge key={tag} variant="secondary">
           {formatTagName(tag)}
@@ -191,14 +197,14 @@ export function TagsCell({ row }: CellContext<ColumnData, unknown>) {
   );
 }
 
-export function CodeownersCell({ row }: CellContext<ColumnData, unknown>) {
+export function CodeownersCell({ row }: { row: Row<ColumnData> }) {
   const codeowners: string[] = row.getValue('codeowners');
 
   if (codeowners.length === 0) {
-    return <span className="text-muted-foreground">None</span>;
+    return <span className="text-muted-foreground">No codeowners</span>;
   }
   return (
-    <div>
+    <div className="flex flex-wrap gap-1">
       {codeowners.map((codeowner) => (
         <span key={codeowner}>{codeowner}</span>
       ))}
@@ -209,8 +215,6 @@ export function CodeownersCell({ row }: CellContext<ColumnData, unknown>) {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  tags: string[];
-  codeowners: string[];
 }
 
 export function PackagesTable<TData, TValue>({
