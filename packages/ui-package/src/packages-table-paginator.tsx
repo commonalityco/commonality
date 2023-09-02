@@ -12,7 +12,7 @@ import React from 'react';
 export function PackagesTablePaginator({
   totalCount,
   pageCount,
-  page,
+  page = 1,
   onNext,
   onPrevious,
   onPageCountChange,
@@ -24,13 +24,10 @@ export function PackagesTablePaginator({
   onPrevious: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onPageCountChange: (pageCount: string) => void;
 }) {
-  const isFirstPage = page === 0;
-  const isLastPage = (page + 1) * pageCount > totalCount;
-  const from = page * pageCount + 1;
-  const to =
-    (page + 1) * pageCount > totalCount
-      ? totalCount
-      : page * pageCount + pageCount;
+  const isFirstPage = page === 1;
+  const isLastPage = page * pageCount >= totalCount;
+  const from = (page - 1) * pageCount + 1;
+  const to = page * pageCount > totalCount ? totalCount : page * pageCount;
 
   return (
     <div className="flex items-center justify-between">
