@@ -463,10 +463,20 @@ importers:
         version: 4.38.2
 
   packages/data-graph-worker:
+    dependencies:
+      crypto-js:
+        specifier: ^4.1.1
+        version: 4.1.1
+      localforage:
+        specifier: ^1.10.0
+        version: 1.10.0
     devDependencies:
       '@commonalityco/utils-graph':
         specifier: workspace:*
         version: link:../utils-graph
+      '@types/crypto-js':
+        specifier: ^4.1.1
+        version: 4.1.1
       '@types/cytoscape':
         specifier: ^3.19.10
         version: 3.19.10
@@ -6771,6 +6781,10 @@ packages:
       '@types/node': 20.5.7
     dev: true
 
+  /@types/crypto-js@4.1.1:
+    resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==}
+    dev: true
+
   /@types/cytoscape-dagre@2.3.0:
     resolution: {integrity: sha512-1WwDnCcdySVwhxhHWHxRFlWoz7InlXlA9O9gQjtBkk1Sf7hW0+uaRxS6nr1TLBSPZRX0QNpYGvGqh13NuFEDaA==}
     dependencies:
@@ -8916,6 +8930,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  /crypto-js@4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+    dev: false
 
   /crypto-random-string@2.0.0:
     resolution: {integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==}
