@@ -52,7 +52,7 @@ function ShowHideButton({
       })}
     >
       <TooltipProvider>
-        <Tooltip>
+        <Tooltip delayDuration={200}>
           <TooltipTrigger asChild>
             <Button
               variant="ghost"
@@ -87,7 +87,7 @@ function FocusButton({
 }) {
   return (
     <TooltipProvider>
-      <Tooltip>
+      <Tooltip delayDuration={200}>
         <TooltipTrigger asChild>
           <Button
             onClick={onClick}

@@ -52,6 +52,7 @@ function StudioPackageTableFilters({
         placeholder="Search packages..."
         defaultValue={query.get('name') ?? undefined}
         onChange={setNameQuery}
+        className="min-w-[300px]"
       />
       <TagsFilterButton
         tags={tags}

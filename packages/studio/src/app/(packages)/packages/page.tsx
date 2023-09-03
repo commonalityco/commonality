@@ -28,7 +28,7 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
       editTags: z.coerce.boolean().optional(),
       name: z.string().optional(),
       package: z.string().optional(),
-      page: z.coerce.number().optional().default(0),
+      page: z.coerce.number().optional().default(1),
       pageCount: z.coerce.number().optional().default(25),
       tags: z
         .union([z.string().transform((arg) => [arg]), z.array(z.string())])
@@ -43,9 +43,10 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
   const normalizedTags = keyBy(tagsData, 'packageName');
   const normalizedCodeowners = keyBy(codeownersData, 'packageName');
   const pageCount = parsedSearchParams.pageCount;
-  const skip = parsedSearchParams.page
-    ? parsedSearchParams.page * parsedSearchParams.pageCount
-    : 0;
+  const skip =
+    parsedSearchParams.page > 1
+      ? parsedSearchParams.page * parsedSearchParams.pageCount
+      : 0;
 
   const data = packages
     .map((pkg) => {
@@ -91,10 +92,10 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
 
   const uniqueTags: string[] = Array.from(
     new Set(tagsData.flatMap((pkg) => pkg.tags)),
-  );
+  ).sort();
   const uniqueCodeowners: string[] = Array.from(
     new Set(codeownersData.flatMap((codeowner) => codeowner.codeowners)),
-  );
+  ).sort();
 
   return (
     <>

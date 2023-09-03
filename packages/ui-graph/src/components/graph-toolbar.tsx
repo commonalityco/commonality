@@ -212,7 +212,7 @@ export function GraphToolbar({
       <div className="grow" />
       <div className="flex items-center gap-1">
         <TooltipProvider>
-          <Tooltip>
+          <Tooltip delayDuration={200}>
             <Toggle
               asChild
               onPressedChange={(pressed) => {
@@ -230,7 +230,7 @@ export function GraphToolbar({
         <Separator orientation="vertical" />
         <div className="flex gap-1">
           <TooltipProvider>
-            <Tooltip>
+            <Tooltip delayDuration={200}>
               <TooltipTrigger asChild>
                 <Button
                   aria-label="Zoom in"
@@ -245,7 +245,7 @@ export function GraphToolbar({
             </Tooltip>
           </TooltipProvider>
           <TooltipProvider>
-            <Tooltip>
+            <Tooltip delayDuration={200}>
               <TooltipTrigger asChild>
                 <Button
                   aria-label="Zoom out"
@@ -260,7 +260,7 @@ export function GraphToolbar({
             </Tooltip>
           </TooltipProvider>
           <TooltipProvider>
-            <Tooltip>
+            <Tooltip delayDuration={200}>
               <TooltipTrigger asChild>
                 <Button
                   variant="ghost"

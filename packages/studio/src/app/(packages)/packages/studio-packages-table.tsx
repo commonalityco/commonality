@@ -10,14 +10,10 @@ import {
   TagsCell,
   ColumnData,
 } from '@commonalityco/ui-package/packages-table';
-import { slugifyPackageName } from '@commonalityco/utils-core';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@commonalityco/ui-design-system/dropdown-menu';
@@ -105,9 +101,6 @@ function StudioPackagesTable({
   tags: string[];
   onEditorOpen: (path: string) => Promise<void>;
 }) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
   const columns = useMemo(() => {
     return [
       {
@@ -116,18 +109,7 @@ function StudioPackagesTable({
           return <SortableHeader column={column} title="Name" />;
         },
         size: 300,
-        cell: (props) => {
-          const query = new URLSearchParams(Array.from(searchParams.entries()));
-          query.append('package', slugifyPackageName(props.row.original.name));
-
-          const href = `${pathname}?${query.toString()}`;
-
-          return (
-            <Link scroll={false} href={href} className="block">
-              <NameCell {...props} />
-            </Link>
-          );
-        },
+        cell: NameCell,
       },
       {
         accessorKey: 'documents',
@@ -160,7 +142,7 @@ function StudioPackagesTable({
         },
       },
     ] satisfies PackageTableColumns;
-  }, [onEditorOpen, pathname, searchParams, props.tags]);
+  }, [onEditorOpen, props.tags]);
 
   return <PackagesTable {...props} columns={columns} />;
 }

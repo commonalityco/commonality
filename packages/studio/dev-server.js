@@ -3,6 +3,8 @@ const { parse } = require('url');
 const next = require('next');
 const path = require('node:path');
 const socketIO = require('socket.io');
+const chokidar = require('chokidar');
+const localforage = require('localforage');
 
 const port = parseInt(process.env.PORT || '3000', 10);
 const dev = process.env.NODE_ENV !== 'production';
@@ -23,12 +25,15 @@ app.prepare().then(() => {
     if (!hasInitialized) {
       const io = socketIO(server);
 
-      const chokidar = require('chokidar');
       const COMMONALITY_ROOT_DIRECTORY = process.env.COMMONALITY_ROOT_DIRECTORY;
 
       io.on('connection', (socket) => {
         const watcher = chokidar.watch(
           [
+            `${COMMONALITY_ROOT_DIRECTORY}/CODEOWNERS`,
+            `${COMMONALITY_ROOT_DIRECTORY}/.github/CODEOWNERS`,
+            `${COMMONALITY_ROOT_DIRECTORY}/.gitlab/CODEOWNERS`,
+            `${COMMONALITY_ROOT_DIRECTORY}/docs/CODEOWNERS`,
             `${COMMONALITY_ROOT_DIRECTORY}/**/package.json`,
             `${COMMONALITY_ROOT_DIRECTORY}/**/commonality.json`,
             `${COMMONALITY_ROOT_DIRECTORY}/.commonality/config.json`,
@@ -40,12 +45,18 @@ app.prepare().then(() => {
         );
 
         watcher
-          .on('change', (path) => {
-            console.log(`File ${path} has been changed`);
-            // Emitting "project-updated" event on file change
-            socket.emit('project-updated', {
-              message: `File ${path} has been changed`,
-            });
+          .on('change', async (path) => {
+            try {
+              await localforage.setItem(
+                'commonality:snapshot-key',
+                new Date().toDateString(),
+              );
+            } catch (err) {
+            } finally {
+              socket.emit('project-updated', {
+                message: `File ${path} has been changed`,
+              });
+            }
           })
           .on('error', (error) => {
             console.log(`Watcher error: ${error}`);

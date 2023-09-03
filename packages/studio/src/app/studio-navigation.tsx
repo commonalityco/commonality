@@ -17,6 +17,7 @@ import { NpmLogo, PnpmLogo, YarnLogo } from '@commonalityco/ui-core';
 import io from 'socket.io-client';
 import { useEffect, useState } from 'react';
 import { formatRelative } from 'date-fns';
+import { useRouter } from 'next/navigation';
 
 const COOKIE_KEY = 'commonality:theme';
 
@@ -27,6 +28,7 @@ const IconByPackageManager = {
 };
 
 function LastUpdateTime() {
+  const router = useRouter();
   const [count, setCount] = useState(0);
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
 
@@ -34,8 +36,13 @@ function LastUpdateTime() {
     const createSocketConnection = async () => {
       const socket = io();
 
+      socket.on('connect', () => {
+        console.log('connected');
+      });
+
       socket.on('project-updated', async () => {
-        await fetch('/api/revalidate?tag=metadata');
+        router.refresh();
+        console.log('refreshed');
         setLastUpdated(new Date());
       });
       socket.on('disconnect', () => {
@@ -44,7 +51,7 @@ function LastUpdateTime() {
     };
 
     createSocketConnection();
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     const id = setInterval(() => {
