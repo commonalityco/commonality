@@ -37,6 +37,6 @@ test('displays the no codeowners message', async () => {
 
   await userEvent.click(button);
 
-  const noCodeownersMessage = screen.getByText('No codeowners found');
+  const noCodeownersMessage = screen.getByText('Assign ownership');
   expect(noCodeownersMessage).toBeInTheDocument();
 });

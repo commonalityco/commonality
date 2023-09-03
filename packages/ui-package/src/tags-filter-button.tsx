@@ -6,11 +6,6 @@ import {
   DropdownMenuContent,
   DropdownMenuCheckboxItem,
   Badge,
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardFooter,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
 import { formatTagName } from '@commonalityco/utils-core';
