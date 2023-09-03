@@ -26,9 +26,9 @@ import { MoreHorizontal } from 'lucide-react';
 import { Package } from '@commonalityco/types';
 import { openEditorAction } from 'actions/editor';
 import {
-  CreateTagsDialog,
-  CreateTagsDialogContent,
-} from 'components/create-tags-dialog';
+  EditTagsDialog,
+  EditTagsDialogContent,
+} from 'components/edit-tags-dialog';
 
 function ActionButton({
   data,
@@ -41,13 +41,13 @@ function ActionButton({
 
   return (
     <>
-      <CreateTagsDialog open={open} onOpenChange={setOpen}>
-        <CreateTagsDialogContent
+      <EditTagsDialog open={open} onOpenChange={setOpen}>
+        <EditTagsDialogContent
           tags={tags}
           existingTags={data.tags}
           packageName={data.name}
         />
-      </CreateTagsDialog>
+      </EditTagsDialog>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0" size="icon">
@@ -56,7 +56,6 @@ function ActionButton({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem onSelect={() => openEditorAction(data.path)}>
             Open package.json
           </DropdownMenuItem>
@@ -69,6 +68,29 @@ function ActionButton({
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+    </>
+  );
+}
+
+function StudioTagsCell({
+  tags,
+  ...rest
+}: Omit<ComponentProps<typeof TagsCell>, 'onAddTags'> & {
+  tags: string[];
+}) {
+  const [open, setOpen] = useState(false);
+  const data = rest.row.original;
+
+  return (
+    <>
+      <EditTagsDialog open={open} onOpenChange={setOpen}>
+        <EditTagsDialogContent
+          tags={tags}
+          existingTags={data.tags}
+          packageName={data.name}
+        />
+      </EditTagsDialog>
+      <TagsCell {...rest} onAddTags={() => setOpen(true)} />
     </>
   );
 }
@@ -117,7 +139,9 @@ function StudioPackagesTable({
       {
         accessorKey: 'tags',
         header: 'Tags',
-        cell: TagsCell,
+        cell: (cellProps) => (
+          <StudioTagsCell {...cellProps} tags={props.tags} />
+        ),
       },
       {
         accessorKey: 'codeowners',

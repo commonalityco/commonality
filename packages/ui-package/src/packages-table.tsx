@@ -36,7 +36,7 @@ import {
 } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import { Document, Package } from '@commonalityco/types';
-import { FileDigit, FileText } from 'lucide-react';
+import { FileDigit, FileText, Plus } from 'lucide-react';
 
 export type ColumnData = Package & {
   codeowners: string[];
@@ -178,11 +178,27 @@ export function DocumentsCell({
   );
 }
 
-export function TagsCell({ row }: { row: Row<ColumnData> }) {
+export function TagsCell({
+  row,
+  onAddTags,
+}: {
+  row: Row<ColumnData>;
+  onAddTags: () => void;
+}) {
   const tags: string[] = row.getValue('tags');
 
   if (tags.length === 0) {
-    return <div className="text-muted-foreground">No tags</div>;
+    return (
+      <Button
+        variant="link"
+        className="px-0"
+        size="sm"
+        onClick={() => onAddTags()}
+      >
+        <Plus className="h-3 w-3" />
+        Add tags
+      </Button>
+    );
   }
 
   return (

@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
@@ -132,6 +131,7 @@ describe('TagsCell', () => {
   it('renders correctly when there are tags', () => {
     render(
       <TagsCell
+        onAddTags={vi.fn()}
         row={{ getValue: () => ['tag1', 'tag2'] } as unknown as Row<ColumnData>}
       />,
     );
@@ -141,9 +141,14 @@ describe('TagsCell', () => {
 
   it('displays "No tags" when there are no tags', () => {
     render(
-      <TagsCell row={{ getValue: () => [] } as unknown as Row<ColumnData>} />,
+      <TagsCell
+        onAddTags={vi.fn()}
+        row={{ getValue: () => [] } as unknown as Row<ColumnData>}
+      />,
     );
-    expect(screen.getByText('No tags')).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /add tags/i }),
+    ).toBeInTheDocument();
   });
 });
 
@@ -181,7 +186,11 @@ describe('PackagesTable', () => {
           <DocumentsCell {...props} onDocumentOpen={async () => {}} />
         ),
       },
-      { accessorKey: 'tags', header: 'Tags', cell: TagsCell },
+      {
+        accessorKey: 'tags',
+        header: 'Tags',
+        cell: (props) => <TagsCell {...props} onAddTags={vi.fn()} />,
+      },
       { accessorKey: 'codeowners', header: 'Codeowners', cell: CodeownersCell },
     ] satisfies PackageTableColumns;
     const data = [
@@ -228,7 +237,7 @@ describe('PackagesTable', () => {
       { accessorKey: 'tags', header: 'Tags', cell: TagsCell },
       { accessorKey: 'codeowners', header: 'Codeowners', cell: CodeownersCell },
     ];
-    const data = [];
+    const data: ColumnData[] = [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     render(<PackagesTable columns={columns as any} data={data} />);
 
