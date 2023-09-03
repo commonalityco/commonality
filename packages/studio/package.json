@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/studio",
   "description": "The Next.js application that powers Commonality Studio",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "publishConfig": {
     "access": "public"
   },
