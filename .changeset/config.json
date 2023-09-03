@@ -3,7 +3,7 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [["@commonalityco/studio", "commonality"]],
+  "linked": [["commonality", "@commonalityco/studio"]],
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
