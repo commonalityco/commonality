@@ -95,7 +95,6 @@ export function DocumentsCell({
   onDocumentOpen: (filePath: string) => Promise<void>;
 }) {
   const documents: Document[] = row.getValue('documents');
-  console.log({ documents });
   const readme = documents.find((doc) => doc.filename === DocumentName.README);
   const changelog = documents.find(
     (doc) => doc.filename === DocumentName.CHANGELOG,
