@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.21
+
+### Patch Changes
+
+- 5e9bdf2: Fix package table
+
 ## 0.2.19
 
 ### Patch Changes
