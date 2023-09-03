@@ -11,7 +11,7 @@ const binPath = path.resolve(
   '../../bin.js',
 );
 
-describe('open', () => {
+describe('studio', () => {
   const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
   const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
 
@@ -26,7 +26,7 @@ describe('open', () => {
     );
     await fs.copy(fixturePath, temporaryPath);
 
-    const serverProcess = execa(binPath, ['open', '--debug'], {
+    const serverProcess = execa(binPath, ['studio', '--debug'], {
       cwd: temporaryPath,
     });
 

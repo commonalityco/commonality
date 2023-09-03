@@ -16,8 +16,8 @@ const __dirname = path.dirname(__filename);
 
 const command = new Command();
 
-export const open = command
-  .name('open')
+export const studio = command
+  .name('studio')
   .description('Open Commonality Studio')
   .option('--debug')
   .action(async (options: { debug?: boolean }) => {
