@@ -1,5 +1,15 @@
 # @commonalityco/dashboard
 
+## 0.2.20
+
+### Patch Changes
+
+- 97987b9: fix bugs in package table
+- Updated dependencies [97987b9]
+  - @commonalityco/ui-package@0.0.14
+  - @commonalityco/ui-core@0.0.14
+  - @commonalityco/ui-graph@0.0.14
+
 ## 0.2.19
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # workshop
 
+## 1.0.15
+
+### Patch Changes
+
+- 97987b9: fix bugs in package table
+- Updated dependencies [97987b9]
+  - @commonalityco/ui-package@0.0.14
+  - @commonalityco/ui-core@0.0.14
+  - @commonalityco/ui-graph@0.0.14
+
 ## 1.0.14
 
 ### Patch Changes
