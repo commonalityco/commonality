@@ -89,8 +89,10 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
 
   const paginatedData = data.slice(skip, pageCount);
 
-  const uniqueTags = Array.from(new Set(tagsData.flatMap((pkg) => pkg.tags)));
-  const uniqueCodeowners = Array.from(
+  const uniqueTags: string[] = Array.from(
+    new Set(tagsData.flatMap((pkg) => pkg.tags)),
+  );
+  const uniqueCodeowners: string[] = Array.from(
     new Set(codeownersData.flatMap((codeowner) => codeowner.codeowners)),
   );
 
@@ -116,7 +118,6 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
         <div className="grow">
           <StudioPackagesTable
             data={paginatedData}
-            codeowners={uniqueCodeowners}
             tags={uniqueTags}
             onEditorOpen={openEditorAction}
           />

@@ -80,6 +80,7 @@ function StudioPackagesTable({
   ComponentProps<typeof PackagesTable<ColumnData, unknown>>,
   'columns'
 > & {
+  tags: string[];
   onEditorOpen: (path: string) => Promise<void>;
 }) {
   const pathname = usePathname();

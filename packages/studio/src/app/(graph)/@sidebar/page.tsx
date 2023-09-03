@@ -3,6 +3,7 @@ import { getTagsData } from 'data/tags';
 import { getCodeownersData } from 'data/codeowners';
 import StudioSidebar from './studio-sidebar';
 import { cookies } from 'next/headers';
+import * as z from 'zod';
 
 async function GraphSidebarPage() {
   const [tagsData, codeownersData, packages] = await Promise.all([
@@ -15,7 +16,12 @@ async function GraphSidebarPage() {
   const getDefaultLayout = () => {
     try {
       if (defaultLayoutCookie) {
-        return JSON.parse(defaultLayoutCookie.value);
+        const parsedLayout = JSON.parse(defaultLayoutCookie.value);
+        const layoutSchema = z.union([
+          z.tuple([z.number(), z.number(), z.number()]),
+          z.undefined(),
+        ]);
+        return layoutSchema.parse(parsedLayout);
       }
     } catch (err) {
       return undefined;
