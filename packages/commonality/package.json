@@ -53,7 +53,7 @@
     "@types/configstore": "^6.0.0",
     "@types/fs-extra": "^11.0.1",
     "@types/kill-port": "^2.0.0",
-    "@types/node": "^20.5.7",
+    "@types/node": "^20.5.9",
     "@types/update-notifier": "^6.0.5",
     "@types/wait-on": "^5.3.1",
     "esbuild": "^0.19.2",
