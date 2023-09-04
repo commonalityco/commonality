@@ -1,4 +1,3 @@
-// @ts-check
 const path = require('node:path');
 const { startServer } = require('@commonalityco/utils-studio');
 

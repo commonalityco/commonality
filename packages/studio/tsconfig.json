@@ -33,8 +33,7 @@
     "./**/*.tsx",
     ".next/types/**/*.ts",
     "src/types/globals.d.ts",
-    "server.js",
-    "scripts/index.mts"
+    "servers/dev-server.ts"
   ],
   "exclude": ["node_modules"]
 }

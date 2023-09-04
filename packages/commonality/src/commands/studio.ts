@@ -40,8 +40,6 @@ export const studio = command
     const isDebug = Boolean(options.debug);
 
     try {
-      console.log(`📦 Starting Commonality Studio...\n`);
-
       const pathToStudio = path.resolve(__dirname, './studio');
       const studioExists = await fs.exists(pathToStudio);
 
@@ -49,6 +47,8 @@ export const studio = command
         command.error('Commonality Studio was not found');
         return;
       }
+
+      console.log(`📦 Starting Commonality Studio...\n`);
 
       execa('node', ['server.js'], {
         stdout: isDebug ? 'inherit' : 'ignore',
