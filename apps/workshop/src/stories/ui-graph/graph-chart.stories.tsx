@@ -3,7 +3,7 @@ import { GraphChart } from '@commonalityco/ui-graph';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
-  title: 'Features/Graph/GraphChart',
+  title: 'ui-graph/GraphChart',
   component: GraphChart,
   tags: ['autodocs'],
   argTypes: {},
@@ -32,9 +32,9 @@ export const Loading: Story = {
 };
 
 export const Empty: Story = {
-  args: { isEmpty: true, isZero: false },
+  args: { isEmpty: true },
 };
 
 export const Zero: Story = {
-  args: { isZero: true, isEmpty: false },
+  args: { isEmpty: false },
 };

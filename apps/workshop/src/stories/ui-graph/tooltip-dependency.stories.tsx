@@ -4,7 +4,7 @@ import { DependencyType } from '@commonalityco/utils-core';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
-  title: 'Features/Graph/TooltipContentDependency',
+  title: 'ui-graph/TooltipDependency',
   component: TooltipDependency,
   tags: ['autodocs'],
   argTypes: {},

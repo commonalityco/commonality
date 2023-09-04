@@ -44,7 +44,7 @@ export type ColumnData = Package & {
   documents: Document[];
 };
 
-export type PackageTableColumns = ColumnDef<ColumnData, unknown>[];
+export type PackageTableColumns<Data> = ColumnDef<Data & ColumnData, unknown>[];
 
 export function SortableHeader<TData, TValue>(props: {
   column: Column<TData, TValue>;
@@ -62,7 +62,7 @@ export function SortableHeader<TData, TValue>(props: {
   );
 }
 
-export function NameCell({ row }: { row: Row<ColumnData> }) {
+export function NameCell<T extends ColumnData>({ row }: { row: Row<T> }) {
   const name: PackageType = row.getValue('name');
   const type = row.original.type;
   const description = row.original.description || 'No description';
@@ -87,11 +87,11 @@ export function NameCell({ row }: { row: Row<ColumnData> }) {
   );
 }
 
-export function DocumentsCell({
+export function DocumentsCell<T extends ColumnData>({
   row,
   onDocumentOpen,
 }: {
-  row: Row<ColumnData>;
+  row: Row<T>;
   onDocumentOpen: (filePath: string) => Promise<void>;
 }) {
   const documents: Document[] = row.getValue('documents');
@@ -178,14 +178,14 @@ export function DocumentsCell({
   );
 }
 
-export function TagsCell({
+export function TagsCell<T extends ColumnData>({
   row,
   onAddTags,
 }: {
-  row: Row<ColumnData>;
+  row: Row<T>;
   onAddTags: () => void;
 }) {
-  const tags: string[] = row.getValue('tags');
+  const tags: string[] = row.original.tags;
 
   if (tags.length === 0) {
     return (
@@ -212,7 +212,7 @@ export function TagsCell({
   );
 }
 
-export function CodeownersCell({ row }: { row: Row<ColumnData> }) {
+export function CodeownersCell<T extends ColumnData>({ row }: { row: Row<T> }) {
   const codeowners: string[] = row.getValue('codeowners');
 
   if (codeowners.length === 0) {

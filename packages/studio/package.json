@@ -11,6 +11,7 @@
     "analyze": "ANALYZE=true next build",
     "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
+    "test": "vitest",
     "e2e:run-script": "node dist/dev-start.js",
     "e2e": "pnpm run build:script &&  start-server-and-test e2e:run-script http://localhost:3000 \"cypress open --e2e\"",
     "e2e:headless": "pnpm run build:script && start-server-and-test e2e:run-script http://localhost:3000 \"cypress run --e2e\""
@@ -32,6 +33,7 @@
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-graph": "workspace:*",
     "@commonalityco/utils-package": "workspace:*",
+    "@commonalityco/utils-studio": "workspace:*",
     "@hookform/resolvers": "^3.3.1",
     "@tanstack/react-table": "^8.9.3",
     "@xstate/react": "^3.2.2",
@@ -42,6 +44,7 @@
     "date-fns": "^2.30.0",
     "localforage": "^1.10.0",
     "open-editor": "^4.1.1",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "socket.io": "^4.7.2",
@@ -51,7 +54,7 @@
     "zod": "^3.22.2"
   },
   "peerDependencies": {
-    "next": "canary",
+    "next": "13.4.19",
     "react-hook-form": "7.x"
   },
   "peerDependenciesMeta": {
@@ -73,13 +76,15 @@
     "@tanstack/react-query-devtools": "^4.33.0",
     "@testing-library/jest-dom": "^6.1.2",
     "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@total-typescript/ts-reset": "^0.5.1",
     "@types/fs-extra": "^11.0.1",
     "@types/lodash": "^4.14.197",
-    "@types/node": "^20.5.7",
+    "@types/node": "^20.5.9",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@types/resolve": "^1.20.2",
+    "@vitejs/plugin-react-swc": "^3.3.2",
     "autoprefixer": "^10.4.15",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -93,17 +98,18 @@
     "jest": "^29.6.4",
     "jest-environment-jsdom": "^29.6.4",
     "lucide-react": "^0.274.0",
-    "next": "canary",
+    "next": "13.4.19",
     "next-themes": "^0.2.1",
     "pino": "^8.15.0",
     "pino-pretty": "^10.2.0",
     "postcss": "^8.4.29",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
-    "react-hook-form": "^7.45.4",
+    "react-hook-form": "^7.46.0",
     "server-only": "^0.0.1",
     "start-server-and-test": "^2.0.0",
     "tailwindcss": "^3.3.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vite-tsconfig-paths": "^4.2.0"
   }
 }

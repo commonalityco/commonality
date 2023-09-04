@@ -5,8 +5,8 @@ import {
   TagsFilterButton,
   CodeownersFilterButton,
 } from '@commonalityco/ui-package';
-import { useQueryParams } from 'hooks/use-query-params';
-import { debounce } from 'utils/debounce';
+import { useQueryParams } from '@/hooks/use-query-params';
+import { debounce } from '@/utils/debounce';
 
 function StudioPackageTableFilters({
   tags,

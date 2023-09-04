@@ -1,15 +1,17 @@
 'use server';
-import { Badge } from '@commonalityco/ui-design-system';
-import { getCodeownersData } from 'data/codeowners';
-import { getDocumentsData } from 'data/documents';
-import { getPackagesData } from 'data/packages';
-import { getTagsData } from 'data/tags';
-import { openEditorAction } from 'actions/editor';
+import { Badge, DropdownMenuItem } from '@commonalityco/ui-design-system';
+import { getCodeownersData } from '@/data/codeowners';
+import { getDocumentsData } from '@/data/documents';
+import { getPackagesData } from '@/data/packages';
+import { getTagsData } from '@/data/tags';
+import { openEditorAction } from '@/actions/editor';
 import { z } from 'zod';
 import PackageTableFilters from './studio-package-table-filters';
 import React from 'react';
 import StudioPackagesTable from './studio-packages-table';
 import StudioPackagesTablePaginator from './studio-packages-table-paginator';
+import path from 'node:path';
+import fs from 'fs-extra';
 
 function keyBy<Data extends Record<string, any>>(
   array: Data[],
@@ -48,15 +50,26 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
       ? parsedSearchParams.page * parsedSearchParams.pageCount
       : 0;
 
-  const data = packages
-    .map((pkg) => {
+  const pkgData = await Promise.all(
+    packages.map(async (pkg) => {
+      const projectConfigPath = path.join(pkg.path, 'commonality.json');
+      const packageJsonPath = path.join(pkg.path, 'package.json');
+      const projectConfigExists = await fs.pathExists(
+        path.join(process.env.COMMONALITY_ROOT_DIRECTORY, projectConfigPath),
+      );
+
       return {
         ...pkg,
+        packageJsonPath,
+        projectConfigPath: projectConfigExists ? projectConfigPath : undefined,
         documents: normalizedDocuments[pkg.name]?.documents ?? [],
         tags: normalizedTags[pkg.name]?.tags ?? [],
         codeowners: normalizedCodeowners[pkg.name]?.codeowners ?? [],
       };
-    })
+    }),
+  );
+
+  const data = pkgData
     .filter((pkg) => {
       if (parsedSearchParams.name) {
         return pkg.name
@@ -87,7 +100,6 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
       }
       return true;
     });
-
   const paginatedData = data.slice(skip, pageCount);
 
   const uniqueTags: string[] = Array.from(

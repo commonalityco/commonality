@@ -33,4 +33,9 @@ export enum DocumentName {
   CHANGELOG = 'CHANGELOG',
 }
 
+export enum FilePath {
+  PROJECT_CONFIG = '.commonality/config.json',
+  PACKAGE_CONFIG = './commonality.json',
+}
+
 export const AllPackagesWildcard = '*' as const;

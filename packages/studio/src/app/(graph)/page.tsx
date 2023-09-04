@@ -1,9 +1,9 @@
-import { getConstraintsData } from 'data/constraints';
-import { getViolationsData } from 'data/violations';
+import { getConstraintsData } from '@/data/constraints';
+import { getViolationsData } from '@/data/violations';
 import StudioGraphOverlays from './studio-graph-overlays';
-import { preload as preloadPackages } from 'data/packages';
-import { preload as preloadProject } from 'data/project';
-import { preload as preloadDependencies } from 'data/dependencies';
+import { preload as preloadPackages } from '@/data/packages';
+import { preload as preloadProject } from '@/data/project';
+import { preload as preloadDependencies } from '@/data/dependencies';
 import { getTagsData } from 'data/tags';
 
 async function GraphPage() {

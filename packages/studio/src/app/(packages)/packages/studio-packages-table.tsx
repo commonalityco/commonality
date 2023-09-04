@@ -19,19 +19,24 @@ import {
 } from '@commonalityco/ui-design-system/dropdown-menu';
 import { Button } from '@commonalityco/ui-design-system';
 import { MoreHorizontal } from 'lucide-react';
-import { Package } from '@commonalityco/types';
-import { openEditorAction } from 'actions/editor';
+import { openEditorAction } from '@/actions/editor';
 import {
   EditTagsDialog,
   EditTagsDialogContent,
-} from 'components/edit-tags-dialog';
+} from '@/components/edit-tags-dialog';
 
-function ActionButton({
-  data,
+export function ActionButton({
+  existingTags,
+  packageName,
   tags,
+  packageJsonPath,
+  projectConfigPath,
 }: {
-  data: Package & { tags: string[] };
+  packageName: string;
+  existingTags: string[];
   tags: string[];
+  packageJsonPath: string;
+  projectConfigPath?: string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -40,8 +45,8 @@ function ActionButton({
       <EditTagsDialog open={open} onOpenChange={setOpen}>
         <EditTagsDialogContent
           tags={tags}
-          existingTags={data.tags}
-          packageName={data.name}
+          existingTags={existingTags}
+          packageName={packageName}
         />
       </EditTagsDialog>
       <DropdownMenu>
@@ -51,11 +56,19 @@ function ActionButton({
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => openEditorAction(data.path)}>
+          <DropdownMenuItem onSelect={() => openEditorAction(packageJsonPath)}>
             Open package.json
           </DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => openEditorAction(data.path)}>
+          <DropdownMenuItem
+            disabled={!projectConfigPath}
+            onSelect={
+              projectConfigPath
+                ? () => openEditorAction(projectConfigPath)
+                : undefined
+            }
+          >
             Open commonality.json
           </DropdownMenuItem>
           <DropdownMenuSeparator />
@@ -68,10 +81,10 @@ function ActionButton({
   );
 }
 
-function StudioTagsCell({
+export function StudioTagsCell<T extends ColumnData>({
   tags,
   ...rest
-}: Omit<ComponentProps<typeof TagsCell>, 'onAddTags'> & {
+}: Omit<ComponentProps<typeof TagsCell<T>>, 'onAddTags'> & {
   tags: string[];
 }) {
   const [open, setOpen] = useState(false);
@@ -91,16 +104,26 @@ function StudioTagsCell({
   );
 }
 
+type StudioColumnData = ColumnData & {
+  packageJsonPath: string;
+  projectConfigPath?: string;
+};
+
+interface PackagesTableProps
+  extends Omit<
+    ComponentProps<typeof PackagesTable<StudioColumnData, unknown>>,
+    'columns'
+  > {}
+
+interface StudioPackagesTableProps extends PackagesTableProps {
+  tags: string[];
+  onEditorOpen: (path: string) => Promise<void>;
+}
+
 function StudioPackagesTable({
   onEditorOpen,
   ...props
-}: Omit<
-  ComponentProps<typeof PackagesTable<ColumnData, unknown>>,
-  'columns'
-> & {
-  tags: string[];
-  onEditorOpen: (path: string) => Promise<void>;
-}) {
+}: StudioPackagesTableProps) {
   const columns = useMemo(() => {
     return [
       {
@@ -136,12 +159,18 @@ function StudioPackagesTable({
         cell: ({ row }) => {
           return (
             <Suspense fallback={null}>
-              <ActionButton data={row.original} tags={props.tags} />
+              <ActionButton
+                packageJsonPath={row.original.packageJsonPath}
+                projectConfigPath={row.original.projectConfigPath}
+                existingTags={row.original.tags}
+                packageName={row.original.name}
+                tags={props.tags}
+              />
             </Suspense>
           );
         },
       },
-    ] satisfies PackageTableColumns;
+    ] satisfies PackageTableColumns<StudioColumnData>;
   }, [onEditorOpen, props.tags]);
 
   return <PackagesTable {...props} columns={columns} />;

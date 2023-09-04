@@ -1,6 +1,6 @@
-import { getPackagesData } from 'data/packages';
-import { getTagsData } from 'data/tags';
-import { getCodeownersData } from 'data/codeowners';
+import { getPackagesData } from '@/data/packages';
+import { getTagsData } from '@/data/tags';
+import { getCodeownersData } from '@/data/codeowners';
 import StudioSidebar from './studio-sidebar';
 import { cookies } from 'next/headers';
 import * as z from 'zod';

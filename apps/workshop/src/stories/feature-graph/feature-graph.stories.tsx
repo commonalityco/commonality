@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import {
-  FeatureGraphChart,
-  FeatureGraphLayout,
-  GraphProvider,
-} from '@commonalityco/feature-graph';
+import { FeatureGraphChart, GraphProvider } from '@commonalityco/feature-graph';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
 import { Dependency, Package, Violation } from '@commonalityco/types';
+import { GraphLayoutRoot } from '@commonalityco/ui-graph';
+
+const newWorker = new Worker(new URL('./feature-graph-worker.ts'));
 
 const meta = {
-  title: 'Features/Graph/FeatureGraphChart',
+  title: 'feature-graph/FeatureGraphChart',
   component: FeatureGraphChart,
   tags: ['autodocs'],
   parameters: {
@@ -16,17 +15,16 @@ const meta = {
   },
   args: {
     theme: 'light',
+    worker: newWorker,
   },
   decorators: [
     (Story, props) => {
-      const newWorker = new Worker(new URL('./feature-graph-worker.ts'));
-
       return (
         <div style={{ height: '600px', width: '100%' }}>
-          <GraphProvider worker={newWorker}>
-            <FeatureGraphLayout>
+          <GraphProvider>
+            <GraphLayoutRoot>
               <Story {...props} />
-            </FeatureGraphLayout>
+            </GraphLayoutRoot>
           </GraphProvider>
         </div>
       );

@@ -18,8 +18,12 @@
         "name": "next"
       }
     ],
+    "paths": {
+      "@/*": ["./*"]
+    },
     "baseUrl": "./src",
-    "incremental": false
+    "incremental": false,
+    "types": ["@testing-library/jest-dom"]
   },
   "include": [
     "next-env.d.ts",
