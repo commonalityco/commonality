@@ -99,11 +99,11 @@ importers:
         specifier: workspace:*
         version: link:../../packages/utils-graph
       next:
-        specifier: 13.4.16
-        version: 13.4.16(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
+        specifier: 13.4.20-canary.15
+        version: 13.4.20-canary.15(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
       next-themes:
         specifier: ^0.2.1
-        version: 0.2.1(next@13.4.16)(react-dom@18.2.0)(react@18.2.0)
+        version: 0.2.1(next@13.4.20-canary.15)(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -966,11 +966,11 @@ importers:
         specifier: ^0.274.0
         version: 0.274.0(react@18.2.0)
       next:
-        specifier: 13.4.16
-        version: 13.4.16(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
+        specifier: 13.4.20-canary.15
+        version: 13.4.20-canary.15(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
       next-themes:
         specifier: ^0.2.1
-        version: 0.2.1(next@13.4.16)(react-dom@18.2.0)(react@18.2.0)
+        version: 0.2.1(next@13.4.20-canary.15)(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -3851,6 +3851,7 @@ packages:
 
   /@next/env@13.4.16:
     resolution: {integrity: sha512-pCU0sJBqdfKP9mwDadxvZd+eLz3fZrTlmmDHY12Hdpl3DD0vy8ou5HWKVfG0zZS6tqhL4wnQqRbspdY5nqa7MA==}
+    dev: true
 
   /@next/env@13.4.20-canary.15:
     resolution: {integrity: sha512-89+fp4Hx/E3sPVqGsN9eoFp5yB22WRIKuuaGNkTWMfkePcVbqvxwgLZylWjej8gdhThjOxl4e4PN3Ee9Dib91g==}
@@ -3867,6 +3868,7 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-darwin-arm64@13.4.20-canary.15:
@@ -3883,6 +3885,7 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-darwin-x64@13.4.20-canary.15:
@@ -3899,6 +3902,7 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-linux-arm64-gnu@13.4.20-canary.15:
@@ -3915,6 +3919,7 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-linux-arm64-musl@13.4.20-canary.15:
@@ -3931,6 +3936,7 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-linux-x64-gnu@13.4.20-canary.15:
@@ -3947,6 +3953,7 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-linux-x64-musl@13.4.20-canary.15:
@@ -3963,6 +3970,7 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-win32-arm64-msvc@13.4.20-canary.15:
@@ -3979,6 +3987,7 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-win32-ia32-msvc@13.4.20-canary.15:
@@ -3995,6 +4004,7 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@next/swc-win32-x64-msvc@13.4.20-canary.15:
@@ -13552,9 +13562,10 @@ packages:
       react: '*'
       react-dom: '*'
     dependencies:
-      next: 13.4.16(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
+      next: 13.4.16(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: true
 
   /next-themes@0.2.1(next@13.4.20-canary.15)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-B+AKNfYNIzh0vqQQKqQItTS8evEouKD7H5Hj3kmuPERwddR2TxvDSFZuTj6T7Jfn1oyeUyJMydPl1Bkxkh0W7A==}
@@ -13566,9 +13577,8 @@ packages:
       next: 13.4.20-canary.15(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-    dev: true
 
-  /next@13.4.16(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0):
+  /next@13.4.16(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-1xaA/5DrfpPu0eV31Iro7JfPeqO8uxQWb1zYNTe+KDKdzqkAGapLcDYHMLNKXKB7lHjZ7LfKUOf9dyuzcibrhA==}
     engines: {node: '>=16.8.0'}
     hasBin: true
@@ -13606,6 +13616,7 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
+    dev: true
 
   /next@13.4.20-canary.15(@babel/core@7.22.11)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Ugd22aq9E0Eq0VFTn3htQjh50097ug8dAPS0v+9+AGz5VDhwx/ybnDo8S80Zjp8KGDuCP9S8LjwOiy0Ln8VeOg==}
