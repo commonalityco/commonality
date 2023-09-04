@@ -1,5 +1,11 @@
 # @commonalityco/data-graph-worker
 
+## 0.0.9
+
+### Patch Changes
+
+- 99531bd: Cache result of graph calculations
+
 ## 0.0.8
 
 ### Patch Changes

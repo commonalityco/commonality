@@ -1,5 +1,11 @@
 # @commonalityco/traverse
 
+## 0.0.16
+
+### Patch Changes
+
+- 99531bd: Cache result of graph calculations
+
 ## 0.0.15
 
 ### Patch Changes
