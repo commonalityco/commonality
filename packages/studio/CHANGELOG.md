@@ -1,5 +1,18 @@
 # @commonalityco/dashboard
 
+## 0.2.22
+
+### Patch Changes
+
+- 99531bd: Cache result of graph calculations
+- Updated dependencies [99531bd]
+  - @commonalityco/data-graph-worker@0.0.9
+  - @commonalityco/data-codeowners@0.0.16
+  - @commonalityco/data-graph@0.0.12
+  - @commonalityco/ui-package@0.0.15
+  - @commonalityco/ui-graph@0.0.15
+  - @commonalityco/feature-graph@0.0.13
+
 ## 0.2.20
 
 ### Patch Changes

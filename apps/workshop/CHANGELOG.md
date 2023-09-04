@@ -1,5 +1,15 @@
 # workshop
 
+## 1.0.16
+
+### Patch Changes
+
+- Updated dependencies [99531bd]
+  - @commonalityco/data-graph-worker@0.0.9
+  - @commonalityco/ui-package@0.0.15
+  - @commonalityco/ui-graph@0.0.15
+  - @commonalityco/feature-graph@0.0.13
+
 ## 1.0.15
 
 ### Patch Changes

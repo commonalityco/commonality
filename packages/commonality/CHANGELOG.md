@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.22
+
+### Patch Changes
+
+- 99531bd: Cache result of graph calculations
+
 ## 0.2.21
 
 ### Patch Changes
