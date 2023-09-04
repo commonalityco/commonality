@@ -33,7 +33,6 @@
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-graph": "workspace:*",
     "@commonalityco/utils-package": "workspace:*",
-    "@commonalityco/utils-studio": "workspace:*",
     "@hookform/resolvers": "^3.3.1",
     "@tanstack/react-table": "^8.9.3",
     "@xstate/react": "^3.2.2",
