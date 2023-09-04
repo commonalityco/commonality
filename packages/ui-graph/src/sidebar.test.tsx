@@ -122,7 +122,7 @@ describe('<Sidebar/>', () => {
           ],
         });
 
-        expect(screen.getByText('Create your first tag')).toBeTruthy();
+        expect(screen.getByText('Get started with tags')).toBeTruthy();
 
         const link = screen.getByRole('link', { name: 'Learn more' });
 
@@ -176,7 +176,7 @@ describe('<Sidebar/>', () => {
           ],
         });
 
-        expect(screen.getByText('Create a CODEOWNERS file'));
+        expect(screen.getByText('Assign ownership'));
       });
     });
   });

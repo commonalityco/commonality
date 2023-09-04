@@ -9,7 +9,7 @@ import {
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
 import { formatTagName } from '@commonalityco/utils-core';
-import { ChevronsUpDown, Tags } from 'lucide-react';
+import { ChevronsUpDown, ExternalLink, Tags } from 'lucide-react';
 
 export function TagsFilterButton({
   tags,
@@ -69,7 +69,31 @@ export function TagsFilterButton({
             );
           })
         ) : (
-          <div className="py-6 text-center">No tags found</div>
+          <div className="p-3">
+            <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
+              <div className="bg-secondary rounded-full p-1.5">
+                <Tags className="h-5 w-5" />
+              </div>
+            </div>
+
+            <p className="font-medium mb-1">Get started with tags</p>
+            <p className="text-muted-foreground text-xs">
+              Add tags to a package to enforce dependency constraints and
+              categorize packages in your ecosystem.
+            </p>
+
+            <Button asChild variant="secondary" className="w-full mt-3">
+              <a
+                className="space-x-1"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://commonality.co/docs/tags"
+              >
+                <span>Learn more</span>
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </Button>
+          </div>
         )}
       </DropdownMenuContent>
     </DropdownMenu>

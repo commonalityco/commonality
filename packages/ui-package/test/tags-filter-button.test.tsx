@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { test, expect, vi } from 'vitest';
 import TagsFilterButton from '../src/tags-filter-button.js';
+import '@testing-library/jest-dom';
 
 test('renders TagsFilterButton and handles check change', async () => {
   const tags = ['tag1', 'tag2', 'tag3'];
@@ -35,6 +36,6 @@ test('displays the no tags message', async () => {
 
   await userEvent.click(button);
 
-  const noTagsMessage = screen.getByText('No tags found');
+  const noTagsMessage = screen.getByText('Get started with tags');
   expect(noTagsMessage).toBeInTheDocument();
 });

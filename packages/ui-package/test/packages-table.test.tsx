@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
@@ -129,21 +128,33 @@ describe('DocumentsCell', () => {
 });
 
 describe('TagsCell', () => {
-  it('renders correctly when there are tags', () => {
+  it('renders correctly when there are tags', async () => {
     render(
       <TagsCell
-        row={{ getValue: () => ['tag1', 'tag2'] } as unknown as Row<ColumnData>}
+        onAddTags={vi.fn()}
+        row={
+          { original: { tags: ['tag1', 'tag2'] } } as unknown as Row<ColumnData>
+        }
       />,
     );
-    expect(screen.getByText('#tag1')).toBeInTheDocument();
-    expect(screen.getByText('#tag2')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('#tag1')).toBeInTheDocument();
+      expect(screen.getByText('#tag2')).toBeInTheDocument();
+    });
   });
 
-  it('displays "No tags" when there are no tags', () => {
+  it('displays "Add tags" button when there are no tags', async () => {
     render(
-      <TagsCell row={{ getValue: () => [] } as unknown as Row<ColumnData>} />,
+      <TagsCell
+        onAddTags={vi.fn()}
+        row={{ original: { tags: [] } } as unknown as Row<ColumnData>}
+      />,
     );
-    expect(screen.getByText('No tags')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByRole('button', { name: /add tags/i }),
+      ).toBeInTheDocument();
+    });
   });
 });
 
@@ -181,9 +192,13 @@ describe('PackagesTable', () => {
           <DocumentsCell {...props} onDocumentOpen={async () => {}} />
         ),
       },
-      { accessorKey: 'tags', header: 'Tags', cell: TagsCell },
+      {
+        accessorKey: 'tags',
+        header: 'Tags',
+        cell: (props) => <TagsCell {...props} onAddTags={vi.fn()} />,
+      },
       { accessorKey: 'codeowners', header: 'Codeowners', cell: CodeownersCell },
-    ] satisfies PackageTableColumns;
+    ] satisfies PackageTableColumns<ColumnData>;
     const data = [
       {
         name: 'package-name',
@@ -228,7 +243,7 @@ describe('PackagesTable', () => {
       { accessorKey: 'tags', header: 'Tags', cell: TagsCell },
       { accessorKey: 'codeowners', header: 'Codeowners', cell: CodeownersCell },
     ];
-    const data = [];
+    const data: ColumnData[] = [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     render(<PackagesTable columns={columns as any} data={data} />);
 

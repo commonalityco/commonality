@@ -9,3 +9,4 @@ db/migrations
 .pnp.*
 node_modules
 dist
+.turbo

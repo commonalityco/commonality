@@ -558,6 +558,9 @@ export const graphMachine = createMachine(
         }
       },
       setIsEdgeColorShown: assign({
+        selectedEdge: undefined,
+        selectedRenderNode: undefined,
+        selectedTraversalNode: undefined,
         isEdgeColorShown: (_context, event) => {
           return event.isShown;
         },

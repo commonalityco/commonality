@@ -8,7 +8,7 @@ import {
   Badge,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
-import { ChevronsUpDown, Users } from 'lucide-react';
+import { ChevronsUpDown, ExternalLink, Users } from 'lucide-react';
 
 export function CodeownersFilterButton({
   codeowners,
@@ -66,8 +66,30 @@ export function CodeownersFilterButton({
             );
           })
         ) : (
-          <div className="py-6 text-center text-muted-foreground">
-            No codeowners found
+          <div className="p-3">
+            <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
+              <div className="bg-secondary rounded-full p-1.5">
+                <Users className="h-5 w-5" />
+              </div>
+            </div>
+
+            <p className="font-medium mb-1">Assign ownership</p>
+            <p className="text-muted-foreground text-xs">
+              Create a <span className="font-mono">CODEOWNERS</span> file to
+              assign ownership of packages in your project
+            </p>
+
+            <Button asChild variant="secondary" className="w-full mt-3">
+              <a
+                className="space-x-1"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://commonality.co/docs/codeowners"
+              >
+                <span>Learn more</span>
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </Button>
           </div>
         )}
       </DropdownMenuContent>

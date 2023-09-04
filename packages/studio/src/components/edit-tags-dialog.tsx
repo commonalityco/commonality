@@ -11,23 +11,23 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  Input,
-  FormDescription,
   FormMessage,
   Form,
+  DialogDescription,
 } from '@commonalityco/ui-design-system';
 import { formatTagName } from '@commonalityco/utils-core';
-import React, { ComponentProps, useState, useTransition } from 'react';
+import React, { ComponentProps, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { setTagsAction } from 'actions/metadata';
+import Link from 'next/link';
 
 const formSchema = z.object({
   tags: z.array(z.object({ label: z.string(), value: z.string() })),
 });
 
-export function CreateTagsDialogContent({
+export function EditTagsDialogContent({
   packageName,
   tags,
   existingTags,
@@ -47,11 +47,9 @@ export function CreateTagsDialogContent({
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     const newTags = values.tags.map((item) => item.value);
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+
     startTransition(async () => {
       await setTagsAction({ packageName, tags: newTags });
     });
@@ -62,6 +60,15 @@ export function CreateTagsDialogContent({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit tags</DialogTitle>
+          <DialogDescription>
+            {`We will update the`}
+            <span className="font-mono text-foreground mx-1 font-medium">
+              commonality.json
+            </span>
+            file for{' '}
+            <span className="text-foreground font-medium">{packageName}</span>{' '}
+            with the tags you select or create one if it does not exist.
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -70,11 +77,10 @@ export function CreateTagsDialogContent({
               name="tags"
               render={({ field: { onChange, value, name, ref } }) => (
                 <FormItem>
-                  <FormLabel>Tags</FormLabel>
                   <FormControl>
                     <CreatebleSelect
                       isMulti
-                      placeholder="Search for tags..."
+                      placeholder="Search or create tags..."
                       noOptionsMessage={() =>
                         'Start typing to create a new tag'
                       }
@@ -105,7 +111,7 @@ export function CreateTagsDialogContent({
   );
 }
 
-export function CreateTagsDialog({
+export function EditTagsDialog({
   children,
   ...rest
 }: ComponentProps<typeof Dialog>) {

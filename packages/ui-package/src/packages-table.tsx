@@ -36,7 +36,7 @@ import {
 } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import { Document, Package } from '@commonalityco/types';
-import { FileDigit, FileText } from 'lucide-react';
+import { FileDigit, FileText, Plus } from 'lucide-react';
 
 export type ColumnData = Package & {
   codeowners: string[];
@@ -44,7 +44,7 @@ export type ColumnData = Package & {
   documents: Document[];
 };
 
-export type PackageTableColumns = ColumnDef<ColumnData, unknown>[];
+export type PackageTableColumns<Data> = ColumnDef<Data & ColumnData, unknown>[];
 
 export function SortableHeader<TData, TValue>(props: {
   column: Column<TData, TValue>;
@@ -62,7 +62,7 @@ export function SortableHeader<TData, TValue>(props: {
   );
 }
 
-export function NameCell({ row }: { row: Row<ColumnData> }) {
+export function NameCell<T extends ColumnData>({ row }: { row: Row<T> }) {
   const name: PackageType = row.getValue('name');
   const type = row.original.type;
   const description = row.original.description || 'No description';
@@ -87,11 +87,11 @@ export function NameCell({ row }: { row: Row<ColumnData> }) {
   );
 }
 
-export function DocumentsCell({
+export function DocumentsCell<T extends ColumnData>({
   row,
   onDocumentOpen,
 }: {
-  row: Row<ColumnData>;
+  row: Row<T>;
   onDocumentOpen: (filePath: string) => Promise<void>;
 }) {
   const documents: Document[] = row.getValue('documents');
@@ -178,11 +178,27 @@ export function DocumentsCell({
   );
 }
 
-export function TagsCell({ row }: { row: Row<ColumnData> }) {
-  const tags: string[] = row.getValue('tags');
+export function TagsCell<T extends ColumnData>({
+  row,
+  onAddTags,
+}: {
+  row: Row<T>;
+  onAddTags: () => void;
+}) {
+  const tags: string[] = row.original.tags;
 
   if (tags.length === 0) {
-    return <div className="text-muted-foreground">No tags</div>;
+    return (
+      <Button
+        variant="link"
+        className="px-0"
+        size="sm"
+        onClick={() => onAddTags()}
+      >
+        <Plus className="h-3 w-3" />
+        Add tags
+      </Button>
+    );
   }
 
   return (
@@ -196,7 +212,7 @@ export function TagsCell({ row }: { row: Row<ColumnData> }) {
   );
 }
 
-export function CodeownersCell({ row }: { row: Row<ColumnData> }) {
+export function CodeownersCell<T extends ColumnData>({ row }: { row: Row<T> }) {
   const codeowners: string[] = row.getValue('codeowners');
 
   if (codeowners.length === 0) {

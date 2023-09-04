@@ -18,8 +18,12 @@
         "name": "next"
       }
     ],
+    "paths": {
+      "@/*": ["./*"]
+    },
     "baseUrl": "./src",
-    "incremental": false
+    "incremental": false,
+    "types": ["@testing-library/jest-dom"]
   },
   "include": [
     "next-env.d.ts",
@@ -29,8 +33,7 @@
     "./**/*.tsx",
     ".next/types/**/*.ts",
     "src/types/globals.d.ts",
-    "server.js",
-    "scripts/index.mts"
+    "servers/dev-server.ts"
   ],
   "exclude": ["node_modules"]
 }

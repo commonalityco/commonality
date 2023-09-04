@@ -52,7 +52,7 @@ function ShowHideButton({
       })}
     >
       <TooltipProvider>
-        <Tooltip>
+        <Tooltip delayDuration={200}>
           <TooltipTrigger asChild>
             <Button
               variant="ghost"
@@ -87,7 +87,7 @@ function FocusButton({
 }) {
   return (
     <TooltipProvider>
-      <Tooltip>
+      <Tooltip delayDuration={200}>
         <TooltipTrigger asChild>
           <Button
             onClick={onClick}
@@ -138,8 +138,7 @@ function PackagesFilterSection({
 
           <CardTitle>Create your first package</CardTitle>
           <CardDescription>
-            Build a composable ecosystem of packages optimized for reuse and
-            scale.
+            Start building your composable ecosystem of packages.
           </CardDescription>
         </CardHeader>
         <CardFooter>
@@ -260,10 +259,10 @@ function TagsFilterSection({
             </div>
           </div>
 
-          <CardTitle>Create your first tag</CardTitle>
+          <CardTitle>Get started with tags</CardTitle>
           <CardDescription>
-            Use tags to group packages, enforce dependency constraints, and
-            organize workflows.
+            Add tags to a package to enforce dependency constraints and
+            categorize packages in your ecosystem.
           </CardDescription>
         </CardHeader>
         <CardFooter>
@@ -385,9 +384,10 @@ function CodeownersFilterSection({
             </div>
           </div>
 
-          <CardTitle>Create a CODEOWNERS file</CardTitle>
+          <CardTitle>Assign ownership</CardTitle>
           <CardDescription>
-            Assign ownership over portions of your project.
+            Create a <span className="font-mono">CODEOWNERS</span> file to
+            assign ownership of packages in your project
           </CardDescription>
         </CardHeader>
         <CardFooter>

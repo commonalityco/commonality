@@ -16,8 +16,8 @@ const __dirname = path.dirname(__filename);
 
 const command = new Command();
 
-export const open = command
-  .name('open')
+export const studio = command
+  .name('studio')
   .description('Open Commonality Studio')
   .option('--debug')
   .action(async (options: { debug?: boolean }) => {
@@ -40,8 +40,6 @@ export const open = command
     const isDebug = Boolean(options.debug);
 
     try {
-      console.log(`📦 Starting Commonality Studio...\n`);
-
       const pathToStudio = path.resolve(__dirname, './studio');
       const studioExists = await fs.exists(pathToStudio);
 
@@ -49,6 +47,8 @@ export const open = command
         command.error('Commonality Studio was not found');
         return;
       }
+
+      console.log(`📦 Starting Commonality Studio...\n`);
 
       execa('node', ['server.js'], {
         stdout: isDebug ? 'inherit' : 'ignore',
