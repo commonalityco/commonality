@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
@@ -129,27 +128,33 @@ describe('DocumentsCell', () => {
 });
 
 describe('TagsCell', () => {
-  it('renders correctly when there are tags', () => {
+  it('renders correctly when there are tags', async () => {
     render(
       <TagsCell
         onAddTags={vi.fn()}
-        row={{ getValue: () => ['tag1', 'tag2'] } as unknown as Row<ColumnData>}
+        row={
+          { original: { tags: ['tag1', 'tag2'] } } as unknown as Row<ColumnData>
+        }
       />,
     );
-    expect(screen.getByText('#tag1')).toBeInTheDocument();
-    expect(screen.getByText('#tag2')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('#tag1')).toBeInTheDocument();
+      expect(screen.getByText('#tag2')).toBeInTheDocument();
+    });
   });
 
-  it('displays "No tags" when there are no tags', () => {
+  it('displays "Add tags" button when there are no tags', async () => {
     render(
       <TagsCell
         onAddTags={vi.fn()}
-        row={{ getValue: () => [] } as unknown as Row<ColumnData>}
+        row={{ original: { tags: [] } } as unknown as Row<ColumnData>}
       />,
     );
-    expect(
-      screen.getByRole('button', { name: /add tags/i }),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByRole('button', { name: /add tags/i }),
+      ).toBeInTheDocument();
+    });
   });
 });
 
@@ -193,7 +198,7 @@ describe('PackagesTable', () => {
         cell: (props) => <TagsCell {...props} onAddTags={vi.fn()} />,
       },
       { accessorKey: 'codeowners', header: 'Codeowners', cell: CodeownersCell },
-    ] satisfies PackageTableColumns;
+    ] satisfies PackageTableColumns<ColumnData>;
     const data = [
       {
         name: 'package-name',
