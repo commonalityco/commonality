@@ -7,6 +7,7 @@ export const createWorker = () => {
   addEventListener(
     'message',
     async (event: MessageEvent<ElementDefinition[]>) => {
+      console.log({ data: event.data });
       const cacheKey = MD5(JSON.stringify(event.data)).toString();
       const cachedResult = await localforage.getItem(cacheKey);
 

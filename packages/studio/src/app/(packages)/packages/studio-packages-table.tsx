@@ -104,7 +104,7 @@ export function StudioTagsCell<T extends ColumnData>({
   );
 }
 
-type StudioColumnData = ColumnData & {
+export type StudioColumnData = ColumnData & {
   packageJsonPath: string;
   projectConfigPath?: string;
 };

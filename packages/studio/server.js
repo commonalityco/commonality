@@ -38,18 +38,19 @@ const createWebsocketConnection = async (server) => {
 
   io.on('connection', (socket) => {
     const globsToWatch = [
-      `${rootDirectory}/CODEOWNERS`,
-      `${rootDirectory}/.github/CODEOWNERS`,
-      `${rootDirectory}/.gitlab/CODEOWNERS`,
-      `${rootDirectory}/docs/CODEOWNERS`,
-      `${rootDirectory}/**/package.json`,
-      `${rootDirectory}/**/commonality.json`,
-      `${rootDirectory}/.commonality/config.json`,
+      'CODEOWNERS',
+      '.github/CODEOWNERS',
+      '.gitlab/CODEOWNERS',
+      'docs/CODEOWNERS',
+      '**/package.json',
+      '**/commonality.json',
+      '.commonality/config.json',
     ];
 
     const watcher = chokidar.watch(globsToWatch, {
       ignored: [/node_modules/, /.next/], // ignore both node_modules and .next directories
       persistent: true,
+      cwd: rootDirectory,
     });
 
     watcher
