@@ -1,5 +1,5 @@
 'use server';
-import { Badge, DropdownMenuItem } from '@commonalityco/ui-design-system';
+import { Badge } from '@commonalityco/ui-design-system';
 import { getCodeownersData } from '@/data/codeowners';
 import { getDocumentsData } from '@/data/documents';
 import { getPackagesData } from '@/data/packages';
@@ -10,15 +10,7 @@ import PackageTableFilters from './studio-package-table-filters';
 import React from 'react';
 import StudioPackagesTable from './studio-packages-table';
 import StudioPackagesTablePaginator from './studio-packages-table-paginator';
-import path from 'node:path';
-import fs from 'fs-extra';
-
-function keyBy<Data extends Record<string, any>>(
-  array: Data[],
-  key: string,
-): Record<string, Data> {
-  return (array || []).reduce((r, x) => ({ ...r, [key ? x[key] : x]: x }), {});
-}
+import { getTableData } from './get-table-data';
 
 async function PackagesPage({ searchParams }: { searchParams: unknown }) {
   const [packages, documentsData, tagsData, codeownersData] = await Promise.all(
@@ -41,66 +33,18 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
     })
     .parse(searchParams);
 
-  const normalizedDocuments = keyBy(documentsData, 'packageName');
-  const normalizedTags = keyBy(tagsData, 'packageName');
-  const normalizedCodeowners = keyBy(codeownersData, 'packageName');
-  const pageCount = parsedSearchParams.pageCount;
-  const skip =
-    parsedSearchParams.page > 1
-      ? parsedSearchParams.page * parsedSearchParams.pageCount
-      : 0;
-
-  const pkgData = await Promise.all(
-    packages.map(async (pkg) => {
-      const projectConfigPath = path.join(pkg.path, 'commonality.json');
-      const packageJsonPath = path.join(pkg.path, 'package.json');
-      const projectConfigExists = await fs.pathExists(
-        path.join(process.env.COMMONALITY_ROOT_DIRECTORY, projectConfigPath),
-      );
-
-      return {
-        ...pkg,
-        packageJsonPath,
-        projectConfigPath: projectConfigExists ? projectConfigPath : undefined,
-        documents: normalizedDocuments[pkg.name]?.documents ?? [],
-        tags: normalizedTags[pkg.name]?.tags ?? [],
-        codeowners: normalizedCodeowners[pkg.name]?.codeowners ?? [],
-      };
-    }),
-  );
-
-  const data = pkgData
-    .filter((pkg) => {
-      if (parsedSearchParams.name) {
-        return pkg.name
-          .toLowerCase()
-          .includes(parsedSearchParams.name.toLowerCase());
-      }
-      return true;
-    })
-    .filter((pkg) => {
-      if (parsedSearchParams.tags) {
-        return pkg.tags.some((pkgTag) => {
-          if (!parsedSearchParams.tags) return;
-
-          return parsedSearchParams.tags.some((tag) => tag === pkgTag);
-        });
-      }
-      return true;
-    })
-    .filter((pkg) => {
-      if (parsedSearchParams.codeowners) {
-        return pkg.codeowners.some((pkgCodeowner) => {
-          if (!parsedSearchParams.codeowners) return;
-
-          return parsedSearchParams.codeowners.some(
-            (codeowner) => codeowner === pkgCodeowner,
-          );
-        });
-      }
-      return true;
-    });
-  const paginatedData = data.slice(skip, pageCount);
+  const data = await getTableData({
+    packages,
+    documentsData,
+    tagsData,
+    codeownersData,
+    filterName: parsedSearchParams.name,
+    filterTags: parsedSearchParams.tags,
+    filterCodeowners: parsedSearchParams.codeowners,
+    page: parsedSearchParams.page,
+    pageCount: parsedSearchParams.pageCount,
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+  });
 
   const uniqueTags: string[] = Array.from(
     new Set(tagsData.flatMap((pkg) => pkg.tags)),
@@ -130,14 +74,14 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
         </div>
         <div className="grow">
           <StudioPackagesTable
-            data={paginatedData}
+            data={data}
             tags={uniqueTags}
             onEditorOpen={openEditorAction}
           />
         </div>
         <StudioPackagesTablePaginator
-          totalCount={data.length}
-          pageCount={pageCount}
+          totalCount={packages.length}
+          pageCount={parsedSearchParams.pageCount}
           page={parsedSearchParams.page}
         />
       </div>

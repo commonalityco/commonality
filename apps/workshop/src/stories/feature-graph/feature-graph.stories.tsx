@@ -2,9 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { FeatureGraphChart, GraphProvider } from '@commonalityco/feature-graph';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
 import { Dependency, Package, Violation } from '@commonalityco/types';
-import { GraphLayoutRoot } from '@commonalityco/ui-graph';
+import { GraphLayoutMain } from '@commonalityco/ui-graph';
+import GraphWorker from './feature-graph-worker.ts?worker';
+// const newWorker = new Worker(
+//   new URL('./feature-graph-worker.ts', import.meta.url),
+// );
 
-const newWorker = new Worker(new URL('./feature-graph-worker.ts'));
+const newWorker = new GraphWorker();
 
 const meta = {
   title: 'feature-graph/FeatureGraphChart',
@@ -22,9 +26,9 @@ const meta = {
       return (
         <div style={{ height: '600px', width: '100%' }}>
           <GraphProvider>
-            <GraphLayoutRoot>
+            <GraphLayoutMain>
               <Story {...props} />
-            </GraphLayoutRoot>
+            </GraphLayoutMain>
           </GraphProvider>
         </div>
       );
