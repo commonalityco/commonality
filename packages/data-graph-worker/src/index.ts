@@ -4,6 +4,8 @@ import MD5 from 'crypto-js/md5.js';
 import localforage from 'localforage';
 
 export const createWorker = () => {
+  localforage.clear();
+
   addEventListener(
     'message',
     async (event: MessageEvent<ElementDefinition[]>) => {
@@ -26,7 +28,6 @@ export const createWorker = () => {
 
       try {
         postMessage(updatedElelementDefinitions);
-        localforage.clear();
         localforage.setItem(cacheKey, updatedElelementDefinitions);
       } catch (error) {
         console.error(error);

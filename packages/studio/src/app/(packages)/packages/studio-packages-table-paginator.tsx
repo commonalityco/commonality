@@ -9,14 +9,17 @@ function StudioPackagesTablePaginator(
     'onNext' | 'onPrevious' | 'onPageCountChange'
   >,
 ) {
-  const { setQuery } = useQueryParams();
+  const { setQuery, deleteQuery } = useQueryParams();
 
   return (
     <PackagesTablePaginator
       {...props}
       onNext={() => setQuery('page', String(props.page + 1))}
       onPrevious={() => setQuery('page', String(props.page - 1))}
-      onPageCountChange={(pageCount) => setQuery('pageCount', pageCount)}
+      onPageCountChange={(pageCount) => {
+        deleteQuery('page');
+        setQuery('pageCount', pageCount);
+      }}
     />
   );
 }
