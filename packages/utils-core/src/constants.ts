@@ -30,7 +30,6 @@ export enum PackageManager {
 
 export enum DocumentName {
   README = 'README',
-  CHANGELOG = 'CHANGELOG',
 }
 
 export enum FilePath {

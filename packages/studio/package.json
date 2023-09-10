@@ -6,7 +6,7 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "COMMONALITY_ROOT_DIRECTORY='../../../pnpm' NODE_ENV=development node server.js",
+    "dev": "COMMONALITY_ROOT_DIRECTORY='../../' NODE_ENV=development node server.js",
     "build": "next build",
     "analyze": "ANALYZE=true next build",
     "start": "NODE_ENV=production node server.js",
