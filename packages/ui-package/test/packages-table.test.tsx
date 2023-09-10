@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
@@ -38,92 +39,88 @@ describe('NameCell', () => {
 });
 
 describe('DocumentsCell', () => {
-  it('fires callback when clicking on the open README button', async () => {
+  it('renders correctly when there is only a README', async () => {
     const onDocumentOpen = vi.fn();
     render(
       <DocumentsCell
+        onDocumentOpen={onDocumentOpen}
         row={
           {
-            getValue: () => [{ filename: 'README', path: '/path/to/readme' }],
+            original: {
+              documents: [{ filename: 'README', path: '/path/to/readme' }],
+            },
           } as unknown as Row<ColumnData>
         }
-        onDocumentOpen={onDocumentOpen}
       />,
     );
-
-    await userEvent.click(screen.getByLabelText('Open README in editor'));
-    expect(onDocumentOpen).toHaveBeenCalledWith('/path/to/readme');
+    expect(screen.getByText('README')).toBeInTheDocument();
   });
 
-  it('fires callback when clicking on the open CHANGELOG button', async () => {
+  it('renders correctly when there is a README and additional documents', async () => {
     const onDocumentOpen = vi.fn();
     render(
       <DocumentsCell
+        onDocumentOpen={onDocumentOpen}
         row={
           {
-            getValue: () => [
-              { filename: 'CHANGELOG', path: '/path/to/changelog' },
-            ],
+            original: {
+              documents: [
+                { filename: 'README', path: '/path/to/readme' },
+                { filename: 'CHANGELOG', path: '/path/to/changelog' },
+              ],
+            },
           } as unknown as Row<ColumnData>
         }
-        onDocumentOpen={onDocumentOpen}
       />,
     );
 
-    await userEvent.click(screen.getByLabelText('Open CHANGELOG in editor'));
-    expect(onDocumentOpen).toHaveBeenCalledWith('/path/to/changelog');
-  });
-
-  it('fires callback when selecting a document from the extra docs dropdown', async () => {
-    const onDocumentOpen = vi.fn();
-    const extraDocs = [
-      { filename: 'EXTRA_DOC_1', path: '/path/to/extra/doc1' },
-      { filename: 'EXTRA_DOC_2', path: '/path/to/extra/doc2' },
-    ];
-    render(
-      <DocumentsCell
-        row={
-          {
-            getValue: () => [
-              { filename: 'README', path: '/path/to/readme' },
-              { filename: 'CHANGELOG', path: '/path/to/changelog' },
-              ...extraDocs,
-            ],
-          } as unknown as Row<ColumnData>
-        }
-        onDocumentOpen={onDocumentOpen}
-      />,
-    );
+    expect(screen.getByText('README')).toBeInTheDocument();
 
     await userEvent.hover(
-      screen.getByRole('button', { name: '+ 2 document(s)' }),
+      screen.getByRole('button', { name: 'README 1 document' }),
     );
 
-    await waitFor(
-      () => expect(screen.getByText('Open EXTRA_DOC_1')).toBeInTheDocument(),
-      {
-        timeout: 700,
-      },
-    );
-
-    await userEvent.click(screen.getByText('Open EXTRA_DOC_1'));
-
-    expect(onDocumentOpen).toHaveBeenCalledWith('/path/to/extra/doc1');
+    await waitFor(() => {
+      expect(screen.getByText('Open README')).toBeInTheDocument();
+      expect(screen.getByText('Open CHANGELOG')).toBeInTheDocument();
+    });
   });
 
-  it('displays "No documents" when there are no documents', () => {
+  it('renders correctly when there are no documents', async () => {
+    const onDocumentOpen = vi.fn();
     render(
       <DocumentsCell
+        onDocumentOpen={onDocumentOpen}
+        row={{ original: { documents: [] } } as unknown as Row<ColumnData>}
+      />,
+    );
+    expect(screen.getByText('No documents')).toBeInTheDocument();
+  });
+
+  it('calls onDocumentOpen callback when clicking on an option within the hover card', async () => {
+    const onDocumentOpen = vi.fn();
+    render(
+      <DocumentsCell
+        onDocumentOpen={onDocumentOpen}
         row={
           {
-            getValue: () => [],
+            original: {
+              documents: [{ filename: 'README', path: '/path/to/readme' }],
+            },
           } as unknown as Row<ColumnData>
         }
-        onDocumentOpen={vi.fn()}
       />,
     );
 
-    expect(screen.getByText('No documents')).toBeInTheDocument();
+    await userEvent.hover(screen.getByRole('button', { name: 'README' }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Open README')).toBeInTheDocument();
+    });
+
+    await userEvent.click(screen.getByText('Open README'));
+
+    expect(onDocumentOpen).toHaveBeenCalledWith('/path/to/readme');
   });
 });
 

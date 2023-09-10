@@ -90,7 +90,7 @@ export function DocumentsCell<T extends ColumnData>({
   row: Row<T>;
   onDocumentOpen: (filePath: string) => Promise<void>;
 }) {
-  const documents: Document[] = row.getValue('documents');
+  const documents: Document[] = row.original.documents;
   const readme = documents.find((doc) => doc.filename === DocumentName.README);
   const extraDocs = documents.filter(
     (doc) => doc.filename !== DocumentName.README,
