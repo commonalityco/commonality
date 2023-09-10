@@ -90,7 +90,7 @@
     "chokidar": "^3.5.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
-    "cypress": "^12.17.4",
+    "cypress": "^13.1.0",
     "eslint": "^8.49.0",
     "eslint-config-commonality": "workspace:^",
     "eslint-config-next": "13.4.19",
