@@ -12,7 +12,7 @@
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-graph": "workspace:*",
     "@popperjs/core": "^2.11.8",
-    "@types/cytoscape": "^3.19.10",
+    "@types/cytoscape": "^3.19.11",
     "@types/lodash.debounce": "^4.0.7",
     "eslint-config-commonality": "workspace:*",
     "typescript": "^5.2.2",

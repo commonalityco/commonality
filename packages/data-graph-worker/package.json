@@ -14,8 +14,8 @@
   "main": "./dist/index.js",
   "devDependencies": {
     "@commonalityco/utils-graph": "workspace:*",
-    "@types/crypto-js": "^4.1.1",
-    "@types/cytoscape": "^3.19.10",
+    "@types/crypto-js": "^4.1.2",
+    "@types/cytoscape": "^3.19.11",
     "cytoscape": "^3.26.0",
     "eslint-config-commonality": "workspace:*"
   },
