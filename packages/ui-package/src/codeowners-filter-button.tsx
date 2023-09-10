@@ -61,7 +61,9 @@ export function CodeownersFilterButton({
                   handleCheckedChange({ checked, codeowner })
                 }
               >
-                {codeowner}
+                <Badge variant="outline" className="rounded-full">
+                  {codeowner}
+                </Badge>
               </DropdownMenuCheckboxItem>
             );
           })

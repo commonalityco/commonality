@@ -61,13 +61,13 @@ export function EditTagsDialogContent({
         <DialogHeader>
           <DialogTitle>Edit tags</DialogTitle>
           <DialogDescription>
-            {`We will update the`}
-            <span className="font-mono text-foreground mx-1 font-medium">
+            {`We will create or update the`}
+            <span className="text-foreground mx-1 font-medium">
               commonality.json
             </span>
             file for{' '}
             <span className="text-foreground font-medium">{packageName}</span>{' '}
-            with the tags you select or create one if it does not exist.
+            with the tags you select.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

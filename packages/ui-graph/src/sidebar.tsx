@@ -434,9 +434,12 @@ function CodeownersFilterSection({
                   className="grid grid-cols-[1fr_auto] flex-nowrap items-center gap-1"
                   key={owner}
                 >
-                  <Label asChild>
-                    <p className="block w-full truncate text-left">{owner}</p>
-                  </Label>
+                  <div>
+                    <Badge variant="outline" className="rounded-full">
+                      {owner}
+                    </Badge>
+                  </div>
+
                   <div className="flex flex-nowrap gap-1">
                     <div className="shrink-0">
                       <ShowHideButton
