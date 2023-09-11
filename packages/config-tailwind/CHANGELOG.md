@@ -1,5 +1,11 @@
 # @commonalityco/config-tailwind
 
+## 0.0.7
+
+### Patch Changes
+
+- 51411d8: update dependencies
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @commonalityco/constraints
 
+## 0.0.18
+
+### Patch Changes
+
+- 51411d8: update dependencies
+- Updated dependencies [51411d8]
+  - @commonalityco/data-project@0.0.12
+  - @commonalityco/utils-core@0.0.11
+
 ## 0.0.17
 
 ### Patch Changes

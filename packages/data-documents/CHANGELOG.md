@@ -1,5 +1,13 @@
 # @commonalityco/snapshot
 
+## 0.0.13
+
+### Patch Changes
+
+- 51411d8: update dependencies
+- Updated dependencies [51411d8]
+  - @commonalityco/data-project@0.0.12
+
 ## 0.0.12
 
 ### Patch Changes
