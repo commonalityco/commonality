@@ -1,5 +1,22 @@
 # workshop
 
+## 1.0.17
+
+### Patch Changes
+
+- 0f60d9b: cache graph calculations
+- Updated dependencies [51411d8]
+- Updated dependencies [0f60d9b]
+  - @commonalityco/data-graph-worker@0.0.10
+  - @commonalityco/ui-design-system@0.0.13
+  - @commonalityco/feature-graph@0.0.14
+  - @commonalityco/utils-graph@0.0.12
+  - @commonalityco/ui-package@0.0.16
+  - @commonalityco/utils-core@0.0.11
+  - @commonalityco/ui-graph@0.0.16
+  - @commonalityco/ui-core@0.0.14
+  - @commonalityco/types@0.0.14
+
 ## 1.0.16
 
 ### Patch Changes

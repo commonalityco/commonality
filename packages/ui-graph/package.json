@@ -2,7 +2,7 @@
   "name": "@commonalityco/ui-graph",
   "description": "Presentational components to build the Commonality dependency graph view",
   "type": "module",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "publishConfig": {
     "access": "public"
   },

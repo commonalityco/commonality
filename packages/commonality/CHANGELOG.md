@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.23
+
+### Patch Changes
+
+- 51411d8: update dependencies
+
 ## 0.2.22
 
 ### Patch Changes
