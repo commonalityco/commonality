@@ -26,7 +26,7 @@
     "@types/react-syntax-highlighter": "^15.5.7",
     "eslint-config-commonality": "workspace:^",
     "lucide-react": "^0.274.0",
-    "next": "13.4.16",
+    "next": "13.4.19",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
