@@ -37,7 +37,7 @@
     "@tanstack/react-table": "^8.9.8",
     "@xstate/react": "^3.2.2",
     "bufferutil": "^4.0.7",
-    "cookies-next": "^3.0.0",
+    "cookies-next": "^4.0.0",
     "cytoscape": "^3.26.0",
     "date-fns": "^2.30.0",
     "localforage": "^1.10.0",
