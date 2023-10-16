@@ -28,7 +28,7 @@
     "@xstate/react": "^3.2.2",
     "cytoscape": "^3.26.0",
     "eslint-config-commonality": "workspace:*",
-    "lucide-react": "^0.274.0",
+    "lucide-react": "^0.287.0",
     "next-themes": "^0.2.1",
     "postcss": "^8.4.29",
     "react": "^18.2.0",
