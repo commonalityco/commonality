@@ -1,6 +1,6 @@
-export { FeatureGraphChart } from './feature-graph-chart.js';
-export { FeatureGraphSidebar } from './feature-graph-sidebar.js';
-export { FeatureGraphPackageTooltip } from './feature-graph-package-tooltip.js';
-export { FeatureGraphToolbar } from './feature-graph-toolbar.js';
-export { GraphProvider, GraphContext } from './graph-provider.js';
-export { FeatureGraphDependencyTooltip } from './feature-graph-dependency-tooltip.js';
+export { FeatureGraphChart } from './feature-graph-chart';
+export { FeatureGraphSidebar } from './feature-graph-sidebar';
+export { FeatureGraphPackageTooltip } from './feature-graph-package-tooltip';
+export { FeatureGraphToolbar } from './feature-graph-toolbar';
+export { GraphProvider, GraphContext } from './graph-provider';
+export { FeatureGraphDependencyTooltip } from './feature-graph-dependency-tooltip';

@@ -1,1 +1,1 @@
-export * from './machines/graph-machine.js';
+export * from './machines/graph-machine';

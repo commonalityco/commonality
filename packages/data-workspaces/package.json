@@ -4,11 +4,11 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
-    "types": "./dist/index.d.ts",
+    "types": "./src/index.ts",
     "exports": {
-        ".": "./dist/index.js"
+        ".": "./src/index.ts"
     },
-    "main": "./dist/index.js",
+    "main": "./src/index.ts",
     "scripts": {
         "build": "tsc --build",
         "dev": "tsc --watch",
@@ -28,5 +28,12 @@
         "@commonalityco/utils-core": "workspace:*",
         "eslint-config-commonality": "workspace:*",
         "typescript": "^5.2.2"
+    },
+    "publishConfig": {
+        "main": "./dist/index.js",
+        "types": "./dist/index.d.ts",
+        "exports": {
+            ".": "./dist/index.js"
+        }
     }
 }

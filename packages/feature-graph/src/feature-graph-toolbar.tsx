@@ -1,6 +1,6 @@
 'use client';
 import { ComponentProps } from 'react';
-import { GraphContext } from './graph-provider.js';
+import { GraphContext } from './graph-provider';
 import { GraphToolbar } from '@commonalityco/ui-graph';
 import { Package, ProjectConfig, Violation } from '@commonalityco/types';
 

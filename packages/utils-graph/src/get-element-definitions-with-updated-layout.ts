@@ -1,8 +1,8 @@
 import cytoscape, { ElementDefinition } from 'cytoscape';
-import { layoutOptions } from './layout-options.js';
+import { layoutOptions } from './layout-options';
 import dagre from 'cytoscape-dagre';
-import { nodeStyles } from './styles/node.js';
-import { edgeStyles } from './styles/edge.js';
+import { nodeStyles } from './styles/node';
+import { edgeStyles } from './styles/edge';
 
 cytoscape.use(dagre);
 

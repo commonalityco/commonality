@@ -24,19 +24,28 @@ const ensureInternalPackage = defineConformer(() => ({
     // Maybe introduce .equals matcher which handles stripping whitespace and regex matching with .matches
     const packageJson = json('package.json');
     return (
-      (await packageJson.get('main')) === 'src/index.ts' &&
-      (await packageJson.get('types')) === 'src/index.ts' &&
-      (await packageJson.get('publishConfig.main')) === 'dist/index.js' &&
-      (await packageJson.get('publishConfig.types')) === 'dist/index.d.ts'
+      (await packageJson.get('scripts.build')) === 'tsc --build' &&
+      (await packageJson.get('type')) === 'module' &&
+      (await packageJson.get('main')) === './src/index.ts' &&
+      (await packageJson.get('types')) === './src/index.ts' &&
+      (await packageJson.get('publishConfig.main')) === './dist/index.js' &&
+      (await packageJson.get('publishConfig.types')) === './dist/index.d.ts' &&
+      (await packageJson.get('publishConfig.exports["."]')) ===
+        './dist/index.js' &&
+      (await packageJson.get('exports.["."]')) === './src/index.ts'
     );
   },
   fix: async ({ json }) => {
     const packageJson = json('package.json');
 
-    await packageJson.set('main', 'src/index.ts');
-    await packageJson.set('types', 'src/index.ts');
-    await packageJson.set('publishConfig.main', 'dist/index.js');
-    await packageJson.set('publishConfig.types', 'dist/index.d.ts');
+    await packageJson.set('scripts.build', 'tsc --build');
+    await packageJson.set('type', 'module');
+    await packageJson.set('exports["."]', './src/index.ts');
+    await packageJson.set('main', './src/index.ts');
+    await packageJson.set('types', './src/index.ts');
+    await packageJson.set('publishConfig.main', './dist/index.js');
+    await packageJson.set('publishConfig.types', './dist/index.d.ts');
+    await packageJson.set('publishConfig.exports["."]', './dist/index.js');
   },
 }));
 
@@ -62,8 +71,7 @@ export default defineConfig({
       recommended.ensureSortedDependencies(),
       recommended.ensureVersion({
         dependencies: ['next'],
-        version: '13.4.19',
-        type: ['production', 'development'],
+        version: '14.0.1',
       }),
       recommended.ensureVersion({
         dependencies: ['typescript'],

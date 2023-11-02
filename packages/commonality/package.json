@@ -56,7 +56,7 @@
     "lodash.get": "^4.4.2",
     "lodash.omit": "^4.5.0",
     "lodash.set": "^4.3.2",
-    "next": "13.4.19",
+    "next": "14.0.1",
     "npm-run-all": "^4.1.5",
     "open": "^9.1.0",
     "ora": "^7.0.1",

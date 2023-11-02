@@ -1,6 +1,6 @@
 'use client';
 import { Core, ElementDefinition } from 'cytoscape';
-import { bindRenderGraphEvents } from './bind-render-graph-events.js';
+import { bindRenderGraphEvents } from './bind-render-graph-events';
 
 import { Dependency, Package, Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';

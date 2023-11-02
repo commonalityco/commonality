@@ -3,11 +3,16 @@
   "description": "UI primitives built with shadcn",
   "version": "0.0.12",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": "./dist/index.js"
+    }
   },
   "sideEffects": false,
   "type": "module",
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -54,14 +59,15 @@
     "react-dom": ">=18"
   },
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./src/index.ts",
     "./*": "./dist/*.js"
   },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "build": "tsc",
+    "build": "tsc --build",
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit"
-  }
+  },
+  "main": "./src/index.ts"
 }

@@ -2,8 +2,6 @@ import type { ProjectConfig } from '@commonalityco/types';
 import jiti from 'jiti';
 import { findUp } from 'find-up';
 
-const initializeJiti = jiti as unknown as typeof jiti.default;
-
 export const getProjectConfig = async ({
   rootDirectory,
 }: {
@@ -32,7 +30,7 @@ export const getProjectConfig = async ({
     return;
   }
 
-  const loader = initializeJiti(configPath, { interopDefault: true });
+  const loader = jiti(configPath, { interopDefault: true });
 
   const result = loader(configPath);
   const defaultExport = result.default || result;

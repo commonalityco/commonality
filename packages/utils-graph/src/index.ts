@@ -1,8 +1,8 @@
-export * from './create-render-graph.js';
-export * from './get-element-definitions.js';
-export * from './get-element-definitions-with-updated-layout.js';
-export * from './update-graph-elements.js';
-export * from './create-traversal-graph.js';
+export * from './create-render-graph';
+export * from './get-element-definitions';
+export * from './get-element-definitions-with-updated-layout';
+export * from './update-graph-elements';
+export * from './create-traversal-graph';
 export {
   show,
   showDependants,
@@ -14,5 +14,5 @@ export {
   hideDependents,
   hideDependencies,
   hide,
-} from './actions.js';
-export * from './query-keys.js';
+} from './actions';
+export * from './query-keys';

@@ -19,7 +19,7 @@
     "@commonalityco/ui-package": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-graph": "workspace:*",
-    "next": "13.4.19",
+    "next": "14.0.1",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

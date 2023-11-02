@@ -4,12 +4,17 @@
   "version": "0.0.11",
   "type": "module",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": "./dist/index.js"
+    }
   },
   "sideEffects": false,
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./src/index.ts",
     "./*": "./dist/*.js"
   },
   "dependencies": {
@@ -41,9 +46,10 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "build": "tsc",
+    "build": "tsc --build",
     "dev": "tsc --watch",
     "test": "vitest",
     "type-check": "tsc --noEmit"
-  }
+  },
+  "main": "./src/index.ts"
 }

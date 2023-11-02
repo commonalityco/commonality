@@ -2,12 +2,17 @@
   "name": "@commonalityco/feature-graph",
   "description": "Full-featured drop-in components to build the dependency graph view",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": "./dist/index.js"
+    }
   },
   "type": "module",
   "sideEffects": false,
   "version": "0.0.13",
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "dependencies": {
     "lodash.debounce": "^4.0.8",
     "server-only": "^0.0.1"
@@ -54,12 +59,13 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "build": "tsc",
+    "build": "tsc --build",
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit"
   },
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./src/index.ts",
     "./*": "./dist/*.js"
-  }
+  },
+  "main": "./src/index.ts"
 }

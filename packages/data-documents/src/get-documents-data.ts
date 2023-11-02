@@ -6,7 +6,7 @@ import {
   getPackageManager,
   getWorkspaceGlobs,
 } from '@commonalityco/data-project';
-import { getDocumentsFromDirectory } from './core/get-documents-from-directory.js';
+import { getDocumentsFromDirectory } from './core/get-documents-from-directory';
 
 export const getDocumentsData = async ({
   rootDirectory,

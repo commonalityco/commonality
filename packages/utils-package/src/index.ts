@@ -1,2 +1,2 @@
-export * from './get-icon-for-package.js';
-export * from './format-package-name.js';
+export * from './get-icon-for-package';
+export * from './format-package-name';

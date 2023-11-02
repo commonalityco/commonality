@@ -4,18 +4,21 @@
   "version": "0.0.14",
   "type": "module",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": "./dist/index.js"
+    }
   },
   "types": "./src/index.ts",
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "main": "./src/index.ts",
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./src --fix",
     "type-check": "tsc --noEmit",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "build": "tsc --build"
   },
   "peerDependencies": {
     "@commonalityco/utils-core": "*"
@@ -25,5 +28,8 @@
     "@commonalityco/utils-core": "workspace:*",
     "eslint-config-commonality": "workspace:*",
     "typescript": "^5.2.2"
+  },
+  "exports": {
+    ".": "./src/index.ts"
   }
 }

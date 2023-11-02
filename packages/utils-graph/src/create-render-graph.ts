@@ -1,7 +1,7 @@
 import cytoscape, { ElementDefinition } from 'cytoscape';
 import dagre from 'cytoscape-dagre';
-import { nodeStyles } from './styles/node.js';
-import { edgeStyles } from './styles/edge.js';
+import { nodeStyles } from './styles/node';
+import { edgeStyles } from './styles/edge';
 import popper from 'cytoscape-popper';
 
 cytoscape.use(dagre);

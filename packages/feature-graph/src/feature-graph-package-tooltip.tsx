@@ -1,6 +1,6 @@
 'use client';
 import { TooltipPackage } from '@commonalityco/ui-graph';
-import { GraphContext } from './graph-provider.js';
+import { GraphContext } from './graph-provider';
 import { GraphTooltip } from '@commonalityco/ui-graph/graph-tooltip';
 import { Package } from '@commonalityco/types';
 

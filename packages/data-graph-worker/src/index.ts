@@ -1,6 +1,6 @@
 import { getElementDefinitionsWithUpdatedLayout } from '@commonalityco/utils-graph';
 import type { ElementDefinition } from 'cytoscape';
-import MD5 from 'crypto-js/md5.js';
+import MD5 from 'crypto-js/md5';
 import localforage from 'localforage';
 
 export const createWorker = () => {

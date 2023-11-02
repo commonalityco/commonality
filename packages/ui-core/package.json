@@ -4,10 +4,15 @@
   "type": "module",
   "version": "0.0.14",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": "./dist/index.js"
+    }
   },
   "sideEffects": false,
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "dependencies": {
     "@commonalityco/types": "workspace:*",
     "@radix-ui/react-slot": "^1.0.2",
@@ -26,7 +31,7 @@
     "@types/react-syntax-highlighter": "^15.5.7",
     "eslint-config-commonality": "workspace:*",
     "lucide-react": "^0.274.0",
-    "next": "13.4.19",
+    "next": "14.0.1",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -37,7 +42,7 @@
   "peerDependencies": {
     "@commonalityco/ui-design-system": "*",
     "lucide-react": "^0.x",
-    "next": "13.4.19",
+    "next": "14.0.1",
     "next-themes": "^0.x",
     "react": ">=18",
     "react-dom": ">=18"
@@ -51,10 +56,10 @@
     "type-check": "tsc --noEmit"
   },
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./src/index.ts",
     "./*": "./dist/*.js"
   },
-  "main": "./dist/index.js",
+  "main": "./src/index.ts",
   "engines": {
     "node": ">=16"
   }

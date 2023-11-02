@@ -1,12 +1,12 @@
-export { Sidebar } from './sidebar.js';
-export { GraphChart } from './graph-chart.js';
+export { Sidebar } from './sidebar';
+export { GraphChart } from './graph-chart';
 export {
   GraphLayoutRoot,
   GraphLayoutAside,
   GraphLayoutMain,
-} from './graph-layout.js';
-export { TooltipPackage } from './tooltip-package.js';
-export { TooltipDependency } from './tooltip-dependency.js';
-export { GraphToolbar } from './components/graph-toolbar.js';
-export { GraphTooltip } from './graph-tooltip.js';
-export { GraphChartLoading } from './graph-chart-loading.js';
+} from './graph-layout';
+export { TooltipPackage } from './tooltip-package';
+export { TooltipDependency } from './tooltip-dependency';
+export { GraphToolbar } from './components/graph-toolbar';
+export { GraphTooltip } from './graph-tooltip';
+export { GraphChartLoading } from './graph-chart-loading';

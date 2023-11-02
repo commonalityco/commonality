@@ -1,1 +1,1 @@
-export * from './get-violations.js';
+export * from './get-violations';

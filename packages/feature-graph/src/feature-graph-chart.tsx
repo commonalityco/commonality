@@ -9,8 +9,8 @@ import { Package as PackageIcon } from 'lucide-react';
 import { GraphChart } from '@commonalityco/ui-graph/graph-chart';
 import { getElementDefinitions } from '@commonalityco/utils-graph/get-element-definitions';
 import { useEffect, useRef } from 'react';
-import { GraphContext } from './graph-provider.js';
-import FeatureGraphToolbar from './feature-graph-toolbar.js';
+import { GraphContext } from './graph-provider';
+import FeatureGraphToolbar from './feature-graph-toolbar';
 import { cn } from '@commonalityco/ui-design-system/cn';
 import debounce from 'lodash.debounce';
 

@@ -1,4 +1,4 @@
-import Sidebar from './sidebar.js';
+import Sidebar from './sidebar';
 import { render, screen } from '@testing-library/react';
 import { ComponentPropsWithoutRef } from 'react';
 import { describe, expect, it } from 'vitest';

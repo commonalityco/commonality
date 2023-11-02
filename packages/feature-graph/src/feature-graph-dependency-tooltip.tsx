@@ -1,6 +1,6 @@
 'use client';
 import { TooltipDependency } from '@commonalityco/ui-graph';
-import { GraphContext } from './graph-provider.js';
+import { GraphContext } from './graph-provider';
 import { Dependency } from '@commonalityco/types';
 import { GraphTooltip } from '@commonalityco/ui-graph';
 

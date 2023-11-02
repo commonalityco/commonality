@@ -52,7 +52,7 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuRadioGroup,
 } from './dropdown-menu.js';
-export { Heading, HeadingProperties } from './heading.js';
+export { Heading } from './heading.js';
 export { Label } from './label.js';
 export { ScrollArea, ScrollBar } from './scroll-area.js';
 export { Select, CreatebleSelect } from './select.js';
@@ -68,7 +68,7 @@ export {
   SheetDescription,
 } from './sheet.js';
 export { Skeleton } from './skeleton.js';
-export { Snippet, SnippetProperties } from './snippet.js';
+export { Snippet } from './snippet.js';
 export { Kbd } from './kbd.js';
 export { Switch } from './switch.js';
 export { Popover, PopoverTrigger, PopoverContent } from './popover.js';
@@ -83,7 +83,7 @@ export {
   CommandShortcut,
   CommandSeparator,
 } from './command.js';
-export { Input, InputProperties } from './input.js';
+export { Input } from './input.js';
 export {
   Table,
   TableHeader,
