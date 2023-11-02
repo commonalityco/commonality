@@ -1,16 +1,5 @@
 # @commonalityco/ui-graph
 
-## 0.0.16
-
-### Patch Changes
-
-- 51411d8: update dependencies
-- Updated dependencies [51411d8]
-  - @commonalityco/ui-design-system@0.0.13
-  - @commonalityco/utils-core@0.0.11
-  - @commonalityco/ui-core@0.0.14
-  - @commonalityco/utils-package@0.0.11
-
 ## 0.0.15
 
 ### Patch Changes

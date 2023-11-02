@@ -1,14 +1,5 @@
 # @commonalityco/data-graph-worker
 
-## 0.0.10
-
-### Patch Changes
-
-- 51411d8: update dependencies
-- 0f60d9b: cache graph calculations
-- Updated dependencies [51411d8]
-  - @commonalityco/utils-graph@0.0.12
-
 ## 0.0.9
 
 ### Patch Changes

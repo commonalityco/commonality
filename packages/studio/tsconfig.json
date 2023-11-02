@@ -19,9 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
-    "baseUrl": "./src",
     "incremental": false,
     "types": ["@testing-library/jest-dom"]
   },

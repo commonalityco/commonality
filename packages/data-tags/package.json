@@ -1,37 +1,37 @@
 {
-  "name": "@commonalityco/data-tags",
-  "description": "Utilities getting and setting metadata for a Commonality project",
-  "version": "0.0.13",
-  "publishConfig": {
-    "access": "public"
-  },
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js"
-  },
-  "main": "./dist/index.js",
-  "scripts": {
-    "build": "tsc --build",
-    "dev": "tsc --watch",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "test": "vitest",
-    "type-check": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/types": "workspace:*",
-    "@types/fs-extra": "^11.0.1",
-    "@types/lodash.uniq": "^4.5.7",
-    "@types/node": "^20.6.0",
-    "eslint-config-commonality": "workspace:^",
-    "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "@commonalityco/data-project": "workspace:*",
-    "@commonalityco/utils-core": "workspace:*",
-    "fs-extra": "^11.1.1",
-    "lodash.uniq": "^4.5.0"
-  }
+    "name": "@commonalityco/data-tags",
+    "description": "Utilities getting and setting metadata for a Commonality project",
+    "version": "0.0.12",
+    "publishConfig": {
+        "access": "public"
+    },
+    "type": "module",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": "./dist/index.js"
+    },
+    "main": "./dist/index.js",
+    "scripts": {
+        "build": "tsc --build",
+        "dev": "tsc --watch",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "test": "vitest",
+        "type-check": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "@commonalityco/config-tsconfig": "workspace:*",
+        "@commonalityco/types": "workspace:*",
+        "@types/fs-extra": "^11.0.2",
+        "@types/lodash.uniq": "^4.5.7",
+        "@types/node": "^20.6.3",
+        "eslint-config-commonality": "workspace:*",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "@commonalityco/data-project": "workspace:*",
+        "@commonalityco/utils-core": "workspace:*",
+        "fs-extra": "^11.1.1",
+        "lodash.uniq": "^4.5.0"
+    }
 }

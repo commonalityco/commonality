@@ -1,11 +1,5 @@
 # @commonalityco/ui-design-system
 
-## 0.0.13
-
-### Patch Changes
-
-- 51411d8: update dependencies
-
 ## 0.0.12
 
 ### Patch Changes

@@ -1,19 +1,8 @@
 'use client';
-import {
-  Accordion,
-  AccordionContent,
-  Badge,
-  cn,
-  ScrollArea,
-  Separator,
-} from '@commonalityco/ui-design-system';
-import { Constraint, Dependency, Violation } from '@commonalityco/types';
+import { Badge, cn, Separator } from '@commonalityco/ui-design-system';
+import { Dependency } from '@commonalityco/types';
 import { CornerDownRight } from 'lucide-react';
 import { DependencyType } from '@commonalityco/utils-core';
-import { ConstraintAccordionItem } from './components/constraint-accordion-item.js';
-import { ConstraintAccordionTrigger } from './components/constraint-accordion-trigger.js';
-import { ConstraintResult } from './components/constraint-result.js';
-import { GradientFade } from '@commonalityco/ui-core';
 
 const TextByType = {
   [DependencyType.PRODUCTION]: 'Production',
@@ -23,15 +12,9 @@ const TextByType = {
 
 export interface TooltipDependencyProperties {
   dependency: Dependency;
-  constraints: Constraint[];
-  violations: Violation[];
 }
 
-export function TooltipDependency({
-  dependency,
-  constraints,
-  violations,
-}: TooltipDependencyProperties) {
+export function TooltipDependency({ dependency }: TooltipDependencyProperties) {
   return (
     <div className="bg-background rounded-md p-1">
       <div className="px-2 py-1.5 mb-1">
@@ -60,49 +43,6 @@ export function TooltipDependency({
         <span className="font-mono font-medium">{dependency.version}</span>
       </div>
       <Separator className="my-3" />
-      <div className="grid h-full">
-        <div className="px-2">
-          <p className="font-semibold">Constraints</p>
-        </div>
-
-        <ScrollArea className="max-h-64 h-full px-2">
-          <GradientFade placement="top" className="h-3" />
-          <Accordion type="multiple">
-            {constraints.length > 0 ? (
-              constraints.map((constraint) => {
-                const violation = violations.find(
-                  (violation) => violation.appliedTo === constraint.applyTo,
-                );
-                return (
-                  <div className="group" key={constraint.applyTo}>
-                    <ConstraintAccordionItem
-                      key={constraint.applyTo}
-                      constraint={constraint}
-                    >
-                      <ConstraintAccordionTrigger
-                        constraint={constraint}
-                        variant={violation ? 'error' : 'pass'}
-                        className="group-first:pt-0"
-                      />
-                      <AccordionContent>
-                        <ConstraintResult
-                          constraint={constraint}
-                          violation={violation}
-                        />
-                      </AccordionContent>
-                    </ConstraintAccordionItem>
-                  </div>
-                );
-              })
-            ) : (
-              <p className="text-muted-foreground mt-1 text-xs">
-                No constraints
-              </p>
-            )}
-          </Accordion>
-          <GradientFade placement="bottom" className="h-3" />
-        </ScrollArea>
-      </div>
     </div>
   );
 }

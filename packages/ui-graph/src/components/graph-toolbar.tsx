@@ -8,12 +8,7 @@ import {
   TooltipTrigger,
   TooltipProvider,
   TooltipContent,
-  ScrollArea,
-  Accordion,
-  AccordionContent,
   Popover,
-  PopoverTrigger,
-  PopoverContent,
   cn,
 } from '@commonalityco/ui-design-system';
 import {
@@ -21,154 +16,31 @@ import {
   Palette,
   PlusIcon,
   Maximize,
-  ExternalLink,
-  ShieldIcon,
-  CornerDownRight,
-  ShieldCheck,
-  ShieldClose,
   ChevronDown,
 } from 'lucide-react';
-import { Violation, Constraint } from '@commonalityco/types';
-import { useMemo } from 'react';
-import { ConstraintAccordionItem } from './constraint-accordion-item.js';
-import { ConstraintAccordionTrigger } from './constraint-accordion-trigger.js';
-import { ConstraintResult } from './constraint-result.js';
+import { Violation, ProjectConfig } from '@commonalityco/types';
 
 function ViolationsHoverCard({
-  constraints = [],
+  constraints = {},
   violations = [],
 }: {
-  constraints?: Constraint[];
+  constraints?: ProjectConfig['constraints'];
   violations?: Violation[];
 }) {
-  const violationsByConstraintTag = useMemo(() => {
-    const map: Record<string, Violation[] | undefined> = {};
-
-    for (const violation of violations) {
-      const currentViolations = map[violation.appliedTo];
-
-      map[violation.appliedTo] = currentViolations
-        ? [...currentViolations, violation]
-        : [violation];
-    }
-
-    return map;
-  }, [violations]);
-
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="ghost" size="sm" className="gap-2">
-          <div
-            className={cn('h-2 w-2 rounded-full', {
-              'bg-success': violations.length === 0,
-              'bg-destructive': violations.length,
-            })}
-          />
-          {`${constraints.length} constraints with ${
-            violations?.length ?? 0
-          } violations`}
-          <ChevronDown className="h-4 w-4" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="grid w-auto p-0" align="start">
-        {constraints.length > 0 ? (
-          <ScrollArea className="h-full max-h-[400px] px-4 pb-0 pt-0">
-            <Accordion
-              type="multiple"
-              className="h-full min-w-[250px] max-w-[400px]"
-              defaultValue={Object.keys(violationsByConstraintTag)}
-            >
-              {constraints.map((constraint) => {
-                const violations =
-                  violationsByConstraintTag[constraint.applyTo];
-
-                return (
-                  <ConstraintAccordionItem
-                    constraint={constraint}
-                    key={constraint.applyTo}
-                  >
-                    <ConstraintAccordionTrigger
-                      variant={violations?.length ? 'error' : 'pass'}
-                      constraint={constraint}
-                    ></ConstraintAccordionTrigger>
-                    <AccordionContent>
-                      <div className="mb-2 flex items-center space-x-2">
-                        {violations?.length ? (
-                          <ShieldClose className="text-destructive h-4 w-4" />
-                        ) : (
-                          <ShieldCheck className="text-success h-4 w-4" />
-                        )}
-                        <p className="text-sm font-semibold">{`${
-                          violations?.length ?? 0
-                        } violations`}</p>
-                      </div>
-                      <div className="space-y-2">
-                        {violations?.length ? (
-                          violations?.map((violation) => {
-                            return (
-                              <div
-                                className="space-y-1"
-                                key={`${violation.sourcePackageName}${violation.targetPackageName}`}
-                              >
-                                <div>
-                                  <Button
-                                    className="block h-auto w-full truncate px-0 py-1 text-left text-xs font-semibold"
-                                    size="sm"
-                                    variant="link"
-                                  >
-                                    {violation.sourcePackageName}
-                                  </Button>
-                                  <div className="flex items-center gap-2">
-                                    <CornerDownRight className="text-destructive h-5 w-5 shrink-0" />
-                                    <Button
-                                      className="block h-auto truncate px-0 py-1 text-left text-xs font-semibold"
-                                      size="sm"
-                                      variant="link"
-                                    >
-                                      {violation.targetPackageName}
-                                    </Button>
-                                  </div>
-                                </div>
-                                <div className="pl-7">
-                                  <ConstraintResult
-                                    constraint={constraint}
-                                    violation={violation}
-                                  />
-                                </div>
-                              </div>
-                            );
-                          })
-                        ) : (
-                          <ConstraintResult constraint={constraint} />
-                        )}
-                      </div>
-                    </AccordionContent>
-                  </ConstraintAccordionItem>
-                );
-              })}
-            </Accordion>
-          </ScrollArea>
-        ) : (
-          <div className="w-64 p-4 text-center">
-            <ShieldIcon className="mx-auto h-6 w-6" />
-            <p className="mb-1 mt-2 text-xs font-bold">No constraints found</p>
-            <p className="mb-3 text-xs">
-              Create constraints to enforce boundaries in your dependency graph.
-            </p>
-            <Button variant="secondary" size="sm" className="w-full" asChild>
-              <a
-                href="https://comonality.co/docs/constraints"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learn more
-                <ExternalLink className="ml-1 h-3 w-3" />
-              </a>
-            </Button>
-          </div>
-        )}
-      </PopoverContent>
+      <Button variant="ghost" size="sm" className="gap-2">
+        <div
+          className={cn('h-2 w-2 rounded-full', {
+            'bg-success': violations.length === 0,
+            'bg-destructive': violations.length,
+          })}
+        />
+        {`${constraints.length} constraints with ${
+          violations?.length ?? 0
+        } violations`}
+        <ChevronDown className="h-4 w-4" />
+      </Button>
     </Popover>
   );
 }
@@ -181,7 +53,7 @@ export interface GraphToolbarProperties {
   onZoomIn?: () => void;
   onZoomOut?: () => void;
   onFit?: () => void;
-  constraints: Constraint[];
+  constraints: ProjectConfig['constraints'];
   violations: Violation[];
 }
 
@@ -193,7 +65,7 @@ export function GraphToolbar({
   onZoomIn = () => {},
   onZoomOut = () => {},
   onFit = () => {},
-  constraints = [],
+  constraints = {},
   violations = [],
 }: GraphToolbarProperties) {
   return (

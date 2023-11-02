@@ -1,4 +1,4 @@
-import { Package } from '@commonalityco/types';
+import type { Package } from '@commonalityco/types';
 import {
   getPackageDirectories,
   getWorkspaceGlobs,

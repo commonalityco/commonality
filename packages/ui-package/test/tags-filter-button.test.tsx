@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { test, expect, vi } from 'vitest';
 import TagsFilterButton from '../src/tags-filter-button.js';
-import '@testing-library/jest-dom';
 
 test('renders TagsFilterButton and handles check change', async () => {
   const tags = ['tag1', 'tag2', 'tag3'];
@@ -12,12 +11,12 @@ test('renders TagsFilterButton and handles check change', async () => {
   render(<TagsFilterButton tags={tags} onChange={mockOnChange} />);
 
   const button = screen.getByRole('button', { name: /tags/i });
-  expect(button).toBeInTheDocument();
+  expect(button).toBeTruthy();
 
   await userEvent.click(button);
 
   for (const tag of tags) {
-    expect(screen.getByText(`#${tag}`)).toBeInTheDocument();
+    expect(screen.getByText(`#${tag}`)).toBeTruthy();
   }
 
   const checkboxItem = screen.getByRole('menuitemcheckbox', { name: /#tag1/i });
@@ -32,10 +31,10 @@ test('displays the no tags message', async () => {
   render(<TagsFilterButton tags={[]} onChange={mockOnChange} />);
 
   const button = screen.getByRole('button', { name: /tags/i });
-  expect(button).toBeInTheDocument();
+  expect(button).toBeTruthy();
 
   await userEvent.click(button);
 
   const noTagsMessage = screen.getByText('Get started with tags');
-  expect(noTagsMessage).toBeInTheDocument();
+  expect(noTagsMessage).toBeTruthy();
 });

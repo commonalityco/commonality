@@ -1,8 +1,8 @@
 {
-  "extends": "@commonalityco/config-tsconfig/node16.json",
+  "extends": "@commonalityco/config-tsconfig/node.json",
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "./dist",
     "typeRoots": ["./node_modules/@types"]
   }
 }

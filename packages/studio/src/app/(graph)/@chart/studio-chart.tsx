@@ -1,7 +1,7 @@
 'use client';
 import { ComponentProps, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
-import { useQueryParams } from 'hooks/use-query-params';
+import { useQueryParams } from '@/hooks/use-query-params';
 import { slugifyPackageName } from '@commonalityco/utils-core';
 import { FeatureGraphChart } from '@commonalityco/feature-graph';
 import { GraphChartLoading } from '@commonalityco/ui-graph';

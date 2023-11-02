@@ -1,11 +1,5 @@
 # @commonalityco/traverse
 
-## 0.0.17
-
-### Patch Changes
-
-- 51411d8: update dependencies
-
 ## 0.0.16
 
 ### Patch Changes

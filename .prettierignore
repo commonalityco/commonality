@@ -10,3 +10,4 @@ db/migrations
 node_modules
 dist
 .turbo
+.next

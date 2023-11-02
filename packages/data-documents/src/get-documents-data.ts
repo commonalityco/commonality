@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import path from 'node:path';
-import { DocumentsData } from '@commonalityco/types';
+import type { DocumentsData } from '@commonalityco/types';
 import {
   getPackageDirectories,
   getPackageManager,

@@ -1,37 +1,37 @@
 {
-  "name": "@commonalityco/data-codeowners",
-  "version": "0.0.17",
-  "description": "Get CODEOWNERS information about a local project",
-  "publishConfig": {
-    "access": "public"
-  },
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js"
-  },
-  "main": "./dist/index.js",
-  "license": "MIT",
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "test": "vitest",
-    "type-check": "tsc --noEmit"
-  },
-  "dependencies": {
-    "fast-glob": "^3.3.1",
-    "fs-extra": "^11.1.1",
-    "ignore": "^5.2.4",
-    "minimatch": "^9.0.3"
-  },
-  "devDependencies": {
-    "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/types": "workspace:*",
-    "@types/fs-extra": "^11.0.1",
-    "@types/node": "^20.6.0",
-    "eslint-config-commonality": "workspace:*",
-    "typescript": "^5.2.2"
-  }
+    "name": "@commonalityco/data-codeowners",
+    "version": "0.0.16",
+    "description": "Get CODEOWNERS information about a local project",
+    "publishConfig": {
+        "access": "public"
+    },
+    "type": "module",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": "./dist/index.js"
+    },
+    "main": "./dist/index.js",
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsc --watch",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "test": "vitest",
+        "type-check": "tsc --noEmit"
+    },
+    "dependencies": {
+        "fast-glob": "^3.3.1",
+        "fs-extra": "^11.1.1",
+        "ignore": "^5.2.4",
+        "minimatch": "^9.0.3"
+    },
+    "devDependencies": {
+        "@commonalityco/config-tsconfig": "workspace:*",
+        "@commonalityco/types": "workspace:*",
+        "@types/fs-extra": "^11.0.2",
+        "@types/node": "^20.6.3",
+        "eslint-config-commonality": "workspace:*",
+        "typescript": "^5.2.2"
+    }
 }

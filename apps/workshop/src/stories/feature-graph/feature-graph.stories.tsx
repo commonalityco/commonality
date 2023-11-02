@@ -119,7 +119,7 @@ export const Default: Story = {
     packages,
     dependencies,
     violations: [],
-    constraints: [],
+    constraints: {},
   },
 };
 
@@ -138,13 +138,12 @@ export const ConstraintsAndViolations: Story = {
   args: {
     packages,
     dependencies,
-    constraints: [
-      {
-        applyTo: 'foo',
+    constraints: {
+      foo: {
         allow: ['bar'],
         disallow: ['baz'],
       },
-    ],
+    },
     violations,
   },
 };
@@ -153,7 +152,7 @@ export const Zero: Story = {
   args: {
     packages: [],
     dependencies: [],
-    constraints: [],
+    constraints: {},
     violations: [],
   },
 };

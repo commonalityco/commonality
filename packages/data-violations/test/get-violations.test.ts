@@ -1,5 +1,4 @@
 import {
-  Constraint,
   Dependency,
   Package,
   ProjectConfig,
@@ -7,8 +6,8 @@ import {
   Violation,
 } from '@commonalityco/types';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
-import { getViolations } from '../src/get-violations.js';
-import { describe, it, expect } from 'vitest';
+import { getAllDependencies, getViolations } from '../src/get-violations.js';
+import { describe, it, expect, bench } from 'vitest';
 
 const basePackageOne = {
   path: '/pkgs/pkg-one',
@@ -43,7 +42,7 @@ describe('getViolations', () => {
     it('does not return violations', async () => {
       const violations = await getViolations({
         dependencies: [dependencyOne],
-        constraints: [],
+        constraints: {},
         tagsData: baseTagsData,
       });
 
@@ -56,7 +55,7 @@ describe('getViolations', () => {
       it('does not return violations', async () => {
         const violations = await getViolations({
           dependencies: [dependencyOne],
-          constraints: [{ applyTo: 'tag-one', allow: ['tag-two'] }],
+          constraints: { 'tag-one': { allow: ['tag-two'] } },
           tagsData,
         });
 
@@ -69,7 +68,7 @@ describe('getViolations', () => {
       const tagsData = [
         { packageName: basePackageOne.name, tags: ['tag-one'] },
       ] satisfies TagsData[];
-      const constraints = [{ applyTo: 'tag-four', allow: ['tag-five'] }];
+      const constraints = { 'tag-four': { allow: ['tag-five'] } };
 
       it('does not return violations', async () => {
         const violations = await getViolations({
@@ -84,10 +83,10 @@ describe('getViolations', () => {
 
     describe('and it has tags that matches a constraint', () => {
       describe('and the constraint allows a wildcard', () => {
-        const constraints = [
-          { applyTo: 'tag-one', allow: '*' },
-          { applyTo: 'restricted', allow: ['restricted'] },
-        ] satisfies ProjectConfig['constraints'];
+        const constraints = {
+          'tag-one': { allow: '*' },
+          restricted: { allow: ['restricted'] },
+        } satisfies ProjectConfig['constraints'];
 
         describe('and has a dependency that does not have any tags', () => {
           const tagsData = [
@@ -108,7 +107,10 @@ describe('getViolations', () => {
 
         describe('and has a dependency that has tags', () => {
           const tagsData = [
-            { packageName: basePackageOne.name, tags: ['tag-one', 'restricted'] },
+            {
+              packageName: basePackageOne.name,
+              tags: ['tag-one', 'restricted'],
+            },
             { packageName: basePackageTwo.name, tags: ['foo'] },
           ] satisfies TagsData[];
 
@@ -126,7 +128,7 @@ describe('getViolations', () => {
 
       describe('and the constraint allows specific tags', () => {
         describe('and has a dependency that does not have any tags', () => {
-          const constraints = [{ applyTo: 'tag-one', allow: ['tag-two'] }];
+          const constraints = { 'tag-one': { allow: ['tag-two'] } };
           const tagsData = [
             { packageName: basePackageOne.name, tags: ['tag-one'] },
             { packageName: basePackageTwo.name, tags: [] },
@@ -153,7 +155,7 @@ describe('getViolations', () => {
         });
 
         describe('and has a dependency that has tags that are not allowed by the constraint', () => {
-          const constraints = [{ applyTo: 'tag-one', allow: ['tag-two'] }];
+          const constraints = { 'tag-one': { allow: ['tag-two'] } };
           const tagsData = [
             { packageName: basePackageOne.name, tags: ['tag-one'] },
             { packageName: basePackageTwo.name, tags: ['tag-three'] },
@@ -180,7 +182,7 @@ describe('getViolations', () => {
         });
 
         describe('and has a dependency that has tags that are allowed by the constraint', () => {
-          const constraints = [{ applyTo: 'tag-one', allow: ['tag-two'] }];
+          const constraints = { 'tag-one': { allow: ['tag-two'] } };
           const tagsData = [
             { packageName: basePackageOne.name, tags: ['tag-one'] },
             { packageName: basePackageTwo.name, tags: ['tag-two'] },
@@ -200,12 +202,11 @@ describe('getViolations', () => {
     });
 
     describe('and it has multiple tags that match multiple constraints', () => {
-      const constraints = [
-        { applyTo: 'tag-one', allow: ['tag-two'] },
-        { applyTo: 'tag-five', allow: ['tag-two'] },
-        { applyTo: 'tag-two', allow: ['tag-two'] },
-        { applyTo: 'tag-five', allow: ['tag-six'] },
-      ];
+      const constraints = {
+        'tag-one': { allow: ['tag-two'] },
+        'tag-five': { allow: ['tag-six'] },
+        'tag-two': { allow: ['tag-two'] },
+      };
 
       describe('and the package has a dependency that does not have any tags', () => {
         const tagsData = [
@@ -291,25 +292,39 @@ describe('getViolations', () => {
   });
 
   it('should produce a violation when a dependency has a disallowed tag', async () => {
-    const constraints = [{ applyTo: 'tag-one', disallow: ['tag-two'] }];
+    const constraints = { 'tag-one': { disallow: ['tag-three'] } };
 
     const tagsData = [
-      { packageName: basePackageOne.name, tags: ['tag-one'] },
-      { packageName: basePackageTwo.name, tags: ['tag-two', 'tag-three'] },
+      { packageName: 'pkg-one', tags: ['tag-one', 'tag-two'] },
+      { packageName: 'pkg-two', tags: ['tag-three'] },
+      { packageName: 'pkg-three', tags: ['tag-four'] },
     ] satisfies TagsData[];
 
     const expectedViolation = {
-      sourcePackageName: '@scope/pkg-one',
-      targetPackageName: '@scope/pkg-two',
+      sourcePackageName: 'pkg-one',
+      targetPackageName: 'pkg-two',
       appliedTo: 'tag-one',
       allowed: [],
-      disallowed: ['tag-two'],
-      found: ['tag-two', 'tag-three'],
+      disallowed: ['tag-three'],
+      found: ['tag-three'],
     } satisfies Violation;
 
     const violations = await getViolations({
       constraints,
-      dependencies: [dependencyOne],
+      dependencies: [
+        {
+          source: 'pkg-one',
+          target: 'pkg-two',
+          version: '1.0.0',
+          type: DependencyType.PRODUCTION,
+        },
+        {
+          source: 'pkg-one',
+          target: 'pkg-three',
+          version: '1.0.0',
+          type: DependencyType.PRODUCTION,
+        },
+      ],
       tagsData,
     });
 
@@ -317,9 +332,9 @@ describe('getViolations', () => {
   });
 
   it('should produce a violation when a dependency has both an allowed tag and a disallowed tag', async () => {
-    const constraints = [
-      { applyTo: 'tag-one', allow: ['tag-three'], disallow: ['tag-two'] },
-    ];
+    const constraints = {
+      'tag-one': { allow: ['tag-three'], disallow: ['tag-two'] },
+    };
 
     const expectedViolation: Violation = {
       sourcePackageName: '@scope/pkg-one',
@@ -345,9 +360,9 @@ describe('getViolations', () => {
   });
 
   it('should produce a violation when an indirect dependency has a disallowed tag', async () => {
-    const constraints = [
-      { applyTo: 'tag-one', allow: ['tag-two'], disallow: ['tag-four'] },
-    ];
+    const constraints = {
+      'tag-one': { allow: ['tag-two'], disallow: ['tag-four'] },
+    };
 
     const dependencies = [
       dependencyOne,
@@ -384,9 +399,9 @@ describe('getViolations', () => {
   });
 
   describe('when a constraint is applied to all packages', () => {
-    const constraints = [
-      { applyTo: '*', disallow: ['tag-two'] },
-    ] satisfies Constraint[];
+    const constraints = {
+      '*': { disallow: ['tag-two'] },
+    } satisfies ProjectConfig['constraints'];
 
     const tagsData = [
       { packageName: basePackageOne.name, tags: ['tag-one'] },
@@ -417,9 +432,9 @@ describe('getViolations', () => {
 
   describe('when a constraint disallows all tags', () => {
     describe('and allows some tags', () => {
-      const constraints = [
-        { applyTo: 'tag-one', allow: ['tag-two'], disallow: '*' },
-      ];
+      const constraints = {
+        'tag-one': { allow: ['tag-two'], disallow: '*' },
+      } satisfies ProjectConfig['constraints'];
 
       describe('and a dependency has no tags', () => {
         const tagsData = [
@@ -475,9 +490,9 @@ describe('getViolations', () => {
     });
 
     describe('and allows no tags', () => {
-      const constraints = [
-        { applyTo: 'tag-one', disallow: '*' },
-      ] satisfies Constraint[];
+      const constraints = {
+        'tag-one': { disallow: '*' },
+      } satisfies ProjectConfig['constraints'];
 
       describe('and a dependency has no tags', () => {
         const tagsData = [
@@ -594,12 +609,13 @@ describe('getViolations', () => {
       },
     ];
 
-    const constraints = [
-      { applyTo: 'feature', allow: '*' },
-      { applyTo: 'data', allow: ['config'] },
-      { applyTo: 'utility', allow: ['data'] },
-      { applyTo: 'config', allow: ['config'] },
-    ] satisfies Constraint[];
+    const constraints = {
+      feature: { allow: '*' },
+      data: { allow: ['config'] },
+      utility: { allow: ['data'] },
+      config: { allow: ['config'] },
+      'not-allowed': { disallow: ['config'] },
+    } satisfies ProjectConfig['constraints'];
 
     it('returns violations', async () => {
       const violations = await getViolations({

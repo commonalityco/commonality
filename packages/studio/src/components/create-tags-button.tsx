@@ -11,7 +11,7 @@ import {
 import { formatTagName } from '@commonalityco/utils-core';
 import type { Package, TagsData } from '@commonalityco/types';
 import { useMemo } from 'react';
-import { setTagsAction } from 'actions/metadata';
+import { setTagsAction } from '@/actions/metadata';
 import { Pencil, Plus } from 'lucide-react';
 
 export function CreateTagsButton({

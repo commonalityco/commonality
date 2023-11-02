@@ -2,7 +2,7 @@
 import { ComponentProps } from 'react';
 import { GraphContext } from './graph-provider.js';
 import { GraphToolbar } from '@commonalityco/ui-graph';
-import { Constraint, Package, Violation } from '@commonalityco/types';
+import { Package, ProjectConfig, Violation } from '@commonalityco/types';
 
 interface FeatureGraphToolbarProperties
   extends Omit<
@@ -15,7 +15,7 @@ interface FeatureGraphToolbarProperties
     | 'totalPackageCount'
   > {
   violations: Violation[];
-  constraints: Constraint[];
+  constraints: ProjectConfig['constraints'];
   packages: Package[];
 }
 

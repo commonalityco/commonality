@@ -1,0 +1,42 @@
+{
+  "name": "@commonalityco/utils-file",
+  "version": "0.0.10",
+  "type": "module",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js"
+  },
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@types/lodash.get": "^4.4.7",
+    "@types/lodash.omit": "^4.5.7",
+    "@types/lodash.set": "^4.3.7",
+    "eslint-config-commonality": "workspace:*",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "detect-indent": "^7.0.1",
+    "fs-extra": "^11.1.1",
+    "lodash.get": "^4.4.2",
+    "lodash.omit": "^4.5.0",
+    "lodash.set": "^4.3.2",
+    "mock-fs": "^5.2.0",
+    "yaml": "^2.3.2"
+  }
+}

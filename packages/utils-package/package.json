@@ -1,41 +1,41 @@
 {
-  "name": "@commonalityco/utils-package",
-  "description": "Utilities for formatting package data",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js"
-  },
-  "main": "./dist/index.js",
-  "sideEffects": false,
-  "version": "0.0.11",
-  "publishConfig": {
-    "access": "public"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "@commonalityco/utils-core": "workspace:*"
-  },
-  "devDependencies": {
-    "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/types": "workspace:*",
-    "@types/react": "^18.2.21",
-    "eslint-config-commonality": "workspace:*",
-    "postcss": "^8.4.29",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwindcss": "^3.3.3",
-    "typescript": "^5.2.2"
-  },
-  "peerDependencies": {
-    "react": ">=17",
-    "react-dom": ">=17"
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "build": "tsc --build",
-    "dev": "tsc --watch",
-    "type-check": "tsc --noEmit"
-  }
+    "name": "@commonalityco/utils-package",
+    "description": "Utilities for formatting package data",
+    "type": "module",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": "./dist/index.js"
+    },
+    "main": "./dist/index.js",
+    "sideEffects": false,
+    "version": "0.0.10",
+    "publishConfig": {
+        "access": "public"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "@commonalityco/utils-core": "workspace:*"
+    },
+    "devDependencies": {
+        "@commonalityco/config-tsconfig": "workspace:*",
+        "@commonalityco/types": "workspace:*",
+        "@types/react": "^18.2.22",
+        "eslint-config-commonality": "workspace:*",
+        "postcss": "^8.4.30",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "tailwindcss": "^3.3.3",
+        "typescript": "^5.2.2"
+    },
+    "peerDependencies": {
+        "react": ">=18",
+        "react-dom": ">=18"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "build": "tsc --build",
+        "dev": "tsc --watch",
+        "type-check": "tsc --noEmit"
+    }
 }

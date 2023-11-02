@@ -8,6 +8,7 @@ export enum Lockfile {
   NPM_LOCKFILE = 'package-lock.json',
   YARN_LOCKFILE = 'yarn.lock',
   PNPM_LOCKFILE = 'pnpm-lock.yaml',
+  BUN_LOCKFILE = 'bun.lockb',
 }
 
 export enum DependencyType {
@@ -26,6 +27,7 @@ export enum PackageManager {
   PNPM = 'pnpm',
   YARN = 'yarn',
   NPM = 'npm',
+  BUN = 'bun',
 }
 
 export enum DocumentName {
@@ -33,7 +35,6 @@ export enum DocumentName {
 }
 
 export enum FilePath {
-  PROJECT_CONFIG = '.commonality/config.json',
   PACKAGE_CONFIG = './commonality.json',
 }
 

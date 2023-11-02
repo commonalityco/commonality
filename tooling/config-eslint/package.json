@@ -1,0 +1,26 @@
+{
+  "name": "eslint-config-commonality",
+  "description": "The Commonality CLI's ESLint configuration",
+  "version": "0.0.9",
+  "author": {
+    "name": "Alec Ortega",
+    "email": "alec@commonality.co"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "main": ".eslintrc.js",
+  "engines": {
+    "node": ">=14.6"
+  },
+  "dependencies": {
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-n": "^16.1.0",
+    "eslint-plugin-unicorn": "^48.0.1",
+    "eslint-plugin-unused-imports": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

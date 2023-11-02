@@ -9,7 +9,7 @@
   "sideEffects": false,
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@commonalityco/types": "workspace:^",
+    "@commonalityco/types": "workspace:*",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "react-markdown": "^8.0.7",
@@ -22,9 +22,9 @@
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
     "@testing-library/react": "^14.0.0",
-    "@types/react": "^18.2.21",
+    "@types/react": "^18.2.22",
     "@types/react-syntax-highlighter": "^15.5.7",
-    "eslint-config-commonality": "workspace:^",
+    "eslint-config-commonality": "workspace:*",
     "lucide-react": "^0.274.0",
     "next": "13.4.19",
     "next-themes": "^0.2.1",
@@ -37,17 +37,18 @@
   "peerDependencies": {
     "@commonalityco/ui-design-system": "*",
     "lucide-react": "^0.x",
-    "next": ">=13",
+    "next": "13.4.19",
     "next-themes": "^0.x",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "tsc --build",
     "dev": "tsc --watch",
-    "test": "vitest"
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
   },
   "exports": {
     ".": "./dist/index.js",

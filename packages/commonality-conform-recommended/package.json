@@ -1,0 +1,39 @@
+{
+  "name": "commonality-conform-recommended",
+  "description": "Commonality's recommended conformers.",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "commonality": "*"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/data-codeowners": "workspace:*",
+    "@commonalityco/data-documents": "workspace:*",
+    "@commonalityco/data-packages": "workspace:*",
+    "@commonalityco/data-project": "workspace:*",
+    "@commonalityco/data-tags": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "commonality": "workspace:*",
+    "eslint-config-commonality": "workspace:*",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "semver": "^7.5.4"
+  }
+}

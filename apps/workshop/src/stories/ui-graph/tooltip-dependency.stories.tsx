@@ -20,8 +20,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Simple: Story = {
   args: {
-    constraints: [],
-    violations: [],
     dependency: {
       type: DependencyType.PRODUCTION,
       version: '1.0.0',

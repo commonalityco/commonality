@@ -1,4 +1,4 @@
-import { Document } from '@commonalityco/types';
+import type { Document } from '@commonalityco/types';
 import fs from 'fs-extra';
 import { globby } from 'globby';
 import path from 'node:path';

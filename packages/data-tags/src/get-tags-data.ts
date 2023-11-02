@@ -1,7 +1,7 @@
 import path from 'node:path';
 import fs from 'fs-extra';
 import type { Package, PackageConfig, TagsData } from '@commonalityco/types';
-import { slugifyTagName } from '@commonalityco/utils-core';
+import { slugifyTagName } from '@commonalityco/utils-core/slugify-tag-name';
 
 export const getTagsData = async ({
   rootDirectory,
@@ -17,7 +17,7 @@ export const getTagsData = async ({
       const packageConfigPath = path.join(
         rootDirectory,
         package_.path,
-        'commonality.json'
+        'commonality.json',
       );
 
       if (!(await fs.exists(packageConfigPath))) {
@@ -36,7 +36,7 @@ export const getTagsData = async ({
           tags: formattedTags,
         });
       }
-    })
+    }),
   );
 
   return tagData;

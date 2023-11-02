@@ -99,7 +99,17 @@ export function StudioTagsCell<T extends ColumnData>({
           packageName={data.name}
         />
       </EditTagsDialog>
-      <TagsCell {...rest} onAddTags={() => setOpen(true)} />
+      {data.tags.length > 0 ? (
+        <Button
+          variant="ghost"
+          onClick={() => setOpen(true)}
+          className="p-0 m-0 h-auto bg-tranparent hover:bg-transparent"
+        >
+          <TagsCell {...rest} onAddTags={() => setOpen(true)} />
+        </Button>
+      ) : (
+        <TagsCell {...rest} onAddTags={() => setOpen(true)} />
+      )}
     </>
   );
 }

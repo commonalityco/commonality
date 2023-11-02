@@ -1,16 +1,19 @@
 'use server';
 import 'server-only';
-import { getPackageManager } from '@commonalityco/data-project';
+import { getPackageManager } from '@commonalityco/data-project/get-package-manager';
 import { getRootPackageName } from '@commonalityco/data-packages';
 import { PackageManager } from '@commonalityco/utils-core';
+import { Package, ProjectConfig } from '@commonalityco/types';
+import { getProjectConfig } from '@commonalityco/data-project';
 
 export const preload = () => {
-  getProject();
+  getProjectData();
 };
 
-export const getProject = async (): Promise<{
+export const getProjectData = async (): Promise<{
   name: string;
   packageManager: PackageManager;
+  config?: ProjectConfig;
 }> => {
   const packageManager = await getPackageManager({
     rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
@@ -18,9 +21,13 @@ export const getProject = async (): Promise<{
   const rootPackageName = await getRootPackageName({
     rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
   });
+  const config = await getProjectConfig({
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+  }).then((result) => result?.config);
 
   return {
     name: rootPackageName,
     packageManager,
+    config,
   };
 };

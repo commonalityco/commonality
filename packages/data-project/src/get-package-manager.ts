@@ -22,5 +22,9 @@ export const getPackageManager = async ({
     return PackageManager.PNPM;
   }
 
+  if (await getFileExistsAtRoot(Lockfile.BUN_LOCKFILE)) {
+    return PackageManager.BUN;
+  }
+
   throw new Error('Could not detect package manager');
 };

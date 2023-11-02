@@ -12,7 +12,7 @@ import StudioPackagesTable from './studio-packages-table';
 import StudioPackagesTablePaginator from './studio-packages-table-paginator';
 import { getTableData } from './get-table-data';
 
-async function PackagesPage({ searchParams }: { searchParams: unknown }) {
+async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
   const [packages, documentsData, tagsData, codeownersData] = await Promise.all(
     [getPackagesData(), getDocumentsData(), getTagsData(), getCodeownersData()],
   );
@@ -58,11 +58,11 @@ async function PackagesPage({ searchParams }: { searchParams: unknown }) {
       <div className="grow p-6 w-full space-y-6 flex flex-col">
         <div className="w-full space-y-6">
           <div className="flex gap-4 items-center">
-            <h1 className="font-medium text-2xl leading-none">Packages</h1>
+            <h1 className="font-medium text-2xl leading-none">Conformance</h1>
             <Badge
               variant="secondary"
               className="text-muted-foreground"
-            >{`${data.length}/${packages.length}`}</Badge>
+            >{`${data.length} of ${packages.length} packages`}</Badge>
           </div>
 
           <div className="flex items-center gap-2 shrink-0 relative z-10">

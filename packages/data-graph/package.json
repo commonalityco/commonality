@@ -1,44 +1,44 @@
 {
-  "name": "@commonalityco/data-graph",
-  "description": "State management utilities for the Commonality dependency graph",
-  "version": "0.0.13",
-  "publishConfig": {
-    "access": "public"
-  },
-  "sideEffects": false,
-  "devDependencies": {
-    "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/types": "workspace:*",
-    "@commonalityco/utils-core": "workspace:*",
-    "@commonalityco/utils-graph": "workspace:*",
-    "@popperjs/core": "^2.11.8",
-    "@types/cytoscape": "^3.19.11",
-    "@types/lodash.debounce": "^4.0.7",
-    "eslint-config-commonality": "workspace:*",
-    "typescript": "^5.2.2",
-    "xstate": "^4.38.2"
-  },
-  "license": "MIT",
-  "peerDependencies": {
-    "@commonalityco/utils-core": "*",
-    "@commonalityco/utils-graph": "*",
-    "xstate": "^4.37.2"
-  },
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js"
-  },
-  "main": "./dist/index.js",
-  "dependencies": {
-    "cytoscape": "^3.26.0",
-    "lodash.debounce": "^4.0.8"
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "build": "tsc --build",
-    "dev": "tsc --watch",
-    "type-check": "tsc --noEmit"
-  }
+    "name": "@commonalityco/data-graph",
+    "description": "State management utilities for the Commonality dependency graph",
+    "version": "0.0.12",
+    "publishConfig": {
+        "access": "public"
+    },
+    "sideEffects": false,
+    "devDependencies": {
+        "@commonalityco/config-tsconfig": "workspace:*",
+        "@commonalityco/types": "workspace:*",
+        "@commonalityco/utils-core": "workspace:*",
+        "@commonalityco/utils-graph": "workspace:*",
+        "@popperjs/core": "^2.11.8",
+        "@types/cytoscape": "^3.19.11",
+        "@types/lodash.debounce": "^4.0.7",
+        "eslint-config-commonality": "workspace:*",
+        "typescript": "^5.2.2",
+        "xstate": "^4.38.2"
+    },
+    "license": "MIT",
+    "peerDependencies": {
+        "@commonalityco/utils-core": "workspace:*",
+        "@commonalityco/utils-graph": "workspace:*",
+        "xstate": "^4.37.2"
+    },
+    "type": "module",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": "./dist/index.js"
+    },
+    "main": "./dist/index.js",
+    "dependencies": {
+        "cytoscape": "^3.26.0",
+        "lodash.debounce": "^4.0.8"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "build": "tsc --build",
+        "dev": "tsc --watch",
+        "type-check": "tsc --noEmit"
+    }
 }

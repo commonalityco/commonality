@@ -20,8 +20,7 @@ import React, { ComponentProps, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { setTagsAction } from 'actions/metadata';
-import Link from 'next/link';
+import { setTagsAction } from '@/actions/metadata';
 
 const formSchema = z.object({
   tags: z.array(z.object({ label: z.string(), value: z.string() })),

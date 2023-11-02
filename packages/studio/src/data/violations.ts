@@ -23,7 +23,7 @@ export const getViolationsData = cache(async () => {
 
   const violations = getViolations({
     dependencies,
-    constraints: projectConfig.constraints,
+    constraints: projectConfig?.config.constraints,
     tagsData,
   });
 

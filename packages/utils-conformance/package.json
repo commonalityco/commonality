@@ -1,0 +1,28 @@
+{
+  "name": "@commonalityco/utils-conformance",
+  "description": "Get information about the conformance status of your project",
+  "version": "0.0.0",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "eslint-config-commonality": "workspace:*",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest --coverage",
+    "type-check": "tsc --noEmit"
+  }
+}

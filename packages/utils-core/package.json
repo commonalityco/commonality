@@ -1,32 +1,33 @@
 {
-  "name": "@commonalityco/utils-core",
-  "version": "0.0.11",
-  "type": "module",
-  "description": "Contains the common constants used in all Commonality applications and packages",
-  "sideEffects": false,
-  "publishConfig": {
-    "access": "public"
-  },
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js",
-    "./*": "./dist/*.js"
-  },
-  "main": "./dist/index.js",
-  "license": "MIT",
-  "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "test": "vitest"
-  },
-  "devDependencies": {
-    "@commonalityco/config-tsconfig": "workspace:*",
-    "eslint-config-commonality": "workspace:*",
-    "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "@sindresorhus/slugify": "^2.2.1"
-  }
+    "name": "@commonalityco/utils-core",
+    "version": "0.0.10",
+    "type": "module",
+    "description": "Contains the common constants used in all Commonality applications and packages",
+    "sideEffects": false,
+    "publishConfig": {
+        "access": "public"
+    },
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": "./dist/index.js",
+        "./*": "./dist/*.js"
+    },
+    "main": "./dist/index.js",
+    "license": "MIT",
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "build": "tsc",
+        "dev": "tsc --watch",
+        "test": "vitest",
+        "type-check": "tsc --noEmit"
+    },
+    "devDependencies": {
+        "@commonalityco/config-tsconfig": "workspace:*",
+        "eslint-config-commonality": "workspace:*",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "@sindresorhus/slugify": "^2.2.1"
+    }
 }

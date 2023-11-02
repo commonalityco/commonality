@@ -1,15 +1,15 @@
 import './globals.css';
 import { clsx } from 'clsx';
-import { firaCode, inter } from 'constants/fonts';
-import { Providers } from 'app/providers';
+import { firaCode, inter } from '@/constants/fonts';
+import { Providers } from '@/app/providers';
 import { cookies } from 'next/headers';
 import StudioNavigation from './studio-navigation';
-import { getProject } from 'data/project';
+import { PackageManager } from '@commonalityco/utils-core';
 
 export const metadata = {
   title: 'Commonality Studio',
   icons: {
-    icon: './favicon.png',
+    icon: './favicon.ico',
   },
 };
 
@@ -18,7 +18,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const project = await getProject();
+  const project = { name: 'hello', packageManager: PackageManager.PNPM };
   const cookieStore = cookies();
   const defaultTheme = cookieStore.get('commonality:theme')?.value;
 

@@ -4,6 +4,7 @@ import {
   NavigationLogo,
   Divider,
   ThemeButton,
+  BunLogo,
 } from '@commonalityco/ui-core';
 import { useTheme } from 'next-themes';
 import { Button } from '@commonalityco/ui-design-system';
@@ -25,6 +26,7 @@ const IconByPackageManager = {
   [PackageManager.NPM]: NpmLogo,
   [PackageManager.PNPM]: PnpmLogo,
   [PackageManager.YARN]: YarnLogo,
+  [PackageManager.BUN]: BunLogo,
 };
 
 function LastUpdateTime() {
@@ -99,7 +101,7 @@ function StudioNavigation({
             <h1 className="text-base font-semibold text-foreground">{title}</h1>
           </div>
           <div className="flex items-center space-x-2">
-            <Button variant="outline" asChild>
+            <Button variant="link" asChild>
               <Link
                 href="https://commonality.co/feedback"
                 target="_blank"
@@ -135,7 +137,7 @@ function StudioNavigation({
             active={pathname === '/'}
           >
             <Network className="h-4 w-4" />
-            <span>Graph</span>
+            <span>Constrain</span>
           </NavigationButton>
           <NavigationButton
             className="flex gap-2 items-center"
@@ -143,7 +145,7 @@ function StudioNavigation({
             active={pathname === '/packages'}
           >
             <Box className="h-4 w-4" />
-            <span>Packages</span>
+            <span>Conform</span>
           </NavigationButton>
         </div>
         <LastUpdateTime />

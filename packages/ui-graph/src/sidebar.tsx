@@ -12,7 +12,6 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  Label,
   Card,
   CardHeader,
   CardTitle,

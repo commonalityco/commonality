@@ -10,6 +10,7 @@ import {
   TagsCell,
 } from '@commonalityco/ui-package';
 import { PackageType } from '@commonalityco/utils-core';
+import { Package } from '@commonalityco/types';
 
 const columns = [
   {
@@ -30,14 +31,14 @@ const columns = [
   {
     accessorKey: 'tags',
     header: 'Tags',
-    cell: TagsCell,
+    cell: (props) => <TagsCell {...props} onAddTags={async () => {}} />,
   },
   {
     accessorKey: 'codeowners',
     header: 'Codeowners',
     cell: CodeownersCell,
   },
-] satisfies PackageTableColumns;
+] satisfies PackageTableColumns<Package>;
 
 const meta = {
   title: 'ui-package/PackagesTable',

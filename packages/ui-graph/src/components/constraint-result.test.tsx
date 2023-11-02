@@ -36,18 +36,14 @@ describe('<TagDetails />', () => {
 
 describe('<ConstraintResult />', () => {
   test('renders "Allowed" section when allow property is in constraint', () => {
-    render(
-      <ConstraintResult constraint={{ applyTo: 'foo', allow: ['tagA'] }} />,
-    );
+    render(<ConstraintResult constraint={{ allow: ['tagA'] }} />);
     expect(screen.getByText('Allowed')).toBeTruthy();
     expect(screen.queryByText('Disallowed')).not.toBeTruthy();
     expect(screen.queryByText('Found')).not.toBeTruthy();
   });
 
   test('renders "Disallowed" section when disallow property is in constraint', () => {
-    render(
-      <ConstraintResult constraint={{ applyTo: 'foo', disallow: ['tagB'] }} />,
-    );
+    render(<ConstraintResult constraint={{ disallow: ['tagB'] }} />);
     expect(screen.getByText('Disallowed')).toBeTruthy();
   });
 
@@ -55,7 +51,6 @@ describe('<ConstraintResult />', () => {
     render(
       <ConstraintResult
         constraint={{
-          applyTo: 'foo',
           allow: ['tagA'],
           disallow: ['tagB'],
         }}

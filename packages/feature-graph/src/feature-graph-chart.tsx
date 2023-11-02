@@ -1,8 +1,8 @@
 'use client';
 import {
-  Constraint,
   Dependency,
   Package,
+  ProjectConfig,
   Violation,
 } from '@commonalityco/types';
 import { Package as PackageIcon } from 'lucide-react';
@@ -17,7 +17,7 @@ import debounce from 'lodash.debounce';
 interface GraphProperties {
   packages: Package[];
   violations: Violation[];
-  constraints: Constraint[];
+  constraints: ProjectConfig['constraints'];
   dependencies: Dependency[];
   theme?: string;
   onPackageClick: (packageName: string) => void;

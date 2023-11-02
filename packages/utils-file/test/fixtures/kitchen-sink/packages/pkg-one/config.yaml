@@ -1,0 +1,4 @@
+fakeToolConfig:
+  generalSettings:
+    theme: dark
+    language: en

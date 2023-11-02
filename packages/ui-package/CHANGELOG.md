@@ -1,11 +1,5 @@
 # @commonalityco/ui-package
 
-## 0.0.16
-
-### Patch Changes
-
-- 51411d8: update dependencies
-
 ## 0.0.15
 
 ### Patch Changes

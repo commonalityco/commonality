@@ -17,6 +17,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",
+    "bench": "vitest bench",
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
