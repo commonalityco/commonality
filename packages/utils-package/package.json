@@ -1,46 +1,46 @@
 {
-    "name": "@commonalityco/utils-package",
-    "description": "Utilities for formatting package data",
-    "type": "module",
-    "types": "./src/index.ts",
+  "name": "@commonalityco/utils-package",
+  "description": "Utilities for formatting package data",
+  "type": "module",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "version": "0.0.10",
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "exports": {
-        ".": "./src/index.ts"
-    },
-    "main": "./src/index.ts",
-    "sideEffects": false,
-    "version": "0.0.10",
-    "publishConfig": {
-        "access": "public",
-        "main": "./dist/index.js",
-        "types": "./dist/index.d.ts",
-        "exports": {
-            ".": "./dist/index.js"
-        }
-    },
-    "license": "MIT",
-    "dependencies": {
-        "@commonalityco/utils-core": "workspace:*"
-    },
-    "devDependencies": {
-        "@commonalityco/config-tsconfig": "workspace:*",
-        "@commonalityco/types": "workspace:*",
-        "@types/react": "^18.2.22",
-        "eslint-config-commonality": "workspace:*",
-        "postcss": "^8.4.30",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "tailwindcss": "^3.3.3",
-        "typescript": "^5.2.2"
-    },
-    "peerDependencies": {
-        "react": ">=18",
-        "react-dom": ">=18"
-    },
-    "scripts": {
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
-        "build": "tsc --build",
-        "dev": "tsc --watch",
-        "type-check": "tsc --noEmit"
+      ".": "./dist/index.js"
     }
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@commonalityco/utils-core": "workspace:*"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@types/react": "^18.2.22",
+    "eslint-config-commonality": "workspace:*",
+    "postcss": "^8.4.30",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "tsc --build",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit"
+  }
 }

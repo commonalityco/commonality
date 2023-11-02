@@ -38,6 +38,7 @@ const ensureInternalPackage = defineConformer(() => ({
   fix: async ({ json }) => {
     const packageJson = json('package.json');
 
+    await packageJson.remove('scripts.dev');
     await packageJson.set('scripts.build', 'tsc --build');
     await packageJson.set('type', 'module');
     await packageJson.set('exports["."]', './src/index.ts');

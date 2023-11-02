@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-process-exit */
-import React, { useMemo } from 'react';
+import React from 'react';
 import { runFixes } from '@commonalityco/utils-conformance';
 import { getConformanceResults } from '@commonalityco/data-conformance';
 import { Command } from 'commander';
@@ -245,9 +245,8 @@ export const ConformRunner = ({
                 createJson,
                 createText,
               });
-
-              setAutoFixRunCount(autoFixRunCount + 1);
               await refetch();
+              setAutoFixRunCount(autoFixRunCount + 1);
             }}
           />
         </Box>
