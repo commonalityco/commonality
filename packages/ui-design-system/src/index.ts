@@ -3,10 +3,10 @@ export {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from './accordion.js';
-export { Alert, AlertTitle, AlertDescription } from './alert.js';
-export { Button, buttonVariants } from './button.js';
-export { Badge, badgeVariants } from './badge.js';
+} from './accordion';
+export { Alert, AlertTitle, AlertDescription } from './alert';
+export { Button, buttonVariants } from './button';
+export { Badge, badgeVariants } from './badge';
 export {
   useFormField,
   Form,
@@ -16,7 +16,7 @@ export {
   FormDescription,
   FormMessage,
   FormField,
-} from './form.js';
+} from './form';
 export {
   Dialog,
   DialogTrigger,
@@ -25,7 +25,7 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
-} from './dialog.js';
+} from './dialog';
 export {
   Card,
   CardHeader,
@@ -33,8 +33,8 @@ export {
   CardTitle,
   CardDescription,
   CardContent,
-} from './card.js';
-export { Checkbox } from './checkbox.js';
+} from './card';
+export { Checkbox } from './checkbox';
 export {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -51,12 +51,12 @@ export {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuRadioGroup,
-} from './dropdown-menu.js';
-export { Heading } from './heading.js';
-export { Label } from './label.js';
-export { ScrollArea, ScrollBar } from './scroll-area.js';
-export { Select, CreatebleSelect } from './select.js';
-export { Separator } from './separator.js';
+} from './dropdown-menu';
+export { Heading } from './heading';
+export { Label } from './label';
+export { ScrollArea, ScrollBar } from './scroll-area';
+export { Select, CreatebleSelect } from './select';
+export { Separator } from './separator';
 export {
   Sheet,
   SheetTrigger,
@@ -66,12 +66,12 @@ export {
   SheetFooter,
   SheetTitle,
   SheetDescription,
-} from './sheet.js';
-export { Skeleton } from './skeleton.js';
-export { Snippet } from './snippet.js';
-export { Kbd } from './kbd.js';
-export { Switch } from './switch.js';
-export { Popover, PopoverTrigger, PopoverContent } from './popover.js';
+} from './sheet';
+export { Skeleton } from './skeleton';
+export { Snippet } from './snippet';
+export { Kbd } from './kbd';
+export { Switch } from './switch';
+export { Popover, PopoverTrigger, PopoverContent } from './popover';
 export {
   Command,
   CommandDialog,
@@ -82,8 +82,8 @@ export {
   CommandItem,
   CommandShortcut,
   CommandSeparator,
-} from './command.js';
-export { Input } from './input.js';
+} from './command';
+export { Input } from './input';
 export {
   Table,
   TableHeader,
@@ -94,16 +94,16 @@ export {
   TableRow,
   TableCell,
   TableCaption,
-} from './table.js';
-export { Text } from './text.js';
-export { Toggle, toggleVariants } from './toggle.js';
+} from './table';
+export { Text } from './text';
+export { Toggle, toggleVariants } from './toggle';
 export {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
   TooltipProvider,
-} from './tooltip.js';
-export { HoverCard, HoverCardTrigger, HoverCardContent } from './hover-card.js';
-export { Toaster } from './toaster.js';
-export { useToast } from './use-toast.js';
-export { cn } from './cn.js';
+} from './tooltip';
+export { HoverCard, HoverCardTrigger, HoverCardContent } from './hover-card';
+export { Toaster } from './toaster';
+export { useToast } from './use-toast';
+export { cn } from './cn';

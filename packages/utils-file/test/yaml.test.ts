@@ -6,7 +6,7 @@ import fs from 'fs-extra';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-describe.skip('createYaml', () => {
+describe('createYaml', () => {
   const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
   const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
   const workspace: Workspace = {
@@ -20,6 +20,8 @@ describe.skip('createYaml', () => {
       devDependencies: {},
       peerDependencies: {},
     },
+    tags: [],
+    codeowners: [],
   };
 
   const fixturePath = path.resolve(
@@ -40,11 +42,11 @@ describe.skip('createYaml', () => {
       const yamlFile = createYaml({
         rootDirectory: temporaryPath,
         workspace,
-      })('package.yaml');
+      })('config.yaml');
 
       const yaml = await yamlFile.get('fakeToolConfig.generalSettings.theme');
 
-      expect(yaml).toEqual('pkg-one');
+      expect(yaml).toEqual('dark');
     });
   });
 
@@ -53,7 +55,7 @@ describe.skip('createYaml', () => {
       const yamlFile = createYaml({
         rootDirectory: temporaryPath,
         workspace,
-      })('package.yaml');
+      })('config.yaml');
 
       await yamlFile.set('fakeToolConfig.property', 'hello');
 
@@ -68,7 +70,7 @@ describe.skip('createYaml', () => {
       const yamlFile = createYaml({
         rootDirectory: temporaryPath,
         workspace,
-      })('package.yaml');
+      })('config.yaml');
 
       await yamlFile.remove('workspaces');
 

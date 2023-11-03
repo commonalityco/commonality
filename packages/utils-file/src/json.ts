@@ -5,10 +5,8 @@ import type {
 } from '@commonalityco/types';
 import { File } from './file.js';
 import fs from 'fs-extra';
-import get from 'lodash.get';
-import set from 'lodash.set';
-import omit from 'lodash.omit';
 import detectIndent from 'detect-indent';
+import { get, set, omit } from './utils/fp.js';
 
 class JsonFile extends File implements JsonFileType {
   constructor(workspace: Workspace, rootDirectory: string, filename: string) {
@@ -51,6 +49,7 @@ class JsonFile extends File implements JsonFileType {
   async remove(accessPath: string) {
     try {
       const json = await fs.readJSON(this.filepath);
+
       const updatedJson = omit(json, accessPath);
 
       await fs.outputJSON(this.filepath, updatedJson);

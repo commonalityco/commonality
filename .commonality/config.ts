@@ -1,3 +1,4 @@
+import { get } from 'lodash.get';
 import { defineConfig, defineConformer } from 'commonality';
 import * as recommended from 'commonality-conform-recommended';
 
@@ -23,7 +24,9 @@ const ensureInternalPackage = defineConformer(() => ({
   validate: async ({ json }) => {
     // Maybe introduce .equals matcher which handles stripping whitespace and regex matching with .matches
     const packageJson = json('package.json');
+
     return (
+      (await packageJson.get('scripts.dev')) !== 'tsc --watch' &&
       (await packageJson.get('scripts.build')) === 'tsc --build' &&
       (await packageJson.get('type')) === 'module' &&
       (await packageJson.get('main')) === './src/index.ts' &&

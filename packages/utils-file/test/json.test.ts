@@ -92,9 +92,41 @@ describe('createJson', () => {
 
       await jsonFile.remove('workspaces');
 
-      const json = await jsonFile.get('workspaces');
+      const json = await jsonFile.get();
 
-      expect(json).toEqual(undefined);
+      expect(json).toEqual({
+        dependencies: {},
+        description: 'This is a test package',
+        devDependencies: {},
+        name: 'pkg-one',
+        peerDependencies: {},
+        version: '1.0.0',
+        scripts: {
+          dev: 'build',
+        },
+      });
+    });
+
+    it('should remove value from JSON file when passed a path', async () => {
+      const jsonFile = createJson({
+        rootDirectory: temporaryPath,
+        workspace,
+      })('package.json');
+
+      await jsonFile.remove('scripts.dev');
+
+      const json = await jsonFile.get();
+
+      expect(json).toEqual({
+        workspaces: [],
+        dependencies: {},
+        description: 'This is a test package',
+        devDependencies: {},
+        name: 'pkg-one',
+        peerDependencies: {},
+        scripts: {},
+        version: '1.0.0',
+      });
     });
 
     it('should handle when file does not exist', async () => {

@@ -1,41 +1,41 @@
 {
-  "name": "@commonalityco/data-packages",
-  "description": "Get package information about a local project",
-  "version": "0.0.17",
-  "type": "module",
-  "publishConfig": {
-    "access": "public",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "name": "@commonalityco/data-packages",
+    "description": "Get package information about a local project",
+    "version": "0.0.17",
+    "type": "module",
+    "publishConfig": {
+        "access": "public",
+        "main": "./dist/index.js",
+        "types": "./dist/index.d.ts",
+        "exports": {
+            ".": "./dist/index.js"
+        }
+    },
+    "types": "./src/index.ts",
     "exports": {
-      ".": "./dist/index.js"
+        ".": "./src/index.ts"
+    },
+    "main": "./src/index.ts",
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc --build",
+        "dev": "tsc --watch",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "test": "vitest",
+        "type-check": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@commonalityco/data-project": "workspace:*",
+        "@commonalityco/utils-core": "workspace:*",
+        "fs-extra": "^11.1.1"
+    },
+    "devDependencies": {
+        "@commonalityco/config-tsconfig": "workspace:*",
+        "@commonalityco/types": "workspace:*",
+        "@types/fs-extra": "^11.0.2",
+        "@types/node": "^20.6.3",
+        "eslint-config-commonality": "workspace:*",
+        "typescript": "^5.2.2"
     }
-  },
-  "types": "./src/index.ts",
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "main": "./src/index.ts",
-  "license": "MIT",
-  "scripts": {
-    "build": "tsc --build",
-    "dev": "tsc --watch",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "test": "vitest",
-    "type-check": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@commonalityco/data-project": "workspace:*",
-    "@commonalityco/utils-core": "workspace:*",
-    "fs-extra": "^11.1.1"
-  },
-  "devDependencies": {
-    "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/types": "workspace:*",
-    "@types/fs-extra": "^11.0.2",
-    "@types/node": "^20.6.3",
-    "eslint-config-commonality": "workspace:*",
-    "typescript": "^5.2.2"
-  }
 }

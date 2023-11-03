@@ -1,5 +1,5 @@
 import { cva, VariantProps } from 'class-variance-authority';
-import { cn } from './cn.js';
+import { cn } from './cn';
 
 export interface SnippetProperties
   extends React.DetailedHTMLProps<

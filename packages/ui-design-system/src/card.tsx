@@ -1,6 +1,6 @@
 import { cva, VariantProps } from 'class-variance-authority';
 import * as React from 'react';
-import { cn } from './cn.js';
+import { cn } from './cn';
 
 const cardVariants = cva('text-card-foreground rounded-lg border antialiased', {
   variants: {

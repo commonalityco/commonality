@@ -307,5 +307,6 @@ export const conform = command
         verbose={options.verbose}
         rootDirectory={rootDirectory}
       />,
+      { debug: true },
     );
   });
