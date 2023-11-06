@@ -284,8 +284,8 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0
       '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.1
+        specifier: ^11.0.3
+        version: 11.0.3
       '@types/kill-port':
         specifier: ^2.0.0
         version: 2.0.0
@@ -382,8 +382,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.1
+        specifier: ^11.0.3
+        version: 11.0.3
       '@types/node':
         specifier: ^20.6.0
         version: 20.6.0
@@ -416,8 +416,8 @@ importers:
         specifier: workspace:*
         version: link:../utils-core
       '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.1
+        specifier: ^11.0.3
+        version: 11.0.3
       '@types/node':
         specifier: ^20.6.0
         version: 20.6.0
@@ -512,8 +512,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.1
+        specifier: ^11.0.3
+        version: 11.0.3
       '@types/node':
         specifier: ^20.6.0
         version: 20.6.0
@@ -555,8 +555,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.1
+        specifier: ^11.0.3
+        version: 11.0.3
       '@types/node':
         specifier: ^20.6.0
         version: 20.6.0
@@ -589,8 +589,8 @@ importers:
         specifier: workspace:*
         version: link:../types
       '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.1
+        specifier: ^11.0.3
+        version: 11.0.3
       '@types/lodash.uniq':
         specifier: ^4.5.7
         version: 4.5.7
@@ -834,8 +834,8 @@ importers:
         specifier: ^0.5.1
         version: 0.5.1
       '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.1
+        specifier: ^11.0.3
+        version: 11.0.3
       '@types/lodash':
         specifier: ^4.14.198
         version: 4.14.198
@@ -6826,8 +6826,8 @@ packages:
     resolution: {integrity: sha512-frsJrz2t/CeGifcu/6uRo4b+SzAwT4NYCVPu1GN8IB9XTzrpPkGuV0tmh9mN+/L0PklAlsC3u5Fxt0ju00LXIw==}
     dev: true
 
-  /@types/fs-extra@11.0.1:
-    resolution: {integrity: sha512-MxObHvNl4A69ofaTRU8DFqvgzzv8s9yRtaPPm5gud9HDNvpB3GPQFvNuTWAI59B9huVGV5jXYJwbCsmBsOGYWA==}
+  /@types/fs-extra@11.0.3:
+    resolution: {integrity: sha512-sF59BlXtUdzEAL1u0MSvuzWd7PdZvZEtnaVkzX5mjpdWTJ8brG0jUqve3jPCzSzvAKKMHTG8F8o/WMQLtleZdQ==}
     dependencies:
       '@types/jsonfile': 6.1.1
       '@types/node': 20.6.0
