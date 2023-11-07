@@ -98,11 +98,20 @@ export interface YamlFile extends File {
 
 export type YamlFileCreator = (filename: string) => YamlFile;
 
+interface JSONObject {
+  [x: string]: JSONValue;
+}
+
+interface JSONArray extends Array<JSONValue> {}
+
+export type JSONValue = string | number | boolean | JSONObject | JSONArray;
+
 export interface JsonFile extends File {
   get(path: string): Promise<string | number | boolean>;
   get<T extends Record<string, unknown>>(): Promise<T>;
-  set: (path: string, value: string | Record<string, unknown>) => Promise<void>;
-  remove: (path: string) => Promise<void>;
+  set(path: string, value: JSONValue): Promise<void>;
+  set(value: JSONValue): Promise<void>;
+  remove(path: string): Promise<void>;
 }
 
 export type JsonFileCreator = (filename: string) => JsonFile;

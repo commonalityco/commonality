@@ -1,4 +1,3 @@
-import { get } from 'lodash.get';
 import { defineConfig, defineConformer } from 'commonality';
 import * as recommended from 'commonality-conform-recommended';
 

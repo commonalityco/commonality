@@ -40,7 +40,6 @@
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "build": "tsc --build",
-        "dev": "tsc --watch",
         "type-check": "tsc --noEmit"
     }
 }

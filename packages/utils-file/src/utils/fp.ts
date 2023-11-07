@@ -1,3 +1,5 @@
+import { JSONValue } from '@commonalityco/types';
+
 export const toPathParts = (path: string) => path.match(/([^.[\]])+/g);
 
 export function omit<T extends Record<string, unknown>>(
@@ -27,10 +29,11 @@ export function omit<T extends Record<string, unknown>>(
   return result as Partial<T>;
 }
 
-export function set<
-  T extends Record<string, unknown>,
-  V extends string | number | boolean | null | { [key: string]: V } | V[],
->(obj: T, path: string, value: V): T {
+export function set<T extends Record<string, unknown>, V extends JSONValue>(
+  obj: T,
+  path: string,
+  value: V,
+): T {
   const pathParts = toPathParts(path);
 
   if (!pathParts) return obj;
@@ -50,7 +53,7 @@ export function set<
   return obj;
 }
 
-export function get<T extends Record<string, unknown>, V>(
+export function get<T extends Record<string, unknown>, V extends JSONValue>(
   obj: T,
   path: string,
   defaultValue?: V,

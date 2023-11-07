@@ -20,7 +20,6 @@
     "license": "MIT",
     "scripts": {
         "build": "tsc --build",
-        "dev": "tsc --watch",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "test": "vitest",

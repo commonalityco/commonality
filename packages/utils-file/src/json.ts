@@ -2,6 +2,7 @@ import type {
   JsonFile as JsonFileType,
   JsonFileCreator,
   Workspace,
+  JSONValue,
 } from '@commonalityco/types';
 import { File } from './file.js';
 import fs from 'fs-extra';
@@ -28,14 +29,17 @@ class JsonFile extends File implements JsonFileType {
   }
 
   async set(
-    pathOrValue: string,
-    value?: string | Record<string, unknown> | boolean | number,
-  ) {
+    pathOrValue: string | Record<string, JSONValue>,
+    value?: JSONValue | undefined,
+  ): Promise<void> {
     try {
       const jsonRaw = await fs.readFile(this.filepath, 'utf8');
       const json = await fs.readJSON(this.filepath);
 
-      const updatedJson = set(json, pathOrValue, value);
+      const updatedJson =
+        typeof pathOrValue === 'string' && value !== undefined
+          ? set(json, pathOrValue, value)
+          : (pathOrValue as JSONValue);
       const indent = detectIndent(jsonRaw).indent || '    ';
 
       const formattedJson = JSON.stringify(updatedJson, undefined, indent);
@@ -49,7 +53,6 @@ class JsonFile extends File implements JsonFileType {
   async remove(accessPath: string) {
     try {
       const json = await fs.readJSON(this.filepath);
-
       const updatedJson = omit(json, accessPath);
 
       await fs.outputJSON(this.filepath, updatedJson);
