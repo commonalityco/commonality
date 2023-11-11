@@ -125,7 +125,7 @@ export const ConformRunner = ({
   onError?: (error: Error) => void;
 }) => {
   const [autoFixRunCount, setAutoFixRunCount] = useState(0);
-  const { data, refetch, status, isLoading, error } = useAsyncFn(async () => {
+  const { data, refetch, isLoading, error } = useAsyncFn(async () => {
     return await getConformanceResults({
       conformersByPattern,
       rootDirectory,

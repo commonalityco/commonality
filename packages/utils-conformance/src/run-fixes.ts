@@ -1,11 +1,13 @@
+import { createJsonFileWriter } from './../../utils-file/src/json';
 import {
   Workspace,
   FileCreatorFactory,
-  JsonFileCreator,
   TextFileCreator,
   YamlFileCreator,
   ConformanceResult,
+  JsonFileWriter,
 } from '@commonalityco/types';
+import path from 'node:path';
 
 type ErrorName = 'FIX_FAILED' | 'VALIDATION_FAILED';
 class ConformanceError extends Error {
@@ -30,7 +32,7 @@ export const runFixes = async ({
   conformanceResults: ConformanceResult[];
   rootDirectory: string;
   workspaces: Workspace[];
-  createJson: FileCreatorFactory<JsonFileCreator>;
+  createJson: FileCreatorFactory<JsonFileWriter>;
   createText: FileCreatorFactory<TextFileCreator>;
   createYaml: FileCreatorFactory<YamlFileCreator>;
 }): Promise<
@@ -60,7 +62,10 @@ export const runFixes = async ({
             await fix({
               workspace,
               projectWorkspaces: workspaces,
-              json: createJson({ rootDirectory, workspace }),
+              json: (filename) =>
+                createJsonFileWriter(
+                  path.join(rootDirectory, workspace.path, filename),
+                ),
               text: createText({ rootDirectory, workspace }),
               yaml: createYaml({ rootDirectory, workspace }),
             });

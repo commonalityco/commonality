@@ -87,7 +87,7 @@ type ValidationResult =
 export type ValidateFn = (opts: {
   workspace: Workspace;
   projectWorkspaces: Workspace[];
-  json: JsonFileCreator;
+  json: JsonFileCreator<JsonFileReader>;
   yaml: YamlFileCreator;
   text: TextFileCreator;
 }) => ValidationResult | Promise<ValidationResult>;
@@ -125,7 +125,29 @@ export interface JsonFile extends File {
   remove(path: string): Promise<void>;
 }
 
-export type JsonFileCreator = (filename: string) => JsonFile;
+export interface JsonFileValidator {
+  get(path: string): Promise<JSONValue>;
+  get<T extends JSONValue>(): Promise<T>;
+  contains(value: Record<string, unknown>): Promise<boolean>;
+  exists: File['exists'];
+}
+
+export interface JsonFileReader extends Pick<File, 'exists'> {
+  get(path: string): Promise<JSONValue>;
+  get<T extends JSONValue>(): Promise<T>;
+  contains(value: Record<string, unknown>): Promise<boolean>;
+}
+
+export interface JsonFileWriter extends Pick<File, 'delete'> {
+  set(path: string, value: JSONValue): Promise<void>;
+  set(value: JSONValue): Promise<void>;
+  merge(value: Record<string, unknown>): Promise<void>;
+  remove(path: string): Promise<void>;
+}
+
+export type JsonFileCreator<T extends JsonFileReader | JsonFileWriter> = (
+  filename: string,
+) => T;
 
 export interface TextFile extends File {
   get: () => Promise<string[] | undefined>;
@@ -147,7 +169,7 @@ export type FileCreatorFactory<File> = ({
 export type FixFn = (opts: {
   workspace: Workspace;
   projectWorkspaces: Workspace[];
-  json: JsonFileCreator;
+  json: JsonFileCreator<JsonFileWriter>;
   yaml: YamlFileCreator;
   text: TextFileCreator;
 }) => void | Promise<void>;

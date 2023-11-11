@@ -4,9 +4,7 @@ export const ensureReadme = defineConformer(() => ({
   name: 'COMMONALITY/ENSURE_README',
   validate: async ({ text }) => text('README.md').exists(),
   fix: async ({ workspace, text }) => {
-    const README = text('README.md');
-
-    await README.set([
+    return text('README.md').set([
       `# ${workspace.packageJson.name}`,
       `> ${workspace.packageJson.description}`,
       '## Installation',

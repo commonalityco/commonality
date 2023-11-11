@@ -6,8 +6,6 @@
     "outDir": "./dist",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strictNullChecks": true,
-    "noUncheckedIndexedAccess": true,
     "strict": true
   }
 }

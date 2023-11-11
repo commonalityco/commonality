@@ -1,20 +1,21 @@
+import { createJsonFileReader } from './../../utils-file/src/json';
 import {
   Conformer,
   FileCreatorFactory,
-  JsonFileCreator,
+  JsonFileReader,
   TagsData,
   TextFileCreator,
   Workspace,
   YamlFileCreator,
   ConformanceResult,
 } from '@commonalityco/types';
+import path from 'node:path';
 
 export const getConformanceResults = async ({
   conformersByPattern,
   rootDirectory,
   workspaces,
   tagsData,
-  createJson,
   createText,
   createYaml,
 }: {
@@ -22,7 +23,7 @@ export const getConformanceResults = async ({
   rootDirectory: string;
   workspaces: Workspace[];
   tagsData: TagsData[];
-  createJson: FileCreatorFactory<JsonFileCreator>;
+  createJson: FileCreatorFactory<JsonFileReader>;
   createText: FileCreatorFactory<TextFileCreator>;
   createYaml: FileCreatorFactory<YamlFileCreator>;
 }): Promise<ConformanceResult[]> => {
@@ -44,13 +45,18 @@ export const getConformanceResults = async ({
           .map(async (workspace): Promise<ConformanceResult> => {
             const getIsValid = async (): Promise<boolean> => {
               try {
-                return conformer.validate({
+                const result = await conformer.validate({
                   workspace,
                   projectWorkspaces: workspaces,
-                  json: createJson({ rootDirectory, workspace }),
+                  json: (filename) =>
+                    createJsonFileReader(
+                      path.join(rootDirectory, workspace.path, filename),
+                    ),
                   text: createText({ rootDirectory, workspace }),
                   yaml: createYaml({ rootDirectory, workspace }),
                 });
+
+                return Boolean(result);
               } catch {
                 return false;
               }
