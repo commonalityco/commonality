@@ -5,52 +5,48 @@ import * as recommended from 'commonality-conform-recommended';
 const ensureScript = defineConformer<{ name: string; value: string }>(
   (options) => ({
     name: 'COMMONALITY/ENSURE_SCRIPT',
-    validate: async ({ json }) =>
-      !!json('package.json').get(`scripts[${options?.name}]`),
+    validate: async (read) =>
+      read.json('package.json').get(`scripts[${options?.name}]`),
 
-    fix: async ({ json }) =>
-      json('package.json').set(
-        `scripts[${options?.name}]`,
-        options?.value ?? '',
-      ),
+    fix: async (update) =>
+      update
+        .json('package.json')
+        .set(`scripts[${options?.name}]`, options?.value ?? ''),
     message: `Packages must include a "${options?.name}" script.`,
   }),
 );
 
-const ensureInternalPackage = defineConformer(() => ({
-  name: 'COMMONALITY/ENSURE_INTERNAL_PACKAGE',
-  message: 'Internal packages must have a specific package.json configuration.',
-  validate: async ({ json }) => {
-    // Maybe introduce .equals matcher which handles stripping whitespace and regex matching with .matches
-    const packageJson = json('package.json');
+const ensureInternalPackage = defineConformer(() => {
+  const expectedPackageJson = {
+    type: 'module',
+    main: './src/index.ts',
+    types: './src/index.ts',
+    publishConfig: {
+      main: './dist/index.js',
+      types: './dist/index.d.ts',
+      exports: {
+        '.': './dist/index.js',
+      },
+    },
+    scripts: {
+      build: 'tsc --build',
+    },
+  };
 
-    return (
-      (await packageJson.get('scripts.dev')) !== 'tsc --watch' &&
-      (await packageJson.get('scripts.build')) === 'tsc --build' &&
-      (await packageJson.get('type')) === 'module' &&
-      (await packageJson.get('main')) === './src/index.ts' &&
-      (await packageJson.get('types')) === './src/index.ts' &&
-      (await packageJson.get('publishConfig.main')) === './dist/index.js' &&
-      (await packageJson.get('publishConfig.types')) === './dist/index.d.ts' &&
-      (await packageJson.get('publishConfig.exports["."]')) ===
-        './dist/index.js' &&
-      (await packageJson.get('exports.["."]')) === './src/index.ts'
-    );
-  },
-  fix: async ({ json }) => {
-    const packageJson = json('package.json');
+  return {
+    name: 'COMMONALITY/ENSURE_INTERNAL_PACKAGE',
+    message:
+      'Internal packages must have a specific package.json configuration.',
+    validate: async (read) => {
+      const packageJson = read.json('package.json');
 
-    await packageJson.remove('scripts.dev');
-    await packageJson.set('scripts.build', 'tsc --build');
-    await packageJson.set('type', 'module');
-    await packageJson.set('exports["."]', './src/index.ts');
-    await packageJson.set('main', './src/index.ts');
-    await packageJson.set('types', './src/index.ts');
-    await packageJson.set('publishConfig.main', './dist/index.js');
-    await packageJson.set('publishConfig.types', './dist/index.d.ts');
-    await packageJson.set('publishConfig.exports["."]', './dist/index.js');
-  },
-}));
+      return packageJson.contains(expectedPackageJson);
+    },
+    fix: async (update) => {
+      return update.json('package.json').merge(expectedPackageJson);
+    },
+  };
+});
 
 export default defineConfig({
   projectId: '123',

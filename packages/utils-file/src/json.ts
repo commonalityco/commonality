@@ -1,3 +1,4 @@
+import { isMatch, merge } from '@commonalityco/utils-fp';
 import type {
   JsonFile as JsonFileType,
   JsonFileCreator,
@@ -9,7 +10,7 @@ import fs from 'fs-extra';
 import detectIndent from 'detect-indent';
 import { get, set, omit } from './utils/fp.js';
 
-class JsonFile extends File implements JsonFileType {
+export class JsonFile extends File implements JsonFileType {
   constructor(workspace: Workspace, rootDirectory: string, filename: string) {
     super(workspace, rootDirectory, filename);
   }
@@ -23,6 +24,31 @@ class JsonFile extends File implements JsonFileType {
       }
 
       return get(json, accessPath);
+    } catch {
+      return;
+    }
+  }
+
+  async contains(value: Record<string, unknown>): Promise<boolean> {
+    try {
+      const json = await fs.readJSON(this.filepath);
+
+      return isMatch(json, value);
+    } catch {
+      return false;
+    }
+  }
+
+  async merge(value: Record<string, unknown>): Promise<void> {
+    try {
+      const jsonRaw = await fs.readFile(this.filepath, 'utf8');
+      const json = await fs.readJSON(this.filepath);
+      const updatedJson = merge(json, value);
+      const indent = detectIndent(jsonRaw).indent || '    ';
+
+      const formattedJson = JSON.stringify(updatedJson, undefined, indent);
+
+      await fs.outputFile(this.filepath, formattedJson);
     } catch {
       return;
     }

@@ -6,7 +6,7 @@ import type {
 import { File } from './file.js';
 import fs from 'fs-extra';
 
-class TextFile extends File implements TextFileType {
+export class TextFile extends File implements TextFileType {
   constructor(workspace: Workspace, rootDirectory: string, filename: string) {
     super(workspace, rootDirectory, filename);
   }

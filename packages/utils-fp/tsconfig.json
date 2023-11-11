@@ -1,0 +1,7 @@
+{
+  "extends": "@commonalityco/config-tsconfig/node.json",
+  "include": ["src/**/*.ts", "test/utils/fp.test.ts"],
+  "compilerOptions": {
+    "outDir": "dist"
+  }
+}

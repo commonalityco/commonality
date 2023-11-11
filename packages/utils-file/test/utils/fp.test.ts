@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { toPathParts, omit, set, get } from '../../src/utils/fp';
+import { toPathParts, omit, set, get, isEqual } from '../../src/utils/fp';
 
 describe('toPathParts', () => {
   it('should correctly split path into parts', () => {
@@ -57,5 +57,21 @@ describe('get', () => {
     const obj = { a: { b: { c: 1 } } };
     const result = get(obj, 'a.d');
     expect(result).toBeUndefined();
+  });
+});
+
+describe('isEqual', () => {
+  it('should return true for equal JSONValues', () => {
+    const value1 = { a: { b: { c: 1 } } };
+    const value2 = { a: { b: { c: 1 } } };
+    const result = isEqual(value1, value2);
+    expect(result).toBe(true);
+  });
+
+  it('should return false for unequal JSONValues', () => {
+    const value1 = { a: { b: { c: 1 } } };
+    const value2 = { a: { b: { c: 2 } } };
+    const result = isEqual(value1, value2);
+    expect(result).toBe(false);
   });
 });

@@ -75,13 +75,22 @@ export type Workspace = {
   packageJson: PackageJson;
 };
 
+type ValidationResult =
+  | number
+  | string
+  | Record<string, unknown>
+  | Array<unknown>
+  | boolean
+  | undefined
+  | null;
+
 export type ValidateFn = (opts: {
   workspace: Workspace;
   projectWorkspaces: Workspace[];
   json: JsonFileCreator;
   yaml: YamlFileCreator;
   text: TextFileCreator;
-}) => boolean | Promise<boolean>;
+}) => ValidationResult | Promise<ValidationResult>;
 
 export interface File {
   exists: () => Promise<boolean>;
@@ -98,19 +107,21 @@ export interface YamlFile extends File {
 
 export type YamlFileCreator = (filename: string) => YamlFile;
 
-interface JSONObject {
+export interface JSONObject {
   [x: string]: JSONValue;
 }
 
-interface JSONArray extends Array<JSONValue> {}
+export interface JSONArray extends Array<JSONValue> {}
 
 export type JSONValue = string | number | boolean | JSONObject | JSONArray;
 
 export interface JsonFile extends File {
-  get(path: string): Promise<string | number | boolean>;
-  get<T extends Record<string, unknown>>(): Promise<T>;
+  get(path: string): Promise<JSONValue>;
+  get<T extends JSONValue>(): Promise<T>;
+  contains(value: Record<string, unknown>): Promise<boolean>;
   set(path: string, value: JSONValue): Promise<void>;
   set(value: JSONValue): Promise<void>;
+  merge(value: Record<string, unknown>): Promise<void>;
   remove(path: string): Promise<void>;
 }
 

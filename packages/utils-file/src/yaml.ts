@@ -10,7 +10,7 @@ import get from 'lodash.get';
 import set from 'lodash.set';
 import omit from 'lodash.omit';
 
-class YamlFile extends File implements YamlFileType {
+export class YamlFile extends File implements YamlFileType {
   constructor(workspace: Workspace, rootDirectory: string, filename: string) {
     super(workspace, rootDirectory, filename);
   }

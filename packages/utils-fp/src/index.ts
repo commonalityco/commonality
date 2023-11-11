@@ -78,7 +78,7 @@ export function get<T extends Record<string, JSONValue>, V extends JSONValue>(
   return result === undefined && defaultValue ? defaultValue : (result as V);
 }
 
-export function isEqual<T extends JSONValue>(value: T, other: T): boolean {
+export function isEqual(value: unknown, other: unknown): boolean {
   if (typeof value !== typeof other) return false;
 
   if (typeof value === 'object' && value !== null && other !== null) {
@@ -90,8 +90,8 @@ export function isEqual<T extends JSONValue>(value: T, other: T): boolean {
     for (const key of valueKeys) {
       if (
         !isEqual(
-          (value as Record<string, JSONValue>)[key],
-          (other as Record<string, JSONValue>)[key],
+          (value as Record<string, unknown>)[key],
+          (other as Record<string, unknown>)[key],
         )
       )
         return false;
@@ -101,4 +101,53 @@ export function isEqual<T extends JSONValue>(value: T, other: T): boolean {
   }
 
   return value === other;
+}
+
+export function isMatch(
+  object: Record<string, unknown>,
+  source: Record<string, unknown>,
+): boolean {
+  const keys = Object.keys(source);
+
+  for (const key of keys) {
+    if (
+      !Object.prototype.hasOwnProperty.call(object, key) ||
+      !isEqual(object[key], source[key])
+    ) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+export const isObject = (item: unknown): item is Record<string, unknown> =>
+  typeof item === 'object' && !Array.isArray(item) && item !== null;
+
+export function merge<
+  T extends Record<string, unknown>,
+  S extends Record<string, unknown>,
+>(object: T, source: S): T {
+  const result: T = { ...object };
+
+  for (const key in source) {
+    if (!Object.prototype.hasOwnProperty.call(source, key)) continue;
+
+    const sourceValue = source[key];
+    const objectValue = object[key];
+
+    const shouldMerge =
+      isObject(sourceValue) &&
+      Object.prototype.hasOwnProperty.call(object, key) &&
+      isObject(objectValue);
+
+    result[key as keyof T] = shouldMerge
+      ? (merge(
+          objectValue as Record<string, unknown>,
+          sourceValue as Record<string, unknown>,
+        ) as unknown as T[keyof T])
+      : (sourceValue as unknown as T[keyof T]);
+  }
+
+  return result;
 }
