@@ -28,7 +28,7 @@
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
-    "@types/fs-extra": "^11.0.1",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.6.0",
     "eslint-config-commonality": "workspace:^",
     "typescript": "^5.2.2"
