@@ -119,7 +119,7 @@ describe('when all checks pass', () => {
               name: 'pkg-one',
             },
           },
-          message: 'This package is should be cool',
+          message: 'This package should be cool',
         },
         {
           name: 'CONFORMER_NAME/TWO',
@@ -134,7 +134,7 @@ describe('when all checks pass', () => {
               name: 'pkg-two',
             },
           },
-          message: 'This package is should be cool',
+          message: 'This package should be cool',
         },
       ] satisfies ConformanceResult[]);
 
@@ -183,7 +183,7 @@ describe('when all checks pass', () => {
               name: 'pkg-one',
             },
           },
-          message: 'This package is should be cool',
+          message: 'This package should be cool',
         },
         {
           name: 'CONFORMER_NAME/TWO',
@@ -198,7 +198,7 @@ describe('when all checks pass', () => {
               name: 'pkg-two',
             },
           },
-          message: 'This package is should be cool',
+          message: 'This package should be cool',
         },
       ] satisfies ConformanceResult[]);
 
@@ -223,9 +223,9 @@ describe('when all checks pass', () => {
       expect(result).toMatchInlineSnapshot(`
         "
         ❯ pkg-one (1)
-          ✓ This package is should be cool
+          ✓ pass This package should be cool
         ❯ pkg-two (1)
-          ✓ This package is should be cool
+          ✓ pass This package should be cool
 
         Packages: 0 failed 2 passed (2)
           Checks: 0 failed 2 passed (2)"
@@ -265,7 +265,7 @@ describe('when checks fail', () => {
             name: 'pkg-two',
           },
         },
-        message: 'This package is should be cool',
+        message: 'This package should be cool',
       },
     ] satisfies ConformanceResult[]);
 
@@ -291,7 +291,7 @@ describe('when checks fail', () => {
       "
       ✓ pkg-one (1)
       ❯ pkg-two (1)
-        ✘ This package is should be cool
+        ✘ fail This package should be cool
 
       Packages: 1 failed 1 passed (2)
         Checks: 1 failed 1 passed (2)"
@@ -328,7 +328,7 @@ describe('when checks fail', () => {
             name: 'pkg-two',
           },
         },
-        message: 'This package is should be cool',
+        message: 'This package should be cool',
       },
     ] satisfies ConformanceResult[]);
 
@@ -353,9 +353,9 @@ describe('when checks fail', () => {
     expect(result).toMatchInlineSnapshot(`
       "
       ❯ pkg-one (1)
-        ✓ This package is bad
+        ✓ pass This package is bad
       ❯ pkg-two (1)
-        ✘ This package is should be cool
+        ✘ fail This package should be cool
 
       Packages: 1 failed 1 passed (2)
         Checks: 1 failed 1 passed (2)"
@@ -395,7 +395,7 @@ describe('when checks fail with fixable issues', () => {
             name: 'pkg-two',
           },
         },
-        message: 'This package is should be cool',
+        message: 'This package should be cool',
         fix: () => {},
       },
     ] satisfies ConformanceResult[]);
@@ -422,7 +422,7 @@ describe('when checks fail with fixable issues', () => {
       "
       ✓ pkg-one (1)
       ❯ pkg-two (1)
-        ✘ This package is should be cool
+        ✘ fail This package should be cool
 
       Packages: 1 failed 1 passed (2)
         Checks: 1 failed 1 passed (2)

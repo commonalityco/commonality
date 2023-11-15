@@ -101,10 +101,11 @@ export const CheckResultMessage = ({
   message: string;
 }) => {
   return (
-    <Box flexDirection="column">
+    <Box flexDirection="row" gap={1}>
       <Text color={isValid ? 'green' : 'red'}>
-        {isValid ? '✓' : '✘'} {message}
+        {isValid ? '✓' : '✘'} {isValid ? 'pass' : 'fail'}
       </Text>
+      <Text>{message}</Text>
     </Box>
   );
 };
