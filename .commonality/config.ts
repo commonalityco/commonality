@@ -21,13 +21,13 @@ const ensureInternalPackage = defineConformer(() => {
     type: 'module',
     main: './src/index.ts',
     types: './src/index.ts',
-    // publishConfig: {
-    //   main: './dist/index.js',
-    //   types: './dist/index.d.ts',
-    //   exports: {
-    //     '.': './dist/index.js',
-    //   },
-    // },
+    publishConfig: {
+      main: './dist/index.js',
+      types: './dist/index.d.ts',
+      exports: {
+        '.': './dist/index.js',
+      },
+    },
     scripts: {
       build: 'tsc --build',
     },
