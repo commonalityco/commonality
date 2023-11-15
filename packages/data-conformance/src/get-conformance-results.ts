@@ -2,7 +2,6 @@ import { createJsonFileReader } from './../../utils-file/src/json';
 import {
   Conformer,
   FileCreatorFactory,
-  JsonFileReader,
   TagsData,
   TextFileCreator,
   Workspace,
@@ -23,7 +22,6 @@ export const getConformanceResults = async ({
   rootDirectory: string;
   workspaces: Workspace[];
   tagsData: TagsData[];
-  createJson: FileCreatorFactory<JsonFileReader>;
   createText: FileCreatorFactory<TextFileCreator>;
   createYaml: FileCreatorFactory<YamlFileCreator>;
 }): Promise<ConformanceResult[]> => {

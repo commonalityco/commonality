@@ -1,4 +1,4 @@
-import { isMatch, merge } from '@commonalityco/utils-fp';
+import { isMatch, merge, get, set, omit } from '@commonalityco/utils-fp';
 import type {
   JsonFileWriter as JsonFileWriterType,
   JsonFileReader as JsonFileReaderType,
@@ -6,7 +6,6 @@ import type {
 } from '@commonalityco/types';
 import fs from 'fs-extra';
 import detectIndent from 'detect-indent';
-import { get, set, omit } from './utils/fp.js';
 
 export const createJsonFileReader = (filepath: string): JsonFileReaderType => {
   return {
@@ -43,20 +42,28 @@ export const createJsonFileReader = (filepath: string): JsonFileReaderType => {
   };
 };
 
+class WriteError extends Error {
+  constructor(message: string) {
+    super(message); // (1)
+    this.name = 'WriteError';
+  }
+}
+
 export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
   return {
     async merge(value: Record<string, unknown>): Promise<void> {
       try {
-        const jsonRaw = await fs.readFile(filepath, 'utf8');
-        const json = await fs.readJSON(filepath);
+        const exists = await fs.pathExists(filepath);
+        const json = exists ? await fs.readJSON(filepath) : {};
         const updatedJson = merge(json, value);
-        const indent = detectIndent(jsonRaw).indent || '    ';
 
-        const formattedJson = JSON.stringify(updatedJson, undefined, indent);
+        await fs.outputJSON(filepath, updatedJson);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          throw new WriteError(error.message);
+        }
 
-        await fs.outputFile(filepath, formattedJson);
-      } catch {
-        return;
+        throw error;
       }
     },
 

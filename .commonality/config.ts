@@ -21,13 +21,13 @@ const ensureInternalPackage = defineConformer(() => {
     type: 'module',
     main: './src/index.ts',
     types: './src/index.ts',
-    publishConfig: {
-      main: './dist/index.js',
-      types: './dist/index.d.ts',
-      exports: {
-        '.': './dist/index.js',
-      },
-    },
+    // publishConfig: {
+    //   main: './dist/index.js',
+    //   types: './dist/index.d.ts',
+    //   exports: {
+    //     '.': './dist/index.js',
+    //   },
+    // },
     scripts: {
       build: 'tsc --build',
     },
@@ -37,13 +37,13 @@ const ensureInternalPackage = defineConformer(() => {
     name: 'COMMONALITY/ENSURE_INTERNAL_PACKAGE',
     message:
       'Internal packages must have a specific package.json configuration.',
-    validate: async (read) => {
-      const packageJson = read.json('package.json');
+    validate: async ({ json }) => {
+      const packageJson = json('package.json');
 
       return packageJson.contains(expectedPackageJson);
     },
-    fix: async (update) => {
-      return update.json('package.json').merge(expectedPackageJson);
+    fix: async ({ json }) => {
+      return json('package.json').merge(expectedPackageJson);
     },
   };
 });

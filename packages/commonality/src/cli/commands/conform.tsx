@@ -10,7 +10,7 @@ import {
   TagsData,
   Workspace,
 } from '@commonalityco/types';
-import { createJson, createText, createYaml } from '@commonalityco/utils-file';
+import { createText, createYaml } from '@commonalityco/utils-file';
 import { Box, render, Text, useApp, useInput } from 'ink';
 import { useState } from 'react';
 import Spinner from 'ink-spinner';
@@ -131,7 +131,6 @@ export const ConformRunner = ({
       rootDirectory,
       workspaces,
       tagsData,
-      createJson,
       createYaml,
       createText,
     });
@@ -242,7 +241,6 @@ export const ConformRunner = ({
                 workspaces,
                 conformanceResults: results,
                 createYaml,
-                createJson,
                 createText,
               });
               await refetch();

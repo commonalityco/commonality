@@ -5,7 +5,6 @@ import {
   TextFileCreator,
   YamlFileCreator,
   ConformanceResult,
-  JsonFileWriter,
 } from '@commonalityco/types';
 import path from 'node:path';
 
@@ -25,14 +24,12 @@ export const runFixes = async ({
   conformanceResults,
   rootDirectory,
   workspaces,
-  createJson,
   createText,
   createYaml,
 }: {
   conformanceResults: ConformanceResult[];
   rootDirectory: string;
   workspaces: Workspace[];
-  createJson: FileCreatorFactory<JsonFileWriter>;
   createText: FileCreatorFactory<TextFileCreator>;
   createYaml: FileCreatorFactory<YamlFileCreator>;
 }): Promise<
