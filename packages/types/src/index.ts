@@ -180,6 +180,7 @@ export type FixFn = (opts: {
   workspace: Workspace;
   projectWorkspaces: Workspace[];
   json: JsonFileCreator<JsonFileWriter>;
+  text: TextFileCreator<TextFileWriter>;
 }) => void | Promise<void>;
 
 type Message = {

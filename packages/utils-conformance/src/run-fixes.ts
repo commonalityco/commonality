@@ -1,3 +1,4 @@
+import { createTextFileWriter } from './../../utils-file/src/text';
 import { createJsonFileWriter } from './../../utils-file/src/json';
 import { Workspace, ConformanceResult } from '@commonalityco/types';
 import path from 'node:path';
@@ -52,6 +53,10 @@ export const runFixes = async ({
               projectWorkspaces: workspaces,
               json: (filename) =>
                 createJsonFileWriter(
+                  path.join(rootDirectory, result.workspace.path, filename),
+                ),
+              text: (filename) =>
+                createTextFileWriter(
                   path.join(rootDirectory, result.workspace.path, filename),
                 ),
             });

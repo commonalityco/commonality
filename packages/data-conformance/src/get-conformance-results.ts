@@ -1,4 +1,8 @@
 import {
+  createTextFileFormatter,
+  createTextFileReader,
+} from './../../utils-file/src/text';
+import {
   createJsonFileFormatter,
   createJsonFileReader,
 } from './../../utils-file/src/json';
@@ -7,28 +11,8 @@ import {
   TagsData,
   Workspace,
   ConformanceResult,
-  MessageFn,
 } from '@commonalityco/types';
 import path from 'node:path';
-import { diff as jestDiff } from 'jest-diff';
-import chalk from 'chalk';
-
-const addedDiff: Parameters<MessageFn>[0]['addedDiff'] = (
-  a: unknown,
-  b: unknown,
-) => {
-  const result = jestDiff(a, b, {
-    contextLines: 2,
-    omitAnnotationLines: true,
-    aColor: chalk.dim,
-    bColor: chalk.red,
-    commonColor: chalk.green,
-    aIndicator: ' ',
-    commonIndicator: ' ',
-  });
-
-  return result || undefined;
-};
 
 export const getConformanceResults = async ({
   conformersByPattern,
@@ -62,6 +46,10 @@ export const getConformanceResults = async ({
                 const result = await conformer.validate({
                   workspace,
                   projectWorkspaces: workspaces,
+                  text: (filename) =>
+                    createTextFileReader(
+                      path.join(rootDirectory, workspace.path, filename),
+                    ),
                   json: (filename) =>
                     createJsonFileReader(
                       path.join(rootDirectory, workspace.path, filename),
@@ -81,7 +69,10 @@ export const getConformanceResults = async ({
 
               return await conformer.message({
                 workspace,
-                addedDiff,
+                text: (filename) =>
+                  createTextFileFormatter(
+                    path.join(rootDirectory, workspace.path, filename),
+                  ),
                 json: (filename: string) =>
                   createJsonFileFormatter(
                     path.join(rootDirectory, workspace.path, filename),
