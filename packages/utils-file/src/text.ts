@@ -1,74 +1,102 @@
 import type {
-  TextFile as TextFileType,
-  TextFileCreator,
-  Workspace,
+  TextFileReader as TextFileReaderType,
+  TextFileWriter as TextFileWriterType,
+  TextFileFormatter as TextFileFormatterType,
 } from '@commonalityco/types';
-import { File } from './file.js';
 import fs from 'fs-extra';
+import {
+  diff as jestDiff,
+  diffLinesUnified,
+  diffLinesUnified2,
+} from 'jest-diff';
+import chalk from 'chalk';
 
-export class TextFile extends File implements TextFileType {
-  constructor(workspace: Workspace, rootDirectory: string, filename: string) {
-    super(workspace, rootDirectory, filename);
-  }
-
-  async get() {
-    try {
-      const text = await fs.readFile(this.filepath, 'utf8');
+export const createTextFileReader = (filepath: string): TextFileReaderType => {
+  return {
+    async get() {
+      const text = await fs.readFile(filepath, 'utf8');
       return text.split('\n').filter(Boolean);
-    } catch {
-      return;
-    }
-  }
+    },
+    async contains(lines: string[]) {
+      try {
+        const text = await fs.readFile(filepath, 'utf8');
+        const textLines = new Set(text.split('\n').filter(Boolean));
 
-  async matches(expected: string | string[]) {
-    try {
-      const text = await fs.readFile(this.filepath, 'utf8');
+        return lines.every((line) => textLines.has(line));
+      } catch {
+        return false;
+      }
+    },
+    async exists() {
+      try {
+        return await fs.pathExists(filepath);
+      } catch (error) {
+        console.error(`Error checking if file exists: ${error}`);
+        return false;
+      }
+    },
+  };
+};
+
+export const createTextFileWriter = (filepath: string): TextFileWriterType => {
+  return {
+    async set(lines: string[]) {
+      const text = lines.join('\n');
+      await fs.outputFile(filepath, text);
+    },
+    async add(lines: string[]) {
+      const text = lines.join('\n');
+      const currentText = await fs.readFile(filepath, 'utf8');
+      const updatedText = currentText ? currentText + '\n' + text : text;
+      await fs.outputFile(filepath, updatedText);
+    },
+    async remove(lines: string[]) {
+      const text = await fs.readFile(filepath, 'utf8');
+      const textLines = text.split('\n');
+
+      const newLines = textLines.filter(
+        (textLine) => !lines.includes(textLine),
+      );
+
+      await fs.outputFile(filepath, newLines.join('\n'));
+    },
+    async delete() {
+      try {
+        await fs.remove(filepath);
+      } catch (error) {
+        console.error(`Error deleting file: ${error}`);
+      }
+    },
+  };
+};
+
+export const createTextFileFormatter = (
+  filepath: string,
+): TextFileFormatterType => {
+  return {
+    async diff(value: string[]) {
+      const text = await fs.readFile(filepath, 'utf8');
       const textLines = text.split('\n').filter(Boolean);
 
-      const result = Array.isArray(expected)
-        ? expected.every((line, index) => line === textLines[index])
-        : expected === textLines.join('\n');
+      const textSubset = textLines.filter((textLine) =>
+        value.includes(textLine),
+      );
 
-      return result;
-    } catch {
-      return false;
-    }
-  }
-
-  async set(lines: string[]) {
-    const text = lines.join('\n');
-    await fs.outputFile(this.filepath, text);
-  }
-
-  async add(line: string | string[]) {
-    const text = Array.isArray(line) ? line.join('\n') : line;
-    const currentText = await this.get();
-    const updatedText = currentText
-      ? currentText.join('\n') + '\n' + text
-      : text;
-    await fs.outputFile(this.filepath, updatedText);
-  }
-
-  async remove(line: string | string[]) {
-    const linesToRemove = Array.isArray(line) ? line : [line];
-    let text = await this.get();
-
-    if (text) {
-      for (const lineToRemove of linesToRemove) {
-        text = text.filter((txtLine) => txtLine !== lineToRemove);
+      if (textSubset == value) {
+        return 'hello';
       }
 
-      await this.set(text);
-    }
-  }
-}
+      const result = diffLinesUnified(textSubset, value, {
+        omitAnnotationLines: true,
+        aColor: chalk.dim,
+        bColor: chalk.red,
+        changeColor: chalk.red,
+        commonColor: chalk.green.dim,
+        aIndicator: '-',
+        bIndicator: '+',
+      });
 
-export const createText = ({
-  workspace,
-  rootDirectory,
-}: {
-  workspace: Workspace;
-  rootDirectory: string;
-}): TextFileCreator => {
-  return (filename: string) => new TextFile(workspace, rootDirectory, filename);
+      return result || undefined;
+    },
+  };
 };

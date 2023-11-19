@@ -152,17 +152,11 @@ describe('runFixes', () => {
         packageJson: { name: 'valid' },
       },
     ];
-    const createJson: FileCreatorFactory<JsonFileCreator> = vi.fn();
-    const createText: FileCreatorFactory<TextFileCreator> = vi.fn();
-    const createYaml: FileCreatorFactory<YamlFileCreator> = vi.fn();
 
     const results = await runFixes({
       conformanceResults,
       rootDirectory,
       workspaces,
-      createJson,
-      createText,
-      createYaml,
     });
 
     expect(results).toHaveLength(1);

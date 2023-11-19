@@ -113,16 +113,6 @@ export interface JSONArray extends Array<JSONValue> {}
 
 export type JSONValue = string | number | boolean | JSONObject | JSONArray;
 
-export interface JsonFile extends File {
-  get(path: string): Promise<JSONValue>;
-  get<T extends JSONValue>(): Promise<T>;
-  contains(value: Record<string, unknown>): Promise<boolean>;
-  set(path: string, value: JSONValue): Promise<void>;
-  set(value: JSONValue): Promise<void>;
-  merge(value: Record<string, unknown>): Promise<void>;
-  remove(path: string): Promise<void>;
-}
-
 export interface JsonFileValidator {
   get(path: string): Promise<JSONValue>;
   get<T extends JSONValue>(): Promise<T>;
@@ -157,6 +147,21 @@ export interface TextFile extends File {
   add: (line: string | string[]) => Promise<void>;
   remove: (line: string | string[]) => Promise<void>;
   matches: (expected: string | string[]) => Promise<boolean>;
+}
+
+export interface TextFileReader extends Pick<File, 'exists'> {
+  get(): Promise<string[]>;
+  contains(lines: string[]): Promise<boolean>;
+}
+
+export interface TextFileWriter extends Pick<File, 'delete'> {
+  set(lines: string[]): Promise<void>;
+  add(lines: string[]): Promise<void>;
+  remove(lines: string[]): Promise<void>;
+}
+
+export interface TextFileFormatter {
+  diff(value: string[]): Promise<string | undefined>;
 }
 
 export type TextFileCreator = (filename: string) => TextFile;

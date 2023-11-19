@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { getConformanceResults } from '../src/get-conformance-results';
 import { Conformer, TagsData, Workspace } from '@commonalityco/types';
 
@@ -30,14 +30,11 @@ describe('getConformanceResults', () => {
       rootDirectory,
       workspaces,
       tagsData,
-      createJson: vi.fn(),
-      createText: vi.fn(),
-      createYaml: vi.fn(),
     });
 
     expect(results).toHaveLength(1);
     expect(results[0].isValid).toBe(false);
-    expect(results[0].message).toBe('Invalid workspace');
+    expect(results[0].message.title).toBe('Invalid workspace');
     expect(results[0].pattern).toBe('*');
     expect(results[0].workspace).toEqual(workspaces[0]);
     expect(results[0].level).toBe('error');
@@ -69,14 +66,11 @@ describe('getConformanceResults', () => {
       rootDirectory,
       workspaces,
       tagsData,
-      createJson: vi.fn(),
-      createText: vi.fn(),
-      createYaml: vi.fn(),
     });
 
     expect(results).toHaveLength(1);
     expect(results[0].isValid).toBe(true);
-    expect(results[0].message).toBe('Valid workspace');
+    expect(results[0].message.title).toBe('Valid workspace');
     expect(results[0].pattern).toBe('*');
     expect(results[0].workspace).toEqual(workspaces[0]);
     expect(results[0].level).toBe('warning');
@@ -104,20 +98,16 @@ describe('getConformanceResults', () => {
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'exception', tags: ['*'] }];
-
     const results = await getConformanceResults({
       conformersByPattern,
       rootDirectory,
       workspaces,
       tagsData,
-      createJson: vi.fn(),
-      createText: vi.fn(),
-      createYaml: vi.fn(),
     });
 
     expect(results).toHaveLength(1);
     expect(results[0].isValid).toBe(false);
-    expect(results[0].message).toBe('Exception during validation');
+    expect(results[0].message.title).toBe('Exception during validation');
     expect(results[0].pattern).toBe('*');
     expect(results[0].workspace).toEqual(workspaces[0]);
     expect(results[0].level).toBe('warning');
@@ -149,14 +139,11 @@ describe('getConformanceResults', () => {
       rootDirectory,
       workspaces,
       tagsData,
-      createJson: vi.fn(),
-      createText: vi.fn(),
-      createYaml: vi.fn(),
     });
 
     expect(results).toHaveLength(1);
     expect(results[0].isValid).toBe(true);
-    expect(results[0].message).toBe('Valid workspace for tag1');
+    expect(results[0].message.title).toBe('Valid workspace for tag1');
     expect(results[0].pattern).toBe('tag1');
     expect(results[0].workspace).toEqual(workspaces[0]);
     expect(results[0].level).toBe('warning');
@@ -168,8 +155,9 @@ describe('getConformanceResults', () => {
         {
           name: 'MessageFunctionConformer',
           validate: () => true,
-          message: ({ workspace }) =>
-            `Valid workspace for ${workspace.packageJson.name}`,
+          message: ({ workspace }) => ({
+            title: `Valid workspace for ${workspace.packageJson.name}`,
+          }),
         },
       ],
     };
@@ -189,14 +177,11 @@ describe('getConformanceResults', () => {
       rootDirectory,
       workspaces,
       tagsData,
-      createJson: vi.fn(),
-      createText: vi.fn(),
-      createYaml: vi.fn(),
     });
 
     expect(results).toHaveLength(1);
     expect(results[0].isValid).toBe(true);
-    expect(results[0].message).toBe('Valid workspace for valid');
+    expect(results[0].message.title).toBe('Valid workspace for valid');
     expect(results[0].pattern).toBe('*');
     expect(results[0].workspace).toEqual(workspaces[0]);
     expect(results[0].level).toBe('warning');

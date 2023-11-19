@@ -1,27 +1,24 @@
 import os from 'node:os';
-import { describe, expect, it, afterEach, beforeEach } from 'vitest';
-import type { Workspace } from '@commonalityco/types';
-import { createText } from '../src/text.js';
+import stripAnsi from 'strip-ansi';
+import { afterAll, afterEach, beforeEach, describe, expect, it } from 'vitest';
 import fs from 'fs-extra';
-import path from 'node:path';
+import {
+  createTextFileReader,
+  createTextFileWriter,
+  createTextFileFormatter,
+} from '../src';
 import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import { Workspace } from '@commonalityco/types';
 
-describe('createText', () => {
+describe('text', () => {
   const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
   const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
   const workspace: Workspace = {
     path: '/packages/pkg-one',
     tags: [],
     codeowners: [],
-    packageJson: {
-      workspaces: [],
-      name: 'test-package',
-      description: 'This is a test package',
-      version: '1.0.0',
-      dependencies: {},
-      devDependencies: {},
-      peerDependencies: {},
-    },
+    packageJson: {},
   };
 
   const fixturePath = path.resolve(
@@ -37,146 +34,159 @@ describe('createText', () => {
     await fs.remove(temporaryPath);
   });
 
-  describe('matches', () => {
-    it('returns true if the file content matches the expected string content', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('README.md');
+  describe('createTextFileReader', () => {
+    it('should read text file', async () => {
+      const filepath = path.join(
+        temporaryPath,
+        workspace.path,
+        'multi-line.md',
+      );
+      const textFile = createTextFileReader(filepath);
+      const text = await textFile.get();
 
-      const isEqual = await textFile.matches('# Hello world');
-      expect(isEqual).toBe(true);
+      expect(text).toEqual([
+        '# First line',
+        '## Second line',
+        '### Third line',
+      ]);
     });
 
-    it('returns true if the file content matches the expected array of string content', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('README.md');
+    it('should return true if the file contains the lines', async () => {
+      const filepath = path.join(
+        temporaryPath,
+        workspace.path,
+        'multi-line.md',
+      );
+      const textFile = createTextFileReader(filepath);
 
-      const isEqual = await textFile.matches(['# Hello world']);
-      expect(isEqual).toBe(true);
+      await expect(
+        textFile.contains(['# First line', '## Second line']),
+      ).resolves.toEqual(true);
     });
 
-    it('returns false if the file content does not match the expected string content', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('README.md');
+    it('should return false if the file does not contain the lines', async () => {
+      const filepath = path.join(
+        temporaryPath,
+        workspace.path,
+        'multi-line.md',
+      );
+      const textFile = createTextFileReader(filepath);
 
-      const isEqual = await textFile.matches('# Goodbye');
-      expect(isEqual).toBe(false);
-    });
-
-    it('returns false if the file content does not match the expected array of string content', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('README.md');
-
-      const isEqual = await textFile.matches(['# Goodbye']);
-      expect(isEqual).toBe(false);
+      await expect(textFile.contains(['line4', 'line5'])).resolves.toEqual(
+        false,
+      );
     });
   });
 
-  describe('get', () => {
-    it('returns the text of the file', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('README.md');
+  describe('createTextFileWriter', () => {
+    describe('set', () => {
+      it('should write lines to text file', async () => {
+        const filepath = path.join(
+          temporaryPath,
+          workspace.path,
+          'multi-line.md',
+        );
+        const textFile = createTextFileWriter(filepath);
 
-      const text = await textFile.get();
+        await textFile.set(['line1', 'line2', 'line3']);
+        const text = await fs.readFile(filepath, 'utf8');
 
-      expect(text).toEqual(['# Hello world']);
+        expect(text).toMatchInlineSnapshot(`
+          "line1
+          line2
+          line3"
+        `);
+      });
     });
 
-    it('returns undefined if the file does not exist', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('NON_EXISTENT.md');
+    describe('add', () => {
+      it('should add lines to text file', async () => {
+        const filepath = path.join(
+          temporaryPath,
+          workspace.path,
+          'multi-line.md',
+        );
+        const textFile = createTextFileWriter(filepath);
 
-      const text = await textFile.get();
-      expect(text).toEqual(undefined);
-    });
-  });
+        await textFile.add(['### Fourth line']);
+        const text = await fs.readFile(filepath, 'utf8');
 
-  describe('set', () => {
-    it('sets the text of the file', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('README.md');
+        expect(text).toMatchInlineSnapshot(`
+          "# First line
 
-      await textFile.set(['# New title']);
+          ## Second line
 
-      const text = await textFile.get();
+          ### Third line
 
-      expect(text).toContain('# New title');
-    });
-
-    it('creates a new file if it does not exist', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('NON_EXISTENT.md');
-
-      await textFile.set(['# New title']);
-      const text = await textFile.get();
-      expect(text).toContain('# New title');
-    });
-  });
-
-  describe('add', () => {
-    it('adds a line to the file', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('README.md');
-
-      await textFile.add('New line');
-
-      const text = await textFile.get();
-
-      expect(text).toContain('New line');
+          ### Fourth line"
+        `);
+      });
     });
 
-    it('creates a new file if it does not exist', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('NON_EXISTENT.md');
+    describe('remove', () => {
+      it('should remove lines from text file', async () => {
+        const filepath = path.join(
+          temporaryPath,
+          workspace.path,
+          'multi-line.md',
+        );
+        const textFile = createTextFileWriter(filepath);
 
-      await textFile.add('New line');
-      const text = await textFile.get();
-      expect(text).toContain('New line');
+        await textFile.remove(['### Third line']);
+
+        const text = await fs.readFile(filepath, 'utf8');
+
+        expect(text).toMatchInlineSnapshot(`
+          "# First line
+
+          ## Second line
+
+          "
+        `);
+      });
     });
   });
 
-  describe('remove', () => {
-    it('removes a line from the file', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('README.md');
+  describe('createTextFileFormatter', () => {
+    it('should return diff string when text is a subset of the value', async () => {
+      const filepath = path.join(
+        temporaryPath,
+        workspace.path,
+        'multi-line.md',
+      );
+      const formatter = createTextFileFormatter(filepath);
 
-      await textFile.remove(['"description": "This is a test package"']);
+      const value = [
+        '# First line',
+        '## Second line',
+        '### Third line',
+        '#### Fourth line',
+      ];
+      const result = await formatter.diff(value);
 
-      const text = await textFile.get();
-
-      expect(text).not.toContain('"description": "This is a test package"');
+      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
+        "  # First line
+          ## Second line
+          ### Third line
+        + #### Fourth line"
+      `);
     });
 
-    it('does nothing if the file does not exist', async () => {
-      const textFile = createText({
-        rootDirectory: temporaryPath,
-        workspace,
-      })('NON_EXISTENT.md');
+    it('should return diff string when value is a subset of the text', async () => {
+      const filepath = path.join(
+        temporaryPath,
+        workspace.path,
+        'multi-line.md',
+      );
+      const formatter = createTextFileFormatter(filepath);
 
-      await textFile.remove(['"description": "This is a test package"']);
-      const text = await textFile.get();
-      expect(text).toBe(undefined);
+      const value = ['# First line', '## Second line'];
+      const result = await formatter.diff(value);
+
+      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
+        "  # First line
+          ## Second line"
+      `);
     });
   });
 });
