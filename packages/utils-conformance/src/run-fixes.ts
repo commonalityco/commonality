@@ -1,13 +1,5 @@
-import { createYaml } from './../../utils-file/src/yaml';
-import { createText } from './../../utils-file/src/text';
 import { createJsonFileWriter } from './../../utils-file/src/json';
-import {
-  Workspace,
-  FileCreatorFactory,
-  TextFileCreator,
-  YamlFileCreator,
-  ConformanceResult,
-} from '@commonalityco/types';
+import { Workspace, ConformanceResult } from '@commonalityco/types';
 import path from 'node:path';
 
 type ErrorName = 'FIX_FAILED' | 'VALIDATION_FAILED';
@@ -62,8 +54,6 @@ export const runFixes = async ({
                 createJsonFileWriter(
                   path.join(rootDirectory, result.workspace.path, filename),
                 ),
-              text: createText({ rootDirectory, workspace: result.workspace }),
-              yaml: createYaml({ rootDirectory, workspace: result.workspace }),
             });
             fixResults.push({ isFixed: true, workspace: result.workspace });
           } catch (error) {

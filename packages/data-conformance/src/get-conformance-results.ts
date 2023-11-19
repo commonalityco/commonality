@@ -4,11 +4,8 @@ import {
 } from './../../utils-file/src/json';
 import {
   Conformer,
-  FileCreatorFactory,
   TagsData,
-  TextFileCreator,
   Workspace,
-  YamlFileCreator,
   ConformanceResult,
   MessageFn,
 } from '@commonalityco/types';
@@ -24,9 +21,7 @@ const addedDiff: Parameters<MessageFn>[0]['addedDiff'] = (
     contextLines: 2,
     omitAnnotationLines: true,
     aColor: chalk.dim,
-    // patchColor: chalk.yellow,
     bColor: chalk.red,
-    // changeColor: chalk.red,
     commonColor: chalk.green,
     aIndicator: ' ',
     commonIndicator: ' ',
@@ -40,15 +35,11 @@ export const getConformanceResults = async ({
   rootDirectory,
   workspaces,
   tagsData,
-  createText,
-  createYaml,
 }: {
   conformersByPattern: Record<string, Conformer[]>;
   rootDirectory: string;
   workspaces: Workspace[];
   tagsData: TagsData[];
-  createText: FileCreatorFactory<TextFileCreator>;
-  createYaml: FileCreatorFactory<YamlFileCreator>;
 }): Promise<ConformanceResult[]> => {
   const matchingPatterns = Object.keys(conformersByPattern);
   const workspaceMap = new Map(
@@ -75,8 +66,6 @@ export const getConformanceResults = async ({
                     createJsonFileReader(
                       path.join(rootDirectory, workspace.path, filename),
                     ),
-                  text: createText({ rootDirectory, workspace }),
-                  yaml: createYaml({ rootDirectory, workspace }),
                 });
 
                 return Boolean(result);

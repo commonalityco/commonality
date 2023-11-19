@@ -116,8 +116,6 @@ export const ConformRunner = ({
       rootDirectory,
       workspaces,
       tagsData,
-      createYaml,
-      createText,
     });
   });
 
@@ -259,8 +257,6 @@ export const ConformRunner = ({
                 rootDirectory,
                 workspaces,
                 conformanceResults: results,
-                createYaml,
-                createText,
               });
 
               setTimeout(async () => {
