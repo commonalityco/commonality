@@ -88,6 +88,7 @@ export type ValidateFn = (opts: {
   workspace: Workspace;
   projectWorkspaces: Workspace[];
   json: JsonFileCreator<JsonFileReader>;
+  text: TextFileCreator<TextFileReader>;
 }) => ValidationResult | Promise<ValidationResult>;
 
 export interface File {
@@ -164,7 +165,9 @@ export interface TextFileFormatter {
   diff(value: string[]): Promise<string | undefined>;
 }
 
-export type TextFileCreator = (filename: string) => TextFile;
+export type TextFileCreator<
+  T extends TextFileReader | TextFileWriter | TextFileFormatter,
+> = (filename: string) => T;
 
 export type FileCreatorFactory<File> = ({
   rootDirectory,
@@ -188,7 +191,7 @@ type Message = {
 export type MessageFn = (options: {
   workspace: Workspace;
   json: JsonFileCreator<JsonFileFormatter>;
-  addedDiff: (a: unknown, b: unknown) => string | undefined;
+  text: TextFileCreator<TextFileFormatter>;
 }) => Message | Promise<Message>;
 
 export type ConformerMessage = string | MessageFn;
