@@ -1,4 +1,8 @@
 import { JSONValue } from '@commonalityco/types';
+import {
+  deletedDiff as deletedDiffUtil,
+  updatedDiff as updatedDiffUtil,
+} from 'deep-object-diff';
 
 export const toPathParts = (path: string) => path.match(/([^.[\]])+/g);
 
@@ -148,3 +152,76 @@ export function merge<
 
   return result;
 }
+
+export const deletedDiff = (
+  sourceItem: unknown,
+  comparedItem: unknown,
+): object => {
+  if (!isObject(sourceItem)) {
+    throw new TypeError('sourceItem must be an object');
+  }
+
+  if (!isObject(comparedItem)) {
+    throw new TypeError('comparedItem must be an object');
+  }
+
+  return deletedDiffUtil(sourceItem, comparedItem);
+};
+
+export const updatedDiff = (
+  sourceItem: unknown,
+  comparedItem: unknown,
+): object => {
+  if (!isObject(sourceItem)) {
+    throw new TypeError('sourceItem must be an object');
+  }
+
+  if (!isObject(comparedItem)) {
+    throw new TypeError('comparedItem must be an object');
+  }
+
+  return updatedDiffUtil(sourceItem, comparedItem);
+};
+
+/**
+ * matchKeys
+ *
+ * Takes two objects, source and target, and returns a new object with keys that exist in both source and target.
+ * The values of the returned object will be that of the source object.
+ * If the corresponding values are objects, it recursively matches their keys. Throws a TypeError if either parameter is not an object.
+ *
+ * @param {unknown} source - The source object to match keys from.
+ * @param {unknown} target - The target object to match keys to.
+ * @returns {T} - An object with keys that match between the source and target, with values from the source object.
+ */
+export const matchKeys = <
+  T extends Record<string, unknown>,
+  K extends Record<string, unknown>,
+>(
+  source: T,
+  target: K,
+): Partial<T> => {
+  if (!isObject(source)) {
+    throw new TypeError('source must be an object');
+  }
+
+  if (!isObject(target)) {
+    throw new TypeError('target must be an object');
+  }
+
+  const result: Partial<T> = {};
+
+  for (const key in target) {
+    if (key in source) {
+      const sourceValue = source[key];
+      const targetValue = target[key];
+
+      result[key as keyof T] =
+        isObject(targetValue) && isObject(sourceValue)
+          ? (matchKeys(sourceValue, targetValue) as T[keyof T])
+          : sourceValue;
+    }
+  }
+
+  return result;
+};

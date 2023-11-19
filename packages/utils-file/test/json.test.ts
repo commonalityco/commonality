@@ -1,10 +1,15 @@
+import stripAnsi from 'strip-ansi';
 import os from 'node:os';
 import { describe, expect, it, afterEach, beforeEach } from 'vitest';
 import type { Workspace } from '@commonalityco/types';
 import fs from 'fs-extra';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createJsonFileReader, createJsonFileWriter } from '../src';
+import {
+  createJsonFileFormatter,
+  createJsonFileReader,
+  createJsonFileWriter,
+} from '../src';
 
 describe('createJsonFileReader', () => {
   const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
@@ -266,5 +271,102 @@ describe('createJsonFileWriter', () => {
         version: '1.0.0',
       });
     });
+  });
+});
+
+describe('createJsonFileFormatter', () => {
+  const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
+  const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
+  const workspace: Workspace = {
+    path: '/packages/pkg-one',
+    tags: [],
+    codeowners: [],
+    packageJson: {
+      workspaces: [],
+      name: 'pkg-one',
+      description: 'This is a test package',
+      version: '1.0.0',
+      dependencies: {},
+      devDependencies: {},
+      peerDependencies: {},
+    },
+  };
+
+  const fixturePath = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    './fixtures/kitchen-sink',
+  );
+
+  beforeEach(async () => {
+    await fs.copy(fixturePath, temporaryPath);
+  });
+
+  afterEach(async () => {
+    await fs.remove(temporaryPath);
+  });
+
+  it('should return dimmed green string when subset and value match', async () => {
+    const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+    const formatter = createJsonFileFormatter(filepath);
+
+    const json = await fs.readJson(filepath);
+    const result = await formatter.diff(json);
+
+    expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
+      "{
+        \\"name\\": \\"pkg-one\\",
+        \\"workspaces\\": [],
+        \\"description\\": \\"This is a test package\\",
+        \\"version\\": \\"1.0.0\\",
+        \\"dependencies\\": {},
+        \\"devDependencies\\": {},
+        \\"peerDependencies\\": {},
+        \\"scripts\\": {
+          \\"dev\\": \\"dev\\",
+          \\"test\\": \\"test\\"
+        }
+      }"
+    `);
+  });
+
+  it('should return diff string when json is a subset of the value', async () => {
+    const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+    const formatter = createJsonFileFormatter(filepath);
+
+    const json = await fs.readJson(filepath);
+    const value = { ...json, extra: 'extra' };
+    const result = await formatter.diff(value);
+
+    expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(`
+      "  Object {
+          \\"dependencies\\": Object {},
+          \\"description\\": \\"This is a test package\\",
+          \\"devDependencies\\": Object {},
+      +   \\"extra\\": \\"extra\\",
+          \\"name\\": \\"pkg-one\\",
+          \\"peerDependencies\\": Object {},
+          \\"scripts\\": Object {
+            \\"dev\\": \\"dev\\",
+            \\"test\\": \\"test\\",
+          },
+          \\"version\\": \\"1.0.0\\",
+          \\"workspaces\\": Array [],
+        }"
+    `);
+  });
+
+  it('should return diff string when value is a subset of the json', async () => {
+    const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+    const formatter = createJsonFileFormatter(filepath);
+
+    const value = { name: 'foo' };
+    const result = await formatter.diff(value);
+
+    expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
+      "  Object {
+          \\"name\\": \\"pkg-one\\",
+      -   \\"name\\": \\"foo\\",
+        }"
+    `);
   });
 });

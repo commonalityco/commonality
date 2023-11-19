@@ -10,5 +10,8 @@ export const ensurePackageName = defineConformer(() => ({
     return true;
   },
   type: 'error' as const,
-  message: 'Package must have a name property',
+  message: () => ({
+    title: 'Package name must be set in package.json',
+    filepath: 'package.json',
+  }),
 }));

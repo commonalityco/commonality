@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-process-exit */
-import React from 'react';
+import React, { Fragment } from 'react';
 import { runFixes } from '@commonalityco/utils-conformance';
 import { getConformanceResults } from '@commonalityco/data-conformance';
 import { Command } from 'commander';
@@ -19,6 +19,7 @@ import { CheckTagsData } from '../components/check-tags-data.js';
 import { TotalMessage } from '../components/total-message.js';
 import { CheckConformers } from '../components/check-conformers.js';
 import { CheckWorkspaces } from '../components/check-workspaces.js';
+import path from 'node:path';
 
 const command = new Command();
 
@@ -93,23 +94,6 @@ export const CheckSpinner = () => (
   </Box>
 );
 
-export const CheckResultMessage = ({
-  isValid,
-  message,
-}: {
-  isValid: boolean;
-  message: string;
-}) => {
-  return (
-    <Box flexDirection="row" gap={1}>
-      <Text color={isValid ? 'green' : 'red'}>
-        {isValid ? '✓' : '✘'} {isValid ? 'pass' : 'fail'}
-      </Text>
-      <Text>{message}</Text>
-    </Box>
-  );
-};
-
 export const ConformRunner = ({
   verbose,
   conformersByPattern,
@@ -169,9 +153,8 @@ export const ConformRunner = ({
   ).length;
 
   if (error) {
+    console.log({ error });
     onError(error);
-
-    return;
   }
 
   if (isLoading) {
@@ -183,8 +166,8 @@ export const ConformRunner = ({
       <Box>
         <Box marginTop={1} flexDirection="column">
           {packageNames.map((packageName, index) => {
-            const checkResults = resultsByPackageName[packageName];
-            const hasInvalidResults = checkResults.some(
+            const conformanceResults = resultsByPackageName[packageName];
+            const hasInvalidResults = conformanceResults.some(
               (result) => !result.isValid,
             );
 
@@ -194,16 +177,51 @@ export const ConformRunner = ({
                   verbose={verbose}
                   result={hasInvalidResults ? 'fail' : 'pass'}
                   packageName={packageName}
-                  checkCount={checkResults.length}
+                  checkCount={conformanceResults.length}
                 />
                 <Box flexDirection="column" paddingLeft={2}>
-                  {checkResults.map((checkResult, index) => {
-                    return !checkResult.isValid || verbose ? (
-                      <CheckResultMessage
-                        key={index}
-                        isValid={checkResult.isValid}
-                        message={checkResult.message}
-                      />
+                  {conformanceResults.map((conformanceResult, index) => {
+                    return !conformanceResult.isValid || verbose ? (
+                      <Fragment key={index}>
+                        <Box flexDirection="row" gap={1} flexShrink={0}>
+                          <Text
+                            color={conformanceResult.isValid ? 'green' : 'red'}
+                          >
+                            {conformanceResult.isValid ? '✓' : '✘'}{' '}
+                            {conformanceResult.isValid ? 'pass' : 'fail'}
+                          </Text>
+                          <Text>{conformanceResult.message.title}</Text>
+                        </Box>
+                        {conformanceResult.message.filepath ? (
+                          <Box
+                            paddingX={1}
+                            borderDimColor
+                            borderTop={false}
+                            borderRight={false}
+                            borderBottom={false}
+                            borderStyle="single"
+                          >
+                            <Text dimColor>
+                              {path.join(
+                                conformanceResult.workspace.path,
+                                conformanceResult.message.filepath,
+                              )}
+                            </Text>
+                          </Box>
+                        ) : undefined}
+                        {conformanceResult.message.context ? (
+                          <Box
+                            paddingX={1}
+                            borderDimColor
+                            borderTop={false}
+                            borderRight={false}
+                            borderBottom={false}
+                            borderStyle="single"
+                          >
+                            <Text>{conformanceResult.message.context}</Text>
+                          </Box>
+                        ) : undefined}
+                      </Fragment>
                     ) : undefined;
                   })}
                 </Box>
@@ -244,8 +262,10 @@ export const ConformRunner = ({
                 createYaml,
                 createText,
               });
-              await refetch();
-              setAutoFixRunCount(autoFixRunCount + 1);
+
+              setTimeout(async () => {
+                await refetch();
+              }, 0);
             }}
           />
         </Box>

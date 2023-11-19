@@ -145,9 +145,13 @@ export interface JsonFileWriter extends Pick<File, 'delete'> {
   remove(path: string): Promise<void>;
 }
 
-export type JsonFileCreator<T extends JsonFileReader | JsonFileWriter> = (
-  filename: string,
-) => T;
+export interface JsonFileFormatter {
+  diff(value: Record<string, unknown>): Promise<string | undefined>;
+}
+
+export type JsonFileCreator<
+  T extends JsonFileReader | JsonFileWriter | JsonFileFormatter,
+> = (filename: string) => T;
 
 export interface TextFile extends File {
   get: () => Promise<string[] | undefined>;
@@ -174,13 +178,27 @@ export type FixFn = (opts: {
   text: TextFileCreator;
 }) => void | Promise<void>;
 
+type Message = {
+  title: string;
+  context?: string;
+  // A path to a file relative to the package's folder.
+  filepath?: string;
+};
+export type MessageFn = (options: {
+  workspace: Workspace;
+  json: JsonFileCreator<JsonFileFormatter>;
+  addedDiff: (a: unknown, b: unknown) => string | undefined;
+}) => Message | Promise<Message>;
+
+export type ConformerMessage = string | MessageFn;
+
 export interface Conformer {
   name: string;
   level?: 'error' | 'warning';
   validate: ValidateFn;
   fix?: FixFn;
   type?: 'warning' | 'error';
-  message?: string | ((options: { workspace: Workspace }) => string);
+  message: ConformerMessage;
 }
 
 export type ConformerCreator<T = undefined> = (options?: T) => Conformer;
@@ -192,7 +210,7 @@ export type ConformanceResult = {
   level: 'error' | 'warning';
   isValid: boolean;
   workspace: Workspace;
-  message: string;
+  message: Message;
 };
 
 export interface ProjectConfig {

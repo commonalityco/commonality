@@ -1,5 +1,3 @@
-export {};
-
 describe('when visiting the index page', () => {
   it('loads correctly', () => {
     cy.visit('/').contains('monorepo');

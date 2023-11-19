@@ -1,41 +1,41 @@
 {
-    "name": "@commonalityco/data-graph-worker",
-    "description": "Instantiate a web worker to process Commonality graph calculations",
-    "version": "0.0.9",
-    "type": "module",
-    "sideEffects": false,
-    "types": "./src/index.ts",
-    "main": "./src/index.ts",
-    "publishConfig": {
-        "access": "public",
-        "main": "./dist/index.js",
-        "types": "./dist/index.d.ts",
-        "exports": {
-            ".": "./dist/index.js"
-        }
-    },
-    "devDependencies": {
-        "@commonalityco/utils-graph": "workspace:*",
-        "@types/crypto-js": "^4.1.2",
-        "@types/cytoscape": "^3.19.11",
-        "cytoscape": "^3.26.0",
-        "eslint-config-commonality": "workspace:*"
-    },
-    "peerDependencies": {
-        "@commonalityco/utils-graph": "workspace:*",
-        "cytoscape": "3.x"
-    },
-    "scripts": {
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
-        "build": "tsc --build",
-        "type-check": "tsc --noEmit"
-    },
-    "dependencies": {
-        "crypto-js": "^4.1.1",
-        "localforage": "^1.10.0"
-    },
+  "name": "@commonalityco/data-graph-worker",
+  "description": "Instantiate a web worker to process Commonality graph calculations",
+  "version": "0.0.9",
+  "type": "module",
+  "sideEffects": false,
+  "types": "./src/index.ts",
+  "main": "./src/index.ts",
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "exports": {
-        ".": "./src/index.ts"
+      ".": "./dist/index.js"
     }
+  },
+  "devDependencies": {
+    "@commonalityco/utils-graph": "workspace:*",
+    "@types/crypto-js": "^4.1.2",
+    "@types/cytoscape": "^3.19.11",
+    "cytoscape": "^3.26.0",
+    "eslint-config-commonality": "workspace:*"
+  },
+  "peerDependencies": {
+    "@commonalityco/utils-graph": "workspace:*",
+    "cytoscape": "3.x"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "tsc --build",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "localforage": "^1.10.0"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  }
 }

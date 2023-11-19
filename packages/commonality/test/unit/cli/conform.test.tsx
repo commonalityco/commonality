@@ -119,7 +119,7 @@ describe('when all checks pass', () => {
               name: 'pkg-one',
             },
           },
-          message: 'This package should be cool',
+          message: { message: 'This package should be cool' },
         },
         {
           name: 'CONFORMER_NAME/TWO',
@@ -134,7 +134,7 @@ describe('when all checks pass', () => {
               name: 'pkg-two',
             },
           },
-          message: 'This package should be cool',
+          message: { message: 'This package should be cool' },
         },
       ] satisfies ConformanceResult[]);
 
@@ -183,7 +183,7 @@ describe('when all checks pass', () => {
               name: 'pkg-one',
             },
           },
-          message: 'This package should be cool',
+          message: { message: 'This package should be cool' },
         },
         {
           name: 'CONFORMER_NAME/TWO',
@@ -198,7 +198,7 @@ describe('when all checks pass', () => {
               name: 'pkg-two',
             },
           },
-          message: 'This package should be cool',
+          message: { message: 'This package should be cool' },
         },
       ] satisfies ConformanceResult[]);
 
@@ -250,7 +250,7 @@ describe('when checks fail', () => {
             name: 'pkg-one',
           },
         },
-        message: 'This package is bad',
+        message: { message: 'This package is bad' },
       },
       {
         name: 'CONFORMER_NAME/TWO',
@@ -265,7 +265,7 @@ describe('when checks fail', () => {
             name: 'pkg-two',
           },
         },
-        message: 'This package should be cool',
+        message: { message: 'This package should be cool' },
       },
     ] satisfies ConformanceResult[]);
 
@@ -313,7 +313,7 @@ describe('when checks fail', () => {
             name: 'pkg-one',
           },
         },
-        message: 'This package is bad',
+        message: { message: 'This package is bad' },
       },
       {
         name: 'CONFORMER_NAME/TWO',
@@ -328,7 +328,7 @@ describe('when checks fail', () => {
             name: 'pkg-two',
           },
         },
-        message: 'This package should be cool',
+        message: { message: 'This package should be cool' },
       },
     ] satisfies ConformanceResult[]);
 
@@ -379,7 +379,7 @@ describe('when checks fail with fixable issues', () => {
             name: 'pkg-one',
           },
         },
-        message: 'This package is bad',
+        message: { message: 'This package is bad' },
         fix: () => {},
       },
       {
@@ -395,7 +395,7 @@ describe('when checks fail with fixable issues', () => {
             name: 'pkg-two',
           },
         },
-        message: 'This package should be cool',
+        message: { message: 'This package should be cool' },
         fix: () => {},
       },
     ] satisfies ConformanceResult[]);

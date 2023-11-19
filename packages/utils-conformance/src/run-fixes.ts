@@ -1,3 +1,5 @@
+import { createYaml } from './../../utils-file/src/yaml';
+import { createText } from './../../utils-file/src/text';
 import { createJsonFileWriter } from './../../utils-file/src/json';
 import {
   Workspace,
@@ -24,14 +26,10 @@ export const runFixes = async ({
   conformanceResults,
   rootDirectory,
   workspaces,
-  createText,
-  createYaml,
 }: {
   conformanceResults: ConformanceResult[];
   rootDirectory: string;
   workspaces: Workspace[];
-  createText: FileCreatorFactory<TextFileCreator>;
-  createYaml: FileCreatorFactory<YamlFileCreator>;
 }): Promise<
   { error?: ConformanceError; isFixed: boolean; workspace: Workspace }[]
 > => {
@@ -44,29 +42,30 @@ export const runFixes = async ({
   const groupedResults: Record<string, ConformanceResult[]> = {};
 
   for (const result of conformanceResults) {
-    if (!groupedResults[result.name]) {
-      groupedResults[result.name] = [];
+    if (result.fix && !result.isValid) {
+      if (!groupedResults[result.name]) {
+        groupedResults[result.name] = [];
+      }
+      groupedResults[result.name].push(result);
     }
-
-    groupedResults[result.name].push(result);
   }
 
-  await Promise.all(
-    Object.values(groupedResults).map((groupResults) =>
-      groupResults.map(async ({ fix, isValid, workspace, message }) => {
-        if (fix && !isValid) {
+  for (const [name, groupResults] of Object.entries(groupedResults)) {
+    await Promise.all(
+      groupResults.map(async (result) => {
+        if (result.fix) {
           try {
-            await fix({
-              workspace,
+            await result.fix({
+              workspace: result.workspace,
               projectWorkspaces: workspaces,
               json: (filename) =>
                 createJsonFileWriter(
-                  path.join(rootDirectory, workspace.path, filename),
+                  path.join(rootDirectory, result.workspace.path, filename),
                 ),
-              text: createText({ rootDirectory, workspace }),
-              yaml: createYaml({ rootDirectory, workspace }),
+              text: createText({ rootDirectory, workspace: result.workspace }),
+              yaml: createYaml({ rootDirectory, workspace: result.workspace }),
             });
-            fixResults.push({ isFixed: true, workspace });
+            fixResults.push({ isFixed: true, workspace: result.workspace });
           } catch (error) {
             fixResults.push({
               error: new ConformanceError({
@@ -74,16 +73,16 @@ export const runFixes = async ({
                 message:
                   error instanceof Error
                     ? error.message
-                    : `Failed to run conformer: ${message}`,
+                    : `Failed to run conformer: ${result.message.title}`,
               }),
               isFixed: false,
-              workspace,
+              workspace: result.workspace,
             });
           }
         }
       }),
-    ),
-  );
+    );
+  }
 
   return fixResults;
 };

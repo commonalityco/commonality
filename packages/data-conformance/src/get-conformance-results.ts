@@ -1,4 +1,7 @@
-import { createJsonFileReader } from './../../utils-file/src/json';
+import {
+  createJsonFileFormatter,
+  createJsonFileReader,
+} from './../../utils-file/src/json';
 import {
   Conformer,
   FileCreatorFactory,
@@ -7,8 +10,30 @@ import {
   Workspace,
   YamlFileCreator,
   ConformanceResult,
+  MessageFn,
 } from '@commonalityco/types';
 import path from 'node:path';
+import { diff as jestDiff } from 'jest-diff';
+import chalk from 'chalk';
+
+const addedDiff: Parameters<MessageFn>[0]['addedDiff'] = (
+  a: unknown,
+  b: unknown,
+) => {
+  const result = jestDiff(a, b, {
+    contextLines: 2,
+    omitAnnotationLines: true,
+    aColor: chalk.dim,
+    // patchColor: chalk.yellow,
+    bColor: chalk.red,
+    // changeColor: chalk.red,
+    commonColor: chalk.green,
+    aIndicator: ' ',
+    commonIndicator: ' ',
+  });
+
+  return result || undefined;
+};
 
 export const getConformanceResults = async ({
   conformersByPattern,
@@ -60,24 +85,28 @@ export const getConformanceResults = async ({
               }
             };
 
-            const isValid = await getIsValid();
-
-            const getMessage = () => {
+            const getMessage = async () => {
               if (typeof conformer.message === 'string') {
-                return conformer.message;
-              } else if (conformer.message) {
-                return conformer.message({ workspace });
-              } else {
-                return conformer.name;
+                return { title: conformer.message };
               }
+
+              return await conformer.message({
+                workspace,
+                addedDiff,
+                json: (filename: string) =>
+                  createJsonFileFormatter(
+                    path.join(rootDirectory, workspace.path, filename),
+                  ),
+              });
             };
-            const message = getMessage();
+
+            const isValid = await getIsValid();
 
             return {
               name: conformer.name,
               pattern: matchingPattern,
               workspace,
-              message,
+              message: await getMessage(),
               level: conformer.level ?? 'warning',
               fix: conformer.fix,
               isValid,

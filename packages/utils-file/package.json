@@ -5,11 +5,11 @@
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
     "exports": {
       ".": "./dist/index.js"
-    }
+    },
+    "types": "./dist/index.d.ts",
+    "main": "./dist/index.js"
   },
   "types": "./src/index.ts",
   "exports": {
@@ -25,20 +25,27 @@
     "test": "vitest",
     "type-check": "tsc --noEmit"
   },
+  "peerDependencies": {
+    "chalk": "^4.0.0"
+  },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@types/lodash.get": "^4.4.7",
     "@types/lodash.omit": "^4.5.7",
     "@types/lodash.set": "^4.3.7",
+    "chalk": "^4.0.0",
     "eslint-config-commonality": "workspace:*",
+    "strip-ansi": "^7.1.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
     "@commonalityco/utils-fp": "workspace:*",
+    "concordance": "^5.0.4",
     "deep-object-diff": "^1.1.9",
     "detect-indent": "^7.0.1",
     "fs-extra": "^11.1.1",
+    "jest-diff": "^29.7.0",
     "lodash": "^4.17.21",
     "lodash.get": "^4.4.2",
     "lodash.omit": "^4.5.0",

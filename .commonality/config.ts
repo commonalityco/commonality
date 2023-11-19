@@ -35,15 +35,21 @@ const ensureInternalPackage = defineConformer(() => {
 
   return {
     name: 'COMMONALITY/ENSURE_INTERNAL_PACKAGE',
-    message:
-      'Internal packages must have a specific package.json configuration.',
+    message: async ({ json }) => {
+      return {
+        title:
+          'Internal packages must have a specific package.json configuration.',
+        context: await json('package.json').diff(expectedPackageJson),
+        filepath: 'package.json',
+      };
+    },
     validate: async ({ json }) => {
       const packageJson = json('package.json');
 
       return packageJson.contains(expectedPackageJson);
     },
     fix: async ({ json }) => {
-      return json('package.json').merge(expectedPackageJson);
+      return await json('package.json').merge(expectedPackageJson);
     },
   };
 });

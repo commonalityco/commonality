@@ -1,11 +1,22 @@
-import { isMatch, merge, get, set, omit } from '@commonalityco/utils-fp';
+import {
+  isMatch,
+  merge,
+  get,
+  set,
+  omit,
+  matchKeys,
+  isEqual,
+} from '@commonalityco/utils-fp';
 import type {
   JsonFileWriter as JsonFileWriterType,
   JsonFileReader as JsonFileReaderType,
   JSONValue,
+  JsonFileFormatter,
 } from '@commonalityco/types';
 import fs from 'fs-extra';
 import detectIndent from 'detect-indent';
+import { diff as jestDiff } from 'jest-diff';
+import chalk from 'chalk';
 
 export const createJsonFileReader = (filepath: string): JsonFileReaderType => {
   return {
@@ -51,7 +62,7 @@ class WriteError extends Error {
 
 export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
   return {
-    async merge(value: Record<string, unknown>): Promise<void> {
+    async merge(value): Promise<void> {
       try {
         const exists = await fs.pathExists(filepath);
         const json = exists ? await fs.readJSON(filepath) : {};
@@ -59,6 +70,7 @@ export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
 
         await fs.outputJSON(filepath, updatedJson);
       } catch (error: unknown) {
+        console.log({ writeError: error });
         if (error instanceof Error) {
           throw new WriteError(error.message);
         }
@@ -67,10 +79,7 @@ export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
       }
     },
 
-    async set(
-      pathOrValue: string | Record<string, JSONValue>,
-      value?: JSONValue | undefined,
-    ): Promise<void> {
+    async set(pathOrValue, value?: JSONValue | undefined): Promise<void> {
       try {
         const jsonRaw = await fs.readFile(filepath, 'utf8');
         const json = await fs.readJSON(filepath);
@@ -105,6 +114,35 @@ export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
       } catch (error) {
         console.error(`Error deleting file: ${error}`);
       }
+    },
+  };
+};
+
+export const createJsonFileFormatter = (
+  filepath: string,
+): JsonFileFormatter => {
+  return {
+    async diff(value) {
+      const json = await fs.readJSON(filepath);
+      const jsonSubset = matchKeys(json, value);
+
+      if (isEqual(jsonSubset, value)) {
+        return chalk.dim(chalk.green(JSON.stringify(jsonSubset, undefined, 2)));
+      }
+
+      const isValueSuperset = isMatch(value, json);
+
+      const result = jestDiff(jsonSubset, value, {
+        omitAnnotationLines: true,
+        aColor: chalk.dim,
+        bColor: chalk.red,
+        changeColor: chalk.red,
+        commonColor: chalk.green.dim,
+        aIndicator: ' ',
+        bIndicator: isValueSuperset ? '+' : '-',
+      });
+
+      return result || undefined;
     },
   };
 };

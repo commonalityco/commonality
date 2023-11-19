@@ -5,11 +5,11 @@
   "sideEffects": false,
   "publishConfig": {
     "access": "public",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
     "exports": {
       ".": "./dist/index.js"
-    }
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts"
   },
   "types": "./src/index.ts",
   "exports": {
@@ -29,5 +29,8 @@
     "@commonalityco/types": "workspace:*",
     "eslint-config-commonality": "workspace:*",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "deep-object-diff": "^1.1.9"
   }
 }
