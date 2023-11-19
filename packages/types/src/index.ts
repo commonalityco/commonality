@@ -88,8 +88,6 @@ export type ValidateFn = (opts: {
   workspace: Workspace;
   projectWorkspaces: Workspace[];
   json: JsonFileCreator<JsonFileReader>;
-  yaml: YamlFileCreator;
-  text: TextFileCreator;
 }) => ValidationResult | Promise<ValidationResult>;
 
 export interface File {
@@ -174,8 +172,6 @@ export type FixFn = (opts: {
   workspace: Workspace;
   projectWorkspaces: Workspace[];
   json: JsonFileCreator<JsonFileWriter>;
-  yaml: YamlFileCreator;
-  text: TextFileCreator;
 }) => void | Promise<void>;
 
 type Message = {
