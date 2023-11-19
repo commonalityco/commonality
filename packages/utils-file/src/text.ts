@@ -4,11 +4,7 @@ import type {
   TextFileFormatter as TextFileFormatterType,
 } from '@commonalityco/types';
 import fs from 'fs-extra';
-import {
-  diff as jestDiff,
-  diffLinesUnified,
-  diffLinesUnified2,
-} from 'jest-diff';
+import { diffLinesUnified } from 'jest-diff';
 import chalk from 'chalk';
 
 export const createTextFileReader = (filepath: string): TextFileReaderType => {

@@ -1,6 +1,6 @@
 import os from 'node:os';
 import stripAnsi from 'strip-ansi';
-import { afterAll, afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import fs from 'fs-extra';
 import {
   createTextFileReader,
