@@ -10,7 +10,6 @@ import {
   TagsData,
   Workspace,
 } from '@commonalityco/types';
-import { createText, createYaml } from '@commonalityco/utils-file';
 import { Box, render, Text, useApp, useInput } from 'ink';
 import { useState } from 'react';
 import Spinner from 'ink-spinner';
