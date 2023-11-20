@@ -43,12 +43,40 @@ describe('createJsonFileReader', () => {
   });
 
   describe('get', () => {
-    it('should read JSON file', async () => {
+    it('should return the entire JSON file if not passed a path', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
       const jsonFile = createJsonFileReader(filepath);
-      const json = await jsonFile.get('name');
+      const json = await jsonFile.get();
 
-      expect(json).toEqual('pkg-one');
+      expect(json).toEqual({
+        dependencies: {},
+        description: 'This is a test package',
+        devDependencies: {},
+        name: 'pkg-one',
+        peerDependencies: {},
+        scripts: {
+          dev: 'dev',
+          test: 'test',
+        },
+        version: '1.0.0',
+        workspaces: [],
+      });
+    });
+
+    it('should return a value when passed a valid path', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const jsonFile = createJsonFileReader(filepath);
+      const json = await jsonFile.get('scripts.dev');
+
+      expect(json).toEqual('dev');
+    });
+
+    it('should return undefined when passed an invalid path', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const jsonFile = createJsonFileReader(filepath);
+      const json = await jsonFile.get('foo.bar');
+
+      expect(json).toEqual(undefined);
     });
 
     it('returns undefined when the file does not exist', async () => {
@@ -109,6 +137,20 @@ describe('createJsonFileReader', () => {
         }),
       ).resolves.toEqual(false);
     });
+
+    it('should return false if the file contains a partial match', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const jsonFile = createJsonFileReader(filepath);
+
+      await expect(
+        jsonFile.contains({
+          scripts: {
+            dev: 'dev',
+            baz: 'baz',
+          },
+        }),
+      ).resolves.toEqual(false);
+    });
   });
 });
 
@@ -143,28 +185,94 @@ describe('createJsonFileWriter', () => {
     await fs.remove(temporaryPath);
   });
 
-  describe('set', () => {
-    it('should set value in JSON file', async () => {
+  describe('update', () => {
+    it('should update the JSON file if the property exists', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
       const jsonFile = createJsonFileWriter(filepath);
 
-      await jsonFile.set('scripts.build', 'npm run build');
+      await jsonFile.update({ scripts: { dev: 'npm run dev' } });
 
       const json = await fs.readJson(filepath);
 
       expect(json).toEqual({
-        dependencies: {},
-        description: 'This is a test package',
-        devDependencies: {},
         name: 'pkg-one',
+        workspaces: [],
+        description: 'This is a test package',
+        version: '1.0.0',
+        dependencies: {},
+        devDependencies: {},
         peerDependencies: {},
         scripts: {
-          build: 'npm run build',
+          dev: 'npm run dev',
+          test: 'test',
+        },
+      });
+    });
+
+    it('should not update the JSON file if the property does not exist', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const jsonFile = createJsonFileWriter(filepath);
+
+      await jsonFile.update({ scripts: { foo: 'npm run dev' } });
+
+      const json = await fs.readJson(filepath);
+
+      expect(json).toEqual({
+        name: 'pkg-one',
+        workspaces: [],
+        description: 'This is a test package',
+        version: '1.0.0',
+        dependencies: {},
+        devDependencies: {},
+        peerDependencies: {},
+        scripts: {
           dev: 'dev',
           test: 'test',
         },
-        version: '1.0.0',
-        workspaces: [],
+      });
+    });
+
+    it('should not create the file if it does not exist', async () => {
+      const filepath = path.join(
+        temporaryPath,
+        workspace.path,
+        'non-existent.json',
+      );
+      const jsonFile = createJsonFileWriter(filepath);
+
+      await jsonFile.update({ scripts: { build: 'npm run build' } });
+
+      const json = await fs.pathExists(filepath);
+
+      expect(json).toEqual(false);
+    });
+
+    it('should leave the file unchanged if update is called with no arguments', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const jsonFile = createJsonFileWriter(filepath);
+      const originalJson = await fs.readJson(filepath);
+
+      await jsonFile.update();
+
+      const json = await fs.readJson(filepath);
+
+      expect(json).toEqual(originalJson);
+    });
+  });
+
+  describe('set', () => {
+    it('should overwrite the JSON file', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const jsonFile = createJsonFileWriter(filepath);
+
+      await jsonFile.set({ scripts: { build: 'npm run build' } });
+
+      const json = await fs.readJson(filepath);
+
+      expect(json).toEqual({
+        scripts: {
+          build: 'npm run build',
+        },
       });
     });
 
@@ -176,7 +284,27 @@ describe('createJsonFileWriter', () => {
       );
       const jsonFile = createJsonFileWriter(filepath);
 
-      jsonFile.set('scripts.build', 'npm run build');
+      await jsonFile.set({ scripts: { build: 'npm run build' } });
+
+      const json = await fs.readJson(filepath);
+
+      expect(json).toEqual({
+        scripts: {
+          build: 'npm run build',
+        },
+      });
+    });
+
+    it('should leave the file unchanged if set is called with no arguments', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const jsonFile = createJsonFileWriter(filepath);
+      const originalJson = await fs.readJson(filepath);
+
+      await jsonFile.set();
+
+      const json = await fs.readJson(filepath);
+
+      expect(json).toEqual(originalJson);
     });
   });
 
@@ -225,6 +353,17 @@ describe('createJsonFileWriter', () => {
         },
       });
     });
+
+    it('should return the original source object if nothing is passed', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const jsonFile = createJsonFileWriter(filepath);
+
+      const originalJson = await fs.readJSON(filepath);
+      await jsonFile.merge();
+
+      const updatedJson = await fs.readJSON(filepath);
+      expect(updatedJson).toEqual(originalJson);
+    });
   });
 
   describe('remove', () => {
@@ -271,6 +410,18 @@ describe('createJsonFileWriter', () => {
         version: '1.0.0',
       });
     });
+
+    it('should return the original json if remove is called with no arguments', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const jsonFile = createJsonFileWriter(filepath);
+      const originalJson = await fs.readJson(filepath);
+
+      await jsonFile.remove();
+
+      const json = await fs.readJson(filepath);
+
+      expect(json).toEqual(originalJson);
+    });
   });
 });
 
@@ -305,39 +456,120 @@ describe('createJsonFileFormatter', () => {
     await fs.remove(temporaryPath);
   });
 
-  it('should return dimmed green string when subset and value match', async () => {
-    const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-    const formatter = createJsonFileFormatter(filepath);
+  describe('diffPartial', () => {
+    it('should output the correct snapshot when source and target are equal', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = createJsonFileFormatter(filepath);
 
-    const json = await fs.readJson(filepath);
-    const result = await formatter.diff(json);
+      const json = await fs.readJson(filepath);
+      const result = await formatter.diff(json);
 
-    expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
-      "{
-        \\"name\\": \\"pkg-one\\",
-        \\"workspaces\\": [],
-        \\"description\\": \\"This is a test package\\",
-        \\"version\\": \\"1.0.0\\",
-        \\"dependencies\\": {},
-        \\"devDependencies\\": {},
-        \\"peerDependencies\\": {},
-        \\"scripts\\": {
-          \\"dev\\": \\"dev\\",
-          \\"test\\": \\"test\\"
-        }
-      }"
-    `);
+      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
+        "{
+          \\"name\\": \\"pkg-one\\",
+          \\"workspaces\\": [],
+          \\"description\\": \\"This is a test package\\",
+          \\"version\\": \\"1.0.0\\",
+          \\"dependencies\\": {},
+          \\"devDependencies\\": {},
+          \\"peerDependencies\\": {},
+          \\"scripts\\": {
+            \\"dev\\": \\"dev\\",
+            \\"test\\": \\"test\\"
+          }
+        }"
+      `);
+    });
+
+    it('should output the correct snapshot when source is a subset of the target', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = createJsonFileFormatter(filepath);
+
+      const json = await fs.readJson(filepath);
+      const value = { ...json, extra: 'extra' };
+      const result = await formatter.diff(value);
+
+      expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(`
+        "  Object {
+            \\"dependencies\\": Object {},
+            \\"description\\": \\"This is a test package\\",
+            \\"devDependencies\\": Object {},
+        +   \\"extra\\": \\"extra\\",
+            \\"name\\": \\"pkg-one\\",
+            \\"peerDependencies\\": Object {},
+            \\"scripts\\": Object {
+              \\"dev\\": \\"dev\\",
+              \\"test\\": \\"test\\",
+            },
+            \\"version\\": \\"1.0.0\\",
+            \\"workspaces\\": Array [],
+          }"
+      `);
+    });
+
+    it('should output the correct snapshot when source is a superset of the target', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = createJsonFileFormatter(filepath);
+
+      const value = { scripts: { dev: 'dev' } };
+      const result = await formatter.diff(value);
+
+      expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(`
+        "{
+          \\"scripts\\": {
+            \\"dev\\": \\"dev\\"
+          }
+        }"
+      `);
+    });
+
+    it('should output the correct snapshot when source does not match the target', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = createJsonFileFormatter(filepath);
+
+      const value = { publishConfig: { access: 'public' } };
+      const result = await formatter.diff(value);
+
+      expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(
+        '"No match found"',
+      );
+    });
   });
 
-  it('should return diff string when json is a subset of the value', async () => {
-    const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-    const formatter = createJsonFileFormatter(filepath);
+  describe('diffAdded', () => {
+    it('should output the correct snapshot when source and target match', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = createJsonFileFormatter(filepath);
 
-    const json = await fs.readJson(filepath);
-    const value = { ...json, extra: 'extra' };
-    const result = await formatter.diff(value);
+      const json = await fs.readJson(filepath);
+      const result = await formatter.diffAdded(json);
 
-    expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(`
+      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
+        "{
+          \\"name\\": \\"pkg-one\\",
+          \\"workspaces\\": [],
+          \\"description\\": \\"This is a test package\\",
+          \\"version\\": \\"1.0.0\\",
+          \\"dependencies\\": {},
+          \\"devDependencies\\": {},
+          \\"peerDependencies\\": {},
+          \\"scripts\\": {
+            \\"dev\\": \\"dev\\",
+            \\"test\\": \\"test\\"
+          }
+        }"
+      `);
+    });
+
+    it('should output the correct snapshot when source is a subset of the target', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = createJsonFileFormatter(filepath);
+
+      const json = await fs.readJson(filepath);
+      const value = { ...json, extra: 'extra' };
+      const result = await formatter.diffAdded(value);
+
+      expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(`
       "  Object {
           \\"dependencies\\": Object {},
           \\"description\\": \\"This is a test package\\",
@@ -353,20 +585,111 @@ describe('createJsonFileFormatter', () => {
           \\"workspaces\\": Array [],
         }"
     `);
+    });
+
+    it('should output the correct snapshot when target is a subset of the source', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = createJsonFileFormatter(filepath);
+
+      const value = { name: 'foo', version: '1.0.0' };
+      const result = await formatter.diffAdded(value);
+
+      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
+        "  Object {
+            \\"dependencies\\": Object {},
+            \\"description\\": \\"This is a test package\\",
+            \\"devDependencies\\": Object {},
+            \\"name\\": \\"pkg-one\\",
+            \\"peerDependencies\\": Object {},
+            \\"scripts\\": Object {
+              \\"dev\\": \\"dev\\",
+              \\"test\\": \\"test\\",
+            },
+        +   \\"name\\": \\"foo\\",
+            \\"version\\": \\"1.0.0\\",
+            \\"workspaces\\": Array [],
+          }"
+      `);
+    });
+
+    it('should output the correct snapshot when source does not match the target', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = createJsonFileFormatter(filepath);
+
+      const result = await formatter.diffAdded({
+        publishConfig: { access: 'public' },
+      });
+
+      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
+        "  Object {
+            \\"dependencies\\": Object {},
+            \\"description\\": \\"This is a test package\\",
+            \\"devDependencies\\": Object {},
+            \\"name\\": \\"pkg-one\\",
+            \\"peerDependencies\\": Object {},
+            \\"scripts\\": Object {
+              \\"dev\\": \\"dev\\",
+              \\"test\\": \\"test\\",
+        +   \\"publishConfig\\": Object {
+        +     \\"access\\": \\"public\\",
+            },
+            \\"version\\": \\"1.0.0\\",
+            \\"workspaces\\": Array [],
+          }"
+      `);
+    });
   });
 
-  it('should return diff string when value is a subset of the json', async () => {
-    const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-    const formatter = createJsonFileFormatter(filepath);
+  describe('diffRemoved', () => {
+    it('should output the correct snapshot when source and target are equal', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = createJsonFileFormatter(filepath);
 
-    const value = { name: 'foo' };
-    const result = await formatter.diff(value);
+      const json = await fs.readJson(filepath);
+      const result = await formatter.diffRemoved(json);
 
-    expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
-      "  Object {
+      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
+        "{
           \\"name\\": \\"pkg-one\\",
-      -   \\"name\\": \\"foo\\",
+          \\"workspaces\\": [],
+          \\"description\\": \\"This is a test package\\",
+          \\"version\\": \\"1.0.0\\",
+          \\"dependencies\\": {},
+          \\"devDependencies\\": {},
+          \\"peerDependencies\\": {},
+          \\"scripts\\": {
+            \\"dev\\": \\"dev\\",
+            \\"test\\": \\"test\\"
+          }
         }"
-    `);
+      `);
+    });
+
+    it('should output the correct snapshot when source does not match the target', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = createJsonFileFormatter(filepath);
+
+      const result = await formatter.diffRemoved({
+        publishConfig: { access: 'public' },
+      });
+
+      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
+        "  Object {
+            \\"dependencies\\": Object {},
+            \\"description\\": \\"This is a test package\\",
+            \\"devDependencies\\": Object {},
+            \\"name\\": \\"pkg-one\\",
+            \\"peerDependencies\\": Object {},
+            \\"scripts\\": Object {
+              \\"dev\\": \\"dev\\",
+              \\"test\\": \\"test\\",
+        -   \\"publishConfig\\": Object {
+        -     \\"access\\": \\"public\\",
+            },
+            \\"version\\": \\"1.0.0\\",
+            \\"workspaces\\": Array [],
+          }"
+      `);
+    });
   });
 });

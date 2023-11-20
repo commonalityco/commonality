@@ -118,15 +118,16 @@ export interface JsonFileReader extends Pick<File, 'exists'> {
 }
 
 export interface JsonFileWriter extends Pick<File, 'delete'> {
-  set(path: string, value: JSONValue): Promise<void>;
   set(value: JSONValue): Promise<void>;
+  update(value: Record<string, unknown>): Promise<void>;
   merge(value: Record<string, unknown>): Promise<void>;
   remove(path: string): Promise<void>;
 }
 
 export interface JsonFileFormatter {
+  diffRemoved(value: Record<string, unknown>): Promise<string | undefined>;
+  diffAdded(value: Record<string, unknown>): Promise<string | undefined>;
   diff(value: Record<string, unknown>): Promise<string | undefined>;
-  diffPartial(value: Record<string, unknown>): Promise<string | undefined>;
 }
 
 export type JsonFileCreator<

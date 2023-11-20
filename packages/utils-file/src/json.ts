@@ -1,20 +1,15 @@
-import {
-  isMatch,
-  merge,
-  get,
-  set,
-  omit,
-  matchKeys,
-  isEqual,
-} from '@commonalityco/utils-fp';
+import { matchKeys } from '@commonalityco/utils-fp';
+import get from 'lodash/get';
+import isEqual from 'lodash/isEqual';
+import merge from 'lodash/merge';
+import isMatch from 'lodash/isMatch';
+import omit from 'lodash/omit';
 import type {
   JsonFileWriter as JsonFileWriterType,
   JsonFileReader as JsonFileReaderType,
-  JSONValue,
   JsonFileFormatter,
 } from '@commonalityco/types';
 import fs from 'fs-extra';
-import detectIndent from 'detect-indent';
 import { diff as jestDiff } from 'jest-diff';
 import chalk from 'chalk';
 
@@ -62,15 +57,39 @@ class WriteError extends Error {
 
 export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
   return {
-    async merge(value): Promise<void> {
+    async update(value): Promise<void> {
       try {
         const exists = await fs.pathExists(filepath);
-        const json = exists ? await fs.readJSON(filepath) : {};
-        const updatedJson = merge(json, value);
 
-        await fs.outputJSON(filepath, updatedJson);
+        if (!exists || !value) {
+          return;
+        }
+
+        const json = await fs.readJSON(filepath);
+
+        const updateRecursive = <T extends Record<string, unknown>>(
+          src: T,
+          tgt: T,
+        ): void => {
+          for (const key of Object.keys(tgt)) {
+            if (Object.prototype.hasOwnProperty.call(src, key)) {
+              if (
+                typeof tgt[key] === 'object' &&
+                tgt[key] !== null &&
+                !Array.isArray(tgt[key])
+              ) {
+                updateRecursive(src[key] as T, tgt[key] as T);
+              } else {
+                (src as Record<string, unknown>)[key] = tgt[key];
+              }
+            }
+          }
+        };
+
+        updateRecursive(json, value);
+
+        await fs.outputJSON(filepath, json);
       } catch (error: unknown) {
-        console.log({ writeError: error });
         if (error instanceof Error) {
           throw new WriteError(error.message);
         }
@@ -79,20 +98,25 @@ export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
       }
     },
 
-    async set(pathOrValue, value?: JSONValue | undefined): Promise<void> {
+    async merge(value): Promise<void> {
       try {
-        const jsonRaw = await fs.readFile(filepath, 'utf8');
-        const json = await fs.readJSON(filepath);
+        const exists = await fs.pathExists(filepath);
+        const json = exists ? await fs.readJSON(filepath) : {};
+        const updatedJson = merge(json, value);
 
-        const updatedJson =
-          typeof pathOrValue === 'string' && value !== undefined
-            ? set(json, pathOrValue, value)
-            : (pathOrValue as JSONValue);
-        const indent = detectIndent(jsonRaw).indent || '    ';
+        await fs.outputJSON(filepath, updatedJson);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          throw new WriteError(error.message);
+        }
 
-        const formattedJson = JSON.stringify(updatedJson, undefined, indent);
+        throw error;
+      }
+    },
 
-        await fs.outputFile(filepath, formattedJson);
+    async set(value): Promise<void> {
+      try {
+        await fs.outputJSON(filepath, value);
       } catch {
         return;
       }
@@ -122,26 +146,26 @@ export const createJsonFileFormatter = (
   filepath: string,
 ): JsonFileFormatter => {
   return {
-    async diffPartial(value) {
+    async diff(value) {
       const json = await fs.readJSON(filepath);
-      const jsonSubset = matchKeys(json, value);
-      const valueSubset = matchKeys(value, json);
+      const isValueSuperset = isMatch(value, json);
+      const source = isValueSuperset ? json : matchKeys(json, value);
 
-      if (!jsonSubset || Object.keys(jsonSubset).length === 0) {
+      if (!source || Object.keys(source).length === 0) {
         return chalk.dim(`No match found`);
       }
 
-      if (isEqual(jsonSubset, valueSubset)) {
-        return chalk.dim(chalk.green(JSON.stringify(jsonSubset, undefined, 2)));
+      if (isEqual(source, value)) {
+        return chalk.dim(chalk.green(JSON.stringify(source, undefined, 2)));
       }
 
       if (isMatch(json, value)) {
-        return chalk.dim(chalk.green(JSON.stringify(jsonSubset, undefined, 2)));
+        return chalk.dim(chalk.green(JSON.stringify(source, undefined, 2)));
       }
 
-      const isValueSuperset = isMatch(value, json);
+      const target = isValueSuperset ? value : matchKeys(value, json);
 
-      const result = jestDiff(jsonSubset, valueSubset, {
+      const result = jestDiff(source, target, {
         omitAnnotationLines: true,
         aColor: chalk.dim,
         bColor: chalk.red,
@@ -153,14 +177,13 @@ export const createJsonFileFormatter = (
 
       return result || undefined;
     },
-    async diff(value) {
+
+    async diffAdded(value) {
       const json = await fs.readJSON(filepath);
 
       if (isEqual(json, value)) {
         return chalk.dim(chalk.green(JSON.stringify(json, undefined, 2)));
       }
-
-      const isValueSuperset = isMatch(value, json);
 
       const result = jestDiff(json, value, {
         omitAnnotationLines: true,
@@ -169,7 +192,27 @@ export const createJsonFileFormatter = (
         changeColor: chalk.red,
         commonColor: chalk.green.dim,
         aIndicator: ' ',
-        bIndicator: isValueSuperset ? '+' : '-',
+        bIndicator: '+',
+      });
+
+      return result || undefined;
+    },
+
+    async diffRemoved(value) {
+      const json = await fs.readJSON(filepath);
+
+      if (isEqual(json, value)) {
+        return chalk.dim(chalk.green(JSON.stringify(json, undefined, 2)));
+      }
+
+      const result = jestDiff(json, value, {
+        omitAnnotationLines: true,
+        aColor: chalk.dim,
+        bColor: chalk.red,
+        changeColor: chalk.red,
+        commonColor: chalk.green.dim,
+        aIndicator: ' ',
+        bIndicator: '-',
       });
 
       return result || undefined;
