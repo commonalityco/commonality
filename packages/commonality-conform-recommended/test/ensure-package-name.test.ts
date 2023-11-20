@@ -15,7 +15,6 @@ describe('ensurePackageName', () => {
       const result = await conformer.validate({
         workspace,
         json: vi.fn(),
-        yaml: vi.fn(),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -36,7 +35,6 @@ describe('ensurePackageName', () => {
       const result = await conformer.validate({
         workspace,
         json: vi.fn(),
-        yaml: vi.fn(),
         text: vi.fn(),
         projectWorkspaces: [],
       });

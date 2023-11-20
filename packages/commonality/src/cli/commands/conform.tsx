@@ -191,7 +191,8 @@ export const ConformRunner = ({
                         </Box>
                         {conformanceResult.message.filepath ? (
                           <Box
-                            paddingX={1}
+                            paddingRight={1}
+                            paddingLeft={6}
                             borderDimColor
                             borderTop={false}
                             borderRight={false}
@@ -208,7 +209,8 @@ export const ConformRunner = ({
                         ) : undefined}
                         {conformanceResult.message.context ? (
                           <Box
-                            paddingX={1}
+                            paddingRight={1}
+                            paddingLeft={6}
                             borderDimColor
                             borderTop={false}
                             borderRight={false}
@@ -321,5 +323,6 @@ export const conform = command
         verbose={options.verbose}
         rootDirectory={rootDirectory}
       />,
+      { debug: true },
     );
   });

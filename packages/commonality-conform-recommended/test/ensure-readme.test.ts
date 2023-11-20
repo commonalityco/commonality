@@ -22,7 +22,6 @@ describe('ensureReadme', () => {
       const result = await conformer.validate({
         text,
         json: vi.fn(),
-        yaml: vi.fn(),
         projectWorkspaces: [],
         workspace: workspace,
       });
@@ -48,7 +47,6 @@ describe('ensureReadme', () => {
       const result = await conformer.validate({
         text,
         json: vi.fn(),
-        yaml: vi.fn(),
         projectWorkspaces: [],
         workspace: workspace,
       });
@@ -78,7 +76,6 @@ describe('ensureReadme', () => {
         workspace,
         text,
         json: vi.fn(),
-        yaml: vi.fn(),
         projectWorkspaces: [],
       });
 

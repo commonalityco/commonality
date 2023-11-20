@@ -39,7 +39,7 @@ const ensureInternalPackage = defineConformer(() => {
       return {
         title:
           'Internal packages must have a specific package.json configuration.',
-        context: await json('package.json').diff(expectedPackageJson),
+        context: await json('package.json').diffPartial(expectedPackageJson),
         filepath: 'package.json',
       };
     },

@@ -216,10 +216,25 @@ export const matchKeys = <
       const sourceValue = source[key];
       const targetValue = target[key];
 
-      result[key as keyof T] =
-        isObject(targetValue) && isObject(sourceValue)
-          ? (matchKeys(sourceValue, targetValue) as T[keyof T])
-          : sourceValue;
+      if (isObject(targetValue) && isObject(sourceValue)) {
+        if (
+          Object.keys(sourceValue).length > 0 &&
+          Object.keys(targetValue).length > 0
+        ) {
+          const matchedKeys = matchKeys(
+            sourceValue as Record<string, unknown>,
+            targetValue as Record<string, unknown>,
+          ) as T[keyof T];
+
+          if (Object.keys(matchedKeys as keyof T).length > 0) {
+            result[key as keyof T] = matchedKeys;
+          }
+        } else if (Object.keys(sourceValue).length > 0) {
+          result[key as keyof T] = sourceValue;
+        }
+      } else {
+        result[key as keyof T] = sourceValue;
+      }
     }
   }
 

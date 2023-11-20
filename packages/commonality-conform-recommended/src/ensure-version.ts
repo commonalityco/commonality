@@ -1,3 +1,4 @@
+import { PackageJson } from '@commonalityco/types';
 import { defineConformer } from 'commonality';
 
 const propertyNameByType = {
@@ -13,8 +14,31 @@ export const ensureVersion = defineConformer<{
   dependencies: string[];
   type?: Array<DependencyType>;
 }>((options) => {
-  if (!options?.version || !options?.dependencies) {
-    throw new TypeError('Invalid options for ensureVersion');
+  if (!options?.version || typeof options.version !== 'string') {
+    throw new TypeError('Invalid version for ensureVersion');
+  }
+
+  if (!options?.dependencies || !Array.isArray(options.dependencies)) {
+    throw new TypeError('Invalid dependencies for ensureVersion');
+  }
+
+  if (options.type && !Array.isArray(options.type)) {
+    throw new TypeError('Invalid type for ensureVersion');
+  }
+
+  const expectedDependencies: Partial<PackageJson> = {};
+
+  if (options.type) {
+    for (const dependencyType of options.type) {
+      if (['peer', 'development', 'production'].includes(dependencyType)) {
+        const dependencies: Record<string, string> = {};
+
+        for (const dependency of options.dependencies) {
+          dependencies[dependency] = options.version;
+        }
+        expectedDependencies[propertyNameByType[dependencyType]] = dependencies;
+      }
+    }
   }
 
   return {
@@ -94,10 +118,14 @@ export const ensureVersion = defineConformer<{
         );
       }
     },
-    message: options
-      ? `Packages with dependencies ${JSON.stringify(
+    message: async ({ json }) => {
+      return {
+        title: `Packages with dependencies ${JSON.stringify(
           options.dependencies,
-        )} must match version ${options.version}`
-      : 'Invalid version',
+        )} must match version ${options.version}`,
+        filepath: 'package.json',
+        context: await json('package.json').diffPartial(expectedDependencies),
+      };
+    },
   };
 });

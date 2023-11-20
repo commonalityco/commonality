@@ -28,7 +28,6 @@ describe('ensureVersion', () => {
         workspace,
         json: vi.fn(),
         text: vi.fn(),
-        yaml: vi.fn(),
         projectWorkspaces: [],
       });
       expect(result).toBe(true);
@@ -59,7 +58,6 @@ describe('ensureVersion', () => {
         workspace,
         json: vi.fn(),
         text: vi.fn(),
-        yaml: vi.fn(),
         projectWorkspaces: [],
       });
       expect(result).toBe(true); // This will fail with the current implementation
@@ -90,7 +88,6 @@ describe('ensureVersion', () => {
         workspace,
         json: vi.fn(),
         text: vi.fn(),
-        yaml: vi.fn(),
         projectWorkspaces: [],
       });
       expect(result).toBe(true);
@@ -121,7 +118,6 @@ describe('ensureVersion', () => {
         workspace,
         json: vi.fn(),
         text: vi.fn(),
-        yaml: vi.fn(),
         projectWorkspaces: [],
       });
       expect(result).toBe(false);
@@ -165,7 +161,6 @@ describe('ensureVersion', () => {
         workspace,
         json,
         text: vi.fn(),
-        yaml: vi.fn(),
         projectWorkspaces: [],
       });
 

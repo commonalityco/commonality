@@ -20,7 +20,6 @@ describe('ensureSortedDependencies', () => {
       const result = await conformer.validate({
         workspace,
         json: vi.fn(),
-        yaml: vi.fn(),
         text: vi.fn(),
         projectWorkspaces,
       });
@@ -44,7 +43,6 @@ describe('ensureSortedDependencies', () => {
       const result = await conformer.validate({
         workspace,
         json: vi.fn(),
-        yaml: vi.fn(),
         text: vi.fn(),
         projectWorkspaces,
       });
@@ -73,7 +71,6 @@ describe('ensureSortedDependencies', () => {
       await conformer?.fix?.({
         workspace,
         json,
-        yaml: vi.fn(),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -101,7 +98,6 @@ describe('ensureSortedDependencies', () => {
       await conformer?.fix?.({
         workspace,
         json,
-        yaml: vi.fn(),
         text: vi.fn(),
         projectWorkspaces: [],
       });

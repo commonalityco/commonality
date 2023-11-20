@@ -170,4 +170,12 @@ describe('matchKeys', () => {
 
     expect(result).toEqual({ b: { c: 2 } });
   });
+
+  it('should omit properties that do not contain leaf nodes', () => {
+    const source = { a: 1, b: { c: { d: {} } } };
+    const target = { a: 10, b: { c: 20 } };
+    const result = matchKeys(source, target);
+
+    expect(result).toEqual({ a: 1 });
+  });
 });

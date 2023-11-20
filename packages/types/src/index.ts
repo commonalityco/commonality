@@ -96,16 +96,6 @@ export interface File {
   delete: () => Promise<void>;
 }
 
-export interface YamlFile extends File {
-  get(): Promise<string>;
-  get(path: string, defaultValue?: string): Promise<unknown>;
-  set(value: Record<string, unknown>): Promise<void>;
-  set(path: string, value: string): Promise<void>;
-  remove(path: string): Promise<void>;
-}
-
-export type YamlFileCreator = (filename: string) => YamlFile;
-
 export interface JSONObject {
   [x: string]: JSONValue;
 }
@@ -136,6 +126,7 @@ export interface JsonFileWriter extends Pick<File, 'delete'> {
 
 export interface JsonFileFormatter {
   diff(value: Record<string, unknown>): Promise<string | undefined>;
+  diffPartial(value: Record<string, unknown>): Promise<string | undefined>;
 }
 
 export type JsonFileCreator<
@@ -241,6 +232,7 @@ export type PackageJson = {
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
+  scripts?: Record<string, string>;
 };
 
 export type SnapshotResult = {

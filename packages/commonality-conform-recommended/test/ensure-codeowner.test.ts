@@ -19,7 +19,6 @@ describe('ensureCodeowner', () => {
       const result = await conformer.validate({
         workspace,
         json: vi.fn(),
-        yaml: vi.fn(),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -42,7 +41,6 @@ describe('ensureCodeowner', () => {
       const result = await conformer.validate({
         workspace,
         json: vi.fn(),
-        yaml: vi.fn(),
         text: vi.fn(),
         projectWorkspaces: [],
       });

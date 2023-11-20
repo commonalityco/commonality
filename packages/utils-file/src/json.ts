@@ -122,17 +122,47 @@ export const createJsonFileFormatter = (
   filepath: string,
 ): JsonFileFormatter => {
   return {
-    async diff(value) {
+    async diffPartial(value) {
       const json = await fs.readJSON(filepath);
       const jsonSubset = matchKeys(json, value);
+      const valueSubset = matchKeys(value, json);
 
-      if (isEqual(jsonSubset, value)) {
+      if (!jsonSubset || Object.keys(jsonSubset).length === 0) {
+        return chalk.dim(`No match found`);
+      }
+
+      if (isEqual(jsonSubset, valueSubset)) {
+        return chalk.dim(chalk.green(JSON.stringify(jsonSubset, undefined, 2)));
+      }
+
+      if (isMatch(json, value)) {
         return chalk.dim(chalk.green(JSON.stringify(jsonSubset, undefined, 2)));
       }
 
       const isValueSuperset = isMatch(value, json);
 
-      const result = jestDiff(jsonSubset, value, {
+      const result = jestDiff(jsonSubset, valueSubset, {
+        omitAnnotationLines: true,
+        aColor: chalk.dim,
+        bColor: chalk.red,
+        changeColor: chalk.red,
+        commonColor: chalk.green.dim,
+        aIndicator: ' ',
+        bIndicator: isValueSuperset ? '+' : '-',
+      });
+
+      return result || undefined;
+    },
+    async diff(value) {
+      const json = await fs.readJSON(filepath);
+
+      if (isEqual(json, value)) {
+        return chalk.dim(chalk.green(JSON.stringify(json, undefined, 2)));
+      }
+
+      const isValueSuperset = isMatch(value, json);
+
+      const result = jestDiff(json, value, {
         omitAnnotationLines: true,
         aColor: chalk.dim,
         bColor: chalk.red,
