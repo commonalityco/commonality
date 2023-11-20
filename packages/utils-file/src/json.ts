@@ -1,9 +1,10 @@
 import { matchKeys } from '@commonalityco/utils-fp';
-import get from 'lodash/get';
-import isEqual from 'lodash/isEqual';
-import merge from 'lodash/merge';
-import isMatch from 'lodash/isMatch';
-import omit from 'lodash/omit';
+
+import isEqual from 'lodash-es/isEqual';
+import get from 'lodash-es/get';
+import merge from 'lodash-es/merge';
+import isMatch from 'lodash-es/isMatch';
+import omit from 'lodash-es/omit';
 import type {
   JsonFileWriter as JsonFileWriterType,
   JsonFileReader as JsonFileReaderType,
@@ -28,6 +29,7 @@ export const createJsonFileReader = (filepath: string): JsonFileReaderType => {
         return;
       }
     },
+
     async contains(value) {
       try {
         const json = await fs.readJSON(filepath);

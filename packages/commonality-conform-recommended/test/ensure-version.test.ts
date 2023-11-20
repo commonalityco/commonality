@@ -26,7 +26,7 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: vi.fn(),
+        json: vi.fn().mockReturnValue({ contains: vi.fn() }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -56,7 +56,7 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: vi.fn(),
+        json: vi.fn().mockReturnValue({ contains: vi.fn() }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -86,7 +86,7 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: vi.fn(),
+        json: vi.fn().mockReturnValue({ contains: vi.fn() }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -116,7 +116,7 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: vi.fn(),
+        json: vi.fn().mockReturnValue({ contains: vi.fn() }),
         text: vi.fn(),
         projectWorkspaces: [],
       });

@@ -456,7 +456,7 @@ describe('createJsonFileFormatter', () => {
     await fs.remove(temporaryPath);
   });
 
-  describe('diffPartial', () => {
+  describe('diff', () => {
     it('should output the correct snapshot when source and target are equal', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
       const formatter = createJsonFileFormatter(filepath);

@@ -63,7 +63,7 @@ export const ensureVersion = defineConformer<{
           options.dependencies,
         )} must match version ${options.version}`,
         filepath: 'package.json',
-        context: await json('package.json').diffPartial(expectedDependencies),
+        context: await json('package.json').diff(expectedDependencies),
       };
     },
   };
