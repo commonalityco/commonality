@@ -2,11 +2,7 @@ import os from 'node:os';
 import stripAnsi from 'strip-ansi';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import fs from 'fs-extra';
-import {
-  createTextFileReader,
-  createTextFileWriter,
-  createTextFileFormatter,
-} from '../src';
+import { text } from '../src';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { Workspace } from '@commonalityco/types';
@@ -41,10 +37,10 @@ describe('text', () => {
         workspace.path,
         'multi-line.md',
       );
-      const textFile = createTextFileReader(filepath);
-      const text = await textFile.get();
+      const textFile = text(filepath);
+      const textData = await textFile.get();
 
-      expect(text).toEqual([
+      expect(textData).toEqual([
         '# First line',
         '## Second line',
         '### Third line',
@@ -57,7 +53,7 @@ describe('text', () => {
         workspace.path,
         'multi-line.md',
       );
-      const textFile = createTextFileReader(filepath);
+      const textFile = text(filepath);
 
       await expect(
         textFile.contains(['# First line', '## Second line']),
@@ -70,7 +66,7 @@ describe('text', () => {
         workspace.path,
         'multi-line.md',
       );
-      const textFile = createTextFileReader(filepath);
+      const textFile = text(filepath);
 
       await expect(textFile.contains(['line4', 'line5'])).resolves.toEqual(
         false,
@@ -86,12 +82,12 @@ describe('text', () => {
           workspace.path,
           'multi-line.md',
         );
-        const textFile = createTextFileWriter(filepath);
+        const textFile = text(filepath);
 
         await textFile.set(['line1', 'line2', 'line3']);
-        const text = await fs.readFile(filepath, 'utf8');
+        const textData = await fs.readFile(filepath, 'utf8');
 
-        expect(text).toMatchInlineSnapshot(`
+        expect(textData).toMatchInlineSnapshot(`
           "line1
           line2
           line3"
@@ -106,12 +102,12 @@ describe('text', () => {
           workspace.path,
           'multi-line.md',
         );
-        const textFile = createTextFileWriter(filepath);
+        const textFile = text(filepath);
 
         await textFile.add(['### Fourth line']);
-        const text = await fs.readFile(filepath, 'utf8');
+        const textData = await fs.readFile(filepath, 'utf8');
 
-        expect(text).toMatchInlineSnapshot(`
+        expect(textData).toMatchInlineSnapshot(`
           "# First line
 
           ## Second line
@@ -130,13 +126,13 @@ describe('text', () => {
           workspace.path,
           'multi-line.md',
         );
-        const textFile = createTextFileWriter(filepath);
+        const textFile = text(filepath);
 
         await textFile.remove(['### Third line']);
 
-        const text = await fs.readFile(filepath, 'utf8');
+        const textData = await fs.readFile(filepath, 'utf8');
 
-        expect(text).toMatchInlineSnapshot(`
+        expect(textData).toMatchInlineSnapshot(`
           "# First line
 
           ## Second line
@@ -154,7 +150,7 @@ describe('text', () => {
         workspace.path,
         'multi-line.md',
       );
-      const formatter = createTextFileFormatter(filepath);
+      const formatter = text(filepath);
 
       const value = [
         '# First line',
@@ -178,7 +174,7 @@ describe('text', () => {
         workspace.path,
         'multi-line.md',
       );
-      const formatter = createTextFileFormatter(filepath);
+      const formatter = text(filepath);
 
       const value = ['# First line', '## Second line'];
       const result = await formatter.diff(value);

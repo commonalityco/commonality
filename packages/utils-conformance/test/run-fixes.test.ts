@@ -1,12 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { runFixes } from '../src/run-fixes';
-import {
-  Workspace,
-  FileCreatorFactory,
-  JsonFileCreator,
-  TextFileCreator,
-  ConformanceResult,
-} from '@commonalityco/types';
+import { Workspace, ConformanceResult } from '@commonalityco/types';
 
 describe('runFixes', () => {
   it('should only run fixes on invalid and fixable results', async () => {
@@ -63,17 +57,11 @@ describe('runFixes', () => {
         packageJson: { name: 'valid' },
       },
     ];
-    const createJson: FileCreatorFactory<JsonFileCreator> = vi.fn();
-    const createText: FileCreatorFactory<TextFileCreator> = vi.fn();
-    const createYaml: FileCreatorFactory<YamlFileCreator> = vi.fn();
 
     await runFixes({
       conformanceResults,
       rootDirectory,
       workspaces,
-      createJson,
-      createText,
-      createYaml,
     });
 
     expect(fix).toHaveBeenCalledTimes(1);
@@ -105,17 +93,11 @@ describe('runFixes', () => {
         packageJson: { name: 'valid' },
       },
     ];
-    const createJson: FileCreatorFactory<JsonFileCreator> = vi.fn();
-    const createText: FileCreatorFactory<TextFileCreator> = vi.fn();
-    const createYaml: FileCreatorFactory<YamlFileCreator> = vi.fn();
 
     const results = await runFixes({
       conformanceResults,
       rootDirectory,
       workspaces,
-      createJson,
-      createText,
-      createYaml,
     });
 
     expect(results).toHaveLength(1);
