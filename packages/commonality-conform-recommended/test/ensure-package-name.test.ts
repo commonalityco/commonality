@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { ensurePackageName } from '../src/ensure-package-name';
+import { jsonReader } from '@commonalityco/utils-file';
 
 describe('ensurePackageName', () => {
   describe('validate', () => {
@@ -14,7 +15,8 @@ describe('ensurePackageName', () => {
       const conformer = ensurePackageName();
       const result = await conformer.validate({
         workspace,
-        json: vi.fn(),
+        json: () =>
+          jsonReader('package.json', { defaultSource: workspace.packageJson }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -34,7 +36,10 @@ describe('ensurePackageName', () => {
       const conformer = ensurePackageName();
       const result = await conformer.validate({
         workspace,
-        json: vi.fn(),
+        json: () =>
+          jsonReader('package.json', {
+            defaultSource: workspace.packageJson,
+          }),
         text: vi.fn(),
         projectWorkspaces: [],
       });

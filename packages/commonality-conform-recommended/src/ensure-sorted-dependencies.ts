@@ -30,6 +30,12 @@ export const ensureSortedDependencies = defineConformer(() => {
     fix: async ({ workspace, json }) => {
       const packageJson = workspace.packageJson;
 
+      const updatedProperties: {
+        dependencies?: Record<string, string>;
+        devDependencies?: Record<string, string>;
+        peerDependencies?: Record<string, string>;
+      } = {};
+
       for (const depType of DEPENDENCY_TYPES) {
         const deps = packageJson[depType];
 
@@ -42,10 +48,12 @@ export const ensureSortedDependencies = defineConformer(() => {
           );
 
           if (!hasSortedKeys) {
-            await json('package.json').merge({ [depType]: sortedDeps });
+            updatedProperties[depType] = sortedDeps;
           }
         }
       }
+
+      await json('package.json').merge(updatedProperties);
     },
     message: 'Dependencies in package.json must be sorted alphabetically',
   };

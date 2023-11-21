@@ -182,7 +182,9 @@ export interface Conformer {
   message: ConformerMessage;
 }
 
-export type ConformerCreator<C extends Conformer, O> = (options: O) => C;
+export type ConformerCreator<C extends Conformer, O = undefined> = (
+  options?: O,
+) => C;
 
 export type ConformanceResult = {
   name: string;

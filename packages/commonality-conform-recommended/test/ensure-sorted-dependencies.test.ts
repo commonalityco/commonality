@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { ensureSortedDependencies } from '../src/ensure-sorted-dependencies';
+import { jsonReader, jsonWriter } from '@commonalityco/utils-file';
 
 describe('ensureSortedDependencies', () => {
   describe('validate', () => {
@@ -19,7 +20,10 @@ describe('ensureSortedDependencies', () => {
       const conformer = ensureSortedDependencies();
       const result = await conformer.validate({
         workspace,
-        json: vi.fn(),
+        json: () =>
+          jsonReader('package.json', {
+            defaultSource: workspace.packageJson,
+          }),
         text: vi.fn(),
         projectWorkspaces,
       });
@@ -42,7 +46,10 @@ describe('ensureSortedDependencies', () => {
       const conformer = ensureSortedDependencies();
       const result = await conformer.validate({
         workspace,
-        json: vi.fn(),
+        json: () =>
+          jsonReader('package.json', {
+            defaultSource: workspace.packageJson,
+          }),
         text: vi.fn(),
         projectWorkspaces,
       });
@@ -69,9 +76,10 @@ describe('ensureSortedDependencies', () => {
 
       await conformer?.fix?.({
         workspace,
-        json: vi.fn().mockImplementation(() => ({
-          merge: mergeMock,
-        })),
+        json: () =>
+          jsonWriter('package.json', {
+            defaultSource: workspace.packageJson,
+          }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -92,31 +100,29 @@ describe('ensureSortedDependencies', () => {
       };
 
       const conformer = ensureSortedDependencies();
-      const mergeMock = vi.fn();
+      const onWriteMock = vi.fn();
 
       await conformer?.fix?.({
         workspace,
-        json: vi.fn().mockImplementation(() => ({
-          merge: mergeMock,
-        })),
+        json: () =>
+          jsonWriter('package.json', {
+            defaultSource: workspace.packageJson,
+            onWrite: onWriteMock,
+          }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
 
-      expect(mergeMock).toHaveBeenCalledTimes(3);
-      expect(mergeMock).toHaveBeenCalledWith({
+      expect(onWriteMock).toHaveBeenCalledTimes(1);
+      expect(onWriteMock).toHaveBeenCalledWith('package.json', {
         dependencies: {
           'a-dep': '1.0.0',
           'b-dep': '1.0.0',
         },
-      });
-      expect(mergeMock).toHaveBeenCalledWith({
         devDependencies: {
           'a-dep': '1.0.0',
           'b-dep': '1.0.0',
         },
-      });
-      expect(mergeMock).toHaveBeenCalledWith({
         peerDependencies: {
           'a-dep': '1.0.0',
           'b-dep': '1.0.0',

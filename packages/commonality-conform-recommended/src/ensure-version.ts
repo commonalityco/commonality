@@ -10,7 +10,7 @@ const propertyNameByType = {
 type DependencyType = keyof typeof propertyNameByType;
 
 export const ensureVersion = defineConformer(
-  (options: {
+  (options?: {
     version: string;
     dependencies: string[];
     type?: Array<DependencyType>;
