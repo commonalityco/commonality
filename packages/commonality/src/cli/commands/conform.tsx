@@ -150,8 +150,8 @@ export const ConformRunner = ({
   ).length;
 
   if (error) {
-    console.log({ error });
     onError(error);
+    return;
   }
 
   if (isLoading) {

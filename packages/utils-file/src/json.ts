@@ -72,7 +72,7 @@ export const createJsonFileReader = (
   return {
     async get(accessPath?: string) {
       try {
-        const source = options.defaultSource || (await fs.readJSON(filepath));
+        const source = await getSource();
 
         if (!accessPath) {
           return source;
@@ -86,7 +86,7 @@ export const createJsonFileReader = (
 
     async contains(value) {
       try {
-        const source = options.defaultSource || (await fs.readJSON(filepath));
+        const source = await getSource();
 
         return isMatch(source, value);
       } catch {
@@ -95,7 +95,7 @@ export const createJsonFileReader = (
     },
     async containsPartial(value) {
       try {
-        const source = options.defaultSource || (await fs.readJSON(filepath));
+        const source = await getSource();
 
         return containsPartial(source, value);
       } catch {
@@ -104,9 +104,7 @@ export const createJsonFileReader = (
     },
     async exists() {
       try {
-        return (
-          Boolean(options.defaultSource) || (await fs.pathExists(filepath))
-        );
+        return await getExists();
       } catch (error) {
         console.error(`Error checking if file exists: ${error}`);
         return false;
