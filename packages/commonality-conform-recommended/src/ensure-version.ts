@@ -50,7 +50,7 @@ export const ensureVersion = defineConformer(
           throw new Error('Options required');
         }
 
-        const packageJson = await json('package.json').get();
+        const packageJson: PackageJson = await json('package.json').get();
 
         for (const type of options.type ?? []) {
           const propertyName = propertyNameByType[type];
