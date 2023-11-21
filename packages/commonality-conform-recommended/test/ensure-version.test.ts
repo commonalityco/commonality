@@ -31,7 +31,8 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: () => createJsonFileReader('package.json', packageJson),
+        json: () =>
+          createJsonFileReader('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -61,7 +62,8 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: () => createJsonFileReader('package.json', packageJson),
+        json: () =>
+          createJsonFileReader('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -90,7 +92,8 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: () => createJsonFileReader('package.json', packageJson),
+        json: () =>
+          createJsonFileReader('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -119,7 +122,8 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: () => createJsonFileReader('package.json', packageJson),
+        json: () =>
+          createJsonFileReader('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
         projectWorkspaces: [],
       });

@@ -62,12 +62,17 @@ export function containsPartial<
 
 export const createJsonFileReader = (
   filepath: string,
-  defaultSource?: Record<string, unknown>,
+  options: { defaultSource?: Record<string, unknown> } = {},
 ): JsonFileReaderType => {
+  const getExists = async () =>
+    Boolean(options.defaultSource) || (await fs.pathExists(filepath));
+  const getSource = async () =>
+    options.defaultSource || (await fs.readJSON(filepath));
+
   return {
     async get(accessPath?: string) {
       try {
-        const source = defaultSource ?? (await fs.readJSON(filepath));
+        const source = options.defaultSource || (await fs.readJSON(filepath));
 
         if (!accessPath) {
           return source;
@@ -81,7 +86,7 @@ export const createJsonFileReader = (
 
     async contains(value) {
       try {
-        const source = defaultSource ?? (await fs.readJSON(filepath));
+        const source = options.defaultSource || (await fs.readJSON(filepath));
 
         return isMatch(source, value);
       } catch {
@@ -90,7 +95,7 @@ export const createJsonFileReader = (
     },
     async containsPartial(value) {
       try {
-        const source = defaultSource ?? (await fs.readJSON(filepath));
+        const source = options.defaultSource || (await fs.readJSON(filepath));
 
         return containsPartial(source, value);
       } catch {
@@ -99,7 +104,9 @@ export const createJsonFileReader = (
     },
     async exists() {
       try {
-        return Boolean(defaultSource) ?? (await fs.pathExists(filepath));
+        return (
+          Boolean(options.defaultSource) || (await fs.pathExists(filepath))
+        );
       } catch (error) {
         console.error(`Error checking if file exists: ${error}`);
         return false;
@@ -121,13 +128,14 @@ export const createJsonFileWriter = (
     onDelete?: (filePath: string) => Promise<void>;
     onWrite?: (filePath: string, data: unknown) => Promise<void>;
     defaultSource?: Record<string, unknown>;
-  },
+  } = {},
 ): JsonFileWriterType => {
   const getExists = async () =>
-    Boolean(options.defaultSource) ?? (await fs.pathExists(filepath));
+    Boolean(options.defaultSource) || (await fs.pathExists(filepath));
 
   const getSource = async () =>
-    options.defaultSource ?? (await fs.readJSON(filepath)) ?? {};
+    options.defaultSource ||
+    ((await getExists()) ? await fs.readJSON(filepath) : {});
 
   const writeFile = async (json: unknown) =>
     options.onWrite
@@ -224,11 +232,10 @@ export const createJsonFileWriter = (
 
 export const createJsonFileFormatter = (
   filepath: string,
-  options: { defaultSource?: Record<string, unknown> },
+  options: { defaultSource?: Record<string, unknown> } = {},
 ): JsonFileFormatter => {
   const getExists = async () =>
     Boolean(options.defaultSource) ?? (await fs.pathExists(filepath));
-
   const getSource = async () => {
     return options.defaultSource ?? (await fs.readJSON(filepath)) ?? {};
   };
