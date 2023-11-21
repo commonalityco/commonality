@@ -13,7 +13,7 @@ import fs from 'fs-extra';
 import { diff as jestDiff } from 'jest-diff';
 import chalk from 'chalk';
 
-export const createJsonFileReader = (
+export const jsonReader = (
   filepath: string,
   options: { defaultSource?: Record<string, unknown> } = {},
 ): JsonFileReaderType => {
@@ -64,7 +64,7 @@ class WriteError extends Error {
   }
 }
 
-export const createJsonFileWriter = (
+export const jsonWriter = (
   filepath: string,
   options: {
     onDelete?: (filePath: string) => Promise<void>;
@@ -172,7 +172,7 @@ export const createJsonFileWriter = (
   };
 };
 
-export const createJsonFileFormatter = (
+export const jsonFormatter = (
   filepath: string,
   options: { defaultSource?: Record<string, unknown> } = {},
 ): JsonFileFormatter => {

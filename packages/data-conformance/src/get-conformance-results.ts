@@ -2,10 +2,7 @@ import {
   createTextFileFormatter,
   createTextFileReader,
 } from './../../utils-file/src/text';
-import {
-  createJsonFileFormatter,
-  createJsonFileReader,
-} from './../../utils-file/src/json';
+import { jsonFormatter, jsonReader } from './../../utils-file/src/json';
 import {
   Conformer,
   TagsData,
@@ -51,7 +48,7 @@ export const getConformanceResults = async ({
                       path.join(rootDirectory, workspace.path, filename),
                     ),
                   json: (filename) =>
-                    createJsonFileReader(
+                    jsonReader(
                       path.join(rootDirectory, workspace.path, filename),
                     ),
                 });
@@ -74,7 +71,7 @@ export const getConformanceResults = async ({
                     path.join(rootDirectory, workspace.path, filename),
                   ),
                 json: (filename: string) =>
-                  createJsonFileFormatter(
+                  jsonFormatter(
                     path.join(rootDirectory, workspace.path, filename),
                   ),
               });

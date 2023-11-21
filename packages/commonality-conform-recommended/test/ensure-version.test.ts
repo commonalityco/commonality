@@ -1,8 +1,8 @@
 import { conform } from './../../commonality/src/cli/commands/conform';
 import {
-  createJsonFileFormatter,
-  createJsonFileReader,
-  createJsonFileWriter,
+  jsonFormatter,
+  jsonReader,
+  jsonWriter,
 } from './../../utils-file/src/json';
 import { describe, expect, it, vi } from 'vitest';
 import { ensureVersion } from '../src/ensure-version';
@@ -31,8 +31,7 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: () =>
-          createJsonFileReader('package.json', { defaultSource: packageJson }),
+        json: () => jsonReader('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -62,8 +61,7 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: () =>
-          createJsonFileReader('package.json', { defaultSource: packageJson }),
+        json: () => jsonReader('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -92,8 +90,7 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: () =>
-          createJsonFileReader('package.json', { defaultSource: packageJson }),
+        json: () => jsonReader('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -122,8 +119,7 @@ describe('ensureVersion', () => {
       const conformer = ensureVersion(options);
       const result = await conformer.validate({
         workspace,
-        json: () =>
-          createJsonFileReader('package.json', { defaultSource: packageJson }),
+        json: () => jsonReader('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
         projectWorkspaces: [],
       });
@@ -164,7 +160,7 @@ describe('ensureVersion', () => {
       await conformer?.fix?.({
         workspace,
         json: () =>
-          createJsonFileWriter('package.json', {
+          jsonWriter('package.json', {
             defaultSource: packageJson,
             onWrite,
             onDelete: vi.fn(),
@@ -220,7 +216,7 @@ describe('ensureVersion', () => {
 
       const message = await conformer.message({
         workspace,
-        json: () => createJsonFileFormatter('package.json', {}),
+        json: () => jsonFormatter('package.json', {}),
         text: vi.fn(),
       });
 

@@ -5,13 +5,9 @@ import type { Workspace } from '@commonalityco/types';
 import fs from 'fs-extra';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {
-  createJsonFileFormatter,
-  createJsonFileReader,
-  createJsonFileWriter,
-} from '../src';
+import { jsonFormatter, jsonReader, jsonWriter } from '../src';
 
-describe('createJsonFileReader', () => {
+describe('jsonReader', () => {
   const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
   const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
   const workspace: Workspace = {
@@ -45,7 +41,7 @@ describe('createJsonFileReader', () => {
   describe('get', () => {
     it('should return the entire JSON file if not passed a path', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileReader(filepath);
+      const jsonFile = jsonReader(filepath);
       const json = await jsonFile.get();
 
       expect(json).toEqual({
@@ -69,7 +65,7 @@ describe('createJsonFileReader', () => {
         workspace.path,
         'non-existent.json',
       );
-      const jsonFile = createJsonFileReader(filepath);
+      const jsonFile = jsonReader(filepath);
 
       await expect(jsonFile.get()).resolves.toEqual(undefined);
     });
@@ -78,7 +74,7 @@ describe('createJsonFileReader', () => {
   describe('exists', () => {
     it('should return true if the file exists', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileReader(filepath);
+      const jsonFile = jsonReader(filepath);
 
       await expect(jsonFile.exists()).resolves.toEqual(true);
     });
@@ -89,7 +85,7 @@ describe('createJsonFileReader', () => {
         workspace.path,
         'non-existent.json',
       );
-      const jsonFile = createJsonFileReader(filepath);
+      const jsonFile = jsonReader(filepath);
 
       await expect(jsonFile.exists()).resolves.toEqual(false);
     });
@@ -98,7 +94,7 @@ describe('createJsonFileReader', () => {
   describe('contains', () => {
     it('should return true if the file contains the value', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileReader(filepath);
+      const jsonFile = jsonReader(filepath);
 
       await expect(
         jsonFile.contains({
@@ -111,7 +107,7 @@ describe('createJsonFileReader', () => {
 
     it('should return false if the file does not contain the value', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileReader(filepath);
+      const jsonFile = jsonReader(filepath);
 
       await expect(
         jsonFile.contains({
@@ -124,7 +120,7 @@ describe('createJsonFileReader', () => {
 
     it('should return false if the file contains a partial match', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileReader(filepath);
+      const jsonFile = jsonReader(filepath);
 
       await expect(
         jsonFile.contains({
@@ -138,7 +134,7 @@ describe('createJsonFileReader', () => {
   });
 });
 
-describe('createJsonFileWriter', () => {
+describe('jsonWriter', () => {
   const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
   const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
   const workspace: Workspace = {
@@ -172,7 +168,7 @@ describe('createJsonFileWriter', () => {
   describe('update', () => {
     it('should update the JSON file if the property exists', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
 
       await jsonFile.update({ scripts: { dev: 'npm run dev' } });
 
@@ -195,7 +191,7 @@ describe('createJsonFileWriter', () => {
 
     it('should not update the JSON file if the property does not exist', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
 
       await jsonFile.update({ scripts: { foo: 'npm run dev' } });
 
@@ -222,7 +218,7 @@ describe('createJsonFileWriter', () => {
         workspace.path,
         'non-existent.json',
       );
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
 
       await jsonFile.update({ scripts: { build: 'npm run build' } });
 
@@ -233,7 +229,7 @@ describe('createJsonFileWriter', () => {
 
     it('should leave the file unchanged if update is called with no arguments', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
       const originalJson = await fs.readJson(filepath);
 
       // @ts-expect-error - Testing invalid arguments
@@ -248,7 +244,7 @@ describe('createJsonFileWriter', () => {
   describe('set', () => {
     it('should overwrite the JSON file', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
 
       await jsonFile.set({ scripts: { build: 'npm run build' } });
 
@@ -267,7 +263,7 @@ describe('createJsonFileWriter', () => {
         workspace.path,
         'non-existent.json',
       );
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
 
       await jsonFile.set({ scripts: { build: 'npm run build' } });
 
@@ -282,7 +278,7 @@ describe('createJsonFileWriter', () => {
 
     it('should leave the file unchanged if set is called with no arguments', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
       const originalJson = await fs.readJson(filepath);
 
       // @ts-expect-error - Testing invalid arguments
@@ -297,7 +293,7 @@ describe('createJsonFileWriter', () => {
   describe('merge', () => {
     it('should merge values into an existing JSON file', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
 
       await jsonFile.merge({ publishConfig: { access: 'public' } });
 
@@ -327,7 +323,7 @@ describe('createJsonFileWriter', () => {
         workspace.path,
         'non-existent.json',
       );
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
 
       await jsonFile.merge({ scripts: { test: 'npm run test' } });
 
@@ -342,7 +338,7 @@ describe('createJsonFileWriter', () => {
 
     it('should return the original source object if nothing is passed', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
 
       const originalJson = await fs.readJSON(filepath);
 
@@ -357,7 +353,7 @@ describe('createJsonFileWriter', () => {
   describe('remove', () => {
     it('should remove value from JSON file', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
 
       await jsonFile.remove('workspaces');
 
@@ -379,7 +375,7 @@ describe('createJsonFileWriter', () => {
 
     it('should remove value from JSON file when passed a path', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
 
       await jsonFile.remove('scripts.dev');
 
@@ -401,7 +397,7 @@ describe('createJsonFileWriter', () => {
 
     it('should return the original json if remove is called with no arguments', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileWriter(filepath);
+      const jsonFile = jsonWriter(filepath);
       const originalJson = await fs.readJson(filepath);
 
       // @ts-expect-error - Testing invalid arguments
@@ -414,7 +410,7 @@ describe('createJsonFileWriter', () => {
   });
 });
 
-describe('createJsonFileFormatter', () => {
+describe('jsonFormatter', () => {
   const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
   const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
   const workspace: Workspace = {
@@ -448,7 +444,7 @@ describe('createJsonFileFormatter', () => {
   describe('diff', () => {
     it('should output the correct snapshot when source and target are equal', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = createJsonFileFormatter(filepath);
+      const formatter = jsonFormatter(filepath);
 
       const json = await fs.readJson(filepath);
       const result = await formatter.diff(json);
@@ -472,7 +468,7 @@ describe('createJsonFileFormatter', () => {
 
     it('should output the correct snapshot when source is a subset of the target', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = createJsonFileFormatter(filepath);
+      const formatter = jsonFormatter(filepath);
 
       const json = await fs.readJson(filepath);
       const value = { ...json, extra: 'extra' };
@@ -498,7 +494,7 @@ describe('createJsonFileFormatter', () => {
 
     it('should output the correct snapshot when source is a superset of the target', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = createJsonFileFormatter(filepath);
+      const formatter = jsonFormatter(filepath);
 
       const value = { scripts: { dev: 'dev' } };
       const result = await formatter.diff(value);
@@ -514,7 +510,7 @@ describe('createJsonFileFormatter', () => {
 
     it('should output the correct snapshot when source does not match the target', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = createJsonFileFormatter(filepath);
+      const formatter = jsonFormatter(filepath);
 
       const value = { publishConfig: { access: 'public' } };
       const result = await formatter.diff(value);
@@ -528,7 +524,7 @@ describe('createJsonFileFormatter', () => {
   describe('diffAdded', () => {
     it('should output the correct snapshot when source and target match', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = createJsonFileFormatter(filepath);
+      const formatter = jsonFormatter(filepath);
 
       const json = await fs.readJson(filepath);
       const result = await formatter.diffAdded(json);
@@ -552,7 +548,7 @@ describe('createJsonFileFormatter', () => {
 
     it('should output the correct snapshot when source is a subset of the target', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = createJsonFileFormatter(filepath);
+      const formatter = jsonFormatter(filepath);
 
       const json = await fs.readJson(filepath);
       const value = { ...json, extra: 'extra' };
@@ -578,7 +574,7 @@ describe('createJsonFileFormatter', () => {
 
     it('should output the correct snapshot when target is a subset of the source', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = createJsonFileFormatter(filepath);
+      const formatter = jsonFormatter(filepath);
 
       const value = { name: 'foo', version: '1.0.0' };
       const result = await formatter.diffAdded(value);
@@ -603,7 +599,7 @@ describe('createJsonFileFormatter', () => {
 
     it('should output the correct snapshot when source does not match the target', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = createJsonFileFormatter(filepath);
+      const formatter = jsonFormatter(filepath);
 
       const result = await formatter.diffAdded({
         publishConfig: { access: 'public' },
@@ -632,7 +628,7 @@ describe('createJsonFileFormatter', () => {
   describe('diffRemoved', () => {
     it('should output the correct snapshot when source and target are equal', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = createJsonFileFormatter(filepath);
+      const formatter = jsonFormatter(filepath);
 
       const json = await fs.readJson(filepath);
       const result = await formatter.diffRemoved(json);
@@ -656,7 +652,7 @@ describe('createJsonFileFormatter', () => {
 
     it('should output the correct snapshot when source does not match the target', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = createJsonFileFormatter(filepath);
+      const formatter = jsonFormatter(filepath);
 
       const result = await formatter.diffRemoved({
         publishConfig: { access: 'public' },
