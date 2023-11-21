@@ -199,7 +199,7 @@ export interface Conformer {
   message: ConformerMessage;
 }
 
-export type ConformerCreator<T = undefined> = (options?: T) => Conformer;
+export type ConformerCreator<C extends Conformer, O> = (options: O) => C;
 
 export type ConformanceResult = {
   name: string;

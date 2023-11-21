@@ -60,17 +60,20 @@ export function containsPartial<
   return true;
 }
 
-export const createJsonFileReader = (filepath: string): JsonFileReaderType => {
+export const createJsonFileReader = (
+  filepath: string,
+  defaultSource?: Record<string, unknown>,
+): JsonFileReaderType => {
   return {
     async get(accessPath?: string) {
       try {
-        const json = await fs.readJSON(filepath);
+        const source = defaultSource ?? (await fs.readJSON(filepath));
 
         if (!accessPath) {
-          return json;
+          return source;
         }
 
-        return get(json, accessPath);
+        return get(source, accessPath);
       } catch {
         return;
       }
@@ -78,25 +81,25 @@ export const createJsonFileReader = (filepath: string): JsonFileReaderType => {
 
     async contains(value) {
       try {
-        const json = await fs.readJSON(filepath);
+        const source = defaultSource ?? (await fs.readJSON(filepath));
 
-        return isMatch(json, value);
+        return isMatch(source, value);
       } catch {
         return false;
       }
     },
     async containsPartial(value) {
       try {
-        const json = await fs.readJSON(filepath);
+        const source = defaultSource ?? (await fs.readJSON(filepath));
 
-        return containsPartial(json, value);
+        return containsPartial(source, value);
       } catch {
         return false;
       }
     },
     async exists() {
       try {
-        return await fs.pathExists(filepath);
+        return Boolean(defaultSource) ?? (await fs.pathExists(filepath));
       } catch (error) {
         console.error(`Error checking if file exists: ${error}`);
         return false;
@@ -112,32 +115,53 @@ class WriteError extends Error {
   }
 }
 
-export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
+export const createJsonFileWriter = (
+  filepath: string,
+  options: {
+    onDelete?: (filePath: string) => Promise<void>;
+    onWrite?: (filePath: string, data: unknown) => Promise<void>;
+    defaultSource?: Record<string, unknown>;
+  },
+): JsonFileWriterType => {
+  const getExists = async () =>
+    Boolean(options.defaultSource) ?? (await fs.pathExists(filepath));
+
+  const getSource = async () =>
+    options.defaultSource ?? (await fs.readJSON(filepath)) ?? {};
+
+  const writeFile = async (json: unknown) =>
+    options.onWrite
+      ? options.onWrite(filepath, json)
+      : await fs.outputJSON(filepath, json);
+
+  const deleteFile = async () =>
+    options.onDelete ? options.onDelete(filepath) : await fs.remove(filepath);
+
   return {
     async update(value): Promise<void> {
       try {
-        const exists = await fs.pathExists(filepath);
+        const exists = await getExists();
 
         if (!exists || !value) {
           return;
         }
 
-        const json = await fs.readJSON(filepath);
+        const json = await getSource();
 
         const updateRecursive = <T extends Record<string, unknown>>(
-          src: T,
-          tgt: T,
+          source: T,
+          target: T,
         ): void => {
-          for (const key of Object.keys(tgt)) {
-            if (Object.prototype.hasOwnProperty.call(src, key)) {
+          for (const key of Object.keys(target)) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
               if (
-                typeof tgt[key] === 'object' &&
-                tgt[key] !== null &&
-                !Array.isArray(tgt[key])
+                typeof target[key] === 'object' &&
+                target[key] !== null &&
+                !Array.isArray(target[key])
               ) {
-                updateRecursive(src[key] as T, tgt[key] as T);
+                updateRecursive(source[key] as T, target[key] as T);
               } else {
-                (src as Record<string, unknown>)[key] = tgt[key];
+                (source as Record<string, unknown>)[key] = target[key];
               }
             }
           }
@@ -145,7 +169,7 @@ export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
 
         updateRecursive(json, value);
 
-        await fs.outputJSON(filepath, json);
+        await writeFile(json);
       } catch (error: unknown) {
         if (error instanceof Error) {
           throw new WriteError(error.message);
@@ -157,11 +181,10 @@ export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
 
     async merge(value): Promise<void> {
       try {
-        const exists = await fs.pathExists(filepath);
-        const json = exists ? await fs.readJSON(filepath) : {};
+        const json = await getSource();
         const updatedJson = merge(json, value);
 
-        await fs.outputJSON(filepath, updatedJson);
+        await writeFile(updatedJson);
       } catch (error: unknown) {
         if (error instanceof Error) {
           throw new WriteError(error.message);
@@ -173,7 +196,7 @@ export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
 
     async set(value): Promise<void> {
       try {
-        await fs.outputJSON(filepath, value);
+        await writeFile(value);
       } catch {
         return;
       }
@@ -181,17 +204,17 @@ export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
 
     async remove(accessPath: string) {
       try {
-        const json = await fs.readJSON(filepath);
+        const json = await getSource();
         const updatedJson = omit(json, accessPath);
 
-        await fs.outputJSON(filepath, updatedJson);
+        await writeFile(updatedJson);
       } catch {
         return;
       }
     },
     async delete(): Promise<void> {
       try {
-        await fs.remove(filepath);
+        await deleteFile();
       } catch (error) {
         console.error(`Error deleting file: ${error}`);
       }
@@ -201,12 +224,22 @@ export const createJsonFileWriter = (filepath: string): JsonFileWriterType => {
 
 export const createJsonFileFormatter = (
   filepath: string,
+  options: { defaultSource?: Record<string, unknown> },
 ): JsonFileFormatter => {
+  const getExists = async () =>
+    Boolean(options.defaultSource) ?? (await fs.pathExists(filepath));
+
+  const getSource = async () => {
+    return options.defaultSource ?? (await fs.readJSON(filepath)) ?? {};
+  };
+
   return {
     async diff(value) {
-      const json = await fs.readJSON(filepath);
-      const isValueSuperset = isMatch(value, json);
-      const source = isValueSuperset ? json : matchKeys(json, value);
+      const sourceData = await getSource();
+      const isValueSuperset = isMatch(value, sourceData);
+      const source = isValueSuperset
+        ? sourceData
+        : matchKeys(sourceData, value);
 
       if (!source || Object.keys(source).length === 0) {
         return chalk.dim(`No match found`);
@@ -216,14 +249,14 @@ export const createJsonFileFormatter = (
         return chalk.dim(chalk.green(JSON.stringify(source, undefined, 2)));
       }
 
-      if (isMatch(json, value)) {
+      if (isMatch(sourceData, value)) {
         return chalk.dim(chalk.green(JSON.stringify(source, undefined, 2)));
       }
 
-      const target = isValueSuperset ? value : matchKeys(value, json);
+      const target = isValueSuperset ? value : matchKeys(value, sourceData);
 
-      if (target === source) {
-        return chalk.dim(chalk.green(JSON.stringify(source, undefined, 2)));
+      if (isEqual(source, target)) {
+        return chalk.dim(chalk.green(JSON.stringify(target, undefined, 2)));
       }
 
       const result = jestDiff(source, target, {
@@ -240,7 +273,7 @@ export const createJsonFileFormatter = (
     },
 
     async diffAdded(value) {
-      const json = await fs.readJSON(filepath);
+      const json = await getSource();
 
       if (isEqual(json, value)) {
         return chalk.dim(chalk.green(JSON.stringify(json, undefined, 2)));
@@ -260,7 +293,7 @@ export const createJsonFileFormatter = (
     },
 
     async diffRemoved(value) {
-      const json = await fs.readJSON(filepath);
+      const json = await getSource();
 
       if (isEqual(json, value)) {
         return chalk.dim(chalk.green(JSON.stringify(json, undefined, 2)));

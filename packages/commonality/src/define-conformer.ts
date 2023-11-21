@@ -1,5 +1,7 @@
-import type { ConformerCreator } from '@commonalityco/types';
+import type { Conformer, ConformerCreator } from '@commonalityco/types';
 
-export function defineConformer<T>(conformerCreator: ConformerCreator<T>) {
+export function defineConformer<T extends Conformer, O>(
+  conformerCreator: ConformerCreator<T, O>,
+): ConformerCreator<T, O> {
   return conformerCreator;
 }

@@ -62,20 +62,21 @@ describe('ensureSortedDependencies', () => {
           peerDependencies: { 'a-dep': '1.0.0', 'b-dep': '1.0.0' },
         },
       };
-      const setMock = vi.fn();
-      const json = vi.fn().mockImplementation(() => ({
-        set: setMock,
-      }));
 
       const conformer = ensureSortedDependencies();
+
+      const mergeMock = vi.fn();
+
       await conformer?.fix?.({
         workspace,
-        json,
+        json: vi.fn().mockImplementation(() => ({
+          merge: mergeMock,
+        })),
         text: vi.fn(),
         projectWorkspaces: [],
       });
 
-      expect(setMock).not.toHaveBeenCalled();
+      expect(mergeMock).not.toHaveBeenCalled();
     });
 
     it('should fix unsorted dependencies', async () => {
@@ -89,31 +90,37 @@ describe('ensureSortedDependencies', () => {
           peerDependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
         },
       };
-      const setMock = vi.fn();
-      const json = vi.fn().mockImplementation(() => ({
-        set: setMock,
-      }));
 
       const conformer = ensureSortedDependencies();
+      const mergeMock = vi.fn();
+
       await conformer?.fix?.({
         workspace,
-        json,
+        json: vi.fn().mockImplementation(() => ({
+          merge: mergeMock,
+        })),
         text: vi.fn(),
         projectWorkspaces: [],
       });
 
-      expect(setMock).toHaveBeenCalledTimes(3);
-      expect(setMock).toHaveBeenCalledWith('dependencies', {
-        'a-dep': '1.0.0',
-        'b-dep': '1.0.0',
+      expect(mergeMock).toHaveBeenCalledTimes(3);
+      expect(mergeMock).toHaveBeenCalledWith({
+        dependencies: {
+          'a-dep': '1.0.0',
+          'b-dep': '1.0.0',
+        },
       });
-      expect(setMock).toHaveBeenCalledWith('devDependencies', {
-        'a-dep': '1.0.0',
-        'b-dep': '1.0.0',
+      expect(mergeMock).toHaveBeenCalledWith({
+        devDependencies: {
+          'a-dep': '1.0.0',
+          'b-dep': '1.0.0',
+        },
       });
-      expect(setMock).toHaveBeenCalledWith('peerDependencies', {
-        'a-dep': '1.0.0',
-        'b-dep': '1.0.0',
+      expect(mergeMock).toHaveBeenCalledWith({
+        peerDependencies: {
+          'a-dep': '1.0.0',
+          'b-dep': '1.0.0',
+        },
       });
     });
   });
