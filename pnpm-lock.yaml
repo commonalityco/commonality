@@ -1521,6 +1521,9 @@ importers:
       '@types/lodash':
         specifier: ^4.14.198
         version: 4.14.198
+      '@types/lodash-es':
+        specifier: ^4.17.11
+        version: 4.17.11
       '@types/lodash.get':
         specifier: ^4.4.7
         version: 4.4.7
@@ -7234,6 +7237,12 @@ packages:
     dependencies:
       '@types/node': 20.9.2
       shell-exec: 1.1.2
+    dev: true
+
+  /@types/lodash-es@4.17.11:
+    resolution: {integrity: sha512-eCw8FYAWHt2DDl77s+AMLLzPn310LKohruumpucZI4oOFJkIgnlaJcy23OKMJxx4r9PeTF13Gv6w+jqjWQaYUg==}
+    dependencies:
+      '@types/lodash': 4.14.198
     dev: true
 
   /@types/lodash.debounce@4.0.7:

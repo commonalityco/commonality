@@ -32,6 +32,7 @@
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@types/lodash": "^4.14.198",
+    "@types/lodash-es": "^4.17.11",
     "@types/lodash.get": "^4.4.7",
     "@types/lodash.omit": "^4.5.7",
     "@types/lodash.set": "^4.3.7",

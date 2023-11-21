@@ -14,6 +14,48 @@ import fs from 'fs-extra';
 import { diff as jestDiff } from 'jest-diff';
 import chalk from 'chalk';
 
+export function containsPartial<
+  T extends Record<string, unknown>,
+  U extends Record<string, unknown>,
+>(source: T, target: U): boolean {
+  if (!source || !target) {
+    return false;
+  }
+
+  // Base condition to handle non-object types
+  if (typeof target !== 'object' || target === null) {
+    return source === target;
+  }
+
+  // Iterate over keys in the target object
+  for (const key in target) {
+    if (Object.prototype.hasOwnProperty.call(target, key)) {
+      if (typeof target[key] === 'object' && target[key] !== null) {
+        // If the key exists in the source and both are objects, recursively check
+        if (
+          key in source &&
+          typeof source[key] === 'object' &&
+          source[key] !== null
+        ) {
+          if (!containsPartial(source[key], target[key])) {
+            return false;
+          }
+        } else {
+          // Key exists in target but not as an object in source, or doesn't exist at all
+          return false;
+        }
+      } else {
+        // Direct value comparison
+        if (!(key in source) || source[key] !== target[key]) {
+          return false;
+        }
+      }
+    }
+  }
+
+  return true;
+}
+
 export const createJsonFileReader = (filepath: string): JsonFileReaderType => {
   return {
     async get(accessPath?: string) {
@@ -35,6 +77,15 @@ export const createJsonFileReader = (filepath: string): JsonFileReaderType => {
         const json = await fs.readJSON(filepath);
 
         return isMatch(json, value);
+      } catch {
+        return false;
+      }
+    },
+    async containsPartial(value) {
+      try {
+        const json = await fs.readJSON(filepath);
+
+        return containsPartial(json, value);
       } catch {
         return false;
       }

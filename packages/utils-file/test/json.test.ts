@@ -9,6 +9,7 @@ import {
   createJsonFileFormatter,
   createJsonFileReader,
   createJsonFileWriter,
+  containsPartial,
 } from '../src';
 
 describe('createJsonFileReader', () => {
@@ -151,6 +152,30 @@ describe('createJsonFileReader', () => {
         }),
       ).resolves.toEqual(false);
     });
+  });
+});
+
+describe('containsPartial', () => {
+  it('should return true when source is a superset of target', () => {
+    const source = { a: 1, b: 2, c: 3 };
+    const target = { a: 1, b: 2 };
+    expect(containsPartial(source, target)).toEqual(true);
+  });
+
+  it('should return false when target is a superset of source', () => {
+    const source = { a: 1, b: 2 };
+    const target = { a: 1, b: 2, c: 3 };
+    expect(containsPartial(source, target)).toEqual(false);
+  });
+
+  it('should return true when source and target are equal', () => {
+    const source = { a: 1, b: 2, c: 3 };
+    const target = { a: 1, b: 2, c: 3 };
+    expect(containsPartial(source, target)).toEqual(true);
+  });
+
+  it('should return false when no arguments are passed', () => {
+    expect(containsPartial()).toEqual(false);
   });
 });
 
