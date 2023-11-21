@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import omit from 'lodash-es/omit';
 import merge from 'lodash-es/merge';
 import { JsonFile } from '@commonalityco/types';
+import detectIndent from 'detect-indent';
 
 export const jsonWriter = (
   filepath: string,
@@ -10,17 +11,46 @@ export const jsonWriter = (
     defaultSource?: Record<string, unknown>;
   } = {},
 ): Pick<JsonFile, 'update' | 'merge' | 'set' | 'remove'> => {
-  const getExists = async () =>
-    Boolean(options.defaultSource) || (await fs.pathExists(filepath));
+  const getExists = async (): Promise<boolean> => {
+    if (options.defaultSource) {
+      return true;
+    }
 
-  const getSource = async () =>
-    options.defaultSource ||
-    ((await getExists()) ? await fs.readJSON(filepath) : {});
+    return fs.pathExists(filepath);
+  };
+  const _exists = getExists();
 
-  const writeFile = async (json: unknown) =>
-    options.onWrite
+  const getText = async (): Promise<string | undefined> => {
+    return (await _exists) ? await fs.readFile(filepath, 'utf8') : undefined;
+  };
+
+  const _text = getText();
+
+  const getSource = async (): Promise<Record<string, unknown>> => {
+    if (options.defaultSource) {
+      return options.defaultSource;
+    }
+
+    const text = await _text;
+
+    if (!text) {
+      return {};
+    }
+
+    return JSON.parse(text);
+  };
+
+  const writeFile = async (json: unknown) => {
+    const text = await _text;
+    const defaultIndent = '    ';
+    const indent = text
+      ? detectIndent(text).indent || defaultIndent
+      : defaultIndent;
+
+    return options.onWrite
       ? options.onWrite(filepath, json)
-      : await fs.outputJSON(filepath, json);
+      : fs.writeFileSync(filepath, JSON.stringify(json, undefined, indent));
+  };
 
   return {
     async update(value): Promise<void> {
