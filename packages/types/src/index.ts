@@ -96,27 +96,13 @@ export interface File {
   delete: () => Promise<void>;
 }
 
-export interface JSONObject {
-  [x: string]: JSONValue;
-}
-
-export interface JSONArray extends Array<JSONValue> {}
-
-export type JSONValue = string | number | boolean | JSONObject | JSONArray;
-
-export interface JsonFileValidator {
-  get<T extends JSONValue>(): Promise<T>;
-  contains(value: Record<string, unknown>): Promise<boolean>;
-  exists: File['exists'];
-}
-
 export interface JsonFileReader extends Pick<File, 'exists'> {
-  get<T extends JSONValue>(): Promise<T>;
+  get<T extends Record<string, unknown>>(): Promise<T>;
   contains(value: Record<string, unknown>): Promise<boolean>;
 }
 
 export interface JsonFileWriter extends Pick<File, 'delete'> {
-  set(value: JSONValue): Promise<void>;
+  set(value: Record<string, unknown>): Promise<void>;
   update(value: Record<string, unknown>): Promise<void>;
   merge(value: Record<string, unknown>): Promise<void>;
   remove(path: string): Promise<void>;
