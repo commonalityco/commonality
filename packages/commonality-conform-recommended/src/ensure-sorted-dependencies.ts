@@ -12,7 +12,7 @@ const sortObjectKeys = (obj: Record<string, string>) => {
 
 export const ensureSortedDependencies = defineConformer(() => {
   return {
-    name: 'COMMONALITY/ENSURE_SORTED_DEPENDENCIES',
+    name: 'commonality/ensure-sorted-dependencies',
     validate: async ({ workspace }) => {
       const packageJson = workspace.packageJson;
 
@@ -28,13 +28,7 @@ export const ensureSortedDependencies = defineConformer(() => {
       });
     },
     fix: async ({ workspace, json }) => {
-      const packageJson = workspace.packageJson;
-
-      const updatedProperties: {
-        dependencies?: Record<string, string>;
-        devDependencies?: Record<string, string>;
-        peerDependencies?: Record<string, string>;
-      } = {};
+      const packageJson = { ...workspace.packageJson };
 
       for (const depType of DEPENDENCY_TYPES) {
         const deps = packageJson[depType];
@@ -48,12 +42,12 @@ export const ensureSortedDependencies = defineConformer(() => {
           );
 
           if (!hasSortedKeys) {
-            updatedProperties[depType] = sortedDeps;
+            packageJson[depType] = sortedDeps;
           }
         }
       }
 
-      await json('package.json').merge(updatedProperties);
+      await json('package.json').merge(packageJson);
     },
     message: 'Dependencies in package.json must be sorted alphabetically',
   };

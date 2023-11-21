@@ -58,35 +58,6 @@ describe('ensureSortedDependencies', () => {
   });
 
   describe('fix', () => {
-    it('should not call set if dependencies are already sorted', async () => {
-      const workspace = {
-        path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['owner1', 'owner2'],
-        packageJson: {
-          dependencies: { 'a-dep': '1.0.0', 'b-dep': '1.0.0' },
-          devDependencies: { 'a-dep': '1.0.0', 'b-dep': '1.0.0' },
-          peerDependencies: { 'a-dep': '1.0.0', 'b-dep': '1.0.0' },
-        },
-      };
-
-      const conformer = ensureSortedDependencies();
-
-      const mergeMock = vi.fn();
-
-      await conformer?.fix?.({
-        workspace,
-        json: () =>
-          jsonWriter('package.json', {
-            defaultSource: workspace.packageJson,
-          }),
-        text: vi.fn(),
-        projectWorkspaces: [],
-      });
-
-      expect(mergeMock).not.toHaveBeenCalled();
-    });
-
     it('should fix unsorted dependencies', async () => {
       const workspace = {
         path: '/path/to/workspace',
