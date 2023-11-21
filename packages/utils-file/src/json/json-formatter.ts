@@ -1,17 +1,15 @@
-import { JsonFileFormatter } from '@commonalityco/types';
 import isMatch from 'lodash-es/isMatch';
 import { matchKeys } from '../utils/match-keys';
 import { diff as jestDiff } from 'jest-diff';
 import chalk from 'chalk';
 import isEqual from 'lodash-es/isEqual';
 import fs from 'fs-extra';
+import { JsonFile } from '@commonalityco/types';
 
 export const jsonFormatter = (
   filepath: string,
   options: { defaultSource?: Record<string, unknown> } = {},
-): JsonFileFormatter => {
-  const getExists = async () =>
-    Boolean(options.defaultSource) ?? (await fs.pathExists(filepath));
+): Pick<JsonFile, 'diff' | 'diffAdded' | 'diffRemoved'> => {
   const getSource = async () => {
     return options.defaultSource ?? (await fs.readJSON(filepath)) ?? {};
   };

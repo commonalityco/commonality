@@ -70,26 +70,6 @@ describe('jsonReader', () => {
     });
   });
 
-  describe('exists', () => {
-    it('should return true if the file exists', async () => {
-      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = jsonReader(filepath);
-
-      await expect(jsonFile.exists()).resolves.toEqual(true);
-    });
-
-    it('should return false if the file does not exist', async () => {
-      const filepath = path.join(
-        temporaryPath,
-        workspace.path,
-        'non-existent.json',
-      );
-      const jsonFile = jsonReader(filepath);
-
-      await expect(jsonFile.exists()).resolves.toEqual(false);
-    });
-  });
-
   describe('contains', () => {
     it('should return true if the file contains the value', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');

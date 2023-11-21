@@ -1,6 +1,5 @@
 import {
-  jsonFormatter,
-  jsonReader,
+  json,
   createTextFileFormatter,
   createTextFileReader,
 } from '@commonalityco/utils-file';
@@ -49,9 +48,7 @@ export const getConformanceResults = async ({
                       path.join(rootDirectory, workspace.path, filename),
                     ),
                   json: (filename) =>
-                    jsonReader(
-                      path.join(rootDirectory, workspace.path, filename),
-                    ),
+                    json(path.join(rootDirectory, workspace.path, filename)),
                 });
 
                 return Boolean(result);
@@ -72,9 +69,7 @@ export const getConformanceResults = async ({
                     path.join(rootDirectory, workspace.path, filename),
                   ),
                 json: (filename: string) =>
-                  jsonFormatter(
-                    path.join(rootDirectory, workspace.path, filename),
-                  ),
+                  json(path.join(rootDirectory, workspace.path, filename)),
               });
             };
 

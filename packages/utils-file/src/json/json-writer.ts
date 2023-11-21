@@ -1,16 +1,15 @@
-import { JsonFileWriter } from '@commonalityco/types';
 import fs from 'fs-extra';
 import omit from 'lodash-es/omit';
 import merge from 'lodash-es/merge';
+import { JsonFile } from '@commonalityco/types';
 
 export const jsonWriter = (
   filepath: string,
   options: {
-    onDelete?: (filePath: string) => Promise<void>;
     onWrite?: (filePath: string, data: unknown) => Promise<void>;
     defaultSource?: Record<string, unknown>;
   } = {},
-): JsonFileWriter => {
+): Pick<JsonFile, 'update' | 'merge' | 'set' | 'remove'> => {
   const getExists = async () =>
     Boolean(options.defaultSource) || (await fs.pathExists(filepath));
 
@@ -22,9 +21,6 @@ export const jsonWriter = (
     options.onWrite
       ? options.onWrite(filepath, json)
       : await fs.outputJSON(filepath, json);
-
-  const deleteFile = async () =>
-    options.onDelete ? options.onDelete(filepath) : await fs.remove(filepath);
 
   return {
     async update(value): Promise<void> {
@@ -99,13 +95,6 @@ export const jsonWriter = (
         await writeFile(updatedJson);
       } catch {
         return;
-      }
-    },
-    async delete(): Promise<void> {
-      try {
-        await deleteFile();
-      } catch (error) {
-        console.error(`Error deleting file: ${error}`);
       }
     },
   };

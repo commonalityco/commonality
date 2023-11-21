@@ -1,12 +1,12 @@
 import os from 'node:os';
 import { describe, expect, it, afterEach, beforeEach } from 'vitest';
 import type { Workspace } from '@commonalityco/types';
-import { File } from '../src/file.js';
+import { baseFile } from '../src/base-file.js';
 import fs from 'fs-extra';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-describe('File class', () => {
+describe('baseFile', () => {
   const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
   const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
   const workspace: Workspace = {
@@ -39,7 +39,8 @@ describe('File class', () => {
 
   describe('delete', () => {
     it('remove the file from disk', async () => {
-      const file = new File(workspace, temporaryPath, 'package.json');
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const file = baseFile(filepath);
 
       await file.delete();
 
@@ -51,7 +52,12 @@ describe('File class', () => {
     });
 
     it('does not throw error when file does not exist', async () => {
-      const file = new File(workspace, temporaryPath, 'nonexistent.json');
+      const filepath = path.join(
+        temporaryPath,
+        workspace.path,
+        'nonexistent.json',
+      );
+      const file = baseFile(filepath);
 
       await expect(file.delete()).resolves.not.toThrow();
     });
@@ -59,14 +65,16 @@ describe('File class', () => {
 
   describe('exists', () => {
     it('returns true when the file exists', async () => {
-      const file = new File(workspace, temporaryPath, 'package.json');
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const file = baseFile(filepath);
       const exists = await file.exists();
 
       expect(exists).toBe(true);
     });
 
     it('returns false when the file does not exist', async () => {
-      const file = new File(workspace, temporaryPath, 'foo.text');
+      const filepath = path.join(temporaryPath, workspace.path, 'foo.txt');
+      const file = baseFile(filepath);
       const exists = await file.exists();
 
       expect(exists).toBe(false);

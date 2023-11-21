@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { ensureSortedDependencies } from '../src/ensure-sorted-dependencies';
-import { jsonReader, jsonWriter } from '@commonalityco/utils-file';
+import { json } from '@commonalityco/utils-file';
 
 describe('ensureSortedDependencies', () => {
   describe('validate', () => {
@@ -21,7 +21,7 @@ describe('ensureSortedDependencies', () => {
       const result = await conformer.validate({
         workspace,
         json: () =>
-          jsonReader('package.json', {
+          json('package.json', {
             defaultSource: workspace.packageJson,
           }),
         text: vi.fn(),
@@ -47,7 +47,7 @@ describe('ensureSortedDependencies', () => {
       const result = await conformer.validate({
         workspace,
         json: () =>
-          jsonReader('package.json', {
+          json('package.json', {
             defaultSource: workspace.packageJson,
           }),
         text: vi.fn(),
@@ -76,7 +76,7 @@ describe('ensureSortedDependencies', () => {
       await conformer?.fix?.({
         workspace,
         json: () =>
-          jsonWriter('package.json', {
+          json('package.json', {
             defaultSource: workspace.packageJson,
             onWrite: onWriteMock,
           }),
