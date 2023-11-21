@@ -47,7 +47,7 @@ export const ensureSortedDependencies = defineConformer(() => {
         }
       }
 
-      await json('package.json').merge(packageJson);
+      await json('package.json').set(packageJson);
     },
     message: 'Dependencies in package.json must be sorted alphabetically',
   };
