@@ -1,9 +1,8 @@
-import { conform } from './../../commonality/src/cli/commands/conform';
 import {
   jsonFormatter,
   jsonReader,
   jsonWriter,
-} from './../../utils-file/src/json';
+} from '@commonalityco/utils-file';
 import { describe, expect, it, vi } from 'vitest';
 import { ensureVersion } from '../src/ensure-version';
 

@@ -1,5 +1,4 @@
-import { createTextFileWriter } from './../../utils-file/src/text';
-import { jsonWriter } from './../../utils-file/src/json';
+import { jsonWriter, createTextFileWriter } from '@commonalityco/utils-file';
 import { Workspace, ConformanceResult } from '@commonalityco/types';
 import path from 'node:path';
 

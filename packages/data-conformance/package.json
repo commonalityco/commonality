@@ -1,38 +1,42 @@
 {
-    "name": "@commonalityco/data-conformance",
-    "description": "Get conformance information about a local project",
-    "version": "0.0.17",
-    "type": "module",
-    "publishConfig": {
-        "access": "public",
-        "main": "./dist/index.js",
-        "types": "./dist/index.d.ts",
-        "exports": {
-            ".": "./dist/index.js"
-        }
-    },
-    "types": "./src/index.ts",
+  "name": "@commonalityco/data-conformance",
+  "description": "Get conformance information about a local project",
+  "version": "0.0.17",
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "exports": {
-        ".": "./src/index.ts"
-    },
-    "main": "./src/index.ts",
-    "license": "MIT",
-    "scripts": {
-        "build": "tsc --build",
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
-        "test": "vitest",
-        "type-check": "tsc --noEmit"
-    },
-    "devDependencies": {
-        "@commonalityco/config-tsconfig": "workspace:*",
-        "@commonalityco/types": "workspace:*",
-        "@commonalityco/utils-core": "workspace:*",
-        "eslint-config-commonality": "workspace:*",
-        "typescript": "^5.2.2"
-    },
-    "dependencies": {
-        "chalk": "^4.0.0",
-        "jest-diff": "^29.7.0"
+      ".": "./dist/index.js"
     }
+  },
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "main": "./src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@commonalityco/utils-file": "workspace:*"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/utils-file": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "eslint-config-commonality": "workspace:*",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "jest-diff": "^29.7.0"
+  }
 }

@@ -5,7 +5,6 @@ import {
   FileCreatorFactory,
   JsonFileCreator,
   TextFileCreator,
-  YamlFileCreator,
   ConformanceResult,
 } from '@commonalityco/types';
 
@@ -23,7 +22,7 @@ describe('runFixes', () => {
           codeowners: ['codeowner1', 'codeowner2'],
           packageJson: { name: 'valid' },
         },
-        message: 'Invalid workspace',
+        message: { title: 'Invalid workspace' },
         fix,
         isValid: false,
       },
@@ -37,7 +36,7 @@ describe('runFixes', () => {
           codeowners: ['codeowner1', 'codeowner2'],
           packageJson: { name: 'valid' },
         },
-        message: 'Valid workspace',
+        message: { title: 'Valid workspace' },
         isValid: true,
       },
       {
@@ -50,7 +49,7 @@ describe('runFixes', () => {
           codeowners: ['codeowner1', 'codeowner2'],
           packageJson: { name: 'valid' },
         },
-        message: 'Valid workspace',
+        message: { title: 'Valid workspace' },
         fix,
         isValid: true,
       },
@@ -92,7 +91,7 @@ describe('runFixes', () => {
           codeowners: ['codeowner1', 'codeowner2'],
           packageJson: { name: 'valid' },
         },
-        message: 'Valid workspace',
+        message: { title: 'Valid workspace' },
         fix: async () => {},
         isValid: false,
       },
@@ -136,7 +135,7 @@ describe('runFixes', () => {
           codeowners: ['codeowner1', 'codeowner2'],
           packageJson: { name: 'valid' },
         },
-        message: 'Invalid workspace',
+        message: { title: 'Invalid workspace' },
         fix: async () => {
           throw new Error('Fix failed');
         },

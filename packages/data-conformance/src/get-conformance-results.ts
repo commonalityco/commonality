@@ -1,8 +1,9 @@
 import {
+  jsonFormatter,
+  jsonReader,
   createTextFileFormatter,
   createTextFileReader,
-} from './../../utils-file/src/text';
-import { jsonFormatter, jsonReader } from './../../utils-file/src/json';
+} from '@commonalityco/utils-file';
 import {
   Conformer,
   TagsData,

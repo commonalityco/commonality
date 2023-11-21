@@ -438,6 +438,9 @@ importers:
       '@commonalityco/utils-core':
         specifier: workspace:*
         version: link:../utils-core
+      '@commonalityco/utils-file':
+        specifier: workspace:*
+        version: link:../utils-file
       commonality:
         specifier: workspace:*
         version: link:../commonality
@@ -500,6 +503,9 @@ importers:
       '@commonalityco/utils-core':
         specifier: workspace:*
         version: link:../utils-core
+      '@commonalityco/utils-file':
+        specifier: workspace:*
+        version: link:../utils-file
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
@@ -1447,6 +1453,9 @@ importers:
       '@commonalityco/utils-core':
         specifier: workspace:*
         version: link:../utils-core
+      '@commonalityco/utils-file':
+        specifier: workspace:*
+        version: link:../utils-file
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../tooling/config-eslint

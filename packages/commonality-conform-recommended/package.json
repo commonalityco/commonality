@@ -25,6 +25,7 @@
     "@commonalityco/data-codeowners": "workspace:*",
     "@commonalityco/data-documents": "workspace:*",
     "@commonalityco/data-packages": "workspace:*",
+    "@commonalityco/utils-file": "workspace:*",
     "@commonalityco/data-project": "workspace:*",
     "@commonalityco/data-tags": "workspace:*",
     "@commonalityco/types": "workspace:*",
