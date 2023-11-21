@@ -105,14 +105,12 @@ export interface JSONArray extends Array<JSONValue> {}
 export type JSONValue = string | number | boolean | JSONObject | JSONArray;
 
 export interface JsonFileValidator {
-  get(path: string): Promise<JSONValue>;
   get<T extends JSONValue>(): Promise<T>;
   contains(value: Record<string, unknown>): Promise<boolean>;
   exists: File['exists'];
 }
 
 export interface JsonFileReader extends Pick<File, 'exists'> {
-  get(path: string): Promise<JSONValue>;
   get<T extends JSONValue>(): Promise<T>;
   contains(value: Record<string, unknown>): Promise<boolean>;
 }

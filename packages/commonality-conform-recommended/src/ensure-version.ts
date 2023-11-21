@@ -73,7 +73,7 @@ export const ensureVersion = defineConformer(
 
         return true;
       },
-      fix: async ({ workspace, json }) => {
+      fix: async ({ json }) => {
         if (!options) {
           return;
         }

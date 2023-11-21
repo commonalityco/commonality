@@ -63,22 +63,6 @@ describe('createJsonFileReader', () => {
       });
     });
 
-    it('should return a value when passed a valid path', async () => {
-      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileReader(filepath);
-      const json = await jsonFile.get('scripts.dev');
-
-      expect(json).toEqual('dev');
-    });
-
-    it('should return undefined when passed an invalid path', async () => {
-      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = createJsonFileReader(filepath);
-      const json = await jsonFile.get('foo.bar');
-
-      expect(json).toEqual(undefined);
-    });
-
     it('returns undefined when the file does not exist', async () => {
       const filepath = path.join(
         temporaryPath,
@@ -87,7 +71,7 @@ describe('createJsonFileReader', () => {
       );
       const jsonFile = createJsonFileReader(filepath);
 
-      await expect(jsonFile.get('name')).resolves.toEqual(undefined);
+      await expect(jsonFile.get()).resolves.toEqual(undefined);
     });
   });
 
