@@ -100,7 +100,8 @@ export type FileCreator<T> = (
   filename: string,
   options?: {
     defaultSource?: T;
-    onDelete?: (filePath: string) => Promise<void>;
+    onDelete?: (filePath: string) => Promise<void> | void;
+    onExists?: (filePath: string) => Promise<boolean> | boolean;
   },
 ) => File;
 
@@ -120,8 +121,9 @@ export type JsonFileCreator = (
   filename: string,
   options?: {
     defaultSource?: Record<string, unknown>;
-    onWrite?: (filePath: string, data: unknown) => Promise<void>;
-    onDelete?: (filePath: string) => Promise<void>;
+    onWrite?: (filePath: string, data: unknown) => Promise<void> | void;
+    onDelete?: (filePath: string) => Promise<void> | void;
+    onExists?: (filePath: string) => Promise<boolean> | boolean;
   },
 ) => JsonFile;
 
@@ -138,8 +140,9 @@ export type TextFileCreator = (
   filename: string,
   options?: {
     defaultSource?: string;
-    onWrite?: (filePath: string, data: string) => Promise<void>;
-    onDelete?: (filePath: string) => Promise<void>;
+    onWrite?: (filePath: string, data: string) => Promise<void> | void;
+    onDelete?: (filePath: string) => Promise<void> | void;
+    onExists?: (filePath: string) => Promise<boolean> | boolean;
   },
 ) => TextFile;
 

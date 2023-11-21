@@ -107,12 +107,12 @@ const createTextFileFormatter = (
 
 export const text: TextFileCreator = (
   filepath,
-  { defaultSource, onWrite, onDelete } = {},
+  { defaultSource, onWrite, onDelete, onExists } = {},
 ) => {
   const textWriter = createTextFileWriter(filepath, { onWrite, defaultSource });
   const textReader = createTextFileReader(filepath, { defaultSource });
   const textFormatter = createTextFileFormatter(filepath);
-  const file = baseFile(filepath, { defaultSource, onDelete });
+  const file = baseFile(filepath, { defaultSource, onDelete, onExists });
 
   return {
     ...file,

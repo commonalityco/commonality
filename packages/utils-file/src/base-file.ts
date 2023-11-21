@@ -6,14 +6,20 @@ export const baseFile: FileCreator<unknown> = (
   options: {
     defaultSource?: unknown;
     onDelete?: (filePath: string) => Promise<void>;
+    onExists?: (filePath: string) => Promise<boolean>;
   } = {},
 ) => {
+  const exists = async () =>
+    options.onExists
+      ? options.onExists(filepath)
+      : await fs.pathExists(filepath);
+
   return {
     delete: async () => {
       options.onDelete ? options.onDelete(filepath) : await fs.remove(filepath);
     },
     exists: async () => {
-      return Boolean(options.defaultSource) || (await fs.pathExists(filepath));
+      return await exists();
     },
   };
 };

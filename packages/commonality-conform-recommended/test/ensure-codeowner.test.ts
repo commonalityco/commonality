@@ -8,11 +8,7 @@ describe('ensureCodeowner', () => {
         path: '/path/to/workspace',
         tags: ['tag1', 'tag2'],
         codeowners: [],
-        packageJson: {
-          dependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
-          devDependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
-          peerDependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
-        },
+        packageJson: {},
       };
 
       const conformer = ensureCodeowner();
@@ -30,11 +26,7 @@ describe('ensureCodeowner', () => {
         path: '/path/to/workspace',
         tags: ['tag1', 'tag2'],
         codeowners: ['owner1', 'owner2'],
-        packageJson: {
-          dependencies: { 'a-dep': '1.0.0', 'b-dep': '1.0.0' },
-          devDependencies: { 'a-dep': '1.0.0', 'b-dep': '1.0.0' },
-          peerDependencies: { 'a-dep': '1.0.0', 'b-dep': '1.0.0' },
-        },
+        packageJson: {},
       };
 
       const conformer = ensureCodeowner();
