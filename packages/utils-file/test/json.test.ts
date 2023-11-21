@@ -175,6 +175,7 @@ describe('containsPartial', () => {
   });
 
   it('should return false when no arguments are passed', () => {
+    // @ts-expect-error - Testing invalid arguments
     expect(containsPartial()).toEqual(false);
   });
 });
@@ -277,6 +278,7 @@ describe('createJsonFileWriter', () => {
       const jsonFile = createJsonFileWriter(filepath);
       const originalJson = await fs.readJson(filepath);
 
+      // @ts-expect-error - Testing invalid arguments
       await jsonFile.update();
 
       const json = await fs.readJson(filepath);
@@ -325,6 +327,7 @@ describe('createJsonFileWriter', () => {
       const jsonFile = createJsonFileWriter(filepath);
       const originalJson = await fs.readJson(filepath);
 
+      // @ts-expect-error - Testing invalid arguments
       await jsonFile.set();
 
       const json = await fs.readJson(filepath);
@@ -384,6 +387,8 @@ describe('createJsonFileWriter', () => {
       const jsonFile = createJsonFileWriter(filepath);
 
       const originalJson = await fs.readJSON(filepath);
+
+      // @ts-expect-error - Testing invalid arguments
       await jsonFile.merge();
 
       const updatedJson = await fs.readJSON(filepath);
@@ -441,6 +446,7 @@ describe('createJsonFileWriter', () => {
       const jsonFile = createJsonFileWriter(filepath);
       const originalJson = await fs.readJson(filepath);
 
+      // @ts-expect-error - Testing invalid arguments
       await jsonFile.remove();
 
       const json = await fs.readJson(filepath);
