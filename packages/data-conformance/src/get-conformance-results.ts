@@ -1,8 +1,4 @@
-import {
-  json,
-  createTextFileFormatter,
-  createTextFileReader,
-} from '@commonalityco/utils-file';
+import { json, text } from '@commonalityco/utils-file';
 import {
   Conformer,
   TagsData,
@@ -44,9 +40,7 @@ export const getConformanceResults = async ({
                   workspace,
                   projectWorkspaces: workspaces,
                   text: (filename) =>
-                    createTextFileReader(
-                      path.join(rootDirectory, workspace.path, filename),
-                    ),
+                    text(path.join(rootDirectory, workspace.path, filename)),
                   json: (filename) =>
                     json(path.join(rootDirectory, workspace.path, filename)),
                 });
@@ -65,9 +59,7 @@ export const getConformanceResults = async ({
               return await conformer.message({
                 workspace,
                 text: (filename) =>
-                  createTextFileFormatter(
-                    path.join(rootDirectory, workspace.path, filename),
-                  ),
+                  text(path.join(rootDirectory, workspace.path, filename)),
                 json: (filename: string) =>
                   json(path.join(rootDirectory, workspace.path, filename)),
               });

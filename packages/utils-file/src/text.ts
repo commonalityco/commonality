@@ -1,16 +1,19 @@
-import type {
-  TextFileReader as TextFileReaderType,
-  TextFileWriter as TextFileWriterType,
-  TextFileFormatter as TextFileFormatterType,
-} from '@commonalityco/types';
+import type { TextFile, TextFileCreator } from '@commonalityco/types';
 import fs from 'fs-extra';
 import { diffLinesUnified } from 'jest-diff';
 import chalk from 'chalk';
+import { baseFile } from './base-file';
 
-export const createTextFileReader = (filepath: string): TextFileReaderType => {
+const createTextFileReader = (
+  filepath: string,
+  options: { defaultSource?: string } = {},
+): Pick<TextFile, 'get' | 'contains'> => {
+  const getSource = async () =>
+    options.defaultSource || (await fs.readFile(filepath, 'utf8'));
+
   return {
     async get() {
-      const text = await fs.readFile(filepath, 'utf8');
+      const text = await getSource();
       return text.split('\n').filter(Boolean);
     },
     async contains(lines: string[]) {
@@ -23,55 +26,60 @@ export const createTextFileReader = (filepath: string): TextFileReaderType => {
         return false;
       }
     },
-    async exists() {
-      try {
-        return await fs.pathExists(filepath);
-      } catch (error) {
-        console.error(`Error checking if file exists: ${error}`);
-        return false;
-      }
-    },
   };
 };
 
-export const createTextFileWriter = (filepath: string): TextFileWriterType => {
+const createTextFileWriter = (
+  filepath: string,
+  options: {
+    onWrite?: (filePath: string, data: string) => Promise<void>;
+    defaultSource?: string;
+  } = {},
+): Pick<TextFile, 'set' | 'add' | 'remove'> => {
+  const getSource = async () =>
+    options.defaultSource || (await fs.readFile(filepath, 'utf8'));
+  const writeFile = async (text: string) =>
+    options.onWrite
+      ? options.onWrite(filepath, text)
+      : await fs.outputFile(filepath, text);
+
   return {
     async set(lines: string[]) {
       const text = lines.join('\n');
-      await fs.outputFile(filepath, text);
-    },
-    async add(lines: string[]) {
-      const text = lines.join('\n');
-      const currentText = await fs.readFile(filepath, 'utf8');
-      const updatedText = currentText ? currentText + '\n' + text : text;
-      await fs.outputFile(filepath, updatedText);
-    },
-    async remove(lines: string[]) {
-      const text = await fs.readFile(filepath, 'utf8');
-      const textLines = text.split('\n');
 
+      await writeFile(text);
+    },
+
+    async add(lines: string[]) {
+      const text = await getSource();
+      const newText = lines.join('\n');
+      const updatedText = text ? text + '\n' + newText : newText;
+
+      await writeFile(updatedText);
+    },
+
+    async remove(lines: string[]) {
+      const text = await getSource();
+      const textLines = text.split('\n');
       const newLines = textLines.filter(
         (textLine) => !lines.includes(textLine),
       );
 
-      await fs.outputFile(filepath, newLines.join('\n'));
-    },
-    async delete() {
-      try {
-        await fs.remove(filepath);
-      } catch (error) {
-        console.error(`Error deleting file: ${error}`);
-      }
+      await writeFile(newLines.join('\n'));
     },
   };
 };
 
-export const createTextFileFormatter = (
+const createTextFileFormatter = (
   filepath: string,
-): TextFileFormatterType => {
+  options: { defaultSource?: string } = {},
+): Pick<TextFile, 'diff'> => {
+  const getSource = async () =>
+    options.defaultSource || (await fs.readFile(filepath, 'utf8'));
+
   return {
     async diff(value: string[]) {
-      const text = await fs.readFile(filepath, 'utf8');
+      const text = await getSource();
       const textLines = text.split('\n').filter(Boolean);
 
       const textSubset = textLines.filter((textLine) =>
@@ -94,5 +102,22 @@ export const createTextFileFormatter = (
 
       return result || undefined;
     },
+  };
+};
+
+export const text: TextFileCreator = (
+  filepath,
+  { defaultSource, onWrite, onDelete } = {},
+) => {
+  const textWriter = createTextFileWriter(filepath, { onWrite, defaultSource });
+  const textReader = createTextFileReader(filepath, { defaultSource });
+  const textFormatter = createTextFileFormatter(filepath);
+  const file = baseFile(filepath, { defaultSource, onDelete });
+
+  return {
+    ...file,
+    ...textWriter,
+    ...textReader,
+    ...textFormatter,
   };
 };

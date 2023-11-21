@@ -88,7 +88,7 @@ export type ValidateFn = (opts: {
   workspace: Workspace;
   projectWorkspaces: Workspace[];
   json: JsonFileCreator;
-  text: TextFileCreator<TextFileReader>;
+  text: TextFileCreator;
 }) => ValidationResult | Promise<ValidationResult>;
 
 export interface File {
@@ -96,10 +96,10 @@ export interface File {
   delete: () => Promise<void>;
 }
 
-export type FileCreator = (
+export type FileCreator<T> = (
   filename: string,
   options?: {
-    defaultSource?: Record<string, unknown>;
+    defaultSource?: T;
     onDelete?: (filePath: string) => Promise<void>;
   },
 ) => File;
@@ -126,31 +126,22 @@ export type JsonFileCreator = (
 ) => JsonFile;
 
 export interface TextFile extends File {
-  get: () => Promise<string[] | undefined>;
-  set: (lines: string[]) => Promise<void>;
-  add: (line: string | string[]) => Promise<void>;
-  remove: (line: string | string[]) => Promise<void>;
-  matches: (expected: string | string[]) => Promise<boolean>;
-}
-
-export interface TextFileReader extends Pick<File, 'exists'> {
   get(): Promise<string[]>;
   contains(lines: string[]): Promise<boolean>;
-}
-
-export interface TextFileWriter extends Pick<File, 'delete'> {
   set(lines: string[]): Promise<void>;
   add(lines: string[]): Promise<void>;
   remove(lines: string[]): Promise<void>;
-}
-
-export interface TextFileFormatter {
   diff(value: string[]): Promise<string | undefined>;
 }
 
-export type TextFileCreator<
-  T extends TextFileReader | TextFileWriter | TextFileFormatter,
-> = (filename: string) => T;
+export type TextFileCreator = (
+  filename: string,
+  options?: {
+    defaultSource?: string;
+    onWrite?: (filePath: string, data: string) => Promise<void>;
+    onDelete?: (filePath: string) => Promise<void>;
+  },
+) => TextFile;
 
 export type FileCreatorFactory<File> = ({
   rootDirectory,
@@ -163,7 +154,7 @@ export type FixFn = (opts: {
   workspace: Workspace;
   projectWorkspaces: Workspace[];
   json: JsonFileCreator;
-  text: TextFileCreator<TextFileWriter>;
+  text: TextFileCreator;
 }) => void | Promise<void>;
 
 type Message = {
@@ -175,7 +166,7 @@ type Message = {
 export type MessageFn = (options: {
   workspace: Workspace;
   json: JsonFileCreator;
-  text: TextFileCreator<TextFileFormatter>;
+  text: TextFileCreator;
 }) => Message | Promise<Message>;
 
 export type ConformerMessage = string | MessageFn;
