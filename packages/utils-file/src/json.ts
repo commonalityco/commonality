@@ -1,5 +1,4 @@
 import { matchKeys } from '@commonalityco/utils-fp';
-
 import isEqual from 'lodash-es/isEqual';
 import get from 'lodash-es/get';
 import merge from 'lodash-es/merge';
@@ -37,7 +36,12 @@ export function containsPartial<
           typeof source[key] === 'object' &&
           source[key] !== null
         ) {
-          if (!containsPartial(source[key], target[key])) {
+          if (
+            !containsPartial(
+              source[key] as Record<string, unknown>,
+              target[key] as Record<string, unknown>,
+            )
+          ) {
             return false;
           }
         } else {
@@ -45,8 +49,8 @@ export function containsPartial<
           return false;
         }
       } else {
-        // Direct value comparison
-        if (!(key in source) || source[key] !== target[key]) {
+        // Indirect value comparison
+        if (!(key in source) || !isEqual(source[key], target[key])) {
           return false;
         }
       }
@@ -217,6 +221,10 @@ export const createJsonFileFormatter = (
       }
 
       const target = isValueSuperset ? value : matchKeys(value, json);
+
+      if (target === source) {
+        return chalk.dim(chalk.green(JSON.stringify(source, undefined, 2)));
+      }
 
       const result = jestDiff(source, target, {
         omitAnnotationLines: true,

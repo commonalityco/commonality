@@ -48,7 +48,7 @@ export const ensureVersion = defineConformer<{
         return false;
       }
 
-      return json('package.json').contains(expectedDependencies);
+      return json('package.json').containsPartial(expectedDependencies);
     },
     fix: async ({ workspace, json }) => {
       if (!options) {

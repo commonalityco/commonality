@@ -58,7 +58,7 @@ export const AutoFixMessage = ({
   useInput((input, key) => {
     if (input.toLocaleLowerCase() === 'y' || key.return) {
       onAccept();
-    } else if (key.escape || input === 'n') {
+    } else {
       exit();
     }
   });
