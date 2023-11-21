@@ -5,8 +5,8 @@ export const baseFile: FileCreator<unknown> = (
   filepath: string,
   options: {
     defaultSource?: unknown;
-    onDelete?: (filePath: string) => Promise<void>;
-    onExists?: (filePath: string) => Promise<boolean>;
+    onDelete?: (filePath: string) => Promise<void> | void;
+    onExists?: (filePath: string) => Promise<boolean> | boolean;
   } = {},
 ) => {
   const exists = async () =>

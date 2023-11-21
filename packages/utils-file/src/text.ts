@@ -32,7 +32,7 @@ const createTextFileReader = (
 const createTextFileWriter = (
   filepath: string,
   options: {
-    onWrite?: (filePath: string, data: string) => Promise<void>;
+    onWrite?: (filePath: string, data: string) => Promise<void> | void;
     defaultSource?: string;
   } = {},
 ): Pick<TextFile, 'set' | 'add' | 'remove'> => {

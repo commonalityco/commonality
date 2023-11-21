@@ -6,7 +6,7 @@ import { JsonFile } from '@commonalityco/types';
 export const jsonWriter = (
   filepath: string,
   options: {
-    onWrite?: (filePath: string, data: unknown) => Promise<void>;
+    onWrite?: (filePath: string, data: unknown) => Promise<void> | void;
     defaultSource?: Record<string, unknown>;
   } = {},
 ): Pick<JsonFile, 'update' | 'merge' | 'set' | 'remove'> => {
