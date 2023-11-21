@@ -42,7 +42,6 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@commonalityco/utils-fp": "workspace:*",
     "concordance": "^5.0.4",
     "deep-object-diff": "^1.1.9",
     "detect-indent": "^7.0.1",

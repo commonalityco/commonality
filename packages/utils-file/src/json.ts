@@ -1,4 +1,4 @@
-import { matchKeys } from '@commonalityco/utils-fp';
+import { matchKeys } from './utils/match-keys';
 import isEqual from 'lodash-es/isEqual';
 import get from 'lodash-es/get';
 import merge from 'lodash-es/merge';
