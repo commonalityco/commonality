@@ -13,8 +13,12 @@ const sortObjectKeys = (obj: Record<string, string>) => {
 export const ensureSortedDependencies = defineConformer(() => {
   return {
     name: 'commonality/ensure-sorted-dependencies',
-    validate: async ({ workspace }) => {
-      const packageJson = workspace.packageJson;
+    validate: async ({ json }) => {
+      const packageJson: {
+        dependencies?: Record<string, string>;
+        devDependencies?: Record<string, string>;
+        peerDependencies?: Record<string, string>;
+      } = await json('package.json').get();
 
       return DEPENDENCY_TYPES.every((depType) => {
         const deps = packageJson[depType] ?? {};
@@ -27,8 +31,12 @@ export const ensureSortedDependencies = defineConformer(() => {
         return deps && hasSortedKeys;
       });
     },
-    fix: async ({ workspace, json }) => {
-      const packageJson = { ...workspace.packageJson };
+    fix: async ({ json }) => {
+      const packageJson: {
+        dependencies?: Record<string, string>;
+        devDependencies?: Record<string, string>;
+        peerDependencies?: Record<string, string>;
+      } = await json('package.json').get();
 
       for (const depType of DEPENDENCY_TYPES) {
         const deps = packageJson[depType];
