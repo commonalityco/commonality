@@ -115,7 +115,6 @@ export interface JsonFileReader extends Pick<File, 'exists'> {
   get(path: string): Promise<JSONValue>;
   get<T extends JSONValue>(): Promise<T>;
   contains(value: Record<string, unknown>): Promise<boolean>;
-  containsPartial(value: Record<string, unknown>): Promise<boolean>;
 }
 
 export interface JsonFileWriter extends Pick<File, 'delete'> {

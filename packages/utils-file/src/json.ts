@@ -13,53 +13,6 @@ import fs from 'fs-extra';
 import { diff as jestDiff } from 'jest-diff';
 import chalk from 'chalk';
 
-export function containsPartial<
-  T extends Record<string, unknown>,
-  U extends Record<string, unknown>,
->(source: T, target: U): boolean {
-  if (!source || !target) {
-    return false;
-  }
-
-  // Base condition to handle non-object types
-  if (typeof target !== 'object' || target === null) {
-    return source === target;
-  }
-
-  // Iterate over keys in the target object
-  for (const key in target) {
-    if (Object.prototype.hasOwnProperty.call(target, key)) {
-      if (typeof target[key] === 'object' && target[key] !== null) {
-        // If the key exists in the source and both are objects, recursively check
-        if (
-          key in source &&
-          typeof source[key] === 'object' &&
-          source[key] !== null
-        ) {
-          if (
-            !containsPartial(
-              source[key] as Record<string, unknown>,
-              target[key] as Record<string, unknown>,
-            )
-          ) {
-            return false;
-          }
-        } else {
-          // Key exists in target but not as an object in source, or doesn't exist at all
-          return false;
-        }
-      } else {
-        // Indirect value comparison
-        if (!(key in source) || !isEqual(source[key], target[key])) {
-          return false;
-        }
-      }
-    }
-  }
-
-  return true;
-}
-
 export const createJsonFileReader = (
   filepath: string,
   options: { defaultSource?: Record<string, unknown> } = {},
@@ -89,15 +42,6 @@ export const createJsonFileReader = (
         const source = await getSource();
 
         return isMatch(source, value);
-      } catch {
-        return false;
-      }
-    },
-    async containsPartial(value) {
-      try {
-        const source = await getSource();
-
-        return containsPartial(source, value);
       } catch {
         return false;
       }
