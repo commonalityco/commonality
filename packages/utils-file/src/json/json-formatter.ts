@@ -34,20 +34,18 @@ export const jsonFormatter = (
         return chalk.dim(chalk.green(JSON.stringify(source, undefined, 2)));
       }
 
-      const target = isValueSuperset ? value : matchKeys(value, sourceData);
-
-      if (isEqual(source, target)) {
-        return chalk.dim(chalk.green(JSON.stringify(target, undefined, 2)));
+      if (isEqual(source, value)) {
+        return chalk.dim(chalk.green(JSON.stringify(value, undefined, 2)));
       }
 
-      const result = jestDiff(source, target, {
+      const result = jestDiff(source, value, {
         omitAnnotationLines: true,
         aColor: chalk.dim,
         bColor: chalk.red,
         changeColor: chalk.red,
         commonColor: chalk.green.dim,
         aIndicator: ' ',
-        bIndicator: isValueSuperset ? '+' : '-',
+        bIndicator: '+',
       });
 
       return result || undefined;

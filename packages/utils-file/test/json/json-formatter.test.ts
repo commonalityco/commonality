@@ -63,7 +63,7 @@ describe('jsonFormatter', () => {
       `);
     });
 
-    it('should output the correct snapshot when source is a subset of the target', async () => {
+    it('should output the correct snapshot when source is a perfect subset of the target', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
       const formatter = jsonFormatter(filepath);
 
@@ -89,7 +89,7 @@ describe('jsonFormatter', () => {
       `);
     });
 
-    it('should output the correct snapshot when source is a superset of the target', async () => {
+    it('should output the correct snapshot when source is a perfect superset of the target', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
       const formatter = jsonFormatter(filepath);
 
@@ -102,6 +102,23 @@ describe('jsonFormatter', () => {
             \\"dev\\": \\"dev\\"
           }
         }"
+      `);
+    });
+
+    it('should output the correct snapshot when source is a imperfect superset of the target', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = jsonFormatter(filepath);
+
+      const value = { scripts: { dev: 'dev', fooo: 'barrr' } };
+      const result = await formatter.diff(value);
+
+      expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(`
+        "  Object {
+            \\"scripts\\": Object {
+              \\"dev\\": \\"dev\\",
+        +     \\"fooo\\": \\"barrr\\",
+            },
+          }"
       `);
     });
 

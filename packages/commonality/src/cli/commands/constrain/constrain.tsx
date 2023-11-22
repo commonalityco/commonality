@@ -52,12 +52,10 @@ function DependencyList({
     return (
       <Box paddingY={1} flexDirection="column">
         <Box gap={1}>
-          <Text inverse bold color="green">
-            {' PASS '}
-          </Text>
+          <Text color="green">{' pass '}</Text>
           <Text>{filter === '*' ? 'All packages' : formatTagName(filter)}</Text>
         </Box>
-        <Box paddingLeft={7}>
+        <Box paddingLeft={6}>
           <Text dimColor>No matching dependencies</Text>
         </Box>
       </Box>
@@ -130,7 +128,7 @@ function ConstraintList({
   return sortedConstraints.map(([key, constraint]) => {
     return (
       <Box key={key} flexDirection="column">
-        <Box flexDirection="column" paddingLeft={2}>
+        <Box flexDirection="column">
           <DependencyList
             filter={key}
             constraint={constraint}
