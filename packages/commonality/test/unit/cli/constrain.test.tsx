@@ -163,9 +163,9 @@ describe('constrain', () => {
 
         expect(result).toMatchInlineSnapshot(`
           "❯ pkg-one (1)
-             PASS  #tag-one -→ pkg-two development
-                   Allowed: All packages
-
+          ↳ pass #tag-one → pkg-two development
+          │      Allowed: All packages
+          │
           ✓ pkg-two (0)
             No constraints
 
@@ -256,11 +256,11 @@ describe('constrain', () => {
         cleanup();
         expect(result).toMatchInlineSnapshot(`
           "❯ pkg-one (2)
-            /path/commonality.json
-
-             FAIL  #tag-one -→ pkg-three development
-                   Disallowed: #tag-three
-
+          │ /path/commonality.json
+          │
+          ↳ fail #tag-one → pkg-three development
+          │      Disallowed: #tag-three
+          │
           ✓ pkg-two (0)
           ✓ pkg-three (0)
 
@@ -278,20 +278,20 @@ describe('constrain', () => {
         cleanup();
         expect(result).toMatchInlineSnapshot(`
           "❯ pkg-one (4)
-            /path/commonality.json
-
-             PASS  #tag-one -→ pkg-two development
-                   Disallowed: #tag-three
-
-             FAIL  #tag-one -→ pkg-three development
-                   Disallowed: #tag-three
-
-             PASS  #tag-two -→ pkg-two development
-                   Disallowed: #tag-five
-
-             FAIL  #tag-two -→ pkg-three development
-                   Disallowed: #tag-five
-
+          │ /path/commonality.json
+          │
+          ↳ pass #tag-one → pkg-two development
+          │      Disallowed: #tag-three
+          │
+          ↳ fail #tag-one → pkg-three development
+          │      Disallowed: #tag-three
+          │
+          ↳ pass #tag-two → pkg-two development
+          │      Disallowed: #tag-five
+          │
+          ↳ fail #tag-two → pkg-three development
+          │      Disallowed: #tag-five
+          │
           ✓ pkg-two (0)
             No constraints
 
@@ -473,12 +473,12 @@ describe('constrain', () => {
         expect(result).toMatchInlineSnapshot(`
           "✓ pkg-one (0)
 
-             PASS  #tag-one
-                   No matching dependencies
+           pass  #tag-one
+                No matching dependencies
 
 
-             PASS  #tag-two
-                   No matching dependencies
+           pass  #tag-two
+                No matching dependencies
 
           ✓ pkg-two (0)
             No constraints

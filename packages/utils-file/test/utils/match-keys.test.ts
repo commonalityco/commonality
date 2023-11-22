@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isObject, intersectObjects } from '../../src/utils/match-keys';
+import { isObject, intersectObjects } from '../../src/utils/intersect-objects';
 
 describe('intersectObjects', () => {
   it('should return an empty object when both source and target are empty', () => {

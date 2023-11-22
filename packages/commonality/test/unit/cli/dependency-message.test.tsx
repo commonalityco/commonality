@@ -24,8 +24,11 @@ describe('DependencyMessage', () => {
 
     const result = stripAnsi(lastFrame() ?? '');
 
-    expect(result).toContain('PASS  All packages -→ test-package development');
-    expect(result).toContain('Allowed: All packages');
+    expect(result).toMatchInlineSnapshot(`
+      "↳ pass All packages → test-package development
+      │      Allowed: All packages
+      │"
+    `);
   });
 
   it('should render correctly when isValid is false and violation is found', () => {
@@ -54,9 +57,15 @@ describe('DependencyMessage', () => {
 
     const result = stripAnsi(lastFrame() ?? '');
 
-    expect(result).toContain('FAIL  #tag-one -→ test-package development');
-    expect(result).toContain('Disallowed: All packages');
-    expect(result).toContain('Found:      #tag-one');
+    expect(result).toMatchInlineSnapshot(
+      `
+        "↳ fail #tag-one → test-package development
+        │      /path/to/test-package/commonality.json
+        │      Disallowed: All packages
+        │      Found:      #tag-one
+        │"
+      `,
+    );
   });
 
   it('should render correctly when isValid is false and violation is not found', () => {
@@ -85,7 +94,10 @@ describe('DependencyMessage', () => {
 
     const result = stripAnsi(lastFrame() ?? '');
 
-    expect(result).toContain('FAIL  All packages -→ test-package development');
-    expect(result).toContain('Disallowed: All packages');
+    expect(result).toMatchInlineSnapshot(`
+      "↳ fail All packages → test-package development
+      │      Disallowed: All packages
+      │"
+    `);
   });
 });

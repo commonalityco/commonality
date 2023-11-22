@@ -282,20 +282,16 @@ describe('ensureVersion', () => {
         'Packages with dependencies ["dep1","dep2"] must match version 1.0.0',
       );
       expect(stripAnsi(message.context)).toMatchInlineSnapshot(`
-        "  Object {
-        +   \\"dependencies\\": Object {
-        +     \\"dep1\\": \\"1.0.0\\",
-        +     \\"dep2\\": \\"1.0.0\\",
-        +   },
-            \\"devDependencies\\": Object {
-              \\"dep1\\": \\"1.0.0\\",
-              \\"dep2\\": \\"1.0.0\\",
-            },
-            \\"peerDependencies\\": Object {
-              \\"dep1\\": \\"1.0.0\\",
-              \\"dep2\\": \\"1.0.0\\",
-            },
-          }"
+        "{
+          \\"devDependencies\\": {
+            \\"dep1\\": \\"1.0.0\\",
+            \\"dep2\\": \\"1.0.0\\"
+          },
+          \\"peerDependencies\\": {
+            \\"dep1\\": \\"1.0.0\\",
+            \\"dep2\\": \\"1.0.0\\"
+          }
+        }"
       `);
       expect(message.filepath).toMatch('package.json');
     });

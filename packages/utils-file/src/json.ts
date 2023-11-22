@@ -15,12 +15,8 @@ export const json: JsonFileCreator = (
 
   return {
     ...file,
-    get: reader.get,
-    contains: reader.contains,
-    set: writer.set,
-    update: writer.update,
-    merge: writer.merge,
-    remove: writer.remove,
-    diff: formatter.diff,
+    ...reader,
+    ...writer,
+    ...formatter,
   };
 };
