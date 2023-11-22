@@ -262,6 +262,7 @@ export const ConformRunner = ({
 
               setTimeout(async () => {
                 await refetch();
+                setAutoFixRunCount(autoFixCount + 1);
               }, 0);
             }}
           />

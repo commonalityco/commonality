@@ -219,7 +219,7 @@ describe('ensureVersion', () => {
       expect(message.title).toEqual(
         'Packages with dependencies ["dep1","dep2"] must match version 1.0.0',
       );
-      expect(stripAnsi(message.context)).toMatchInlineSnapshot(
+      expect(stripAnsi(message.context ?? '')).toMatchInlineSnapshot(
         `
           "  Object {
               \\"dependencies\\": Object {
@@ -281,7 +281,7 @@ describe('ensureVersion', () => {
       expect(message.title).toEqual(
         'Packages with dependencies ["dep1","dep2"] must match version 1.0.0',
       );
-      expect(stripAnsi(message.context)).toMatchInlineSnapshot(`
+      expect(stripAnsi(message.context ?? '')).toMatchInlineSnapshot(`
         "{
           \\"devDependencies\\": {
             \\"dep1\\": \\"1.0.0\\",

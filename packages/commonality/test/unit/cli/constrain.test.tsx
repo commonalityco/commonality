@@ -93,7 +93,10 @@ describe('constrain', () => {
     const renderComponent = ({ verbose }: { verbose: boolean }) =>
       render(
         <ConstraintValidator
-          constraints={{ 'tag-one': { allow: '*' } }}
+          constraints={{
+            'tag-one': { allow: '*' },
+            'tag-two': { allow: ['tag-one'] },
+          }}
           packages={[
             {
               name: 'pkg-one',
@@ -141,7 +144,7 @@ describe('constrain', () => {
           ✓ pkg-two (0)
 
           Packages:    0 failed 2 passed (2)
-          Constraints: 0 failed 1 passed (1)"
+          Constraints: 0 failed 2 passed (2)"
         `);
       });
     });
@@ -171,7 +174,7 @@ describe('constrain', () => {
 
 
           Packages:    0 failed 2 passed (2)
-          Constraints: 0 failed 1 passed (1)"
+          Constraints: 0 failed 2 passed (2)"
         `);
       });
     });
