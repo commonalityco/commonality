@@ -447,6 +447,9 @@ importers:
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
+      strip-ansi:
+        specifier: ^7.1.0
+        version: 7.1.0
       typescript:
         specifier: ^5.2.2
         version: 5.2.2

@@ -112,8 +112,7 @@ export interface JsonFile extends File {
   update(value: Record<string, unknown>): Promise<void>;
   merge(value: Record<string, unknown>): Promise<void>;
   remove(path: string): Promise<void>;
-  diffRemoved(value: Record<string, unknown>): Promise<string | undefined>;
-  diffAdded(value: Record<string, unknown>): Promise<string | undefined>;
+  diffPartial(value: Record<string, unknown>): Promise<string | undefined>;
   diff(value: Record<string, unknown>): Promise<string | undefined>;
 }
 

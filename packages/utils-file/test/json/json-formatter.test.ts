@@ -135,142 +135,13 @@ describe('jsonFormatter', () => {
     });
   });
 
-  describe('diffAdded', () => {
-    it('should output the correct snapshot when source and target match', async () => {
-      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = jsonFormatter(filepath);
-
-      const json = await fs.readJson(filepath);
-      const result = await formatter.diffAdded(json);
-
-      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
-        "{
-          \\"name\\": \\"pkg-one\\",
-          \\"workspaces\\": [],
-          \\"description\\": \\"This is a test package\\",
-          \\"version\\": \\"1.0.0\\",
-          \\"dependencies\\": {},
-          \\"devDependencies\\": {},
-          \\"peerDependencies\\": {},
-          \\"scripts\\": {
-            \\"dev\\": \\"dev\\",
-            \\"test\\": \\"test\\"
-          }
-        }"
-      `);
-    });
-
-    it('should output the correct snapshot when source is a subset of the target', async () => {
-      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = jsonFormatter(filepath);
-
-      const json = await fs.readJson(filepath);
-      const value = { ...json, extra: 'extra' };
-      const result = await formatter.diffAdded(value);
-
-      expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(`
-      "  Object {
-          \\"dependencies\\": Object {},
-          \\"description\\": \\"This is a test package\\",
-          \\"devDependencies\\": Object {},
-      +   \\"extra\\": \\"extra\\",
-          \\"name\\": \\"pkg-one\\",
-          \\"peerDependencies\\": Object {},
-          \\"scripts\\": Object {
-            \\"dev\\": \\"dev\\",
-            \\"test\\": \\"test\\",
-          },
-          \\"version\\": \\"1.0.0\\",
-          \\"workspaces\\": Array [],
-        }"
-    `);
-    });
-
-    it('should output the correct snapshot when target is a subset of the source', async () => {
-      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = jsonFormatter(filepath);
-
-      const value = { name: 'foo', version: '1.0.0' };
-      const result = await formatter.diffAdded(value);
-
-      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
-        "  Object {
-            \\"dependencies\\": Object {},
-            \\"description\\": \\"This is a test package\\",
-            \\"devDependencies\\": Object {},
-            \\"name\\": \\"pkg-one\\",
-            \\"peerDependencies\\": Object {},
-            \\"scripts\\": Object {
-              \\"dev\\": \\"dev\\",
-              \\"test\\": \\"test\\",
-            },
-        +   \\"name\\": \\"foo\\",
-            \\"version\\": \\"1.0.0\\",
-            \\"workspaces\\": Array [],
-          }"
-      `);
-    });
-
-    it('should output the correct snapshot when source does not match the target', async () => {
-      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = jsonFormatter(filepath);
-
-      const result = await formatter.diffAdded({
-        publishConfig: { access: 'public' },
-      });
-
-      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
-        "  Object {
-            \\"dependencies\\": Object {},
-            \\"description\\": \\"This is a test package\\",
-            \\"devDependencies\\": Object {},
-            \\"name\\": \\"pkg-one\\",
-            \\"peerDependencies\\": Object {},
-            \\"scripts\\": Object {
-              \\"dev\\": \\"dev\\",
-              \\"test\\": \\"test\\",
-        +   \\"publishConfig\\": Object {
-        +     \\"access\\": \\"public\\",
-            },
-            \\"version\\": \\"1.0.0\\",
-            \\"workspaces\\": Array [],
-          }"
-      `);
-    });
-  });
-
-  describe('diffRemoved', () => {
+  describe('diffPartial', () => {
     it('should output the correct snapshot when source and target are equal', async () => {
       const filepath = path.join(temporaryPath, workspace.path, 'package.json');
       const formatter = jsonFormatter(filepath);
 
       const json = await fs.readJson(filepath);
-      const result = await formatter.diffRemoved(json);
-
-      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
-        "{
-          \\"name\\": \\"pkg-one\\",
-          \\"workspaces\\": [],
-          \\"description\\": \\"This is a test package\\",
-          \\"version\\": \\"1.0.0\\",
-          \\"dependencies\\": {},
-          \\"devDependencies\\": {},
-          \\"peerDependencies\\": {},
-          \\"scripts\\": {
-            \\"dev\\": \\"dev\\",
-            \\"test\\": \\"test\\"
-          }
-        }"
-      `);
-    });
-
-    it('should output the correct snapshot when source does not match the target', async () => {
-      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const formatter = jsonFormatter(filepath);
-
-      const result = await formatter.diffRemoved({
-        publishConfig: { access: 'public' },
-      });
+      const result = await formatter.diffPartial(json);
 
       expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
         "  Object {
@@ -282,13 +153,81 @@ describe('jsonFormatter', () => {
             \\"scripts\\": Object {
               \\"dev\\": \\"dev\\",
               \\"test\\": \\"test\\",
-        -   \\"publishConfig\\": Object {
-        -     \\"access\\": \\"public\\",
             },
             \\"version\\": \\"1.0.0\\",
             \\"workspaces\\": Array [],
           }"
       `);
+    });
+
+    it('should output the correct snapshot when source is a perfect subset of the target', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = jsonFormatter(filepath);
+
+      const json = await fs.readJson(filepath);
+      const value = { ...json, extra: 'extra' };
+      const result = await formatter.diffPartial(value);
+
+      expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(`
+        "  Object {
+            \\"dependencies\\": Object {},
+            \\"description\\": \\"This is a test package\\",
+            \\"devDependencies\\": Object {},
+            \\"name\\": \\"pkg-one\\",
+            \\"peerDependencies\\": Object {},
+            \\"scripts\\": Object {
+              \\"dev\\": \\"dev\\",
+              \\"test\\": \\"test\\",
+            },
+            \\"version\\": \\"1.0.0\\",
+            \\"workspaces\\": Array [],
+          }"
+      `);
+    });
+
+    it('should output the correct snapshot when source is a perfect superset of the target', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = jsonFormatter(filepath);
+
+      const value = { scripts: { dev: 'dev' } };
+      const result = await formatter.diffPartial(value);
+
+      expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(`
+        "{
+          \\"scripts\\": {
+            \\"dev\\": \\"dev\\"
+          }
+        }"
+      `);
+    });
+
+    it('should output the correct snapshot when source is a imperfect superset of the target', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = jsonFormatter(filepath);
+
+      const value = { scripts: { dev: 'foo' } };
+      const result = await formatter.diffPartial(value);
+
+      expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(`
+        "  Object {
+            \\"scripts\\": Object {
+              \\"dev\\": \\"dev\\",
+        +     \\"dev\\": \\"foo\\",
+            },
+          }"
+      `);
+    });
+
+    it('should output the correct snapshot when source does not match the target', async () => {
+      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
+      const formatter = jsonFormatter(filepath);
+
+      const value = { publishConfig: { access: 'public' } };
+      const result = await formatter.diffPartial(value);
+
+      expect(stripAnsi(result ?? '')).not.toMatchInlineSnapshot(
+        '"No match found"',
+      );
     });
   });
 });

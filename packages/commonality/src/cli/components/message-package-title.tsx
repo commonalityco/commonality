@@ -29,7 +29,16 @@ export const MessagePackageTitle = ({
         <Text dimColor>{countMessage}</Text>
       </Box>
       {isExpanded && result === 'fail' ? (
-        <Box paddingLeft={2} paddingBottom={1}>
+        <Box
+          paddingBottom={1}
+          paddingRight={1}
+          paddingLeft={1}
+          borderDimColor
+          borderTop={false}
+          borderRight={false}
+          borderBottom={false}
+          borderStyle="single"
+        >
           <Text dimColor>{`${pkg.path}/commonality.json`}</Text>
         </Box>
       ) : undefined}

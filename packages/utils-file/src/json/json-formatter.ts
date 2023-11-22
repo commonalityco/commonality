@@ -1,5 +1,5 @@
 import isMatch from 'lodash-es/isMatch';
-import { matchKeys } from '../utils/match-keys';
+import { intersectObjects } from '../utils/intersect-objects';
 import { diff as jestDiff } from 'jest-diff';
 import chalk from 'chalk';
 import isEqual from 'lodash-es/isEqual';
@@ -9,7 +9,7 @@ import { JsonFile } from '@commonalityco/types';
 export const jsonFormatter = (
   filepath: string,
   options: { defaultSource?: Record<string, unknown> } = {},
-): Pick<JsonFile, 'diff' | 'diffAdded' | 'diffRemoved'> => {
+): Pick<JsonFile, 'diff' | 'diffPartial'> => {
   const getSource = async () => {
     return options.defaultSource ?? (await fs.readJSON(filepath)) ?? {};
   };
@@ -20,7 +20,7 @@ export const jsonFormatter = (
       const isValueSuperset = isMatch(value, sourceData);
       const source = isValueSuperset
         ? sourceData
-        : matchKeys(sourceData, value);
+        : intersectObjects(sourceData, value);
 
       if (!source || Object.keys(source).length === 0) {
         return chalk.dim(`No match found`);
@@ -50,15 +50,23 @@ export const jsonFormatter = (
 
       return result || undefined;
     },
+    async diffPartial(value) {
+      const sourceData = await getSource();
+      const isValueSuperset = isMatch(value, sourceData);
+      const source = isValueSuperset
+        ? sourceData
+        : intersectObjects(sourceData, value);
+      const target = intersectObjects(value, sourceData);
 
-    async diffAdded(value) {
-      const json = await getSource();
-
-      if (isEqual(json, value)) {
-        return chalk.dim(chalk.green(JSON.stringify(json, undefined, 2)));
+      if (!source || Object.keys(source).length === 0) {
+        return chalk.dim(`No match found`);
       }
 
-      const result = jestDiff(json, value, {
+      if (isEqual(source, target)) {
+        return chalk.dim(chalk.green(JSON.stringify(target, undefined, 2)));
+      }
+
+      const result = jestDiff(source, target, {
         omitAnnotationLines: true,
         aColor: chalk.dim,
         bColor: chalk.red,
@@ -66,26 +74,6 @@ export const jsonFormatter = (
         commonColor: chalk.green.dim,
         aIndicator: ' ',
         bIndicator: '+',
-      });
-
-      return result || undefined;
-    },
-
-    async diffRemoved(value) {
-      const json = await getSource();
-
-      if (isEqual(json, value)) {
-        return chalk.dim(chalk.green(JSON.stringify(json, undefined, 2)));
-      }
-
-      const result = jestDiff(json, value, {
-        omitAnnotationLines: true,
-        aColor: chalk.dim,
-        bColor: chalk.red,
-        changeColor: chalk.red,
-        commonColor: chalk.green.dim,
-        aIndicator: ' ',
-        bIndicator: '-',
       });
 
       return result || undefined;

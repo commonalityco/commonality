@@ -37,13 +37,13 @@ export function DependencyMessage({
         <Text dimColor>{`${type}`}</Text>
       </Box>
       <Box
-        paddingRight={1}
-        paddingLeft={6}
         borderDimColor
         borderTop={false}
         borderRight={false}
         borderBottom={false}
         borderStyle="single"
+        flexDirection="column"
+        paddingBottom={1}
       >
         {violation?.found ? (
           <Box paddingLeft={6}>

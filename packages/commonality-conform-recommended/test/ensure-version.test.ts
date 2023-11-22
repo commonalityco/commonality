@@ -1,6 +1,7 @@
 import { json } from '@commonalityco/utils-file';
 import { describe, expect, it, vi } from 'vitest';
 import { ensureVersion } from '../src/ensure-version';
+import stripAnsi from 'strip-ansi';
 
 describe('ensureVersion', () => {
   describe('validate', () => {
@@ -211,14 +212,91 @@ describe('ensureVersion', () => {
 
       const message = await conformer.message({
         workspace,
-        json: () => json('package.json', {}),
+        json: () => json('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
       });
 
       expect(message.title).toEqual(
         'Packages with dependencies ["dep1","dep2"] must match version 1.0.0',
       );
-      expect(message.context).toMatch('No match found');
+      expect(stripAnsi(message.context)).toMatchInlineSnapshot(
+        `
+          "  Object {
+              \\"dependencies\\": Object {
+                \\"dep1\\": \\"0.9.0\\",
+                \\"dep2\\": \\"0.9.0\\",
+          +     \\"dep1\\": \\"1.0.0\\",
+          +     \\"dep2\\": \\"1.0.0\\",
+              },
+              \\"devDependencies\\": Object {
+                \\"dep1\\": \\"0.9.0\\",
+                \\"dep2\\": \\"0.9.0\\",
+          +     \\"dep1\\": \\"1.0.0\\",
+          +     \\"dep2\\": \\"1.0.0\\",
+              },
+              \\"peerDependencies\\": Object {
+                \\"dep1\\": \\"0.9.0\\",
+                \\"dep2\\": \\"0.9.0\\",
+          +     \\"dep1\\": \\"1.0.0\\",
+          +     \\"dep2\\": \\"1.0.0\\",
+              },
+            }"
+        `,
+      );
+      expect(message.filepath).toMatch('package.json');
+    });
+
+    it('should return the correct message is there is a partial match', async () => {
+      const options = {
+        version: '1.0.0',
+        dependencies: ['dep1', 'dep2'],
+        type: ['production' as const, 'development' as const, 'peer' as const],
+      };
+      const packageJson = {
+        workspaces: ['workspace1', 'workspace2'],
+        name: 'workspaceName',
+        description: 'workspaceDescription',
+        version: 'workspaceVersion',
+        devDependencies: {
+          dep1: '1.0.0',
+          dep2: '1.0.0',
+        },
+        peerDependencies: { dep1: '1.0.0', dep2: '1.0.0' },
+      };
+      const workspace = {
+        path: '/path/to/workspace',
+        tags: ['tag1', 'tag2'],
+        codeowners: ['owner1', 'owner2'],
+        packageJson,
+      };
+
+      const conformer = ensureVersion(options);
+
+      const message = await conformer.message({
+        workspace,
+        json: () => json('package.json', { defaultSource: packageJson }),
+        text: vi.fn(),
+      });
+
+      expect(message.title).toEqual(
+        'Packages with dependencies ["dep1","dep2"] must match version 1.0.0',
+      );
+      expect(stripAnsi(message.context)).toMatchInlineSnapshot(`
+        "  Object {
+        +   \\"dependencies\\": Object {
+        +     \\"dep1\\": \\"1.0.0\\",
+        +     \\"dep2\\": \\"1.0.0\\",
+        +   },
+            \\"devDependencies\\": Object {
+              \\"dep1\\": \\"1.0.0\\",
+              \\"dep2\\": \\"1.0.0\\",
+            },
+            \\"peerDependencies\\": Object {
+              \\"dep1\\": \\"1.0.0\\",
+              \\"dep2\\": \\"1.0.0\\",
+            },
+          }"
+      `);
       expect(message.filepath).toMatch('package.json');
     });
   });

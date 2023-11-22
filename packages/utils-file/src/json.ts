@@ -21,8 +21,6 @@ export const json: JsonFileCreator = (
     update: writer.update,
     merge: writer.merge,
     remove: writer.remove,
-    diffRemoved: formatter.diffRemoved,
-    diffAdded: formatter.diffAdded,
     diff: formatter.diff,
   };
 };

@@ -2,7 +2,7 @@ export const isObject = (item: unknown): item is Record<string, unknown> =>
   typeof item === 'object' && !Array.isArray(item) && item !== null;
 
 /**
- * matchKeys
+ * intersectObjects
  *
  * Takes two objects, source and target, and returns a new object with keys that exist in both source and target.
  * The values of the returned object will be that of the source object.
@@ -15,13 +15,16 @@ export const isObject = (item: unknown): item is Record<string, unknown> =>
 type AnyObject = {
   [key: string]: unknown;
 };
-export function matchKeys(source: AnyObject, target: AnyObject): AnyObject {
+export function intersectObjects(
+  source: AnyObject,
+  target: AnyObject,
+): AnyObject {
   const result: AnyObject = {};
 
   for (const key in source) {
     if (key in target) {
       if (isObject(source[key]) && isObject(target[key])) {
-        const matchedSubObject = matchKeys(
+        const matchedSubObject = intersectObjects(
           source[key] as AnyObject,
           target[key] as AnyObject,
         );
