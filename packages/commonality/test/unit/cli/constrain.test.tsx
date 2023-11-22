@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup } from 'ink-testing-library';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ConstraintValidator } from '../../../src/cli/commands/constrain/constrain.js';
 import { useAsyncFn } from '../../../src/cli/utils/use-async-fn.js';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
