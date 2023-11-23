@@ -1,8 +1,11 @@
-import { defineConfig, defineConformer } from 'commonality';
+import { defineConfig } from 'commonality';
+import { noExternalMismatch } from 'commonality-conform-recommended';
 
 export default defineConfig({
   projectId: '123',
-  conformers: {},
+  conformers: {
+    '*': [noExternalMismatch()],
+  },
   constraints: {
     feature: { allow: '*' },
     deliverable: { disallow: ['deliverable'] },

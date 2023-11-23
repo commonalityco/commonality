@@ -166,6 +166,7 @@ type Message = {
   filepath?: string;
 };
 export type MessageFn = (options: {
+  projectWorkspaces: Workspace[];
   workspace: Workspace;
   json: JsonFileCreator;
   text: TextFileCreator;
@@ -219,6 +220,7 @@ export type PackageJson = {
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
+  optionalDependencies?: Record<string, string>;
   scripts?: Record<string, string>;
 };
 

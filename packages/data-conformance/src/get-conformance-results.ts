@@ -58,6 +58,7 @@ export const getConformanceResults = async ({
 
               return await conformer.message({
                 workspace,
+                projectWorkspaces: workspaces,
                 text: (filename) =>
                   text(path.join(rootDirectory, workspace.path, filename)),
                 json: (filename: string) =>
