@@ -366,6 +366,7 @@ describe('no-external-mismatch', () => {
   describe('fix', () => {
     it('should write the correct versions to the package.json', async () => {
       const conformer = noExternalMismatch();
+
       const workspaceA = {
         path: '',
         tags: [],

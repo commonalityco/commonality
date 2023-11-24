@@ -30,12 +30,17 @@
     "@commonalityco/types": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-file": "workspace:*",
+    "@types/ini": "^1.3.33",
+    "@types/npm": "^7.19.3",
     "commonality": "workspace:*",
     "eslint-config-commonality": "workspace:*",
     "strip-ansi": "^7.1.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "find-up": "^6.3.0",
+    "ini": "^4.1.1",
+    "npm": "^10.2.4",
     "semver": "^7.5.4"
   }
 }
