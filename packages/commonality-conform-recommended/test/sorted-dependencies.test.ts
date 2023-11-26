@@ -1,8 +1,9 @@
+import stripAnsi from 'strip-ansi';
 import { describe, expect, it, vi } from 'vitest';
-import { ensureSortedDependencies } from '../src/ensure-sorted-dependencies';
+import { sortedDependencies } from '../src/sorted-dependencies';
 import { json } from '@commonalityco/utils-file';
 
-describe('ensureSortedDependencies', () => {
+describe('sortedDependencies', () => {
   describe('validate', () => {
     it('should return false if dependencies are not sorted', async () => {
       const workspace = {
@@ -16,8 +17,8 @@ describe('ensureSortedDependencies', () => {
         },
       };
 
-      const projectWorkspaces = [];
-      const conformer = ensureSortedDependencies();
+      const allWorkspaces = [];
+      const conformer = sortedDependencies();
       const result = await conformer.validate({
         workspace,
         json: () =>
@@ -25,7 +26,7 @@ describe('ensureSortedDependencies', () => {
             defaultSource: workspace.packageJson,
           }),
         text: vi.fn(),
-        projectWorkspaces,
+        allWorkspaces,
       });
       expect(result).toBe(false);
     });
@@ -42,8 +43,8 @@ describe('ensureSortedDependencies', () => {
         },
       };
 
-      const projectWorkspaces = [];
-      const conformer = ensureSortedDependencies();
+      const allWorkspaces = [];
+      const conformer = sortedDependencies();
       const result = await conformer.validate({
         workspace,
         json: () =>
@@ -51,7 +52,7 @@ describe('ensureSortedDependencies', () => {
             defaultSource: workspace.packageJson,
           }),
         text: vi.fn(),
-        projectWorkspaces,
+        allWorkspaces,
       });
       expect(result).toBe(true);
     });
@@ -70,7 +71,7 @@ describe('ensureSortedDependencies', () => {
         },
       };
 
-      const conformer = ensureSortedDependencies();
+      const conformer = sortedDependencies();
       const onWriteMock = vi.fn();
 
       await conformer?.fix?.({
@@ -81,7 +82,7 @@ describe('ensureSortedDependencies', () => {
             onWrite: onWriteMock,
           }),
         text: vi.fn(),
-        projectWorkspaces: [],
+        allWorkspaces: [],
       });
 
       expect(onWriteMock).toHaveBeenCalledTimes(1);

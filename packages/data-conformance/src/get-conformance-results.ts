@@ -40,8 +40,8 @@ export const getConformanceResults = async ({
             }> => {
               try {
                 const result = await conformer.validate({
-                  workspace,
-                  projectWorkspaces: workspaces,
+                  workspace: Object.freeze(workspace),
+                  allWorkspaces: workspaces,
                   text: (filename) =>
                     text(path.join(rootDirectory, workspace.path, filename)),
                   json: (filename) =>
@@ -62,7 +62,7 @@ export const getConformanceResults = async ({
               try {
                 return await conformer.message({
                   workspace,
-                  projectWorkspaces: workspaces,
+                  allWorkspaces: workspaces,
                   text: (filename) =>
                     text(path.join(rootDirectory, workspace.path, filename)),
                   json: (filename: string) =>

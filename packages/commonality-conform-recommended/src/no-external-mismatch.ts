@@ -1,6 +1,7 @@
 import { defineConformer } from 'commonality';
 import { diff } from '@commonalityco/utils-file';
 import { getExternalVersionMap } from './utils/get-external-version-map';
+import { Workspace } from '@commonalityco/types';
 
 export const DEPENDENCY_TYPES = [
   'dependencies',
@@ -8,11 +9,44 @@ export const DEPENDENCY_TYPES = [
   'optionalDependencies',
 ] as const;
 
+const getExpectedPackageJson = ({
+  workspace,
+  allWorkspaces,
+}: {
+  workspace: Workspace;
+  allWorkspaces: Workspace[];
+}) => {
+  const externalVersionMap = getExternalVersionMap(allWorkspaces);
+  const newPackageJson = JSON.parse(JSON.stringify(workspace.packageJson));
+
+  for (const dependencyType of DEPENDENCY_TYPES) {
+    const dependencies = newPackageJson[dependencyType];
+
+    if (!dependencies) {
+      continue;
+    }
+
+    for (const [packageName, version] of Object.entries(dependencies)) {
+      if (!externalVersionMap.has(packageName)) {
+        continue;
+      }
+
+      const externalVersion = externalVersionMap.get(packageName);
+
+      if (version !== externalVersion && externalVersion !== undefined) {
+        dependencies[packageName] = externalVersion;
+      }
+    }
+  }
+
+  return newPackageJson;
+};
+
 export const noExternalMismatch = defineConformer(() => {
   return {
     name: 'commonality/external-mismatch',
-    validate: async ({ projectWorkspaces, workspace }) => {
-      const externalVersionMap = getExternalVersionMap(projectWorkspaces);
+    validate: async ({ allWorkspaces, workspace }) => {
+      const externalVersionMap = getExternalVersionMap(allWorkspaces);
 
       if (!workspace.packageJson.name) {
         throw new Error('Packages must have a name property');
@@ -40,72 +74,25 @@ export const noExternalMismatch = defineConformer(() => {
 
       return true;
     },
-    fix: async ({ json, projectWorkspaces, workspace }) => {
-      const externalVersionMap = getExternalVersionMap(projectWorkspaces);
+    fix: async ({ json, allWorkspaces, workspace }) => {
+      const expectedPackageJson = getExpectedPackageJson({
+        workspace,
+        allWorkspaces,
+      });
 
-      if (!workspace.packageJson.name) {
-        throw new Error('Packages must have a name property');
-      }
-
-      for (const dependencyType of DEPENDENCY_TYPES) {
-        const dependencies = workspace.packageJson[dependencyType];
-
-        if (!dependencies) {
-          continue;
-        }
-
-        for (const [packageName, version] of Object.entries(dependencies)) {
-          if (!externalVersionMap.has(packageName)) {
-            continue;
-          }
-
-          const externalVersion = externalVersionMap.get(packageName);
-
-          if (version !== externalVersion && externalVersion !== undefined) {
-            dependencies[packageName] = externalVersion;
-          }
-        }
-      }
-
-      return json('package.json').update(workspace.packageJson);
+      return json('package.json').update(expectedPackageJson);
     },
-    message: async ({ json, workspace, projectWorkspaces }) => {
-      // Construct an object that contains the most common version of each external dependency for the workspace's package.json
-      const externalVersionMap = getExternalVersionMap(projectWorkspaces);
 
-      const commonVersionMap: {
-        dependencies?: Record<string, string>;
-        devDependencies?: Record<string, string>;
-        optionalDependencies?: Record<string, string>;
-      } = {};
-
-      for (const dependencyType of DEPENDENCY_TYPES) {
-        const dependencies = workspace.packageJson[dependencyType];
-
-        if (!dependencies) {
-          continue;
-        }
-
-        for (const [packageName, version] of Object.entries(dependencies)) {
-          if (!externalVersionMap.has(packageName)) {
-            continue;
-          }
-
-          const externalVersion = externalVersionMap.get(packageName);
-
-          if (externalVersion) {
-            if (!commonVersionMap[dependencyType]) {
-              commonVersionMap[dependencyType] = {};
-            }
-            commonVersionMap[dependencyType]![packageName] = externalVersion;
-          }
-        }
-      }
+    message: async ({ workspace, allWorkspaces }) => {
+      const expectedPackageJson = getExpectedPackageJson({
+        workspace,
+        allWorkspaces,
+      });
 
       return {
         title:
           'External dependencies must match the most common or highest version',
-        context: diff(await json('package.json').get(), commonVersionMap),
+        context: diff(workspace.packageJson, expectedPackageJson),
         filepath: 'package.json',
       };
     },

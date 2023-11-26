@@ -1,4 +1,4 @@
-import { diff as jestDiff, diffStringsUnified } from 'jest-diff';
+import { diff as jestDiff } from 'jest-diff';
 import chalk from 'chalk';
 import { format as prettyFormat } from 'pretty-format';
 

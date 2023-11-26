@@ -22,7 +22,7 @@ describe('dev-peer-dependency-range', () => {
         };
 
         const result = await conformer.validate({
-          projectWorkspaces: [workspaceA],
+          allWorkspaces: [workspaceA],
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
@@ -52,7 +52,7 @@ describe('dev-peer-dependency-range', () => {
         };
 
         const result = await conformer.validate({
-          projectWorkspaces: [workspaceA],
+          allWorkspaces: [workspaceA],
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
@@ -82,7 +82,7 @@ describe('dev-peer-dependency-range', () => {
         };
 
         const result = await conformer.validate({
-          projectWorkspaces: [workspaceA],
+          allWorkspaces: [workspaceA],
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
@@ -112,7 +112,7 @@ describe('dev-peer-dependency-range', () => {
         };
 
         const result = await conformer.validate({
-          projectWorkspaces: [workspaceA],
+          allWorkspaces: [workspaceA],
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
@@ -142,7 +142,7 @@ describe('dev-peer-dependency-range', () => {
         };
 
         const result = await conformer.validate({
-          projectWorkspaces: [workspaceA],
+          allWorkspaces: [workspaceA],
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
@@ -172,7 +172,7 @@ describe('dev-peer-dependency-range', () => {
         };
 
         const result = await conformer.validate({
-          projectWorkspaces: [workspaceA],
+          allWorkspaces: [workspaceA],
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
@@ -202,7 +202,7 @@ describe('dev-peer-dependency-range', () => {
         };
 
         const result = await conformer.validate({
-          projectWorkspaces: [workspaceA],
+          allWorkspaces: [workspaceA],
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
@@ -234,7 +234,7 @@ describe('dev-peer-dependency-range', () => {
       const onWriteMock = vi.fn();
 
       await conformer.fix({
-        projectWorkspaces: [workspaceA],
+        allWorkspaces: [workspaceA],
         workspace: workspaceA,
         text: vi.fn(),
         json: () =>
@@ -277,7 +277,7 @@ describe('dev-peer-dependency-range', () => {
       const onWriteMock = vi.fn();
 
       await conformer.fix({
-        projectWorkspaces: [workspaceA],
+        allWorkspaces: [workspaceA],
         workspace: workspaceA,
         text: vi.fn(),
         json: () =>
@@ -321,7 +321,7 @@ describe('dev-peer-dependency-range', () => {
 
       const result = await conformer.message({
         workspace: workspaceA,
-        projectWorkspaces: [workspaceA],
+        allWorkspaces: [workspaceA],
         json: () => json('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
       });

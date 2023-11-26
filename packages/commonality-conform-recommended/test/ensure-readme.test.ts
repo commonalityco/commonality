@@ -19,7 +19,7 @@ describe('ensureReadme', () => {
       const result = await conformer.validate({
         text: () => text('README.md', { onExists: () => true }),
         json: vi.fn(),
-        projectWorkspaces: [],
+        allWorkspaces: [],
         workspace: workspace,
       });
       expect(result).toBe(true);
@@ -40,7 +40,7 @@ describe('ensureReadme', () => {
       const result = await conformer.validate({
         text: () => text('README.md', { onExists: () => false }),
         json: vi.fn(),
-        projectWorkspaces: [],
+        allWorkspaces: [],
         workspace: workspace,
       });
       expect(result).toBe(false);
@@ -66,7 +66,7 @@ describe('ensureReadme', () => {
         workspace,
         text: () => text('README.md', { onWrite: onWriteMock }),
         json: vi.fn(),
-        projectWorkspaces: [],
+        allWorkspaces: [],
       });
 
       expect(onWriteMock).toHaveBeenCalledWith(

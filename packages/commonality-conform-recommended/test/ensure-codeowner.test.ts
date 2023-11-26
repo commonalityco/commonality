@@ -16,7 +16,7 @@ describe('ensureCodeowner', () => {
         workspace,
         json: vi.fn(),
         text: vi.fn(),
-        projectWorkspaces: [],
+        allWorkspaces: [],
       });
       expect(result).toBe(false);
     });
@@ -34,7 +34,7 @@ describe('ensureCodeowner', () => {
         workspace,
         json: vi.fn(),
         text: vi.fn(),
-        projectWorkspaces: [],
+        allWorkspaces: [],
       });
       expect(result).toBe(true);
     });

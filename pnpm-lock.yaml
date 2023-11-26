@@ -428,6 +428,9 @@ importers:
       semver:
         specifier: ^7.5.4
         version: 7.5.4
+      validate-npm-package-name:
+        specifier: ^5.0.0
+        version: 5.0.0
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
@@ -462,6 +465,9 @@ importers:
       '@types/npm':
         specifier: ^7.19.3
         version: 7.19.3
+      '@types/validate-npm-package-name':
+        specifier: ^4.0.2
+        version: 4.0.2
       commonality:
         specifier: workspace:*
         version: link:../commonality
@@ -1326,9 +1332,6 @@ importers:
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
-      react:
-        specifier: '>=18'
-        version: 18.2.0
       react-popper:
         specifier: ^2.3.0
         version: 2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0)(react@18.2.0)
@@ -1393,6 +1396,9 @@ importers:
       lucide-react:
         specifier: ^0.274.0
         version: 0.274.0(react@18.2.0)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
@@ -1518,7 +1524,7 @@ importers:
         specifier: ^11.1.1
         version: 11.1.1
       jest-diff:
-        specifier: 29.7.0
+        specifier: ^29.7.0
         version: 29.7.0
       lodash:
         specifier: ^4.17.21
@@ -7472,6 +7478,10 @@ packages:
     dependencies:
       '@types/configstore': 6.0.0
       boxen: 7.1.1
+    dev: true
+
+  /@types/validate-npm-package-name@4.0.2:
+    resolution: {integrity: sha512-lrpDziQipxCEeK5kWxvljWYhUvOiB2A9izZd9B2AFarYAkqZshb4lPbRs7zKEic6eGtH8V/2qJW+dPp9OtF6bw==}
     dev: true
 
   /@types/wait-on@5.3.1:
@@ -17972,6 +17982,13 @@ packages:
     resolution: {integrity: sha512-M6w37eVCMMouJ9V/sdPGnC5H4uDr73/+xdq0FBLO3TFFX1+7wiUY6Es328NN+y43tmY+doUdN9g9J21vqB7iLw==}
     dependencies:
       builtins: 1.0.3
+    dev: false
+
+  /validate-npm-package-name@5.0.0:
+    resolution: {integrity: sha512-YuKoXDAhBYxY7SfOKxHBDoSyENFeW5VvIIQp2TGQuit8gpK6MnWaQelBKxso72DoxTZfZdcP3W90LqpSkgPzLQ==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    dependencies:
+      builtins: 5.0.1
     dev: false
 
   /vary@1.1.2:

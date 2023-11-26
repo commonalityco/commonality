@@ -49,7 +49,7 @@ export const runFixes = async ({
           try {
             await result.fix({
               workspace: result.workspace,
-              projectWorkspaces: workspaces,
+              allWorkspaces: workspaces,
               json: (filename) =>
                 json(path.join(rootDirectory, result.workspace.path, filename)),
               text: (filename) =>

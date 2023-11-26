@@ -86,7 +86,7 @@ type ValidationResult =
 
 export type ValidateFn = (opts: {
   workspace: Workspace;
-  projectWorkspaces: Workspace[];
+  allWorkspaces: Workspace[];
   json: JsonFileCreator;
   text: TextFileCreator;
 }) => ValidationResult | Promise<ValidationResult>;
@@ -151,7 +151,7 @@ export type FileCreatorFactory<File> = ({
 
 export type FixFn = (opts: {
   workspace: Workspace;
-  projectWorkspaces: Workspace[];
+  allWorkspaces: Workspace[];
   json: JsonFileCreator;
   text: TextFileCreator;
 }) => void | Promise<void>;
@@ -163,7 +163,7 @@ type Message = {
   filepath?: string;
 };
 export type MessageFn = (options: {
-  projectWorkspaces: Workspace[];
+  allWorkspaces: Workspace[];
   workspace: Workspace;
   json: JsonFileCreator;
   text: TextFileCreator;
@@ -209,17 +209,17 @@ export type PackageConfig = {
   tags?: string[];
 };
 
-export type PackageJson = {
+export type PackageJson = Readonly<{
   workspaces?: string[];
   name?: string;
   description?: string;
   version?: string;
-  dependencies?: Record<string, string>;
-  devDependencies?: Record<string, string>;
-  peerDependencies?: Record<string, string>;
-  optionalDependencies?: Record<string, string>;
-  scripts?: Record<string, string>;
-};
+  dependencies?: Readonly<Record<string, string>>;
+  devDependencies?: Readonly<Record<string, string>>;
+  peerDependencies?: Readonly<Record<string, string>>;
+  optionalDependencies?: Readonly<Record<string, string>>;
+  scripts?: Readonly<Record<string, string>>;
+}>;
 
 export type SnapshotResult = {
   url: string;

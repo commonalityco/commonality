@@ -48,7 +48,7 @@ describe('no-external-mismatch', () => {
       };
 
       const result = await conformer.validate({
-        projectWorkspaces: [workspaceA, workspaceB, workspaceC],
+        allWorkspaces: [workspaceA, workspaceB, workspaceC],
         json: vi.fn(),
         text: vi.fn(),
         workspace: workspaceA,
@@ -100,7 +100,7 @@ describe('no-external-mismatch', () => {
       };
 
       const result = await conformer.validate({
-        projectWorkspaces: [workspaceA, workspaceB, workspaceC],
+        allWorkspaces: [workspaceA, workspaceB, workspaceC],
         json: vi.fn(),
         text: vi.fn(),
         workspace: workspaceA,
@@ -163,7 +163,7 @@ describe('no-external-mismatch', () => {
             defaultSource: workspaceA.packageJson,
           }),
         text: vi.fn(),
-        projectWorkspaces: [workspaceA, workspaceB, workspaceC],
+        allWorkspaces: [workspaceA, workspaceB, workspaceC],
         workspace: workspaceA,
       });
 
@@ -229,7 +229,7 @@ describe('no-external-mismatch', () => {
             defaultSource: workspaceA.packageJson,
           }),
         text: vi.fn(),
-        projectWorkspaces: [workspaceA, workspaceB, workspaceC],
+        allWorkspaces: [workspaceA, workspaceB, workspaceC],
         workspace: workspaceA,
       });
 
