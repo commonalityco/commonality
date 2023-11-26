@@ -136,7 +136,7 @@ describe('dev-peer-dependency-range', () => {
               'pkg-b': 'workspace:^18',
             },
             peerDependencies: {
-              'pkg-b': '>=18',
+              'pkg-b': 'workspace:>=18',
             },
           },
         };
@@ -263,6 +263,10 @@ describe('dev-peer-dependency-range', () => {
             \\"devDependencies\\": Object {
               \\"pkg-b\\": \\"^17.0.2\\",
         +     \\"pkg-b\\": \\"^18.0.0\\",
+            },
+            \\"name\\": \\"pkg-a\\",
+            \\"peerDependencies\\": Object {
+              \\"pkg-b\\": \\">=18\\",
             },
           }"
       `);

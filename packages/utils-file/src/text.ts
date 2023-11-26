@@ -1,7 +1,5 @@
 import type { TextFile, TextFileCreator } from '@commonalityco/types';
 import fs from 'fs-extra';
-import { diffLinesUnified } from 'jest-diff';
-import chalk from 'chalk';
 import { baseFile } from './base-file';
 
 const createTextFileReader = (
@@ -70,54 +68,17 @@ const createTextFileWriter = (
   };
 };
 
-const createTextFileFormatter = (
-  filepath: string,
-  options: { defaultSource?: string } = {},
-): Pick<TextFile, 'diff'> => {
-  const getSource = async () =>
-    options.defaultSource || (await fs.readFile(filepath, 'utf8'));
-
-  return {
-    async diff(value: string[]) {
-      const text = await getSource();
-      const textLines = text.split('\n').filter(Boolean);
-
-      const textSubset = textLines.filter((textLine) =>
-        value.includes(textLine),
-      );
-
-      if (textSubset == value) {
-        return 'hello';
-      }
-
-      const result = diffLinesUnified(textSubset, value, {
-        omitAnnotationLines: true,
-        aColor: chalk.dim,
-        bColor: chalk.red,
-        changeColor: chalk.red,
-        commonColor: chalk.green.dim,
-        aIndicator: '-',
-        bIndicator: '+',
-      });
-
-      return result || undefined;
-    },
-  };
-};
-
 export const text: TextFileCreator = (
   filepath,
   { defaultSource, onWrite, onDelete, onExists } = {},
 ) => {
   const textWriter = createTextFileWriter(filepath, { onWrite, defaultSource });
   const textReader = createTextFileReader(filepath, { defaultSource });
-  const textFormatter = createTextFileFormatter(filepath);
   const file = baseFile(filepath, { defaultSource, onDelete, onExists });
 
   return {
     ...file,
     ...textWriter,
     ...textReader,
-    ...textFormatter,
   };
 };

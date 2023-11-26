@@ -1,9 +1,11 @@
 import { Workspace } from '@commonalityco/types';
+import { diff } from '@commonalityco/utils-file';
 import { defineConformer } from 'commonality';
 import semver from 'semver';
 
-const stripWorkspaceProtocol = (value: string) =>
-  value.replace('workspace:', '');
+const stripWorkspaceProtocol = (value: string) => {
+  return value.replace('workspace:', '');
+};
 
 const getVersionWithPrefix = (version?: string): string => `^${version}`;
 
@@ -19,23 +21,25 @@ const getExpectedDevDependencies = (
   const devDependencies: Record<string, string> = {};
 
   for (const [packageName, value] of Object.entries(peerDependencies)) {
+    if (!value) {
+      continue;
+    }
+
     const devDependency = workspace.packageJson.devDependencies?.[packageName];
     const minVersion = semver.minVersion(value)?.version;
     const minVersionWithPrefix = getVersionWithPrefix(minVersion);
-
-    if (!devDependency) {
-      devDependencies[packageName] = minVersionWithPrefix;
-    }
-
     const cleanedValue = stripWorkspaceProtocol(value);
-    const cleanedDevDependency = stripWorkspaceProtocol(
-      devDependency as string,
-    );
 
-    const isSubset = semver.subset(cleanedDevDependency, cleanedValue);
+    if (devDependency) {
+      const cleanedDevDependency = stripWorkspaceProtocol(devDependency);
 
-    if (cleanedDevDependency === '*' || isSubset) {
-      continue;
+      const isSubset = semver.subset(cleanedDevDependency, cleanedValue);
+
+      if (cleanedDevDependency === '*' || isSubset) {
+        continue;
+      } else {
+        devDependencies[packageName] = minVersionWithPrefix;
+      }
     } else {
       devDependencies[packageName] = minVersionWithPrefix;
     }
@@ -84,10 +88,14 @@ export const devPeerDependencyRange = defineConformer(() => {
     },
     message: async ({ workspace, json }) => {
       const devDependencies = getExpectedDevDependencies(workspace);
+      const packageJson = await json('package.json').get();
 
       return {
         title: `Packages with peerDependencies must have matching devDependencies within a valid range`,
-        context: await json('package.json').diffPartial({ devDependencies }),
+        context: diff(packageJson, {
+          devDependencies: devDependencies,
+          peerDependencies: packageJson.peerDependencies,
+        }),
         filepath: 'package.json',
       };
     },

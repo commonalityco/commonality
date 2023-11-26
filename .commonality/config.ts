@@ -1,10 +1,13 @@
 import { defineConfig } from 'commonality';
-import { noExternalMismatch } from 'commonality-conform-recommended';
+import {
+  noExternalMismatch,
+  devPeerDependencyRange,
+} from 'commonality-conform-recommended';
 
 export default defineConfig({
   projectId: '123',
   conformers: {
-    '*': [noExternalMismatch()],
+    '*': [noExternalMismatch(), devPeerDependencyRange()],
   },
   constraints: {
     feature: { allow: '*' },

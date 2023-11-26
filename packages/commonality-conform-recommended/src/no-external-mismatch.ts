@@ -1,6 +1,7 @@
 import { defineConformer } from 'commonality';
 import { Workspace } from '@commonalityco/types';
 import semver from 'semver';
+import { diff } from '@commonalityco/utils-file';
 
 export const DEPENDENCY_TYPES = [
   'dependencies',
@@ -177,7 +178,7 @@ export const noExternalMismatch = defineConformer(() => {
       return {
         title:
           'External dependencies must match the most common or highest version',
-        context: await json('package.json').diffPartial(commonVersionMap),
+        context: diff(await json('package.json').get(), commonVersionMap),
         filepath: 'package.json',
       };
     },

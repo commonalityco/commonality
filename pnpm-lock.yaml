@@ -1326,6 +1326,9 @@ importers:
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
+      react:
+        specifier: '>=18'
+        version: 18.2.0
       react-popper:
         specifier: ^2.3.0
         version: 2.3.0(@popperjs/core@2.11.8)(react-dom@18.2.0)(react@18.2.0)
@@ -1390,9 +1393,6 @@ importers:
       lucide-react:
         specifier: ^0.274.0
         version: 0.274.0(react@18.2.0)
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
@@ -1518,7 +1518,7 @@ importers:
         specifier: ^11.1.1
         version: 11.1.1
       jest-diff:
-        specifier: ^29.7.0
+        specifier: 29.7.0
         version: 29.7.0
       lodash:
         specifier: ^4.17.21
@@ -1538,6 +1538,9 @@ importers:
       mock-fs:
         specifier: ^5.2.0
         version: 5.2.0
+      pretty-format:
+        specifier: ^29.7.0
+        version: 29.7.0
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*

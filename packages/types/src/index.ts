@@ -112,8 +112,6 @@ export interface JsonFile extends File {
   update(value: Record<string, unknown>): Promise<void>;
   merge(value: Record<string, unknown>): Promise<void>;
   remove(path: string): Promise<void>;
-  diffPartial(value: Record<string, unknown>): Promise<string | undefined>;
-  diff(value: Record<string, unknown>): Promise<string | undefined>;
 }
 
 export type JsonFileCreator = (
@@ -132,7 +130,6 @@ export interface TextFile extends File {
   set(lines: string[]): Promise<void>;
   add(lines: string[]): Promise<void>;
   remove(lines: string[]): Promise<void>;
-  diff(value: string[]): Promise<string | undefined>;
 }
 
 export type TextFileCreator = (

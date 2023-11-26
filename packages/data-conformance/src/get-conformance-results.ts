@@ -34,7 +34,10 @@ export const getConformanceResults = async ({
           .map((data) => workspaceMap.get(data.packageName))
           .filter((workspace): workspace is Workspace => !!workspace)
           .map(async (workspace): Promise<ConformanceResult> => {
-            const getIsValid = async (): Promise<boolean> => {
+            const getValidationResult = async (): Promise<{
+              isValid: boolean;
+              error?: unknown;
+            }> => {
               try {
                 const result = await conformer.validate({
                   workspace,
@@ -45,9 +48,9 @@ export const getConformanceResults = async ({
                     json(path.join(rootDirectory, workspace.path, filename)),
                 });
 
-                return Boolean(result);
-              } catch {
-                return false;
+                return { isValid: Boolean(result) };
+              } catch (error) {
+                return { isValid: false, error };
               }
             };
 
@@ -56,26 +59,42 @@ export const getConformanceResults = async ({
                 return { title: conformer.message };
               }
 
-              return await conformer.message({
-                workspace,
-                projectWorkspaces: workspaces,
-                text: (filename) =>
-                  text(path.join(rootDirectory, workspace.path, filename)),
-                json: (filename: string) =>
-                  json(path.join(rootDirectory, workspace.path, filename)),
-              });
+              try {
+                return await conformer.message({
+                  workspace,
+                  projectWorkspaces: workspaces,
+                  text: (filename) =>
+                    text(path.join(rootDirectory, workspace.path, filename)),
+                  json: (filename: string) =>
+                    json(path.join(rootDirectory, workspace.path, filename)),
+                });
+              } catch (error) {
+                if (error instanceof Error) {
+                  return {
+                    title: error.message,
+                    context: error.stack,
+                  };
+                }
+
+                return {
+                  title:
+                    'An unknown error occured while running this conformer',
+                };
+              }
             };
 
-            const isValid = await getIsValid();
+            const validationResult = await getValidationResult();
+
+            const message = await getMessage();
 
             return {
               name: conformer.name,
               pattern: matchingPattern,
               workspace,
-              message: await getMessage(),
+              message,
               level: conformer.level ?? 'warning',
               fix: conformer.fix,
-              isValid,
+              isValid: validationResult.isValid,
             };
           }),
       ),

@@ -297,7 +297,8 @@ export const ConformCommand = ({
                       rootDirectory={rootDirectory}
                       workspaces={workspaces}
                       tagsData={tagsData}
-                      onError={() => {
+                      onError={(error) => {
+                        console.log(error);
                         process.exit(1);
                       }}
                     />

@@ -489,9 +489,13 @@ describe('no-external-mismatch', () => {
       expect(stripAnsi(result.context ?? '')).toMatchInlineSnapshot(`
         "  Object {
             \\"dependencies\\": Object {
+              \\"package-b\\": \\"workspace:*\\",
               \\"package3\\": \\"3.0.0\\",
         +     \\"package3\\": \\"1.0.0\\",
             },
+            \\"devDependencies\\": Object {},
+            \\"name\\": \\"package-a\\",
+            \\"peerDependencies\\": Object {},
           }"
       `);
     });

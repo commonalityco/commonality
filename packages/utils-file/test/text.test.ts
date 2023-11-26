@@ -1,5 +1,4 @@
 import os from 'node:os';
-import stripAnsi from 'strip-ansi';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import fs from 'fs-extra';
 import { text } from '../src';
@@ -140,49 +139,6 @@ describe('text', () => {
           "
         `);
       });
-    });
-  });
-
-  describe('createTextFileFormatter', () => {
-    it('should return diff string when text is a subset of the value', async () => {
-      const filepath = path.join(
-        temporaryPath,
-        workspace.path,
-        'multi-line.md',
-      );
-      const formatter = text(filepath);
-
-      const value = [
-        '# First line',
-        '## Second line',
-        '### Third line',
-        '#### Fourth line',
-      ];
-      const result = await formatter.diff(value);
-
-      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
-        "  # First line
-          ## Second line
-          ### Third line
-        + #### Fourth line"
-      `);
-    });
-
-    it('should return diff string when value is a subset of the text', async () => {
-      const filepath = path.join(
-        temporaryPath,
-        workspace.path,
-        'multi-line.md',
-      );
-      const formatter = text(filepath);
-
-      const value = ['# First line', '## Second line'];
-      const result = await formatter.diff(value);
-
-      expect(stripAnsi(result ?? '')).toMatchInlineSnapshot(`
-        "  # First line
-          ## Second line"
-      `);
     });
   });
 });
