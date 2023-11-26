@@ -84,7 +84,7 @@ export const devPeerDependencyRange = defineConformer(() => {
     fix: async ({ workspace, json }) => {
       const devDependencies = getExpectedDevDependencies(workspace);
 
-      await json('package.json').update({ devDependencies });
+      await json('package.json').merge({ devDependencies });
     },
     message: async ({ workspace, json }) => {
       const devDependencies = getExpectedDevDependencies(workspace);

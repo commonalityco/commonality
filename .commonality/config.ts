@@ -7,7 +7,7 @@ import {
 export default defineConfig({
   projectId: '123',
   conformers: {
-    '*': [noExternalMismatch(), devPeerDependencyRange()],
+    '*': [devPeerDependencyRange(), noExternalMismatch()],
   },
   constraints: {
     feature: { allow: '*' },

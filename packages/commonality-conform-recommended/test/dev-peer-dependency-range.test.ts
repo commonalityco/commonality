@@ -122,6 +122,36 @@ describe('dev-peer-dependency-range', () => {
       });
     });
 
+    describe('when the peerDependency intersects with the devDependency version range', () => {
+      it('should return true', async () => {
+        const conformer = devPeerDependencyRange();
+
+        const workspaceA = {
+          path: '/path',
+          tags: [],
+          codeowners: [],
+          packageJson: {
+            name: 'pkg-a',
+            devDependencies: {
+              'pkg-b': '^18.0.0',
+            },
+            peerDependencies: {
+              'pkg-b': '>=18',
+            },
+          },
+        };
+
+        const result = await conformer.validate({
+          projectWorkspaces: [workspaceA],
+          workspace: workspaceA,
+          json: vi.fn(),
+          text: vi.fn(),
+        });
+
+        expect(result).toBe(true);
+      });
+    });
+
     describe('when the devDependency uses the workspace protocol with a semver range', () => {
       it('should return true', async () => {
         const conformer = devPeerDependencyRange();
@@ -184,7 +214,48 @@ describe('dev-peer-dependency-range', () => {
   });
 
   describe('fix', () => {
-    it('should write the minimum version of the peerDependency to the devDependency', async () => {
+    it('should write the minimum version of the peerDependency to the devDependency when it does not exist', async () => {
+      const conformer = devPeerDependencyRange();
+
+      const packageJson = {
+        name: 'pkg-a',
+        devDependencies: {},
+        peerDependencies: {
+          'pkg-b': '>=18',
+        },
+      };
+      const workspaceA = {
+        path: '/path',
+        tags: [],
+        codeowners: [],
+        packageJson,
+      };
+
+      const onWriteMock = vi.fn();
+
+      await conformer.fix({
+        projectWorkspaces: [workspaceA],
+        workspace: workspaceA,
+        text: vi.fn(),
+        json: () =>
+          json('package.json', {
+            onWrite: onWriteMock,
+            defaultSource: packageJson,
+          }),
+      });
+
+      expect(onWriteMock).toHaveBeenCalledWith('package.json', {
+        name: 'pkg-a',
+        devDependencies: {
+          'pkg-b': '^18.0.0',
+        },
+        peerDependencies: {
+          'pkg-b': '>=18',
+        },
+      });
+    });
+
+    it('should write the minimum version of the peerDependency to the devDependency when it exists', async () => {
       const conformer = devPeerDependencyRange();
 
       const packageJson = {
