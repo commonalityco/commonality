@@ -1,4 +1,3 @@
-import stripAnsi from 'strip-ansi';
 import { describe, expect, it, vi } from 'vitest';
 import { sortedDependencies } from '../src/sorted-dependencies';
 import { json } from '@commonalityco/utils-file';
