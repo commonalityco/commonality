@@ -23,12 +23,14 @@ export const runFixes = async ({
   conformanceResults,
   rootDirectory,
   workspaces,
+  rootWorkspace,
   tagsData,
   codeownersData,
 }: {
   conformanceResults: ConformanceResult[];
   rootDirectory: string;
   workspaces: Workspace[];
+  rootWorkspace: Workspace;
   tagsData: TagsData[];
   codeownersData: CodeownersData[];
 }): Promise<
@@ -69,6 +71,7 @@ export const runFixes = async ({
             await result.fix({
               workspace: result.workspace,
               allWorkspaces: workspaces,
+              rootWorkspace,
               tags: tagsMap.get(result.workspace.packageJson.name) ?? [],
               codeowners:
                 codeownersMap.get(result.workspace.packageJson.name) ?? [],

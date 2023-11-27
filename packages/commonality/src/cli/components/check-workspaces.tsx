@@ -4,33 +4,63 @@ import { ErrorMessage } from './error-message.js';
 import { Text } from 'ink';
 import React from 'react';
 import { useAsyncFn } from '../utils/use-async-fn.js';
-import { getWorkspaces } from '@commonalityco/data-workspaces';
+import {
+  getWorkspaces,
+  getRootWorkspace,
+} from '@commonalityco/data-workspaces';
 
 export const CheckWorkspaces = ({
   loadingMessage,
   children,
 }: {
   loadingMessage: React.ReactNode;
-  children: (options: { workspaces: Workspace[] }) => React.ReactNode;
+  children: (options: {
+    workspaces: Workspace[];
+    rootWorkspace: Workspace;
+  }) => React.ReactNode;
 }) => {
-  const { data, error, isLoading, isError } = useAsyncFn(async () => {
+  const workspacesResult = useAsyncFn(async () => {
     const rootDirectory = await getRootDirectory();
     return await getWorkspaces({
       rootDirectory,
     });
   });
 
-  if (isError) {
-    return <ErrorMessage error={error} title="Could not read workspaces" />;
+  const rootWorkspaceResult = useAsyncFn(async () => {
+    const rootDirectory = await getRootDirectory();
+    return await getRootWorkspace({
+      rootDirectory,
+    });
+  });
+
+  if (rootWorkspaceResult.error) {
+    return (
+      <ErrorMessage
+        error={rootWorkspaceResult.error}
+        title="Could not read root workspace"
+      />
+    );
   }
 
-  if (isLoading) {
+  if (workspacesResult.error) {
+    return (
+      <ErrorMessage
+        error={workspacesResult.error}
+        title="Could not read workspaces"
+      />
+    );
+  }
+
+  if (rootWorkspaceResult.isLoading || workspacesResult.isLoading) {
     return loadingMessage;
   }
 
-  if (!data?.length || data.length === 0) {
-    return <Text>No packages found</Text>;
+  if (!rootWorkspaceResult.data) {
+    return <Text>No root workspace found</Text>;
   }
 
-  return children({ workspaces: data });
+  return children({
+    workspaces: workspacesResult.data ?? [],
+    rootWorkspace: rootWorkspaceResult.data,
+  });
 };

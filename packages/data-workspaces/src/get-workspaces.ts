@@ -1,6 +1,3 @@
-import { getTagsData } from '@commonalityco/data-tags';
-import { getPackages } from '@commonalityco/data-packages';
-import { getCodeownersData } from '@commonalityco/data-codeowners';
 import {
   getPackageDirectories,
   getWorkspaceGlobs,

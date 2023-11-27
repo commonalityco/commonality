@@ -102,6 +102,7 @@ export const ConformRunner = ({
   conformersByPattern,
   rootDirectory,
   workspaces,
+  rootWorkspace,
   tagsData,
   codeownersData,
   onError = () => {},
@@ -110,6 +111,7 @@ export const ConformRunner = ({
   conformersByPattern: Record<string, Conformer[]>;
   rootDirectory: string;
   workspaces: Workspace[];
+  rootWorkspace: Workspace;
   tagsData: TagsData[];
   onError?: (error: Error) => void;
   codeownersData: CodeownersData[];
@@ -118,6 +120,7 @@ export const ConformRunner = ({
   const { data, refetch, isLoading, error } = useAsyncFn(async () => {
     return await getConformanceResults({
       conformersByPattern,
+      rootWorkspace,
       rootDirectory,
       workspaces,
       tagsData,
@@ -262,6 +265,7 @@ export const ConformRunner = ({
             autoFixCount={autoFixCount}
             onAccept={async () => {
               await runFixes({
+                rootWorkspace,
                 rootDirectory,
                 workspaces,
                 conformanceResults: results,
@@ -297,12 +301,13 @@ export const ConformCommand = ({
         {({ conformers }) => {
           return (
             <CheckWorkspaces loadingMessage={<CheckSpinner />}>
-              {({ workspaces }) => (
+              {({ workspaces, rootWorkspace }) => (
                 <CheckTagsData loadingMessage={<CheckSpinner />}>
                   {({ tagsData }) => (
                     <CheckCodeownersData loadingMessage={<CheckSpinner />}>
                       {({ codeownersData }) => (
                         <ConformRunner
+                          rootWorkspace={rootWorkspace}
                           verbose={verbose}
                           codeownersData={codeownersData}
                           conformersByPattern={conformers}

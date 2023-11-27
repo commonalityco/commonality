@@ -14,10 +14,12 @@ export const getConformanceResults = async ({
   workspaces,
   tagsData,
   codeownersData,
+  rootWorkspace,
 }: {
   conformersByPattern: Record<string, Conformer[]>;
   rootDirectory: string;
   workspaces: Workspace[];
+  rootWorkspace: Workspace;
   tagsData: TagsData[];
   codeownersData: CodeownersData[];
 }): Promise<ConformanceResult[]> => {
@@ -54,6 +56,7 @@ export const getConformanceResults = async ({
                 const result = await conformer.validate({
                   workspace: Object.freeze(workspace),
                   allWorkspaces: workspaces,
+                  rootWorkspace,
                   tags: tagsMap.get(workspace.packageJson.name as string) ?? [],
                   codeowners:
                     codeownersMap.get(workspace.packageJson.name as string) ??
@@ -79,6 +82,7 @@ export const getConformanceResults = async ({
                 return await conformer.message({
                   workspace,
                   allWorkspaces: workspaces,
+                  rootWorkspace,
                   tags: tagsMap.get(workspace.packageJson.name as string) ?? [],
                   codeowners:
                     codeownersMap.get(workspace.packageJson.name as string) ??
