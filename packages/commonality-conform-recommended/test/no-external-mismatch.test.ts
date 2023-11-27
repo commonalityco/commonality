@@ -1,7 +1,7 @@
 import stripAnsi from 'strip-ansi';
 import { describe, expect, it, vi } from 'vitest';
 import { noExternalMismatch } from '../src/no-external-mismatch';
-import { json } from '@commonalityco/utils-file';
+import { createTestConformer, json } from '@commonalityco/utils-file';
 
 const rootWorkspace = {
   path: '/root',
@@ -14,7 +14,6 @@ const rootWorkspace = {
 describe('no-external-mismatch', () => {
   describe('validate', () => {
     it('should return true when there are no external mismatches', async () => {
-      const conformer = noExternalMismatch();
       const workspaceA = {
         path: '',
         relativePath: '',
@@ -52,21 +51,17 @@ describe('no-external-mismatch', () => {
         },
       };
 
-      const result = await conformer.validate({
+      const conformer = createTestConformer(noExternalMismatch(), {
         allWorkspaces: [workspaceA, workspaceB, workspaceC],
-        json: vi.fn(),
-        text: vi.fn(),
         workspace: workspaceA,
-        tags: [],
-        codeowners: [],
-        rootWorkspace,
       });
+
+      const result = await conformer.validate();
 
       expect(result).toEqual(true);
     });
 
     it('should return false when are external mismatches', async () => {
-      const conformer = noExternalMismatch();
       const workspaceA = {
         path: '',
         relativePath: '',
@@ -104,15 +99,12 @@ describe('no-external-mismatch', () => {
         },
       };
 
-      const result = await conformer.validate({
+      const conformer = createTestConformer(noExternalMismatch(), {
         allWorkspaces: [workspaceA, workspaceB, workspaceC],
-        json: vi.fn(),
-        text: vi.fn(),
         workspace: workspaceA,
-        tags: [],
-        codeowners: [],
-        rootWorkspace,
       });
+
+      const result = await conformer.validate();
 
       expect(result).toEqual(false);
     });
@@ -120,8 +112,6 @@ describe('no-external-mismatch', () => {
 
   describe('fix', () => {
     it('should write the correct versions to the package.json', async () => {
-      const conformer = noExternalMismatch();
-
       const workspaceA = {
         path: '',
         relativePath: '',
@@ -159,23 +149,16 @@ describe('no-external-mismatch', () => {
         },
       };
 
-      const mockOnWrite = vi.fn();
-
-      await conformer.fix({
-        json: () =>
-          json('package.json', {
-            onWrite: mockOnWrite,
-            defaultSource: workspaceA.packageJson,
-          }),
-        text: vi.fn(),
+      const onWrite = vi.fn();
+      const conformer = createTestConformer(noExternalMismatch(), {
         allWorkspaces: [workspaceA, workspaceB, workspaceC],
         workspace: workspaceA,
-        tags: [],
-        codeowners: [],
-        rootWorkspace,
+        onWrite,
       });
 
-      expect(mockOnWrite).toHaveBeenCalledWith('package.json', {
+      await conformer.fix();
+
+      expect(onWrite).toHaveBeenCalledWith('package.json', {
         name: 'packageA',
         dependencies: {
           package3: '1.0.0',
@@ -188,8 +171,6 @@ describe('no-external-mismatch', () => {
 
   describe('message', () => {
     it('should return the correct message', async () => {
-      const conformer = noExternalMismatch();
-
       const workspaceA = {
         path: '',
         relativePath: '',
@@ -228,18 +209,12 @@ describe('no-external-mismatch', () => {
         },
       };
 
-      const result = await conformer.message({
-        json: () =>
-          json('package.json', {
-            defaultSource: workspaceA.packageJson,
-          }),
-        text: vi.fn(),
+      const conformer = createTestConformer(noExternalMismatch(), {
         allWorkspaces: [workspaceA, workspaceB, workspaceC],
         workspace: workspaceA,
-        tags: [],
-        codeowners: [],
-        rootWorkspace,
       });
+
+      const result = await conformer.message();
 
       expect(stripAnsi(result.context ?? '')).toMatchInlineSnapshot(`
         "  Object {

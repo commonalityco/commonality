@@ -46,9 +46,9 @@ export const multipleDependencyTypes = defineConformer(() => {
   return {
     name: 'commonality/multiple-dependency-types',
 
-    validate: async ({ workspace }) => {
+    validate: async ({ json }) => {
       const { dependencies, devDependencies, optionalDependencies } =
-        workspace.packageJson;
+        await json('package.json').get<PackageJson>();
       const multipleDependencyTypes = Object.keys(dependencies || {}).filter(
         (dep) =>
           (devDependencies && devDependencies[dep]) ||
@@ -57,21 +57,21 @@ export const multipleDependencyTypes = defineConformer(() => {
       return multipleDependencyTypes.length === 0;
     },
 
-    fix: async ({ workspace, json }) => {
-      const newPackageJson = getExpectedPackageJson(workspace.packageJson);
+    fix: async ({ json }) => {
+      const packageJson = await json('package.json').get<PackageJson>();
+      const newPackageJson = getExpectedPackageJson(packageJson);
 
       await json('package.json').set(newPackageJson);
     },
 
-    message: ({ workspace }) => {
+    message: async ({ json }) => {
+      const packageJson = await json('package.json').get<PackageJson>();
+
       return {
         title:
           'A dependency should only be in one of dependencies, devDependencies, or optionalDependencies',
         filepath: 'package.json',
-        context: diff(
-          workspace.packageJson,
-          getExpectedPackageJson(workspace.packageJson),
-        ),
+        context: diff(packageJson, getExpectedPackageJson(packageJson)),
       };
     },
   };

@@ -1,89 +1,45 @@
 import { describe, expect, it, vi } from 'vitest';
 import { ensureReadme } from '../src/ensure-readme';
-import { text } from '@commonalityco/utils-file';
-
-const rootWorkspace = {
-  path: '/root',
-  relativePath: '.',
-  packageJson: {
-    name: 'root',
-  },
-};
+import { createTestConformer } from '@commonalityco/utils-file';
 
 describe('ensureReadme', () => {
   describe('validate', () => {
     it('should return true if README.md exists', async () => {
-      const workspace = {
-        path: '/path/to/workspace',
-        relativePath: '',
-        packageJson: {
-          name: 'workspaceName',
-          description: 'workspaceDescription',
+      const conformer = createTestConformer(ensureReadme(), {
+        files: {
+          'README.md': '# Hello',
         },
-      };
-
-      const conformer = ensureReadme();
-      const result = await conformer.validate({
-        text: () => text('README.md', { onExists: () => true }),
-        json: vi.fn(),
-        allWorkspaces: [],
-        workspace: workspace,
-        rootWorkspace,
-        codeowners: [],
-        tags: [],
       });
+
+      const result = await conformer.validate();
+
       expect(result).toBe(true);
     });
 
     it('should return false if README.md does not exist', async () => {
-      const workspace = {
-        path: '/path/to/workspace',
-        relativePath: '',
-        packageJson: {
-          name: 'workspaceName',
-          description: 'workspaceDescription',
-        },
-      };
+      const conformer = createTestConformer(ensureReadme(), { files: {} });
 
-      const conformer = ensureReadme();
-      const result = await conformer.validate({
-        text: () => text('README.md', { onExists: () => false }),
-        json: vi.fn(),
-        allWorkspaces: [],
-        workspace: workspace,
-        rootWorkspace,
-        codeowners: [],
-        tags: [],
-      });
+      const result = await conformer.validate();
+
       expect(result).toBe(false);
     });
   });
 
   describe('fix', () => {
     it('should create README.md with correct content', async () => {
-      const workspace = {
-        path: '/path/to/workspace',
-        relativePath: '',
-        packageJson: {
-          name: 'workspaceName',
-          description: 'workspaceDescription',
+      const onWrite = vi.fn();
+      const conformer = createTestConformer(ensureReadme(), {
+        onWrite,
+        files: {
+          'package.json': {
+            name: 'workspaceName',
+          },
         },
-      };
-
-      const conformer = ensureReadme();
-
-      const onWriteMock = vi.fn();
-      await conformer?.fix?.({
-        workspace,
-        text: () => text('README.md', { onWrite: onWriteMock }),
-        json: vi.fn(),
-        allWorkspaces: [],
-        rootWorkspace,
-        codeowners: [],
-        tags: [],
       });
 
-      expect(onWriteMock).toHaveBeenCalledWith(
+      await conformer.fix();
+
+      expect(onWrite).toHaveBeenCalledWith(
         'README.md',
         expect.stringMatching('# workspaceName'),
       );

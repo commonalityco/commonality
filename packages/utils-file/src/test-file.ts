@@ -1,68 +1,113 @@
-import type { Message, Conformer, ConformerFn } from '@commonalityco/types';
+import type {
+  Message,
+  Conformer,
+  ConformerFn,
+  Tag,
+  Codeowner,
+  ConformerOptions,
+  Workspace,
+} from '@commonalityco/types';
 import { json } from './json';
 import { text } from './text';
 
-export function createTestConformer(
-  conformer: Conformer,
-  testOptions: {
-    workspace?: Parameters<ConformerFn<unknown>>[0]['workspace'];
-    rootWorkspace?: Parameters<ConformerFn<unknown>>[0]['rootWorkspace'];
-    allWorkspaces?: Parameters<ConformerFn<unknown>>[0]['allWorkspaces'];
-    resources?: Record<string, Record<string, unknown> | string>;
+type Awaitable<T> = T | PromiseLike<T>;
+
+type FunctionType<T = unknown> = (options: ConformerOptions) => Awaitable<T>;
+
+type TestConformer<T> = {
+  [P in keyof T]: P extends 'fix' | 'message' | 'validate'
+    ? T[P] extends FunctionType
+      ? () => ReturnType<T[P]>
+      : T[P]
+    : T[P];
+};
+
+export function createTestConformer<T extends Conformer>(
+  conformer: T,
+  testOptions?: {
+    workspace?: Workspace;
+    rootWorkspace?: Workspace;
+    allWorkspaces?: Workspace[];
+    files?: Record<string, Record<string, unknown> | string>;
+    codeowners?: Codeowner[];
+    tags?: Tag[];
     onDelete?: (filePath: string) => Promise<void> | void;
     onWrite?: (filePath: string, data: unknown) => Promise<void> | void;
   },
-): Conformer {
+): TestConformer<T> {
   const defaultWorkspace = {
     path: 'root/packages/pkg',
     relativePath: './packages/pkg',
-    packageJson: { name: 'pkg' },
-  };
+    packageJson: {},
+  } satisfies Workspace;
   const defaultRootWorkspace = {
     path: '/root',
     relativePath: '.',
-    packageJson: { name: 'root' },
-  };
+    packageJson: {},
+  } satisfies Workspace;
 
   const testFixtures = {
-    workspace: testOptions.workspace ?? defaultWorkspace,
-    rootWorkspace: testOptions.rootWorkspace ?? defaultRootWorkspace,
-    allWorkspaces: testOptions.allWorkspaces ?? [defaultWorkspace],
-    json: () =>
-      json('', {
-        onRead: (filepath) =>
-          testOptions?.resources?.[filepath] as Record<string, unknown>,
-        onWrite: testOptions.onWrite ?? (() => {}),
-        onDelete: testOptions.onDelete ?? (() => {}),
-        onExists: (filepath) => Boolean(testOptions?.resources?.[filepath]),
+    tags: testOptions?.tags ?? [],
+    codeowners: testOptions?.codeowners ?? [],
+    workspace: testOptions?.workspace ?? defaultWorkspace,
+    rootWorkspace: testOptions?.rootWorkspace ?? defaultRootWorkspace,
+    allWorkspaces: testOptions?.allWorkspaces ?? [defaultWorkspace],
+    json: (filepath: string) =>
+      json(filepath, {
+        onRead: (filepath) => {
+          const resource = testOptions?.files?.[filepath] as Record<
+            string,
+            unknown
+          >;
+
+          if (!resource) {
+            throw new Error('No file found for filepath: ' + filepath);
+          }
+
+          return resource;
+        },
+        onWrite: testOptions?.onWrite ?? (() => {}),
+        onDelete: testOptions?.onDelete ?? (() => {}),
+        onExists: (filepath) => Boolean(testOptions?.files?.[filepath]),
       }),
-    text: () =>
-      text('', {
-        onRead: (filepath) => testOptions?.resources?.[filepath] as string,
-        onWrite: testOptions.onWrite ?? (() => {}),
-        onDelete: testOptions.onDelete ?? (() => {}),
-        onExists: (filepath) => Boolean(testOptions?.resources?.[filepath]),
+    text: (filepath: string) =>
+      text(filepath, {
+        onRead: (filepath) => {
+          const resource = testOptions?.files?.[filepath] as string;
+
+          if (!resource) {
+            throw new Error('No file found for filepath: ' + filepath);
+          }
+
+          return resource;
+        },
+        onWrite: testOptions?.onWrite ?? (() => {}),
+        onDelete: testOptions?.onDelete ?? (() => {}),
+        onExists: (filepath) => {
+          return Boolean(testOptions?.files?.[filepath]);
+        },
       }),
   };
+
   return {
     ...conformer,
-    validate: (options) =>
+    validate: () =>
       conformer.validate({
-        ...options,
         ...testFixtures,
       }),
     fix: conformer.fix
-      ? (options) =>
-          conformer?.fix?.({
-            ...options,
+      ? async () =>
+          await conformer?.fix?.({
             ...testFixtures,
           })
       : undefined,
     message:
       typeof conformer.message === 'function'
-        ? (options) => {
-            return (conformer.message as ConformerFn<Message>)(options);
+        ? async () => {
+            return await (conformer.message as ConformerFn<Message>)({
+              ...testFixtures,
+            });
           }
         : conformer.message,
-  };
+  } as TestConformer<T>;
 }

@@ -4,14 +4,15 @@ import fs from 'fs-extra';
 export const baseFile = (
   filepath: string,
   options: {
-    onDelete?: (filePath: string) => Promise<void> | void;
-    onExists?: (filePath: string) => Promise<boolean> | boolean;
+    onDelete?: (filepath: string) => Promise<void> | void;
+    onExists?: (filepath: string) => Promise<boolean> | boolean;
   } = {},
 ): File => {
-  const exists = async () =>
-    options.onExists
+  const exists = async () => {
+    return options.onExists
       ? options.onExists(filepath)
       : await fs.pathExists(filepath);
+  };
 
   return {
     delete: async () => {

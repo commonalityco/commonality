@@ -80,7 +80,7 @@ export const noExternalMismatch = defineConformer(() => {
         allWorkspaces,
       });
 
-      return json('package.json').update(expectedPackageJson);
+      return json('package.json').set(expectedPackageJson);
     },
 
     message: async ({ workspace, allWorkspaces }) => {

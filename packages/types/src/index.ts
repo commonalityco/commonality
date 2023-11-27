@@ -74,7 +74,7 @@ export type Workspace = {
   packageJson: PackageJson;
 };
 
-type ValidationResult =
+export type ValidationResult =
   | number
   | string
   | Record<string, unknown>
@@ -82,16 +82,6 @@ type ValidationResult =
   | boolean
   | undefined
   | null;
-
-export type ValidateFn = (opts: {
-  workspace: Workspace;
-  rootWorkspace: Workspace;
-  allWorkspaces: Workspace[];
-  codeowners: Codeowner[];
-  tags: Tag[];
-  json: JsonFileCreator;
-  text: TextFileCreator;
-}) => ValidationResult | Promise<ValidationResult>;
 
 export interface File {
   exists: () => Promise<boolean>;
@@ -143,7 +133,7 @@ export type FileCreatorFactory<File> = ({
   workspace: Workspace;
 }) => File;
 
-export type ConformerFn<T> = (opts: {
+export type ConformerOptions = {
   workspace: Workspace;
   allWorkspaces: Workspace[];
   rootWorkspace: Workspace;
@@ -151,7 +141,9 @@ export type ConformerFn<T> = (opts: {
   tags: Tag[];
   json: JsonFileCreator;
   text: TextFileCreator;
-}) => T | Promise<T>;
+};
+
+export type ConformerFn<T> = (opts: ConformerOptions) => T | Promise<T>;
 
 export type Message = {
   title: string;

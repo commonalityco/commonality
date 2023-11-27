@@ -4,10 +4,15 @@ import { baseFile } from './base-file';
 
 const createTextFileReader = (
   filepath: string,
-  options: { defaultSource?: string } = {},
+  options: { onRead?: (filepath: string) => string | Promise<string> } = {},
 ): Pick<TextFile, 'get' | 'contains'> => {
-  const getSource = async () =>
-    options.defaultSource || (await fs.readFile(filepath, 'utf8'));
+  const getSource = async () => {
+    if (options.onRead) {
+      return options.onRead(filepath);
+    }
+
+    return fs.readFile(filepath, 'utf8');
+  };
 
   return {
     async get() {
@@ -31,11 +36,17 @@ const createTextFileWriter = (
   filepath: string,
   options: {
     onWrite?: (filePath: string, data: string) => Promise<void> | void;
-    defaultSource?: string;
+    onRead?: (filepath: string) => string | Promise<string>;
   } = {},
 ): Pick<TextFile, 'set' | 'add' | 'remove'> => {
-  const getSource = async () =>
-    options.defaultSource || (await fs.readFile(filepath, 'utf8'));
+  const getSource = async () => {
+    if (options.onRead) {
+      return options.onRead(filepath);
+    }
+
+    return fs.readFile(filepath, 'utf8');
+  };
+
   const writeFile = async (text: string) =>
     options.onWrite
       ? options.onWrite(filepath, text)
@@ -70,11 +81,11 @@ const createTextFileWriter = (
 
 export const text: TextFileCreator = (
   filepath,
-  { defaultSource, onWrite, onDelete, onExists } = {},
+  { onRead, onWrite, onDelete, onExists } = {},
 ) => {
-  const textWriter = createTextFileWriter(filepath, { onWrite, defaultSource });
-  const textReader = createTextFileReader(filepath, { defaultSource });
-  const file = baseFile(filepath, { defaultSource, onDelete, onExists });
+  const textWriter = createTextFileWriter(filepath, { onWrite, onRead });
+  const textReader = createTextFileReader(filepath, { onRead });
+  const file = baseFile(filepath, { onDelete, onExists });
 
   return {
     ...file,
