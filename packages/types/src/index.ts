@@ -191,17 +191,57 @@ export type PackageConfig = {
 };
 
 export type PackageJson = Readonly<{
-  workspaces?: string[];
   name?: string;
-  description?: string;
   version?: string;
+  description?: string;
+  keywords?: string[];
+  homepage?: string;
+  bugs?: string | Readonly<{ url?: string; email?: string }>;
+  license?: string;
+  author?: string | Readonly<{ name: string; email?: string; url?: string }>;
+  contributors?: ReadonlyArray<
+    string | Readonly<{ name: string; email?: string; url?: string }>
+  >;
+  funding?:
+    | string
+    | Readonly<{ type: string; url: string }>
+    | ReadonlyArray<string | Readonly<{ type: string; url: string }>>;
+  files?: string[];
+  main?: string;
+  browser?: string;
+  bin?: Readonly<Record<string, string>>;
+  man?: string | string[];
+  directories?: Readonly<{
+    bin?: string;
+    man?: string;
+    doc?: string;
+    example?: string;
+    lib?: string;
+    test?: string;
+  }>;
+  repository?:
+    | string
+    | Readonly<{ type: string; url: string; directory?: string }>;
+  scripts?: Readonly<Record<string, string>>;
+  config?: Readonly<Record<string, unknown>>;
   dependencies?: Readonly<Record<string, string>>;
   devDependencies?: Readonly<Record<string, string>>;
   peerDependencies?: Readonly<Record<string, string>>;
+  peerDependenciesMeta?: Readonly<
+    Record<string, Readonly<{ optional: boolean }>>
+  >;
+  bundledDependencies?: ReadonlyArray<string> | boolean;
+  bundleDependencies?: ReadonlyArray<string> | boolean;
   optionalDependencies?: Readonly<Record<string, string>>;
-  scripts?: Readonly<Record<string, string>>;
+  overrides?: Readonly<Record<string, unknown>>;
+  engines?: Readonly<{ node?: string; npm?: string }>;
+  os?: ReadonlyArray<string>;
+  cpu?: ReadonlyArray<string>;
+  private?: boolean;
+  publishConfig?: Readonly<Record<string, unknown>>;
+  workspaces?: string[];
+  [key: string]: unknown;
 }>;
-
 export type SnapshotResult = {
   url: string;
 };

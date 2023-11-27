@@ -9,6 +9,7 @@ import type {
 } from '@commonalityco/types';
 import { json } from './json';
 import { text } from './text';
+import stripAnsi from 'strip-ansi';
 
 type Awaitable<T> = T | PromiseLike<T>;
 
@@ -104,9 +105,14 @@ export function createTestConformer<T extends Conformer>(
     message:
       typeof conformer.message === 'function'
         ? async () => {
-            return await (conformer.message as ConformerFn<Message>)({
+            const result = await (conformer.message as ConformerFn<Message>)({
               ...testFixtures,
             });
+
+            return {
+              ...result,
+              context: result.context ? stripAnsi(result.context) : undefined,
+            };
           }
         : conformer.message,
   } as TestConformer<T>;
