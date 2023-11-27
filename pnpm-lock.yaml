@@ -38,7 +38,7 @@ importers:
       commonality:
         specifier: workspace:*
         version: link:packages/commonality
-      commonality-conform-recommended:
+      commonality-recommended:
         specifier: workspace:*
         version: link:packages/commonality-conform-recommended
       eslint:

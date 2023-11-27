@@ -266,7 +266,6 @@ export const ConformRunner = ({
             onAccept={async () => {
               await runFixes({
                 rootWorkspace,
-                rootDirectory,
                 workspaces,
                 conformanceResults: results,
                 codeownersData,

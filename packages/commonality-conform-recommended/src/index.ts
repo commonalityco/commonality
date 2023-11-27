@@ -5,3 +5,4 @@ export * from './sorted-dependencies.js';
 export * from './no-external-mismatch.js';
 export * from './dev-peer-dependency-range.js';
 export * from './respository-field.js';
+export * from './multiple-dependency-types.js';

@@ -1,21 +1,18 @@
 import { defineConfig } from 'commonality';
-import {
-  noExternalMismatch,
-  devPeerDependencyRange,
-  validPackageName,
-  sortedDependencies,
-  repositoryField,
-} from 'commonality-conform-recommended';
+import * as recommended from 'commonality-recommended';
 
 export default defineConfig({
   projectId: '123',
   conformers: {
     '*': [
-      validPackageName(),
-      sortedDependencies(),
-      devPeerDependencyRange(),
-      noExternalMismatch(),
-      repositoryField(),
+      recommended.ensureReadme(),
+      recommended.ensureCodeowner(),
+      recommended.validPackageName(),
+      recommended.multipleDependencyTypes(),
+      recommended.sortedDependencies(),
+      recommended.devPeerDependencyRange(),
+      recommended.noExternalMismatch(),
+      recommended.repositoryField(),
     ],
   },
   constraints: {
