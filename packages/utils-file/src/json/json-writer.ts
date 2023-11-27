@@ -7,13 +7,16 @@ import detectIndent from 'detect-indent';
 export const jsonWriter = (
   filepath: string,
   options: {
-    onWrite?: (filePath: string, data: unknown) => Promise<void> | void;
-    defaultSource?: Record<string, unknown>;
+    onExists?: (filepath: string) => Promise<boolean> | boolean;
+    onWrite?: (filepath: string, data: unknown) => Promise<void> | void;
+    onRead?: (
+      filepath: string,
+    ) => Record<string, unknown> | Promise<Record<string, unknown>>;
   } = {},
-): Pick<JsonFile, 'update' | 'merge' | 'set' | 'remove'> => {
+): Pick<JsonFile, 'merge' | 'set' | 'remove'> => {
   const getExists = async (): Promise<boolean> => {
-    if (options.defaultSource) {
-      return true;
+    if (options.onExists) {
+      return options.onExists(filepath);
     }
 
     return fs.pathExists(filepath);
@@ -27,8 +30,8 @@ export const jsonWriter = (
   const _text = getText();
 
   const getSource = async (): Promise<Record<string, unknown>> => {
-    if (options.defaultSource) {
-      return options.defaultSource;
+    if (options.onRead) {
+      return options.onRead(filepath);
     }
 
     const text = await _text;
@@ -53,47 +56,6 @@ export const jsonWriter = (
   };
 
   return {
-    async update(value): Promise<void> {
-      try {
-        const exists = await getExists();
-
-        if (!exists || !value) {
-          return;
-        }
-
-        const json = await getSource();
-
-        const updateRecursive = <T extends Record<string, unknown>>(
-          source: T,
-          target: T,
-        ): void => {
-          for (const key of Object.keys(target)) {
-            if (Object.prototype.hasOwnProperty.call(source, key)) {
-              if (
-                typeof target[key] === 'object' &&
-                target[key] !== null &&
-                !Array.isArray(target[key])
-              ) {
-                updateRecursive(source[key] as T, target[key] as T);
-              } else {
-                (source as Record<string, unknown>)[key] = target[key];
-              }
-            }
-          }
-        };
-
-        updateRecursive(json, value);
-
-        await writeFile(json);
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          throw error;
-        }
-
-        throw error;
-      }
-    },
-
     async merge(value): Promise<void> {
       try {
         const json = await getSource();

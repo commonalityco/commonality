@@ -11,8 +11,7 @@ describe('jsonReader', () => {
   const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
   const workspace: Workspace = {
     path: '/packages/pkg-one',
-    tags: [],
-    codeowners: [],
+    relativePath: 'packages/pkg-one',
     packageJson: {
       workspaces: [],
       name: 'pkg-one',

@@ -2,6 +2,14 @@ import { describe, expect, it, vi } from 'vitest';
 import { ensureCodeowner } from '../src/ensure-codeowner';
 import { Workspace } from '@commonalityco/types';
 
+const rootWorkspace = {
+  path: '/root',
+  relativePath: '.',
+  packageJson: {
+    name: 'root',
+  },
+};
+
 describe('ensureCodeowner', () => {
   describe('validate', () => {
     it('should return false if codeowners are not present', async () => {
@@ -19,6 +27,7 @@ describe('ensureCodeowner', () => {
         allWorkspaces: [],
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
       expect(result).toBe(false);
     });
@@ -38,6 +47,7 @@ describe('ensureCodeowner', () => {
         allWorkspaces: [],
         tags: ['tag1', 'tag2'],
         codeowners: ['owner1', 'owner2'],
+        rootWorkspace,
       });
       expect(result).toBe(true);
     });

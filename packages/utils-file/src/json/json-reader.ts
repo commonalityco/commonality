@@ -5,10 +5,20 @@ import { JsonFile } from '@commonalityco/types';
 
 export const jsonReader = (
   filepath: string,
-  options: { defaultSource?: Record<string, unknown> } = {},
+  options: {
+    onExists?: (filepath: string) => Promise<boolean> | boolean;
+    onRead?: (
+      filepath: string,
+    ) => Record<string, unknown> | Promise<Record<string, unknown>>;
+  } = {},
 ): Pick<JsonFile, 'get' | 'contains'> => {
-  const getSource = async () =>
-    options.defaultSource || (await fs.readJSON(filepath));
+  const getSource = async () => {
+    if (options.onRead) {
+      return options.onRead(filepath);
+    }
+
+    return fs.readJSON(filepath);
+  };
 
   return {
     async get(accessPath?: string) {

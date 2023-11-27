@@ -2,13 +2,20 @@ import { describe, expect, it, vi } from 'vitest';
 import { ensureReadme } from '../src/ensure-readme';
 import { text } from '@commonalityco/utils-file';
 
+const rootWorkspace = {
+  path: '/root',
+  relativePath: '.',
+  packageJson: {
+    name: 'root',
+  },
+};
+
 describe('ensureReadme', () => {
   describe('validate', () => {
     it('should return true if README.md exists', async () => {
       const workspace = {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['owner1', 'owner2'],
+        relativePath: '',
         packageJson: {
           name: 'workspaceName',
           description: 'workspaceDescription',
@@ -21,6 +28,9 @@ describe('ensureReadme', () => {
         json: vi.fn(),
         allWorkspaces: [],
         workspace: workspace,
+        rootWorkspace,
+        codeowners: [],
+        tags: [],
       });
       expect(result).toBe(true);
     });
@@ -28,8 +38,7 @@ describe('ensureReadme', () => {
     it('should return false if README.md does not exist', async () => {
       const workspace = {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['owner1', 'owner2'],
+        relativePath: '',
         packageJson: {
           name: 'workspaceName',
           description: 'workspaceDescription',
@@ -42,6 +51,9 @@ describe('ensureReadme', () => {
         json: vi.fn(),
         allWorkspaces: [],
         workspace: workspace,
+        rootWorkspace,
+        codeowners: [],
+        tags: [],
       });
       expect(result).toBe(false);
     });
@@ -51,8 +63,7 @@ describe('ensureReadme', () => {
     it('should create README.md with correct content', async () => {
       const workspace = {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['owner1', 'owner2'],
+        relativePath: '',
         packageJson: {
           name: 'workspaceName',
           description: 'workspaceDescription',
@@ -67,6 +78,9 @@ describe('ensureReadme', () => {
         text: () => text('README.md', { onWrite: onWriteMock }),
         json: vi.fn(),
         allWorkspaces: [],
+        rootWorkspace,
+        codeowners: [],
+        tags: [],
       });
 
       expect(onWriteMock).toHaveBeenCalledWith(

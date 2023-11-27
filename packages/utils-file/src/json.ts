@@ -5,11 +5,11 @@ import { baseFile } from './base-file';
 
 export const json: JsonFileCreator = (
   filepath,
-  { defaultSource, onWrite, onDelete, onExists } = {},
+  { onWrite, onDelete, onExists, onRead } = {},
 ) => {
-  const reader = jsonReader(filepath, { defaultSource });
-  const writer = jsonWriter(filepath, { defaultSource, onWrite });
-  const file = baseFile(filepath, { defaultSource, onDelete, onExists });
+  const reader = jsonReader(filepath, { onRead });
+  const writer = jsonWriter(filepath, { onRead, onWrite });
+  const file = baseFile(filepath, { onDelete, onExists });
 
   return {
     ...file,

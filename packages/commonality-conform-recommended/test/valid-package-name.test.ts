@@ -2,6 +2,14 @@ import { describe, expect, it, vi } from 'vitest';
 import { validPackageName } from '../src/valid-package-name';
 import { json } from '@commonalityco/utils-file';
 
+const rootWorkspace = {
+  path: '/root',
+  relativePath: '.',
+  packageJson: {
+    name: 'root',
+  },
+};
+
 describe('validPackageName', () => {
   describe('validate', () => {
     it('should return false if package name is not present', async () => {
@@ -9,7 +17,6 @@ describe('validPackageName', () => {
       const workspace = {
         path: '/path/to/workspace',
         tags: ['tag1', 'tag2'],
-        codeowners: ['owner1', 'owner2'],
         packageJson,
       };
 
@@ -19,6 +26,7 @@ describe('validPackageName', () => {
         json: () => json('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
         allWorkspaces: [],
+        rootWorkspace,
       });
 
       expect(result).toBe(false);
@@ -31,7 +39,6 @@ describe('validPackageName', () => {
       const workspace = {
         path: '/path/to/workspace',
         tags: ['tag1', 'tag2'],
-        codeowners: ['owner1', 'owner2'],
         packageJson,
       };
       const conformer = validPackageName();
@@ -43,6 +50,7 @@ describe('validPackageName', () => {
           }),
         text: vi.fn(),
         allWorkspaces: [],
+        rootWorkspace,
       });
 
       expect(result).toBe(false);
@@ -67,6 +75,7 @@ describe('validPackageName', () => {
           }),
         text: vi.fn(),
         allWorkspaces: [],
+        rootWorkspace,
       });
 
       expect(result).toBe(true);

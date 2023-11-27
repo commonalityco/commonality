@@ -2,6 +2,14 @@ import { describe, expect, it, vi } from 'vitest';
 import { sortedDependencies } from '../src/sorted-dependencies';
 import { json } from '@commonalityco/utils-file';
 
+const rootWorkspace = {
+  path: '/root',
+  relativePath: '.',
+  packageJson: {
+    name: 'root',
+  },
+};
+
 describe('sortedDependencies', () => {
   describe('validate', () => {
     it('should return false if dependencies are not sorted', async () => {
@@ -27,6 +35,7 @@ describe('sortedDependencies', () => {
         allWorkspaces,
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
       expect(result).toBe(false);
     });
@@ -54,6 +63,7 @@ describe('sortedDependencies', () => {
         allWorkspaces,
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
       expect(result).toBe(true);
     });
@@ -85,6 +95,7 @@ describe('sortedDependencies', () => {
         allWorkspaces: [],
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
 
       expect(onWriteMock).toHaveBeenCalledTimes(1);

@@ -11,8 +11,7 @@ describe('jsonWriter', () => {
   const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
   const workspace: Workspace = {
     path: '/packages/pkg-one',
-    tags: [],
-    codeowners: [],
+    relativePath: 'packages/pkg-one',
     packageJson: {
       workspaces: [],
       name: 'pkg-one',
@@ -35,82 +34,6 @@ describe('jsonWriter', () => {
 
   afterEach(async () => {
     await fs.remove(temporaryPath);
-  });
-
-  describe('update', () => {
-    it('should update the JSON file if the property exists', async () => {
-      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = jsonWriter(filepath);
-
-      await jsonFile.update({ scripts: { dev: 'npm run dev' } });
-
-      const json = await fs.readJson(filepath);
-
-      expect(json).toEqual({
-        name: 'pkg-one',
-        workspaces: [],
-        description: 'This is a test package',
-        version: '1.0.0',
-        dependencies: {},
-        devDependencies: {},
-        peerDependencies: {},
-        scripts: {
-          dev: 'npm run dev',
-          test: 'test',
-        },
-      });
-    });
-
-    it('should not update the JSON file if the property does not exist', async () => {
-      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = jsonWriter(filepath);
-
-      await jsonFile.update({ scripts: { foo: 'npm run dev' } });
-
-      const json = await fs.readJson(filepath);
-
-      expect(json).toEqual({
-        name: 'pkg-one',
-        workspaces: [],
-        description: 'This is a test package',
-        version: '1.0.0',
-        dependencies: {},
-        devDependencies: {},
-        peerDependencies: {},
-        scripts: {
-          dev: 'dev',
-          test: 'test',
-        },
-      });
-    });
-
-    it('should not create the file if it does not exist', async () => {
-      const filepath = path.join(
-        temporaryPath,
-        workspace.path,
-        'non-existent.json',
-      );
-      const jsonFile = jsonWriter(filepath);
-
-      await jsonFile.update({ scripts: { build: 'npm run build' } });
-
-      const json = await fs.pathExists(filepath);
-
-      expect(json).toEqual(false);
-    });
-
-    it('should leave the file unchanged if update is called with no arguments', async () => {
-      const filepath = path.join(temporaryPath, workspace.path, 'package.json');
-      const jsonFile = jsonWriter(filepath);
-      const originalJson = await fs.readJson(filepath);
-
-      // @ts-expect-error - Testing invalid arguments
-      await jsonFile.update();
-
-      const json = await fs.readJson(filepath);
-
-      expect(json).toEqual(originalJson);
-    });
   });
 
   describe('set', () => {

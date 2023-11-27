@@ -85,6 +85,7 @@ type ValidationResult =
 
 export type ValidateFn = (opts: {
   workspace: Workspace;
+  rootWorkspace: Workspace;
   allWorkspaces: Workspace[];
   codeowners: Codeowner[];
   tags: Tag[];
@@ -97,20 +98,10 @@ export interface File {
   delete: () => Promise<void>;
 }
 
-export type FileCreator<T> = (
-  filename: string,
-  options?: {
-    defaultSource?: T;
-    onDelete?: (filePath: string) => Promise<void> | void;
-    onExists?: (filePath: string) => Promise<boolean> | boolean;
-  },
-) => File;
-
 export interface JsonFile extends File {
   get<T extends Record<string, unknown>>(): Promise<T>;
   contains(value: Record<string, unknown>): Promise<boolean>;
   set(value: Record<string, unknown>): Promise<void>;
-  update(value: Record<string, unknown>): Promise<void>;
   merge(value: Record<string, unknown>): Promise<void>;
   remove(path: string): Promise<void>;
 }
@@ -118,7 +109,9 @@ export interface JsonFile extends File {
 export type JsonFileCreator = (
   filename: string,
   options?: {
-    defaultSource?: Record<string, unknown>;
+    onRead?: (
+      filepath: string,
+    ) => Record<string, unknown> | Promise<Record<string, unknown>>;
     onWrite?: (filePath: string, data: unknown) => Promise<void> | void;
     onDelete?: (filePath: string) => Promise<void> | void;
     onExists?: (filePath: string) => Promise<boolean> | boolean;
@@ -136,7 +129,7 @@ export interface TextFile extends File {
 export type TextFileCreator = (
   filename: string,
   options?: {
-    defaultSource?: string;
+    onRead?: (filepath: string) => string | Promise<string>;
     onWrite?: (filePath: string, data: string) => Promise<void> | void;
     onDelete?: (filePath: string) => Promise<void> | void;
     onExists?: (filePath: string) => Promise<boolean> | boolean;
@@ -150,39 +143,30 @@ export type FileCreatorFactory<File> = ({
   workspace: Workspace;
 }) => File;
 
-export type FixFn = (opts: {
+export type ConformerFn<T> = (opts: {
   workspace: Workspace;
   allWorkspaces: Workspace[];
+  rootWorkspace: Workspace;
   codeowners: Codeowner[];
   tags: Tag[];
   json: JsonFileCreator;
   text: TextFileCreator;
-}) => void | Promise<void>;
+}) => T | Promise<T>;
 
-type Message = {
+export type Message = {
   title: string;
   context?: string;
   // A path to a file relative to the package's folder.
   filepath?: string;
 };
-export type MessageFn = (options: {
-  allWorkspaces: Workspace[];
-  workspace: Workspace;
-  codeowners: Codeowner[];
-  tags: Tag[];
-  json: JsonFileCreator;
-  text: TextFileCreator;
-}) => Message | Promise<Message>;
-
-export type ConformerMessage = string | MessageFn;
 
 export interface Conformer {
   name: string;
   level?: 'error' | 'warning';
-  validate: ValidateFn;
-  fix?: FixFn;
+  validate: ConformerFn<ValidationResult>;
+  fix?: ConformerFn<void>;
   type?: 'warning' | 'error';
-  message: ConformerMessage;
+  message: string | ConformerFn<Message>;
 }
 
 export type ConformerCreator<C extends Conformer, O = undefined> = (
@@ -192,7 +176,7 @@ export type ConformerCreator<C extends Conformer, O = undefined> = (
 export type ConformanceResult = {
   name: string;
   pattern: string;
-  fix?: FixFn;
+  fix?: ConformerFn<void>;
   level: 'error' | 'warning';
   isValid: boolean;
   workspace: Workspace;

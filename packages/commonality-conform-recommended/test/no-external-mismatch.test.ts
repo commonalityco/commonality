@@ -3,6 +3,14 @@ import { describe, expect, it, vi } from 'vitest';
 import { noExternalMismatch } from '../src/no-external-mismatch';
 import { json } from '@commonalityco/utils-file';
 
+const rootWorkspace = {
+  path: '/root',
+  relativePath: '.',
+  packageJson: {
+    name: 'root',
+  },
+};
+
 describe('no-external-mismatch', () => {
   describe('validate', () => {
     it('should return true when there are no external mismatches', async () => {
@@ -51,6 +59,7 @@ describe('no-external-mismatch', () => {
         workspace: workspaceA,
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
 
       expect(result).toEqual(true);
@@ -102,6 +111,7 @@ describe('no-external-mismatch', () => {
         workspace: workspaceA,
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
 
       expect(result).toEqual(false);
@@ -162,6 +172,7 @@ describe('no-external-mismatch', () => {
         workspace: workspaceA,
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
 
       expect(mockOnWrite).toHaveBeenCalledWith('package.json', {
@@ -227,6 +238,7 @@ describe('no-external-mismatch', () => {
         workspace: workspaceA,
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
 
       expect(stripAnsi(result.context ?? '')).toMatchInlineSnapshot(`

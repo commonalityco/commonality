@@ -4,9 +4,11 @@ import { describe, it, expect, vi } from 'vitest';
 import { json } from '@commonalityco/utils-file';
 
 const rootWorkspace = {
-  path: '/path',
-  relativePath: '',
-  packageJson: {},
+  path: '/root',
+  relativePath: '.',
+  packageJson: {
+    name: 'root',
+  },
 };
 
 describe('multipleDependencyTypes', () => {
@@ -30,6 +32,7 @@ describe('multipleDependencyTypes', () => {
         allWorkspaces: [workspaceA],
         codeowners: [],
         tags: [],
+        rootWorkspace,
       });
 
       expect(result).toBe(true);
@@ -56,6 +59,7 @@ describe('multipleDependencyTypes', () => {
         allWorkspaces: [workspaceA],
         codeowners: [],
         tags: [],
+        rootWorkspace,
       });
 
       expect(result).toBe(false);
@@ -82,6 +86,7 @@ describe('multipleDependencyTypes', () => {
         allWorkspaces: [workspaceA],
         codeowners: [],
         tags: [],
+        rootWorkspace,
       });
 
       expect(result).toBe(false);
@@ -111,6 +116,7 @@ describe('multipleDependencyTypes', () => {
         allWorkspaces: [workspaceA],
         codeowners: [],
         tags: [],
+        rootWorkspace,
       });
 
       expect(result).toBe(false);
@@ -148,6 +154,7 @@ describe('multipleDependencyTypes', () => {
         allWorkspaces: [workspaceA],
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
 
       expect(onWrite).toHaveBeenCalledWith('package.json', {
@@ -189,6 +196,7 @@ describe('multipleDependencyTypes', () => {
         allWorkspaces: [workspaceA],
         codeowners: [],
         tags: [],
+        rootWorkspace,
       });
 
       expect(onWrite).toHaveBeenCalledWith('package.json', {
@@ -233,6 +241,7 @@ describe('multipleDependencyTypes', () => {
         allWorkspaces: [workspaceA],
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
 
       expect(onWrite).toHaveBeenCalledWith('package.json', {
@@ -276,6 +285,7 @@ describe('multipleDependencyTypes', () => {
         text: vi.fn(),
         codeowners: [],
         tags: [],
+        rootWorkspace,
       });
 
       expect(message.title).toEqual(

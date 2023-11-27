@@ -1,14 +1,13 @@
-import type { FileCreator } from '@commonalityco/types';
+import { File } from '@commonalityco/types';
 import fs from 'fs-extra';
 
-export const baseFile: FileCreator<unknown> = (
+export const baseFile = (
   filepath: string,
   options: {
-    defaultSource?: unknown;
     onDelete?: (filePath: string) => Promise<void> | void;
     onExists?: (filePath: string) => Promise<boolean> | boolean;
   } = {},
-) => {
+): File => {
   const exists = async () =>
     options.onExists
       ? options.onExists(filepath)

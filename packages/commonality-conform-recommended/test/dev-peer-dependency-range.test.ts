@@ -3,6 +3,14 @@ import { json } from '@commonalityco/utils-file';
 import { devPeerDependencyRange } from './../src/dev-peer-dependency-range';
 import { describe, it, vi, expect } from 'vitest';
 
+const rootWorkspace = {
+  path: '/root',
+  relativePath: '.',
+  packageJson: {
+    name: 'root',
+  },
+};
+
 describe('dev-peer-dependency-range', () => {
   describe('validate', () => {
     describe('when the peerDependency is not a devDependency', () => {
@@ -27,6 +35,7 @@ describe('dev-peer-dependency-range', () => {
           text: vi.fn(),
           tags: [],
           codeowners: [],
+          rootWorkspace,
         });
 
         expect(result).toBe(false);
@@ -58,6 +67,7 @@ describe('dev-peer-dependency-range', () => {
           text: vi.fn(),
           tags: [],
           codeowners: [],
+          rootWorkspace,
         });
 
         expect(result).toBe(false);
@@ -89,6 +99,7 @@ describe('dev-peer-dependency-range', () => {
           text: vi.fn(),
           tags: [],
           codeowners: [],
+          rootWorkspace,
         });
 
         expect(result).toBe(true);
@@ -120,6 +131,7 @@ describe('dev-peer-dependency-range', () => {
           text: vi.fn(),
           tags: [],
           codeowners: [],
+          rootWorkspace,
         });
 
         expect(result).toBe(true);
@@ -151,6 +163,7 @@ describe('dev-peer-dependency-range', () => {
           text: vi.fn(),
           tags: [],
           codeowners: [],
+          rootWorkspace,
         });
 
         expect(result).toBe(true);
@@ -182,6 +195,7 @@ describe('dev-peer-dependency-range', () => {
           text: vi.fn(),
           tags: [],
           codeowners: [],
+          rootWorkspace,
         });
 
         expect(result).toBe(true);
@@ -213,6 +227,7 @@ describe('dev-peer-dependency-range', () => {
           text: vi.fn(),
           tags: [],
           codeowners: [],
+          rootWorkspace,
         });
 
         expect(result).toBe(true);
@@ -250,6 +265,7 @@ describe('dev-peer-dependency-range', () => {
           }),
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
 
       expect(onWriteMock).toHaveBeenCalledWith('package.json', {
@@ -280,6 +296,7 @@ describe('dev-peer-dependency-range', () => {
         relativePath: '/path',
         tags: [],
         codeowners: [],
+        rootWorkspace,
         packageJson,
       };
 
@@ -296,6 +313,7 @@ describe('dev-peer-dependency-range', () => {
           }),
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
 
       expect(onWriteMock).toHaveBeenCalledWith('package.json', {
@@ -336,6 +354,7 @@ describe('dev-peer-dependency-range', () => {
         text: vi.fn(),
         tags: [],
         codeowners: [],
+        rootWorkspace,
       });
 
       expect(result.title).toEqual(
