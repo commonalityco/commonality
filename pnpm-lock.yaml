@@ -17,9 +17,15 @@ importers:
       '@manypkg/cli':
         specifier: ^0.21.0
         version: 0.21.0
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
       '@types/node':
         specifier: ^20.9.2
         version: 20.9.2
+      '@types/semver':
+        specifier: ^7.5.6
+        version: 7.5.6
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.11.0
         version: 6.11.0(@typescript-eslint/parser@6.11.0)(eslint@8.54.0)(typescript@5.2.2)
@@ -47,6 +53,9 @@ importers:
       execa:
         specifier: ^7.2.0
         version: 7.2.0
+      fs-extra:
+        specifier: ^11.1.1
+        version: 11.1.1
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -74,16 +83,6 @@ importers:
       vitest:
         specifier: ^0.34.6
         version: 0.34.6
-    devDependencies:
-      '@types/fs-extra':
-        specifier: ^11.0.4
-        version: 11.0.4
-      '@types/semver':
-        specifier: ^7.5.6
-        version: 7.5.6
-      fs-extra:
-        specifier: ^11.1.1
-        version: 11.1.1
 
   apps/workshop:
     dependencies:
@@ -7173,7 +7172,6 @@ packages:
     dependencies:
       '@types/jsonfile': 6.1.4
       '@types/node': 20.9.2
-    dev: true
 
   /@types/glob@7.2.0:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
@@ -7248,7 +7246,6 @@ packages:
     resolution: {integrity: sha512-D5qGUYwjvnNNextdU59/+fI+spnwtTFmyQP0h+PfIOSkNfpU6AOICUOkm4i0OnSk+NyjdPJrxCDro0sJsWlRpQ==}
     dependencies:
       '@types/node': 20.9.2
-    dev: true
 
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
@@ -7440,6 +7437,7 @@ packages:
 
   /@types/semver@7.5.6:
     resolution: {integrity: sha512-dn1l8LaMea/IjDoHNd9J52uBbInB796CDffS6VdIxvqYCPSG0V0DzHp76GpaWnlhg88uYyPbXCDIowa86ybd5A==}
+    dev: false
 
   /@types/send@0.17.1:
     resolution: {integrity: sha512-Cwo8LE/0rnvX7kIIa3QHCkcuF21c05Ayb0ZfxPiv0W8VRiZiNW/WuRupHKpqqGVGf7SUA44QSOUKaEd9lIrd/Q==}

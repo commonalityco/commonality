@@ -1,17 +1,17 @@
 import React from 'react';
 import { getPackages } from '@commonalityco/data-packages';
 import { getRootDirectory } from '@commonalityco/data-project';
-import { getTagsData } from '@commonalityco/data-tags';
 import { ErrorMessage } from './error-message.js';
 import { Text } from 'ink';
-import { TagsData } from '@commonalityco/types';
+import { CodeownersData } from '@commonalityco/types';
 import { useAsyncFn } from '../utils/use-async-fn.js';
+import { getCodeownersData } from '@commonalityco/data-codeowners';
 
-export const CheckTagsData = ({
+export const CheckCodeownersData = ({
   children,
   loadingMessage = <Text>Loading...</Text>,
 }: {
-  children: (options: { tagsData: TagsData[] }) => React.ReactNode;
+  children: (options: { codeownersData: CodeownersData[] }) => React.ReactNode;
   loadingMessage?: React.ReactNode;
 }) => {
   const { data, error, isLoading, isError } = useAsyncFn(async () => {
@@ -20,19 +20,19 @@ export const CheckTagsData = ({
       rootDirectory,
     });
 
-    return await getTagsData({
+    return await getCodeownersData({
       rootDirectory,
       packages: packages,
     });
   });
 
   if (isError) {
-    return <ErrorMessage error={error} title="Could not read tags" />;
+    return <ErrorMessage error={error} title="Could not read codeowners" />;
   }
 
   if (isLoading) {
     return loadingMessage;
   }
 
-  return children({ tagsData: data ?? [] });
+  return children({ codeownersData: data ?? [] });
 };

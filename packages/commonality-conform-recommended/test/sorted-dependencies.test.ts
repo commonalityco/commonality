@@ -7,8 +7,7 @@ describe('sortedDependencies', () => {
     it('should return false if dependencies are not sorted', async () => {
       const workspace = {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['owner1', 'owner2'],
+        relativePath: '',
         packageJson: {
           dependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
           devDependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
@@ -26,6 +25,8 @@ describe('sortedDependencies', () => {
           }),
         text: vi.fn(),
         allWorkspaces,
+        tags: [],
+        codeowners: [],
       });
       expect(result).toBe(false);
     });
@@ -33,8 +34,7 @@ describe('sortedDependencies', () => {
     it('should return true if dependencies are already sorted', async () => {
       const workspace = {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['owner1', 'owner2'],
+        relativePath: '',
         packageJson: {
           dependencies: { 'a-dep': '1.0.0', 'b-dep': '1.0.0' },
           devDependencies: { 'a-dep': '1.0.0', 'b-dep': '1.0.0' },
@@ -52,6 +52,8 @@ describe('sortedDependencies', () => {
           }),
         text: vi.fn(),
         allWorkspaces,
+        tags: [],
+        codeowners: [],
       });
       expect(result).toBe(true);
     });
@@ -61,8 +63,7 @@ describe('sortedDependencies', () => {
     it('should fix unsorted dependencies', async () => {
       const workspace = {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['owner1', 'owner2'],
+        relativePath: '',
         packageJson: {
           dependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
           devDependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
@@ -82,6 +83,8 @@ describe('sortedDependencies', () => {
           }),
         text: vi.fn(),
         allWorkspaces: [],
+        tags: [],
+        codeowners: [],
       });
 
       expect(onWriteMock).toHaveBeenCalledTimes(1);

@@ -4,6 +4,7 @@ import {
   TagsData,
   Workspace,
   ConformanceResult,
+  CodeownersData,
 } from '@commonalityco/types';
 import path from 'node:path';
 
@@ -12,15 +13,23 @@ export const getConformanceResults = async ({
   rootDirectory,
   workspaces,
   tagsData,
+  codeownersData,
 }: {
   conformersByPattern: Record<string, Conformer[]>;
   rootDirectory: string;
   workspaces: Workspace[];
   tagsData: TagsData[];
+  codeownersData: CodeownersData[];
 }): Promise<ConformanceResult[]> => {
   const matchingPatterns = Object.keys(conformersByPattern);
   const workspaceMap = new Map(
     workspaces.map((workspace) => [workspace.packageJson.name, workspace]),
+  );
+  const tagsMap = new Map(
+    tagsData.map((data) => [data.packageName, data.tags]),
+  );
+  const codeownersMap = new Map(
+    codeownersData.map((data) => [data.packageName, data.codeowners]),
   );
 
   return await Promise.all(
@@ -32,7 +41,10 @@ export const getConformanceResults = async ({
             return data.tags.includes(matchingPattern);
           })
           .map((data) => workspaceMap.get(data.packageName))
-          .filter((workspace): workspace is Workspace => !!workspace)
+          .filter(
+            (workspace): workspace is Workspace =>
+              !!workspace && Boolean(workspace.packageJson.name),
+          )
           .map(async (workspace): Promise<ConformanceResult> => {
             const getValidationResult = async (): Promise<{
               isValid: boolean;
@@ -42,6 +54,10 @@ export const getConformanceResults = async ({
                 const result = await conformer.validate({
                   workspace: Object.freeze(workspace),
                   allWorkspaces: workspaces,
+                  tags: tagsMap.get(workspace.packageJson.name as string) ?? [],
+                  codeowners:
+                    codeownersMap.get(workspace.packageJson.name as string) ??
+                    [],
                   text: (filename) =>
                     text(path.join(rootDirectory, workspace.path, filename)),
                   json: (filename) =>
@@ -63,6 +79,10 @@ export const getConformanceResults = async ({
                 return await conformer.message({
                   workspace,
                   allWorkspaces: workspaces,
+                  tags: tagsMap.get(workspace.packageJson.name as string) ?? [],
+                  codeowners:
+                    codeownersMap.get(workspace.packageJson.name as string) ??
+                    [],
                   text: (filename) =>
                     text(path.join(rootDirectory, workspace.path, filename)),
                   json: (filename: string) =>

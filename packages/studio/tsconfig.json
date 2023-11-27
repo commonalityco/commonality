@@ -34,5 +34,5 @@
     "src/types/globals.d.ts",
     "servers/dev-server.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", ".next"]
 }

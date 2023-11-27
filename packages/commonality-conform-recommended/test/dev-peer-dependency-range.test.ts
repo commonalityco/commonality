@@ -11,8 +11,7 @@ describe('dev-peer-dependency-range', () => {
 
         const workspaceA = {
           path: '/path',
-          tags: [],
-          codeowners: [],
+          relativePath: '',
           packageJson: {
             name: 'pkg-a',
             peerDependencies: {
@@ -26,6 +25,8 @@ describe('dev-peer-dependency-range', () => {
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
+          tags: [],
+          codeowners: [],
         });
 
         expect(result).toBe(false);
@@ -38,8 +39,7 @@ describe('dev-peer-dependency-range', () => {
 
         const workspaceA = {
           path: '/path',
-          tags: [],
-          codeowners: [],
+          relativePath: '',
           packageJson: {
             name: 'pkg-a',
             devDependencies: {
@@ -56,6 +56,8 @@ describe('dev-peer-dependency-range', () => {
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
+          tags: [],
+          codeowners: [],
         });
 
         expect(result).toBe(false);
@@ -68,8 +70,7 @@ describe('dev-peer-dependency-range', () => {
 
         const workspaceA = {
           path: '/path',
-          tags: [],
-          codeowners: [],
+          relativePath: '',
           packageJson: {
             name: 'pkg-a',
             devDependencies: {
@@ -86,6 +87,8 @@ describe('dev-peer-dependency-range', () => {
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
+          tags: [],
+          codeowners: [],
         });
 
         expect(result).toBe(true);
@@ -98,8 +101,7 @@ describe('dev-peer-dependency-range', () => {
 
         const workspaceA = {
           path: '/path',
-          tags: [],
-          codeowners: [],
+          relativePath: '',
           packageJson: {
             name: 'pkg-a',
             devDependencies: {
@@ -116,6 +118,8 @@ describe('dev-peer-dependency-range', () => {
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
+          tags: [],
+          codeowners: [],
         });
 
         expect(result).toBe(true);
@@ -128,8 +132,7 @@ describe('dev-peer-dependency-range', () => {
 
         const workspaceA = {
           path: '/path',
-          tags: [],
-          codeowners: [],
+          relativePath: '/path',
           packageJson: {
             name: 'pkg-a',
             devDependencies: {
@@ -146,6 +149,8 @@ describe('dev-peer-dependency-range', () => {
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
+          tags: [],
+          codeowners: [],
         });
 
         expect(result).toBe(true);
@@ -158,8 +163,7 @@ describe('dev-peer-dependency-range', () => {
 
         const workspaceA = {
           path: '/path',
-          tags: [],
-          codeowners: [],
+          relativePath: '',
           packageJson: {
             name: 'pkg-a',
             devDependencies: {
@@ -176,6 +180,8 @@ describe('dev-peer-dependency-range', () => {
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
+          tags: [],
+          codeowners: [],
         });
 
         expect(result).toBe(true);
@@ -188,8 +194,7 @@ describe('dev-peer-dependency-range', () => {
 
         const workspaceA = {
           path: '/path',
-          tags: [],
-          codeowners: [],
+          relativePath: '',
           packageJson: {
             name: 'pkg-a',
             devDependencies: {
@@ -206,6 +211,8 @@ describe('dev-peer-dependency-range', () => {
           workspace: workspaceA,
           json: vi.fn(),
           text: vi.fn(),
+          tags: [],
+          codeowners: [],
         });
 
         expect(result).toBe(true);
@@ -226,8 +233,7 @@ describe('dev-peer-dependency-range', () => {
       };
       const workspaceA = {
         path: '/path',
-        tags: [],
-        codeowners: [],
+        relativePath: '/path',
         packageJson,
       };
 
@@ -242,6 +248,8 @@ describe('dev-peer-dependency-range', () => {
             onWrite: onWriteMock,
             defaultSource: packageJson,
           }),
+        tags: [],
+        codeowners: [],
       });
 
       expect(onWriteMock).toHaveBeenCalledWith('package.json', {
@@ -269,6 +277,7 @@ describe('dev-peer-dependency-range', () => {
       };
       const workspaceA = {
         path: '/path',
+        relativePath: '/path',
         tags: [],
         codeowners: [],
         packageJson,
@@ -285,6 +294,8 @@ describe('dev-peer-dependency-range', () => {
             onWrite: onWriteMock,
             defaultSource: packageJson,
           }),
+        tags: [],
+        codeowners: [],
       });
 
       expect(onWriteMock).toHaveBeenCalledWith('package.json', {
@@ -314,8 +325,7 @@ describe('dev-peer-dependency-range', () => {
       };
       const workspaceA = {
         path: '/path',
-        tags: [],
-        codeowners: [],
+        relativePath: '/path',
         packageJson,
       };
 
@@ -324,6 +334,8 @@ describe('dev-peer-dependency-range', () => {
         allWorkspaces: [workspaceA],
         json: () => json('package.json', { defaultSource: packageJson }),
         text: vi.fn(),
+        tags: [],
+        codeowners: [],
       });
 
       expect(result.title).toEqual(

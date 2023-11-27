@@ -9,8 +9,7 @@ describe('no-external-mismatch', () => {
       const conformer = noExternalMismatch();
       const workspaceA = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'package1',
           dependencies: {
@@ -22,8 +21,7 @@ describe('no-external-mismatch', () => {
       };
       const workspaceB = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'package2',
           dependencies: {
@@ -35,8 +33,7 @@ describe('no-external-mismatch', () => {
       };
       const workspaceC = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'package3',
           dependencies: {},
@@ -52,6 +49,8 @@ describe('no-external-mismatch', () => {
         json: vi.fn(),
         text: vi.fn(),
         workspace: workspaceA,
+        tags: [],
+        codeowners: [],
       });
 
       expect(result).toEqual(true);
@@ -61,8 +60,7 @@ describe('no-external-mismatch', () => {
       const conformer = noExternalMismatch();
       const workspaceA = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'packageA',
           dependencies: {
@@ -74,8 +72,7 @@ describe('no-external-mismatch', () => {
       };
       const workspaceB = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'packageB',
           dependencies: {
@@ -87,8 +84,7 @@ describe('no-external-mismatch', () => {
       };
       const workspaceC = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'packageC',
           dependencies: {},
@@ -104,6 +100,8 @@ describe('no-external-mismatch', () => {
         json: vi.fn(),
         text: vi.fn(),
         workspace: workspaceA,
+        tags: [],
+        codeowners: [],
       });
 
       expect(result).toEqual(false);
@@ -116,8 +114,7 @@ describe('no-external-mismatch', () => {
 
       const workspaceA = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'packageA',
           dependencies: {
@@ -129,8 +126,7 @@ describe('no-external-mismatch', () => {
       };
       const workspaceB = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'packageB',
           dependencies: {
@@ -142,8 +138,7 @@ describe('no-external-mismatch', () => {
       };
       const workspaceC = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'packageC',
           dependencies: {},
@@ -165,6 +160,8 @@ describe('no-external-mismatch', () => {
         text: vi.fn(),
         allWorkspaces: [workspaceA, workspaceB, workspaceC],
         workspace: workspaceA,
+        tags: [],
+        codeowners: [],
       });
 
       expect(mockOnWrite).toHaveBeenCalledWith('package.json', {
@@ -184,8 +181,7 @@ describe('no-external-mismatch', () => {
 
       const workspaceA = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'package-a',
           dependencies: {
@@ -198,8 +194,7 @@ describe('no-external-mismatch', () => {
       };
       const workspaceB = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'package-b',
           dependencies: {
@@ -211,8 +206,7 @@ describe('no-external-mismatch', () => {
       };
       const workspaceC = {
         path: '',
-        tags: [],
-        codeowners: [],
+        relativePath: '',
         packageJson: {
           name: 'package-c',
           dependencies: {},
@@ -231,6 +225,8 @@ describe('no-external-mismatch', () => {
         text: vi.fn(),
         allWorkspaces: [workspaceA, workspaceB, workspaceC],
         workspace: workspaceA,
+        tags: [],
+        codeowners: [],
       });
 
       expect(stripAnsi(result.context ?? '')).toMatchInlineSnapshot(`

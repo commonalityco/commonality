@@ -18,8 +18,7 @@ describe('getConformanceResults', () => {
     const workspaces: Workspace[] = [
       {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['codeowner1', 'codeowner2'],
+        relativePath: '/path/to/workspace',
         packageJson: { name: 'invalid' },
       },
     ];
@@ -30,6 +29,7 @@ describe('getConformanceResults', () => {
       rootDirectory,
       workspaces,
       tagsData,
+      codeownersData: [],
     });
 
     expect(results).toHaveLength(1);
@@ -54,8 +54,7 @@ describe('getConformanceResults', () => {
     const workspaces: Workspace[] = [
       {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['codeowner1', 'codeowner2'],
+        relativePath: '/path/to/workspace',
         packageJson: { name: 'valid' },
       },
     ];
@@ -66,6 +65,7 @@ describe('getConformanceResults', () => {
       rootDirectory,
       workspaces,
       tagsData,
+      codeownersData: [],
     });
 
     expect(results).toHaveLength(1);
@@ -92,8 +92,7 @@ describe('getConformanceResults', () => {
     const workspaces: Workspace[] = [
       {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['codeowner1', 'codeowner2'],
+        relativePath: '/path/to/workspace',
         packageJson: { name: 'exception' },
       },
     ];
@@ -103,6 +102,7 @@ describe('getConformanceResults', () => {
       rootDirectory,
       workspaces,
       tagsData,
+      codeownersData: [],
     });
 
     expect(results).toHaveLength(1);
@@ -127,8 +127,7 @@ describe('getConformanceResults', () => {
     const workspaces: Workspace[] = [
       {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['codeowner1', 'codeowner2'],
+        relativePath: '/path/to/workspace',
         packageJson: { name: 'exception' },
       },
     ];
@@ -139,6 +138,7 @@ describe('getConformanceResults', () => {
       rootDirectory,
       workspaces,
       tagsData,
+      codeownersData: [],
     });
 
     expect(results).toHaveLength(1);
@@ -165,8 +165,7 @@ describe('getConformanceResults', () => {
     const workspaces: Workspace[] = [
       {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['codeowner1', 'codeowner2'],
+        relativePath: '/path/to/workspace',
         packageJson: { name: 'valid' },
       },
     ];
@@ -177,6 +176,7 @@ describe('getConformanceResults', () => {
       rootDirectory,
       workspaces,
       tagsData,
+      codeownersData: [],
     });
 
     expect(results).toHaveLength(1);

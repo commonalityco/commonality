@@ -24,9 +24,6 @@ export const getWorkspaces = async ({
     rootDirectory,
     workspaceGlobs,
   });
-  const packages = await getPackages({ rootDirectory });
-  const codeownersData = await getCodeownersData({ rootDirectory, packages });
-  const tagsData = await getTagsData({ rootDirectory, packages });
 
   const workspacesResult = await Promise.all(
     packageDirectories
@@ -40,17 +37,9 @@ export const getWorkspaces = async ({
             return;
           }
 
-          const tags: string[] =
-            tagsData.find((data) => data.packageName === packageJson.name)
-              ?.tags ?? [];
-          const codeowners =
-            codeownersData.find((data) => data.packageName === packageJson.name)
-              ?.codeowners ?? [];
-
           return {
-            path: pkgDir,
-            codeowners,
-            tags,
+            path: path.join(rootDirectory, pkgDir),
+            relativePath: pkgDir,
             packageJson,
           } satisfies Workspace;
         } catch {

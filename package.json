@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/monorepo",
   "version": "0.0.1",
-  "packageManager": "pnpm@8.7.1",
+  "packageManager": "pnpm@8.11.0",
   "description": "",
   "contributors": [
     "Alec Ortega <alec@commonality.co> (https://github.com/alecortega)"
@@ -52,9 +52,7 @@
     "ts-node": "^10.9.1",
     "turbo": "^1.10.16",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.6"
-  },
-  "devDependencies": {
+    "vitest": "^0.34.6",
     "@types/fs-extra": "^11.0.4",
     "@types/semver": "^7.5.6",
     "fs-extra": "^11.1.1"

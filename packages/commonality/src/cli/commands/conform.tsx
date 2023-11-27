@@ -5,6 +5,7 @@ import { getConformanceResults } from '@commonalityco/data-conformance';
 import { Command } from 'commander';
 import { getRootDirectory } from '@commonalityco/data-project';
 import {
+  CodeownersData,
   ConformanceResult,
   Conformer,
   TagsData,
@@ -19,6 +20,9 @@ import { TotalMessage } from '../components/total-message.js';
 import { CheckConformers } from '../components/check-conformers.js';
 import { CheckWorkspaces } from '../components/check-workspaces.js';
 import path from 'node:path';
+import { getCodeownersData } from '@commonalityco/data-codeowners';
+import { getPackages } from '@commonalityco/data-packages';
+import { CheckCodeownersData } from '../components/check-codeowners-data.js';
 
 const command = new Command();
 
@@ -99,6 +103,7 @@ export const ConformRunner = ({
   rootDirectory,
   workspaces,
   tagsData,
+  codeownersData,
   onError = () => {},
 }: {
   verbose: boolean;
@@ -107,6 +112,7 @@ export const ConformRunner = ({
   workspaces: Workspace[];
   tagsData: TagsData[];
   onError?: (error: Error) => void;
+  codeownersData: CodeownersData[];
 }) => {
   const [autoFixRunCount, setAutoFixRunCount] = useState(0);
   const { data, refetch, isLoading, error } = useAsyncFn(async () => {
@@ -115,6 +121,7 @@ export const ConformRunner = ({
       rootDirectory,
       workspaces,
       tagsData,
+      codeownersData,
     });
   });
 
@@ -258,6 +265,8 @@ export const ConformRunner = ({
                 rootDirectory,
                 workspaces,
                 conformanceResults: results,
+                codeownersData,
+                tagsData,
               });
 
               setTimeout(async () => {
@@ -291,17 +300,22 @@ export const ConformCommand = ({
               {({ workspaces }) => (
                 <CheckTagsData loadingMessage={<CheckSpinner />}>
                   {({ tagsData }) => (
-                    <ConformRunner
-                      verbose={verbose}
-                      conformersByPattern={conformers}
-                      rootDirectory={rootDirectory}
-                      workspaces={workspaces}
-                      tagsData={tagsData}
-                      onError={(error) => {
-                        console.log(error);
-                        process.exit(1);
-                      }}
-                    />
+                    <CheckCodeownersData loadingMessage={<CheckSpinner />}>
+                      {({ codeownersData }) => (
+                        <ConformRunner
+                          verbose={verbose}
+                          codeownersData={codeownersData}
+                          conformersByPattern={conformers}
+                          rootDirectory={rootDirectory}
+                          workspaces={workspaces}
+                          tagsData={tagsData}
+                          onError={(error) => {
+                            console.log(error);
+                            process.exit(1);
+                          }}
+                        />
+                      )}
+                    </CheckCodeownersData>
                   )}
                 </CheckTagsData>
               )}

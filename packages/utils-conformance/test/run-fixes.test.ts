@@ -12,8 +12,7 @@ describe('runFixes', () => {
         pattern: '*',
         workspace: {
           path: '/path/to/workspace',
-          tags: ['tag1', 'tag2'],
-          codeowners: ['codeowner1', 'codeowner2'],
+          relativePath: '/path/to/workspace',
           packageJson: { name: 'valid' },
         },
         message: { title: 'Invalid workspace' },
@@ -26,8 +25,7 @@ describe('runFixes', () => {
         pattern: '*',
         workspace: {
           path: '/path/to/workspace',
-          tags: ['tag1', 'tag2'],
-          codeowners: ['codeowner1', 'codeowner2'],
+          relativePath: '/path/to/workspace',
           packageJson: { name: 'valid' },
         },
         message: { title: 'Valid workspace' },
@@ -39,8 +37,7 @@ describe('runFixes', () => {
         pattern: '*',
         workspace: {
           path: '/path/to/workspace',
-          tags: ['tag1', 'tag2'],
-          codeowners: ['codeowner1', 'codeowner2'],
+          relativePath: '/path/to/workspace',
           packageJson: { name: 'valid' },
         },
         message: { title: 'Valid workspace' },
@@ -49,11 +46,11 @@ describe('runFixes', () => {
       },
     ];
     const rootDirectory = '';
+
     const workspaces: Workspace[] = [
       {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['codeowner1', 'codeowner2'],
+        relativePath: '/path/to/workspace',
         packageJson: { name: 'valid' },
       },
     ];
@@ -62,6 +59,8 @@ describe('runFixes', () => {
       conformanceResults,
       rootDirectory,
       workspaces,
+      tagsData: [],
+      codeownersData: [],
     });
 
     expect(fix).toHaveBeenCalledTimes(1);
@@ -75,8 +74,7 @@ describe('runFixes', () => {
         pattern: '*',
         workspace: {
           path: '/path/to/workspace',
-          tags: ['tag1', 'tag2'],
-          codeowners: ['codeowner1', 'codeowner2'],
+          relativePath: '/path/to/workspace',
           packageJson: { name: 'valid' },
         },
         message: { title: 'Valid workspace' },
@@ -88,8 +86,7 @@ describe('runFixes', () => {
     const workspaces: Workspace[] = [
       {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['codeowner1', 'codeowner2'],
+        relativePath: '/path/to/workspace',
         packageJson: { name: 'valid' },
       },
     ];
@@ -98,6 +95,8 @@ describe('runFixes', () => {
       conformanceResults,
       rootDirectory,
       workspaces,
+      tagsData: [],
+      codeownersData: [],
     });
 
     expect(results).toHaveLength(1);
@@ -113,8 +112,7 @@ describe('runFixes', () => {
         pattern: '*',
         workspace: {
           path: '/path/to/workspace',
-          tags: ['tag1', 'tag2'],
-          codeowners: ['codeowner1', 'codeowner2'],
+          relativePath: '/path/to/workspace',
           packageJson: { name: 'valid' },
         },
         message: { title: 'Invalid workspace' },
@@ -128,8 +126,7 @@ describe('runFixes', () => {
     const workspaces: Workspace[] = [
       {
         path: '/path/to/workspace',
-        tags: ['tag1', 'tag2'],
-        codeowners: ['codeowner1', 'codeowner2'],
+        relativePath: '/path/to/workspace',
         packageJson: { name: 'valid' },
       },
     ];
@@ -138,6 +135,8 @@ describe('runFixes', () => {
       conformanceResults,
       rootDirectory,
       workspaces,
+      tagsData: [],
+      codeownersData: [],
     });
 
     expect(results).toHaveLength(1);

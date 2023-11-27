@@ -3,15 +3,20 @@ import { multipleDependencyTypes } from './../src/multiple-dependency-types';
 import { describe, it, expect, vi } from 'vitest';
 import { json } from '@commonalityco/utils-file';
 
+const rootWorkspace = {
+  path: '/path',
+  relativePath: '',
+  packageJson: {},
+};
+
 describe('multipleDependencyTypes', () => {
   describe('validate', () => {
     const conformer = multipleDependencyTypes();
 
     it('should return true if no dependencies are specified in multiple dependency types', async () => {
       const workspaceA = {
-        tags: [],
-        codeowners: [],
         path: 'packages/pkg-a',
+        relativePath: 'packages/pkg-a',
         packageJson: {
           dependencies: {
             'pkg-a': '1.0.0',
@@ -23,6 +28,8 @@ describe('multipleDependencyTypes', () => {
         text: vi.fn(),
         workspace: workspaceA,
         allWorkspaces: [workspaceA],
+        codeowners: [],
+        tags: [],
       });
 
       expect(result).toBe(true);
@@ -30,9 +37,8 @@ describe('multipleDependencyTypes', () => {
 
     it('should return false if there is a matching dependency and devDependency', async () => {
       const workspaceA = {
-        tags: [],
-        codeowners: [],
         path: 'packages/pkg-a',
+        relativePath: 'packages/pkg-a',
         packageJson: {
           dependencies: {
             'pkg-a': '1.0.0',
@@ -48,6 +54,8 @@ describe('multipleDependencyTypes', () => {
         text: vi.fn(),
         workspace: workspaceA,
         allWorkspaces: [workspaceA],
+        codeowners: [],
+        tags: [],
       });
 
       expect(result).toBe(false);
@@ -55,9 +63,8 @@ describe('multipleDependencyTypes', () => {
 
     it('should return false if there is a matching dependency and optionalDependency', async () => {
       const workspaceA = {
-        tags: [],
-        codeowners: [],
         path: 'packages/pkg-a',
+        relativePath: 'packages/pkg-a',
         packageJson: {
           dependencies: {
             'pkg-a': '1.0.0',
@@ -73,6 +80,8 @@ describe('multipleDependencyTypes', () => {
         text: vi.fn(),
         workspace: workspaceA,
         allWorkspaces: [workspaceA],
+        codeowners: [],
+        tags: [],
       });
 
       expect(result).toBe(false);
@@ -80,9 +89,8 @@ describe('multipleDependencyTypes', () => {
 
     it('should return false if there is a matching dependency, optionalDependency, and devDependency', async () => {
       const workspaceA = {
-        tags: [],
-        codeowners: [],
         path: 'packages/pkg-a',
+        relativePath: 'packages/pkg-a',
         packageJson: {
           dependencies: {
             'pkg-a': '1.0.0',
@@ -101,6 +109,8 @@ describe('multipleDependencyTypes', () => {
         text: vi.fn(),
         workspace: workspaceA,
         allWorkspaces: [workspaceA],
+        codeowners: [],
+        tags: [],
       });
 
       expect(result).toBe(false);
@@ -114,9 +124,8 @@ describe('multipleDependencyTypes', () => {
       const onWrite = vi.fn();
 
       const workspaceA = {
-        tags: [],
-        codeowners: [],
         path: 'packages/pkg-a',
+        relativePath: 'packages/pkg-a',
         packageJson: {
           name: 'pkg-b',
           dependencies: {
@@ -137,6 +146,8 @@ describe('multipleDependencyTypes', () => {
         text: vi.fn(),
         workspace: workspaceA,
         allWorkspaces: [workspaceA],
+        tags: [],
+        codeowners: [],
       });
 
       expect(onWrite).toHaveBeenCalledWith('package.json', {
@@ -154,9 +165,8 @@ describe('multipleDependencyTypes', () => {
       const onWrite = vi.fn();
 
       const workspaceA = {
-        tags: [],
-        codeowners: [],
-        path: 'packages/pkg-a',
+        relativePath: 'packages/pkg-a',
+        path: '/root/packages/pkg-a',
         packageJson: {
           name: 'pkg-b',
           dependencies: {
@@ -177,6 +187,8 @@ describe('multipleDependencyTypes', () => {
         text: vi.fn(),
         workspace: workspaceA,
         allWorkspaces: [workspaceA],
+        codeowners: [],
+        tags: [],
       });
 
       expect(onWrite).toHaveBeenCalledWith('package.json', {
@@ -194,9 +206,8 @@ describe('multipleDependencyTypes', () => {
       const onWrite = vi.fn();
 
       const workspaceA = {
-        tags: [],
-        codeowners: [],
         path: 'packages/pkg-a',
+        relativePath: 'packages/pkg-a',
         packageJson: {
           name: 'pkg-b',
           dependencies: {
@@ -220,6 +231,8 @@ describe('multipleDependencyTypes', () => {
         text: vi.fn(),
         workspace: workspaceA,
         allWorkspaces: [workspaceA],
+        tags: [],
+        codeowners: [],
       });
 
       expect(onWrite).toHaveBeenCalledWith('package.json', {
@@ -240,9 +253,8 @@ describe('multipleDependencyTypes', () => {
       const conformer = multipleDependencyTypes();
 
       const workspaceA = {
-        tags: [],
-        codeowners: [],
         path: 'packages/pkg-a',
+        relativePath: 'packages/pkg-a',
         packageJson: {
           name: 'pkg-b',
           dependencies: {
@@ -262,6 +274,8 @@ describe('multipleDependencyTypes', () => {
         allWorkspaces: [workspaceA],
         json: vi.fn(),
         text: vi.fn(),
+        codeowners: [],
+        tags: [],
       });
 
       expect(message.title).toEqual(

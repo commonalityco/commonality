@@ -70,8 +70,7 @@ export type Package = {
 
 export type Workspace = {
   path: string;
-  tags: Tag[];
-  codeowners: Codeowner[];
+  relativePath: string;
   packageJson: PackageJson;
 };
 
@@ -87,6 +86,8 @@ type ValidationResult =
 export type ValidateFn = (opts: {
   workspace: Workspace;
   allWorkspaces: Workspace[];
+  codeowners: Codeowner[];
+  tags: Tag[];
   json: JsonFileCreator;
   text: TextFileCreator;
 }) => ValidationResult | Promise<ValidationResult>;
@@ -152,6 +153,8 @@ export type FileCreatorFactory<File> = ({
 export type FixFn = (opts: {
   workspace: Workspace;
   allWorkspaces: Workspace[];
+  codeowners: Codeowner[];
+  tags: Tag[];
   json: JsonFileCreator;
   text: TextFileCreator;
 }) => void | Promise<void>;
@@ -165,6 +168,8 @@ type Message = {
 export type MessageFn = (options: {
   allWorkspaces: Workspace[];
   workspace: Workspace;
+  codeowners: Codeowner[];
+  tags: Tag[];
   json: JsonFileCreator;
   text: TextFileCreator;
 }) => Message | Promise<Message>;
