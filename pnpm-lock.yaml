@@ -1546,6 +1546,9 @@ importers:
       pretty-format:
         specifier: ^29.7.0
         version: 29.7.0
+      strip-ansi:
+        specifier: ^7.1.0
+        version: 7.1.0
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
@@ -1574,9 +1577,6 @@ importers:
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
-      strip-ansi:
-        specifier: ^7.1.0
-        version: 7.1.0
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
