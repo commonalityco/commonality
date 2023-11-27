@@ -10,7 +10,6 @@ import path from 'node:path';
 
 export const getConformanceResults = async ({
   conformersByPattern,
-  rootDirectory,
   workspaces,
   tagsData,
   codeownersData,
@@ -61,10 +60,8 @@ export const getConformanceResults = async ({
                   codeowners:
                     codeownersMap.get(workspace.packageJson.name as string) ??
                     [],
-                  text: (filename) =>
-                    text(path.join(rootDirectory, workspace.path, filename)),
-                  json: (filename) =>
-                    json(path.join(rootDirectory, workspace.path, filename)),
+                  text: (filename) => text(path.join(workspace.path, filename)),
+                  json: (filename) => json(path.join(workspace.path, filename)),
                 });
 
                 return { isValid: Boolean(result) };
@@ -87,10 +84,9 @@ export const getConformanceResults = async ({
                   codeowners:
                     codeownersMap.get(workspace.packageJson.name as string) ??
                     [],
-                  text: (filename) =>
-                    text(path.join(rootDirectory, workspace.path, filename)),
+                  text: (filename) => text(path.join(workspace.path, filename)),
                   json: (filename: string) =>
-                    json(path.join(rootDirectory, workspace.path, filename)),
+                    json(path.join(workspace.path, filename)),
                 });
               } catch (error) {
                 if (error instanceof Error) {

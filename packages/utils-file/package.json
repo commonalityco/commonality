@@ -51,8 +51,9 @@
     "lodash.get": "^4.4.2",
     "lodash.omit": "^4.5.0",
     "lodash.set": "^4.3.2",
-    "strip-ansi": "^7.1.0",
     "mock-fs": "^5.2.0",
-    "pretty-format": "^29.7.0"
-  }
+    "pretty-format": "^29.7.0",
+    "strip-ansi": "^7.1.0"
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/utils-file"
 }

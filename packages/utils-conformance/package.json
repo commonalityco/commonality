@@ -1,1 +1,41 @@
-{"name":"@commonalityco/utils-conformance","description":"Get information about the conformance status of your project","version":"0.0.0","type":"module","publishConfig":{"access":"public","main":"./dist/index.js","types":"./dist/index.d.ts","exports":{".":"./dist/index.js"}},"sideEffects":false,"types":"./src/index.ts","exports":{".":"./src/index.ts","./*":"./dist/*.js"},"peerDependencies":{"@commonalityco/utils-core":"workspace:*","@commonalityco/utils-file":"workspace:*"},"devDependencies":{"@commonalityco/config-tsconfig":"workspace:*","@commonalityco/types":"workspace:*","@commonalityco/utils-core":"workspace:*","@commonalityco/utils-file":"workspace:*","eslint-config-commonality":"workspace:*","typescript":"^5.2.2"},"scripts":{"lint":"eslint .","lint:fix":"eslint . --fix","test":"vitest --coverage","type-check":"tsc --noEmit","build":"tsc --build"},"main":"./src/index.ts"}
+{
+    "name": "@commonalityco/utils-conformance",
+    "description": "Get information about the conformance status of your project",
+    "version": "0.0.0",
+    "type": "module",
+    "publishConfig": {
+        "access": "public",
+        "main": "./dist/index.js",
+        "types": "./dist/index.d.ts",
+        "exports": {
+            ".": "./dist/index.js"
+        }
+    },
+    "sideEffects": false,
+    "types": "./src/index.ts",
+    "exports": {
+        ".": "./src/index.ts",
+        "./*": "./dist/*.js"
+    },
+    "peerDependencies": {
+        "@commonalityco/utils-core": "workspace:*",
+        "@commonalityco/utils-file": "workspace:*"
+    },
+    "devDependencies": {
+        "@commonalityco/config-tsconfig": "workspace:*",
+        "@commonalityco/types": "workspace:*",
+        "@commonalityco/utils-core": "workspace:*",
+        "@commonalityco/utils-file": "workspace:*",
+        "eslint-config-commonality": "workspace:*",
+        "typescript": "^5.2.2"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "test": "vitest --coverage",
+        "type-check": "tsc --noEmit",
+        "build": "tsc --build"
+    },
+    "main": "./src/index.ts",
+    "repository": "https://github.com/commonalityco/commonality/packages/utils-conformance"
+}

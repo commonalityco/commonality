@@ -21,14 +21,12 @@ class ConformanceError extends Error {
 
 export const runFixes = async ({
   conformanceResults,
-  rootDirectory,
   workspaces,
   rootWorkspace,
   tagsData,
   codeownersData,
 }: {
   conformanceResults: ConformanceResult[];
-  rootDirectory: string;
   workspaces: Workspace[];
   rootWorkspace: Workspace;
   tagsData: TagsData[];
@@ -76,9 +74,9 @@ export const runFixes = async ({
               codeowners:
                 codeownersMap.get(result.workspace.packageJson.name) ?? [],
               json: (filename) =>
-                json(path.join(rootDirectory, result.workspace.path, filename)),
+                json(path.join(result.workspace.path, filename)),
               text: (filename) =>
-                text(path.join(rootDirectory, result.workspace.path, filename)),
+                text(path.join(result.workspace.path, filename)),
             });
             fixResults.push({ isFixed: true, workspace: result.workspace });
           } catch (error) {

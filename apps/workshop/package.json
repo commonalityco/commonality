@@ -53,5 +53,6 @@
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
     "webpack": "^5.88.2"
-  }
+  },
+  "repository": "https://github.com/commonalityco/commonality/apps/workshop"
 }

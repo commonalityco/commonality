@@ -32,5 +32,6 @@
     },
     "exports": {
         ".": "./src/index.ts"
-    }
+    },
+    "repository": "https://github.com/commonalityco/commonality/packages/utils-core"
 }

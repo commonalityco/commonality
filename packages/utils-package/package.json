@@ -41,5 +41,6 @@
     "build": "tsc --build",
     "type-check": "tsc --noEmit"
   },
-  "types": "./src/index.ts"
+  "types": "./src/index.ts",
+  "repository": "https://github.com/commonalityco/commonality/packages/utils-package"
 }

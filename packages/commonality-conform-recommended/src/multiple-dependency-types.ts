@@ -47,8 +47,15 @@ export const multipleDependencyTypes = defineConformer(() => {
     name: 'commonality/multiple-dependency-types',
 
     validate: async ({ json }) => {
+      const packageJson = await json('package.json').get<PackageJson>();
+
+      if (!packageJson) {
+        return false;
+      }
+
       const { dependencies, devDependencies, optionalDependencies } =
-        await json('package.json').get<PackageJson>();
+        packageJson;
+
       const multipleDependencyTypes = Object.keys(dependencies || {}).filter(
         (dep) =>
           (devDependencies && devDependencies[dep]) ||
@@ -59,6 +66,11 @@ export const multipleDependencyTypes = defineConformer(() => {
 
     fix: async ({ json }) => {
       const packageJson = await json('package.json').get<PackageJson>();
+
+      if (!packageJson) {
+        return;
+      }
+
       const newPackageJson = getExpectedPackageJson(packageJson);
 
       await json('package.json').set(newPackageJson);
@@ -66,6 +78,10 @@ export const multipleDependencyTypes = defineConformer(() => {
 
     message: async ({ json }) => {
       const packageJson = await json('package.json').get<PackageJson>();
+
+      if (!packageJson) {
+        return { title: 'Package.json is missing' };
+      }
 
       return {
         title:

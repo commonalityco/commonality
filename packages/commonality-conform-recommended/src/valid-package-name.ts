@@ -7,7 +7,7 @@ export const validPackageName = defineConformer(() => ({
   validate: async ({ json }) => {
     const packageJson = await json('package.json').get<PackageJson>();
 
-    if (!packageJson.name) {
+    if (!packageJson || !packageJson.name) {
       return false;
     }
 
@@ -26,7 +26,7 @@ export const validPackageName = defineConformer(() => ({
   message: async ({ json }) => {
     const packageJson = await json('package.json').get<PackageJson>();
 
-    if (!packageJson.name) {
+    if (!packageJson || !packageJson.name) {
       return {
         title: 'Package name must be set in package.json',
         filepath: 'package.json',

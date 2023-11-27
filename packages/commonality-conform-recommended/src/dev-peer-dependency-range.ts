@@ -54,6 +54,11 @@ export const devPeerDependencyRange = defineConformer(() => {
     level: 'warning',
     validate: async ({ json }) => {
       const packageJson = await json('package.json').get<PackageJson>();
+
+      if (!packageJson) {
+        return false;
+      }
+
       const peerDependencies = packageJson.peerDependencies;
 
       if (!peerDependencies) {
@@ -83,12 +88,22 @@ export const devPeerDependencyRange = defineConformer(() => {
     },
     fix: async ({ json }) => {
       const packageJson = await json('package.json').get<PackageJson>();
+
+      if (!packageJson) {
+        return;
+      }
+
       const devDependencies = getExpectedDevDependencies(packageJson);
 
       await json('package.json').merge({ devDependencies });
     },
     message: async ({ json }) => {
       const packageJson = await json('package.json').get();
+
+      if (!packageJson) {
+        return { title: 'Package.json is missing' };
+      }
+
       const devDependencies = getExpectedDevDependencies(packageJson);
 
       return {

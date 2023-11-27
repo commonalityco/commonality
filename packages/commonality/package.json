@@ -14,7 +14,7 @@
     ".": "./dist/utilities/index.js"
   },
   "description": "Infinitely scalable front-end ecosystems",
-  "repository": "https://github.com/commonalityco/commonalityco",
+  "repository": "https://github.com/commonalityco/commonality/packages/commonality",
   "bugs": "https://github.com/commonalityco/commonalityco/issues",
   "homepage": "https://commonality.co",
   "license": "MPL-2.0",

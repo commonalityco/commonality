@@ -1,5 +1,4 @@
 import { PackageJson } from '@commonalityco/types';
-import { diff } from '@commonalityco/utils-file';
 import { defineConformer } from 'commonality';
 
 const DEPENDENCY_TYPES = [
@@ -41,6 +40,10 @@ export const sortedDependencies = defineConformer(() => {
     validate: async ({ json }) => {
       const packageJson = await json('package.json').get<PackageJson>();
 
+      if (!packageJson) {
+        return false;
+      }
+
       return DEPENDENCY_TYPES.every((depType) => {
         const deps = packageJson[depType] ?? {};
         const sortedKeys = Object.keys(sortObjectKeys(deps));
@@ -54,6 +57,11 @@ export const sortedDependencies = defineConformer(() => {
     },
     fix: async ({ json }) => {
       const packageJson = await json('package.json').get<PackageJson>();
+
+      if (!packageJson) {
+        return;
+      }
+
       const expectedPackageJson = getExpectedPackageJson(packageJson);
 
       await json('package.json').set(expectedPackageJson);

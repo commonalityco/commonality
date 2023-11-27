@@ -4,6 +4,7 @@ import {
   devPeerDependencyRange,
   validPackageName,
   sortedDependencies,
+  repositoryField,
 } from 'commonality-conform-recommended';
 
 export default defineConfig({
@@ -14,6 +15,7 @@ export default defineConfig({
       sortedDependencies(),
       devPeerDependencyRange(),
       noExternalMismatch(),
+      repositoryField(),
     ],
   },
   constraints: {

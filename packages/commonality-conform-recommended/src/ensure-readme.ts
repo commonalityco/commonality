@@ -7,6 +7,10 @@ export const ensureReadme = defineConformer(() => ({
   fix: async ({ text, json }) => {
     const packageJson = await json('package.json').get<PackageJson>();
 
+    if (!packageJson) {
+      return;
+    }
+
     return text('README.md').set([
       `# ${packageJson.name}`,
       `> ${packageJson.description}`,

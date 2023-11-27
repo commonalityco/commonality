@@ -30,5 +30,6 @@
         "@commonalityco/utils-core": "workspace:*",
         "eslint-config-commonality": "workspace:*",
         "typescript": "^5.2.2"
-    }
+    },
+    "repository": "https://github.com/commonalityco/commonality/packages/data-violations"
 }

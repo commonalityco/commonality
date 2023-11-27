@@ -68,5 +68,6 @@
         "build": "tsc --build",
         "type-check": "tsc --noEmit"
     },
-    "main": "./src/index.ts"
+    "main": "./src/index.ts",
+    "repository": "https://github.com/commonalityco/commonality/packages/ui-design-system"
 }

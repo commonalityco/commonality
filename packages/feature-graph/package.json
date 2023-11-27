@@ -66,5 +66,6 @@
         ".": "./src/index.ts",
         "./*": "./dist/*.js"
     },
-    "main": "./src/index.ts"
+    "main": "./src/index.ts",
+    "repository": "https://github.com/commonalityco/commonality/packages/feature-graph"
 }

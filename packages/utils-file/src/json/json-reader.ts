@@ -1,4 +1,3 @@
-import get from 'lodash-es/get';
 import isMatch from 'lodash-es/isMatch';
 import fs from 'fs-extra';
 import { JsonFile } from '@commonalityco/types';
@@ -12,6 +11,15 @@ export const jsonReader = (
     ) => Record<string, unknown> | Promise<Record<string, unknown>>;
   } = {},
 ): Pick<JsonFile, 'get' | 'contains'> => {
+  const getExists = async (): Promise<boolean> => {
+    if (options.onExists) {
+      return options.onExists(filepath);
+    }
+
+    return fs.pathExists(filepath);
+  };
+  const _exists = getExists();
+
   const getSource = async () => {
     if (options.onRead) {
       return options.onRead(filepath);
@@ -21,15 +29,17 @@ export const jsonReader = (
   };
 
   return {
-    async get(accessPath?: string) {
+    async get() {
       try {
-        const source = await getSource();
+        const exists = await _exists;
 
-        if (!accessPath) {
-          return source;
+        if (!exists) {
+          return;
         }
 
-        return get(source, accessPath);
+        const source = await getSource();
+
+        return source;
       } catch {
         return;
       }
@@ -37,6 +47,12 @@ export const jsonReader = (
 
     async contains(value) {
       try {
+        const exists = await _exists;
+
+        if (!exists) {
+          return false;
+        }
+
         const source = await getSource();
 
         return isMatch(source, value);

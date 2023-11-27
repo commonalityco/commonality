@@ -30,12 +30,11 @@
     "@types/cytoscape-dagre": "^2.3.1",
     "@types/cytoscape-popper": "^2.0.1",
     "@types/lodash.uniqby": "^4.7.7",
-
+    "cytoscape": "^3.26.0",
     "eslint-config-commonality": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^5.2.2",
-    "cytoscape": "^3.26.0"
+    "typescript": "^5.2.2"
   },
   "license": "MIT",
   "peerDependencies": {
@@ -51,5 +50,6 @@
     "test": "vitest",
     "type-check": "tsc --noEmit"
   },
-  "main": "./src/index.ts"
+  "main": "./src/index.ts",
+  "repository": "https://github.com/commonalityco/commonality/packages/utils-graph"
 }

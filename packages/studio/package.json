@@ -113,5 +113,6 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
     "vite-tsconfig-paths": "^4.2.1"
-  }
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/studio"
 }

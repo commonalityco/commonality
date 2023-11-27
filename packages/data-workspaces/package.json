@@ -34,5 +34,6 @@
         "exports": {
             ".": "./dist/index.js"
         }
-    }
+    },
+    "repository": "https://github.com/commonalityco/commonality/packages/data-workspaces"
 }

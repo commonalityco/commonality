@@ -211,7 +211,7 @@ export const ConformRunner = ({
                           >
                             <Text dimColor>
                               {path.join(
-                                conformanceResult.workspace.path,
+                                conformanceResult.workspace.relativePath,
                                 conformanceResult.message.filepath,
                               )}
                             </Text>

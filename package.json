@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "packageManager": "pnpm@8.11.0",
   "description": "",
+  "repository": "https://github.com/commonalityco/commonality",
   "contributors": [
     "Alec Ortega <alec@commonality.co> (https://github.com/alecortega)"
   ],

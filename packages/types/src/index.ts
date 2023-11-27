@@ -89,7 +89,7 @@ export interface File {
 }
 
 export interface JsonFile extends File {
-  get<T extends Record<string, unknown>>(): Promise<T>;
+  get<T extends Record<string, unknown>>(): Promise<T | undefined>;
   contains(value: Record<string, unknown>): Promise<boolean>;
   set(value: Record<string, unknown>): Promise<void>;
   merge(value: Record<string, unknown>): Promise<void>;
