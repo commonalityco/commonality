@@ -32,7 +32,7 @@
   "dependencies": {
     "chalk": "^4.0.0",
     "detect-indent": "^7.0.1",
-    "fs-extra": "^11.2.0",
+    "fs-extra": "^11.1.1",
     "jest-diff": "^29.7.0",
     "lodash-es": "^4.17.21",
     "mock-fs": "^5.2.0",
