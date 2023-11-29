@@ -27,7 +27,6 @@
     "@commonalityco/data-packages": "workspace:*",
     "@commonalityco/data-project": "workspace:*",
     "@commonalityco/data-tags": "workspace:*",
-    "@commonalityco/toolkit": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@types/mock-fs": "^4.13.4",

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import fs from 'fs-extra';
-import { text } from '../src';
+import { text } from '../../src/files/text';
 import mock from 'mock-fs';
 
 const content = `# First line\n## Second line\n### Third line\n`;

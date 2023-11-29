@@ -21,7 +21,6 @@ const config: Options = {
     '@commonalityco/studio',
     '@commonalityco/feature-conformance',
     '@commonalityco/utils-core',
-    '@commonalityco/toolkit',
   ],
   outDir: './dist/cli',
   cjsInterop: true,

@@ -1,6 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest';
-
-import { json } from '../src/json';
+import { json } from '../../src/files/json';
 import mock from 'mock-fs';
 
 describe('json', () => {

@@ -1,6 +1,5 @@
 import { diff as jestDiff } from 'jest-diff';
 import chalk from 'chalk';
-import { format as prettyFormat } from 'pretty-format';
 
 const diffOptions = {
   omitAnnotationLines: true,
@@ -13,11 +12,7 @@ const diffOptions = {
 } as const;
 
 export function diff<T, K>(source: T, target: K): string | undefined {
-  const result = jestDiff(
-    prettyFormat(source),
-    prettyFormat(target),
-    diffOptions,
-  );
+  const result = jestDiff(source, target, diffOptions);
 
   return result ?? undefined;
 }

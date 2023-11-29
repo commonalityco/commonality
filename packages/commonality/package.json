@@ -83,7 +83,6 @@
     "@commonalityco/types": "workspace:*",
     "@commonalityco/feature-conformance": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
-    "@commonalityco/toolkit": "workspace:*",
     "@swc/core": "^1.3.86",
     "@types/configstore": "^6.0.0",
     "@types/fs-extra": "^11.0.2",
