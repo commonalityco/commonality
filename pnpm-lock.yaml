@@ -398,27 +398,6 @@ importers:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
         version: link:../../tooling/config-tsconfig
-      '@commonalityco/data-codeowners':
-        specifier: workspace:*
-        version: link:../data-codeowners
-      '@commonalityco/data-documents':
-        specifier: workspace:*
-        version: link:../data-documents
-      '@commonalityco/data-packages':
-        specifier: workspace:*
-        version: link:../data-packages
-      '@commonalityco/data-project':
-        specifier: workspace:*
-        version: link:../data-project
-      '@commonalityco/data-tags':
-        specifier: workspace:*
-        version: link:../data-tags
-      '@commonalityco/types':
-        specifier: workspace:*
-        version: link:../types
-      '@commonalityco/utils-core':
-        specifier: workspace:*
-        version: link:../utils-core
       '@types/mock-fs':
         specifier: ^4.13.4
         version: 4.13.4
@@ -437,9 +416,6 @@ importers:
       mock-fs:
         specifier: ^5.2.0
         version: 5.2.0
-      strip-ansi:
-        specifier: ^7.1.0
-        version: 7.1.0
       typescript:
         specifier: ^5.2.2
         version: 5.3.2

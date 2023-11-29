@@ -1,5 +1,5 @@
 import { defineConformer, diff, json, PackageJson } from 'commonality';
-import semver from 'semver';
+import semver, { satisfies } from 'semver';
 
 const stripWorkspaceProtocol = (value: string) => {
   return value.replace('workspace:', '');
@@ -9,14 +9,14 @@ const getVersionWithPrefix = (version?: string): string => `^${version}`;
 
 const getExpectedDevDependencies = (
   packageJson: PackageJson,
-): Record<string, string> => {
+): Record<string, string> | undefined => {
   const peerDependencies = packageJson.peerDependencies;
 
   if (!peerDependencies) {
-    return {};
+    return;
   }
 
-  const devDependencies: Record<string, string> = {};
+  const devDependencies: PackageJson['devDependencies'] = {};
 
   for (const [packageName, value] of Object.entries(peerDependencies)) {
     if (!value) {
@@ -43,7 +43,7 @@ const getExpectedDevDependencies = (
     }
   }
 
-  return devDependencies;
+  return Object.keys(devDependencies).length > 0 ? devDependencies : undefined;
 };
 
 export const devPeerDependencyRange = defineConformer(() => {
@@ -98,20 +98,32 @@ export const devPeerDependencyRange = defineConformer(() => {
       await json('package.json').merge({ devDependencies });
     },
     message: async () => {
-      const packageJson = await json('package.json').get();
+      const packageJson = await json<PackageJson>('package.json').get();
 
       if (!packageJson) {
         return { title: 'Package.json is missing' };
       }
 
-      const devDependencies = getExpectedDevDependencies(packageJson);
+      const source: Partial<PackageJson> = {
+        peerDependencies: packageJson.peerDependencies,
+      };
+      const target: Partial<PackageJson> = {
+        peerDependencies: packageJson.peerDependencies,
+      };
+
+      const expectedDevDependencies = getExpectedDevDependencies(packageJson);
+
+      if (expectedDevDependencies) {
+        target.devDependencies = expectedDevDependencies;
+      }
+
+      if (packageJson.devDependencies) {
+        source.devDependencies = packageJson.devDependencies;
+      }
 
       return {
         title: `Packages with peerDependencies must have matching devDependencies within a valid range`,
-        context: diff(packageJson, {
-          devDependencies: devDependencies,
-          peerDependencies: packageJson.peerDependencies,
-        }),
+        context: diff(source, target),
         filepath: 'package.json',
       };
     },

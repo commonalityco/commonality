@@ -1,4 +1,3 @@
-import stripAnsi from 'strip-ansi';
 import { multipleDependencyTypes } from './../src/multiple-dependency-types';
 import { describe, it, expect, afterEach } from 'vitest';
 import { createTestConformer, json } from 'commonality';
@@ -195,7 +194,7 @@ describe('multipleDependencyTypes', () => {
         'A dependency should only be in one of dependencies, devDependencies, or optionalDependencies',
       );
 
-      expect(stripAnsi(message.context ?? '')).toMatchInlineSnapshot(
+      expect(message.context ?? '').toMatchInlineSnapshot(
         `
           "  Object {
               \\"dependencies\\": Object {

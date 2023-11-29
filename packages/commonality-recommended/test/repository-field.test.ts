@@ -92,6 +92,36 @@ describe('repository-field', () => {
       expect(result).toBe(true);
     });
 
+    it('should return false if the package incorrectly extends the root repository field', async () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          repository: 'https://github.com/npm/cli.git',
+        }),
+        packages: {
+          'pkg-a': {
+            'package.json': JSON.stringify({
+              repository: 'https://github.com/npm/cli.git/packages/pkg-ab',
+            }),
+          },
+        },
+      });
+
+      const conformer = createTestConformer(repositoryField(), {
+        workspace: {
+          path: './packages/pkg-a',
+          relativePath: './packages/pkg-a',
+        },
+        rootWorkspace: {
+          path: './',
+          relativePath: './',
+        },
+      });
+
+      const result = await conformer.validate();
+
+      expect(result).toBe(false);
+    });
+
     it('should return false if the package does not extend the root repository field when it is an object', async () => {
       mockFs({
         'package.json': JSON.stringify({
@@ -297,7 +327,7 @@ describe('repository-field', () => {
     });
 
     describe('message', () => {
-      it('matches the expected snapshot', async () => {
+      it('matches the expected snapshot when repository is missing from package', async () => {
         mockFs({
           packages: {
             'pkg-a': {
@@ -334,6 +364,43 @@ describe('repository-field', () => {
           +   \\"repository\\": \\"https://github.com/npm/cli.git/packages/pkg-a\\",
             }"
         `);
+      });
+
+      it('matches the expected snapshot when repository exists in package', async () => {
+        mockFs({
+          packages: {
+            'pkg-a': {
+              'package.json': JSON.stringify({
+                name: 'foo',
+                repository: 'https://github.com/npm/cli.git/packages/pkg-a',
+              }),
+            },
+          },
+          'package.json': JSON.stringify({
+            name: 'foo',
+            repository: {
+              type: 'git',
+              url: 'https://github.com/npm/cli.git',
+            },
+          }),
+        });
+
+        const conformer = createTestConformer(repositoryField(), {
+          workspace: {
+            path: './packages/pkg-a',
+            relativePath: './packages/pkg-a',
+          },
+          rootWorkspace: {
+            path: './',
+            relativePath: './',
+          },
+        });
+
+        const result = await conformer.message();
+
+        expect(result.context).toMatchInlineSnapshot(
+          '"Compared values have no visual difference."',
+        );
       });
     });
   });

@@ -1,10 +1,10 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { validPackageName } from '../src/valid-package-name';
 import { createTestConformer } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('validPackageName', () => {
-  beforeEach(() => {
+  afterEach(() => {
     mockFs.restore();
   });
 

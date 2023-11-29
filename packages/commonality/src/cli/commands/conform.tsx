@@ -276,7 +276,9 @@ export const ConformRunner = ({
         </Box>
       ) : undefined}
       {failPackageCount === 0 && autoFixRunCount > 0 ? (
-        <Text color="green">Successfully fixed issues</Text>
+        <Box paddingTop={1}>
+          <Text color="green">Successfully fixed issues</Text>
+        </Box>
       ) : undefined}
     </Box>
   );

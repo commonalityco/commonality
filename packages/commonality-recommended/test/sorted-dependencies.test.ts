@@ -1,10 +1,10 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { sortedDependencies } from '../src/sorted-dependencies';
 import { createTestConformer, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('sortedDependencies', () => {
-  beforeEach(() => {
+  afterEach(() => {
     mockFs.restore();
   });
 

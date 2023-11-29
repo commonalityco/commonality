@@ -1,11 +1,10 @@
-import stripAnsi from 'strip-ansi';
 import { devPeerDependencyRange } from './../src/dev-peer-dependency-range';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
 import { createTestConformer, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('dev-peer-dependency-range', () => {
-  beforeEach(() => {
+  afterEach(() => {
     mockFs.restore();
   });
 
@@ -210,7 +209,7 @@ describe('dev-peer-dependency-range', () => {
   });
 
   describe('message', () => {
-    it('should show the correct message', async () => {
+    it('should show the correct message when there is a mismatch', async () => {
       mockFs({
         'package.json': JSON.stringify({
           name: 'pkg-a',
@@ -230,13 +229,44 @@ describe('dev-peer-dependency-range', () => {
       expect(result.title).toEqual(
         'Packages with peerDependencies must have matching devDependencies within a valid range',
       );
-      expect(stripAnsi(result.context ?? '')).toMatchInlineSnapshot(`
+      expect(result.context).toMatchInlineSnapshot(`
         "  Object {
             \\"devDependencies\\": Object {
               \\"pkg-b\\": \\"^17.0.2\\",
         +     \\"pkg-b\\": \\"^18.0.0\\",
             },
-            \\"name\\": \\"pkg-a\\",
+            \\"peerDependencies\\": Object {
+              \\"pkg-b\\": \\">=18\\",
+            },
+          }"
+      `);
+    });
+
+    it('should show the correct message when there is not a mismatch', async () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          name: 'pkg-a',
+          devDependencies: {
+            'pkg-b': '^18.0.2',
+          },
+          peerDependencies: {
+            'pkg-b': '>=18',
+          },
+        }),
+      });
+
+      const conformer = createTestConformer(devPeerDependencyRange());
+
+      const result = await conformer.message();
+
+      expect(result.title).toEqual(
+        'Packages with peerDependencies must have matching devDependencies within a valid range',
+      );
+      expect(result.context).toMatchInlineSnapshot(`
+        "  Object {
+            \\"devDependencies\\": Object {
+              \\"pkg-b\\": \\"^18.0.2\\",
+            },
             \\"peerDependencies\\": Object {
               \\"pkg-b\\": \\">=18\\",
             },

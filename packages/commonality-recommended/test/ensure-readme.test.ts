@@ -1,10 +1,10 @@
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it, afterEach } from 'vitest';
 import { ensureReadme } from '../src/ensure-readme';
 import { createTestConformer, text } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('ensureReadme', () => {
-  beforeEach(() => {
+  afterEach(() => {
     mockFs.restore();
   });
 

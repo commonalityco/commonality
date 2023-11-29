@@ -1,4 +1,3 @@
-import stripAnsi from 'strip-ansi';
 import { afterEach, describe, expect, it } from 'vitest';
 import { noExternalMismatch } from '../src/no-external-mismatch';
 import { createTestConformer, json } from 'commonality';
@@ -233,7 +232,7 @@ describe('no-external-mismatch', () => {
 
       const result = await conformer.message();
 
-      expect(stripAnsi(result.context ?? '')).toMatchInlineSnapshot(`
+      expect(result.context).toMatchInlineSnapshot(`
         "  Object {
             \\"dependencies\\": Object {
               \\"package-b\\": \\"workspace:*\\",

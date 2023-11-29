@@ -88,24 +88,22 @@ export const repositoryField = defineConformer(() => {
         return true;
       }
 
+      const workspacePath = path
+        .normalize(workspace.relativePath)
+        .replace(/^[/\\]+/, '');
+
+      const expectedUrl = rootPackageJson.repository + '/' + workspacePath;
+
       if (typeof rootPackageJson.repository === 'string') {
         return typeof packageJson.repository === 'string'
-          ? packageJson.repository.startsWith(rootPackageJson.repository)
-          : Boolean(
-              packageJson.repository?.url?.startsWith(
-                rootPackageJson.repository,
-              ),
-            );
+          ? packageJson.repository === expectedUrl
+          : packageJson.repository?.url === expectedUrl;
       }
 
       if (typeof rootPackageJson.repository === 'object') {
         return typeof packageJson.repository === 'string'
-          ? packageJson.repository.startsWith(rootPackageJson.repository.url)
-          : Boolean(
-              packageJson.repository?.url?.startsWith(
-                rootPackageJson.repository.url,
-              ),
-            );
+          ? packageJson.repository === expectedUrl
+          : packageJson.repository?.url === expectedUrl;
       }
 
       return true;
@@ -153,7 +151,7 @@ export const repositoryField = defineConformer(() => {
         title:
           'Repository field extend the repository field at the root of your project.',
         filepath: 'package.json',
-        context: diff(packageJson, newConfig),
+        context: diff(packageJson, { ...packageJson, ...newConfig }),
       };
     },
   };
