@@ -10,7 +10,6 @@ import {
   Conformer,
   Package,
   TagsData,
-  Workspace,
 } from '@commonalityco/types';
 import { Box, render, Text, useApp, useInput } from 'ink';
 import { useState } from 'react';
