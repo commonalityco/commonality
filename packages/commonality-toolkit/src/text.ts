@@ -1,8 +1,6 @@
 import fs from 'fs-extra';
 import { File, file } from './file';
 
-type Awaitable<T> = T | PromiseLike<T>;
-
 type Data = string[];
 
 export interface TextFile extends Omit<File, 'get'> {
