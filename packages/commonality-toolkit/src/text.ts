@@ -13,27 +13,12 @@ export interface TextFile extends Omit<File, 'get'> {
   remove(lines: Data): Promise<void>;
 }
 
-export type TextFileCreator = (
-  filename: string,
-  options?: {
-    onRead?: (filepath: string) => Awaitable<Data>;
-    onWrite?: (filePath: string, data: string) => Awaitable<void>;
-    onDelete?: (filePath: string) => Awaitable<void>;
-    onExists?: (filePath: string) => Awaitable<boolean>;
-  },
-) => TextFile;
+export type TextFileCreator = (filename: string) => TextFile;
 
-export const text: TextFileCreator = (
-  filepath,
-  { onRead, onWrite, onDelete, onExists } = {},
-): TextFile => {
-  const rawFile = file(filepath, { onDelete, onExists });
+export const text: TextFileCreator = (filepath): TextFile => {
+  const rawFile = file(filepath);
 
   const getLines = async (): Promise<Data | undefined> => {
-    if (onRead) {
-      return onRead(filepath);
-    }
-
     const text = await rawFile.get();
 
     if (!text) {
@@ -46,7 +31,7 @@ export const text: TextFileCreator = (
   const writeLines = async (lines: string[]) => {
     const text = lines.join('\n');
 
-    onWrite ? onWrite(filepath, text) : fs.writeFile(filepath, text);
+    await fs.writeFile(filepath, text);
   };
 
   return {

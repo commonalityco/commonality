@@ -1,11 +1,9 @@
-import { file, File, FileOptions } from './file';
+import { file, File } from './file';
 import fs from 'fs-extra';
 import omit from 'lodash-es/omit';
 import merge from 'lodash-es/merge';
 import isMatch from 'lodash-es/isMatch';
 import detectIndent from 'detect-indent';
-
-type Awaitable<T> = T | PromiseLike<T>;
 
 type Data = Record<string, unknown>;
 
@@ -17,16 +15,8 @@ export interface JsonFile<T extends Data> extends Omit<File, 'get'> {
   remove(path: string): Promise<void>;
 }
 
-export interface JsonFileOptions<T extends Data> extends FileOptions {
-  onRead?: (filepath: string) => Awaitable<T>;
-  onWrite?: (filePath: string, data: Data) => Awaitable<void>;
-}
-
-export function json<T extends Data>(
-  filepath: string,
-  { onWrite, onDelete, onExists, onRead }: JsonFileOptions<T> = {},
-): JsonFile<T> {
-  const rawFile = file(filepath, { onDelete, onExists });
+export function json<T extends Data>(filepath: string): JsonFile<T> {
+  const rawFile = file(filepath);
 
   const _exists = rawFile.exists();
 
@@ -42,17 +32,11 @@ export function json<T extends Data>(
     const indent = text
       ? detectIndent(text).indent || defaultIndent
       : defaultIndent;
-    console.log(filepath);
-    return onWrite
-      ? onWrite(filepath, json)
-      : fs.writeFile(filepath, JSON.stringify(json, undefined, indent));
+
+    await fs.writeFile(filepath, JSON.stringify(json, undefined, indent));
   };
 
   const getJson = async (): Promise<T | undefined> => {
-    if (onRead) {
-      return onRead(filepath);
-    }
-
     const data = await rawFile.get();
 
     if (!data) {

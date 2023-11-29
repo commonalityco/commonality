@@ -6,17 +6,8 @@ export interface File {
   delete: () => Promise<void>;
 }
 
-export interface FileOptions {
-  onDelete?: (filepath: string) => Awaitable<void>;
-  onExists?: (filepath: string) => Awaitable<boolean>;
-}
-
-type Awaitable<T> = T | PromiseLike<T>;
-
-export function file(filepath: string, options: FileOptions = {}): File {
-  const _exists = options.onExists
-    ? options.onExists(filepath)
-    : fs.pathExists(filepath);
+export function file(filepath: string): File {
+  const _exists = fs.pathExists(filepath);
 
   const get = async () => {
     const exists = await _exists;
@@ -37,7 +28,7 @@ export function file(filepath: string, options: FileOptions = {}): File {
       }
     },
     delete: async () => {
-      options.onDelete ? options.onDelete(filepath) : await fs.remove(filepath);
+      await fs.remove(filepath);
     },
     exists: async () => {
       const foo = await _exists;
