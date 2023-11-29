@@ -20,7 +20,6 @@ import { TotalMessage } from '../../components/total-message.js';
 import { CheckPackages } from '../../components/check-packages.js';
 import { MessagePackageTitle } from '../../components/message-package-title.js';
 import { DependencyMessage } from './dependency-message.js';
-import { formatTagName } from '@commonalityco/utils-core';
 
 export const ConstraintSpinner = () => (
   <Box gap={1}>
@@ -96,7 +95,7 @@ function ConstraintList({
   if (dependencies.length === 0 && verbose) {
     return (
       <Box
-        paddingLeft={2}
+        paddingLeft={1}
         paddingBottom={1}
         borderDimColor
         borderTop={false}
@@ -113,7 +112,7 @@ function ConstraintList({
   if (constraints.length === 0 && verbose) {
     return (
       <Box
-        paddingLeft={2}
+        paddingLeft={1}
         paddingBottom={1}
         borderDimColor
         borderTop={false}

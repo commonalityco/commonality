@@ -166,13 +166,13 @@ describe('constrain', () => {
 
         expect(result).toMatchInlineSnapshot(`
           "✓ pkg-one (0)
-          │  No internal dependencies
+          │ No internal dependencies
           │
           ✓ pkg-two (0)
-          │  No internal dependencies
+          │ No internal dependencies
           │
           ✓ pkg-three (0)
-          │  No internal dependencies
+          │ No internal dependencies
           │
 
           Packages:    0 failed 3 passed (3)
@@ -276,10 +276,10 @@ describe('constrain', () => {
           │      Allowed: All packages
           │
           ✓ pkg-two (0)
-          │  No constraints for internal dependencies
+          │ No constraints for internal dependencies
           │
           ✓ pkg-three (0)
-          │  No internal dependencies
+          │ No internal dependencies
           │
 
           Packages:    0 failed 3 passed (3)
@@ -405,10 +405,10 @@ describe('constrain', () => {
           │      Disallowed: #tag-five
           │
           ✓ pkg-two (0)
-          │  No internal dependencies
+          │ No internal dependencies
           │
           ✓ pkg-three (0)
-          │  No internal dependencies
+          │ No internal dependencies
           │
 
           Packages:    1 failed 2 passed (3)
@@ -495,13 +495,13 @@ describe('constrain', () => {
 
         expect(result).toMatchInlineSnapshot(`
           "✓ pkg-one (0)
-          │  No constraints for internal dependencies
+          │ No constraints for internal dependencies
           │
           ✓ pkg-two (0)
-          │  No internal dependencies
+          │ No internal dependencies
           │
           ✓ pkg-three (0)
-          │  No internal dependencies
+          │ No internal dependencies
           │
 
           Packages:    0 failed 3 passed (3)
@@ -584,13 +584,13 @@ describe('constrain', () => {
 
         expect(result).toMatchInlineSnapshot(`
           "✓ pkg-one (0)
-          │  No internal dependencies
+          │ No internal dependencies
           │
           ✓ pkg-two (0)
-          │  No internal dependencies
+          │ No internal dependencies
           │
           ✓ pkg-three (0)
-          │  No internal dependencies
+          │ No internal dependencies
           │
 
           Packages:    0 failed 3 passed (3)
