@@ -89,6 +89,99 @@ describe('constrain', () => {
     });
   });
 
+  describe('when there are no constrained dependencies', () => {
+    const renderComponent = ({ verbose }: { verbose: boolean }) =>
+      render(
+        <ConstraintValidator
+          constraints={{
+            'tag-one': { allow: '*' },
+            'tag-two': { allow: ['tag-one'] },
+          }}
+          packages={[
+            {
+              name: 'pkg-one',
+              version: '1.0.0',
+              type: PackageType.NODE,
+              path: '/path',
+            },
+            {
+              name: 'pkg-two',
+              version: '1.0.0',
+              type: PackageType.NODE,
+              path: '/path',
+            },
+            {
+              name: 'pkg-three',
+              version: '1.0.0',
+              type: PackageType.NODE,
+              path: '/path',
+            },
+          ]}
+          tagsData={[{ packageName: 'pkg-one', tags: ['tag-one'] }]}
+          dependencies={[]}
+          verbose={verbose}
+        />,
+      );
+
+    describe('and verbose is false', () => {
+      it('matches the snapshot', () => {
+        vi.mocked(useAsyncFn).mockReturnValue({
+          status: 'success',
+          data: [],
+          error: undefined,
+          isLoading: false,
+          isSuccess: true,
+          isError: false,
+          refetch: () => Promise.resolve(),
+        });
+
+        const { lastFrame } = renderComponent({ verbose: false });
+        const result = stripAnsi(lastFrame() ?? '');
+
+        expect(result).toMatchInlineSnapshot(`
+          "✓ pkg-one (0)
+          ✓ pkg-two (0)
+          ✓ pkg-three (0)
+
+          Packages:    0 failed 3 passed (3)
+          Constraints: 0 failed 2 passed (2)"
+        `);
+      });
+    });
+
+    describe('and verbose is true', () => {
+      it('matches the snapshot', () => {
+        vi.mocked(useAsyncFn).mockReturnValue({
+          status: 'success',
+          data: [],
+          error: undefined,
+          isLoading: false,
+          isSuccess: true,
+          isError: false,
+          refetch: () => Promise.resolve(),
+        });
+
+        const { lastFrame } = renderComponent({ verbose: true });
+        const result = stripAnsi(lastFrame() ?? '');
+
+        expect(result).toMatchInlineSnapshot(`
+          "✓ pkg-one (0)
+          │  No internal dependencies
+          │
+          ✓ pkg-two (0)
+          │  No internal dependencies
+          │
+          ✓ pkg-three (0)
+          │  No internal dependencies
+          │
+
+          Packages:    0 failed 3 passed (3)
+          Constraints: 0 failed 2 passed (2)"
+        `);
+      });
+    });
+  });
+
   describe('when all tests pass', () => {
     const renderComponent = ({ verbose }: { verbose: boolean }) =>
       render(
@@ -110,12 +203,24 @@ describe('constrain', () => {
               type: PackageType.NODE,
               path: '/path',
             },
+            {
+              name: 'pkg-three',
+              version: '1.0.0',
+              type: PackageType.NODE,
+              path: '/path',
+            },
           ]}
           tagsData={[{ packageName: 'pkg-one', tags: ['tag-one'] }]}
           dependencies={[
             {
               source: 'pkg-one',
               target: 'pkg-two',
+              version: '1.0.0',
+              type: DependencyType.DEVELOPMENT,
+            },
+            {
+              source: 'pkg-two',
+              target: 'pkg-three',
               version: '1.0.0',
               type: DependencyType.DEVELOPMENT,
             },
@@ -142,8 +247,9 @@ describe('constrain', () => {
         expect(result).toMatchInlineSnapshot(`
           "✓ pkg-one (1)
           ✓ pkg-two (0)
+          ✓ pkg-three (0)
 
-          Packages:    0 failed 2 passed (2)
+          Packages:    0 failed 3 passed (3)
           Constraints: 0 failed 2 passed (2)"
         `);
       });
@@ -170,10 +276,13 @@ describe('constrain', () => {
           │      Allowed: All packages
           │
           ✓ pkg-two (0)
-            No constraints
+          │  No constraints for internal dependencies
+          │
+          ✓ pkg-three (0)
+          │  No internal dependencies
+          │
 
-
-          Packages:    0 failed 2 passed (2)
+          Packages:    0 failed 3 passed (3)
           Constraints: 0 failed 2 passed (2)"
         `);
       });
@@ -283,24 +392,24 @@ describe('constrain', () => {
           "❯ pkg-one (4)
           │ /path/commonality.json
           │
-          ↳ pass #tag-one → pkg-two development
-          │      Disallowed: #tag-three
-          │
           ↳ fail #tag-one → pkg-three development
           │      Disallowed: #tag-three
           │
-          ↳ pass #tag-two → pkg-two development
-          │      Disallowed: #tag-five
+          ↳ pass #tag-one → pkg-two development
+          │      Disallowed: #tag-three
           │
           ↳ fail #tag-two → pkg-three development
           │      Disallowed: #tag-five
           │
+          ↳ pass #tag-two → pkg-two development
+          │      Disallowed: #tag-five
+          │
           ✓ pkg-two (0)
-            No constraints
-
+          │  No internal dependencies
+          │
           ✓ pkg-three (0)
-            No constraints
-
+          │  No internal dependencies
+          │
 
           Packages:    1 failed 2 passed (3)
           Constraints: 1 failed 1 passed (2)"
@@ -386,14 +495,14 @@ describe('constrain', () => {
 
         expect(result).toMatchInlineSnapshot(`
           "✓ pkg-one (0)
-            No constraints
-
+          │  No constraints for internal dependencies
+          │
           ✓ pkg-two (0)
-            No constraints
-
+          │  No internal dependencies
+          │
           ✓ pkg-three (0)
-            No constraints
-
+          │  No internal dependencies
+          │
 
           Packages:    0 failed 3 passed (3)
           Constraints: 0 failed 0 passed (0)"
@@ -475,20 +584,14 @@ describe('constrain', () => {
 
         expect(result).toMatchInlineSnapshot(`
           "✓ pkg-one (0)
-
-           pass  #tag-one
-                No matching dependencies
-
-
-           pass  #tag-two
-                No matching dependencies
-
+          │  No internal dependencies
+          │
           ✓ pkg-two (0)
-            No constraints
-
+          │  No internal dependencies
+          │
           ✓ pkg-three (0)
-            No constraints
-
+          │  No internal dependencies
+          │
 
           Packages:    0 failed 3 passed (3)
           Constraints: 0 failed 2 passed (2)"

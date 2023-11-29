@@ -48,20 +48,6 @@ function DependencyList({
   verbose: boolean;
   filter: string;
 }) {
-  if (dependencies.length === 0) {
-    return (
-      <Box paddingY={1} flexDirection="column">
-        <Box gap={1}>
-          <Text color="green">{' pass '}</Text>
-          <Text>{filter === '*' ? 'All packages' : formatTagName(filter)}</Text>
-        </Box>
-        <Box paddingLeft={6}>
-          <Text dimColor>No matching dependencies</Text>
-        </Box>
-      </Box>
-    );
-  }
-
   return dependencies.map((dependency) => {
     const violationForDependency = violations.find(
       (violation) =>
@@ -107,18 +93,36 @@ function ConstraintList({
   constraints: Array<[string, Constraint]>;
   verbose: boolean;
 }) {
-  if (constraints.length === 0 && verbose) {
+  if (dependencies.length === 0 && verbose) {
     return (
-      <Box paddingLeft={2} paddingBottom={1}>
-        <Text dimColor>No constraints</Text>
+      <Box
+        paddingLeft={2}
+        paddingBottom={1}
+        borderDimColor
+        borderTop={false}
+        borderRight={false}
+        borderBottom={false}
+        borderStyle="single"
+        flexDirection="column"
+      >
+        <Text dimColor>No internal dependencies</Text>
       </Box>
     );
   }
 
-  if (dependencies.length === 0 && verbose && constraints.length === 0) {
+  if (constraints.length === 0 && verbose) {
     return (
-      <Box paddingBottom={1}>
-        <Text dimColor>No local dependencies</Text>
+      <Box
+        paddingLeft={2}
+        paddingBottom={1}
+        borderDimColor
+        borderTop={false}
+        borderRight={false}
+        borderBottom={false}
+        borderStyle="single"
+        flexDirection="column"
+      >
+        <Text dimColor>No constraints for internal dependencies</Text>
       </Box>
     );
   }
@@ -269,7 +273,7 @@ export function ConstraintValidator({
                 verbose={verbose}
                 violations={violations}
                 constraints={shownConstraints}
-                dependencies={dependencies}
+                dependencies={dependenciesForPackage}
                 packages={packages}
               />
             </Box>
