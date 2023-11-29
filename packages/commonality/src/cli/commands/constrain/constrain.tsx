@@ -254,7 +254,8 @@ export function ConstraintValidator({
           const result = violationsForPackage.length > 0 ? 'fail' : 'pass';
 
           const itemCount =
-            dependenciesForPackage.length * shownConstraints.length;
+            Object.keys(constraintsForPackage).length *
+            dependenciesForPackage.length;
 
           return (
             <Box key={pkg.name} flexDirection="column">

@@ -140,7 +140,7 @@ describe('constrain', () => {
         const result = stripAnsi(lastFrame() ?? '');
 
         expect(result).toMatchInlineSnapshot(`
-          "✓ pkg-one (0)
+          "✓ pkg-one (1)
           ✓ pkg-two (0)
 
           Packages:    0 failed 2 passed (2)
@@ -258,7 +258,7 @@ describe('constrain', () => {
         const result = stripAnsi(lastFrame() ?? '');
         cleanup();
         expect(result).toMatchInlineSnapshot(`
-          "❯ pkg-one (2)
+          "❯ pkg-one (4)
           │ /path/commonality.json
           │
           ↳ fail #tag-one → pkg-three development
