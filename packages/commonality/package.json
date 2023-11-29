@@ -22,13 +22,13 @@
     "access": "public"
   },
   "scripts": {
-    "clean": "rimraf ./dist",
     "build:cli": "tsup --config tsup.config.cli.ts",
     "build:utilities": "tsup --config tsup.config.utilities.ts",
     "copy:studio": "node ./scripts/copy-studio.js",
     "build": "npm-run-all clean build:* copy:studio",
     "dev:cli": "tsup --config tsup.config.cli.ts --watch",
     "dev:utilities": "tsup --config tsup.config.utilities.ts --watch",
+    "clean": "rimraf ./dist",
     "dev": "pnpm run clean && npm-run-all --parallel dev:*",
     "postbuild": "tsc --emitDeclarationOnly --declaration",
     "lint": "eslint ./src --fix",
@@ -74,18 +74,16 @@
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/data-codeowners": "workspace:*",
-    "@commonalityco/data-conformance": "workspace:*",
     "@commonalityco/data-documents": "workspace:*",
     "@commonalityco/data-packages": "workspace:*",
     "@commonalityco/data-project": "workspace:*",
     "@commonalityco/data-tags": "workspace:*",
     "@commonalityco/data-violations": "workspace:*",
-    "@commonalityco/data-workspaces": "workspace:*",
     "@commonalityco/studio": "workspace:*",
     "@commonalityco/types": "workspace:*",
-    "@commonalityco/utils-conformance": "workspace:*",
+    "@commonalityco/feature-conformance": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
-    "@commonalityco/utils-file": "workspace:*",
+    "@commonalityco/toolkit": "workspace:*",
     "@swc/core": "^1.3.86",
     "@types/configstore": "^6.0.0",
     "@types/fs-extra": "^11.0.2",
@@ -93,7 +91,7 @@
     "@types/lodash.get": "^4.4.7",
     "@types/lodash.omit": "^4.5.7",
     "@types/lodash.set": "^4.3.7",
-    "@types/node": "^20.6.3",
+    "@types/node": "^20.10.0",
     "@types/react": "^18.2.22",
     "@types/update-notifier": "^6.0.5",
     "@types/wait-on": "^5.3.1",
@@ -103,7 +101,7 @@
     "resolve": "^1.22.6",
     "strip-ansi": "^7.1.0",
     "ts-node": "^10.9.1",
-    "tsup": "^7.2.0",
+    "tsup": "^8.0.1",
     "typescript": "^5.2.2"
   }
 }

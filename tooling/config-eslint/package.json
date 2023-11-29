@@ -23,5 +23,6 @@
   "devDependencies": {
     "typescript": "^5.2.2"
   },
-  "repository": "https://github.com/commonalityco/commonality/tooling/config-eslint"
+  "repository": "https://github.com/commonalityco/commonality/tooling/config-eslint",
+  "scripts": {}
 }

@@ -1,13 +1,14 @@
 /* eslint-disable unicorn/no-process-exit */
 import React, { Fragment } from 'react';
-import { runFixes } from '@commonalityco/utils-conformance';
-import { getConformanceResults } from '@commonalityco/data-conformance';
+import { runFixes } from '@commonalityco/feature-conformance';
+import { getConformanceResults } from '@commonalityco/feature-conformance';
 import { Command } from 'commander';
 import { getRootDirectory } from '@commonalityco/data-project';
 import {
   CodeownersData,
   ConformanceResult,
   Conformer,
+  Package,
   TagsData,
   Workspace,
 } from '@commonalityco/types';
@@ -18,11 +19,9 @@ import { useAsyncFn } from '../utils/use-async-fn.js';
 import { CheckTagsData } from '../components/check-tags-data.js';
 import { TotalMessage } from '../components/total-message.js';
 import { CheckConformers } from '../components/check-conformers.js';
-import { CheckWorkspaces } from '../components/check-workspaces.js';
 import path from 'node:path';
-import { getCodeownersData } from '@commonalityco/data-codeowners';
-import { getPackages } from '@commonalityco/data-packages';
 import { CheckCodeownersData } from '../components/check-codeowners-data.js';
+import { CheckPackages } from '../components/check-packages.js';
 
 const command = new Command();
 
@@ -101,8 +100,7 @@ export const ConformRunner = ({
   verbose,
   conformersByPattern,
   rootDirectory,
-  workspaces,
-  rootWorkspace,
+  packages,
   tagsData,
   codeownersData,
   onError = () => {},
@@ -110,8 +108,7 @@ export const ConformRunner = ({
   verbose: boolean;
   conformersByPattern: Record<string, Conformer[]>;
   rootDirectory: string;
-  workspaces: Workspace[];
-  rootWorkspace: Workspace;
+  packages: Package[];
   tagsData: TagsData[];
   onError?: (error: Error) => void;
   codeownersData: CodeownersData[];
@@ -120,9 +117,8 @@ export const ConformRunner = ({
   const { data, refetch, isLoading, error } = useAsyncFn(async () => {
     return await getConformanceResults({
       conformersByPattern,
-      rootWorkspace,
       rootDirectory,
-      workspaces,
+      packages,
       tagsData,
       codeownersData,
     });
@@ -132,7 +128,7 @@ export const ConformRunner = ({
 
   const resultsByPackageName: Record<string, ConformanceResult[]> = {};
   for (const result of results) {
-    const packageName = result.workspace.packageJson.name as string;
+    const packageName = result.package.name;
     if (!resultsByPackageName[packageName]) {
       resultsByPackageName[packageName] = [];
     }
@@ -211,7 +207,7 @@ export const ConformRunner = ({
                           >
                             <Text dimColor>
                               {path.join(
-                                conformanceResult.workspace.relativePath,
+                                conformanceResult.package.path,
                                 conformanceResult.message.filepath,
                               )}
                             </Text>
@@ -265,8 +261,8 @@ export const ConformRunner = ({
             autoFixCount={autoFixCount}
             onAccept={async () => {
               await runFixes({
-                rootWorkspace,
-                workspaces,
+                rootDirectory,
+                allPackages: packages,
                 conformanceResults: results,
                 codeownersData,
                 tagsData,
@@ -299,19 +295,18 @@ export const ConformCommand = ({
       <CheckConformers loadingMessage={<CheckSpinner />}>
         {({ conformers }) => {
           return (
-            <CheckWorkspaces loadingMessage={<CheckSpinner />}>
-              {({ workspaces, rootWorkspace }) => (
+            <CheckPackages loadingMessage={<CheckSpinner />}>
+              {({ packages }) => (
                 <CheckTagsData loadingMessage={<CheckSpinner />}>
                   {({ tagsData }) => (
                     <CheckCodeownersData loadingMessage={<CheckSpinner />}>
                       {({ codeownersData }) => (
                         <ConformRunner
-                          rootWorkspace={rootWorkspace}
+                          packages={packages}
                           verbose={verbose}
                           codeownersData={codeownersData}
                           conformersByPattern={conformers}
                           rootDirectory={rootDirectory}
-                          workspaces={workspaces}
                           tagsData={tagsData}
                           onError={(error) => {
                             console.log(error);
@@ -323,7 +318,7 @@ export const ConformCommand = ({
                   )}
                 </CheckTagsData>
               )}
-            </CheckWorkspaces>
+            </CheckPackages>
           );
         }}
       </CheckConformers>

@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@commonalityco/data-codeowners": "workspace:*",
-    "@commonalityco/data-conformance": "workspace:*",
+    "@commonalityco/feature-conformance": "workspace:*",
     "@commonalityco/data-documents": "workspace:*",
     "@commonalityco/data-graph": "workspace:*",
     "@commonalityco/data-graph-worker": "workspace:*",
@@ -79,7 +79,7 @@
     "@total-typescript/ts-reset": "^0.5.1",
     "@types/fs-extra": "^11.0.2",
     "@types/lodash": "^4.14.198",
-    "@types/node": "^20.6.3",
+    "@types/node": "^20.10.0",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "@types/resolve": "^1.20.2",

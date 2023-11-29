@@ -71,7 +71,6 @@ export type Package = {
 export type Workspace = {
   path: string;
   relativePath: string;
-  packageJson: PackageJson;
 };
 
 export type ValidationResult =
@@ -82,49 +81,6 @@ export type ValidationResult =
   | boolean
   | undefined
   | null;
-
-export interface File {
-  exists: () => Promise<boolean>;
-  delete: () => Promise<void>;
-}
-
-export interface JsonFile extends File {
-  get<T extends Record<string, unknown>>(): Promise<T | undefined>;
-  contains(value: Record<string, unknown>): Promise<boolean>;
-  set(value: Record<string, unknown>): Promise<void>;
-  merge(value: Record<string, unknown>): Promise<void>;
-  remove(path: string): Promise<void>;
-}
-
-export type JsonFileCreator = (
-  filename: string,
-  options?: {
-    onRead?: (
-      filepath: string,
-    ) => Record<string, unknown> | Promise<Record<string, unknown>>;
-    onWrite?: (filePath: string, data: unknown) => Promise<void> | void;
-    onDelete?: (filePath: string) => Promise<void> | void;
-    onExists?: (filePath: string) => Promise<boolean> | boolean;
-  },
-) => JsonFile;
-
-export interface TextFile extends File {
-  get(): Promise<string[]>;
-  contains(lines: string[]): Promise<boolean>;
-  set(lines: string[]): Promise<void>;
-  add(lines: string[]): Promise<void>;
-  remove(lines: string[]): Promise<void>;
-}
-
-export type TextFileCreator = (
-  filename: string,
-  options?: {
-    onRead?: (filepath: string) => string | Promise<string>;
-    onWrite?: (filePath: string, data: string) => Promise<void> | void;
-    onDelete?: (filePath: string) => Promise<void> | void;
-    onExists?: (filePath: string) => Promise<boolean> | boolean;
-  },
-) => TextFile;
 
 export type FileCreatorFactory<File> = ({
   rootDirectory,
@@ -139,8 +95,6 @@ export type ConformerOptions = {
   rootWorkspace: Workspace;
   codeowners: Codeowner[];
   tags: Tag[];
-  json: JsonFileCreator;
-  text: TextFileCreator;
 };
 
 export type ConformerFn<T> = (opts: ConformerOptions) => T | Promise<T>;
@@ -171,7 +125,7 @@ export type ConformanceResult = {
   fix?: ConformerFn<void>;
   level: 'error' | 'warning';
   isValid: boolean;
-  workspace: Workspace;
+  package: Package;
   message: Message;
 };
 
@@ -190,58 +144,53 @@ export type PackageConfig = {
   tags?: string[];
 };
 
-export type PackageJson = Readonly<{
+export type PackageJson = {
   name?: string;
   version?: string;
   description?: string;
   keywords?: string[];
   homepage?: string;
-  bugs?: string | Readonly<{ url?: string; email?: string }>;
+  bugs?: string | { url?: string; email?: string };
   license?: string;
-  author?: string | Readonly<{ name: string; email?: string; url?: string }>;
-  contributors?: ReadonlyArray<
-    string | Readonly<{ name: string; email?: string; url?: string }>
-  >;
+  author?: string | { name: string; email?: string; url?: string };
+  contributors?: Array<string | { name: string; email?: string; url?: string }>;
   funding?:
     | string
-    | Readonly<{ type: string; url: string }>
-    | ReadonlyArray<string | Readonly<{ type: string; url: string }>>;
+    | { type: string; url: string }
+    | Array<string | { type: string; url: string }>;
   files?: string[];
   main?: string;
   browser?: string;
-  bin?: Readonly<Record<string, string>>;
+  bin?: Record<string, string>;
   man?: string | string[];
-  directories?: Readonly<{
+  directories?: {
     bin?: string;
     man?: string;
     doc?: string;
     example?: string;
     lib?: string;
     test?: string;
-  }>;
-  repository?:
-    | string
-    | Readonly<{ type: string; url: string; directory?: string }>;
-  scripts?: Readonly<Record<string, string>>;
-  config?: Readonly<Record<string, unknown>>;
-  dependencies?: Readonly<Record<string, string>>;
-  devDependencies?: Readonly<Record<string, string>>;
-  peerDependencies?: Readonly<Record<string, string>>;
-  peerDependenciesMeta?: Readonly<
-    Record<string, Readonly<{ optional: boolean }>>
-  >;
-  bundledDependencies?: ReadonlyArray<string> | boolean;
-  bundleDependencies?: ReadonlyArray<string> | boolean;
-  optionalDependencies?: Readonly<Record<string, string>>;
-  overrides?: Readonly<Record<string, unknown>>;
-  engines?: Readonly<{ node?: string; npm?: string }>;
-  os?: ReadonlyArray<string>;
-  cpu?: ReadonlyArray<string>;
+  };
+  repository?: string | { type: string; url: string; directory?: string };
+  scripts?: Record<string, string>;
+  config?: Record<string, unknown>;
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+  peerDependenciesMeta?: Record<string, { optional: boolean }>;
+  bundledDependencies?: Array<string> | boolean;
+  bundleDependencies?: Array<string> | boolean;
+  optionalDependencies?: Record<string, string>;
+  overrides?: Record<string, unknown>;
+  engines?: { node?: string; npm?: string };
+  os?: Array<string>;
+  cpu?: Array<string>;
   private?: boolean;
-  publishConfig?: Readonly<Record<string, unknown>>;
+  publishConfig?: Record<string, unknown>;
   workspaces?: string[];
   [key: string]: unknown;
-}>;
+};
+
 export type SnapshotResult = {
   url: string;
 };

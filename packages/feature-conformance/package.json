@@ -1,0 +1,43 @@
+{
+  "name": "@commonalityco/feature-conformance",
+  "description": "Get conformance information about a local project",
+  "version": "0.0.17",
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "exports": {
+      ".": "./dist/index.js"
+    },
+    "types": "./dist/index.d.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@commonalityco/toolkit": "workspace:*"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "@commonalityco/toolkit": "workspace:*",
+    "@types/mock-fs": "^4.13.4",
+    "eslint-config-commonality": "workspace:*",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "jest-diff": "^29.7.0",
+    "mock-fs": "^5.2.0",
+    "strip-ansi": "^7.1.0"
+  },
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "repository": "https://github.com/commonalityco/commonality/packages/feature-conformance"
+}

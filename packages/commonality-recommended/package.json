@@ -1,0 +1,47 @@
+{
+  "name": "commonality-recommended",
+  "description": "Commonality's recommended conformers.",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "commonality": "*"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/data-codeowners": "workspace:*",
+    "@commonalityco/data-documents": "workspace:*",
+    "@commonalityco/data-packages": "workspace:*",
+    "@commonalityco/data-project": "workspace:*",
+    "@commonalityco/data-tags": "workspace:*",
+    "@commonalityco/toolkit": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "@types/mock-fs": "^4.13.4",
+    "@types/semver": "^7.5.6",
+    "@types/validate-npm-package-name": "^4.0.2",
+    "commonality": "workspace:*",
+    "eslint-config-commonality": "workspace:*",
+    "mock-fs": "^5.2.0",
+    "strip-ansi": "^7.1.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "semver": "^7.5.4",
+    "validate-npm-package-name": "^5.0.0"
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/commonality-conform-recommended"
+}

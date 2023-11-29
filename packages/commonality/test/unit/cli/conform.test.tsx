@@ -5,8 +5,9 @@ import { ConformRunner } from '../../../src/cli/commands/conform.js';
 import stripAnsi from 'strip-ansi';
 import { useAsyncFn } from '../../../src/cli/utils/use-async-fn.js';
 import { ConformanceResult } from '@commonalityco/types';
-import { getConformanceResults } from '@commonalityco/data-conformance';
+import { getConformanceResults } from '@commonalityco/feature-conformance';
 import * as ink from 'ink';
+import { PackageType } from '@commonalityco/utils-core';
 
 vi.mock('../../../src/cli/utils/use-async-fn.js', async () => {
   return {
@@ -21,11 +22,11 @@ vi.mock('ink', async () => ({
   useInput: vi.fn(),
 }));
 
-vi.mock('@commonalityco/utils-conformance', async () => ({
+vi.mock('@commonalityco/feature-conformance', async () => ({
   runFixes: vi.fn(),
 }));
 
-vi.mock('@commonalityco/data-conformance', async () => ({
+vi.mock('@commonalityco/feature-conformance', async () => ({
   getConformanceResults: vi.fn(),
 }));
 
@@ -60,11 +61,12 @@ describe('when results are loading', () => {
 
     const { lastFrame } = render(
       <ConformRunner
-        workspaces={[]}
         verbose={false}
         conformersByPattern={{ '*': [] }}
         rootDirectory={'/root'}
         tagsData={[]}
+        codeownersData={[]}
+        packages={[]}
       />,
     );
 
@@ -83,7 +85,8 @@ describe('when there is an error loading results', () => {
 
     const { lastFrame } = render(
       <ConformRunner
-        workspaces={[]}
+        codeownersData={[]}
+        packages={[]}
         verbose={false}
         conformersByPattern={{ '*': [] }}
         rootDirectory={'/root'}
@@ -109,13 +112,11 @@ describe('when all checks pass', () => {
           pattern: '*',
           level: 'warning',
           isValid: true,
-          workspace: {
+          package: {
             path: '/path',
-            tags: [],
-            codeowners: [],
-            packageJson: {
-              name: 'pkg-one',
-            },
+            name: 'pkg-one',
+            version: '1.0.0',
+            type: PackageType.NODE,
           },
           message: { title: 'This package should be cool' },
         },
@@ -124,13 +125,11 @@ describe('when all checks pass', () => {
           pattern: '*',
           level: 'warning',
           isValid: true,
-          workspace: {
+          package: {
             path: '/path',
-            tags: [],
-            codeowners: [],
-            packageJson: {
-              name: 'pkg-two',
-            },
+            name: 'pkg-two',
+            version: '1.0.0',
+            type: PackageType.NODE,
           },
           message: { title: 'This package should be cool' },
         },
@@ -138,7 +137,8 @@ describe('when all checks pass', () => {
 
       const { lastFrame } = render(
         <ConformRunner
-          workspaces={[]}
+          codeownersData={[]}
+          packages={[]}
           verbose={false}
           conformersByPattern={{ '*': [] }}
           rootDirectory={'/root'}
@@ -173,13 +173,11 @@ describe('when all checks pass', () => {
           pattern: '*',
           level: 'warning',
           isValid: true,
-          workspace: {
+          package: {
             path: '/path',
-            tags: [],
-            codeowners: [],
-            packageJson: {
-              name: 'pkg-one',
-            },
+            name: 'pkg-one',
+            version: '1.0.0',
+            type: PackageType.NODE,
           },
           message: { title: 'This package should be cool' },
         },
@@ -188,13 +186,11 @@ describe('when all checks pass', () => {
           pattern: '*',
           level: 'warning',
           isValid: true,
-          workspace: {
+          package: {
             path: '/path',
-            tags: [],
-            codeowners: [],
-            packageJson: {
-              name: 'pkg-two',
-            },
+            name: 'pkg-two',
+            version: '1.0.0',
+            type: PackageType.NODE,
           },
           message: { title: 'This package should be cool' },
         },
@@ -202,7 +198,8 @@ describe('when all checks pass', () => {
 
       const { lastFrame } = render(
         <ConformRunner
-          workspaces={[]}
+          codeownersData={[]}
+          packages={[]}
           verbose={true}
           conformersByPattern={{ '*': [] }}
           rootDirectory={'/root'}
@@ -240,13 +237,11 @@ describe('when checks fail', () => {
         pattern: '*',
         level: 'warning',
         isValid: true,
-        workspace: {
+        package: {
           path: '/path',
-          tags: [],
-          codeowners: [],
-          packageJson: {
-            name: 'pkg-one',
-          },
+          name: 'pkg-one',
+          version: '1.0.0',
+          type: PackageType.NODE,
         },
         message: { title: 'This package is bad' },
       },
@@ -255,13 +250,11 @@ describe('when checks fail', () => {
         pattern: '*',
         level: 'warning',
         isValid: false,
-        workspace: {
+        package: {
           path: '/path',
-          tags: [],
-          codeowners: [],
-          packageJson: {
-            name: 'pkg-two',
-          },
+          name: 'pkg-two',
+          version: '1.0.0',
+          type: PackageType.NODE,
         },
         message: { title: 'This package should be cool' },
       },
@@ -269,7 +262,8 @@ describe('when checks fail', () => {
 
     const { lastFrame } = render(
       <ConformRunner
-        workspaces={[]}
+        codeownersData={[]}
+        packages={[]}
         verbose={false}
         conformersByPattern={{ '*': [] }}
         rootDirectory={'/root'}
@@ -303,13 +297,11 @@ describe('when checks fail', () => {
         pattern: '*',
         level: 'warning',
         isValid: true,
-        workspace: {
+        package: {
           path: '/path',
-          tags: [],
-          codeowners: [],
-          packageJson: {
-            name: 'pkg-one',
-          },
+          name: 'pkg-one',
+          version: '1.0.0',
+          type: PackageType.NODE,
         },
         message: { title: 'This package is bad' },
       },
@@ -318,13 +310,11 @@ describe('when checks fail', () => {
         pattern: '*',
         level: 'warning',
         isValid: false,
-        workspace: {
+        package: {
           path: '/path',
-          tags: [],
-          codeowners: [],
-          packageJson: {
-            name: 'pkg-two',
-          },
+          name: 'pkg-two',
+          version: '1.0.0',
+          type: PackageType.NODE,
         },
         message: { title: 'This package should be cool' },
       },
@@ -332,7 +322,8 @@ describe('when checks fail', () => {
 
     const { lastFrame } = render(
       <ConformRunner
-        workspaces={[]}
+        codeownersData={[]}
+        packages={[]}
         verbose={true}
         conformersByPattern={{ '*': [] }}
         rootDirectory={'/root'}
@@ -369,13 +360,11 @@ describe('when checks fail with fixable issues', () => {
         pattern: '*',
         level: 'warning',
         isValid: true,
-        workspace: {
+        package: {
           path: '/path',
-          tags: [],
-          codeowners: [],
-          packageJson: {
-            name: 'pkg-one',
-          },
+          name: 'pkg-one',
+          version: '1.0.0',
+          type: PackageType.NODE,
         },
         message: { title: 'This package is bad' },
         fix: () => {},
@@ -385,13 +374,11 @@ describe('when checks fail with fixable issues', () => {
         pattern: '*',
         level: 'warning',
         isValid: false,
-        workspace: {
+        package: {
           path: '/path',
-          tags: [],
-          codeowners: [],
-          packageJson: {
-            name: 'pkg-two',
-          },
+          name: 'pkg-two',
+          version: '1.0.0',
+          type: PackageType.NODE,
         },
         message: { title: 'This package should be cool' },
         fix: () => {},
@@ -400,7 +387,8 @@ describe('when checks fail with fixable issues', () => {
 
     const { lastFrame, stdout } = render(
       <ConformRunner
-        workspaces={[]}
+        codeownersData={[]}
+        packages={[]}
         verbose={false}
         conformersByPattern={{ '*': [] }}
         rootDirectory={'/root'}

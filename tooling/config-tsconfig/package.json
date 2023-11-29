@@ -13,5 +13,6 @@
     "react-library.json",
     "next.json"
   ],
-  "repository": "https://github.com/commonalityco/commonality/tooling/config-tsconfig"
+  "repository": "https://github.com/commonalityco/commonality/tooling/config-tsconfig",
+  "scripts": {}
 }
