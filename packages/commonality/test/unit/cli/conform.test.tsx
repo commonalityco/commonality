@@ -1,421 +1,529 @@
-import React from 'react';
-import { render } from 'ink-testing-library';
-import { describe, expect, it, vi } from 'vitest';
-import { ConformRunner } from '../../../src/cli/commands/conform.js';
-import stripAnsi from 'strip-ansi';
-import { useAsyncFn } from '../../../src/cli/utils/use-async-fn.js';
+import { beforeEach, describe, expect, it, test, vi } from 'vitest';
+import { action as conform } from '../../../src/cli/commands/conform.js';
+import process from 'node:process';
+import console from 'node:console';
 import { ConformanceResult } from '@commonalityco/types';
-import { getConformanceResults } from '@commonalityco/feature-conformance';
-import * as ink from 'ink';
 import { PackageType } from '@commonalityco/utils-core';
+import stripAnsi from 'strip-ansi';
+import prompts from 'prompts';
 
-vi.mock('../../../src/cli/utils/use-async-fn.js', async () => {
-  return {
-    ...(await vi.importActual<typeof useAsyncFn>(
-      '../../../src/cli/utils/use-async-fn.js',
-    )),
-  };
-});
-
-vi.mock('ink', async () => ({
-  ...(await vi.importActual<typeof ink>('ink')),
-  useInput: vi.fn(),
+vi.mock('node:process', async () => ({
+  default: {
+    ...(await vi.importActual<NodeJS.Process>('node:process')),
+    exit: vi.fn(),
+  },
 }));
 
-vi.mock('@commonalityco/feature-conformance', async () => ({
-  runFixes: vi.fn(),
+vi.mock('node:console', async () => ({
+  default: {
+    ...(await vi.importActual<Console>('node:console')),
+    log: vi.fn().mockImplementation(() => {}),
+  },
 }));
 
-vi.mock('@commonalityco/feature-conformance', async () => ({
-  getConformanceResults: vi.fn(),
-}));
+const mockError = new Error('this-is-an-error');
+mockError.stack = 'mock-stack';
 
-type WaitForOptions = {
-  interval?: number;
-  timeout?: number;
+const getConsoleCalls = () => {
+  return vi
+    .mocked(console.log)
+    .mock.calls.map((call) => call.map((item) => stripAnsi(item)));
 };
 
-async function waitFor(
-  predicate: () => boolean | Promise<boolean>,
-  { interval = 50, timeout = 5000 }: WaitForOptions = {},
-): Promise<void> {
-  const start = Date.now();
-
-  const check = async () => {
-    if (await predicate()) {
-      return;
-    }
-    if (Date.now() - start > timeout) {
-      throw new Error('waitFor timed out');
-    }
-    await new Promise((resolve) => setTimeout(resolve, interval));
-    await check();
-  };
-
-  await check();
-}
-
-describe('when results are loading', () => {
-  it('should match the snapshot', () => {
-    vi.mocked(getConformanceResults).mockResolvedValue([]);
-
-    const { lastFrame } = render(
-      <ConformRunner
-        verbose={false}
-        conformersByPattern={{ '*': [] }}
-        rootDirectory={'/root'}
-        tagsData={[]}
-        codeownersData={[]}
-        packages={[]}
-      />,
-    );
-
-    const result = stripAnsi(lastFrame() ?? '');
-
-    expect(result).toMatchInlineSnapshot('"⠋ Running checks..."');
+describe('conform', () => {
+  beforeEach(() => {
+    vi.mocked(process.exit).mockReset();
+    vi.mocked(console.log).mockReset();
   });
-});
 
-describe('when there is an error loading results', () => {
-  it('should call the onError callback', async () => {
-    const onError = vi.fn();
-    const mockError = new Error('hello');
-
-    vi.mocked(getConformanceResults).mockRejectedValue(mockError);
-
-    const { lastFrame } = render(
-      <ConformRunner
-        codeownersData={[]}
-        packages={[]}
-        verbose={false}
-        conformersByPattern={{ '*': [] }}
-        rootDirectory={'/root'}
-        tagsData={[]}
-        onError={onError}
-      />,
-    );
-
-    await waitFor(() => {
-      return lastFrame() === '';
-    });
-
-    expect(onError).toHaveBeenCalledWith(mockError);
-  });
-});
-
-describe('when all checks pass', () => {
-  describe('and verbose is false', () => {
-    it('should match the snapshot', async () => {
-      vi.mocked(getConformanceResults).mockResolvedValue([
-        {
-          name: 'CONFORMER_NAME/ONE',
-          pattern: '*',
-          level: 'warning',
-          isValid: true,
-          package: {
-            path: '/path',
-            name: 'pkg-one',
-            version: '1.0.0',
-            type: PackageType.NODE,
-          },
-          message: { title: 'This package should be cool' },
+  describe('when there is an error getting results', () => {
+    it('should exit the process with status code 1', async () => {
+      await conform({
+        verbose: false,
+        getResults: async () => {
+          throw mockError;
         },
-        {
-          name: 'CONFORMER_NAME/TWO',
-          pattern: '*',
-          level: 'warning',
-          isValid: true,
-          package: {
-            path: '/path',
-            name: 'pkg-two',
-            version: '1.0.0',
-            type: PackageType.NODE,
-          },
-          message: { title: 'This package should be cool' },
-        },
-      ] satisfies ConformanceResult[]);
-
-      const { lastFrame } = render(
-        <ConformRunner
-          codeownersData={[]}
-          packages={[]}
-          verbose={false}
-          conformersByPattern={{ '*': [] }}
-          rootDirectory={'/root'}
-          tagsData={[]}
-        />,
-      );
-
-      await waitFor(() => {
-        const result = stripAnsi(lastFrame() ?? '');
-
-        return !result.includes('Running checks...');
+        onFix: vi.fn(),
       });
 
-      const result = stripAnsi(lastFrame() ?? '');
+      expect(process.exit).toHaveBeenCalledWith(1);
+    });
 
-      expect(result).toMatchInlineSnapshot(`
-        "
+    it('output should match snapshot', async () => {
+      await conform({
+        verbose: false,
+        getResults: async () => {
+          throw mockError;
+        },
+        onFix: vi.fn(),
+      });
+
+      expect(console.log).toHaveBeenCalledTimes(1);
+
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
+         Error:  this-is-an-error
+        mock-stack",
+          ],
+        ]
+      `);
+    });
+  });
+
+  describe('when all checks pass', () => {
+    test('when verbose is false it should match the snapshot', async () => {
+      await conform({
+        verbose: false,
+        getResults: async () => {
+          return [
+            {
+              name: 'CONFORMER_NAME/ONE',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+            },
+          ] satisfies ConformanceResult[];
+        },
+        onFix: vi.fn(),
+      });
+
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
         ✓ pkg-one (1)
         ✓ pkg-two (1)
 
-        Packages: 0 failed 2 passed (2)
-          Checks: 0 failed 2 passed (2)"
+        Packages: 0 failed 0 warnings 2 passed (2)
+          Checks: 0 failed 0 warnings 2 passed (2)",
+          ],
+        ]
       `);
     });
-  });
 
-  describe('and verbose is true', () => {
-    it('should match the snapshot', async () => {
-      vi.mocked(getConformanceResults).mockResolvedValue([
-        {
-          name: 'CONFORMER_NAME/ONE',
-          pattern: '*',
-          level: 'warning',
-          isValid: true,
-          package: {
-            path: '/path',
-            name: 'pkg-one',
-            version: '1.0.0',
-            type: PackageType.NODE,
-          },
-          message: { title: 'This package should be cool' },
+    test('when verbose is true it should match the snapshot', async () => {
+      await conform({
+        verbose: true,
+        getResults: async () => {
+          return [
+            {
+              name: 'CONFORMER_NAME/ONE',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: {
+                title: 'This package should be cool',
+                filepath: 'package.json',
+              },
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+            },
+          ] satisfies ConformanceResult[];
         },
-        {
-          name: 'CONFORMER_NAME/TWO',
-          pattern: '*',
-          level: 'warning',
-          isValid: true,
-          package: {
-            path: '/path',
-            name: 'pkg-two',
-            version: '1.0.0',
-            type: PackageType.NODE,
-          },
-          message: { title: 'This package should be cool' },
-        },
-      ] satisfies ConformanceResult[]);
-
-      const { lastFrame } = render(
-        <ConformRunner
-          codeownersData={[]}
-          packages={[]}
-          verbose={true}
-          conformersByPattern={{ '*': [] }}
-          rootDirectory={'/root'}
-          tagsData={[]}
-        />,
-      );
-
-      await waitFor(() => {
-        const result = stripAnsi(lastFrame() ?? '');
-
-        return !result.includes('Running checks...');
+        onFix: vi.fn(),
       });
 
-      const result = stripAnsi(lastFrame() ?? '');
-
-      expect(result).toMatchInlineSnapshot(`
-        "
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
         ❯ pkg-one (1)
-          ✓ pass This package should be cool
+        ✓ pass This package should be cool
+        │      /path/package.json
         ❯ pkg-two (1)
-          ✓ pass This package should be cool
+        ✓ pass This package should be cool
 
-        Packages: 0 failed 2 passed (2)
-          Checks: 0 failed 2 passed (2)"
+        Packages: 0 failed 0 warnings 2 passed (2)
+          Checks: 0 failed 0 warnings 2 passed (2)",
+          ],
+        ]
       `);
     });
   });
-});
 
-describe('when checks fail', () => {
-  it('should match the snapshot when verbose is false', async () => {
-    vi.mocked(getConformanceResults).mockResolvedValue([
-      {
-        name: 'CONFORMER_NAME/ONE',
-        pattern: '*',
-        level: 'warning',
-        isValid: true,
-        package: {
-          path: '/path',
-          name: 'pkg-one',
-          version: '1.0.0',
-          type: PackageType.NODE,
+  describe('when checks fail', () => {
+    test('when verbose is false it should match the snapshot', async () => {
+      await conform({
+        verbose: false,
+        getResults: async () => {
+          return [
+            {
+              name: 'CONFORMER_NAME/ONE',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be awesome' },
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              pattern: '*',
+              level: 'warning',
+              isValid: false,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+            },
+          ];
         },
-        message: { title: 'This package is bad' },
-      },
-      {
-        name: 'CONFORMER_NAME/TWO',
-        pattern: '*',
-        level: 'warning',
-        isValid: false,
-        package: {
-          path: '/path',
-          name: 'pkg-two',
-          version: '1.0.0',
-          type: PackageType.NODE,
-        },
-        message: { title: 'This package should be cool' },
-      },
-    ] satisfies ConformanceResult[]);
+        onFix: vi.fn(),
+      });
 
-    const { lastFrame } = render(
-      <ConformRunner
-        codeownersData={[]}
-        packages={[]}
-        verbose={false}
-        conformersByPattern={{ '*': [] }}
-        rootDirectory={'/root'}
-        tagsData={[]}
-      />,
-    );
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
+        ✓ pkg-one (1)
+        ❯ pkg-two (1)
+        ⚠ warn This package should be cool
 
-    await waitFor(() => {
-      const result = stripAnsi(lastFrame() ?? '');
-
-      return !result.includes('Running checks...');
+        Packages: 0 failed 1 warnings 1 passed (2)
+          Checks: 0 failed 1 warnings 1 passed (2)",
+          ],
+        ]
+      `);
     });
 
-    const result = stripAnsi(lastFrame() ?? '');
-
-    expect(result).toMatchInlineSnapshot(`
-      "
-      ✓ pkg-one (1)
-      ❯ pkg-two (1)
-        ✘ fail This package should be cool
-
-      Packages: 1 failed 1 passed (2)
-        Checks: 1 failed 1 passed (2)"
-    `);
-  });
-
-  it('should match the snapshot when verbose is true', async () => {
-    vi.mocked(getConformanceResults).mockResolvedValue([
-      {
-        name: 'CONFORMER_NAME/ONE',
-        pattern: '*',
-        level: 'warning',
-        isValid: true,
-        package: {
-          path: '/path',
-          name: 'pkg-one',
-          version: '1.0.0',
-          type: PackageType.NODE,
+    test('when verbose is true it should match the snapshot', async () => {
+      await conform({
+        verbose: true,
+        getResults: async () => {
+          return [
+            {
+              name: 'CONFORMER_NAME/ONE',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be awesome' },
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              pattern: '*',
+              level: 'warning',
+              isValid: false,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+            },
+          ];
         },
-        message: { title: 'This package is bad' },
-      },
-      {
-        name: 'CONFORMER_NAME/TWO',
-        pattern: '*',
-        level: 'warning',
-        isValid: false,
-        package: {
-          path: '/path',
-          name: 'pkg-two',
-          version: '1.0.0',
-          type: PackageType.NODE,
-        },
-        message: { title: 'This package should be cool' },
-      },
-    ] satisfies ConformanceResult[]);
+        onFix: vi.fn(),
+      });
 
-    const { lastFrame } = render(
-      <ConformRunner
-        codeownersData={[]}
-        packages={[]}
-        verbose={true}
-        conformersByPattern={{ '*': [] }}
-        rootDirectory={'/root'}
-        tagsData={[]}
-      />,
-    );
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
+        ❯ pkg-one (1)
+        ✓ pass This package should be awesome
+        ❯ pkg-two (1)
+        ⚠ warn This package should be cool
 
-    await waitFor(() => {
-      const result = stripAnsi(lastFrame() ?? '');
-
-      return !result.includes('Running checks...');
+        Packages: 0 failed 1 warnings 1 passed (2)
+          Checks: 0 failed 1 warnings 1 passed (2)",
+          ],
+        ]
+      `);
     });
 
-    const result = stripAnsi(lastFrame() ?? '');
+    test('when user does not choose to run fixes', async () => {
+      prompts.inject([false]);
 
-    expect(result).toMatchInlineSnapshot(`
-      "
-      ❯ pkg-one (1)
-        ✓ pass This package is bad
-      ❯ pkg-two (1)
-        ✘ fail This package should be cool
+      await conform({
+        verbose: false,
+        getResults: vi
+          .fn()
+          .mockResolvedValueOnce([
+            {
+              name: 'CONFORMER_NAME/ONE',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be awesome' },
+              fix: () => {},
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              pattern: '*',
+              level: 'warning',
+              isValid: false,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+              fix: () => {},
+            },
+          ])
+          .mockResolvedValueOnce([
+            {
+              name: 'CONFORMER_NAME/ONE',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be awesome' },
+              fix: () => {},
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+              fix: () => {},
+            },
+          ]),
+        onFix: vi.fn(),
+      });
 
-      Packages: 1 failed 1 passed (2)
-        Checks: 1 failed 1 passed (2)"
-    `);
-  });
-});
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
+        ✓ pkg-one (1)
+        ❯ pkg-two (1)
+        ⚠ warn This package should be cool
 
-describe('when checks fail with fixable issues', () => {
-  it('should match the snapshot', async () => {
-    vi.mocked(getConformanceResults).mockResolvedValue([
-      {
-        name: 'CONFORMER_NAME/ONE',
-        pattern: '*',
-        level: 'warning',
-        isValid: true,
-        package: {
-          path: '/path',
-          name: 'pkg-one',
-          version: '1.0.0',
-          type: PackageType.NODE,
-        },
-        message: { title: 'This package is bad' },
-        fix: () => {},
-      },
-      {
-        name: 'CONFORMER_NAME/TWO',
-        pattern: '*',
-        level: 'warning',
-        isValid: false,
-        package: {
-          path: '/path',
-          name: 'pkg-two',
-          version: '1.0.0',
-          type: PackageType.NODE,
-        },
-        message: { title: 'This package should be cool' },
-        fix: () => {},
-      },
-    ] satisfies ConformanceResult[]);
-
-    const { lastFrame, stdout } = render(
-      <ConformRunner
-        codeownersData={[]}
-        packages={[]}
-        verbose={false}
-        conformersByPattern={{ '*': [] }}
-        rootDirectory={'/root'}
-        tagsData={[]}
-      />,
-    );
-
-    await waitFor(() => {
-      const result = stripAnsi(stdout.lastFrame() ?? '');
-
-      return !result.includes('Running checks...');
+        Packages: 0 failed 1 warnings 1 passed (2)
+          Checks: 0 failed 1 warnings 1 passed (2)",
+          ],
+        ]
+      `);
     });
 
-    const result = stripAnsi(lastFrame() ?? '');
+    test('when user chooses to run fixes and it is successful', async () => {
+      prompts.inject([true]);
 
-    expect(result).toMatchInlineSnapshot(`
-      "
-      ✓ pkg-one (1)
-      ❯ pkg-two (1)
-        ✘ fail This package should be cool
+      await conform({
+        verbose: false,
+        getResults: vi
+          .fn()
+          .mockResolvedValueOnce([
+            {
+              name: 'CONFORMER_NAME/ONE',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be awesome' },
+              fix: () => {},
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              pattern: '*',
+              level: 'warning',
+              isValid: false,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+              fix: () => {},
+            },
+          ])
+          .mockResolvedValueOnce([
+            {
+              name: 'CONFORMER_NAME/ONE',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be awesome' },
+              fix: () => {},
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              pattern: '*',
+              level: 'warning',
+              isValid: true,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+              fix: () => {},
+            },
+          ]),
+        onFix: vi.fn(),
+      });
 
-      Packages: 1 failed 1 passed (2)
-        Checks: 1 failed 1 passed (2)
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
+        ✓ pkg-one (1)
+        ❯ pkg-two (1)
+        ⚠ warn This package should be cool
 
-      Found 1 fixable issues, run fix functions?
-      press y or enter to run conformers
-      press n or esc to exit"
-    `);
+        Packages: 0 failed 1 warnings 1 passed (2)
+          Checks: 0 failed 1 warnings 1 passed (2)",
+          ],
+          [
+            "",
+          ],
+          [
+            "
+        ✓ pkg-one (1)
+        ✓ pkg-two (1)
+
+        Packages: 0 failed 0 warnings 2 passed (2)
+          Checks: 0 failed 0 warnings 2 passed (2)",
+          ],
+        ]
+      `);
+    });
+
+    test('when user chooses to run fixes and it throws', async () => {
+      prompts.inject([true]);
+
+      await conform({
+        verbose: false,
+        getResults: vi.fn().mockResolvedValueOnce([
+          {
+            name: 'CONFORMER_NAME/ONE',
+            pattern: '*',
+            level: 'warning',
+            isValid: true,
+            package: {
+              path: '/path',
+              name: 'pkg-one',
+              version: '1.0.0',
+              type: PackageType.NODE,
+            },
+            message: { title: 'This package should be awesome' },
+            fix: () => {},
+          },
+          {
+            name: 'CONFORMER_NAME/TWO',
+            pattern: '*',
+            level: 'warning',
+            isValid: false,
+            package: {
+              path: '/path',
+              name: 'pkg-two',
+              version: '1.0.0',
+              type: PackageType.NODE,
+            },
+            message: { title: 'This package should be cool' },
+            fix: () => {},
+          },
+        ]),
+        onFix: vi.fn().mockRejectedValue(mockError),
+      });
+
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
+        ✓ pkg-one (1)
+        ❯ pkg-two (1)
+        ⚠ warn This package should be cool
+
+        Packages: 0 failed 1 warnings 1 passed (2)
+          Checks: 0 failed 1 warnings 1 passed (2)",
+          ],
+          [
+            "",
+          ],
+          [
+            "
+         Error:  this-is-an-error
+        mock-stack",
+          ],
+        ]
+      `);
+    });
   });
 });
