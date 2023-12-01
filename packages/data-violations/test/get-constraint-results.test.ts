@@ -81,6 +81,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'tag-one',
         constraint: {
           allow: '*',
         },
@@ -117,6 +118,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'tag-one',
         constraint: {
           allow: ['tag-two'],
         },
@@ -153,6 +155,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'tag-one',
         constraint: {
           allow: ['tag-two'],
         },
@@ -189,6 +192,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'tag-one',
         constraint: {
           allow: ['tag-two'],
         },
@@ -230,6 +234,7 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: ['tag-two'],
         },
+        filter: 'tag-one',
         dependency: {
           source: 'pkg-a',
           target: 'pkg-b',
@@ -240,6 +245,7 @@ describe.only('get-constraint-results', () => {
         isValid: false,
       },
       {
+        filter: 'tag-five',
         constraint: {
           allow: ['tag-six'],
         },
@@ -278,6 +284,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'tag-one',
         constraint: {
           allow: ['tag-two'],
         },
@@ -291,6 +298,7 @@ describe.only('get-constraint-results', () => {
         isValid: true,
       },
       {
+        filter: 'tag-five',
         constraint: {
           allow: ['tag-six'],
         },
@@ -329,6 +337,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'tag-one',
         constraint: {
           allow: ['tag-two'],
         },
@@ -370,6 +379,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'tag-one',
         constraint: {
           disallow: ['tag-three'],
         },
@@ -383,6 +393,7 @@ describe.only('get-constraint-results', () => {
         isValid: false,
       },
       {
+        filter: 'tag-one',
         constraint: {
           disallow: ['tag-three'],
         },
@@ -419,6 +430,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'tag-one',
         constraint: {
           allow: ['tag-three'],
           disallow: ['tag-two'],
@@ -463,6 +475,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'tag-one',
         constraint: {
           allow: ['tag-two'],
           disallow: ['tag-four'],
@@ -500,6 +513,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: '*',
         constraint: {
           disallow: ['tag-two'],
         },
@@ -536,6 +550,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'tag-one',
         constraint: {
           allow: ['tag-two'],
           disallow: '*',
@@ -573,6 +588,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'tag-one',
         constraint: {
           allow: ['tag-two'],
           disallow: '*',
@@ -660,6 +676,7 @@ describe.only('get-constraint-results', () => {
 
     expect(results).toEqual([
       {
+        filter: 'feature',
         constraint: {
           allow: '*',
         },
@@ -673,6 +690,7 @@ describe.only('get-constraint-results', () => {
         isValid: true,
       },
       {
+        filter: 'feature',
         constraint: {
           allow: '*',
         },
@@ -686,6 +704,7 @@ describe.only('get-constraint-results', () => {
         isValid: true,
       },
       {
+        filter: 'feature',
         constraint: {
           allow: '*',
         },
@@ -699,6 +718,7 @@ describe.only('get-constraint-results', () => {
         isValid: true,
       },
       {
+        filter: 'utility',
         constraint: {
           allow: ['data'],
         },
@@ -712,6 +732,7 @@ describe.only('get-constraint-results', () => {
         isValid: false,
       },
       {
+        filter: 'config',
         constraint: {
           allow: ['config'],
         },

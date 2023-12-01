@@ -35,6 +35,7 @@ export type ConstraintResult = {
   foundTags?: string[];
   constraint: Constraint;
   dependency: Dependency;
+  filter: string;
 };
 
 export type Dependency = {

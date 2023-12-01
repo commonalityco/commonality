@@ -117,6 +117,7 @@ export async function getConstraintResults({
 
             if (disallowAll) {
               return {
+                filter: matchingPattern,
                 foundTags,
                 dependency,
                 constraint,
@@ -126,6 +127,7 @@ export async function getConstraintResults({
 
             if (allowAll) {
               return {
+                filter: matchingPattern,
                 foundTags,
                 dependency,
                 constraint,
@@ -144,6 +146,7 @@ export async function getConstraintResults({
               // If direct dependency is disallowed, return false
               if (hasMatch) {
                 return {
+                  filter: matchingPattern,
                   foundTags,
                   dependency,
                   constraint,
@@ -173,6 +176,7 @@ export async function getConstraintResults({
 
                 if (hasMatch) {
                   return {
+                    filter: matchingPattern,
                     dependency,
                     constraint,
                     isValid: false,
@@ -191,6 +195,7 @@ export async function getConstraintResults({
               const hasMatch = hasIntersection(tagsForTarget, allowedTags);
 
               return {
+                filter: matchingPattern,
                 dependency,
                 constraint,
                 isValid: hasMatch,
@@ -199,6 +204,7 @@ export async function getConstraintResults({
             }
 
             return {
+              filter: matchingPattern,
               dependency,
               constraint,
               isValid: true,
