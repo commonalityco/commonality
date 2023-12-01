@@ -34,7 +34,7 @@ export type ConstraintResult = {
   isValid: boolean;
   foundTags?: string[];
   constraint: Constraint;
-  dependency: Dependency;
+  dependencyPath: Dependency[];
   filter: string;
 };
 

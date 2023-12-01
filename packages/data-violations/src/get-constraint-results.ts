@@ -7,7 +7,63 @@ import type {
 
 const edgeKey = (dep: Dependency) => `${dep.source}|${dep.target}`;
 
-export const getAllDependencies = (
+function getDependencyPath(
+  dependencies: Dependency[],
+  startDependency: Dependency,
+  endDependency: Dependency,
+): Dependency[] {
+  const graph = new Map<string, Dependency[]>();
+
+  for (const dep of dependencies) {
+    const key = dep.source;
+    if (!graph.has(key)) {
+      graph.set(key, []);
+    }
+    graph.get(key)!.push(dep);
+  }
+
+  const visited = new Set<string>();
+
+  // Initialize stack with startDependency if it exists in the graph
+  const startDeps = graph.get(startDependency.source) || [];
+  const matchingStartDep = startDeps.find(
+    (dep) =>
+      dep.target === startDependency.target &&
+      dep.type === startDependency.type,
+  );
+  const initialPath = matchingStartDep ? [matchingStartDep] : [];
+
+  const stack: { node: string; path: Dependency[] }[] = [
+    { node: (matchingStartDep || startDependency).target, path: initialPath },
+  ];
+
+  while (stack.length > 0) {
+    const { node, path } = stack.pop()!;
+    if (
+      node === endDependency.target &&
+      (path.length === 0 ||
+        path[path.length - 1]?.target === endDependency.target)
+    ) {
+      return path;
+    }
+
+    if (!visited.has(node)) {
+      visited.add(node);
+      for (const dependency of graph.get(node) || []) {
+        if (!visited.has(dependency.target)) {
+          stack.push({
+            node: dependency.target,
+            path: [...path, dependency],
+          });
+        }
+      }
+    }
+  }
+
+  return [];
+}
+
+const getAllDependencies = (
   dependencies: Dependency[],
   packageName: string,
   visitedNodes: Set<string> = new Set(),
@@ -119,7 +175,7 @@ export async function getConstraintResults({
               return {
                 filter: matchingPattern,
                 foundTags,
-                dependency,
+                dependencyPath: [dependency],
                 constraint,
                 isValid: false,
               };
@@ -129,7 +185,7 @@ export async function getConstraintResults({
               return {
                 filter: matchingPattern,
                 foundTags,
-                dependency,
+                dependencyPath: [dependency],
                 constraint,
                 isValid: true,
               };
@@ -148,7 +204,7 @@ export async function getConstraintResults({
                 return {
                   filter: matchingPattern,
                   foundTags,
-                  dependency,
+                  dependencyPath: [dependency],
                   constraint,
                   isValid: false,
                 };
@@ -177,10 +233,14 @@ export async function getConstraintResults({
                 if (hasMatch) {
                   return {
                     filter: matchingPattern,
-                    dependency,
+                    dependencyPath: getDependencyPath(
+                      dependencies,
+                      dependency,
+                      transitiveDependency,
+                    ),
                     constraint,
                     isValid: false,
-                    foundTags,
+                    foundTags: [...tagsForTransitiveTarget],
                   };
                 }
               }
@@ -196,7 +256,7 @@ export async function getConstraintResults({
 
               return {
                 filter: matchingPattern,
-                dependency,
+                dependencyPath: [dependency],
                 constraint,
                 isValid: hasMatch,
                 foundTags,
@@ -205,7 +265,7 @@ export async function getConstraintResults({
 
             return {
               filter: matchingPattern,
-              dependency,
+              dependencyPath: [dependency],
               constraint,
               isValid: true,
               foundTags,

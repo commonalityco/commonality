@@ -1,25 +1,21 @@
 import React from 'react';
 import { Command } from 'commander';
-import { getViolations } from '@commonalityco/data-violations';
-import {
-  Constraint,
-  Dependency,
-  Package,
-  ProjectConfig,
-  TagsData,
-  Violation,
-} from '@commonalityco/types';
-import { Box, render, Text, useApp } from 'ink';
-import { useAsyncFn } from '../../utils/use-async-fn.js';
+import { getConstraintResults } from '@commonalityco/data-violations';
+import { ConstraintResult } from '@commonalityco/types';
+import { Box, Text } from 'ink';
 import Spinner from 'ink-spinner';
-import { useMemo } from 'react';
-import { CheckTagsData } from '../../components/check-tags-data.js';
-import { CheckDependencies } from '../../components/check-dependencies.js';
-import { CheckConstraints } from '../../components/check-constraints.js';
-import { TotalMessage } from '../../components/total-message.js';
-import { CheckPackages } from '../../components/check-packages.js';
-import { MessagePackageTitle } from '../../components/message-package-title.js';
-import { DependencyMessage } from './dependency-message.js';
+import ora from 'ora';
+import c from 'picocolors';
+import { Logger } from '../../utils/logger.js';
+import { DependencyType } from '@commonalityco/utils-core';
+import {
+  getProjectConfig,
+  getRootDirectory,
+} from '@commonalityco/data-project';
+import { getTagsData } from '@commonalityco/data-tags';
+import { getDependencies, getPackages } from '@commonalityco/data-packages';
+
+const constraintSpinner = ora('Validating constraints...');
 
 export const ConstraintSpinner = () => (
   <Box gap={1}>
@@ -32,321 +28,199 @@ export const ConstraintSpinner = () => (
 
 const command = new Command();
 
-function DependencyList({
-  dependencies,
-  violations,
-  packages,
-  constraint,
-  verbose,
-  filter,
-}: {
-  dependencies: Dependency[];
-  packages: Package[];
-  violations: Violation[];
-  constraint: Constraint;
-  verbose: boolean;
-  filter: string;
-}) {
-  return dependencies.map((dependency) => {
-    const violationForDependency = violations.find(
-      (violation) =>
-        violation.targetPackageName === dependency.target &&
-        violation.sourcePackageName === dependency.source,
-    );
-    const targetPackage = packages.find(
-      (pkg) => pkg.name === dependency.target,
-    );
+class ConstrainLogger extends Logger {
+  addConstraintTitle({ result }: { result: ConstraintResult }) {
+    const statusText = result.isValid ? c.green('↳ pass') : c.red('↳ fail');
+    const arrowText = result.isValid ? c.green('→') : c.red('→');
 
-    if (!violationForDependency && !verbose) {
-      return;
-    }
+    const dependencyTextByType = {
+      [DependencyType.PRODUCTION]: c.dim('prod'),
+      [DependencyType.DEVELOPMENT]: c.dim('dev'),
+      [DependencyType.PEER]: c.dim('peer'),
+    };
 
-    if (!targetPackage) {
-      return;
-    }
+    const dependencyText = result.dependencyPath
+      .map((dep) => {
+        const typeText = c.dim(dependencyTextByType[dep.type]);
 
-    return (
-      <DependencyMessage
-        constraint={constraint}
-        targetPkg={targetPackage}
-        filter={filter}
-        violation={violationForDependency}
-        key={`${dependency.type}-${dependency.source}-${dependency.target}-${dependency.version}`}
-        type={dependency.type}
-        isValid={!violationForDependency}
-      />
-    );
-  });
-}
+        return `${dep.target} ${typeText}`;
+      })
+      .join(` ${arrowText} `);
 
-function ConstraintList({
-  dependencies,
-  constraints,
-  violations,
-  verbose,
-  packages,
-}: {
-  packages: Package[];
-  dependencies: Dependency[];
-  violations: Violation[];
-  constraints: Array<[string, Constraint]>;
-  verbose: boolean;
-}) {
-  if (dependencies.length === 0 && verbose) {
-    return (
-      <Box
-        paddingLeft={1}
-        paddingBottom={1}
-        borderDimColor
-        borderTop={false}
-        borderRight={false}
-        borderBottom={false}
-        borderStyle="single"
-        flexDirection="column"
-      >
-        <Text dimColor>No internal dependencies</Text>
-      </Box>
-    );
+    this.output += `\n${statusText} ${dependencyText}`;
   }
 
-  if (constraints.length === 0 && verbose) {
-    return (
-      <Box
-        paddingLeft={1}
-        paddingBottom={1}
-        borderDimColor
-        borderTop={false}
-        borderRight={false}
-        borderBottom={false}
-        borderStyle="single"
-        flexDirection="column"
-      >
-        <Text dimColor>No constraints for internal dependencies</Text>
-      </Box>
+  addConstraintTable({ result }: { result: ConstraintResult }) {
+    const extraPad = 'disallow' in result.constraint ? '   ' : '';
+    const foundExtraPad = 'disallow' in result.constraint ? '     ' : '  ';
+
+    this.addSubText(
+      `Matches:${extraPad} ${
+        result.filter === '*' ? 'All packages' : `#${result.filter}`
+      }`,
     );
-  }
 
-  const sortedConstraints = constraints.sort((a, b) => (a < b ? -1 : 0));
+    if ('allow' in result.constraint) {
+      const allowTagsText =
+        typeof result.constraint.allow === 'string' &&
+        result.constraint.allow === '*'
+          ? c.green(result.constraint.allow)
+          : result.constraint.allow
+              .map((tag) => `#${tag}`)
+              .map((tag) =>
+                result.foundTags?.map((tag) => `#${tag}`).includes(tag)
+                  ? c.green(tag)
+                  : tag,
+              )
+              .join(', ');
 
-  return sortedConstraints.map(([key, constraint]) => {
-    return (
-      <Box key={key} flexDirection="column">
-        <Box flexDirection="column">
-          <DependencyList
-            filter={key}
-            constraint={constraint}
-            packages={packages}
-            violations={violations}
-            dependencies={dependencies}
-            verbose={verbose}
-          />
-        </Box>
-      </Box>
-    );
-  });
-}
-
-export function ConstraintValidator({
-  constraints = {},
-  tagsData = [],
-  dependencies = [],
-  packages = [],
-  verbose,
-}: {
-  constraints: ProjectConfig['constraints'];
-  packages: Package[];
-  tagsData: TagsData[];
-  dependencies: Dependency[];
-  verbose: boolean;
-}) {
-  const { exit } = useApp();
-  const { data, isLoading, error } = useAsyncFn(async () => {
-    return await getViolations({
-      dependencies,
-      constraints,
-      tagsData,
-    });
-  });
-
-  const violations = data ?? [];
-
-  const violationsByPackageName = useMemo(() => {
-    if (!violations) {
-      return {};
+      this.addSubText(`Allowed:${extraPad} ${allowTagsText}`);
     }
 
-    const acc: Record<string, Violation[]> = {};
-    for (const violation of violations) {
-      if (!acc[violation.sourcePackageName]) {
-        acc[violation.sourcePackageName] = [];
-      }
-      acc[violation.sourcePackageName].push(violation);
+    if ('disallow' in result.constraint) {
+      const disallowTagsText =
+        typeof result.constraint.disallow === 'string' &&
+        result.constraint.disallow === '*'
+          ? c.red(result.constraint.disallow)
+          : result.constraint.disallow
+              .map((tag) => `#${tag}`)
+              .map((tag) =>
+                result.foundTags?.map((tag) => `#${tag}`).includes(tag)
+                  ? c.red(tag)
+                  : tag,
+              )
+              .join(', ');
+
+      this.addSubText(`Disallowed: ${disallowTagsText}`);
     }
-    return acc;
-  }, [violations]);
 
-  const constraintsByPackage: Record<
-    string,
-    ProjectConfig['constraints'] | Record<string, never>
-  > = useMemo(() => {
-    const acc:
-      | Record<string, ProjectConfig['constraints']>
-      | Record<string, never> = {};
-    const tagsDataByPackageName = new Map(
-      tagsData.map((data) => [data.packageName, data.tags]),
-    );
-
-    for (const filter of Object.keys(constraints)) {
-      for (const [packageName, tags] of tagsDataByPackageName.entries()) {
-        if (tags.includes(filter)) {
-          if (!acc[packageName]) {
-            acc[packageName] = {};
+    if (result.foundTags) {
+      const foundTagsText = result.foundTags
+        .map((tag) => `#${tag}`)
+        .map((tag) => {
+          if (
+            'disallow' in result.constraint &&
+            typeof result.constraint.disallow === 'string' &&
+            result.constraint.disallow === '*'
+          ) {
+            return c.red(tag);
           }
 
-          acc[packageName]![filter] = constraints[filter];
-        }
-      }
-    }
-    return acc;
-  }, [constraints, tagsData]);
-
-  const constraintsWithViolationCount = Object.keys(constraints).filter(
-    (filter) => violations.some((violation) => violation.appliedTo === filter),
-  ).length;
-
-  const packageNames = Object.keys(violationsByPackageName);
-
-  if (error) {
-    exit(error);
-    return;
-  }
-
-  if (isLoading) {
-    return <ConstraintSpinner />;
-  }
-
-  return (
-    <Box flexDirection="column">
-      <Box flexDirection="column">
-        {packages.map((pkg) => {
-          const violationsForPackage = violations.filter(
-            (violation) => violation.sourcePackageName === pkg.name,
-          );
-          const constraintsForPackage: ProjectConfig['constraints'] =
-            constraintsByPackage[pkg.name] ?? {};
-          const shownConstraints: Array<[string, Constraint]> = Object.keys(
-            constraintsForPackage,
-          )
-            .filter((filter) => {
-              if (verbose) {
-                return true;
-              }
-
-              const matchingViolations = violationsForPackage.filter(
-                (violation) => violation.appliedTo === filter,
-              );
-
-              return matchingViolations.length;
-            })
-            .map((filter) => [filter, constraints[filter]]);
-
-          const dependenciesForPackage = dependencies
-            .filter((dep) => dep.source === pkg.name)
-            .sort((a, b) => a.target.localeCompare(b.target));
-
-          const result = violationsForPackage.length > 0 ? 'fail' : 'pass';
-
-          const itemCount =
-            Object.keys(constraintsForPackage).length *
-            dependenciesForPackage.length;
-
-          return (
-            <Box key={pkg.name} flexDirection="column">
-              <MessagePackageTitle
-                result={result}
-                pkg={pkg}
-                countMessage={`(${itemCount})`}
-                verbose={verbose && itemCount > 0}
-              />
-              <ConstraintList
-                verbose={verbose}
-                violations={violations}
-                constraints={shownConstraints}
-                dependencies={dependenciesForPackage}
-                packages={packages}
-              />
-            </Box>
-          );
-        })}
-      </Box>
-      <Box flexDirection="column" marginTop={1}>
-        <TotalMessage
-          title="Packages:   "
-          totalCount={packages.length}
-          passCount={packages.length - packageNames.length}
-          failCount={packageNames.length}
-        />
-        <TotalMessage
-          title="Constraints:"
-          totalCount={Object.keys(constraints).length}
-          passCount={
-            Object.keys(constraints).length - constraintsWithViolationCount
+          if (
+            'allow' in result.constraint &&
+            typeof result.constraint.allow === 'string' &&
+            result.constraint.allow === '*'
+          ) {
+            return c.green(tag);
           }
-          failCount={constraintsWithViolationCount}
-        />
-      </Box>
-    </Box>
-  );
+
+          if (
+            'disallow' in result.constraint &&
+            result.constraint.disallow?.map((tag) => `#${tag}`).includes(tag)
+          ) {
+            return c.red(tag);
+          }
+
+          if (
+            'allow' in result.constraint &&
+            result.constraint.allow?.map((tag) => `#${tag}`).includes(tag)
+          ) {
+            return c.green(tag);
+          }
+
+          return tag;
+        })
+        .join(', ');
+
+      this.addSubText(`Found:${foundExtraPad} ${foundTagsText}`);
+    } else {
+      this.addSubText(`Found:${foundExtraPad} No tags found`);
+    }
+
+    this.addSubText();
+  }
 }
 
-function ConstraintCommandHandler({ verbose }: { verbose: boolean }) {
-  return (
-    <CheckConstraints loadingMessage={<ConstraintSpinner />}>
-      {({ constraints }) => (
-        <CheckTagsData loadingMessage={<ConstraintSpinner />}>
-          {({ tagsData }) => (
-            <CheckDependencies loadingMessage={<ConstraintSpinner />}>
-              {({ dependencies }) => (
-                <CheckPackages>
-                  {({ packages }) => (
-                    <ConstraintValidator
-                      constraints={constraints}
-                      tagsData={tagsData}
-                      packages={packages}
-                      dependencies={dependencies}
-                      verbose={verbose}
-                    />
-                  )}
-                </CheckPackages>
-              )}
-            </CheckDependencies>
-          )}
-        </CheckTagsData>
-      )}
-    </CheckConstraints>
-  );
-}
-
-const getConstraintResults = async () => {};
-
-export const action = async ({
-  constraints,
-  tagsData,
-  packages,
-  dependencies,
+const reportConstraints = async ({
+  logger,
+  results,
   verbose,
 }: {
-  constraints: ProjectConfig['constraints'];
-  tagsData: TagsData[];
-  packages: Package[];
-  dependencies: Dependency[];
+  logger: ConstrainLogger;
+  results: ConstraintResult[];
   verbose: boolean;
 }) => {
-  const violations = await getViolations({
-    dependencies,
-    constraints,
-    tagsData,
+  // This is keyed by packageName
+  const resultsMap = new Map<string, Set<ConstraintResult>>();
+
+  for (const result of results) {
+    const packageName = result.dependencyPath[0].source;
+    const existingResultsForPackage = resultsMap.get(packageName);
+
+    if (existingResultsForPackage) {
+      existingResultsForPackage.add(result);
+    } else {
+      resultsMap.set(packageName, new Set<ConstraintResult>([result]));
+    }
+  }
+
+  let failPackageCount = 0;
+
+  for (const packageResults of resultsMap.values()) {
+    const invalidResults = [...packageResults].filter(
+      (result) => !result.isValid,
+    );
+
+    if (invalidResults.some((result) => !result.isValid)) {
+      failPackageCount++;
+    }
+  }
+
+  const failConstraintCount = results.filter(
+    (result) => !result.isValid,
+  ).length;
+
+  for (const packageName of resultsMap.keys()) {
+    const resultsForPackage = resultsMap.get(packageName);
+
+    if (!resultsForPackage) {
+      continue;
+    }
+
+    const hasInvalidResults = [...resultsForPackage].some(
+      (result) => !result.isValid,
+    );
+
+    logger.addPackageName({
+      verbose,
+      status: hasInvalidResults ? 'fail' : 'pass',
+      packageName,
+      count: resultsForPackage.size,
+    });
+
+    for (const result of resultsForPackage) {
+      if (!result.isValid || verbose) {
+        logger.addConstraintTitle({ result });
+        logger.addConstraintTable({ result });
+      }
+    }
+  }
+
+  logger.addTotal({
+    title: '\nPackages:   ',
+    totalCount: resultsMap.size,
+    passCount: resultsMap.size - failPackageCount,
+    failCount: failPackageCount,
   });
+
+  logger.addTotal({
+    title: 'Constraints:',
+    totalCount: results.length,
+    failCount: failConstraintCount,
+    passCount: results.length - failConstraintCount,
+  });
+
+  logger.write();
 };
 
 export const constrain = command
@@ -354,5 +228,30 @@ export const constrain = command
   .description('Validate that local dependencies adhere to your constraints')
   .option('--verbose', 'Show the result of all conformance checks')
   .action(async (options: { verbose: boolean }) => {
-    render(<ConstraintCommandHandler verbose={options.verbose} />);
+    const logger = new ConstrainLogger();
+
+    constraintSpinner.start();
+
+    const rootDirectory = await getRootDirectory();
+
+    const _projectConfig = getProjectConfig({ rootDirectory });
+    const _dependencies = getDependencies({ rootDirectory });
+
+    const packages = await getPackages({ rootDirectory });
+
+    const _tagsData = getTagsData({ rootDirectory, packages });
+
+    const projectConfig = await _projectConfig;
+    const dependencies = await _dependencies;
+    const tagsData = await _tagsData;
+
+    const results = await getConstraintResults({
+      dependencies,
+      constraints: projectConfig?.config.constraints,
+      tagsData,
+    });
+
+    constraintSpinner.stop();
+
+    await reportConstraints({ results, verbose: options.verbose, logger });
   });

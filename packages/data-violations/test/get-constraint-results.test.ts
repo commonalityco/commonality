@@ -85,12 +85,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: '*',
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: [],
         isValid: true,
       },
@@ -122,12 +124,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: ['tag-two'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: [],
         isValid: false,
       },
@@ -159,12 +163,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: ['tag-two'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['tag-three'],
         isValid: false,
       },
@@ -196,12 +202,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: ['tag-two'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['tag-two'],
         isValid: true,
       },
@@ -235,12 +243,14 @@ describe.only('get-constraint-results', () => {
           allow: ['tag-two'],
         },
         filter: 'tag-one',
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: [],
         isValid: false,
       },
@@ -249,12 +259,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: ['tag-six'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: [],
         isValid: false,
       },
@@ -288,12 +300,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: ['tag-two'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['tag-two', 'tag-three'],
         isValid: true,
       },
@@ -302,12 +316,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: ['tag-six'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['tag-two', 'tag-three'],
         isValid: false,
       },
@@ -341,12 +357,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: ['tag-two'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['tag-two'],
         isValid: true,
       },
@@ -369,7 +387,10 @@ describe.only('get-constraint-results', () => {
           type: DependencyType.PRODUCTION,
         },
       ],
-      constraints: { 'tag-one': { disallow: ['tag-three'] } },
+      constraints: {
+        'tag-one': { disallow: ['tag-three'] },
+        'tag-five': { disallow: ['tag-three'] },
+      },
       tagsData: [
         { packageName: 'pkg-a', tags: ['tag-one', 'tag-two'] },
         { packageName: 'pkg-b', tags: ['tag-three'] },
@@ -383,12 +404,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           disallow: ['tag-three'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['tag-three'],
         isValid: false,
       },
@@ -397,12 +420,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           disallow: ['tag-three'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-c',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-c',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['tag-four'],
         isValid: true,
       },
@@ -421,6 +446,7 @@ describe.only('get-constraint-results', () => {
       ],
       constraints: {
         'tag-one': { allow: ['tag-three'], disallow: ['tag-two'] },
+        'tag-three': { allow: ['tag-three'], disallow: ['tag-two'] },
       },
       tagsData: [
         { packageName: 'pkg-a', tags: ['tag-one'] },
@@ -435,12 +461,14 @@ describe.only('get-constraint-results', () => {
           allow: ['tag-three'],
           disallow: ['tag-two'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['tag-two', 'tag-three'],
         isValid: false,
       },
@@ -457,36 +485,92 @@ describe.only('get-constraint-results', () => {
           type: DependencyType.PRODUCTION,
         },
         {
+          source: 'pkg-a',
+          target: 'pkg-b',
+          version: '1.0.0',
+          type: DependencyType.DEVELOPMENT,
+        },
+        {
           source: 'pkg-b',
           target: 'pkg-c',
           version: '1.0.0',
           type: DependencyType.PRODUCTION,
         },
+        {
+          source: 'pkg-c',
+          target: 'pkg-d',
+          version: '1.0.0',
+          type: DependencyType.PRODUCTION,
+        },
       ],
       constraints: {
-        'tag-one': { allow: ['tag-two'], disallow: ['tag-four'] },
+        'tag-one': { allow: ['tag-two'], disallow: ['restricted'] },
       },
       tagsData: [
         { packageName: 'pkg-a', tags: ['tag-one'] },
-        { packageName: 'pkg-b', tags: ['tag-two', 'tag-three'] },
-        { packageName: 'pkg-b', tags: ['tag-four'] },
+        { packageName: 'pkg-b', tags: [] },
+        { packageName: 'pkg-c', tags: [] },
+        { packageName: 'pkg-d', tags: ['restricted'] },
       ],
     });
 
     expect(results).toEqual([
       {
-        filter: 'tag-one',
         constraint: {
           allow: ['tag-two'],
-          disallow: ['tag-four'],
+          disallow: ['restricted'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+          {
+            source: 'pkg-b',
+            target: 'pkg-c',
+            type: 'production',
+            version: '1.0.0',
+          },
+          {
+            source: 'pkg-c',
+            target: 'pkg-d',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
+        filter: 'tag-one',
+        foundTags: ['restricted'],
+        isValid: false,
+      },
+      {
+        constraint: {
+          allow: ['tag-two'],
+          disallow: ['restricted'],
         },
-        foundTags: ['tag-four'],
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'development',
+            version: '1.0.0',
+          },
+          {
+            source: 'pkg-b',
+            target: 'pkg-c',
+            type: 'production',
+            version: '1.0.0',
+          },
+          {
+            source: 'pkg-c',
+            target: 'pkg-d',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
+        filter: 'tag-one',
+        foundTags: ['restricted'],
         isValid: false,
       },
     ]);
@@ -517,12 +601,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           disallow: ['tag-two'],
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['tag-two'],
         isValid: false,
       },
@@ -555,12 +641,14 @@ describe.only('get-constraint-results', () => {
           allow: ['tag-two'],
           disallow: '*',
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: [],
         isValid: false,
       },
@@ -593,12 +681,14 @@ describe.only('get-constraint-results', () => {
           allow: ['tag-two'],
           disallow: '*',
         },
-        dependency: {
-          source: 'pkg-a',
-          target: 'pkg-b',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-a',
+            target: 'pkg-b',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['tag-two'],
         isValid: false,
       },
@@ -680,12 +770,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: '*',
         },
-        dependency: {
-          source: 'pkg-one',
-          target: 'pkg-two',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-one',
+            target: 'pkg-two',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['data'],
         isValid: true,
       },
@@ -694,12 +786,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: '*',
         },
-        dependency: {
-          source: 'pkg-one',
-          target: 'pkg-three',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-one',
+            target: 'pkg-three',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['config'],
         isValid: true,
       },
@@ -708,12 +802,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: '*',
         },
-        dependency: {
-          source: 'pkg-one',
-          target: 'pkg-four',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-one',
+            target: 'pkg-four',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['utility'],
         isValid: true,
       },
@@ -722,12 +818,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: ['data'],
         },
-        dependency: {
-          source: 'pkg-four',
-          target: 'pkg-six',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-four',
+            target: 'pkg-six',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['not-allowed'],
         isValid: false,
       },
@@ -736,12 +834,14 @@ describe.only('get-constraint-results', () => {
         constraint: {
           allow: ['config'],
         },
-        dependency: {
-          source: 'pkg-three',
-          target: 'pkg-one',
-          type: 'production',
-          version: '1.0.0',
-        },
+        dependencyPath: [
+          {
+            source: 'pkg-three',
+            target: 'pkg-one',
+            type: 'production',
+            version: '1.0.0',
+          },
+        ],
         foundTags: ['feature'],
         isValid: false,
       },
