@@ -327,6 +327,28 @@ function ConstraintCommandHandler({ verbose }: { verbose: boolean }) {
   );
 }
 
+const getConstraintResults = async () => {};
+
+export const action = async ({
+  constraints,
+  tagsData,
+  packages,
+  dependencies,
+  verbose,
+}: {
+  constraints: ProjectConfig['constraints'];
+  tagsData: TagsData[];
+  packages: Package[];
+  dependencies: Dependency[];
+  verbose: boolean;
+}) => {
+  const violations = await getViolations({
+    dependencies,
+    constraints,
+    tagsData,
+  });
+};
+
 export const constrain = command
   .name('constrain')
   .description('Validate that local dependencies adhere to your constraints')

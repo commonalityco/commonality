@@ -30,6 +30,13 @@ export type Violation = {
   found?: string[];
 };
 
+export type ConstraintResult = {
+  isValid: boolean;
+  foundTags?: string[];
+  constraint: Constraint;
+  dependency: Dependency;
+};
+
 export type Dependency = {
   version: string;
   type: DependencyType;
