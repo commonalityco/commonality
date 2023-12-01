@@ -42,7 +42,7 @@ function getDependencyPath(
     if (
       node === endDependency.target &&
       (path.length === 0 ||
-        path[path.length - 1]?.target === endDependency.target)
+        path.at(-1)?.target === endDependency.target)
     ) {
       return path;
     }

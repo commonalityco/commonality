@@ -29,6 +29,33 @@ export const ConstraintSpinner = () => (
 const command = new Command();
 
 class ConstrainLogger extends Logger {
+  addFilterTitle({
+    filter,
+    count,
+    isValid,
+  }: {
+    filter: string;
+    count: number;
+    isValid: boolean;
+  }) {
+    const countText = c.dim(`(${count})`);
+    const statusText = isValid ? c.green(`# ${filter}`) : c.red(`# ${filter}`);
+
+    if (statusText === '*') {
+      const statusText = isValid
+        ? c.green(`# All packages`)
+        : c.red(`# All packages`);
+
+      this.output += `\n${statusText} ${countText}`;
+    } else {
+      const statusText = isValid
+        ? c.green(`# ${filter}`)
+        : c.red(`# ${filter}`);
+
+      this.output += `\n${statusText} ${countText}`;
+    }
+  }
+
   addConstraintTitle({ result }: { result: ConstraintResult }) {
     const statusText = result.isValid ? c.green('↳ pass') : c.red('↳ fail');
     const arrowText = result.isValid ? c.green('→') : c.red('→');
@@ -53,12 +80,6 @@ class ConstrainLogger extends Logger {
   addConstraintTable({ result }: { result: ConstraintResult }) {
     const extraPad = 'disallow' in result.constraint ? '   ' : '';
     const foundExtraPad = 'disallow' in result.constraint ? '     ' : '  ';
-
-    this.addSubText(
-      `Matches:${extraPad} ${
-        result.filter === '*' ? 'All packages' : `#${result.filter}`
-      }`,
-    );
 
     if ('allow' in result.constraint) {
       const allowTagsText =
@@ -198,10 +219,42 @@ const reportConstraints = async ({
       count: resultsForPackage.size,
     });
 
+    const resultsForPackageByFilter = new Map<string, ConstraintResult[]>();
     for (const result of resultsForPackage) {
-      if (!result.isValid || verbose) {
-        logger.addConstraintTitle({ result });
-        logger.addConstraintTable({ result });
+      const filter = result.filter;
+      const existingResultsForFilter = resultsForPackageByFilter.get(filter);
+
+      if (existingResultsForFilter) {
+        existingResultsForFilter.push(result);
+      } else {
+        resultsForPackageByFilter.set(filter, [result]);
+      }
+    }
+
+    for (const [filter, resultsForFilter] of resultsForPackageByFilter) {
+      const hasInvalidFilterResults = resultsForFilter.some(
+        (result) => !result.isValid,
+      );
+
+      const result = resultsForPackageByFilter.get(filter);
+
+      if (!result) {
+        continue;
+      }
+
+      if (hasInvalidFilterResults || verbose) {
+        logger.addFilterTitle({
+          filter,
+          isValid: !hasInvalidFilterResults,
+          count: resultsForFilter.length,
+        });
+      }
+
+      for (const result of resultsForFilter) {
+        if (!result.isValid || verbose) {
+          logger.addConstraintTitle({ result });
+          logger.addConstraintTable({ result });
+        }
       }
     }
   }
