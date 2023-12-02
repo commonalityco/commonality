@@ -1,602 +1,319 @@
 import React from 'react';
 import { render, cleanup } from 'ink-testing-library';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ConstraintValidator } from '../../../src/cli/commands/constrain/constrain.js';
+import { beforeEach, describe, expect, it, test, vi } from 'vitest';
+import { reportConstraintResults } from '../../../src/cli/commands/constrain/constrain.js';
 import { useAsyncFn } from '../../../src/cli/utils/use-async-fn.js';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
 import stripAnsi from 'strip-ansi';
-import { Violation } from '@commonalityco/types';
+import { ConstraintResult, Violation } from '@commonalityco/types';
 import * as ink from 'ink';
-import * as dataViolations from '@commonalityco/data-violations';
+import { getConstraintResults } from '@commonalityco/data-violations';
+import process from 'node:process';
+import console from 'node:console';
 
-vi.mock('../../../src/cli/utils/use-async-fn.js', () => {
-  return { useAsyncFn: vi.fn().mockReturnValue({}) };
-});
-
-vi.mock('@commonalityco/data-violations', async () => ({
-  ...(await vi.importActual<typeof dataViolations>(
-    '@commonalityco/data-violations',
-  )),
-  getViolations: vi.fn(),
+vi.mock('node:process', async () => ({
+  default: {
+    ...(await vi.importActual<NodeJS.Process>('node:process')),
+    exit: vi.fn(),
+  },
 }));
 
-vi.mock('ink', async () => ({
-  ...(await vi.importActual<typeof ink>('ink')),
+vi.mock('node:console', async () => ({
+  default: {
+    ...(await vi.importActual<Console>('node:console')),
+    log: vi.fn().mockImplementation(() => {}),
+  },
 }));
 
-describe('constrain', () => {
+const getConsoleCalls = () => {
+  return vi
+    .mocked(console.log)
+    .mock?.calls?.map((call) => call.map((item) => stripAnsi(item)));
+};
+
+describe.only('constrain', () => {
   beforeEach(() => {
-    cleanup();
+    vi.mocked(process.exit).mockReset();
+    vi.mocked(console.log).mockReset();
   });
 
-  describe('when encountering an error', () => {
-    it('exits the app with the error', () => {
-      const mockError = new Error('Hello');
-      const mockExit = vi.fn();
-
-      vi.mocked(useAsyncFn).mockReturnValue({
-        status: 'error',
-        data: undefined,
-        error: mockError,
-        isLoading: false,
-        isSuccess: false,
-        isError: true,
-        refetch: () => Promise.resolve(),
-      });
-
-      vi.spyOn(ink, 'useApp').mockReturnValue({ exit: mockExit });
-
-      const { lastFrame } = render(
-        <ConstraintValidator
-          constraints={{}}
-          packages={[]}
-          tagsData={[]}
-          dependencies={[]}
-          verbose={false}
-        />,
-      );
-      const result = lastFrame() ?? '';
-
-      expect(result).toBe('');
-      expect(mockExit).toHaveBeenCalled();
-    });
-  });
-
-  describe('when loading', () => {
-    it('renders the loading spinner', () => {
-      vi.mocked(useAsyncFn).mockReturnValue({
-        status: 'loading',
-        data: undefined,
-        error: undefined,
-        isLoading: true,
-        isSuccess: false,
-        isError: false,
-        refetch: () => Promise.resolve(),
-      });
-
-      const { lastFrame } = render(
-        <ConstraintValidator
-          constraints={{}}
-          packages={[]}
-          tagsData={[]}
-          dependencies={[]}
-          verbose={false}
-        />,
-      );
-      const result = stripAnsi(lastFrame() ?? '');
-
-      expect(result).toMatchInlineSnapshot('"⠋ Validating constraints..."');
-    });
-  });
-
-  describe('when there are no constrained dependencies', () => {
-    const renderComponent = ({ verbose }: { verbose: boolean }) =>
-      render(
-        <ConstraintValidator
-          constraints={{
-            'tag-one': { allow: '*' },
-            'tag-two': { allow: ['tag-one'] },
-          }}
-          packages={[
-            {
-              name: 'pkg-one',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-            {
-              name: 'pkg-two',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-            {
-              name: 'pkg-three',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-          ]}
-          tagsData={[{ packageName: 'pkg-one', tags: ['tag-one'] }]}
-          dependencies={[]}
-          verbose={verbose}
-        />,
-      );
-
-    describe('and verbose is false', () => {
-      it('matches the snapshot', () => {
-        vi.mocked(useAsyncFn).mockReturnValue({
-          status: 'success',
-          data: [],
-          error: undefined,
-          isLoading: false,
-          isSuccess: true,
-          isError: false,
-          refetch: () => Promise.resolve(),
-        });
-
-        const { lastFrame } = renderComponent({ verbose: false });
-        const result = stripAnsi(lastFrame() ?? '');
-
-        expect(result).toMatchInlineSnapshot(`
-          "✓ pkg-one (0)
-          ✓ pkg-two (0)
-          ✓ pkg-three (0)
-
-          Packages:    0 failed 3 passed (3)
-          Constraints: 0 failed 2 passed (2)"
-        `);
-      });
-    });
-
-    describe('and verbose is true', () => {
-      it('matches the snapshot', () => {
-        vi.mocked(useAsyncFn).mockReturnValue({
-          status: 'success',
-          data: [],
-          error: undefined,
-          isLoading: false,
-          isSuccess: true,
-          isError: false,
-          refetch: () => Promise.resolve(),
-        });
-
-        const { lastFrame } = renderComponent({ verbose: true });
-        const result = stripAnsi(lastFrame() ?? '');
-
-        expect(result).toMatchInlineSnapshot(`
-          "✓ pkg-one (0)
-          │ No internal dependencies
-          │
-          ✓ pkg-two (0)
-          │ No internal dependencies
-          │
-          ✓ pkg-three (0)
-          │ No internal dependencies
-          │
-
-          Packages:    0 failed 3 passed (3)
-          Constraints: 0 failed 2 passed (2)"
-        `);
-      });
-    });
-  });
-
-  describe('when all tests pass', () => {
-    const renderComponent = ({ verbose }: { verbose: boolean }) =>
-      render(
-        <ConstraintValidator
-          constraints={{
-            'tag-one': { allow: '*' },
-            'tag-two': { allow: ['tag-one'] },
-          }}
-          packages={[
-            {
-              name: 'pkg-one',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-            {
-              name: 'pkg-two',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-            {
-              name: 'pkg-three',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-          ]}
-          tagsData={[{ packageName: 'pkg-one', tags: ['tag-one'] }]}
-          dependencies={[
-            {
-              source: 'pkg-one',
-              target: 'pkg-two',
-              version: '1.0.0',
-              type: DependencyType.DEVELOPMENT,
-            },
-            {
-              source: 'pkg-two',
-              target: 'pkg-three',
-              version: '1.0.0',
-              type: DependencyType.DEVELOPMENT,
-            },
-          ]}
-          verbose={verbose}
-        />,
-      );
-
-    describe('and verbose is false', () => {
-      it('matches the snapshot', () => {
-        vi.mocked(useAsyncFn).mockReturnValue({
-          status: 'success',
-          data: [],
-          error: undefined,
-          isLoading: false,
-          isSuccess: true,
-          isError: false,
-          refetch: () => Promise.resolve(),
-        });
-
-        const { lastFrame } = renderComponent({ verbose: false });
-        const result = stripAnsi(lastFrame() ?? '');
-
-        expect(result).toMatchInlineSnapshot(`
-          "✓ pkg-one (1)
-          ✓ pkg-two (0)
-          ✓ pkg-three (0)
-
-          Packages:    0 failed 3 passed (3)
-          Constraints: 0 failed 2 passed (2)"
-        `);
-      });
-    });
-
-    describe('and verbose is true', () => {
-      it('matches the snapshot', () => {
-        vi.mocked(useAsyncFn).mockReturnValue({
-          status: 'success',
-          data: [],
-          error: undefined,
-          isLoading: false,
-          isSuccess: true,
-          isError: false,
-          refetch: () => Promise.resolve(),
-        });
-
-        const { lastFrame } = renderComponent({ verbose: true });
-        const result = stripAnsi(lastFrame() ?? '');
-
-        expect(result).toMatchInlineSnapshot(`
-          "❯ pkg-one (1)
-          ↳ pass #tag-one → pkg-two development
-          │      Allowed: All packages
-          │
-          ✓ pkg-two (0)
-          │ No constraints for internal dependencies
-          │
-          ✓ pkg-three (0)
-          │ No internal dependencies
-          │
-
-          Packages:    0 failed 3 passed (3)
-          Constraints: 0 failed 2 passed (2)"
-        `);
-      });
-    });
-  });
-
-  describe('when tests fail', () => {
-    const renderComponent = ({ verbose }: { verbose: boolean }) =>
-      render(
-        <ConstraintValidator
-          constraints={{
-            'tag-one': { disallow: ['tag-three'] },
-            'tag-two': { disallow: ['tag-five'] },
-          }}
-          packages={[
-            {
-              name: 'pkg-one',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-            {
-              name: 'pkg-two',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-            {
-              name: 'pkg-three',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-          ]}
-          tagsData={[
-            { packageName: 'pkg-one', tags: ['tag-one', 'tag-two'] },
-            { packageName: 'pkg-two', tags: ['tag-three'] },
-            { packageName: 'pkg-three', tags: ['tag-four'] },
-          ]}
-          dependencies={[
-            {
-              source: 'pkg-one',
-              target: 'pkg-two',
-              type: DependencyType.DEVELOPMENT,
-              version: '1.0.0',
-            },
-            {
-              source: 'pkg-one',
-              target: 'pkg-three',
-              type: DependencyType.DEVELOPMENT,
-              version: '1.0.0',
-            },
-          ]}
-          verbose={verbose}
-        />,
-      );
-
-    beforeEach(() => {
-      vi.mocked(useAsyncFn).mockReturnValue({
-        status: 'success',
-        data: [
+  test('when allow all constraints match dependencies with no tags and verbose is false it displays the correct output', async () => {
+    const results = [
+      {
+        constraint: {
+          allow: '*',
+        },
+        dependencyPath: [
           {
-            sourcePackageName: 'pkg-one',
-            targetPackageName: 'pkg-three',
-            appliedTo: 'tag-one',
-            allowed: [],
-            disallowed: ['tag-three'],
+            source: 'pkg-one',
+            target: 'pkg-two',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
           },
-        ] satisfies Violation[],
-        error: undefined,
-        isLoading: false,
-        isSuccess: true,
-        isError: false,
-        refetch: () => Promise.resolve(),
-      });
+        ],
+        filter: '*',
+        foundTags: undefined,
+        isValid: true,
+      },
+    ] satisfies ConstraintResult[];
+
+    await reportConstraintResults({
+      results,
+      verbose: false,
     });
 
-    describe('and verbose is false', () => {
-      it('matches the snapshot', () => {
-        const { lastFrame } = renderComponent({ verbose: false });
+    expect(getConsoleCalls()).toMatchInlineSnapshot(
+      `
+        [
+          [
+            "
+        ✓ pkg-one (1)
 
-        const result = stripAnsi(lastFrame() ?? '');
-        cleanup();
-        expect(result).toMatchInlineSnapshot(`
-          "❯ pkg-one (4)
-          │ /path/commonality.json
-          │
-          ↳ fail #tag-one → pkg-three development
-          │      Disallowed: #tag-three
-          │
-          ✓ pkg-two (0)
-          ✓ pkg-three (0)
-
-          Packages:    1 failed 2 passed (3)
-          Constraints: 1 failed 1 passed (2)"
-        `);
-      });
-    });
-
-    describe('and verbose is true', () => {
-      it('matches the snapshot', () => {
-        const { lastFrame } = renderComponent({ verbose: true });
-
-        const result = stripAnsi(lastFrame() ?? '');
-        cleanup();
-        expect(result).toMatchInlineSnapshot(`
-          "❯ pkg-one (4)
-          │ /path/commonality.json
-          │
-          ↳ fail #tag-one → pkg-three development
-          │      Disallowed: #tag-three
-          │
-          ↳ pass #tag-one → pkg-two development
-          │      Disallowed: #tag-three
-          │
-          ↳ fail #tag-two → pkg-three development
-          │      Disallowed: #tag-five
-          │
-          ↳ pass #tag-two → pkg-two development
-          │      Disallowed: #tag-five
-          │
-          ✓ pkg-two (0)
-          │ No internal dependencies
-          │
-          ✓ pkg-three (0)
-          │ No internal dependencies
-          │
-
-          Packages:    1 failed 2 passed (3)
-          Constraints: 1 failed 1 passed (2)"
-        `);
-      });
-    });
+        Packages:    0 failed 1 passed (1)
+        Constraints: 0 failed 1 passed (1)",
+          ],
+        ]
+      `,
+    );
   });
 
-  describe('when there are no constraints', () => {
-    beforeEach(() => {
-      vi.mocked(useAsyncFn).mockReturnValue({
-        status: 'success',
-        data: [],
-        error: undefined,
-        isLoading: false,
-        isSuccess: true,
-        isError: false,
-        refetch: () => Promise.resolve(),
-      });
+  test('when allow all constraints match dependencies with no tags and verbose is true it displays the correct output', async () => {
+    const results = [
+      {
+        constraint: {
+          allow: '*',
+        },
+        dependencyPath: [
+          {
+            source: 'pkg-one',
+            target: 'pkg-two',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+        ],
+        filter: '*',
+        foundTags: undefined,
+        isValid: true,
+      },
+    ] satisfies ConstraintResult[];
+
+    await reportConstraintResults({
+      results,
+      verbose: true,
     });
 
-    const renderComponent = ({ verbose }: { verbose: boolean }) =>
-      render(
-        <ConstraintValidator
-          constraints={{}}
-          packages={[
-            {
-              name: 'pkg-one',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-            {
-              name: 'pkg-two',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-            {
-              name: 'pkg-three',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-          ]}
-          tagsData={[
-            { packageName: 'pkg-one', tags: ['tag-one'] },
-            { packageName: 'pkg-two', tags: ['tag-two'] },
-            { packageName: 'pkg-three', tags: ['tag-three'] },
-          ]}
-          dependencies={[
-            {
-              source: 'pkg-one',
-              target: 'pkg-two',
-              type: DependencyType.DEVELOPMENT,
-              version: '1.0.0',
-            },
-          ]}
-          verbose={verbose}
-        />,
-      );
+    expect(getConsoleCalls()).toMatchInlineSnapshot(`
+      [
+        [
+          "
+      ❯ pkg-one (1)
+      # * (1)
+      ↳ pass pkg-two prod
+      │      Allowed: *
+      │      Found:   No tags found
+      │      
 
-    describe('and verbose is false', () => {
-      it('should match the snapshot', () => {
-        const { lastFrame } = renderComponent({ verbose: false });
-        const result = stripAnsi(lastFrame() ?? '');
-
-        expect(result).toMatchInlineSnapshot(`
-          "✓ pkg-one (0)
-          ✓ pkg-two (0)
-          ✓ pkg-three (0)
-
-          Packages:    0 failed 3 passed (3)
-          Constraints: 0 failed 0 passed (0)"
-        `);
-      });
-    });
-
-    describe('and verbose is true', () => {
-      it('should match the snapshot', () => {
-        const { lastFrame } = renderComponent({ verbose: true });
-        const result = stripAnsi(lastFrame() ?? '');
-
-        expect(result).toMatchInlineSnapshot(`
-          "✓ pkg-one (0)
-          │ No constraints for internal dependencies
-          │
-          ✓ pkg-two (0)
-          │ No internal dependencies
-          │
-          ✓ pkg-three (0)
-          │ No internal dependencies
-          │
-
-          Packages:    0 failed 3 passed (3)
-          Constraints: 0 failed 0 passed (0)"
-        `);
-      });
-    });
+      Packages:    0 failed 1 passed (1)
+      Constraints: 0 failed 1 passed (1)",
+        ],
+      ]
+    `);
   });
 
-  describe('when there are no dependencies for a package', () => {
-    beforeEach(() => {
-      vi.mocked(useAsyncFn).mockReturnValue({
-        status: 'success',
-        data: [],
-        error: undefined,
-        isLoading: false,
-        isSuccess: true,
-        isError: false,
-        refetch: () => Promise.resolve(),
-      });
+  test('when allow constraints match dependencies with invalid tags and verbose is false it displays the correct output', async () => {
+    const results = [
+      {
+        constraint: {
+          allow: ['tag-two'],
+        },
+        dependencyPath: [
+          {
+            source: 'pkg-one',
+            target: 'pkg-two',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+        ],
+        filter: 'tag-one',
+        foundTags: ['tag-three'],
+        isValid: false,
+      },
+    ] satisfies ConstraintResult[];
+
+    await reportConstraintResults({
+      results,
+      verbose: false,
     });
 
-    const renderComponent = ({ verbose }: { verbose: boolean }) =>
-      render(
-        <ConstraintValidator
-          constraints={{
-            'tag-one': { disallow: ['tag-three'] },
-            'tag-two': { disallow: ['tag-five'] },
-          }}
-          packages={[
-            {
-              name: 'pkg-one',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-            {
-              name: 'pkg-two',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-            {
-              name: 'pkg-three',
-              version: '1.0.0',
-              type: PackageType.NODE,
-              path: '/path',
-            },
-          ]}
-          tagsData={[
-            { packageName: 'pkg-one', tags: ['tag-one', 'tag-two'] },
-            { packageName: 'pkg-two', tags: ['tag-three'] },
-            { packageName: 'pkg-three', tags: ['tag-four'] },
-          ]}
-          dependencies={[]}
-          verbose={verbose}
-        />,
-      );
+    expect(getConsoleCalls()).toMatchInlineSnapshot(`
+      [
+        [
+          "
+      ❯ pkg-one (1)
+      # tag-one (1)
+      ↳ fail pkg-two prod
+      │      Allowed: #tag-two
+      │      Found:   #tag-three
+      │      
 
-    describe('and verbose is false', () => {
-      it('matches the snapshot', () => {
-        const { lastFrame } = renderComponent({ verbose: false });
-        const result = stripAnsi(lastFrame() ?? '');
+      Packages:    1 failed 0 passed (1)
+      Constraints: 1 failed 0 passed (1)",
+        ],
+      ]
+    `);
+  });
 
-        expect(result).toMatchInlineSnapshot(`
-          "✓ pkg-one (0)
-          ✓ pkg-two (0)
-          ✓ pkg-three (0)
+  test('when disallow constraints match dependencies with invalid tags and verbose is false it displays the correct output', async () => {
+    const results = [
+      {
+        constraint: {
+          disallow: ['tag-three'],
+        },
+        dependencyPath: [
+          {
+            source: 'pkg-one',
+            target: 'pkg-two',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+        ],
+        filter: 'tag-one',
+        foundTags: ['tag-three'],
+        isValid: false,
+      },
+    ] satisfies ConstraintResult[];
 
-          Packages:    0 failed 3 passed (3)
-          Constraints: 0 failed 2 passed (2)"
-        `);
-      });
+    await reportConstraintResults({
+      results,
+      verbose: false,
     });
 
-    describe('and verbose is true', () => {
-      it('matches the snapshot', () => {
-        const { lastFrame } = renderComponent({ verbose: true });
-        const result = stripAnsi(lastFrame() ?? '');
+    expect(getConsoleCalls()).toMatchInlineSnapshot(`
+      [
+        [
+          "
+      ❯ pkg-one (1)
+      # tag-one (1)
+      ↳ fail pkg-two prod
+      │      Disallowed: #tag-three
+      │      Found:      #tag-three
+      │      
 
-        expect(result).toMatchInlineSnapshot(`
-          "✓ pkg-one (0)
-          │ No internal dependencies
-          │
-          ✓ pkg-two (0)
-          │ No internal dependencies
-          │
-          ✓ pkg-three (0)
-          │ No internal dependencies
-          │
+      Packages:    1 failed 0 passed (1)
+      Constraints: 1 failed 0 passed (1)",
+        ],
+      ]
+    `);
+  });
 
-          Packages:    0 failed 3 passed (3)
-          Constraints: 0 failed 2 passed (2)"
-        `);
-      });
+  test('when disallow constraints match dependencies with invalid tags and verbose is true it displays the correct output', async () => {
+    const results = [
+      {
+        constraint: {
+          disallow: ['tag-three'],
+        },
+        dependencyPath: [
+          {
+            source: 'pkg-one',
+            target: 'pkg-two',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+        ],
+        filter: 'tag-one',
+        foundTags: ['tag-three'],
+        isValid: false,
+      },
+    ] satisfies ConstraintResult[];
+
+    await reportConstraintResults({
+      results,
+      verbose: true,
     });
+
+    expect(getConsoleCalls()).toMatchInlineSnapshot(`
+      [
+        [
+          "
+      ❯ pkg-one (1)
+      # tag-one (1)
+      ↳ fail pkg-two prod
+      │      Disallowed: #tag-three
+      │      Found:      #tag-three
+      │      
+
+      Packages:    1 failed 0 passed (1)
+      Constraints: 1 failed 0 passed (1)",
+        ],
+      ]
+    `);
+  });
+
+  test('when disallow constraints match transitive dependencies with invalid tags and verbose is true it displays the correct output', async () => {
+    const results = [
+      {
+        constraint: {
+          disallow: ['tag-three'],
+        },
+        dependencyPath: [
+          {
+            source: 'pkg-one',
+            target: 'pkg-two',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+          {
+            source: 'pkg-two',
+            target: 'pkg-three',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+        ],
+        filter: 'tag-one',
+        foundTags: ['tag-three'],
+        isValid: false,
+      },
+    ] satisfies ConstraintResult[];
+
+    await reportConstraintResults({
+      results,
+      verbose: true,
+    });
+
+    expect(getConsoleCalls()).toMatchInlineSnapshot(`
+      [
+        [
+          "
+      ❯ pkg-one (1)
+      # tag-one (1)
+      ↳ fail pkg-two prod → pkg-three prod
+      │      Disallowed: #tag-three
+      │      Found:      #tag-three
+      │      
+
+      Packages:    1 failed 0 passed (1)
+      Constraints: 1 failed 0 passed (1)",
+        ],
+      ]
+    `);
+  });
+
+  test('when there are no results', async () => {
+    const results = [] satisfies ConstraintResult[];
+
+    await reportConstraintResults({
+      results,
+      verbose: true,
+    });
+
+    expect(getConsoleCalls()).toMatchInlineSnapshot(`
+      [
+        [
+          "
+      No constraints found
+      Add constraints to your commonality.json to limit dependencies",
+        ],
+      ]
+    `);
   });
 });

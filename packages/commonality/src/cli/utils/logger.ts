@@ -1,4 +1,5 @@
 import c from 'picocolors';
+import console from 'node:console';
 
 export class Logger {
   output = '';

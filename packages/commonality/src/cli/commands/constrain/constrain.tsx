@@ -29,6 +29,10 @@ export const ConstraintSpinner = () => (
 const command = new Command();
 
 class ConstrainLogger extends Logger {
+  constructor() {
+    super();
+  }
+
   addFilterTitle({
     filter,
     count,
@@ -137,14 +141,16 @@ class ConstrainLogger extends Logger {
 
           if (
             'disallow' in result.constraint &&
-            result.constraint.disallow?.map((tag) => `#${tag}`).includes(tag)
+            Array.isArray(result.constraint.disallow) &&
+            result.constraint.disallow.map((tag) => `#${tag}`).includes(tag)
           ) {
             return c.red(tag);
           }
 
           if (
             'allow' in result.constraint &&
-            result.constraint.allow?.map((tag) => `#${tag}`).includes(tag)
+            Array.isArray(result.constraint.allow) &&
+            result.constraint.allow.map((tag) => `#${tag}`).includes(tag)
           ) {
             return c.green(tag);
           }
@@ -160,17 +166,28 @@ class ConstrainLogger extends Logger {
 
     this.addSubText();
   }
+  writeEmpty({ title, text }: { title: string; text: string }) {
+    this.output += `\n${title}\n${c.dim(text)}`;
+    this.write();
+  }
 }
 
-const reportConstraints = async ({
-  logger,
+export const reportConstraintResults = async ({
+  logger = new ConstrainLogger(),
   results,
   verbose,
 }: {
-  logger: ConstrainLogger;
+  logger?: ConstrainLogger;
   results: ConstraintResult[];
   verbose: boolean;
 }) => {
+  if (results.length === 0) {
+    logger.writeEmpty({
+      title: 'No constraints found',
+      text: 'Add constraints to your commonality.json to limit dependencies',
+    });
+    return;
+  }
   // This is keyed by packageName
   const resultsMap = new Map<string, Set<ConstraintResult>>();
 
@@ -276,35 +293,37 @@ const reportConstraints = async ({
   logger.write();
 };
 
+const action = async (options: { verbose: boolean }) => {
+  const logger = new ConstrainLogger();
+
+  constraintSpinner.start();
+
+  const rootDirectory = await getRootDirectory();
+
+  const _projectConfig = getProjectConfig({ rootDirectory });
+  const _dependencies = getDependencies({ rootDirectory });
+
+  const packages = await getPackages({ rootDirectory });
+
+  const _tagsData = getTagsData({ rootDirectory, packages });
+
+  const projectConfig = await _projectConfig;
+  const dependencies = await _dependencies;
+  const tagsData = await _tagsData;
+
+  const results = await getConstraintResults({
+    dependencies,
+    constraints: projectConfig?.config.constraints,
+    tagsData,
+  });
+
+  constraintSpinner.stop();
+
+  await reportConstraintResults({ results, verbose: options.verbose, logger });
+};
+
 export const constrain = command
   .name('constrain')
   .description('Validate that local dependencies adhere to your constraints')
   .option('--verbose', 'Show the result of all conformance checks')
-  .action(async (options: { verbose: boolean }) => {
-    const logger = new ConstrainLogger();
-
-    constraintSpinner.start();
-
-    const rootDirectory = await getRootDirectory();
-
-    const _projectConfig = getProjectConfig({ rootDirectory });
-    const _dependencies = getDependencies({ rootDirectory });
-
-    const packages = await getPackages({ rootDirectory });
-
-    const _tagsData = getTagsData({ rootDirectory, packages });
-
-    const projectConfig = await _projectConfig;
-    const dependencies = await _dependencies;
-    const tagsData = await _tagsData;
-
-    const results = await getConstraintResults({
-      dependencies,
-      constraints: projectConfig?.config.constraints,
-      tagsData,
-    });
-
-    constraintSpinner.stop();
-
-    await reportConstraints({ results, verbose: options.verbose, logger });
-  });
+  .action(action);
