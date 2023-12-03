@@ -167,9 +167,11 @@ describe('conform', () => {
           [
             "
         ❯ pkg-one (1)
+        # * (1)
         ✓ pass This package should be cool
         │      /path/package.json
         ❯ pkg-two (1)
+        # * (1)
         ✓ pass This package should be cool
 
         Packages: 0 failed 0 warnings 2 passed (2)
@@ -223,6 +225,7 @@ describe('conform', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
+        # * (1)
         ⚠ warn This package should be cool
 
         Packages: 0 failed 1 warnings 1 passed (2)
@@ -273,8 +276,10 @@ describe('conform', () => {
           [
             "
         ❯ pkg-one (1)
+        # * (1)
         ✓ pass This package should be awesome
         ❯ pkg-two (1)
+        # * (1)
         ⚠ warn This package should be cool
 
         Packages: 0 failed 1 warnings 1 passed (2)
@@ -360,6 +365,7 @@ describe('conform', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
+        # * (1)
         ⚠ warn This package should be cool
 
         Packages: 0 failed 1 warnings 1 passed (2)
@@ -445,6 +451,7 @@ describe('conform', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
+        # * (1)
         ⚠ warn This package should be cool
 
         Packages: 0 failed 1 warnings 1 passed (2)
@@ -509,6 +516,7 @@ describe('conform', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
+        # * (1)
         ⚠ warn This package should be cool
 
         Packages: 0 failed 1 warnings 1 passed (2)

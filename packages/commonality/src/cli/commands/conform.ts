@@ -27,6 +27,33 @@ class ConformLogger extends Logger {
     super();
   }
 
+  addFilterTitle({
+    filter,
+    count,
+    isValid,
+  }: {
+    filter: string;
+    count: number;
+    isValid: boolean;
+  }) {
+    const countText = c.dim(`(${count})`);
+    const statusText = isValid ? c.green(`# ${filter}`) : c.red(`# ${filter}`);
+
+    if (statusText === '*') {
+      const statusText = isValid
+        ? c.green(`# All packages`)
+        : c.red(`# All packages`);
+
+      this.output += `\n${statusText} ${countText}`;
+    } else {
+      const statusText = isValid
+        ? c.green(`# ${filter}`)
+        : c.red(`# ${filter}`);
+
+      this.output += `\n${statusText} ${countText}`;
+    }
+  }
+
   addCheckName({ result }: { result: ConformanceResult }) {
     let status;
     if (result.isValid) {
@@ -110,17 +137,49 @@ const reportConformanceResults = ({
       count: resultsForPackage.size,
     });
 
+    const resultsForPackageByFilter = new Map<string, ConformanceResult[]>();
     for (const result of resultsForPackage) {
-      if (!result.isValid || verbose) {
-        logger.addCheckName({ result });
+      const filter = result.pattern;
+      const existingResultsForFilter = resultsForPackageByFilter.get(filter);
 
-        if (result.message.filepath) {
-          logger.addSubText(
-            path.join(result.package.path, result.message.filepath),
-          );
-        }
-        if (result.message.context) {
-          logger.addSubText(result.message.context);
+      if (existingResultsForFilter) {
+        existingResultsForFilter.push(result);
+      } else {
+        resultsForPackageByFilter.set(filter, [result]);
+      }
+    }
+
+    for (const [filter, resultsForFilter] of resultsForPackageByFilter) {
+      const hasInvalidFilterResults = resultsForFilter.some(
+        (result) => !result.isValid,
+      );
+
+      const result = resultsForPackageByFilter.get(filter);
+
+      if (!result) {
+        continue;
+      }
+
+      if (hasInvalidFilterResults || verbose) {
+        logger.addFilterTitle({
+          filter,
+          isValid: !hasInvalidFilterResults,
+          count: resultsForFilter.length,
+        });
+      }
+
+      for (const result of resultsForPackage) {
+        if (!result.isValid || verbose) {
+          logger.addCheckName({ result });
+
+          if (result.message.filepath) {
+            logger.addSubText(
+              path.join(result.package.path, result.message.filepath),
+            );
+          }
+          if (result.message.context) {
+            logger.addSubText(result.message.context);
+          }
         }
       }
     }
