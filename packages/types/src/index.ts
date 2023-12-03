@@ -129,7 +129,7 @@ export type ConformerCreator<C extends Conformer, O = undefined> = (
 
 export type ConformanceResult = {
   name: string;
-  pattern: string;
+  filter: string;
   fix?: ConformerFn<void>;
   level: 'error' | 'warning';
   isValid: boolean;

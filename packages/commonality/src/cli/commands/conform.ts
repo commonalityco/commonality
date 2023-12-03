@@ -139,7 +139,7 @@ const reportConformanceResults = ({
 
     const resultsForPackageByFilter = new Map<string, ConformanceResult[]>();
     for (const result of resultsForPackage) {
-      const filter = result.pattern;
+      const filter = result.filter;
       const existingResultsForFilter = resultsForPackageByFilter.get(filter);
 
       if (existingResultsForFilter) {

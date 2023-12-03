@@ -111,7 +111,7 @@ export const getConformanceResults = async ({
 
             return {
               name: conformer.name,
-              pattern: matchingPattern,
+              filter: matchingPattern,
               package: pkg,
               message,
               level: conformer.level ?? 'warning',

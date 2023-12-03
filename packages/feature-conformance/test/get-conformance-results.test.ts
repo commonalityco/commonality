@@ -37,7 +37,7 @@ describe('getConformanceResults', () => {
     expect(results).toHaveLength(1);
     expect(results[0].isValid).toBe(false);
     expect(results[0].message.title).toBe('Invalid workspace');
-    expect(results[0].pattern).toBe('*');
+    expect(results[0].filter).toBe('*');
     expect(results[0].package).toEqual(packages[0]);
     expect(results[0].level).toBe('error');
   });
@@ -74,7 +74,7 @@ describe('getConformanceResults', () => {
     expect(results).toHaveLength(1);
     expect(results[0].isValid).toBe(true);
     expect(results[0].message.title).toBe('Valid workspace');
-    expect(results[0].pattern).toBe('*');
+    expect(results[0].filter).toBe('*');
     expect(results[0].package).toEqual(packages[0]);
     expect(results[0].level).toBe('warning');
   });
@@ -112,7 +112,7 @@ describe('getConformanceResults', () => {
     expect(results).toHaveLength(1);
     expect(results[0].isValid).toBe(false);
     expect(results[0].message.title).toBe('Exception during validation');
-    expect(results[0].pattern).toBe('*');
+    expect(results[0].filter).toBe('*');
     expect(results[0].package).toEqual(packages[0]);
     expect(results[0].level).toBe('warning');
   });
@@ -149,7 +149,7 @@ describe('getConformanceResults', () => {
     expect(results).toHaveLength(1);
     expect(results[0].isValid).toBe(true);
     expect(results[0].message.title).toBe('Valid workspace for tag1');
-    expect(results[0].pattern).toBe('tag1');
+    expect(results[0].filter).toBe('tag1');
     expect(results[0].package).toEqual(packages[0]);
     expect(results[0].level).toBe('warning');
   });
@@ -190,7 +190,7 @@ describe('getConformanceResults', () => {
     expect(results[0].message.title).toBe(
       'Valid workspace for /path/to/workspace',
     );
-    expect(results[0].pattern).toBe('*');
+    expect(results[0].filter).toBe('*');
     expect(results[0].package).toEqual(packages[0]);
     expect(results[0].level).toBe('warning');
   });

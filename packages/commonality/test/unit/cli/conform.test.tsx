@@ -80,7 +80,7 @@ describe('conform', () => {
           return [
             {
               name: 'CONFORMER_NAME/ONE',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -93,7 +93,7 @@ describe('conform', () => {
             },
             {
               name: 'CONFORMER_NAME/TWO',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -130,7 +130,7 @@ describe('conform', () => {
           return [
             {
               name: 'CONFORMER_NAME/ONE',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -146,7 +146,7 @@ describe('conform', () => {
             },
             {
               name: 'CONFORMER_NAME/TWO',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -190,7 +190,7 @@ describe('conform', () => {
           return [
             {
               name: 'CONFORMER_NAME/ONE',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -203,7 +203,7 @@ describe('conform', () => {
             },
             {
               name: 'CONFORMER_NAME/TWO',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: false,
               package: {
@@ -242,7 +242,7 @@ describe('conform', () => {
           return [
             {
               name: 'CONFORMER_NAME/ONE',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -255,7 +255,7 @@ describe('conform', () => {
             },
             {
               name: 'CONFORMER_NAME/TWO',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: false,
               package: {
@@ -299,7 +299,7 @@ describe('conform', () => {
           .mockResolvedValueOnce([
             {
               name: 'CONFORMER_NAME/ONE',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -313,7 +313,7 @@ describe('conform', () => {
             },
             {
               name: 'CONFORMER_NAME/TWO',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: false,
               package: {
@@ -329,7 +329,7 @@ describe('conform', () => {
           .mockResolvedValueOnce([
             {
               name: 'CONFORMER_NAME/ONE',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -343,7 +343,7 @@ describe('conform', () => {
             },
             {
               name: 'CONFORMER_NAME/TWO',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -385,7 +385,7 @@ describe('conform', () => {
           .mockResolvedValueOnce([
             {
               name: 'CONFORMER_NAME/ONE',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -399,7 +399,7 @@ describe('conform', () => {
             },
             {
               name: 'CONFORMER_NAME/TWO',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: false,
               package: {
@@ -415,7 +415,7 @@ describe('conform', () => {
           .mockResolvedValueOnce([
             {
               name: 'CONFORMER_NAME/ONE',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -429,7 +429,7 @@ describe('conform', () => {
             },
             {
               name: 'CONFORMER_NAME/TWO',
-              pattern: '*',
+              filter: '*',
               level: 'warning',
               isValid: true,
               package: {
@@ -480,7 +480,7 @@ describe('conform', () => {
         getResults: vi.fn().mockResolvedValueOnce([
           {
             name: 'CONFORMER_NAME/ONE',
-            pattern: '*',
+            filter: '*',
             level: 'warning',
             isValid: true,
             package: {
@@ -494,7 +494,7 @@ describe('conform', () => {
           },
           {
             name: 'CONFORMER_NAME/TWO',
-            pattern: '*',
+            filter: '*',
             level: 'warning',
             isValid: false,
             package: {
