@@ -323,7 +323,7 @@ const action = async (options: { verbose: boolean }) => {
 };
 
 export const constrain = command
-  .name('constrain')
-  .description('Validate that local dependencies adhere to your constraints')
-  .option('--verbose', 'Show the result of all conformance checks')
+  .name('check')
+  .description('Validate that dependencies adhere to your constraints')
+  .option('--verbose', 'Show the result of all constraints')
   .action(action);
