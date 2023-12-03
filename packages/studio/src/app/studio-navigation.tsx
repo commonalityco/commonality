@@ -11,7 +11,7 @@ import { Button } from '@commonalityco/ui-design-system';
 import Link from 'next/link';
 import { setCookie } from 'cookies-next';
 import { NavigationButton } from '@commonalityco/ui-core';
-import { Box, Network } from 'lucide-react';
+import { Network, PackageCheck } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { PackageManager } from '@commonalityco/utils-core';
 import { NpmLogo, PnpmLogo, YarnLogo } from '@commonalityco/ui-core';
@@ -137,15 +137,15 @@ function StudioNavigation({
             active={pathname === '/'}
           >
             <Network className="h-4 w-4" />
-            <span>Constrain</span>
+            <span>Constraints</span>
           </NavigationButton>
           <NavigationButton
             className="flex gap-2 items-center"
             href="/packages"
             active={pathname === '/packages'}
           >
-            <Box className="h-4 w-4" />
-            <span>Conform</span>
+            <PackageCheck className="h-4 w-4" />
+            <span>Checks</span>
           </NavigationButton>
         </div>
         <LastUpdateTime />

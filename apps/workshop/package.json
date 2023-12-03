@@ -6,7 +6,8 @@
   "scripts": {
     "app-dev": "storybook dev -p 6006",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@commonalityco/data-graph-worker": "workspace:*",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@commonalityco/config-tailwind": "workspace:*",
+    "@commonalityco/config-tsconfig": "workspace:*",
     "@storybook/addon-a11y": "^7.4.3",
     "@storybook/addon-docs": "^7.4.3",
     "@storybook/addon-essentials": "^7.4.3",

@@ -114,6 +114,9 @@ importers:
       '@commonalityco/config-tailwind':
         specifier: workspace:*
         version: link:../../tooling/config-tailwind
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/config-tsconfig
       '@storybook/addon-a11y':
         specifier: ^7.4.3
         version: 7.6.0

@@ -58,7 +58,7 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
       <div className="grow p-6 w-full space-y-6 flex flex-col">
         <div className="w-full space-y-6">
           <div className="flex gap-4 items-center">
-            <h1 className="font-medium text-2xl leading-none">Conformance</h1>
+            <h1 className="font-medium text-2xl leading-none">Checks</h1>
             <Badge
               variant="secondary"
               className="text-muted-foreground"
