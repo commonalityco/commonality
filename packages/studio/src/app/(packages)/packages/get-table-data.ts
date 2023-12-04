@@ -1,9 +1,4 @@
-import {
-  CodeownersData,
-  DocumentsData,
-  Package,
-  TagsData,
-} from '@commonalityco/types';
+import { CodeownersData, Package, TagsData } from '@commonalityco/types';
 import { ColumnData } from '@commonalityco/ui-package';
 import path from 'node:path';
 import fs from 'fs-extra';
@@ -17,7 +12,6 @@ function keyBy<Data extends Record<string, any>>(
 
 export const getTableData = async ({
   packages,
-  documentsData,
   tagsData,
   codeownersData,
   filterName,
@@ -28,7 +22,6 @@ export const getTableData = async ({
   rootDirectory,
 }: {
   packages: Package[];
-  documentsData: DocumentsData[];
   tagsData: TagsData[];
   codeownersData: CodeownersData[];
   filterName?: string;
@@ -45,7 +38,6 @@ export const getTableData = async ({
     }
   >
 > => {
-  const normalizedDocuments = keyBy(documentsData, 'packageName');
   const normalizedTags = keyBy(tagsData, 'packageName');
   const normalizedCodeowners = keyBy(codeownersData, 'packageName');
 
@@ -53,7 +45,6 @@ export const getTableData = async ({
     .map((pkg) => {
       return {
         ...pkg,
-        documents: normalizedDocuments[pkg.name]?.documents ?? [],
         tags: normalizedTags[pkg.name]?.tags ?? [],
         codeowners: normalizedCodeowners[pkg.name]?.codeowners ?? [],
       } satisfies ColumnData;

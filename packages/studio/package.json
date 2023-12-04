@@ -21,7 +21,6 @@
   "dependencies": {
     "@commonalityco/data-codeowners": "workspace:*",
     "@commonalityco/feature-conformance": "workspace:*",
-    "@commonalityco/data-documents": "workspace:*",
     "@commonalityco/data-graph": "workspace:*",
     "@commonalityco/data-graph-worker": "workspace:*",
     "@commonalityco/data-packages": "workspace:*",

@@ -1,7 +1,6 @@
 'use server';
 import { Badge } from '@commonalityco/ui-design-system';
 import { getCodeownersData } from '@/data/codeowners';
-import { getDocumentsData } from '@/data/documents';
 import { getPackagesData } from '@/data/packages';
 import { getTagsData } from '@/data/tags';
 import { openEditorAction } from '@/actions/editor';
@@ -13,9 +12,11 @@ import StudioPackagesTablePaginator from './studio-packages-table-paginator';
 import { getTableData } from './get-table-data';
 
 async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
-  const [packages, documentsData, tagsData, codeownersData] = await Promise.all(
-    [getPackagesData(), getDocumentsData(), getTagsData(), getCodeownersData()],
-  );
+  const [packages, tagsData, codeownersData] = await Promise.all([
+    getPackagesData(),
+    getTagsData(),
+    getCodeownersData(),
+  ]);
 
   const parsedSearchParams = z
     .object({
@@ -35,7 +36,6 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
 
   const data = await getTableData({
     packages,
-    documentsData,
     tagsData,
     codeownersData,
     filterName: parsedSearchParams.name,

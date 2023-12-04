@@ -52,18 +52,6 @@ export type CodeownersData = {
   codeowners: Codeowner[];
 };
 
-export type Document = {
-  filename: string;
-  isRoot: boolean;
-  content: string;
-  path: string;
-};
-
-export type DocumentsData = {
-  packageName: string;
-  documents: Document[];
-};
-
 export type Tag = string;
 
 export type TagsData = { packageName: string; tags: Tag[] };
@@ -197,18 +185,4 @@ export type PackageJson = {
   publishConfig?: Record<string, unknown>;
   workspaces?: string[];
   [key: string]: unknown;
-};
-
-export type SnapshotResult = {
-  url: string;
-};
-
-export type SnapshotData = {
-  packages: Package[];
-  tagsData: TagsData[];
-  documentsData: DocumentsData[];
-  codeownersData: CodeownersData[];
-  violations: Violation[];
-  projectConfig: ProjectConfig;
-  dependencies: Dependency[];
 };

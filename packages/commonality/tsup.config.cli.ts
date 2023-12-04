@@ -13,7 +13,7 @@ const config: Options = {
   noExternal: [
     '@commonalityco/data-codeowners',
     '@commonalityco/feature-conformance',
-    '@commonalityco/data-documents',
+
     '@commonalityco/data-packages',
     '@commonalityco/data-project',
     '@commonalityco/data-tags',

@@ -1,3 +1,4 @@
+import React from 'react';
 export function LogoNode(properties: JSX.IntrinsicElements['svg']) {
   return (
     <svg

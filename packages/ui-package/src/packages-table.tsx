@@ -20,24 +20,16 @@ import {
   TableRow,
   TableHeadSortButton,
   Button,
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
-import {
-  DocumentName,
-  PackageType,
-  formatTagName,
-} from '@commonalityco/utils-core';
+import { PackageType, formatTagName } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-package';
-import { Document, Package } from '@commonalityco/types';
-import { FileText, Plus } from 'lucide-react';
+import { Package } from '@commonalityco/types';
+import { Plus } from 'lucide-react';
 
 export type ColumnData = Package & {
   codeowners: string[];
   tags: string[];
-  documents: Document[];
 };
 
 export type PackageTableColumns<Data> = ColumnDef<Data & ColumnData, unknown>[];
@@ -79,62 +71,6 @@ export function NameCell<T extends ColumnData>({ row }: { row: Row<T> }) {
           {description}
         </span>
       </div>
-    </div>
-  );
-}
-
-export function DocumentsCell<T extends ColumnData>({
-  row,
-  onDocumentOpen,
-}: {
-  row: Row<T>;
-  onDocumentOpen: (filePath: string) => Promise<void>;
-}) {
-  const documents: Document[] = row.original.documents;
-  const readme = documents.find((doc) => doc.filename === DocumentName.README);
-  const extraDocs = documents.filter(
-    (doc) => doc.filename !== DocumentName.README,
-  );
-
-  if (documents.length === 0) {
-    return <div className="text-muted-foreground">No documents</div>;
-  }
-
-  return (
-    <div className="flex flex-nowrap gap-2 items-center overflow-hidden min-w-0">
-      {documents.length > 0 ? (
-        <HoverCard openDelay={200}>
-          <HoverCardTrigger className="flex gap-1 items-center" asChild>
-            <Button variant="link" className="px-0">
-              <div className="flex gap-1 items-center">
-                <FileText className="w-4 h-4" />
-                README
-              </div>
-              {readme && extraDocs.length > 0 ? (
-                <Plus className="w-4 h-4 shrink-0" />
-              ) : undefined}
-              {extraDocs.length > 0
-                ? `${extraDocs.length} ${
-                    extraDocs.length > 1 ? 'documents' : 'document'
-                  }`
-                : undefined}
-            </Button>
-          </HoverCardTrigger>
-
-          <HoverCardContent className="p-1">
-            {documents.map((document) => (
-              <Button
-                className="w-full justify-start p-2 h-auto border-none leading-none"
-                variant="ghost"
-                key={document.filename}
-                onClick={() => onDocumentOpen(document.path)}
-              >
-                {`Open ${document.filename}`}
-              </Button>
-            ))}
-          </HoverCardContent>
-        </HoverCard>
-      ) : undefined}
     </div>
   );
 }

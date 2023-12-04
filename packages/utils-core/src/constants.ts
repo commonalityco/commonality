@@ -30,10 +30,6 @@ export enum PackageManager {
   BUN = 'bun',
 }
 
-export enum DocumentName {
-  README = 'README',
-}
-
 export enum FilePath {
   PACKAGE_CONFIG = './commonality.json',
 }

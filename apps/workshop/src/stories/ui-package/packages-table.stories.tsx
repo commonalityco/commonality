@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import {
   CodeownersCell,
   ColumnData,
-  DocumentsCell,
   NameCell,
   PackageTableColumns,
   PackagesTable,
@@ -20,13 +19,6 @@ const columns = [
     },
     size: 300,
     cell: NameCell,
-  },
-  {
-    accessorKey: 'documents',
-    header: 'Documents',
-    cell: (props) => (
-      <DocumentsCell {...props} onDocumentOpen={async () => {}} />
-    ),
   },
   {
     accessorKey: 'tags',
@@ -89,38 +81,6 @@ export const StressTest: Story = {
           '#tag9',
           '#tag10',
         ],
-        documents: [
-          {
-            filename: 'README',
-            isRoot: true,
-            content: 'content1',
-            path: '/path/doc1',
-          },
-          {
-            filename: 'CHANGELOG',
-            isRoot: false,
-            content: 'content2',
-            path: '/path/doc2',
-          },
-          {
-            filename: 'doc3',
-            isRoot: false,
-            content: 'content3',
-            path: '/path/doc3',
-          },
-          {
-            filename: 'doc4',
-            isRoot: false,
-            content: 'content4',
-            path: '/path/doc4',
-          },
-          {
-            filename: 'doc5',
-            isRoot: false,
-            content: 'content5',
-            path: '/path/doc5',
-          },
-        ],
       },
       {
         name: 'package-two',
@@ -150,38 +110,6 @@ export const StressTest: Story = {
           '#tag18',
           '#tag19',
           '#tag20',
-        ],
-        documents: [
-          {
-            filename: 'README',
-            isRoot: true,
-            content: 'content6',
-            path: '/path/doc6',
-          },
-          {
-            filename: 'doc7',
-            isRoot: false,
-            content: 'content7',
-            path: '/path/doc7',
-          },
-          {
-            filename: 'doc8',
-            isRoot: false,
-            content: 'content8',
-            path: '/path/doc8',
-          },
-          {
-            filename: 'doc9',
-            isRoot: false,
-            content: 'content9',
-            path: '/path/doc9',
-          },
-          {
-            filename: 'doc10',
-            isRoot: false,
-            content: 'content10',
-            path: '/path/doc10',
-          },
         ],
       },
       {
@@ -213,38 +141,6 @@ export const StressTest: Story = {
           '#tag29',
           '#tag30',
         ],
-        documents: [
-          {
-            filename: 'CHANGELOG',
-            isRoot: false,
-            content: 'content11',
-            path: '/path/doc11',
-          },
-          {
-            filename: 'doc12',
-            isRoot: false,
-            content: 'content12',
-            path: '/path/doc12',
-          },
-          {
-            filename: 'doc13',
-            isRoot: false,
-            content: 'content13',
-            path: '/path/doc13',
-          },
-          {
-            filename: 'doc14',
-            isRoot: false,
-            content: 'content14',
-            path: '/path/doc14',
-          },
-          {
-            filename: 'doc15',
-            isRoot: false,
-            content: 'content15',
-            path: '/path/doc15',
-          },
-        ],
       },
     ] satisfies ColumnData[],
   },
@@ -262,7 +158,6 @@ export const EmptyMetadata: Story = {
         path: '/path',
         codeowners: [],
         tags: [],
-        documents: [],
       },
       {
         name: 'package-two',
@@ -271,7 +166,6 @@ export const EmptyMetadata: Story = {
         path: '/path',
         codeowners: [],
         tags: [],
-        documents: [],
       },
     ] satisfies ColumnData[],
   },

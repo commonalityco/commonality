@@ -2,7 +2,6 @@
 import React, { ComponentProps, Suspense, useMemo, useState } from 'react';
 import {
   CodeownersCell,
-  DocumentsCell,
   NameCell,
   PackageTableColumns,
   PackagesTable,
@@ -145,13 +144,6 @@ function StudioPackagesTable({
         cell: NameCell,
       },
       {
-        accessorKey: 'documents',
-        header: 'Documents',
-        cell: (props) => (
-          <DocumentsCell {...props} onDocumentOpen={onEditorOpen} />
-        ),
-      },
-      {
         accessorKey: 'tags',
         header: 'Tags',
         cell: (cellProps) => (
@@ -181,7 +173,7 @@ function StudioPackagesTable({
         },
       },
     ] satisfies PackageTableColumns<StudioColumnData>;
-  }, [onEditorOpen, props.tags]);
+  }, [props.tags]);
 
   return <PackagesTable {...props} columns={columns} />;
 }

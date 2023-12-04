@@ -4,7 +4,7 @@
   "private": true,
   "version": "1.0.16",
   "scripts": {
-    "app-dev": "storybook dev -p 6006",
+    "dev": "storybook dev -p 6006",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit"
