@@ -10,12 +10,16 @@ import React from 'react';
 import StudioPackagesTable from './studio-packages-table';
 import StudioPackagesTablePaginator from './studio-packages-table-paginator';
 import { getTableData } from './get-table-data';
+import { getConformanceResultsData } from '@/data/violations';
+import omit from 'lodash/omit';
+import stripAnsi from 'strip-ansi';
 
 async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
-  const [packages, tagsData, codeownersData] = await Promise.all([
+  const [packages, tagsData, codeownersData, results] = await Promise.all([
     getPackagesData(),
     getTagsData(),
     getCodeownersData(),
+    getConformanceResultsData(),
   ]);
 
   const parsedSearchParams = z
@@ -36,6 +40,19 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
 
   const data = await getTableData({
     packages,
+    results: results.map((result) => {
+      const strippedResult = result.message.context
+        ? {
+            ...result,
+            message: {
+              ...result.message,
+              context: stripAnsi(result.message.context),
+            },
+          }
+        : result;
+
+      return omit(strippedResult, ['fix']);
+    }),
     tagsData,
     codeownersData,
     filterName: parsedSearchParams.name,
@@ -43,9 +60,8 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
     filterCodeowners: parsedSearchParams.codeowners,
     page: parsedSearchParams.page,
     pageCount: parsedSearchParams.pageCount,
-    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
   });
-
+  console.log({ data });
   const uniqueTags: string[] = Array.from(
     new Set(tagsData.flatMap((pkg) => pkg.tags)),
   ).sort();

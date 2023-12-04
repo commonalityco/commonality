@@ -26,7 +26,6 @@
   },
   "include": [
     "next-env.d.ts",
-    "reset.d.ts",
     "env.d.ts",
     "./**/*.ts",
     "./**/*.tsx",

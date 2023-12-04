@@ -5,6 +5,7 @@ import {
   CodeownersData,
   Package,
 } from '@commonalityco/types';
+import { Status } from '@commonalityco/utils-core';
 import path from 'node:path';
 
 export const getConformanceResults = async ({
@@ -40,10 +41,7 @@ export const getConformanceResults = async ({
           .map((data) => packagesMap.get(data.packageName))
           .filter((pkg): pkg is Package => !!pkg)
           .map(async (pkg): Promise<ConformanceResult> => {
-            const getValidationResult = async (): Promise<{
-              isValid: boolean;
-              error?: unknown;
-            }> => {
+            const getStatus = async (): Promise<Status> => {
               try {
                 const result = await conformer.validate({
                   workspace: Object.freeze({
@@ -62,9 +60,15 @@ export const getConformanceResults = async ({
                   codeowners: codeownersMap.get(pkg.name as string) ?? [],
                 });
 
-                return { isValid: Boolean(result) };
-              } catch (error) {
-                return { isValid: false, error };
+                if (result) {
+                  return Status.Pass;
+                } else {
+                  return conformer.level === 'error'
+                    ? Status.Fail
+                    : Status.Warn;
+                }
+              } catch {
+                return Status.Fail;
               }
             };
 
@@ -105,18 +109,17 @@ export const getConformanceResults = async ({
               }
             };
 
-            const validationResult = await getValidationResult();
+            const status = await getStatus();
 
             const message = await getMessage();
 
             return {
+              status,
               name: conformer.name,
               filter: matchingPattern,
               package: pkg,
               message,
-              level: conformer.level ?? 'warning',
               fix: conformer.fix,
-              isValid: validationResult.isValid,
             };
           }),
       ),

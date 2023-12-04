@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { getConformanceResults } from '../src/get-conformance-results';
 import { Conformer, Package, TagsData } from '@commonalityco/types';
-import { PackageType } from '@commonalityco/utils-core';
+import { PackageType, Status } from '@commonalityco/utils-core';
 
 describe('getConformanceResults', () => {
   it('should return errors when workspace is not valid', async () => {
@@ -35,11 +35,10 @@ describe('getConformanceResults', () => {
     });
 
     expect(results).toHaveLength(1);
-    expect(results[0].isValid).toBe(false);
+    expect(results[0].status).toBe(Status.Fail);
     expect(results[0].message.title).toBe('Invalid workspace');
     expect(results[0].filter).toBe('*');
     expect(results[0].package).toEqual(packages[0]);
-    expect(results[0].level).toBe('error');
   });
 
   it('should return valid results when tests are valid', async () => {
@@ -72,11 +71,10 @@ describe('getConformanceResults', () => {
     });
 
     expect(results).toHaveLength(1);
-    expect(results[0].isValid).toBe(true);
+    expect(results[0].status).toBe(Status.Warn);
     expect(results[0].message.title).toBe('Valid workspace');
     expect(results[0].filter).toBe('*');
     expect(results[0].package).toEqual(packages[0]);
-    expect(results[0].level).toBe('warning');
   });
 
   it('should handle exceptions during validation', async () => {
@@ -110,11 +108,10 @@ describe('getConformanceResults', () => {
     });
 
     expect(results).toHaveLength(1);
-    expect(results[0].isValid).toBe(false);
+    expect(results[0].status).toBe(Status.Warn);
     expect(results[0].message.title).toBe('Exception during validation');
     expect(results[0].filter).toBe('*');
     expect(results[0].package).toEqual(packages[0]);
-    expect(results[0].level).toBe('warning');
   });
 
   it('should handle conformers that target patterns other than *', async () => {
@@ -147,11 +144,10 @@ describe('getConformanceResults', () => {
     });
 
     expect(results).toHaveLength(1);
-    expect(results[0].isValid).toBe(true);
+    expect(results[0].status).toBe(Status.Warn);
     expect(results[0].message.title).toBe('Valid workspace for tag1');
     expect(results[0].filter).toBe('tag1');
     expect(results[0].package).toEqual(packages[0]);
-    expect(results[0].level).toBe('warning');
   });
 
   it('should return correct result when message property is a function', async () => {
@@ -186,12 +182,11 @@ describe('getConformanceResults', () => {
     });
 
     expect(results).toHaveLength(1);
-    expect(results[0].isValid).toBe(true);
+    expect(results[0].status).toBe(Status.Warn);
     expect(results[0].message.title).toBe(
       'Valid workspace for /path/to/workspace',
     );
     expect(results[0].filter).toBe('*');
     expect(results[0].package).toEqual(packages[0]);
-    expect(results[0].level).toBe('warning');
   });
 });

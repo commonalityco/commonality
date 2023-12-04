@@ -64,10 +64,10 @@ module.exports = {
           border: 'hsl(var(--success-border))',
           foreground: 'hsl(var(--success-foreground))',
         },
-        danger: {
-          DEFAULT: 'hsl(var(--danger))',
-          border: 'hsl(var(--danger-border))',
-          foreground: 'hsl(var(--danger-foreground))',
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          border: 'hsl(var(--destructive-border))',
+          foreground: 'hsl(var(--destructive-foreground))',
         },
       },
       borderRadius: {

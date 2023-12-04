@@ -4,6 +4,7 @@ import {
   CodeownersData,
   Package,
 } from '@commonalityco/types';
+import { Status } from '@commonalityco/utils-core';
 import path from 'node:path';
 
 export const runFixes = async ({
@@ -28,7 +29,7 @@ export const runFixes = async ({
   );
 
   for (const result of conformanceResults) {
-    if (result.fix && !result.isValid) {
+    if (result.fix && result.status !== Status.Pass) {
       if (!groupedResults[result.name]) {
         groupedResults[result.name] = [];
       }

@@ -2,13 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import {
   CodeownersCell,
   ColumnData,
+  ConformanceCell,
   NameCell,
   PackageTableColumns,
   PackagesTable,
   SortableHeader,
   TagsCell,
 } from '@commonalityco/ui-package';
-import { PackageType } from '@commonalityco/utils-core';
+import { PackageType, Status } from '@commonalityco/utils-core';
 import { Package } from '@commonalityco/types';
 
 const columns = [
@@ -17,7 +18,6 @@ const columns = [
     header: ({ column }) => {
       return <SortableHeader column={column} title="Name" />;
     },
-    size: 300,
     cell: NameCell,
   },
   {
@@ -29,6 +29,11 @@ const columns = [
     accessorKey: 'codeowners',
     header: 'Codeowners',
     cell: CodeownersCell,
+  },
+  {
+    accessorKey: 'results',
+    header: 'Conformance',
+    cell: ConformanceCell,
   },
 ] satisfies PackageTableColumns<Package>;
 
@@ -53,10 +58,13 @@ export const StressTest: Story = {
     columns: columns as any,
     data: [
       {
-        name: 'package-one',
-        type: PackageType.NODE,
-        version: '1.0.0',
-        path: '/path',
+        package: {
+          path: '/',
+          name: 'package-one',
+          type: PackageType.NODE,
+          version: '1.0.0',
+        },
+        results: [],
         codeowners: [
           '@team1',
           '@team2',
@@ -83,10 +91,13 @@ export const StressTest: Story = {
         ],
       },
       {
-        name: 'package-two',
-        type: PackageType.NODE,
-        version: '1.0.0',
-        path: '/path',
+        package: {
+          name: 'package-two',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [],
         codeowners: [
           '@team11',
           '@team12',
@@ -113,10 +124,13 @@ export const StressTest: Story = {
         ],
       },
       {
-        name: 'package-three',
-        type: PackageType.NODE,
-        version: '1.0.0',
-        path: '/path',
+        package: {
+          name: 'package-three',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [],
         codeowners: [
           '@team21',
           '@team22',
@@ -146,24 +160,114 @@ export const StressTest: Story = {
   },
 };
 
+export const Basic: Story = {
+  args: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    columns: columns as any,
+    data: [
+      {
+        package: {
+          name: 'package-one',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [
+          {
+            status: Status.Warn,
+            name: 'conformance-one',
+            filter: 'tag-one',
+            message: {
+              title: 'This package should adhere to a certain standard',
+              filepath: 'package.json',
+              context: `
+              "  Object {
+                  \\"devDependencies\\": Object {
+                    \\"pkg-b\\": \\"^18.0.2\\",
+                  },
+                  \\"peerDependencies\\": Object {
+                    \\"pkg-b\\": \\">=18\\",
+                  },
+                }"
+            `,
+            },
+            package: {
+              name: 'package-one',
+              type: PackageType.NODE,
+              version: '1.0.0',
+              path: '/path',
+              description: 'description',
+            },
+          },
+          {
+            status: Status.Fail,
+            name: 'conformance-two',
+            filter: 'tag-two',
+            message: {
+              title: 'This package is bad',
+              filepath: 'package.json',
+              context: `
+              "  Object {
+                  \\"devDependencies\\": Object {
+                    \\"pkg-b\\": \\"^18.0.2\\",
+                  },
+                  \\"peerDependencies\\": Object {
+                    \\"pkg-b\\": \\">=18\\",
+                  },
+                }"
+                `,
+            },
+            package: {
+              name: 'package-one',
+              type: PackageType.NODE,
+              version: '1.0.0',
+              path: '/path',
+              description: 'description',
+            },
+          },
+        ],
+        codeowners: ['@team1', '@team2'],
+        tags: ['#tag1', '#tag2'],
+      },
+      {
+        package: {
+          name: 'package-two',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [],
+        codeowners: ['@team1', '@team2'],
+        tags: ['#tag1', '#tag2'],
+      },
+    ] satisfies ColumnData[],
+  },
+};
+
 export const EmptyMetadata: Story = {
   args: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     columns: columns as any,
     data: [
       {
-        name: 'package-one',
-        type: PackageType.NODE,
-        version: '1.0.0',
-        path: '/path',
+        package: {
+          name: 'package-one',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [],
         codeowners: [],
         tags: [],
       },
       {
-        name: 'package-two',
-        type: PackageType.NODE,
-        version: '1.0.0',
-        path: '/path',
+        package: {
+          name: 'package-two',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [],
         codeowners: [],
         tags: [],
       },

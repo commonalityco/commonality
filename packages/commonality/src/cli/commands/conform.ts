@@ -16,6 +16,7 @@ import c from 'picocolors';
 import prompts from 'prompts';
 import process from 'node:process';
 import { Logger } from '../utils/logger';
+import { Status } from '@commonalityco/utils-core';
 
 const command = new Command();
 
@@ -56,9 +57,9 @@ class ConformLogger extends Logger {
 
   addCheckName({ result }: { result: ConformanceResult }) {
     let status;
-    if (result.isValid) {
+    if (result.status === Status.Pass) {
       status = c.green('✓ pass');
-    } else if (result.level === 'error') {
+    } else if (result.status === Status.Fail) {
       status = c.red('✘ fail');
     } else {
       status = c.yellow('⚠ warn');
@@ -100,23 +101,23 @@ const reportConformanceResults = ({
 
   for (const packageResults of resultsMap.values()) {
     const invalidResults = [...packageResults].filter(
-      (result) => !result.isValid,
+      (result) => result.status === Status.Fail,
     );
 
-    if (invalidResults.some((result) => result.level === 'error')) {
+    if (invalidResults.some((result) => result.status === Status.Fail)) {
       failPackageCount++;
     }
 
-    if (invalidResults.some((result) => result.level === 'warning')) {
+    if (invalidResults.some((result) => result.status === Status.Warn)) {
       warnPackageCount++;
     }
   }
 
   const failCheckCount = results.filter(
-    (result) => !result.isValid && result.level === 'error',
+    (result) => result.status === Status.Fail,
   ).length;
   const warnCheckCount = results.filter(
-    (result) => !result.isValid && result.level === 'warning',
+    (result) => result.status === Status.Warn,
   ).length;
 
   for (const packageName of resultsMap.keys()) {
@@ -127,7 +128,7 @@ const reportConformanceResults = ({
     }
 
     const hasInvalidResults = [...resultsForPackage].some(
-      (result) => !result.isValid,
+      (result) => result.status !== Status.Pass,
     );
 
     logger.addPackageName({
@@ -151,7 +152,7 @@ const reportConformanceResults = ({
 
     for (const [filter, resultsForFilter] of resultsForPackageByFilter) {
       const hasInvalidFilterResults = resultsForFilter.some(
-        (result) => !result.isValid,
+        (result) => result.status !== Status.Pass,
       );
 
       const result = resultsForPackageByFilter.get(filter);
@@ -169,7 +170,7 @@ const reportConformanceResults = ({
       }
 
       for (const result of resultsForPackage) {
-        if (!result.isValid || verbose) {
+        if (result.status !== Status.Pass || verbose) {
           logger.addCheckName({ result });
 
           if (result.message.filepath) {
@@ -221,7 +222,7 @@ export const action = async ({
     reportConformanceResults({ verbose, results, logger });
 
     const fixableResults = results.filter(
-      (result) => !result.isValid && result.fix,
+      (result) => result.status !== Status.Pass && result.fix,
     );
 
     while (fixableResults.length > 0) {
@@ -249,9 +250,7 @@ export const action = async ({
       reportConformanceResults({ verbose, results, logger });
     }
 
-    const hasErrors = results.some(
-      (result) => !result.isValid && result.level === 'error',
-    );
+    const hasErrors = results.some((result) => result.status === Status.Fail);
 
     if (hasErrors) {
       global.process.exit(1);

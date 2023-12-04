@@ -3,9 +3,10 @@
   "display": "React",
   "compilerOptions": {
     "target": "ES2021",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "jsx": "react-jsxdev",
+    "jsx": "react-jsx",
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",

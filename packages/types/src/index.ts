@@ -2,6 +2,7 @@ import {
   DependencyType,
   AllPackagesWildcard,
   PackageType,
+  Status,
 } from '@commonalityco/utils-core';
 
 export type Constraint =
@@ -119,8 +120,7 @@ export type ConformanceResult = {
   name: string;
   filter: string;
   fix?: ConformerFn<void>;
-  level: 'error' | 'warning';
-  isValid: boolean;
+  status: Status;
   package: Package;
   message: Message;
 };

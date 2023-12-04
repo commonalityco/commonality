@@ -1,7 +1,10 @@
-import { CodeownersData, Package, TagsData } from '@commonalityco/types';
+import {
+  CodeownersData,
+  ConformanceResult,
+  Package,
+  TagsData,
+} from '@commonalityco/types';
 import { ColumnData } from '@commonalityco/ui-package';
-import path from 'node:path';
-import fs from 'fs-extra';
 
 function keyBy<Data extends Record<string, any>>(
   array: Data[],
@@ -19,9 +22,10 @@ export const getTableData = async ({
   filterCodeowners,
   page = 1,
   pageCount,
-  rootDirectory,
+  results,
 }: {
   packages: Package[];
+  results: Omit<ConformanceResult, 'fix'>[];
   tagsData: TagsData[];
   codeownersData: CodeownersData[];
   filterName?: string;
@@ -29,36 +33,34 @@ export const getTableData = async ({
   filterCodeowners?: string[];
   page: number;
   pageCount: number;
-  rootDirectory: string;
-}): Promise<
-  Array<
-    ColumnData & {
-      packageJsonPath: string;
-      projectConfigPath?: string;
-    }
-  >
-> => {
+}): Promise<ColumnData[]> => {
   const normalizedTags = keyBy(tagsData, 'packageName');
   const normalizedCodeowners = keyBy(codeownersData, 'packageName');
 
   const data = packages
     .map((pkg) => {
+      const resultsForPackage = results.filter(
+        (result) => result.package.name === pkg.name,
+      );
       return {
-        ...pkg,
+        package: pkg,
         tags: normalizedTags[pkg.name]?.tags ?? [],
         codeowners: normalizedCodeowners[pkg.name]?.codeowners ?? [],
+        results: resultsForPackage,
       } satisfies ColumnData;
     })
-    .filter((pkg) => {
+    .filter((data) => {
       if (filterName) {
-        return pkg.name.toLowerCase().includes(filterName.toLowerCase());
+        return data.package.name
+          .toLowerCase()
+          .includes(filterName.toLowerCase());
       }
 
       return true;
     })
-    .filter((pkg) => {
+    .filter((data) => {
       if (filterTags?.length && filterTags.length > 0) {
-        return pkg.tags.some((pkgTag) => {
+        return data.tags.some((pkgTag) => {
           if (filterTags.length === 0) return;
 
           return filterTags.some((tag) => tag === pkgTag);
@@ -67,9 +69,9 @@ export const getTableData = async ({
 
       return true;
     })
-    .filter((pkg) => {
+    .filter((data) => {
       if (filterCodeowners?.length && filterCodeowners.length > 0) {
-        return pkg.codeowners.some((pkgCodeowner) => {
+        return data.codeowners.some((pkgCodeowner) => {
           if (filterCodeowners.length === 0) return;
 
           return filterCodeowners.some(
@@ -87,24 +89,5 @@ export const getTableData = async ({
 
   const paginatedData = data.slice(fromIndex, toIndex);
 
-  const dataWithFilePaths = await Promise.all(
-    paginatedData.map(async (pkg) => {
-      const projectConfigPath = path.join(pkg.path, 'commonality.json');
-      const packageJsonPath = path.join(pkg.path, 'package.json');
-      const projectConfigExists = await fs.pathExists(
-        path.join(rootDirectory, projectConfigPath),
-      );
-
-      return {
-        ...pkg,
-        packageJsonPath,
-        projectConfigPath: projectConfigExists ? projectConfigPath : undefined,
-      } satisfies ColumnData & {
-        packageJsonPath: string;
-        projectConfigPath?: string;
-      };
-    }),
-  );
-
-  return dataWithFilePaths;
+  return paginatedData;
 };

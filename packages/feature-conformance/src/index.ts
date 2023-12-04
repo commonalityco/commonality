@@ -1,10 +1,10 @@
-export * from './get-conformance-results.js';
-export * from './run-fixes.js';
+export * from './get-conformance-results';
+export * from './run-fixes';
 
-export * from './create-test-conformer.js';
-export * from './define-conformer.js';
+export * from './create-test-conformer';
+export * from './define-conformer';
 
-export * from './files/json.js';
-export * from './files/text.js';
+export * from './files/json';
+export * from './files/text';
 
-export * from './utils/diff.js';
+export * from './utils/diff';

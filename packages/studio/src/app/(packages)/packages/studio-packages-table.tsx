@@ -2,13 +2,14 @@
 import React, { ComponentProps, Suspense, useMemo, useState } from 'react';
 import {
   CodeownersCell,
+  ConformanceCell,
   NameCell,
   PackageTableColumns,
   PackagesTable,
   SortableHeader,
   TagsCell,
   ColumnData,
-} from '@commonalityco/ui-package/packages-table';
+} from '@commonalityco/ui-package';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,24 +19,22 @@ import {
 } from '@commonalityco/ui-design-system/dropdown-menu';
 import { Button } from '@commonalityco/ui-design-system';
 import { MoreHorizontal } from 'lucide-react';
-import { openEditorAction } from '@/actions/editor';
+import { openPackageJson } from '@/actions/editor';
 import {
   EditTagsDialog,
   EditTagsDialogContent,
 } from '@/components/edit-tags-dialog';
+import { Package } from '@commonalityco/types';
 
 export function ActionButton({
   existingTags,
-  packageName,
   tags,
-  packageJsonPath,
-  projectConfigPath,
+
+  pkg,
 }: {
-  packageName: string;
+  pkg: Package;
   existingTags: string[];
   tags: string[];
-  packageJsonPath: string;
-  projectConfigPath?: string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -45,7 +44,7 @@ export function ActionButton({
         <EditTagsDialogContent
           tags={tags}
           existingTags={existingTags}
-          packageName={packageName}
+          packageName={pkg.name}
         />
       </EditTagsDialog>
       <DropdownMenu>
@@ -57,18 +56,8 @@ export function ActionButton({
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => openEditorAction(packageJsonPath)}>
+          <DropdownMenuItem onSelect={() => openPackageJson(pkg.path)}>
             Open package.json
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            disabled={!projectConfigPath}
-            onSelect={
-              projectConfigPath
-                ? () => openEditorAction(projectConfigPath)
-                : undefined
-            }
-          >
-            Open commonality.json
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onSelect={() => setOpen(true)}>
@@ -95,7 +84,7 @@ export function StudioTagsCell<T extends ColumnData>({
         <EditTagsDialogContent
           tags={tags}
           existingTags={data.tags}
-          packageName={data.name}
+          packageName={data.package.name}
         />
       </EditTagsDialog>
       {data.tags.length > 0 ? (
@@ -113,10 +102,7 @@ export function StudioTagsCell<T extends ColumnData>({
   );
 }
 
-export type StudioColumnData = ColumnData & {
-  packageJsonPath: string;
-  projectConfigPath?: string;
-};
+export type StudioColumnData = ColumnData;
 
 interface PackagesTableProps
   extends Omit<
@@ -156,16 +142,19 @@ function StudioPackagesTable({
         cell: CodeownersCell,
       },
       {
+        accessorKey: 'results',
+        header: 'Conformance',
+        cell: ConformanceCell,
+      },
+      {
         id: 'actions',
         size: 64,
         cell: ({ row }) => {
           return (
             <Suspense fallback={null}>
               <ActionButton
-                packageJsonPath={row.original.packageJsonPath}
-                projectConfigPath={row.original.projectConfigPath}
                 existingTags={row.original.tags}
-                packageName={row.original.name}
+                pkg={row.original.package}
                 tags={props.tags}
               />
             </Suspense>

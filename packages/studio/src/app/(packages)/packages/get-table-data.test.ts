@@ -25,6 +25,7 @@ describe('getTableData', () => {
 
     const result = await getTableData({
       packages,
+      results: [],
       tagsData: [],
       codeownersData: [],
       filterName: '',
@@ -54,6 +55,7 @@ describe('getTableData', () => {
     const result = await getTableData({
       packages,
       tagsData: [],
+      results: [],
       codeownersData: [],
       filterName: 'Package 10',
       filterTags: [],
@@ -91,6 +93,7 @@ describe('getTableData', () => {
 
     const result = await getTableData({
       packages,
+      results: [],
       tagsData,
       codeownersData: [],
       filterName: '',
@@ -130,6 +133,7 @@ describe('getTableData', () => {
       packages,
       tagsData: [],
       codeownersData,
+      results: [],
       filterName: '',
       filterTags: [],
       filterCodeowners: ['codeowner10'],

@@ -35,3 +35,9 @@ export enum FilePath {
 }
 
 export const AllPackagesWildcard = '*' as const;
+
+export enum Status {
+  Pass = 'pass',
+  Fail = 'fail',
+  Warn = 'warn',
+}

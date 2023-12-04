@@ -2,8 +2,22 @@
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: [
+    '@commonalityco/data-codeowners',
     '@commonalityco/data-graph',
     '@commonalityco/data-graph-worker',
+    '@commonalityco/data-packages',
+    '@commonalityco/data-project',
+    '@commonalityco/data-tags',
+    '@commonalityco/data-violations',
+    '@commonalityco/feature-conformance',
+    '@commonalityco/feature-graph',
+    '@commonalityco/ui-core',
+    '@commonalityco/ui-design-system',
+    '@commonalityco/ui-graph',
+    '@commonalityco/ui-package',
+    '@commonalityco/utils-core',
+    '@commonalityco/utils-graph',
+    '@commonalityco/utils-package',
   ],
 };
 
