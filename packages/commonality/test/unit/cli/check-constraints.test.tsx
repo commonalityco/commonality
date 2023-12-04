@@ -7,17 +7,6 @@ import { vi } from 'vitest';
 import * as ink from 'ink';
 import { ProjectConfig } from '@commonalityco/types';
 
-vi.mock('../../../src/cli/utils/use-async-fn.js', () => {
-  return { useAsyncFn: vi.fn() };
-});
-
-vi.mock('ink', async () => {
-  return {
-    ...(await vi.importActual<typeof ink>('ink')),
-    useApp: vi.fn().mockReturnValue({}),
-  };
-});
-
 describe('CheckConstraints', () => {
   afterEach(() => {
     cleanup();

@@ -1,9 +1,6 @@
-import React from 'react';
 import { Command } from 'commander';
 import { getConstraintResults } from '@commonalityco/data-violations';
 import { ConstraintResult } from '@commonalityco/types';
-import { Box, Text } from 'ink';
-import Spinner from 'ink-spinner';
 import ora from 'ora';
 import c from 'picocolors';
 import { Logger } from '../../utils/logger.js';
@@ -16,15 +13,6 @@ import { getTagsData } from '@commonalityco/data-tags';
 import { getDependencies, getPackages } from '@commonalityco/data-packages';
 
 const constraintSpinner = ora('Validating constraints...');
-
-export const ConstraintSpinner = () => (
-  <Box gap={1}>
-    <Text color="green">
-      <Spinner type="dots" />
-    </Text>
-    <Text>Validating constraints...</Text>
-  </Box>
-);
 
 const command = new Command();
 
