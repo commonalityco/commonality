@@ -1,13 +1,9 @@
-import React from 'react';
-import { render, cleanup } from 'ink-testing-library';
-import { beforeEach, describe, expect, it, test, vi } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { reportConstraintResults } from '../../../src/cli/commands/constrain/constrain.js';
-import { useAsyncFn } from '../../../src/cli/utils/use-async-fn.js';
-import { DependencyType, PackageType } from '@commonalityco/utils-core';
+import { DependencyType } from '@commonalityco/utils-core';
 import stripAnsi from 'strip-ansi';
-import { ConstraintResult, Violation } from '@commonalityco/types';
-import * as ink from 'ink';
-import { getConstraintResults } from '@commonalityco/data-violations';
+import { ConstraintResult } from '@commonalityco/types';
+
 import process from 'node:process';
 import console from 'node:console';
 
