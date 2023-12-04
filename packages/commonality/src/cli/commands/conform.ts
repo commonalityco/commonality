@@ -262,7 +262,7 @@ export const action = async ({
 };
 
 export const conform = command
-  .name('conform')
+  .name('check')
   .description('Validate that packages pass conformance checks')
   .option('--verbose', 'Show the result of all checks')
   .action(async ({ verbose }: { verbose: boolean }) => {

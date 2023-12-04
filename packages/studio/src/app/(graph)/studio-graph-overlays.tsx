@@ -1,10 +1,8 @@
 'use client';
-import dynamic from 'next/dynamic';
-import { FeatureGraphDependencyTooltip } from '@commonalityco/feature-graph';
-
-const FeatureGraphPackageTooltip = dynamic(
-  () => import('@commonalityco/feature-graph/feature-graph-package-tooltip'),
-);
+import {
+  FeatureGraphDependencyTooltip,
+  FeatureGraphPackageTooltip,
+} from '@commonalityco/feature-graph';
 
 function StudioGraphOverlays() {
   return (

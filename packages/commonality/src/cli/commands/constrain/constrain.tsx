@@ -311,7 +311,7 @@ const action = async (options: { verbose: boolean }) => {
 };
 
 export const constrain = command
-  .name('check')
+  .name('constrain')
   .description('Validate that dependencies adhere to your constraints')
   .option('--verbose', 'Show the result of all constraints')
   .action(action);

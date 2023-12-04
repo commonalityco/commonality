@@ -10,7 +10,7 @@ export function GraphLayoutRoot({
   return (
     <main
       className={cn(
-        'bg-secondary relative grid h-full max-h-screen min-h-0 w-full grid-cols-[auto_1fr] items-stretch overflow-hidden',
+        'relative grid h-full max-h-screen min-h-0 w-full grid-cols-[auto_1fr] items-stretch overflow-hidden px-6 gap-4',
         className,
       )}
     >
@@ -27,10 +27,8 @@ export function GraphLayoutAside({
   className?: string;
 }) {
   return (
-    <div className={cn('h-full pl-4 py-4 pr-4', className)}>
-      <div className="h-full w-72 rounded-lg border bg-background">
-        {children}
-      </div>
+    <div className={cn('h-full', className)}>
+      <div className="h-full w-72">{children}</div>
     </div>
   );
 }
@@ -43,7 +41,7 @@ export function GraphLayoutMain({
   className?: string;
 }) {
   return (
-    <div className="align-stretch flex h-full grow py-4 pr-4">
+    <div className="align-stretch flex h-full grow bg-secondary">
       <div
         className={cn(
           'flex h-full w-full flex-col overflow-hidden rounded-lg border bg-background',

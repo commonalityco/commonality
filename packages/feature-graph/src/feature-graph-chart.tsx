@@ -110,11 +110,7 @@ export function FeatureGraphChart({
 
   return (
     <>
-      <FeatureGraphToolbar
-        constraints={constraints}
-        packages={packages}
-        violations={violations}
-      />
+      <FeatureGraphToolbar packages={packages} />
       <GraphChart
         ref={containerReference}
         loading={isLoading}

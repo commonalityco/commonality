@@ -61,7 +61,7 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
     page: parsedSearchParams.page,
     pageCount: parsedSearchParams.pageCount,
   });
-  console.log({ data });
+
   const uniqueTags: string[] = Array.from(
     new Set(tagsData.flatMap((pkg) => pkg.tags)),
   ).sort();

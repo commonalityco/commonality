@@ -69,7 +69,9 @@ export function NameCell<T extends ColumnData>({ row }: { row: Row<T> }) {
       <Icon />
       <div className="text-left space-y-1">
         <div className="flex flex-nowrap gap-2 items-center">
-          <span className="font-semibold block">{name}</span>
+          <span className="font-semibold block">
+            {row.original.package.name}
+          </span>
           <div className="font-mono leading-none mt-px">
             {row.original.package.version}
           </div>
@@ -106,123 +108,130 @@ export function ConformanceCell<T extends ColumnData>({
   ).length;
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="ghost" className="w-full flex gap-4 overflow-hidden">
-          <div className="h-1.5 w-full flex rounded-full overflow-hidden min-w-[100px]">
-            {failCount > 0 ? (
-              <div
-                className="h-full bg-red-500"
-                style={{ flexBasis: `${(failCount / results.length) * 100}%` }}
-              />
-            ) : undefined}
-            {warnCount > 0 ? (
-              <div
-                className="h-full bg-yellow-500"
-                style={{ flexBasis: `${(warnCount / results.length) * 100}%` }}
-              />
-            ) : undefined}
-            {passCount > 0 ? (
-              <div
-                className="h-full bg-emerald-500"
-                style={{ flexBasis: `${(passCount / results.length) * 100}%` }}
-              />
-            ) : undefined}
-          </div>
-
-          <div className="font-mono flex gap-4 shrink-0">
-            <span
-              className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
-                'text-desructive': failCount > 0,
-                'text-muted-foreground': failCount === 0,
-              })}
-            >
-              <X className="h-4 w-4" />
-              {failCount}
-            </span>
-            <span
-              className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
-                'text-yellow-500': warnCount > 0,
-                'text-muted-foreground': warnCount === 0,
-              })}
-            >
-              <AlertTriangle className="h-4 w-4" />
-              {warnCount}
-            </span>
-            <span
-              className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
-                'text-success': passCount > 0,
-                'text-muted-foreground': passCount === 0,
-              })}
-            >
-              <Check className="h-4 w-4" />
-              {passCount}
-            </span>
-          </div>
-          <ChevronDown className="h-4 w-4 shrink-0" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[500px] p-0">
-        <ScrollArea className="flex flex-col max-h-[500px]">
-          <div className="p-4 flex flex-col gap-4">
-            {results.map((result) => {
-              const getIcon = () => {
-                switch (result.status) {
-                  case Status.Pass: {
-                    return (
-                      <span className="text-success font-mono font-medium items-center flex flex-nowrap gap-2">
-                        <Check className="h-4 w-4" />
-                        pass
-                      </span>
-                    );
+    <div className="flex gap-2 items-center">
+      <div className="h-1.5 flex rounded-full overflow-hidden min-w-32 grow">
+        {failCount > 0 ? (
+          <div
+            className="h-full bg-red-500"
+            style={{
+              flexBasis: `${(failCount / results.length) * 100}%`,
+            }}
+          />
+        ) : undefined}
+        {warnCount > 0 ? (
+          <div
+            className="h-full bg-yellow-500"
+            style={{
+              flexBasis: `${(warnCount / results.length) * 100}%`,
+            }}
+          />
+        ) : undefined}
+        {passCount > 0 ? (
+          <div
+            className="h-full bg-emerald-500"
+            style={{
+              flexBasis: `${(passCount / results.length) * 100}%`,
+            }}
+          />
+        ) : undefined}
+      </div>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="ghost" className="flex gap-4 overflow-hidden shrink">
+            <div className="font-mono flex gap-4 shrink-0">
+              <span
+                className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
+                  'text-desructive': failCount > 0,
+                  'text-muted-foreground': failCount === 0,
+                })}
+              >
+                <X className="h-4 w-4" />
+                {failCount}
+              </span>
+              <span
+                className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
+                  'text-yellow-500': warnCount > 0,
+                  'text-muted-foreground': warnCount === 0,
+                })}
+              >
+                <AlertTriangle className="h-4 w-4" />
+                {warnCount}
+              </span>
+              <span
+                className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
+                  'text-success': passCount > 0,
+                  'text-muted-foreground': passCount === 0,
+                })}
+              >
+                <Check className="h-4 w-4" />
+                {passCount}
+              </span>
+            </div>
+            <ChevronDown className="h-4 w-4 shrink-0" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[500px] p-0" align="end">
+          <ScrollArea className="flex flex-col max-h-[500px]">
+            <div className="p-4 flex flex-col gap-4">
+              {results.map((result) => {
+                const getIcon = () => {
+                  switch (result.status) {
+                    case Status.Pass: {
+                      return (
+                        <span className="text-success font-mono font-medium items-center flex flex-nowrap gap-2">
+                          <Check className="h-4 w-4" />
+                          pass
+                        </span>
+                      );
+                    }
+                    case Status.Warn: {
+                      return (
+                        <span className="text-yellow-500 font-mono font-medium items-center flex flex-nowrap gap-2">
+                          <AlertTriangle className="h-4 w-4" />
+                          warn
+                        </span>
+                      );
+                    }
+                    case Status.Fail: {
+                      return (
+                        <span className="text-destructive font-mono font-medium items-center flex flex-nowrap gap-2">
+                          <X className="h-4 w-4" />
+                          pass
+                        </span>
+                      );
+                    }
                   }
-                  case Status.Warn: {
-                    return (
-                      <span className="text-yellow-500 font-mono font-medium items-center flex flex-nowrap gap-2">
-                        <AlertTriangle className="h-4 w-4" />
-                        warn
-                      </span>
-                    );
-                  }
-                  case Status.Fail: {
-                    return (
-                      <span className="text-destructive font-mono font-medium items-center flex flex-nowrap gap-2">
-                        <X className="h-4 w-4" />
-                        pass
-                      </span>
-                    );
-                  }
-                }
-              };
+                };
 
-              return (
-                <div className="flex gap-3">
-                  <div>{getIcon()}</div>
-                  <div className="grid gap-1">
-                    <span className="text-sm">{result.message.title}</span>
+                return (
+                  <div className="flex gap-3">
+                    <div>{getIcon()}</div>
+                    <div className="grid gap-1">
+                      <span className="text-sm">{result.message.title}</span>
 
-                    {result.message.filepath ? (
-                      <p className="text-muted-foreground font-mono text-xs">
-                        {result.message.filepath}
-                      </p>
-                    ) : undefined}
-                    {result.message.context ? (
-                      <div className="bg-muted border border-border rounded-md overflow-auto">
-                        <pre className="px-1">
-                          <code className="text-muted-foreground font-mono text-xs">
-                            {result.message.context}
-                          </code>
-                        </pre>
-                      </div>
-                    ) : undefined}
+                      {result.message.filepath ? (
+                        <p className="text-muted-foreground font-mono text-xs">
+                          {result.message.filepath}
+                        </p>
+                      ) : undefined}
+                      {result.message.context ? (
+                        <div className="bg-muted border border-border rounded-md overflow-auto">
+                          <pre className="px-1">
+                            <code className="text-muted-foreground font-mono text-xs">
+                              {result.message.context}
+                            </code>
+                          </pre>
+                        </div>
+                      ) : undefined}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        </ScrollArea>
-      </PopoverContent>
-    </Popover>
+                );
+              })}
+            </div>
+          </ScrollArea>
+        </PopoverContent>
+      </Popover>
+    </div>
   );
 }
 

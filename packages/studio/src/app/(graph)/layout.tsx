@@ -1,9 +1,13 @@
-import { GraphProvider } from '@commonalityco/feature-graph';
+import {
+  FeatureGraphHeader,
+  GraphProvider,
+} from '@commonalityco/feature-graph';
 import {
   GraphLayoutAside,
   GraphLayoutMain,
   GraphLayoutRoot,
 } from '@commonalityco/ui-graph';
+import StudioGraphHeader from './studio-graph-header';
 
 export default async function RootLayout({
   children,
@@ -15,8 +19,10 @@ export default async function RootLayout({
   chart: React.ReactNode;
 }) {
   return (
-    <div className="bg-secondary h-full">
+    <div className="h-full">
       <GraphProvider>
+        <StudioGraphHeader />
+
         <GraphLayoutRoot>
           <GraphLayoutAside>{sidebar}</GraphLayoutAside>
           <GraphLayoutMain>{chart}</GraphLayoutMain>
