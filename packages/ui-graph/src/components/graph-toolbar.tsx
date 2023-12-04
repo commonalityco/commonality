@@ -20,7 +20,7 @@ export function GraphToolbar({
   onFit = () => {},
 }: GraphToolbarProperties) {
   return (
-    <div className="bg-background flex w-full px-3 pt-3">
+    <div className="flex w-full px-3 pt-3">
       <div className="grow" />
       <div className="flex items-center gap-1">
         <div className="flex gap-1">
@@ -29,7 +29,7 @@ export function GraphToolbar({
               <TooltipTrigger asChild>
                 <Button
                   aria-label="Zoom in"
-                  variant="ghost"
+                  variant="outline"
                   size="icon"
                   onClick={() => onZoomIn()}
                 >
@@ -44,7 +44,7 @@ export function GraphToolbar({
               <TooltipTrigger asChild>
                 <Button
                   aria-label="Zoom out"
-                  variant="ghost"
+                  variant="outline"
                   size="icon"
                   onClick={() => onZoomOut()}
                 >
@@ -58,7 +58,7 @@ export function GraphToolbar({
             <Tooltip delayDuration={200}>
               <TooltipTrigger asChild>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="icon"
                   aria-label="Show entire graph"
                   onClick={() => onFit()}

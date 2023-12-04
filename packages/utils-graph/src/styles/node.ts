@@ -60,7 +60,7 @@ export const nodeStyles: Stylesheet[] = [
   {
     selector: 'node.dark',
     style: {
-      'background-color': '#27272a',
+      'background-color': '#171717',
       'border-color': '#3f3f46',
       color: '#fff',
       'overlay-color': '#09090b',
