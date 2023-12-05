@@ -133,7 +133,7 @@ export interface ProjectConfig {
   };
   // An array of constraints that the project should adhere to
   constraints?: Record<string, Constraint>;
-  conformers?: Record<string, Conformer[]>;
+  checks?: Record<string, Conformer[]>;
 }
 
 export type PackageConfig = {

@@ -3,7 +3,7 @@ import { action as conform } from '../../../src/cli/commands/conform.js';
 import process from 'node:process';
 import console from 'node:console';
 import { ConformanceResult } from '@commonalityco/types';
-import { PackageType } from '@commonalityco/utils-core';
+import { PackageType, Status } from '@commonalityco/utils-core';
 import stripAnsi from 'strip-ansi';
 import prompts from 'prompts';
 
@@ -81,8 +81,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/ONE',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-one',
@@ -94,8 +93,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/TWO',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-two',
@@ -131,8 +129,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/ONE',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-one',
@@ -147,8 +144,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/TWO',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-two',
@@ -191,8 +187,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/ONE',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-one',
@@ -204,8 +199,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/TWO',
               filter: '*',
-              level: 'warning',
-              isValid: false,
+              status: Status.Warn,
               package: {
                 path: '/path',
                 name: 'pkg-two',
@@ -243,8 +237,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/ONE',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-one',
@@ -256,8 +249,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/TWO',
               filter: '*',
-              level: 'warning',
-              isValid: false,
+              status: Status.Warn,
               package: {
                 path: '/path',
                 name: 'pkg-two',
@@ -300,8 +292,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/ONE',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-one',
@@ -314,8 +305,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/TWO',
               filter: '*',
-              level: 'warning',
-              isValid: false,
+              status: Status.Warn,
               package: {
                 path: '/path',
                 name: 'pkg-two',
@@ -330,8 +320,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/ONE',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-one',
@@ -344,8 +333,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/TWO',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-two',
@@ -386,8 +374,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/ONE',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-one',
@@ -400,8 +387,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/TWO',
               filter: '*',
-              level: 'warning',
-              isValid: false,
+              status: Status.Warn,
               package: {
                 path: '/path',
                 name: 'pkg-two',
@@ -416,8 +402,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/ONE',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-one',
@@ -430,8 +415,7 @@ describe('conform', () => {
             {
               name: 'CONFORMER_NAME/TWO',
               filter: '*',
-              level: 'warning',
-              isValid: true,
+              status: Status.Pass,
               package: {
                 path: '/path',
                 name: 'pkg-two',
@@ -481,8 +465,7 @@ describe('conform', () => {
           {
             name: 'CONFORMER_NAME/ONE',
             filter: '*',
-            level: 'warning',
-            isValid: true,
+            status: Status.Pass,
             package: {
               path: '/path',
               name: 'pkg-one',
@@ -495,8 +478,7 @@ describe('conform', () => {
           {
             name: 'CONFORMER_NAME/TWO',
             filter: '*',
-            level: 'warning',
-            isValid: false,
+            status: Status.Warn,
             package: {
               path: '/path',
               name: 'pkg-two',

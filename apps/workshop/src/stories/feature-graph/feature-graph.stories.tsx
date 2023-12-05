@@ -1,4 +1,4 @@
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { FeatureGraphChart, GraphProvider } from '@commonalityco/feature-graph';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
 import { ConstraintResult, Dependency, Package } from '@commonalityco/types';
@@ -34,7 +34,7 @@ const meta = {
       );
     },
   ],
-};
+} satisfies Meta<typeof FeatureGraphChart>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

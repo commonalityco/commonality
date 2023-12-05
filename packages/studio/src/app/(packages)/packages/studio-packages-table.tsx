@@ -29,7 +29,6 @@ import { Package } from '@commonalityco/types';
 export function ActionButton({
   existingTags,
   tags,
-
   pkg,
 }: {
   pkg: Package;
@@ -70,11 +69,8 @@ export function ActionButton({
 }
 
 export function StudioTagsCell<T extends ColumnData>({
-  tags,
   ...rest
-}: Omit<ComponentProps<typeof TagsCell<T>>, 'onAddTags'> & {
-  tags: string[];
-}) {
+}: Omit<ComponentProps<typeof TagsCell<T>>, 'onAddTags'>) {
   const [open, setOpen] = useState(false);
   const data = rest.row.original;
 
@@ -82,7 +78,7 @@ export function StudioTagsCell<T extends ColumnData>({
     <>
       <EditTagsDialog open={open} onOpenChange={setOpen}>
         <EditTagsDialogContent
-          tags={tags}
+          tags={data.tags}
           existingTags={data.tags}
           packageName={data.package.name}
         />

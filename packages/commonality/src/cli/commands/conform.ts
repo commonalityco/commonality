@@ -101,7 +101,7 @@ const reportConformanceResults = ({
 
   for (const packageResults of resultsMap.values()) {
     const invalidResults = [...packageResults].filter(
-      (result) => result.status === Status.Fail,
+      (result) => result.status !== Status.Pass,
     );
 
     if (invalidResults.some((result) => result.status === Status.Fail)) {
@@ -287,7 +287,7 @@ export const conform = command
       },
       getResults: () => {
         return getConformanceResults({
-          conformersByPattern: projectConfig?.config.conformers ?? {},
+          conformersByPattern: projectConfig?.config.checks ?? {},
           rootDirectory,
           packages,
           tagsData,

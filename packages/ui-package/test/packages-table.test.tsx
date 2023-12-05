@@ -3,12 +3,12 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
   NameCell,
-  DocumentsCell,
   TagsCell,
   CodeownersCell,
   ColumnData,
   PackagesTable,
   PackageTableColumns,
+  ConformanceCell,
 } from '../src/packages-table.js';
 import { describe, it, expect, vi } from 'vitest';
 import { Row } from '@tanstack/react-table';
@@ -17,110 +17,28 @@ import { PackageType } from '@commonalityco/utils-core';
 
 describe('NameCell', () => {
   it('renders correctly', () => {
+    const pkg = {
+      name: 'pkg-a',
+      description: 'package-description',
+      version: '1.0.0',
+      type: PackageType.NODE,
+    };
     render(
       <NameCell
         row={
           {
-            getValue: () => 'package-name',
+            getValue: () => pkg,
             original: {
-              type: 'test',
-              description: 'package-description',
-              version: '1.0.0',
+              package: pkg,
             },
           } as unknown as Row<ColumnData>
         }
       />,
     );
 
-    expect(screen.getByText('package-name')).toBeInTheDocument();
+    expect(screen.getByText('pkg-a')).toBeInTheDocument();
     expect(screen.getByText('1.0.0')).toBeInTheDocument();
     expect(screen.getByText('package-description')).toBeInTheDocument();
-  });
-});
-
-describe('DocumentsCell', () => {
-  it('renders correctly when there is only a README', async () => {
-    const onDocumentOpen = vi.fn();
-    render(
-      <DocumentsCell
-        onDocumentOpen={onDocumentOpen}
-        row={
-          {
-            original: {
-              documents: [{ filename: 'README', path: '/path/to/readme' }],
-            },
-          } as unknown as Row<ColumnData>
-        }
-      />,
-    );
-    expect(screen.getByText('README')).toBeInTheDocument();
-  });
-
-  it('renders correctly when there is a README and additional documents', async () => {
-    const onDocumentOpen = vi.fn();
-    render(
-      <DocumentsCell
-        onDocumentOpen={onDocumentOpen}
-        row={
-          {
-            original: {
-              documents: [
-                { filename: 'README', path: '/path/to/readme' },
-                { filename: 'CHANGELOG', path: '/path/to/changelog' },
-              ],
-            },
-          } as unknown as Row<ColumnData>
-        }
-      />,
-    );
-
-    expect(screen.getByText('README')).toBeInTheDocument();
-
-    await userEvent.hover(
-      screen.getByRole('button', { name: 'README 1 document' }),
-    );
-
-    await waitFor(() => {
-      expect(screen.getByText('Open README')).toBeInTheDocument();
-      expect(screen.getByText('Open CHANGELOG')).toBeInTheDocument();
-    });
-  });
-
-  it('renders correctly when there are no documents', async () => {
-    const onDocumentOpen = vi.fn();
-    render(
-      <DocumentsCell
-        onDocumentOpen={onDocumentOpen}
-        row={{ original: { documents: [] } } as unknown as Row<ColumnData>}
-      />,
-    );
-    expect(screen.getByText('No documents')).toBeInTheDocument();
-  });
-
-  it('calls onDocumentOpen callback when clicking on an option within the hover card', async () => {
-    const onDocumentOpen = vi.fn();
-    render(
-      <DocumentsCell
-        onDocumentOpen={onDocumentOpen}
-        row={
-          {
-            original: {
-              documents: [{ filename: 'README', path: '/path/to/readme' }],
-            },
-          } as unknown as Row<ColumnData>
-        }
-      />,
-    );
-
-    await userEvent.hover(screen.getByRole('button', { name: 'README' }));
-
-    await waitFor(() => {
-      expect(screen.getByText('Open README')).toBeInTheDocument();
-    });
-
-    await userEvent.click(screen.getByText('Open README'));
-
-    expect(onDocumentOpen).toHaveBeenCalledWith('/path/to/readme');
   });
 });
 
@@ -183,13 +101,6 @@ describe('PackagesTable', () => {
     const columns = [
       { accessorKey: 'name', header: 'Name', cell: NameCell },
       {
-        accessorKey: 'documents',
-        header: 'Documents',
-        cell: (props) => (
-          <DocumentsCell {...props} onDocumentOpen={async () => {}} />
-        ),
-      },
-      {
         accessorKey: 'tags',
         header: 'Tags',
         cell: (props) => <TagsCell {...props} onAddTags={vi.fn()} />,
@@ -198,27 +109,16 @@ describe('PackagesTable', () => {
     ] satisfies PackageTableColumns<ColumnData>;
     const data = [
       {
-        name: 'package-name',
-        type: PackageType.NODE,
-        description: 'package-description',
-        version: '1.0.0',
-        path: '/path',
+        package: {
+          name: 'package-name',
+          type: PackageType.NODE,
+          description: 'package-description',
+          version: '1.0.0',
+          path: '/path',
+        },
         codeowners: ['owner1', 'owner2'],
         tags: ['tag1', 'tag2'],
-        documents: [
-          {
-            filename: 'README',
-            path: '/path/to/readme',
-            isRoot: true,
-            content: '',
-          },
-          {
-            filename: 'CHANGELOG',
-            path: '/path/to/changelog',
-            isRoot: false,
-            content: '',
-          },
-        ],
+        results: [],
       },
     ] satisfies ColumnData[];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -236,9 +136,9 @@ describe('PackagesTable', () => {
   it('displays "No packages match your current filters" when there are no packages', () => {
     const columns = [
       { accessorKey: 'name', header: 'Name', cell: NameCell },
-      { accessorKey: 'documents', header: 'Documents', cell: DocumentsCell },
       { accessorKey: 'tags', header: 'Tags', cell: TagsCell },
       { accessorKey: 'codeowners', header: 'Codeowners', cell: CodeownersCell },
+      { accessorKey: 'results', header: 'Conformance', cell: ConformanceCell },
     ];
     const data: ColumnData[] = [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

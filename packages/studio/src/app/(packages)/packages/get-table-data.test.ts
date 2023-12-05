@@ -33,13 +33,11 @@ describe('getTableData', () => {
       filterCodeowners: [],
       page: 2,
       pageCount: 20,
-      rootDirectory: '/root',
     });
 
     expect(result).toHaveLength(20);
-    expect(result[0].name).toBe('Package 20');
-    expect(result[19].name).toBe('Package 39');
-    expect(fs.pathExists).toBeCalledTimes(20);
+    expect(result[0].package.name).toBe('Package 20');
+    expect(result[19].package.name).toBe('Package 39');
   });
 
   it('should filter by name correctly', async () => {
@@ -62,11 +60,10 @@ describe('getTableData', () => {
       filterCodeowners: [],
       page: 1,
       pageCount: 50,
-      rootDirectory: '/root',
     });
 
     expect(result).toHaveLength(1);
-    expect(result[0].name).toBe('Package 10');
+    expect(result[0].package.name).toBe('Package 10');
   });
 
   it('should filter by tags correctly', async () => {
@@ -101,11 +98,10 @@ describe('getTableData', () => {
       filterCodeowners: [],
       page: 1,
       pageCount: 50,
-      rootDirectory: '/root',
     });
 
     expect(result).toHaveLength(1);
-    expect(result[0].name).toBe('Package 10');
+    expect(result[0].package.name).toBe('Package 10');
   });
 
   it('should filter by codeowners correctly', async () => {
@@ -139,10 +135,9 @@ describe('getTableData', () => {
       filterCodeowners: ['codeowner10'],
       page: 1,
       pageCount: 50,
-      rootDirectory: '/root',
     });
 
     expect(result).toHaveLength(1);
-    expect(result[0].name).toBe('Package 10');
+    expect(result[0].package.name).toBe('Package 10');
   });
 });

@@ -58,23 +58,18 @@ export function SortableHeader<TData, TValue>(props: {
 }
 
 export function NameCell<T extends ColumnData>({ row }: { row: Row<T> }) {
-  const name: PackageType = row.getValue('name');
-  const type = row.original.package.type;
-  const description = row.original.package.description || 'No description';
+  const pkg: Package = row.original.package;
+  const description = pkg.description || 'No description';
 
-  const Icon = getIconForPackage(type);
+  const Icon = getIconForPackage(pkg.type);
 
   return (
     <div className="flex items-center gap-3 h-auto py-0 px-0 justify-start">
       <Icon />
       <div className="text-left space-y-1">
         <div className="flex flex-nowrap gap-2 items-center">
-          <span className="font-semibold block">
-            {row.original.package.name}
-          </span>
-          <div className="font-mono leading-none mt-px">
-            {row.original.package.version}
-          </div>
+          <span className="font-semibold block">{pkg.name}</span>
+          <div className="font-mono leading-none mt-px">{pkg.version}</div>
         </div>
         <span className="text-xs text-muted-foreground block">
           {description}
