@@ -128,9 +128,7 @@ function StudioPackagesTable({
       {
         accessorKey: 'tags',
         header: 'Tags',
-        cell: (cellProps) => (
-          <StudioTagsCell {...cellProps} tags={props.tags} />
-        ),
+        cell: (cellProps) => <StudioTagsCell {...cellProps} />,
       },
       {
         accessorKey: 'codeowners',

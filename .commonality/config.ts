@@ -2,7 +2,7 @@ import { defineConfig } from 'commonality';
 import * as recommended from 'commonality-recommended';
 
 export default defineConfig({
-  conformers: {
+  checks: {
     '*': [
       recommended.ensureReadme(),
       recommended.ensureCodeowner(),

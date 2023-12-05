@@ -1,5 +1,6 @@
 import { diff as jestDiff } from 'jest-diff';
 import chalk from 'chalk';
+import isEqual from 'lodash-es/isEqual';
 
 const diffOptions = {
   omitAnnotationLines: true,
@@ -12,6 +13,10 @@ const diffOptions = {
 } as const;
 
 export function diff<T, K>(source: T, target: K): string | undefined {
+  if (isEqual(source, target)) {
+    return;
+  }
+
   const result = jestDiff(source, target, diffOptions);
 
   return result ?? undefined;

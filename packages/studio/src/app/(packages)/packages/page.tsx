@@ -13,6 +13,7 @@ import { getTableData } from './get-table-data';
 import { getConformanceResultsData } from '@/data/violations';
 import omit from 'lodash/omit';
 import stripAnsi from 'strip-ansi';
+import { ConformanceResult } from '@commonalityco/types';
 
 async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
   const [packages, tagsData, codeownersData, results] = await Promise.all([
@@ -51,7 +52,7 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
           }
         : result;
 
-      return omit(strippedResult, ['fix']);
+      return omit(strippedResult, ['fix']) as Omit<ConformanceResult, 'fix'>;
     }),
     tagsData,
     codeownersData,
