@@ -1,7 +1,7 @@
-import { defineConformer, json, text, PackageJson } from 'commonality';
+import { defineCheck, json, text, PackageJson } from 'commonality';
 import path from 'node:path';
 
-export const ensureReadme = defineConformer(() => ({
+export const ensureReadme = defineCheck(() => ({
   name: 'commonality/ensure-readme',
 
   validate: async ({ workspace }) => {

@@ -3,7 +3,7 @@ import { Options } from 'tsup';
 const config: Options = {
   banner: {
     js: `
-		import { createRequire } from 'module'; 
+		
 		const require = createRequire(import.meta.url);
         `,
   },
@@ -12,8 +12,6 @@ const config: Options = {
   platform: 'node',
   noExternal: [
     '@commonalityco/data-codeowners',
-    '@commonalityco/feature-conformance',
-
     '@commonalityco/data-packages',
     '@commonalityco/data-project',
     '@commonalityco/data-tags',

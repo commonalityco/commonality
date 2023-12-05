@@ -112,7 +112,7 @@ export interface Conformer {
   message: string | ConformerFn<Message>;
 }
 
-export type ConformerCreator<C extends Conformer, O = undefined> = (
+export type CheckCreator<C extends Conformer, O = undefined> = (
   options?: O,
 ) => C;
 

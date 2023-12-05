@@ -1,30 +1,76 @@
+#!/usr/bin/env node
 import { Command } from 'commander';
 import getPort from 'get-port';
-import openUrl from 'open';
 import { validateProjectStructure } from '../utils/validate-project-structure.js';
 import { getRootDirectory } from '@commonalityco/data-project';
 import chalk from 'chalk';
 import waitOn from 'wait-on';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import fs from 'fs-extra';
-import { execa } from 'execa';
 import killPort from 'kill-port';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import url from 'node:url';
+import { createRequire } from 'node:module';
+import c from 'picocolors';
+import { isPackageExists } from 'local-pkg';
+import { isCI } from 'std-env';
+const EXIT_CODE_RESTART = 43;
 
 const command = new Command();
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+export async function ensurePackageInstalled(dependency: string, root: string) {
+  if (process.versions.pnp) {
+    const targetRequire = createRequire(__dirname);
+    try {
+      targetRequire.resolve(dependency, { paths: [root, __dirname] });
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  if (isPackageExists(dependency, { paths: [root, __dirname] })) return true;
+
+  const promptInstall = !isCI && process.stdout.isTTY;
+
+  process.stderr.write(
+    c.red(
+      `${c.inverse(
+        c.red(' MISSING DEPENDENCY '),
+      )} Cannot find dependency '${dependency}'\n\n`,
+    ),
+  );
+
+  if (!promptInstall) return false;
+
+  const prompts = await import('prompts');
+  const { install } = await prompts.prompt({
+    type: 'confirm',
+    name: 'install',
+    message: c.reset(`Do you want to install ${c.green(dependency)}?`),
+  });
+
+  if (install) {
+    const installPkg = await import('@antfu/install-pkg');
+    await installPkg.installPackage(dependency, { dev: true });
+    process.stderr.write(
+      c.yellow(
+        `\nPackage ${dependency} installed, re-run the command to start.\n`,
+      ),
+    );
+    process.exit(EXIT_CODE_RESTART);
+  }
+
+  return false;
+}
+
+const DEPENDENCY_NAME = '@commonalityco/studio';
 
 export const studio = command
   .name('studio')
   .description('Open Commonality Studio')
   .option('--debug')
   .action(async (options: { debug?: boolean }) => {
-    await validateProjectStructure({
-      directory: process.cwd(),
-      command,
-    });
+    const debug = Boolean(options.debug);
 
     process.on('SIGINT', async function () {
       try {
@@ -34,32 +80,25 @@ export const studio = command
       }
     });
 
-    const port = await getPort({ port: 8888 });
-    const rootDirectory = await getRootDirectory();
-    const url = `http://127.0.0.1:${port}`;
-    const isDebug = Boolean(options.debug);
-
     try {
-      const pathToStudio = path.resolve(__dirname, '../studio');
-      const studioExists = await fs.exists(pathToStudio);
+      await validateProjectStructure({
+        directory: process.cwd(),
+        command,
+      });
 
-      if (!studioExists) {
-        command.error('Commonality Studio was not found');
-        return;
-      }
+      const rootDirectory = await getRootDirectory();
+
+      await ensurePackageInstalled(DEPENDENCY_NAME, rootDirectory);
+
+      const studio = await import(DEPENDENCY_NAME);
+
+      const port = await getPort({ port: 8888 });
+
+      const url = `http://127.0.0.1:${port}`;
 
       console.log(`📦 Starting Commonality Studio...\n`);
 
-      execa('node', ['server.js'], {
-        stdout: isDebug ? 'inherit' : 'ignore',
-        stderr: isDebug ? 'inherit' : 'ignore',
-        cwd: pathToStudio,
-        env: {
-          NODE_ENV: 'production',
-          PORT: port?.toString(),
-          COMMONALITY_ROOT_DIRECTORY: rootDirectory,
-        },
-      });
+      studio.startStudio({ port, rootDirectory, debug });
 
       await waitOn({ resources: [url] });
 
@@ -68,10 +107,8 @@ export const studio = command
           '(press ctrl-c to quit)',
         )}`,
       );
-
-      await openUrl(url);
     } catch (error) {
-      if (isDebug) {
+      if (debug) {
         console.log(error);
       }
 

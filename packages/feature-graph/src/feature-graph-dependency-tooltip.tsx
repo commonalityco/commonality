@@ -21,18 +21,22 @@ export function FeatureGraphDependencyTooltip() {
       );
     });
   });
-  // console.log('results: ', results);
-  // console.log('dependency: ', dependency);
-  // console.log('selectedEdge: ', selectedEdge?.data());
+  console.log({ selectedEdge, data });
   return (
     <>
       {selectedEdge && data && (
-        <GraphTooltip element={selectedEdge}>
-          <TooltipDependency
-            dependencies={data.dependencies}
-            results={resultsForEdge}
-          />
-        </GraphTooltip>
+        <GraphTooltip
+          key={data.id}
+          content={
+            <TooltipDependency
+              dependencies={data.dependencies}
+              results={resultsForEdge}
+            />
+          }
+          open={true}
+          reference={selectedEdge.popperRef()}
+          placement="top"
+        ></GraphTooltip>
       )}
     </>
   );

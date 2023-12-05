@@ -46,8 +46,9 @@ export function TooltipDependency({
                   dep.type === dependency.type,
               ),
             );
+            const key = `${dependency.source}-${dependency.target}-${dependency.type}`;
             return (
-              <Accordion type="multiple">
+              <Accordion type="multiple" key={key}>
                 <div className="flex gap-2 flex-nowrap items-center">
                   <p className="font-medium font-mono text-xs">
                     {`${TextByType[dependency.type]} `}

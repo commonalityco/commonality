@@ -1,4 +1,4 @@
-import { defineConformer, json, PackageJson } from 'commonality';
+import { defineCheck, json, PackageJson } from 'commonality';
 
 const DEPENDENCY_TYPES = [
   'dependencies',
@@ -33,7 +33,7 @@ const getExpectedPackageJson = (packageJson: PackageJson) => {
   return newPackageJson;
 };
 
-export const sortedDependencies = defineConformer(() => {
+export const sortedDependencies = defineCheck(() => {
   return {
     name: 'commonality/ensure-sorted-dependencies',
     validate: async () => {

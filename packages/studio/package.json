@@ -18,6 +18,7 @@
     "type-check": "tsc --noEmit",
     "lint:fix": "eslint . --fix"
   },
+  "main": "./start.mjs",
   "dependencies": {
     "@commonalityco/data-codeowners": "workspace:*",
     "@commonalityco/data-graph": "workspace:*",

@@ -1,7 +1,7 @@
-import { defineConformer } from 'commonality';
+import { defineCheck } from 'commonality';
 
-export const ensureCodeowner = defineConformer(() => ({
-  name: 'COMMONALITY/ENSURE_CODEOWNER',
+export const ensureCodeowner = defineCheck(() => ({
+  name: 'commonality/ensure-codeowner',
   validate: async ({ codeowners }) => {
     return codeowners.length > 0;
   },

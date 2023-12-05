@@ -45,7 +45,7 @@ const createWebsocketConnection = async (server) => {
       '**/package.json',
       '**/commonality.json',
       '.commonality/config.ts',
-      '.commonality/config.js'
+      '.commonality/config.js',
     ];
 
     const watcher = chokidar.watch(globsToWatch, {

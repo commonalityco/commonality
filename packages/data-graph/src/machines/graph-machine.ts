@@ -296,22 +296,6 @@ export const graphMachine = createMachine(
           results: context.results,
         });
 
-        context.renderGraph.on('click', function (event) {
-          const eventTarget = event.target;
-
-          if (eventTarget === context.renderGraph) {
-            if (
-              context.selectedRenderNode ||
-              context.selectedTraversalNode ||
-              context.selectedEdge
-            ) {
-              return;
-            }
-
-            callback({ type: 'UNSELECT' });
-          }
-        });
-
         context.renderGraph.nodes().on('click', (event) => {
           if (!context.renderGraph) return;
 

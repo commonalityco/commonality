@@ -1,10 +1,4 @@
-import {
-  defineConformer,
-  diff,
-  json,
-  PackageJson,
-  Workspace,
-} from 'commonality';
+import { defineCheck, diff, json, PackageJson, Workspace } from 'commonality';
 import { getExternalVersionMap } from './utils/get-external-version-map';
 import path from 'node:path';
 
@@ -61,7 +55,7 @@ const getExpectedPackageJson = async ({
   return packageJson;
 };
 
-export const noExternalMismatch = defineConformer(() => {
+export const noExternalMismatch = defineCheck(() => {
   return {
     name: 'commonality/external-mismatch',
     validate: async ({ allWorkspaces, workspace }) => {

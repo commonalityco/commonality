@@ -56,9 +56,8 @@ export function ActionButton({
 
         <DropdownMenuContent align="end">
           <DropdownMenuItem onSelect={() => openPackageJson(pkg.path)}>
-            Open package.json
+            Edit package.json
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
           <DropdownMenuItem onSelect={() => setOpen(true)}>
             Edit tags
           </DropdownMenuItem>

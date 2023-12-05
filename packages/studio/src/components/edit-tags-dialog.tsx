@@ -30,10 +30,12 @@ export function EditTagsDialogContent({
   packageName,
   tags,
   existingTags,
+  onEdit,
 }: {
   packageName: string;
   tags: string[];
   existingTags: string[];
+  onEdit?: () => void;
 }) {
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,6 +53,7 @@ export function EditTagsDialogContent({
 
     startTransition(async () => {
       await setTagsAction({ packageName, tags: newTags });
+      onEdit?.();
     });
   }
 

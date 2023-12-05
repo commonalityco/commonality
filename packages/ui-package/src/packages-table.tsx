@@ -27,7 +27,7 @@ import {
   cn,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
-import { PackageType, Status, formatTagName } from '@commonalityco/utils-core';
+import { Status, formatTagName } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-package';
 import { ConformanceResult, Package } from '@commonalityco/types';
 import { AlertTriangle, Check, ChevronDown, Plus, X } from 'lucide-react';

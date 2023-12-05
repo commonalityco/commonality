@@ -3,9 +3,9 @@ import { Options } from 'tsup';
 const config: Options = {
   entryPoints: ['src/index.ts'],
   format: ['esm'],
-  noExternal: [],
   platform: 'node',
   outDir: './dist/utilities',
+  noExternal: ['@commonalityco/feature-conformance', '@commonalityco/types'],
   cjsInterop: true,
   dts: true,
 };

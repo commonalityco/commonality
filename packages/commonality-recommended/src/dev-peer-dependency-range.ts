@@ -1,5 +1,5 @@
-import { defineConformer, diff, json, PackageJson } from 'commonality';
-import semver, { satisfies } from 'semver';
+import { defineCheck, diff, json, PackageJson } from 'commonality';
+import semver from 'semver';
 
 const stripWorkspaceProtocol = (value: string) => {
   return value.replace('workspace:', '');
@@ -46,7 +46,7 @@ const getExpectedDevDependencies = (
   return Object.keys(devDependencies).length > 0 ? devDependencies : undefined;
 };
 
-export const devPeerDependencyRange = defineConformer(() => {
+export const devPeerDependencyRange = defineCheck(() => {
   return {
     name: 'commonality/dev-peer-dependency-range',
     level: 'warning',

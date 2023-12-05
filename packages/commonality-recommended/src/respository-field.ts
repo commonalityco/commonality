@@ -1,10 +1,4 @@
-import {
-  defineConformer,
-  diff,
-  json,
-  PackageJson,
-  Workspace,
-} from 'commonality';
+import { defineCheck, diff, json, PackageJson, Workspace } from 'commonality';
 import path from 'node:path';
 
 const stripTrailingSlash = (str: string) => {
@@ -73,7 +67,7 @@ const getExpectedProperties = async ({
   return newConfig;
 };
 
-export const repositoryField = defineConformer(() => {
+export const repositoryField = defineCheck(() => {
   return {
     name: 'commonality/repository-field',
     validate: async ({ rootWorkspace, workspace }): Promise<boolean> => {

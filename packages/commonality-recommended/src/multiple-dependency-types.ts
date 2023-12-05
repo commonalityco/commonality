@@ -1,4 +1,4 @@
-import { defineConformer, diff, json, PackageJson } from 'commonality';
+import { defineCheck, diff, json, PackageJson } from 'commonality';
 
 function getExpectedPackageJson(packageJson: PackageJson) {
   const newPackageJson = JSON.parse(JSON.stringify(packageJson));
@@ -40,7 +40,7 @@ function getExpectedPackageJson(packageJson: PackageJson) {
   return newPackageJson;
 }
 
-export const multipleDependencyTypes = defineConformer(() => {
+export const multipleDependencyTypes = defineCheck(() => {
   return {
     name: 'commonality/multiple-dependency-types',
 

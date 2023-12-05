@@ -8,7 +8,7 @@ import {
   cn,
 } from '@commonalityco/ui-design-system';
 import { DependencyType, formatTagName } from '@commonalityco/utils-core';
-import { ArrowRight, CornerDownRight, Filter, Tag } from 'lucide-react';
+import { ArrowRight, CornerDownRight } from 'lucide-react';
 import { Fragment, useMemo } from 'react';
 
 const dependencyTextByType = {

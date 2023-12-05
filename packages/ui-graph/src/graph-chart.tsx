@@ -38,19 +38,19 @@ export const GraphChart = memo(
           </div>
           <GradientFade
             placement="top"
-            className="absolute left-0 right-0 z-20 h-10 from-secondary dark:from-[#09090b]"
+            className="absolute left-0 right-0 z-20 h-10 from-secondary dark:from-interactive"
           />
           <GradientFade
             placement="bottom"
-            className="absolute left-0 right-0 z-20 h-10 from-secondary dark:from-[#09090b]"
+            className="absolute left-0 right-0 z-20 h-10 from-secondary dark:from-interactive"
           />
           <GradientFade
             placement="left"
-            className="absolute bottom-0 top-0 z-20 w-10 from-secondary dark:from-[#09090b]"
+            className="absolute bottom-0 top-0 z-20 w-10 from-secondary dark:from-interactive"
           />
           <GradientFade
             placement="right"
-            className="absolute bottom-0 top-0 z-20 w-10 from-secondary dark:from-[#09090b]"
+            className="absolute bottom-0 top-0 z-20 w-10 from-secondary dark:from-interactive"
           />
 
           <div
@@ -67,7 +67,7 @@ export const GraphChart = memo(
           <div
             id="graph-container"
             ref={reference}
-            className={cn('bg-secondary dark:bg-[#09090b] h-full w-full', {
+            className={cn('bg-secondary dark:bg-interactive h-full w-full', {
               'opacity-0': loading,
               'opacity-100 transition-opacity ': !loading,
             })}

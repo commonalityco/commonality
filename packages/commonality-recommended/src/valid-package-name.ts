@@ -1,7 +1,7 @@
-import { defineConformer, PackageJson, json } from 'commonality';
+import { defineCheck, PackageJson, json } from 'commonality';
 import validateNpmPackageName from 'validate-npm-package-name';
 
-export const validPackageName = defineConformer(() => ({
+export const validPackageName = defineCheck(() => ({
   name: 'commonality/valid-package-name',
   validate: async () => {
     const packageJson = await json<PackageJson>('package.json').get();

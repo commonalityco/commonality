@@ -13,6 +13,7 @@
   },
   "sideEffects": false,
   "dependencies": {
+    "@floating-ui/react": "^0.26.3",
     "@popperjs/core": "^2.11.8",
     "react-popper": "^2.3.0",
     "react-resizable-panels": "^0.0.55",
