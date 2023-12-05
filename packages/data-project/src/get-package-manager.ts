@@ -7,6 +7,10 @@ export const getPackageManager = async ({
 }: {
   rootDirectory: string;
 }): Promise<PackageManager> => {
+  if (!rootDirectory) {
+    return PackageManager.NPM;
+  }
+
   const getFileExistsAtRoot = async (fileName: string) =>
     fs.pathExists(path.join(rootDirectory, fileName));
 

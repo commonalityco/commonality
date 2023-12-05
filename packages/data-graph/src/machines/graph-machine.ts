@@ -16,7 +16,7 @@ import {
   showDependants,
   showDependencies,
 } from '@commonalityco/utils-graph/actions';
-import type { Package, Violation } from '@commonalityco/types';
+import type { ConstraintResult, Package } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
 import { assign, createMachine } from 'xstate';
 import type {
@@ -45,7 +45,7 @@ export interface Context {
   popoverRef?: VirtualElement;
   isEdgeColorShown: boolean;
   theme: string;
-  violations: Violation[];
+  results: ConstraintResult[];
 }
 
 type Event =
@@ -56,7 +56,7 @@ type Event =
       containerId: string;
       elements: ElementDefinition[];
       theme: string;
-      violations: Violation[];
+      results: ConstraintResult[];
       worker: Worker;
     }
 
@@ -95,7 +95,7 @@ export const graphMachine = createMachine(
       elements: [],
       isEdgeColorShown: false,
       theme: 'light',
-      violations: [],
+      results: [],
     },
     tsTypes: {} as import('./graph-machine.typegen.js').Typegen0,
     schema: {
@@ -293,7 +293,7 @@ export const graphMachine = createMachine(
           elements: context.elements,
           theme: context.theme,
           forceEdgeColor: context.isEdgeColorShown,
-          violations: context.violations,
+          results: context.results,
         });
 
         context.renderGraph.on('click', function (event) {
@@ -357,8 +357,8 @@ export const graphMachine = createMachine(
 
           return setInitialElements({ renderGraph: context.renderGraph });
         },
-        violations: (_context, event) => {
-          return event.violations;
+        results: (_context, event) => {
+          return event.results;
         },
       }),
       setTheme: assign({

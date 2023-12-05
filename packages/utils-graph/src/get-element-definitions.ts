@@ -73,6 +73,10 @@ export const getElementDefinitions = ({
       return {
         data: {
           ...dep,
+          dependencies: dependencies.filter(
+            (allDep) =>
+              allDep.source === dep.source && allDep.target === dep.target,
+          ),
           id: `${dep.source}->${dep.target}`,
         },
       };

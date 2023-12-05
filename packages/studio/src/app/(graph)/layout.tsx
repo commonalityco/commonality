@@ -19,7 +19,7 @@ export default async function RootLayout({
   chart: React.ReactNode;
 }) {
   return (
-    <div className="h-full">
+    <div className="h-full flex flex-col">
       <GraphProvider>
         <StudioGraphHeader />
 

@@ -27,8 +27,8 @@ export function GraphLayoutAside({
   className?: string;
 }) {
   return (
-    <div className={cn('h-full', className)}>
-      <div className="h-full w-72">{children}</div>
+    <div className={cn('h-full pb-4 overflow-hidden shrink-0', className)}>
+      <div className="h-full w-72 shrink-0">{children}</div>
     </div>
   );
 }
@@ -41,10 +41,10 @@ export function GraphLayoutMain({
   className?: string;
 }) {
   return (
-    <div className="align-stretch flex h-full grow bg-secondary">
+    <div className="align-stretch flex h-full grow pb-4 w-full overflow-hidden">
       <div
         className={cn(
-          'flex h-full w-full flex-col rounded-lg border bg-secondary overflow-hidden',
+          'flex h-full w-full flex-col rounded-lg border overflow-hidden bg-accent',
           className,
         )}
         id="graph-layout-root"

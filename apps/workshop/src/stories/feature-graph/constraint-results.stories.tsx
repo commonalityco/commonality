@@ -46,6 +46,29 @@ export const KitchenSink: Story = {
         filter: '*',
       },
       {
+        isValid: false,
+        constraint: {
+          allow: ['tag-one'],
+          disallow: ['tag-three', 'tag-four'],
+        },
+        dependencyPath: [
+          {
+            source: 'pkg-one',
+            target: 'pkg-two',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+          {
+            source: 'pkg-two',
+            target: 'pkg-three',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+        ],
+        filter: 'tag-one',
+        foundTags: ['tag-three'],
+      },
+      {
         isValid: true,
         constraint: {
           allow: '*',
@@ -67,7 +90,7 @@ export const KitchenSink: Story = {
       {
         isValid: true,
         constraint: {
-          allow: '*',
+          allow: ['tag-one', 'tag-three'],
         },
         dependencyPath: [
           {

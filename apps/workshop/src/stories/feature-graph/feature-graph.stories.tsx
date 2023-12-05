@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
 import { FeatureGraphChart, GraphProvider } from '@commonalityco/feature-graph';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
-import { Dependency, Package, Violation } from '@commonalityco/types';
+import { ConstraintResult, Dependency, Package } from '@commonalityco/types';
 import { GraphLayoutMain } from '@commonalityco/ui-graph';
 import GraphWorker from './feature-graph-worker.ts?worker';
 // const newWorker = new Worker(
@@ -34,7 +34,7 @@ const meta = {
       );
     },
   ],
-} satisfies Meta<typeof FeatureGraphChart>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -118,21 +118,29 @@ export const Default: Story = {
   args: {
     packages,
     dependencies,
-    violations: [],
+    results: [],
     constraints: {},
   },
 };
 
-const violations = [
+const results = [
   {
-    sourcePackageName: '@scope/pkg-a',
-    targetPackageName: '@scope/pkg-b',
-    appliedTo: 'foo',
-    allowed: ['bar'],
-    disallowed: ['baz'],
-    found: ['tag1', 'tag2'],
+    constraint: {
+      allow: ['bar'],
+    },
+    dependencyPath: [
+      {
+        source: '@scope/pkg-a',
+        target: '@scope/pkg-b',
+        type: DependencyType.PRODUCTION,
+        version: '1.0.0',
+      },
+    ],
+    filter: 'foo',
+    isValid: true,
+    foundTags: ['foo', 'bar'],
   },
-] satisfies Violation[];
+] satisfies ConstraintResult[];
 
 export const ConstraintsAndViolations: Story = {
   args: {
@@ -144,7 +152,7 @@ export const ConstraintsAndViolations: Story = {
         disallow: ['baz'],
       },
     },
-    violations,
+    results,
   },
 };
 
@@ -153,6 +161,6 @@ export const Zero: Story = {
     packages: [],
     dependencies: [],
     constraints: {},
-    violations: [],
+    results: [],
   },
 };

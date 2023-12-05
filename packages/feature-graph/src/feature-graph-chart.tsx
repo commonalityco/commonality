@@ -1,9 +1,9 @@
 'use client';
 import {
+  ConstraintResult,
   Dependency,
   Package,
   ProjectConfig,
-  Violation,
 } from '@commonalityco/types';
 import { Package as PackageIcon } from 'lucide-react';
 import { GraphChart } from '@commonalityco/ui-graph/graph-chart';
@@ -16,7 +16,7 @@ import debounce from 'lodash.debounce';
 
 interface GraphProperties {
   packages: Package[];
-  violations: Violation[];
+  results: ConstraintResult[];
   constraints: ProjectConfig['constraints'];
   dependencies: Dependency[];
   theme?: string;
@@ -25,9 +25,8 @@ interface GraphProperties {
 }
 
 export function FeatureGraphChart({
-  violations,
   packages,
-  constraints,
+  results,
   dependencies,
   theme,
   worker,
@@ -35,12 +34,14 @@ export function FeatureGraphChart({
   const containerReference = useRef<HTMLDivElement>(null);
 
   const actor = GraphContext.useActorRef();
-  const isLoading = GraphContext.useSelector(
-    (state) =>
+  const isLoading = GraphContext.useSelector((state) => {
+    return (
       state.matches('updating') ||
       state.matches('rendering') ||
-      state.matches('uninitialized'),
-  );
+      state.matches('uninitialized')
+    );
+  });
+
   const isEmpty = GraphContext.useSelector((state) => {
     return state.matches('success') && state.context.elements.length === 0;
   });
@@ -63,7 +64,7 @@ export function FeatureGraphChart({
   }, [renderGraph]);
 
   useEffect(() => {
-    if (!violations || !packages) {
+    if (!results || !packages) {
       return;
     }
 
@@ -73,7 +74,7 @@ export function FeatureGraphChart({
         containerId: containerReference.current.id,
         elements: getElementDefinitions({ packages, dependencies }),
         theme: theme ?? 'light',
-        violations,
+        results,
         worker,
       });
     }
@@ -81,7 +82,7 @@ export function FeatureGraphChart({
     return () => {
       actor.send({ type: 'DESTROY' });
     };
-  }, [violations, packages, worker]);
+  }, [results, packages, worker]);
 
   useEffect(() => {
     if (!theme) return;
@@ -93,7 +94,7 @@ export function FeatureGraphChart({
 
   if (isZero) {
     return (
-      <div className="bg-background absolute bottom-0 left-0 right-0 top-0 z-30 flex h-full w-full items-center justify-center transition-opacity">
+      <div className="bg-accent absolute bottom-0 left-0 right-0 top-0 z-30 flex h-full w-full items-center justify-center transition-opacity">
         <div className="max-w-sm text-center">
           <PackageIcon className="mx-auto h-8 w-8" />
           <p className="mb-2 mt-4 text-base font-semibold">
@@ -110,7 +111,7 @@ export function FeatureGraphChart({
 
   return (
     <>
-      <FeatureGraphToolbar packages={packages} />
+      <FeatureGraphToolbar />
       <GraphChart
         ref={containerReference}
         loading={isLoading}

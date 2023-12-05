@@ -4,7 +4,7 @@ import { firaCode, inter } from '@/constants/fonts';
 import { Providers } from '@/app/providers';
 import { cookies } from 'next/headers';
 import StudioNavigation from './studio-navigation';
-import { PackageManager } from '@commonalityco/utils-core';
+import { getProjectData } from '@/data/project';
 
 export const metadata = {
   title: 'Commonality Studio',
@@ -18,7 +18,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const project = { name: 'hello', packageManager: PackageManager.PNPM };
+  const project = await getProjectData();
   const cookieStore = cookies();
   const defaultTheme = cookieStore.get('commonality:theme')?.value;
 

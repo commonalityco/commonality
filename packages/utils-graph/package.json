@@ -46,6 +46,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "dev": "tsc --watch",
     "build": "tsc --build",
     "test": "vitest",
     "type-check": "tsc --noEmit"

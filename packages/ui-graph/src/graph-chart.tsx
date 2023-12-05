@@ -23,7 +23,7 @@ export const GraphChart = memo(
         <div className={cn('relative z-10 w-full shrink-0 grow', className)}>
           <div
             className={cn(
-              'bg-secondary absolute bottom-0 left-0 right-0 top-0 z-20 flex h-full w-full items-center justify-center transition-opacity',
+              'bg-accent absolute bottom-0 left-0 right-0 top-0 z-20 flex h-full w-full items-center justify-center transition-opacity',
               {
                 'opacity-100': isEmpty,
                 'hidden opacity-0': !isEmpty,
@@ -38,19 +38,19 @@ export const GraphChart = memo(
           </div>
           <GradientFade
             placement="top"
-            className="absolute left-0 right-0 z-20 h-10 from-secondary"
+            className="absolute left-0 right-0 z-20 h-10 from-secondary dark:from-[#09090b]"
           />
           <GradientFade
             placement="bottom"
-            className="absolute left-0 right-0 z-20 h-10 from-secondary"
+            className="absolute left-0 right-0 z-20 h-10 from-secondary dark:from-[#09090b]"
           />
           <GradientFade
             placement="left"
-            className="absolute bottom-0 top-0 z-20 w-10 from-secondary"
+            className="absolute bottom-0 top-0 z-20 w-10 from-secondary dark:from-[#09090b]"
           />
           <GradientFade
             placement="right"
-            className="absolute bottom-0 top-0 z-20 w-10 from-secondary"
+            className="absolute bottom-0 top-0 z-20 w-10 from-secondary dark:from-[#09090b]"
           />
 
           <div
@@ -67,7 +67,7 @@ export const GraphChart = memo(
           <div
             id="graph-container"
             ref={reference}
-            className={cn('bg-secondary h-full w-full', {
+            className={cn('bg-secondary dark:bg-[#09090b] h-full w-full', {
               'opacity-0': loading,
               'opacity-100 transition-opacity ': !loading,
             })}

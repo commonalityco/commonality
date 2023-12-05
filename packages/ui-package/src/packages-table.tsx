@@ -112,7 +112,7 @@ export function ConformanceCell<T extends ColumnData>({
       <div className="h-1.5 flex rounded-full overflow-hidden min-w-32 grow">
         {failCount > 0 ? (
           <div
-            className="h-full bg-red-500"
+            className="h-full bg-destructive"
             style={{
               flexBasis: `${(failCount / results.length) * 100}%`,
             }}
@@ -128,7 +128,7 @@ export function ConformanceCell<T extends ColumnData>({
         ) : undefined}
         {passCount > 0 ? (
           <div
-            className="h-full bg-emerald-500"
+            className="h-full bg-success"
             style={{
               flexBasis: `${(passCount / results.length) * 100}%`,
             }}

@@ -48,7 +48,7 @@ export const nodeStyles: Stylesheet[] = [
   {
     selector: 'node.dim',
     style: {
-      opacity: 0.2,
+      opacity: 0.1,
     },
   },
   {
@@ -60,11 +60,11 @@ export const nodeStyles: Stylesheet[] = [
   {
     selector: 'node.dark',
     style: {
-      'background-color': '#171717',
+      'background-color': '#18181b',
       'border-color': '#3f3f46',
       color: '#fff',
-      'overlay-color': '#09090b',
-      'underlay-color': '#09090b',
+      'overlay-color': '#27272a',
+      'underlay-color': '#27272a',
     } as cytoscape.Css.Node,
   },
   {

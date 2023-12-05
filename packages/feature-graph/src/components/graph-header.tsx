@@ -7,15 +7,8 @@ import {
   PopoverTrigger,
   cn,
 } from '@commonalityco/ui-design-system';
-import { DependencyType, formatTagName } from '@commonalityco/utils-core';
-import { Check, ChevronDown, CornerDownRight, X } from 'lucide-react';
+import { Check, ChevronDown, X } from 'lucide-react';
 import { ConstraintResults } from '..';
-
-const dependencyTextByType = {
-  [DependencyType.PRODUCTION]: 'prod',
-  [DependencyType.DEVELOPMENT]: 'dev',
-  [DependencyType.PEER]: 'peer',
-};
 
 function GraphHeader({
   totalCount,
@@ -46,7 +39,7 @@ function GraphHeader({
       <div className="flex gap-4 items-center">
         <h1 className="font-medium text-2xl leading-none">Constraints</h1>
         <Badge
-          variant="outline"
+          variant="secondary"
           className="text-muted-foreground"
         >{`${shownCount} of ${totalCount} packages`}</Badge>
       </div>

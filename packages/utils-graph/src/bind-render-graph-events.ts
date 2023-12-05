@@ -1,12 +1,11 @@
-import { Violation } from '@commonalityco/types';
-import { DependencyType } from '@commonalityco/utils-core';
+import { ConstraintResult } from '@commonalityco/types';
 import type { Core, EdgeSingular, EventObject, NodeSingular } from 'cytoscape';
 
 interface EventHandlerArguments {
   renderGraph: Core;
   traversalGraph: Core;
   theme: string;
-  violations: Violation[];
+  results: ConstraintResult[];
 }
 
 /**********************************
@@ -18,23 +17,12 @@ export const handleNodeMouseover = ({
 }: EventHandlerArguments & { target: NodeSingular }) => {
   const neighborhood = target.closedNeighborhood();
 
-  renderGraph
-    ?.elements()
-    .difference(neighborhood)
-    .filter((ele) => {
-      return !ele.selected();
-    })
-    .addClass('dim');
+  renderGraph.elements().addClass('dim');
 
-  const forceEdgeColor = renderGraph.scratch('forceEdgeColor');
-
-  if (!forceEdgeColor) {
-    target.connectedEdges().map((element: EdgeSingular) => {
-      const type = element.data('type') as DependencyType;
-
-      element.addClass(type);
-    });
-  }
+  neighborhood.removeClass('dim');
+  target.removeClass('dim');
+  neighborhood.addClass('focus');
+  target.addClass('focus');
 
   target.addClass('hover');
 };
@@ -46,20 +34,8 @@ export const handleNodeMouseout = ({
   const neighborhood = target.neighborhood();
   const focusedElements = renderGraph.collection([neighborhood, target]);
 
-  renderGraph?.elements().difference(focusedElements).removeClass('dim');
-
-  const forceEdgeColor = renderGraph.scratch('forceEdgeColor');
-
-  if (!forceEdgeColor) {
-    target.connectedEdges().map((element: EdgeSingular) => {
-      element.removeClass([
-        DependencyType.PRODUCTION,
-        DependencyType.DEVELOPMENT,
-        DependencyType.PEER,
-      ]);
-    });
-  }
-
+  renderGraph.elements().removeClass(['dim', 'focus', 'hover']);
+  focusedElements.removeClass('focus');
   target.removeClass('hover');
 };
 
@@ -68,46 +44,14 @@ export const handleNodeMouseout = ({
  **********************************/
 export const handleEdgeMouseover = ({
   target,
-  renderGraph,
-  violations = [],
 }: EventHandlerArguments & { target: EdgeSingular }) => {
-  const forceEdgeColor = renderGraph.scratch('forceEdgeColor');
-
   target.addClass('hover');
-
-  if (forceEdgeColor) return;
-
-  const type = target.data('type') as DependencyType;
-
-  const sourcePackageName = target.source().id();
-  const targetPackageName = target.target().id();
-  const hasViolation = violations.some((violation) => {
-    return (
-      violation.sourcePackageName === sourcePackageName &&
-      violation.targetPackageName === targetPackageName
-    );
-  });
-
-  if (!hasViolation) {
-    target.addClass(type);
-  }
 };
 
 export const handleEdgeMouseout = ({
   target,
-  renderGraph,
 }: EventHandlerArguments & { target: EventObject['target'] }) => {
-  const forceEdgeColor = renderGraph.scratch('forceEdgeColor');
-
   target.removeClass('hover');
-
-  if (forceEdgeColor) return;
-
-  target.removeClass([
-    DependencyType.PRODUCTION,
-    DependencyType.DEVELOPMENT,
-    DependencyType.PEER,
-  ]);
 };
 
 /**********************************

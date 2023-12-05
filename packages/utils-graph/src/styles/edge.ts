@@ -1,20 +1,16 @@
-import { DependencyType } from '@commonalityco/utils-core';
 import { Stylesheet } from 'cytoscape';
 
 const colors = {
   light: {
-    default: '#e4e4e7',
-    development: '#0284c7',
-    peer: '#0284c7',
-    production: '#059669',
-    violation: '#FF0000',
+    // Neutral 300
+    default: '#52525b',
+    fail: '#dc2626',
+    pass: '#16a34a',
   },
   dark: {
-    default: '#27272a',
-    development: '#0284c7',
-    peer: '#0284c7',
-    production: '#059669',
-    violation: '#FF0000',
+    default: '#71717a',
+    fail: '#ef4444',
+    pass: '#10b981',
   },
 };
 
@@ -30,9 +26,28 @@ export const edgeStyles: Stylesheet[] = [
       'target-endpoint': '0% -50%',
       'arrow-scale': 1.5,
       'line-color': colors.light.default,
+      opacity: 0.25,
     } as cytoscape.Css.Edge,
   },
-
+  {
+    selector: 'edge.pass',
+    style: {
+      'line-color': colors.light.pass,
+      'target-arrow-color': colors.light.pass,
+      'underlay-color': colors.light.pass,
+      'z-index': 10,
+    } as cytoscape.Css.Edge,
+  },
+  {
+    selector: 'edge.fail',
+    style: {
+      'line-color': colors.light.fail,
+      'target-arrow-color': colors.light.fail,
+      'underlay-color': colors.light.fail,
+      'z-index': 10,
+      opacity: 1,
+    } as cytoscape.Css.Edge,
+  },
   {
     selector: 'edge.dark',
     style: {
@@ -41,85 +56,35 @@ export const edgeStyles: Stylesheet[] = [
     },
   },
   {
-    selector: `edge.${DependencyType.PRODUCTION}`,
+    selector: 'edge.pass.dark',
     style: {
-      'line-color': colors.light.production,
-      'target-arrow-color': colors.light.production,
-      'underlay-color': colors.light.production,
-      width: 3,
-    } as cytoscape.Css.Edge,
+      'line-color': colors.dark.pass,
+      'target-arrow-color': colors.dark.pass,
+    },
   },
   {
-    selector: `edge.${DependencyType.DEVELOPMENT}`,
+    selector: 'edge.fail.dark',
     style: {
-      'line-color': colors.light.development,
-      'target-arrow-color': colors.light.development,
-      'underlay-color': colors.light.development,
-      width: 3,
-    } as cytoscape.Css.Edge,
-  },
-  {
-    selector: `edge.${DependencyType.PEER}`,
-    style: {
-      'line-color': colors.light.peer,
-      'target-arrow-color': colors.light.peer,
-      'underlay-color': colors.light.peer,
-      width: 3,
-    } as cytoscape.Css.Edge,
-  },
-  {
-    selector: `edge.dark.${DependencyType.PRODUCTION}`,
-    style: {
-      'line-color': colors.dark.production,
-      'target-arrow-color': colors.dark.production,
-      'underlay-color': colors.dark.production,
-      width: 3,
-    } as cytoscape.Css.Edge,
-  },
-  {
-    selector: `edge.dark.${DependencyType.DEVELOPMENT}`,
-    style: {
-      'line-color': colors.dark.development,
-      'target-arrow-color': colors.dark.development,
-      'underlay-color': colors.dark.development,
-      width: 3,
-    } as cytoscape.Css.Edge,
-  },
-  {
-    selector: `edge.dark.${DependencyType.PEER}`,
-    style: {
-      'line-color': colors.dark.peer,
-      'target-arrow-color': colors.dark.peer,
-      'underlay-color': colors.dark.peer,
-      width: 3,
-    } as cytoscape.Css.Edge,
-  },
-  {
-    selector: 'edge.violation',
-    style: {
-      'line-color': colors.dark.violation,
-      'target-arrow-color': colors.dark.violation,
-      'underlay-color': colors.dark.violation,
-      'z-index': 10,
-    } as cytoscape.Css.Edge,
+      'line-color': colors.dark.fail,
+      'target-arrow-color': colors.dark.fail,
+    },
   },
   {
     selector: 'edge.dim',
     style: {
-      'z-index': 0,
       opacity: 0.1,
     },
   },
   {
-    selector: 'edge.dark.dim',
+    selector: 'edge.focus',
     style: {
-      'z-index': 0,
-      opacity: 0.2,
+      opacity: 1,
     },
   },
   {
     selector: 'edge.hover',
     style: {
+      opacity: 1,
       'z-index': 100,
       'underlay-padding': 10,
       'underlay-opacity': 0.35,

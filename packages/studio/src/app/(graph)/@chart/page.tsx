@@ -1,22 +1,22 @@
 import 'server-only';
 import { getDependenciesData } from '@/data/dependencies';
-import { getViolationsData } from '@/data/violations';
 import { getPackagesData } from '@/data/packages';
 import StudioChart from './studio-chart';
 import { getProjectData } from '@/data/project';
+import { getConstraintsData } from '@/data/constraints';
 
 async function ChartPage() {
-  const [packages, dependencies, violations, project] = await Promise.all([
+  const [packages, dependencies, results, project] = await Promise.all([
     getPackagesData(),
     getDependenciesData(),
-    getViolationsData(),
+    getConstraintsData(),
     getProjectData(),
   ]);
 
   return (
     <StudioChart
       dependencies={dependencies}
-      violations={violations}
+      results={results}
       packages={packages}
       constraints={project.config?.constraints}
     />

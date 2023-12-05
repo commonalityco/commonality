@@ -1,9 +1,7 @@
-import { defineConfig, defineConformer, json, PackageJson } from 'commonality';
+import { defineConfig } from 'commonality';
 import * as recommended from 'commonality-recommended';
-import path from 'path';
 
 export default defineConfig({
-  projectId: '123',
   conformers: {
     '*': [
       recommended.ensureReadme(),

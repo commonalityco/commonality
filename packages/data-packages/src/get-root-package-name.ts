@@ -7,6 +7,10 @@ export const getRootPackageName = async ({
 }: {
   rootDirectory: string;
 }): Promise<string> => {
+  if (!rootDirectory) {
+    return '';
+  }
+
   const packageJsonPath = path.join(rootDirectory, 'package.json');
 
   const exists = await fs.pathExists(packageJsonPath);

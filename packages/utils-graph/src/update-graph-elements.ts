@@ -2,58 +2,41 @@
 import { Core, ElementDefinition } from 'cytoscape';
 import { bindRenderGraphEvents } from './bind-render-graph-events';
 
-import { Dependency, Package, Violation } from '@commonalityco/types';
-import { DependencyType } from '@commonalityco/utils-core';
+import { ConstraintResult, Dependency } from '@commonalityco/types';
 
 const updateStyles = ({
   graph,
   theme,
-  forceEdgeColor,
-  violations = [],
+  results = [],
 }: {
   graph: Core;
   theme: string;
-  forceEdgeColor: boolean;
-  violations: Violation[];
+  results: ConstraintResult[];
 }) => {
-  graph.elements().removeClass(['dark', 'light']).addClass(theme);
+  graph
+    .elements()
+    .removeClass(['dark', 'light', 'dim', 'focus'])
+    .addClass(theme);
 
   for (const edge of graph.edges()) {
     const edgeData = edge.data() as Dependency;
 
-    const violationForEdge = edgeData
-      ? violations.find((violation) => {
-          const source: Package = edge.source().data();
-          const target: Package = edge.target().data();
+    const resultForEdge = results.find((result) => {
+      return result.dependencyPath.some((dep) => {
+        return (
+          dep.source === edgeData.source &&
+          dep.target === edgeData.target &&
+          edgeData.type === dep.type
+        );
+      });
+    });
 
-          return (
-            violation.sourcePackageName === source.name &&
-            violation.targetPackageName === target.name
-          );
-        })
-      : undefined;
-
-    if (forceEdgeColor) {
-      edge.addClass(edgeData.type);
-      edge.addClass('focus');
-    } else {
-      edge.removeClass([
-        DependencyType.DEVELOPMENT,
-        DependencyType.PEER,
-        DependencyType.PRODUCTION,
-      ]);
-      edge.removeClass('focus');
-    }
-
-    if (violationForEdge) {
-      edge.removeClass([
-        DependencyType.DEVELOPMENT,
-        DependencyType.PEER,
-        DependencyType.PRODUCTION,
-      ]);
-      edge.removeClass('focus');
-
-      edge.addClass('violation');
+    if (resultForEdge) {
+      if (resultForEdge.isValid) {
+        edge.addClass(['pass']);
+      } else {
+        edge.addClass('fail');
+      }
     }
   }
 };
@@ -63,20 +46,20 @@ export const updateGraphElements = async ({
   traversalGraph,
   theme,
   forceEdgeColor,
-  violations,
+  results,
   elements,
 }: {
   renderGraph: Core;
   traversalGraph: Core;
   theme: string;
   forceEdgeColor: boolean;
-  violations: Violation[];
+  results: ConstraintResult[];
   elements: ElementDefinition[];
 }) => {
   // Clear the graph
   renderGraph.json({ elements });
 
-  updateStyles({ graph: renderGraph, theme, forceEdgeColor, violations });
+  updateStyles({ graph: renderGraph, theme, results });
 
   renderGraph.fit(undefined, 24);
 
@@ -85,7 +68,7 @@ export const updateGraphElements = async ({
     renderGraph,
     theme,
     traversalGraph,
-    violations,
+    results,
   });
 };
 
