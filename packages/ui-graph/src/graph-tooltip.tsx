@@ -19,6 +19,7 @@ import {
   arrow,
   autoUpdate,
 } from '@floating-ui/react';
+import { cn } from '@commonalityco/ui-design-system';
 
 export interface GraphTooltipProperties {
   content: React.ReactNode;
@@ -120,9 +121,12 @@ export const GraphTooltip = ({
               top: arrowY === undefined ? '' : `${arrowY}px`,
               right: '',
               bottom: '',
-              [staticSide]: '-4px',
+              [staticSide]: '-8px',
             }}
-            className="absolute z-60 h-4 w-4 rotate-45 bg-background border-b border-r"
+            className={cn('absolute z-60 h-4 w-4 rotate-45 bg-background', {
+              'border-b border-r': finalPlacement === 'top',
+              'border-t border-l': finalPlacement === 'bottom',
+            })}
             ref={arrowRef}
           />
           <div className="border-border bg-background text-foreground z-50 rounded-lg border font-sans text-sm shadow-sm">
