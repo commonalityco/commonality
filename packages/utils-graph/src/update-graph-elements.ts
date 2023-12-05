@@ -45,14 +45,12 @@ export const updateGraphElements = async ({
   renderGraph,
   traversalGraph,
   theme,
-  forceEdgeColor,
   results,
   elements,
 }: {
   renderGraph: Core;
   traversalGraph: Core;
   theme: string;
-  forceEdgeColor: boolean;
   results: ConstraintResult[];
   elements: ElementDefinition[];
 }) => {

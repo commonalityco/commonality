@@ -17,7 +17,6 @@ import {
   showDependencies,
 } from '@commonalityco/utils-graph/actions';
 import type { ConstraintResult, Package } from '@commonalityco/types';
-import { DependencyType } from '@commonalityco/utils-core';
 import { assign, createMachine } from 'xstate';
 import type {
   CollectionArgument,
@@ -43,7 +42,6 @@ export interface Context {
   selectedTraversalNode?: NodeSingular & { data: () => Package };
   selectedEdge?: EdgeSingular;
   popoverRef?: VirtualElement;
-  isEdgeColorShown: boolean;
   theme: string;
   results: ConstraintResult[];
 }
@@ -73,7 +71,6 @@ type Event =
   | { type: 'ZOOM_IN' }
   | { type: 'ZOOM_OUT' }
   | { type: 'FIT'; selector: Filter }
-  | { type: 'SET_IS_EDGE_COLOR_SHOWN'; isShown: boolean }
   | { type: 'SET_THEME'; theme: string }
   | { type: 'NODE_MOUSEOVER'; node: NodeSingular }
   | { type: 'NODE_MOUSEOUT'; node: NodeSingular }
@@ -93,7 +90,6 @@ export const graphMachine = createMachine(
     context: {
       isHovering: false,
       elements: [],
-      isEdgeColorShown: false,
       theme: 'light',
       results: [],
     },
@@ -113,7 +109,6 @@ export const graphMachine = createMachine(
               'createRenderGraph',
               'setTheme',
               'setInitialElements',
-              'log',
             ],
           },
         },
@@ -127,89 +122,83 @@ export const graphMachine = createMachine(
               'createRenderGraph',
               'setTheme',
               'setInitialElements',
-              'log',
             ],
           },
           DESTROY: {
             cond: 'hasInitialized',
-            actions: ['destroy', 'log'],
+            actions: ['destroy'],
           },
           // Graph interactions
           HIDE: {
             target: 'updating',
             cond: 'hasInitialized',
-            actions: ['hide', 'unselect', 'log'],
+            actions: ['hide', 'unselect'],
           },
           HIDE_DEPENDENCIES: {
             target: 'updating',
             cond: 'hasInitialized',
-            actions: ['hideDependencies', 'unselect', 'log'],
+            actions: ['hideDependencies', 'unselect'],
           },
           HIDE_DEPENDANTS: {
             target: 'updating',
             cond: 'hasInitialized',
-            actions: ['hideDependents', 'unselect', 'log'],
+            actions: ['hideDependents', 'unselect'],
           },
           HIDE_ALL: {
             target: 'updating',
             cond: 'hasInitialized',
-            actions: ['hideAll', 'unselect', 'log'],
+            actions: ['hideAll', 'unselect'],
           },
           SHOW: {
             target: 'updating',
             cond: 'hasInitialized',
-            actions: ['show', 'unselect', 'log'],
+            actions: ['show', 'unselect'],
           },
           SHOW_DEPENDENCIES: {
             target: 'updating',
             cond: 'hasInitialized',
-            actions: ['showDependencies', 'unselect', 'log'],
+            actions: ['showDependencies', 'unselect'],
           },
           SHOW_DEPENDANTS: {
             target: 'updating',
             cond: 'hasInitialized',
-            actions: ['showDependants', 'unselect', 'log'],
+            actions: ['showDependants', 'unselect'],
           },
           SHOW_ALL: {
             target: 'updating',
             cond: 'hasInitialized',
-            actions: ['showAll', 'unselect', 'log'],
+            actions: ['showAll', 'unselect'],
           },
           FOCUS: {
             target: 'updating',
             cond: 'hasInitialized',
-            actions: ['focus', 'unselect', 'log'],
+            actions: ['focus', 'unselect'],
           },
           SET_THEME: {
             target: 'updating',
             cond: 'hasInitialized',
-            actions: ['setTheme', 'log'],
-          },
-          SET_IS_EDGE_COLOR_SHOWN: {
-            target: 'updating',
-            cond: 'hasInitialized',
-            actions: ['renderIsEdgeColorShown', 'setIsEdgeColorShown', 'log'],
+            actions: ['setTheme'],
           },
           // Graph toolbar events triggered by the user
           FIT: {
             cond: 'hasInitialized',
-            actions: ['fit', 'log'],
+            actions: ['fit'],
           },
           ZOOM_IN: {
             cond: 'hasInitialized',
-            actions: ['zoomIn', 'log'],
+            actions: ['zoomIn'],
           },
           ZOOM_OUT: {
             cond: 'hasInitialized',
-            actions: ['zoomOut', 'log'],
+            actions: ['zoomOut'],
           },
           // Events triggered by the graph
           NODE_MOUSEOUT: {
             cond: 'hasInitialized',
-            actions: ['unselect', 'log'],
+            actions: ['unselect'],
           },
           SET_HOVERING: {
-            actions: ['setHovering', 'log'],
+            actions: ['setHovering'],
           },
           NODE_CLICK: {
             cond: 'hasInitialized',
@@ -217,7 +206,7 @@ export const graphMachine = createMachine(
           },
           EDGE_CLICK: {
             cond: 'hasInitialized',
-            actions: ['edgeClick', 'log'],
+            actions: ['edgeClick'],
           },
           UNSELECT: {
             cond: 'hasInitialized',
@@ -239,7 +228,6 @@ export const graphMachine = createMachine(
           onError: {
             target: 'error',
             cond: 'hasInitialized',
-            actions: ['log'],
           },
         },
       },
@@ -250,12 +238,10 @@ export const graphMachine = createMachine(
           onDone: {
             target: 'success',
             cond: 'hasInitialized',
-            actions: ['log'],
           },
           onError: {
             target: 'error',
             cond: 'hasInitialized',
-            actions: ['log'],
           },
         },
       },
@@ -292,7 +278,6 @@ export const graphMachine = createMachine(
           traversalGraph: context.traversalGraph,
           elements: context.elements,
           theme: context.theme,
-          forceEdgeColor: context.isEdgeColorShown,
           results: context.results,
         });
 
@@ -521,50 +506,33 @@ export const graphMachine = createMachine(
           },
         });
       },
-      renderIsEdgeColorShown: (context, event) => {
-        if (!context.renderGraph) return;
-
-        context.renderGraph.scratch('forceEdgeColor', event.isShown);
-        for (const edge of context.renderGraph.edges()) {
-          if (event.isShown) {
-            const type = edge.data('type') as DependencyType;
-
-            edge.addClass(type);
-            edge.addClass('focus');
-          } else {
-            edge.removeClass([
-              DependencyType.PRODUCTION,
-              DependencyType.DEVELOPMENT,
-              DependencyType.PEER,
-            ]);
-            edge.removeClass('focus');
-          }
-        }
-      },
-      setIsEdgeColorShown: assign({
-        selectedEdge: undefined,
-        selectedRenderNode: undefined,
-        selectedTraversalNode: undefined,
-        isEdgeColorShown: (_context, event) => {
-          return event.isShown;
-        },
-      }),
       nodeClick: assign({
         selectedEdge: undefined,
-        selectedRenderNode: (_context, event) => {
+        selectedRenderNode: (context, event) => {
+          if (context.selectedRenderNode?.id() === event.node.id()) {
+            return;
+          }
+
           return event.node;
         },
         selectedTraversalNode: (context, event) => {
           if (!context.traversalGraph) return;
 
+          if (context.selectedRenderNode?.id() === event.node.id()) {
+            return;
+          }
+
           return context.traversalGraph.$id(event.node.id());
-          // return event.node;
         },
       }),
       edgeClick: assign({
         selectedRenderNode: undefined,
         selectedTraversalNode: undefined,
-        selectedEdge: (_context, event) => {
+        selectedEdge: (context, event) => {
+          if (context.selectedEdge?.id() === event.edge.id()) {
+            return;
+          }
+
           return event.edge;
         },
       }),

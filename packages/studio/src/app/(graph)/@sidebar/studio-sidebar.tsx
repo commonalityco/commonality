@@ -5,7 +5,6 @@ import { ComponentProps } from 'react';
 
 function StudioSidebar(props: ComponentProps<typeof FeatureGraphSidebar>) {
   const onLayout = (sizes: number[]) => {
-    console.log('setting');
     setCookie('commonality:sidebar-layout', sizes);
   };
 

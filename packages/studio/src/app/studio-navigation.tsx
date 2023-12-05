@@ -38,18 +38,14 @@ function LastUpdateTime() {
     const createSocketConnection = async () => {
       const socket = io();
 
-      socket.on('connect', () => {
-        console.log('connected');
-      });
+      socket.on('connect', () => {});
 
       socket.on('project-updated', async () => {
         router.refresh();
-        console.log('refreshed');
+
         setLastUpdated(new Date());
       });
-      socket.on('disconnect', () => {
-        console.log('disconnected');
-      });
+      socket.on('disconnect', () => {});
     };
 
     createSocketConnection();

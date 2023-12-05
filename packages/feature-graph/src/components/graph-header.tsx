@@ -46,7 +46,7 @@ function GraphHeader({
       <div>
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="ghost" className="flex gap-2">
+            <Button variant="outline" className="flex gap-2">
               <span
                 className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
                   'text-destructive': failCount > 0,

@@ -21,7 +21,7 @@ export function FeatureGraphDependencyTooltip() {
       );
     });
   });
-  console.log({ selectedEdge, data });
+
   return (
     <>
       {selectedEdge && data && (

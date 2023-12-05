@@ -60,7 +60,7 @@ export function FeatureGraphPackageTooltip({
               }}
             />
           }
-        ></GraphTooltip>
+        />
       )}
     </>
   );

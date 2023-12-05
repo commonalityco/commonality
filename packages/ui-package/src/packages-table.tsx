@@ -199,7 +199,7 @@ export function ConformanceCell<T extends ColumnData>({
                 };
 
                 return (
-                  <div className="flex gap-3">
+                  <div className="flex gap-3" key={result.name}>
                     <div>{getIcon()}</div>
                     <div className="grid gap-1">
                       <span className="text-sm">{result.message.title}</span>

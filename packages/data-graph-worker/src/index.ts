@@ -13,12 +13,9 @@ export const createWorker = () => {
       const cachedResult = await localforage.getItem(cacheKey);
 
       if (cachedResult) {
-        console.log('CACHE HIT');
         postMessage(cachedResult);
         return;
       }
-
-      console.log('CACHE MISS');
 
       const updatedElelementDefinitions =
         await getElementDefinitionsWithUpdatedLayout({
