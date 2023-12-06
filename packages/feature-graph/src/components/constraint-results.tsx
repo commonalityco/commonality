@@ -5,10 +5,21 @@ import {
   AccordionItem,
   AccordionTrigger,
   Badge,
+  Button,
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
   cn,
 } from '@commonalityco/ui-design-system';
 import { DependencyType, formatTagName } from '@commonalityco/utils-core';
-import { ArrowRight, CornerDownRight } from 'lucide-react';
+import {
+  ArrowRight,
+  CornerDownRight,
+  ExternalLink,
+  Network,
+} from 'lucide-react';
 import { Fragment, useMemo } from 'react';
 
 const dependencyTextByType = {
@@ -16,6 +27,38 @@ const dependencyTextByType = {
   [DependencyType.DEVELOPMENT]: 'dev',
   [DependencyType.PEER]: 'peer',
 };
+
+export function ConstraintOnboardinCard() {
+  return (
+    <Card variant="secondary">
+      <CardHeader>
+        <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
+          <div className="bg-secondary rounded-full p-1.5">
+            <Network className="h-5 w-5" />
+          </div>
+        </div>
+
+        <CardTitle>Organize your dependency graph</CardTitle>
+        <CardDescription>
+          Prevent endless dependency debugging by limiting the which packages
+          can depend on each other.
+        </CardDescription>
+      </CardHeader>
+      <CardFooter>
+        <Button asChild variant="outline" size="sm">
+          <a
+            href="https://commonality.co/docs/checks"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn more
+            <ExternalLink className="ml-1 h-3 w-3 -translate-y-px" />
+          </a>
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+}
 
 export function ConstraintTitle({ result }: { result: ConstraintResult }) {
   return (
@@ -193,7 +236,7 @@ export function ConstraintResults({
   results: ConstraintResult[];
 }) {
   if (!results || results.length === 0) {
-    return <p className="text-muted-foreground">No constraints found</p>;
+    return <ConstraintOnboardinCard />;
   }
 
   const resultsByPackageName = useMemo(() => {

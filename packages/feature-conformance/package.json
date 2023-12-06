@@ -14,11 +14,13 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./ui": "./src/ui/index.ts"
+    "./ui": "./src/ui/index.ts",
+    "./utilities": "./src/utils/index.ts"
   },
   "license": "MIT",
   "scripts": {
     "build": "tsc --build",
+    "dev": "tsc --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",

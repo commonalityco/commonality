@@ -1,3 +1,4 @@
+'use client';
 import {
   ColumnDef,
   flexRender,
@@ -25,12 +26,17 @@ import {
   PopoverContent,
   ScrollArea,
   cn,
+  Accordion,
+  AccordionItem,
+  AccordionContent,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
 import { Status, formatTagName } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-core/ui';
 import { ConformanceResult, Package } from '@commonalityco/types';
 import { AlertTriangle, Check, ChevronDown, Plus, X } from 'lucide-react';
+import { CheckContent, CheckTitle, FilterTitle } from '.';
+import { getStatusForResults } from '../utils';
 
 export type ColumnData = {
   package: Package;
@@ -85,8 +91,11 @@ export function ConformanceCell<T extends ColumnData>({
   row: Row<T>;
 }) {
   const results: ConformanceResult[] = row.getValue('results');
+  const resultsForPackage = results.filter(
+    (result) => result.package.name === row.original.package.name,
+  );
 
-  if (!results || results.length === 0) {
+  if (!resultsForPackage || resultsForPackage.length === 0) {
     return (
       <span className="text-muted-foreground">No conformance results</span>
     );
@@ -102,9 +111,21 @@ export function ConformanceCell<T extends ColumnData>({
     (result) => result.status === Status.Warn,
   ).length;
 
+  const resultsForPackageByFilter: Record<string, ConformanceResult[]> = {};
+  for (const result of resultsForPackage) {
+    const filter = result.filter;
+    const existingResultsForFilter = resultsForPackageByFilter[filter];
+
+    if (existingResultsForFilter) {
+      existingResultsForFilter.push(result);
+    } else {
+      resultsForPackageByFilter[filter] = [result];
+    }
+  }
+
   return (
     <div className="flex gap-2 items-center">
-      <div className="h-1.5 flex rounded-full overflow-hidden min-w-32 grow">
+      <div className="h-1.5 flex rounded-full overflow-hidden min-w-[100px] grow">
         {failCount > 0 ? (
           <div
             className="h-full bg-destructive"
@@ -167,61 +188,34 @@ export function ConformanceCell<T extends ColumnData>({
         </PopoverTrigger>
         <PopoverContent className="w-[500px] p-0" align="end">
           <ScrollArea className="flex flex-col max-h-[500px]">
-            <div className="p-4 flex flex-col gap-4">
-              {results.map((result) => {
-                const getIcon = () => {
-                  switch (result.status) {
-                    case Status.Pass: {
-                      return (
-                        <span className="text-success font-mono font-medium items-center flex flex-nowrap gap-2">
-                          <Check className="h-4 w-4" />
-                          pass
-                        </span>
-                      );
-                    }
-                    case Status.Warn: {
-                      return (
-                        <span className="text-yellow-500 font-mono font-medium items-center flex flex-nowrap gap-2">
-                          <AlertTriangle className="h-4 w-4" />
-                          warn
-                        </span>
-                      );
-                    }
-                    case Status.Fail: {
-                      return (
-                        <span className="text-destructive font-mono font-medium items-center flex flex-nowrap gap-2">
-                          <X className="h-4 w-4" />
-                          pass
-                        </span>
-                      );
-                    }
-                  }
-                };
+            <div className="p-4 grid flex-col gap-4">
+              {Object.entries(resultsForPackageByFilter).map(
+                ([filter, resultsForFilter]) => {
+                  const status = getStatusForResults(resultsForFilter);
 
-                return (
-                  <div className="flex gap-3" key={result.name}>
-                    <div>{getIcon()}</div>
-                    <div className="grid gap-1">
-                      <span className="text-sm">{result.message.title}</span>
+                  return (
+                    <Accordion
+                      key={filter}
+                      type="multiple"
+                      className="w-full overflow-hidden"
+                    >
+                      <FilterTitle filter={filter} status={status} />
+                      {resultsForFilter.map((result) => {
+                        const key = `${result.name}-${result.package.name}`;
 
-                      {result.message.filepath ? (
-                        <p className="text-muted-foreground font-mono text-xs">
-                          {result.message.filepath}
-                        </p>
-                      ) : undefined}
-                      {result.message.context ? (
-                        <div className="bg-muted border border-border rounded-md overflow-auto">
-                          <pre className="px-1">
-                            <code className="text-muted-foreground font-mono text-xs">
-                              {result.message.context}
-                            </code>
-                          </pre>
-                        </div>
-                      ) : undefined}
-                    </div>
-                  </div>
-                );
-              })}
+                        return (
+                          <AccordionItem key={key} value={key}>
+                            <CheckTitle result={result} />
+                            <AccordionContent>
+                              <CheckContent result={result} />
+                            </AccordionContent>
+                          </AccordionItem>
+                        );
+                      })}
+                    </Accordion>
+                  );
+                },
+              )}
             </div>
           </ScrollArea>
         </PopoverContent>

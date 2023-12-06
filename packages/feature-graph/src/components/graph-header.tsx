@@ -46,38 +46,38 @@ function GraphHeader({
         >{`${shownCount} of ${totalCount} packages`}</Badge>
       </div>
       <div className="flex gap-2 flex-nowrap">
+        <div className="flex gap-4 flex-nowrap mr-3">
+          <p
+            className={cn(
+              'font-medium shrink-0 flex flex-nowrap items-center gap-1',
+              {
+                'text-destructive': failCount > 0,
+                'text-muted-foreground': failCount === 0,
+              },
+            )}
+          >
+            <X className="h-4 w-4" />
+            {failCount}
+            {` failed`}
+          </p>
+          <p
+            className={cn(
+              'font-medium shrink-0 flex flex-nowrap items-center gap-1',
+              {
+                'text-success': passCount > 0,
+                'text-muted-foreground': passCount === 0,
+              },
+            )}
+          >
+            <Check className="h-4 w-4" />
+            {passCount}
+            {` passed`}
+          </p>
+        </div>
         <Popover>
-          <div className="flex gap-4 flex-nowrap mr-3">
-            <p
-              className={cn(
-                'font-medium shrink-0 flex flex-nowrap items-center gap-1',
-                {
-                  'text-destructive': failCount > 0,
-                  'text-muted-foreground': failCount === 0,
-                },
-              )}
-            >
-              <X className="h-4 w-4" />
-              {failCount}
-              {` failed`}
-            </p>
-            <p
-              className={cn(
-                'font-medium shrink-0 flex flex-nowrap items-center gap-1',
-                {
-                  'text-success': passCount > 0,
-                  'text-muted-foreground': passCount === 0,
-                },
-              )}
-            >
-              <Check className="h-4 w-4" />
-              {passCount}
-              {` passed`}
-            </p>
-          </div>
           <PopoverTrigger asChild>
             <Button variant="secondary" className="flex gap-2">
-              View constraints
+              View all constraints
               <ChevronDown className="h-4 w-4" />
             </Button>
           </PopoverTrigger>

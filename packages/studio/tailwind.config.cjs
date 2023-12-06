@@ -23,5 +23,6 @@ module.exports = {
     getPkgPattern('@commonalityco/ui-graph'),
     getPkgPattern('@commonalityco/ui-package'),
     getPkgPattern('@commonalityco/ui-core'),
+    getPkgPattern('@commonalityco/feature-conformance'),
   ],
 };

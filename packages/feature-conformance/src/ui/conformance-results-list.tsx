@@ -5,11 +5,24 @@ import {
   AccordionItem,
   AccordionTrigger,
   Badge,
+  Button,
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
   cn,
 } from '@commonalityco/ui-design-system';
 import { Status, formatTagName } from '@commonalityco/utils-core';
-import { AlertTriangle, Check, X } from 'lucide-react';
+import {
+  AlertTriangle,
+  Check,
+  ExternalLink,
+  PackageCheck,
+  X,
+} from 'lucide-react';
 import { Fragment, useMemo } from 'react';
+import { getStatusForResults } from '../utils';
 
 export function CheckTitle({ result }: { result: ConformanceResult }) {
   const getStatusText = () => {
@@ -24,7 +37,7 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
       }
       case Status.Warn: {
         return (
-          <span className="text-yellow-500 font-mono font-medium items-center flex flex-nowrap gap-2">
+          <span className="text-warning font-mono font-medium items-center flex flex-nowrap gap-2">
             <AlertTriangle className="h-4 w-4" />
             warn
           </span>
@@ -43,9 +56,9 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
 
   return (
     <AccordionTrigger className="flex items-center overflow-hidden w-full">
-      <div className="flex gap-4 items-start">
+      <div className="grid gap-4 grid-cols-[minmax(0,max-content)_1fr] text-left items-start">
         <div className="flex gap-1 items-center">{getStatusText()}</div>
-        <div className="flex gap-2 flex-wrap items-start">
+        <div className="text-left grow shrink basis-auto min-w-0 max-w-full">
           {result.message.title}
         </div>
       </div>
@@ -54,16 +67,24 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
 }
 
 export function CheckContent({ result }: { result: ConformanceResult }) {
+  if (!result.message.filepath && !result.message.context) {
+    return (
+      <p className="pl-[74px] text-muted-foreground text-xs">
+        No additional context
+      </p>
+    );
+  }
+
   return (
-    <div>
+    <div className="pl-[74px] space-y-1">
       {result.message.filepath ? (
-        <p className="text-muted-foreground font-mono text-xs">
+        <p className="text-muted-foreground font-mono text-xs truncate block">
           {result.message.filepath}
         </p>
       ) : undefined}
       {result.message.context ? (
         <div className="bg-muted border border-border rounded-md overflow-auto">
-          <pre className="px-1">
+          <pre className="px-2 py-1 max-w-full">
             <code className="text-muted-foreground font-mono text-xs">
               {result.message.context}
             </code>
@@ -75,23 +96,56 @@ export function CheckContent({ result }: { result: ConformanceResult }) {
 }
 
 export function FilterTitle({
+  status,
   filter,
-  isValid,
 }: {
+  status: Status;
   filter: string;
-  isValid: boolean;
 }) {
   return (
     <div className="flex items-center gap-1">
       <Badge
         className={cn({
-          'bg-destructive': !isValid,
-          'bg-success': isValid,
+          'bg-destructive': status === Status.Fail,
+          'bg-success': status === Status.Pass,
+          'bg-warning': status === Status.Warn,
         })}
       >
         {formatTagName(filter)}
       </Badge>
     </div>
+  );
+}
+
+export function ConformanceOnboardingCard() {
+  return (
+    <Card variant="secondary">
+      <CardHeader>
+        <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
+          <div className="bg-secondary rounded-full p-1.5">
+            <PackageCheck className="h-5 w-5" />
+          </div>
+        </div>
+
+        <CardTitle>Codify your best practices</CardTitle>
+        <CardDescription>
+          Scale a consistently amazing developer experience with dynamic
+          conformance checks that are run like tests and shared like lint rules.
+        </CardDescription>
+      </CardHeader>
+      <CardFooter>
+        <Button asChild variant="outline" size="sm">
+          <a
+            href="https://commonality.co/docs/checks"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn more
+            <ExternalLink className="ml-1 h-3 w-3 -translate-y-px" />
+          </a>
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }
 
@@ -101,7 +155,7 @@ export function ConformanceResults({
   results: ConformanceResult[];
 }) {
   if (!results || results.length === 0) {
-    return <p className="text-muted-foreground">No constraints found</p>;
+    return <ConformanceOnboardingCard />;
   }
 
   const resultsByPackageName = useMemo(() => {
@@ -120,7 +174,7 @@ export function ConformanceResults({
   }, [results]);
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 overflow-hidden">
       {Object.entries(resultsByPackageName).map(
         ([packageName, resultsForPackage]) => {
           if (resultsForPackage.length === 0) {
@@ -146,13 +200,15 @@ export function ConformanceResults({
               <div className="grid gap-4">
                 {Object.entries(resultsForPackageByFilter).map(
                   ([filter, resultsForFilter]) => {
-                    const isValid = resultsForFilter.every(
-                      (result) => result.status === Status.Pass,
-                    );
+                    const status = getStatusForResults(resultsForFilter);
 
                     return (
-                      <Accordion type="multiple" key={filter}>
-                        <FilterTitle filter={filter} isValid={isValid} />
+                      <Accordion
+                        type="multiple"
+                        key={filter}
+                        className="w-full overflow-hidden"
+                      >
+                        <FilterTitle filter={filter} status={status} />
                         {resultsForFilter.map((result) => {
                           const value = `${result.name}-${result.package.name}`;
 
@@ -160,7 +216,7 @@ export function ConformanceResults({
                             <Fragment key={value}>
                               <AccordionItem value={value}>
                                 <CheckTitle result={result} />
-                                <AccordionContent className="pl-[70px]">
+                                <AccordionContent>
                                   <CheckContent result={result} />
                                 </AccordionContent>
                               </AccordionItem>

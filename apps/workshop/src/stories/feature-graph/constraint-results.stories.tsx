@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ConstraintResults } from '@commonalityco/feature-graph';
-import { Violation } from '@commonalityco/types';
 import { DependencyType } from '@commonalityco/utils-core';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
-  title: 'feature-graph/ConstraintResults',
+  title: 'Constraints/ConstraintResults',
   component: ConstraintResults,
   tags: ['autodocs'],
   argTypes: {},
