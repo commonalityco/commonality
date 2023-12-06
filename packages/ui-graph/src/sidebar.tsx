@@ -19,10 +19,7 @@ import {
   CardFooter,
   cn,
 } from '@commonalityco/ui-design-system';
-import {
-  getIconForPackage,
-  formatPackageName,
-} from '@commonalityco/utils-package';
+import { formatPackageName } from '@commonalityco/utils-package';
 import {
   Box,
   ExternalLink,
@@ -34,6 +31,7 @@ import {
 } from 'lucide-react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { GradientFade } from '@commonalityco/ui-core';
+import { getIconForPackage } from '@commonalityco/utils-core/ui';
 
 function ShowHideButton({
   visible,

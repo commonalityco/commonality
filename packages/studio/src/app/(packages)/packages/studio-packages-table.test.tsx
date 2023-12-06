@@ -5,7 +5,7 @@ import { Package } from '@commonalityco/types';
 import { PackageType } from '@commonalityco/utils-core';
 import { expect, it, vi } from 'vitest';
 import { Row } from '@tanstack/react-table';
-import { ColumnData } from '@commonalityco/ui-package';
+import { ColumnData } from '@commonalityco/feature-conformance/ui';
 
 const mocks = vi.hoisted(() => {
   return {
@@ -68,7 +68,7 @@ describe('<ActionButton />', () => {
     const button = screen.getByRole('button', { name: /open menu/i });
     await userEvent.click(button);
 
-    const packageJsonOption = screen.getByText(/Open package.json/i);
+    const packageJsonOption = screen.getByText(/Edit package.json/i);
     await userEvent.click(packageJsonOption);
 
     expect(mocks.openPackageJson).toHaveBeenCalledWith('/path/to/test-package');

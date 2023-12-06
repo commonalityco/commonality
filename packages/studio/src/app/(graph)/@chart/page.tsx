@@ -1,4 +1,3 @@
-import 'server-only';
 import { getDependenciesData } from '@/data/dependencies';
 import { getPackagesData } from '@/data/packages';
 import StudioChart from './studio-chart';

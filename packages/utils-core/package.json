@@ -1,37 +1,46 @@
 {
-    "name": "@commonalityco/utils-core",
-    "version": "0.0.10",
-    "type": "module",
-    "description": "Contains the common constants used in all Commonality applications and packages",
-    "sideEffects": false,
-    "publishConfig": {
-        "access": "public",
-        "main": "./dist/index.js",
-        "types": "./dist/index.d.ts",
-        "exports": {
-            ".": "./dist/index.js"
-        }
-    },
-    "types": "./src/index.ts",
-    "main": "./src/index.ts",
-    "license": "MIT",
-    "scripts": {
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
-        "build": "tsc --build",
-        "test": "vitest",
-        "type-check": "tsc --noEmit"
-    },
-    "devDependencies": {
-        "@commonalityco/config-tsconfig": "workspace:*",
-        "eslint-config-commonality": "workspace:*",
-        "typescript": "^5.2.2"
-    },
-    "dependencies": {
-        "@sindresorhus/slugify": "^2.2.1"
-    },
+  "name": "@commonalityco/utils-core",
+  "version": "0.0.10",
+  "type": "module",
+  "description": "Contains the common constants used in all Commonality applications and packages",
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "exports": {
-        ".": "./src/index.ts"
-    },
-    "repository": "https://github.com/commonalityco/commonality/packages/utils-core"
+      ".": "./dist/index.js",
+      "./ui": "./dist/ui/index.ts"
+    }
+  },
+  "types": "./src/index.ts",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./ui": "./src/ui/index.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "tsc --build",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "eslint-config-commonality": "workspace:*",
+    "typescript": "^5.2.2",
+    "@types/react": "^18.2.22",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@sindresorhus/slugify": "^2.2.1"
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/utils-core"
 }

@@ -29,8 +29,7 @@ export const getProjectConfig = async ({
       filepath: configPath,
       isEmpty: !defaultExport,
     };
-  } catch (error) {
-    console.error(error);
+  } catch {
     return {
       config: {},
       filepath: configPath,

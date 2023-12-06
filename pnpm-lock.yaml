@@ -71,6 +71,9 @@ importers:
       '@commonalityco/data-graph-worker':
         specifier: workspace:*
         version: link:../../packages/data-graph-worker
+      '@commonalityco/feature-conformance':
+        specifier: workspace:*
+        version: link:../../packages/feature-conformance
       '@commonalityco/feature-graph':
         specifier: workspace:*
         version: link:../../packages/feature-graph
@@ -666,6 +669,9 @@ importers:
 
   packages/feature-conformance:
     dependencies:
+      '@tanstack/react-table':
+        specifier: ^8.10.1
+        version: 8.10.7(react-dom@18.2.0)(react@18.2.0)
       chalk:
         specifier: ^4.0.0
         version: 4.1.2
@@ -681,9 +687,15 @@ importers:
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
+      lucide-react:
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
       mock-fs:
         specifier: ^5.2.0
         version: 5.2.0
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
       strip-ansi:
         specifier: ^7.1.0
         version: 7.1.0
@@ -694,9 +706,18 @@ importers:
       '@commonalityco/types':
         specifier: workspace:*
         version: link:../types
+      '@commonalityco/ui-design-system':
+        specifier: workspace:*
+        version: link:../ui-design-system
       '@commonalityco/utils-core':
         specifier: workspace:*
         version: link:../utils-core
+      '@testing-library/jest-dom':
+        specifier: ^6.1.4
+        version: 6.1.4(jest@29.7.0)(vitest@0.34.6)
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
       '@types/fs-extra':
         specifier: ^11.0.2
         version: 11.0.4
@@ -706,9 +727,18 @@ importers:
       '@types/mock-fs':
         specifier: ^4.13.4
         version: 4.13.4
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.39
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
       typescript:
         specifier: ^5.2.2
         version: 5.3.2
@@ -1387,9 +1417,18 @@ importers:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
         version: link:../../tooling/config-tsconfig
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.39
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
       typescript:
         specifier: ^5.2.2
         version: 5.3.2
@@ -12869,7 +12908,6 @@ packages:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
-    dev: true
 
   /lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}

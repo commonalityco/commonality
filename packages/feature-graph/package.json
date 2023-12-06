@@ -1,71 +1,71 @@
 {
-    "name": "@commonalityco/feature-graph",
-    "description": "Full-featured drop-in components to build the dependency graph view",
-    "publishConfig": {
-        "access": "public",
-        "main": "./dist/index.js",
-        "types": "./dist/index.d.ts",
-        "exports": {
-            ".": "./dist/index.js"
-        }
-    },
-    "type": "module",
-    "sideEffects": false,
-    "version": "0.0.13",
-    "types": "./src/index.ts",
-    "dependencies": {
-        "lodash.debounce": "^4.0.8",
-        "server-only": "^0.0.1"
-    },
-    "devDependencies": {
-        "@commonalityco/config-tailwind": "workspace:*",
-        "@commonalityco/config-tsconfig": "workspace:*",
-        "@commonalityco/data-graph": "workspace:*",
-        "@commonalityco/types": "workspace:*",
-        "@commonalityco/ui-design-system": "workspace:*",
-        "@commonalityco/ui-graph": "workspace:*",
-        "@commonalityco/utils-core": "workspace:*",
-        "@commonalityco/utils-graph": "workspace:*",
-        "@testing-library/jest-dom": "^6.1.3",
-        "@testing-library/react": "^14.0.0",
-        "@types/lodash.debounce": "^4.0.7",
-        "@types/react": "^18.2.22",
-        "@xstate/react": "^3.2.2",
-        "cytoscape": "^3.26.0",
-        "eslint-config-commonality": "workspace:*",
-        "lucide-react": "^0.274.0",
-        "next-themes": "^0.2.1",
-        "postcss": "^8.4.30",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "tailwindcss": "^3.3.3",
-        "typescript": "^5.2.2",
-        "xstate": "^4.38.2"
-    },
-    "license": "MIT",
-    "peerDependencies": {
-        "@commonalityco/data-graph": "*",
-        "@commonalityco/ui-design-system": "*",
-        "@commonalityco/ui-graph": "*",
-        "@commonalityco/utils-core": "*",
-        "@commonalityco/utils-graph": "*",
-        "@xstate/react": "^3.2.2",
-        "lucide-react": "^0.x",
-        "next-themes": "^0.x",
-        "react": ">=18",
-        "react-dom": ">=18",
-        "xstate": "^4.37.2"
-    },
-    "scripts": {
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
-        "build": "tsc --build",
-        "type-check": "tsc --noEmit"
-    },
+  "name": "@commonalityco/feature-graph",
+  "description": "Full-featured drop-in components to build the dependency graph view",
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "exports": {
-        ".": "./src/index.ts",
-        "./*": "./dist/*.js"
-    },
-    "main": "./src/index.ts",
-    "repository": "https://github.com/commonalityco/commonality/packages/feature-graph"
+      ".": "./dist/index.js"
+    }
+  },
+  "type": "module",
+  "sideEffects": false,
+  "version": "0.0.13",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "lodash.debounce": "^4.0.8",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tailwind": "workspace:*",
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/data-graph": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/ui-design-system": "workspace:*",
+    "@commonalityco/ui-graph": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "@commonalityco/utils-graph": "workspace:*",
+    "@testing-library/jest-dom": "^6.1.3",
+    "@testing-library/react": "^14.0.0",
+    "@types/lodash.debounce": "^4.0.7",
+    "@types/react": "^18.2.22",
+    "@xstate/react": "^3.2.2",
+    "cytoscape": "^3.26.0",
+    "eslint-config-commonality": "workspace:*",
+    "lucide-react": "^0.274.0",
+    "next-themes": "^0.2.1",
+    "postcss": "^8.4.30",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.2",
+    "xstate": "^4.38.2"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@commonalityco/data-graph": "*",
+    "@commonalityco/ui-design-system": "*",
+    "@commonalityco/ui-graph": "*",
+    "@commonalityco/utils-core": "*",
+    "@commonalityco/utils-graph": "*",
+    "@xstate/react": "^3.2.2",
+    "lucide-react": "^0.x",
+    "next-themes": "^0.x",
+    "react": ">=18",
+    "react-dom": ">=18",
+    "xstate": "^4.37.2"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "tsc --build",
+    "type-check": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./dist/*.js"
+  },
+  "main": "./src/index.ts",
+  "repository": "https://github.com/commonalityco/commonality/packages/feature-graph"
 }

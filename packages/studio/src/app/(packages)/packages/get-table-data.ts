@@ -4,7 +4,7 @@ import {
   Package,
   TagsData,
 } from '@commonalityco/types';
-import { ColumnData } from '@commonalityco/ui-package';
+import { ColumnData } from '@commonalityco/feature-conformance/ui';
 
 function keyBy<Data extends Record<string, any>>(
   array: Data[],

@@ -67,10 +67,13 @@ export const GraphChart = memo(
           <div
             id="graph-container"
             ref={reference}
-            className={cn('bg-secondary dark:bg-interactive h-full w-full', {
-              'opacity-0': loading,
-              'opacity-100 transition-opacity ': !loading,
-            })}
+            className={cn(
+              'bg-secondary dark:bg-interactive h-full w-full relative overflow-hidden',
+              {
+                'opacity-0': loading,
+                'opacity-100 transition-opacity ': !loading,
+              },
+            )}
           />
           {children}
         </div>

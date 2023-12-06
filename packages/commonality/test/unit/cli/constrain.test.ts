@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { reportConstraintResults } from '../../../src/cli/commands/constrain/constrain.js';
+import { reportConstraintResults } from '../../../src/cli/commands/constrain';
 import { DependencyType } from '@commonalityco/utils-core';
 import stripAnsi from 'strip-ansi';
 import { ConstraintResult } from '@commonalityco/types';

@@ -7,6 +7,8 @@ const stripWorkspaceProtocol = (value: string) => {
 
 const getVersionWithPrefix = (version?: string): string => `^${version}`;
 
+const title = `Packages with peerDependencies must have matching devDependencies within a valid range`;
+
 const getExpectedDevDependencies = (
   packageJson: PackageJson,
 ): Record<string, string> | undefined => {
@@ -104,14 +106,18 @@ export const devPeerDependencyRange = defineCheck(() => {
         return { title: 'Package.json is missing' };
       }
 
+      const expectedDevDependencies = getExpectedDevDependencies(packageJson);
+
+      if (!expectedDevDependencies) {
+        return { title, filepath: 'package.json' };
+      }
+
       const source: Partial<PackageJson> = {
         peerDependencies: packageJson.peerDependencies,
       };
       const target: Partial<PackageJson> = {
         peerDependencies: packageJson.peerDependencies,
       };
-
-      const expectedDevDependencies = getExpectedDevDependencies(packageJson);
 
       if (expectedDevDependencies) {
         target.devDependencies = expectedDevDependencies;
@@ -122,7 +128,7 @@ export const devPeerDependencyRange = defineCheck(() => {
       }
 
       return {
-        title: `Packages with peerDependencies must have matching devDependencies within a valid range`,
+        title,
         context: diff(source, target),
         filepath: 'package.json',
       };

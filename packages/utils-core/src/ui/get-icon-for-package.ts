@@ -1,7 +1,7 @@
-import { LogoNode } from './icons/logo-node';
-import { LogoReact } from './icons/logo-react';
-import { LogoNext } from './icons/logo-next';
-import { PackageType } from '@commonalityco/utils-core';
+import { LogoNode } from './images/logo-node';
+import { LogoReact } from './images/logo-react';
+import { LogoNext } from './images/logo-next';
+import { PackageType } from '../constants';
 
 const ComponentByType = {
   [PackageType.NEXT]: LogoNext,

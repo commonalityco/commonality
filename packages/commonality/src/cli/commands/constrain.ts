@@ -3,7 +3,7 @@ import { getConstraintResults } from '@commonalityco/data-violations';
 import { ConstraintResult } from '@commonalityco/types';
 import ora from 'ora';
 import c from 'picocolors';
-import { Logger } from '../../utils/logger.js';
+import { Logger } from '../utils/logger.js';
 import { DependencyType } from '@commonalityco/utils-core';
 import {
   getProjectConfig,

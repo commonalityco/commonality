@@ -32,21 +32,6 @@ export interface GraphTooltipProperties {
   placement?: 'top' | 'right' | 'bottom' | 'left';
 }
 
-const detectGraphOverflow = {
-  name: 'detectGraphOverflow',
-  async fn(state) {
-    const containerEl = document.querySelector('#graph-container');
-
-    if (containerEl) {
-      await detectOverflow(state, {
-        boundary: containerEl,
-      });
-    }
-
-    return {};
-  },
-} satisfies Middleware;
-
 export const GraphTooltip = ({
   children,
   open = false,
@@ -77,7 +62,6 @@ export const GraphTooltip = ({
       flip(),
       shift({ padding: 6 }),
       arrow({ element: arrowRef }),
-      detectGraphOverflow,
     ],
   });
 

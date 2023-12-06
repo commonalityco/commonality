@@ -1,3 +1,6 @@
+/**
+ * @vitest-environment jsdom
+ */
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import {
@@ -8,11 +11,11 @@ import {
   PackagesTable,
   PackageTableColumns,
   ConformanceCell,
-} from '../src/packages-table.js';
+} from '../../src/ui/packages-table';
 import { describe, it, expect, vi } from 'vitest';
 import { Row } from '@tanstack/react-table';
-import '@testing-library/jest-dom';
 import { PackageType } from '@commonalityco/utils-core';
+import '@testing-library/jest-dom';
 
 describe('NameCell', () => {
   it('renders correctly', () => {

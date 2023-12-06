@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { init } from './commands/init.js';
-import { constrain } from './commands/constrain/constrain.js';
+import { constrain } from './commands/constrain.js';
 import { studio } from './commands/studio.js';
 import { conform } from './commands/conform.js';
 import packageJson from '../../package.json';

@@ -14,6 +14,7 @@ import { getConformanceResultsData } from '@/data/conformance';
 import omit from 'lodash/omit';
 import stripAnsi from 'strip-ansi';
 import { ConformanceResult } from '@commonalityco/types';
+import { EditConfigButton } from '@/components/edit-config-button';
 
 async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
   const [packages, tagsData, codeownersData, results] = await Promise.all([
@@ -72,14 +73,17 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
 
   return (
     <>
-      <div className="grow p-6 w-full space-y-6 flex flex-col">
-        <div className="w-full space-y-6">
-          <div className="flex gap-4 items-center">
-            <h1 className="font-medium text-2xl leading-none">Checks</h1>
-            <Badge
-              variant="secondary"
-              className="text-muted-foreground"
-            >{`${data.length} of ${packages.length} packages`}</Badge>
+      <div className="grow px-6 py-4 w-full space-y-4 flex flex-col">
+        <div className="w-full space-y-4">
+          <div className="flex justify-between flex-nowrap items-center">
+            <div className="flex gap-4 items-center">
+              <h1 className="font-medium text-2xl leading-none">Checks</h1>
+              <Badge
+                variant="secondary"
+                className="text-muted-foreground"
+              >{`${data.length} of ${packages.length} packages`}</Badge>
+            </div>
+            <EditConfigButton />
           </div>
 
           <div className="flex items-center gap-2 shrink-0 relative z-10">

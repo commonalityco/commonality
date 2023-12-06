@@ -399,7 +399,7 @@ describe('repository-field', () => {
         const result = await conformer.message();
 
         expect(result.context).toMatchInlineSnapshot(
-          '"Compared values have no visual difference."',
+          'undefined',
         );
       });
     });
