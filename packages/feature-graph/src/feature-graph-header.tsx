@@ -5,8 +5,10 @@ import GraphHeader from './components/graph-header';
 
 export function FeatureGraphHeader({
   results,
+  children,
 }: {
   results: ConstraintResult[];
+  children?: React.ReactNode;
 }) {
   const totalCount = GraphContext.useSelector((state) => {
     return state.context.traversalGraph
@@ -25,6 +27,8 @@ export function FeatureGraphHeader({
       totalCount={totalCount}
       shownCount={shownCount}
       results={results}
-    />
+    >
+      {children}
+    </GraphHeader>
   );
 }

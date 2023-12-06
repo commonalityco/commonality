@@ -14,10 +14,12 @@ function GraphHeader({
   totalCount,
   shownCount,
   results,
+  children,
 }: {
   totalCount: number;
   shownCount: number;
   results: ConstraintResult[];
+  children?: React.ReactNode;
 }) {
   const failCount = results.filter((result) => !result.isValid).length;
   const passCount = results.filter((result) => result.isValid).length;
@@ -39,34 +41,43 @@ function GraphHeader({
       <div className="flex gap-4 items-center">
         <h1 className="font-medium text-2xl leading-none">Constraints</h1>
         <Badge
-          variant="secondary"
+          variant="outline"
           className="text-muted-foreground"
         >{`${shownCount} of ${totalCount} packages`}</Badge>
       </div>
-      <div>
+      <div className="flex gap-2 flex-nowrap">
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline" className="flex gap-2">
-              <span
-                className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
+          <div className="flex gap-4 flex-nowrap mr-3">
+            <p
+              className={cn(
+                'font-medium shrink-0 flex flex-nowrap items-center gap-1',
+                {
                   'text-destructive': failCount > 0,
                   'text-muted-foreground': failCount === 0,
-                })}
-              >
-                <X className="h-4 w-4" />
-                {failCount}
-                {` failed`}
-              </span>
-              <span
-                className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
+                },
+              )}
+            >
+              <X className="h-4 w-4" />
+              {failCount}
+              {` failed`}
+            </p>
+            <p
+              className={cn(
+                'font-medium shrink-0 flex flex-nowrap items-center gap-1',
+                {
                   'text-success': passCount > 0,
                   'text-muted-foreground': passCount === 0,
-                })}
-              >
-                <Check className="h-4 w-4" />
-                {passCount}
-                {` passed`}
-              </span>
+                },
+              )}
+            >
+              <Check className="h-4 w-4" />
+              {passCount}
+              {` passed`}
+            </p>
+          </div>
+          <PopoverTrigger asChild>
+            <Button variant="secondary" className="flex gap-2">
+              View constraints
               <ChevronDown className="h-4 w-4" />
             </Button>
           </PopoverTrigger>
@@ -77,6 +88,7 @@ function GraphHeader({
             <ConstraintResults results={results} />
           </PopoverContent>
         </Popover>
+        {children}
       </div>
     </div>
   );

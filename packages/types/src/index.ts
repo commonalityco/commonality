@@ -126,14 +126,14 @@ export type ConformanceResult = {
 };
 
 export interface ProjectConfig {
-  // The unique identifier of the project
-  projectId?: string;
-  project?: {
-    onConform?: string;
-  };
-  // An array of constraints that the project should adhere to
   constraints?: Record<string, Constraint>;
   checks?: Record<string, Conformer[]>;
+}
+
+export interface ProjectConfigData {
+  config: ProjectConfig;
+  filepath: string;
+  isEmpty?: boolean;
 }
 
 export type PackageConfig = {

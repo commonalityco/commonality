@@ -1,17 +1,22 @@
 import { getDependencies, getPackages } from '@commonalityco/data-packages';
-import {
-  getProjectConfig,
-  getRootDirectory,
-} from '@commonalityco/data-project';
+import { getProjectConfig } from '@commonalityco/data-project';
 import { getTagsData } from '@commonalityco/data-tags';
 import { getConstraintResults } from '@commonalityco/data-violations';
 
 export const getConstraintsData = async () => {
-  const rootDirectory = await getRootDirectory();
-  const projectConfig = await getProjectConfig({ rootDirectory });
-  const packages = await getPackages({ rootDirectory });
-  const dependencies = await getDependencies({ rootDirectory });
-  const tagsData = await getTagsData({ rootDirectory, packages });
+  const projectConfig = await getProjectConfig({
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+  });
+  const packages = await getPackages({
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+  });
+  const dependencies = await getDependencies({
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+  });
+  const tagsData = await getTagsData({
+    rootDirectory: process.env.COMMONALITY_ROOT_DIRECTORY,
+    packages,
+  });
 
   return getConstraintResults({
     tagsData,

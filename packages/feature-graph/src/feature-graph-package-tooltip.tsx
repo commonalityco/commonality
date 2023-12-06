@@ -6,7 +6,9 @@ import { Package } from '@commonalityco/types';
 
 export function FeatureGraphPackageTooltip({
   onEditTags,
+  onOpenPackageJson,
 }: {
+  onOpenPackageJson: (pkg: Package) => void;
   onEditTags: (pkg: Package) => void;
 }) {
   const actor = GraphContext.useActorRef();
@@ -31,6 +33,7 @@ export function FeatureGraphPackageTooltip({
           content={
             <TooltipPackage
               pkg={pkg}
+              onOpenPackageJson={onOpenPackageJson}
               onEditTags={onEditTags}
               dependentsCount={Number(dependentsCount)}
               dependenciesCount={Number(dependenciesCount)}

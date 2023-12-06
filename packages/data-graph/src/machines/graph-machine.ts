@@ -83,7 +83,7 @@ const ZOOM_FACTOR = 0.5 as const;
 
 export const graphMachine = createMachine(
   {
-    /** @xstate-layout N4IgpgJg5mDOIC5RQE4EMAOALAdAVwDsBLYgFyLQBsiAvSAYgEkA5RgFUYEEAZRgLQCiAbQAMAXUSgMAe1hFy0gpJAAPRAFYAbAGYc2gOzqRARmMj9ADk2GATABoQAT0QXjOIyM+bNN7Zs-qACwAvsEOqJi4sHgAxjFwsEysHDz8wuLKMnIKSkiqGjp6hiZmltbq9k6I2iKBesY2Fb4iAJy+Lcah4ejYONFxCfQAIgIAymwASgDyAJqiEnlZ8kSKymoIppo4+mYtgYGNFjaBRy0Ozhs2hjiN3i17Fi2aRyFhIBG9-fGwiQASjCN5plZMtVnl1lpdAYjKZzFZbOcNCItnDmiIbK4WhZtNouu8elFYt8-gCBAB9EYABQEzBGzAAwowxkDFiCcmsClDirCygiqgh-DYcCJtMYcTZPKKari3h9CQMfvR-iMKQJqbTOMw2KMWVI2StcqAIYVoSU4eVKhdNC19DgsYF1PdGvpRZY8XK+kTBsryTxuLqQEt2eDOUUYaV4RVEQh9C1dHH9PoTL4bMcse6CZ6FYlRr8pgB1ANBg0chCQsNm3lR-kWR44R4iCwiiU7VwWDORLPE+i5guq9V0xnMjKs7IlkNlk3ciMW6NY9T1wLaFoidTGI6mbTt2WZr6DXv5-s0oaa7VF-Vgo2h008yOWxBmVzbG2eHbqJOBTQdz5exUHsl+ueY6Xvkk5cuG5p8hcpiJtsMKtGKxg2kc37yt2ABiUz0gAqjqI56sBhqgeWN4zlBD5XLoSbaDYphmNaZg2KhXb7gIbBkmwvwCAAsukCwEaCRHGuBlZ3tGYrWjgmiQmKjbrgcrzdJ2e6Kuh7BAYJpZihYODGLGzzSYE+iaGKxniXpLR6CKjqGMYRlGExO7Kb+iR8FMUzcWSLAacGV4bHp2zaEuFhLjaca1oE4mNlCRg4ui-haFczEqa57meVM2FsD545+bsegrjoNSaIE676Ccc4WLay76KmRwWJC5jJS5PZsV5oxkgIQwAOLkvSUzcFMExkgezDZSB6wHNGVh1PcZjGCZexGOo25KT+2b0MwUwqtxGWjAIUwAGoCBMY1CYgsb5ciNQNO+RnaOo0ZlUKy2fluLw3eoTXrZt227ftmWnaW2LuMYiUhTosapsY0Y+CIumWAc1hxV4X3dj9vW8PSADSgMTmYC7mCKoNPI6WLSdGgQ2tsNW0Z+JWVeoWio4MnU9WS9KYzj+GBheZ0bMiNylctlWHNamjRtCejeJ4jRGMUX5OWt3bYcwe3cAI9JZdzxbjQ+DRFJTYWBLUxXPNGjRCi0Nkrg6TzOsxlDSGgEAkFA9AQIoYA4CQABu0gANZeygYAEBAYAoAAtHKuN+f4dSWA00n3GuxXaObWj1jdtHLUjHQO07LsEG74coNIKA4BglBoKQABmZcALY4MHofh1HBIx6BDRtIFS5BJ+9UhVNEpScVjTri90nbm8BDSGH8B5HKwKEaWEfi-yEcLvcW-bzvMqrbghAkMsVC0JAS+aXj1j1vasuyc8TzifsODGz4rb+E8q76MzPzn75ndWyPY2joU47HmmnfkpktgSixCYOmJl9jMRLmXX+OVO4+AXA6Go5gabGVXFNJCgDGj3EMEYbw+dnauxQbrBAWIdIhQMDoRm75PBnH5PpXSo9jJWx0I2RyoQgA */
+    /** @xstate-layout N4IgpgJg5mDOIC5RQE4EMAOALAdAVwDsBLYgFyLQBsiAvSAYgEkA5RgFUYEEAZRgLQCiAbQAMAXUSgMAe1hFy0gpJAAPRAFYAnAA4cAJm0B2TZoOH1IgIwAWAMwAaEAE9Ep6zkO2renbYBs2qYAvkGOqJi4sHgAxtFwsEysHDz8wuLKMnIKSkiqiAC0BpY4luqGeiKa6qXattaWji4Imn6GONYBmtYV1sbWHSFh6Ng4UbHx9AAiAgDKbABKAPIAmqISuZnyRIrKagj5XsW2PiJ95YaeDs6IlqbF3dYWNp7a3YMg4SNjcbAJABKMaZrDKyLY7XJ7Qq1dqBPTVbRadR6PS2QyNRDaES2fRePx+dT4wyWWyad6fSIxH7-QECAD60wACgJmNNmABhRizYEbUHZXYFOrudR2TQiALaSx6fp6dEIcp6HDabTI-GSywIgJk4YU8a-egA6b0gRMlmcZhsGbcqS87Y5UCQrTY2yWKz9TTE7StBrXBDqartWx+nxlPy+bRaiKjSkTA10njcK0gTZ8iEFP1+HCB52WYyGawiJ6yw4lWpdIx6SwBYzqCNfaN6mZ-RYAdUTydt-P2Bk0OHUxwqwqxtlRZVlxLafbd5b8ImVktrOqp9EbLaNJtZHK56R5WQ7qf2gZEvc9gT8krKF00aJ9B2xXr8HXMrzz1nDoQ+2qjuoSK+ba+ZkxmhabY2uC9oCnYODuoEhwiAWr5XE0+SWKUPbdCOXj9MqEoLl+S6-rS8YgbuYF5AeYpQWUV4zhKrQ6LKyE+MUtyzhYrRIkYti4d8EwAGKLGyACqlrbtaJF2mRhSmDgcGvuURiXlY6gMTYkEiHYsKVn4qKlNx9Y-gIbC0mwfwCAAsmk6xiWCEmQhc+inNp4qYleo4+ih+YlP4pTmNUopVHp370Lx7DETZnaFMYiozsOfgGNYVRnrKFSBO02kJdUcE+NpgVLnwiyLGZtIsGFKbgeRR6HJ4FzdEihgFslUrYlU9TyY8JgIrlEz5YVtKLIJbClXu5UHLOOAPsKVRPBWkp+Ml+YZrOtiBJ4opwQF77knhEzMIshpmf1MwCP1g2iUmoG2QKdS9k1mheIEyrLcl6hKr2vTVDO+YuleXUNoZtJNgAagI8wsAA4kNpGQv2vbpfiPheJUMo+noFxHnYKEve1JJ2L9CS7YabK8GyADSkOXQekpQaG9XqRWCLCnN7kvIqqMEmedizvUeP0AIkxg3SROMKT5MRdmio5t5frqXU6nJe62K5i6PhXnooZ+DzgnMEd3ACGyp1Wed4liwW434t4pxdF03pND5PYuiSZ42Nlhga5tn54BgEBoOQBBQPQECKGAOAkAAbtIADWwee97pBgPklBoE40h4KQov7ue6j6Eq1RlMcBbabKwq6MOKH1Vo7ryrhMc+yQ-tgCgKDSCgOAYInpAAGbNwAtvgXs+-HifJ6n6fle6WcukGLTGHUyJFp6+jIh1qr1FibtDJGKBgAQEAN3XAdByHBDh1HOBbzvDf5OSo9kf0Ga1KppiVLJhfuQhb0EvmPhwl4ei4efu8UD7wbk3FubcfZdxQL3ABl9r5nXbFDG4SJ3DDnUs+BCdQbaIGWhmZEKtPTVFXv4EI74CDSF3vAXI5IQTG33PkB8RwXSPw9F6FSfYjzCkdp0OEop14fkjIQEgWwqC0EgDQ8K+5UQZhJOUOCzo-TLVeGOOCxQzxMTVq7OKrs8biLKmRD0JQiRGGqEYuWb9lQyUeK0KwgZSzWFwiA5uujhr6K0e0XOc4zzq0asULoeJHgVgUa5au-dfZQGcYghAmJ3Cc0tvDRGTMmiM0zKccoSJWgJUCP-begC64RIpqUCo+gjGvClKYeqyMkkdBSRcOEGjMmkhIUAA */
     predictableActionArguments: true,
     id: 'graph',
     initial: 'uninitialized',
@@ -93,7 +93,7 @@ export const graphMachine = createMachine(
       theme: 'light',
       results: [],
     },
-    tsTypes: {} as import('./graph-machine.typegen.js').Typegen0,
+    tsTypes: {} as import('./graph-machine.typegen').Typegen0,
     schema: {
       events: {} as Event,
       context: {} as Context,
@@ -198,6 +198,7 @@ export const graphMachine = createMachine(
             actions: ['unselect'],
           },
           SET_HOVERING: {
+            cond: 'hasInitialized',
             actions: ['setHovering'],
           },
           NODE_CLICK: {
@@ -279,23 +280,17 @@ export const graphMachine = createMachine(
           elements: context.elements,
           theme: context.theme,
           results: context.results,
-        });
+          onEdgeClick: (event) => {
+            if (!context.renderGraph) return;
 
-        context.renderGraph.nodes().on('click', (event) => {
-          if (!context.renderGraph) return;
+            callback({ type: 'EDGE_CLICK', edge: event.target });
+          },
+          onNodeClick: (event) => {
+            if (!context.renderGraph) return;
 
-          callback({ type: 'NODE_CLICK', node: event.target });
-        });
-
-        context.renderGraph.edges().on('click', (event) => {
-          if (!context.renderGraph) return;
-
-          callback({ type: 'EDGE_CLICK', edge: event.target });
-        });
-
-        context.renderGraph.on(
-          'pan zoom',
-          debounce(
+            callback({ type: 'NODE_CLICK', node: event.target });
+          },
+          onMove: debounce(
             () => {
               if (!context.renderGraph) return;
               callback({ type: 'UNSELECT' });
@@ -303,7 +298,7 @@ export const graphMachine = createMachine(
             1000,
             { leading: true, trailing: false },
           ),
-        );
+        });
       },
     },
 

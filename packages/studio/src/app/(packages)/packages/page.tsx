@@ -10,7 +10,7 @@ import React from 'react';
 import StudioPackagesTable from './studio-packages-table';
 import StudioPackagesTablePaginator from './studio-packages-table-paginator';
 import { getTableData } from './get-table-data';
-import { getConformanceResultsData } from '@/data/violations';
+import { getConformanceResultsData } from '@/data/conformance';
 import omit from 'lodash/omit';
 import stripAnsi from 'strip-ansi';
 import { ConformanceResult } from '@commonalityco/types';

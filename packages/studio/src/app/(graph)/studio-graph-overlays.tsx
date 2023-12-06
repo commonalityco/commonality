@@ -1,4 +1,5 @@
 'use client';
+import { openPackageJson } from '@/actions/editor';
 import {
   EditTagsDialog,
   EditTagsDialogContent,
@@ -40,7 +41,10 @@ function StudioGraphOverlays({ tagsData }: { tagsData: TagsData[] }) {
       </EditTagsDialog>
 
       <FeatureGraphDependencyTooltip />
-      <FeatureGraphPackageTooltip onEditTags={(pkg) => setPackageToEdit(pkg)} />
+      <FeatureGraphPackageTooltip
+        onEditTags={(pkg) => setPackageToEdit(pkg)}
+        onOpenPackageJson={(pkg) => openPackageJson(pkg.path)}
+      />
     </div>
   );
 }

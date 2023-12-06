@@ -53,21 +53,24 @@ export const edgeStyles: Stylesheet[] = [
     style: {
       'line-color': colors.dark.default,
       'target-arrow-color': colors.dark.default,
-    },
+      'underlay-color': colors.dark.default,
+    } as cytoscape.Css.Edge,
   },
   {
     selector: 'edge.pass.dark',
     style: {
       'line-color': colors.dark.pass,
       'target-arrow-color': colors.dark.pass,
-    },
+      'underlay-color': colors.dark.pass,
+    } as cytoscape.Css.Edge,
   },
   {
     selector: 'edge.fail.dark',
     style: {
       'line-color': colors.dark.fail,
       'target-arrow-color': colors.dark.fail,
-    },
+      'underlay-color': colors.dark.fail,
+    } as cytoscape.Css.Edge,
   },
   {
     selector: 'edge.dim',

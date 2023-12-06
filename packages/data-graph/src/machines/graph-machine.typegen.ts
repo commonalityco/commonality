@@ -44,36 +44,10 @@ export interface Typegen0 {
     hideAll: 'HIDE_ALL';
     hideDependencies: 'HIDE_DEPENDENCIES';
     hideDependents: 'HIDE_DEPENDANTS';
-    log:
-      | 'DESTROY'
-      | 'EDGE_CLICK'
-      | 'FIT'
-      | 'FOCUS'
-      | 'HIDE'
-      | 'HIDE_ALL'
-      | 'HIDE_DEPENDANTS'
-      | 'HIDE_DEPENDENCIES'
-      | 'INITIALIZE'
-      | 'NODE_CLICK'
-      | 'NODE_MOUSEOUT'
-      | 'SET_HOVERING'
-      | 'SET_IS_EDGE_COLOR_SHOWN'
-      | 'SET_THEME'
-      | 'SHOW'
-      | 'SHOW_ALL'
-      | 'SHOW_DEPENDANTS'
-      | 'SHOW_DEPENDENCIES'
-      | 'UNSELECT'
-      | 'ZOOM_IN'
-      | 'ZOOM_OUT'
-      | 'done.invoke.render-graph'
-      | 'error.platform.render-graph'
-      | 'error.platform.update-layout';
+    log: 'NODE_CLICK' | 'UNSELECT';
     nodeClick: 'NODE_CLICK';
-    renderIsEdgeColorShown: 'SET_IS_EDGE_COLOR_SHOWN';
     setHovering: 'SET_HOVERING';
     setInitialElements: 'INITIALIZE';
-    setIsEdgeColorShown: 'SET_IS_EDGE_COLOR_SHOWN';
     setTheme: 'INITIALIZE' | 'SET_THEME';
     setWorker: 'INITIALIZE';
     show: 'SHOW';
@@ -108,7 +82,7 @@ export interface Typegen0 {
       | 'HIDE_DEPENDENCIES'
       | 'NODE_CLICK'
       | 'NODE_MOUSEOUT'
-      | 'SET_IS_EDGE_COLOR_SHOWN'
+      | 'SET_HOVERING'
       | 'SET_THEME'
       | 'SHOW'
       | 'SHOW_ALL'
@@ -130,7 +104,6 @@ export interface Typegen0 {
       | 'HIDE_DEPENDANTS'
       | 'HIDE_DEPENDENCIES'
       | 'INITIALIZE'
-      | 'SET_IS_EDGE_COLOR_SHOWN'
       | 'SET_THEME'
       | 'SHOW'
       | 'SHOW_ALL'

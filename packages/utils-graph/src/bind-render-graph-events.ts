@@ -6,6 +6,9 @@ interface EventHandlerArguments {
   traversalGraph: Core;
   theme: string;
   results: ConstraintResult[];
+  onNodeClick: cytoscape.EventHandler;
+  onEdgeClick: cytoscape.EventHandler;
+  onMove: cytoscape.EventHandler;
 }
 
 /**********************************
@@ -59,27 +62,42 @@ export const handleEdgeMouseout = ({
  **********************************/
 
 export const bindRenderGraphEvents = (arguments_: EventHandlerArguments) => {
-  const { renderGraph } = arguments_;
+  const { renderGraph, onNodeClick, onEdgeClick, onMove } = arguments_;
 
+  renderGraph.nodes().removeListener('click');
+  renderGraph.nodes().addListener('click', onNodeClick);
+
+  renderGraph.nodes().removeListener('mouseover');
   renderGraph
     .nodes()
     .on('mouseover', (event) =>
       handleNodeMouseover({ ...arguments_, target: event.target }),
     );
+
+  renderGraph.nodes().removeListener('mouseout');
   renderGraph
     .nodes()
     .on('mouseout', (event) =>
       handleNodeMouseout({ ...arguments_, target: event.target }),
     );
 
+  renderGraph.edges().removeListener('click');
+  renderGraph.edges().addListener('click', onEdgeClick);
+
+  renderGraph.edges().removeListener('mouseover');
   renderGraph
     .edges()
     .on('mouseover', (event) =>
       handleEdgeMouseover({ ...arguments_, target: event.target }),
     );
+
+  renderGraph.edges().removeListener('mouseout');
   renderGraph
     .edges()
     .on('mouseout', (event) =>
       handleEdgeMouseout({ ...arguments_, target: event.target }),
     );
+
+  renderGraph.removeListener('pan zoom');
+  renderGraph.addListener('pan zoom', onMove);
 };

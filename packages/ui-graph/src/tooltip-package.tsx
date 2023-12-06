@@ -1,13 +1,28 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 'use client';
 import { Package } from '@commonalityco/types';
-import { Button, Badge, Separator } from '@commonalityco/ui-design-system';
+import {
+  Button,
+  Badge,
+  Separator,
+  DropdownMenuSeparator,
+} from '@commonalityco/ui-design-system';
 import { ComponentProps } from 'react';
-import { ArrowUp, ArrowDown } from 'lucide-react';
+import {
+  ArrowUp,
+  ArrowDown,
+  Pencil,
+  Tags,
+  FileText,
+  Eye,
+  EyeOff,
+  Focus,
+} from 'lucide-react';
 
 export interface TooltipPackageProperties {
   onHide?: (package_: Package) => void;
   onFocus?: (package_: Package) => void;
+  onOpenPackageJson: (package_: Package) => void;
   onEditTags: (package_: Package) => void;
   onDependenciesShow?: (package_: Package) => void;
   onDependenciesHide?: (package_: Package) => void;
@@ -37,6 +52,7 @@ function DropdownButton({
 export const TooltipPackage = ({
   onHide = () => {},
   onFocus = () => {},
+  onOpenPackageJson = () => {},
   onEditTags = () => {},
   onDependenciesShow = () => {},
   onDependenciesHide = () => {},
@@ -54,15 +70,24 @@ export const TooltipPackage = ({
             <div className="text-foreground px-2 py-1.5 text-sm font-semibold">
               Package
             </div>
+            <DropdownButton onClick={() => onOpenPackageJson(pkg)}>
+              <FileText className="mr-2 h-4 w-4" />
+              Edit package.json
+            </DropdownButton>
             <DropdownButton onClick={() => onEditTags(pkg)}>
+              <Tags className="mr-2 h-4 w-4" />
               Edit tags
             </DropdownButton>
             <DropdownButton onClick={() => onFocus(pkg)}>
+              <Focus className="mr-2 h-4 w-4" />
               Isolate
             </DropdownButton>
-            <DropdownButton onClick={() => onHide(pkg)}>Hide</DropdownButton>
+            <DropdownButton onClick={() => onHide(pkg)}>
+              <EyeOff className="mr-2 h-4 w-4" />
+              Hide
+            </DropdownButton>
           </div>
-          <Separator className="my-1 w-full" />
+          <DropdownMenuSeparator />
           <div>
             <div className="flex items-center gap-1 px-2 py-1.5">
               <div className="text-foreground text-sm font-semibold">
@@ -83,16 +108,18 @@ export const TooltipPackage = ({
               disabled={dependentsCount === 0}
               onClick={() => onDependentsShow(pkg)}
             >
+              <Eye className="mr-2 h-4 w-4" />
               Show all
             </DropdownButton>
             <DropdownButton
               disabled={dependentsCount === 0}
               onClick={() => onDependentsHide(pkg)}
             >
+              <EyeOff className="mr-2 h-4 w-4" />
               Hide all
             </DropdownButton>
           </div>
-          <Separator className="my-1 w-full" />
+          <DropdownMenuSeparator />
           <div>
             <div className="flex items-center gap-1 px-2 py-1.5">
               <div className="text-foreground text-sm font-semibold">
@@ -113,12 +140,14 @@ export const TooltipPackage = ({
               disabled={dependenciesCount === 0}
               onClick={() => onDependenciesShow(pkg)}
             >
+              <Eye className="mr-2 h-4 w-4" />
               Show all
             </DropdownButton>
             <DropdownButton
               disabled={dependenciesCount === 0}
               onClick={() => onDependenciesHide(pkg)}
             >
+              <EyeOff className="mr-2 h-4 w-4" />
               Hide all
             </DropdownButton>
           </div>

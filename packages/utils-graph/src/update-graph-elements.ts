@@ -47,12 +47,18 @@ export const updateGraphElements = async ({
   theme,
   results,
   elements,
+  onEdgeClick,
+  onNodeClick,
+  onMove,
 }: {
   renderGraph: Core;
   traversalGraph: Core;
   theme: string;
   results: ConstraintResult[];
   elements: ElementDefinition[];
+  onNodeClick: cytoscape.EventHandler;
+  onEdgeClick: cytoscape.EventHandler;
+  onMove: cytoscape.EventHandler;
 }) => {
   // Clear the graph
   renderGraph.json({ elements });
@@ -67,6 +73,9 @@ export const updateGraphElements = async ({
     theme,
     traversalGraph,
     results,
+    onEdgeClick,
+    onNodeClick,
+    onMove,
   });
 };
 

@@ -18,7 +18,7 @@ async function ChartPage() {
       dependencies={dependencies}
       results={results}
       packages={packages}
-      constraints={project.config?.constraints}
+      constraints={project.config?.config.constraints}
     />
   );
 }
