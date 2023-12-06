@@ -95,6 +95,48 @@ export function CheckContent({ result }: { result: ConformanceResult }) {
   );
 }
 
+export function StatusCount({
+  failCount,
+  warnCount,
+  passCount,
+}: {
+  failCount: number;
+  warnCount: number;
+  passCount: number;
+}) {
+  return (
+    <div className="font-mono flex gap-4 shrink-0">
+      <span
+        className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
+          'text-desructive': failCount > 0,
+          'text-muted-foreground': failCount === 0,
+        })}
+      >
+        <X className="h-4 w-4" />
+        {failCount}
+      </span>
+      <span
+        className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
+          'text-yellow-500': warnCount > 0,
+          'text-muted-foreground': warnCount === 0,
+        })}
+      >
+        <AlertTriangle className="h-4 w-4" />
+        {warnCount}
+      </span>
+      <span
+        className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
+          'text-success': passCount > 0,
+          'text-muted-foreground': passCount === 0,
+        })}
+      >
+        <Check className="h-4 w-4" />
+        {passCount}
+      </span>
+    </div>
+  );
+}
+
 export function FilterTitle({
   status,
   filter,

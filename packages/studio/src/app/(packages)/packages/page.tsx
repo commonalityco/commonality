@@ -22,7 +22,10 @@ import stripAnsi from 'strip-ansi';
 import { ConformanceResult } from '@commonalityco/types';
 import { EditConfigButton } from '@/components/edit-config-button';
 import { ChevronDown } from 'lucide-react';
-import { ConformanceResults } from '@commonalityco/feature-conformance/ui';
+import {
+  ConformanceHeader,
+  ConformanceResults,
+} from '@commonalityco/feature-conformance/ui';
 
 async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
   const [packages, tagsData, codeownersData, results] = await Promise.all([
@@ -83,33 +86,13 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
     <>
       <div className="grow px-6 py-4 w-full space-y-4 flex flex-col">
         <div className="w-full space-y-4">
-          <div className="flex justify-between flex-nowrap items-center">
-            <div className="flex gap-4 items-center">
-              <h1 className="font-medium text-2xl leading-none">Checks</h1>
-              <Badge
-                variant="secondary"
-                className="text-muted-foreground"
-              >{`${data.length} of ${packages.length} packages`}</Badge>
-            </div>
-            <div className="flex gap-2 flex-nowrap">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="secondary" className="flex gap-2">
-                    View all checks
-                    <ChevronDown className="h-4 w-4" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent
-                  align="end"
-                  className="max-h-[500px] w-[500px] overflow-auto"
-                >
-                  <ConformanceResults results={results} />
-                </PopoverContent>
-              </Popover>
-              <EditConfigButton />
-            </div>
-          </div>
-
+          <ConformanceHeader
+            results={results}
+            totalCount={packages.length}
+            shownCount={data.length}
+          >
+            <EditConfigButton />
+          </ConformanceHeader>
           <div className="flex items-center gap-2 shrink-0 relative z-10">
             <PackageTableFilters
               tags={uniqueTags}

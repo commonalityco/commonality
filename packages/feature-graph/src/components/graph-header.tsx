@@ -24,18 +24,6 @@ function GraphHeader({
   const failCount = results.filter((result) => !result.isValid).length;
   const passCount = results.filter((result) => result.isValid).length;
 
-  const resultsByPackageName: Record<string, ConstraintResult[]> = {};
-  for (const result of results) {
-    const packageName = result.dependencyPath[0].source;
-    const existingResultsForPackage = resultsByPackageName[packageName];
-
-    if (existingResultsForPackage) {
-      existingResultsForPackage.push(result);
-    } else {
-      resultsByPackageName[packageName] = [result];
-    }
-  }
-
   return (
     <div className="flex px-6 py-4 justify-between">
       <div className="flex gap-4 items-center">

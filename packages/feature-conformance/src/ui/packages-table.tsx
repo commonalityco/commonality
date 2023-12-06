@@ -25,7 +25,6 @@ import {
   PopoverTrigger,
   PopoverContent,
   ScrollArea,
-  cn,
   Accordion,
   AccordionItem,
   AccordionContent,
@@ -34,8 +33,8 @@ import { useState } from 'react';
 import { Status, formatTagName } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-core/ui';
 import { ConformanceResult, Package } from '@commonalityco/types';
-import { AlertTriangle, Check, ChevronDown, Plus, X } from 'lucide-react';
-import { CheckContent, CheckTitle, FilterTitle } from '.';
+import { ChevronDown, Plus, X } from 'lucide-react';
+import { CheckContent, CheckTitle, FilterTitle, StatusCount } from '.';
 import { getStatusForResults } from '../utils';
 
 export type ColumnData = {
@@ -154,35 +153,11 @@ export function ConformanceCell<T extends ColumnData>({
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="ghost" className="flex gap-4 overflow-hidden shrink">
-            <div className="font-mono flex gap-4 shrink-0">
-              <span
-                className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
-                  'text-desructive': failCount > 0,
-                  'text-muted-foreground': failCount === 0,
-                })}
-              >
-                <X className="h-4 w-4" />
-                {failCount}
-              </span>
-              <span
-                className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
-                  'text-yellow-500': warnCount > 0,
-                  'text-muted-foreground': warnCount === 0,
-                })}
-              >
-                <AlertTriangle className="h-4 w-4" />
-                {warnCount}
-              </span>
-              <span
-                className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
-                  'text-success': passCount > 0,
-                  'text-muted-foreground': passCount === 0,
-                })}
-              >
-                <Check className="h-4 w-4" />
-                {passCount}
-              </span>
-            </div>
+            <StatusCount
+              failCount={failCount}
+              warnCount={warnCount}
+              passCount={passCount}
+            />
             <ChevronDown className="h-4 w-4 shrink-0" />
           </Button>
         </PopoverTrigger>
