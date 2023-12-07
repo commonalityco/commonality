@@ -35,16 +35,16 @@ export class Logger {
 
   addSubText(text?: string) {
     if (text === undefined) {
-      this.output += c.dim(`\n│      `);
+      this.output += `\n${c.dim(`│`)}      `;
       return;
     }
 
     const textWithBorder = text
       .split('\n')
-      .map((line) => `\n│      ${line}`)
+      .map((line) => `\n${c.dim(`│`)}      ${line}`)
       .join('');
 
-    this.output += c.dim(textWithBorder);
+    this.output += textWithBorder;
   }
 
   addPackageName({

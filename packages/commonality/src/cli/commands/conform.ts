@@ -1,3 +1,5 @@
+import { getStatusForResults } from './../../../../feature-conformance/src/utils/get-status-for-results';
+import { formatTagName } from '@commonalityco/utils-core';
 /* eslint-disable unicorn/no-process-exit */
 import { runFixes } from '@commonalityco/feature-conformance';
 import { getConformanceResults } from '@commonalityco/feature-conformance';
@@ -31,28 +33,23 @@ class ConformLogger extends Logger {
   addFilterTitle({
     filter,
     count,
-    isValid,
+    status,
   }: {
     filter: string;
     count: number;
-    isValid: boolean;
+    status: Status;
   }) {
     const countText = c.dim(`(${count})`);
-    const statusText = isValid ? c.green(`# ${filter}`) : c.red(`# ${filter}`);
 
-    if (statusText === '*') {
-      const statusText = isValid
-        ? c.green(`# All packages`)
-        : c.red(`# All packages`);
+    const textByStatus = {
+      [Status.Pass]: c.green(`• Applied to: ${formatTagName(filter)}`),
+      [Status.Warn]: c.yellow(`• Applied to: ${formatTagName(filter)}`),
+      [Status.Fail]: c.red(`• Applied to: ${formatTagName(filter)}`),
+    };
 
-      this.output += `\n${statusText} ${countText}`;
-    } else {
-      const statusText = isValid
-        ? c.green(`# ${filter}`)
-        : c.red(`# ${filter}`);
+    const statusText = textByStatus[status];
 
-      this.output += `\n${statusText} ${countText}`;
-    }
+    this.output += `\n${statusText} ${countText}`;
   }
 
   addCheckName({ result }: { result: ConformanceResult }) {
@@ -151,9 +148,7 @@ const reportConformanceResults = ({
     }
 
     for (const [filter, resultsForFilter] of resultsForPackageByFilter) {
-      const hasInvalidFilterResults = resultsForFilter.some(
-        (result) => result.status !== Status.Pass,
-      );
+      const statusForResults = getStatusForResults(resultsForFilter);
 
       const result = resultsForPackageByFilter.get(filter);
 
@@ -161,10 +156,10 @@ const reportConformanceResults = ({
         continue;
       }
 
-      if (hasInvalidFilterResults || verbose) {
+      if (statusForResults !== Status.Pass || verbose) {
         logger.addFilterTitle({
           filter,
-          isValid: !hasInvalidFilterResults,
+          status: statusForResults,
           count: resultsForFilter.length,
         });
       }
@@ -175,12 +170,15 @@ const reportConformanceResults = ({
 
           if (result.message.filepath) {
             logger.addSubText(
-              path.join(result.package.path, result.message.filepath),
+              c.dim(path.join(result.package.path, result.message.filepath)),
             );
           }
+
           if (result.message.context) {
             logger.addSubText(result.message.context);
           }
+
+          logger.addSubText();
         }
       }
     }
