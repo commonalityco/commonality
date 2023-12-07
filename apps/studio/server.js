@@ -13,7 +13,10 @@ if (!process.env.COMMONALITY_ROOT_DIRECTORY) {
 }
 
 /** @type {string} */
-const rootDirectory = path.resolve(process.env.COMMONALITY_ROOT_DIRECTORY);
+const rootDirectory = path.resolve(
+  process.env.COMMONALITY_ROOT_DIRECTORY,
+  '../vercel',
+);
 const app = next({ dev, port });
 const handle = app.getRequestHandler();
 
