@@ -51,7 +51,7 @@ export const runFixes = async ({
               relativePath: result.package.path,
             }),
             allWorkspaces: allPackages.map((pkg) => ({
-              path: path.join(pkg.path, pkg.path),
+              path: path.join(rootDirectory, pkg.path),
               relativePath: pkg.path,
             })),
             rootWorkspace: {

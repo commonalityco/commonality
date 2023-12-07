@@ -117,7 +117,7 @@ describe('no-external-mismatch', () => {
   });
 
   describe('fix', () => {
-    it('should write the correct versions to the package.json', async () => {
+    it('should write the correct versions to the package.json when the workspace has a mismatched dependency', async () => {
       mockFs({
         packages: {
           'pkg-a': {
@@ -167,14 +167,98 @@ describe('no-external-mismatch', () => {
 
       await conformer.fix();
 
-      const result = await json('./packages/pkg-a/package.json').get();
+      const pkgAResult = await json('./packages/pkg-a/package.json').get();
 
-      expect(result).toEqual({
+      expect(pkgAResult).toEqual({
         name: 'pkg-a',
         dependencies: {
           package3: '1.0.0',
         },
         devDependencies: {},
+        peerDependencies: {},
+      });
+    });
+
+    it('should write the correct versions to the package.json when the workspace has a mismatched dependency', async () => {
+      mockFs({
+        packages: {
+          'pkg-a': {
+            'package.json': JSON.stringify({
+              name: 'pkg-a',
+              dependencies: {
+                package3: '^1.0.1',
+              },
+              devDependencies: {},
+              peerDependencies: {},
+            }),
+          },
+          'pkg-b': {
+            'package.json': JSON.stringify({
+              name: 'pkg-b',
+              dependencies: {
+                package3: '^1.0.0',
+              },
+              devDependencies: {},
+              peerDependencies: {},
+            }),
+          },
+          'pkg-c': {
+            'package.json': JSON.stringify({
+              name: 'pkg-c',
+              dependencies: {},
+              devDependencies: {
+                package3: '^1.0.0',
+              },
+              peerDependencies: {},
+            }),
+          },
+          'pkg-d': {
+            'package.json': JSON.stringify({
+              name: 'pkg-d',
+              dependencies: {},
+              devDependencies: {
+                package3: '^1.0.0',
+              },
+              peerDependencies: {},
+            }),
+          },
+          'pkg-e': {
+            'package.json': JSON.stringify({
+              name: 'pkg-e',
+              dependencies: {},
+              devDependencies: {
+                package3: '^1.0.1',
+              },
+              peerDependencies: {},
+            }),
+          },
+        },
+      });
+
+      const conformer = createTestConformer(noExternalMismatch(), {
+        allWorkspaces: [
+          { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
+          { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
+          { path: './packages/pkg-c', relativePath: './packages/pkg-c' },
+          { path: './packages/pkg-d', relativePath: './packages/pkg-d' },
+          { path: './packages/pkg-e', relativePath: './packages/pkg-e' },
+        ],
+        workspace: {
+          path: './packages/pkg-e',
+          relativePath: './packages/pkg-e',
+        },
+      });
+
+      await conformer.fix();
+
+      const pkgEResult = await json('./packages/pkg-e/package.json').get();
+
+      expect(pkgEResult).toEqual({
+        name: 'pkg-e',
+        dependencies: {},
+        devDependencies: {
+          package3: '^1.0.0',
+        },
         peerDependencies: {},
       });
     });
