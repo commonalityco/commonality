@@ -77,8 +77,6 @@ const reportConformanceResults = ({
   verbose: boolean;
   results: ConformanceResult[];
 }) => {
-  checksSpinner.start();
-
   // This is keyed by packageName
   const resultsMap = new Map<string, Set<ConformanceResult>>();
 
@@ -199,7 +197,7 @@ const reportConformanceResults = ({
     warnCount: warnCheckCount,
     failCount: failCheckCount,
   });
-  checksSpinner.stop();
+
   logger.write();
 };
 
@@ -215,45 +213,41 @@ export const action = async ({
   const logger = new ConformLogger();
 
   try {
-    let results = await getResults();
+    const run = async () => {
+      const results = await getResults();
+      checksSpinner.stop();
+      reportConformanceResults({ verbose, results, logger });
 
-    reportConformanceResults({ verbose, results, logger });
+      const fixableResults = results.filter(
+        (result) => result.status !== Status.Pass && result.fix,
+      );
 
-    const fixableResults = results.filter(
-      (result) => result.status !== Status.Pass && result.fix,
-    );
+      if (fixableResults && fixableResults.length > 0) {
+        console.log();
+        const response = await prompts({
+          type: 'confirm',
+          name: 'shouldRunFixes',
+          message: `Found ${fixableResults.length} auto-fixable checks. Run fixes?`,
+          initial: false,
+        });
 
-    while (fixableResults.length > 0) {
-      console.log();
-      const response = await prompts({
-        type: 'confirm',
-        name: 'shouldRunFixes',
-        message: `Found ${fixableResults.length} auto-fixable checks. Run fixes?`,
-        initial: false,
-      });
-
-      if (!response.shouldRunFixes) {
-        break;
+        if (response.shouldRunFixes) {
+          logger.clearScreen();
+          await onFix(fixableResults);
+          await run();
+        }
       }
 
-      logger.clearScreen();
+      const hasErrors = results.some((result) => result.status === Status.Fail);
 
-      fixSpinner.start();
+      if (hasErrors) {
+        process.exit(1);
+      }
 
-      await onFix(fixableResults);
+      process.exit(0);
+    };
 
-      fixSpinner.stop();
-
-      results = await getResults();
-
-      reportConformanceResults({ verbose, results, logger });
-    }
-
-    const hasErrors = results.some((result) => result.status === Status.Fail);
-
-    if (hasErrors) {
-      process.exit(1);
-    }
+    await run();
   } catch (error) {
     logger.writeError(error);
     process.exit(1);
