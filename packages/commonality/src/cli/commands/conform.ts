@@ -23,7 +23,6 @@ import { Status } from '@commonalityco/utils-core';
 const command = new Command();
 
 const checksSpinner = ora('Running checks...');
-const fixSpinner = ora('Fixing issues...');
 
 class ConformLogger extends Logger {
   constructor() {
@@ -243,8 +242,6 @@ export const action = async ({
       if (hasErrors) {
         process.exit(1);
       }
-
-      process.exit(0);
     };
 
     await run();
