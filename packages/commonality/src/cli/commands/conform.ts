@@ -253,7 +253,7 @@ export const action = async ({
     const hasErrors = results.some((result) => result.status === Status.Fail);
 
     if (hasErrors) {
-      global.process.exit(1);
+      process.exit(1);
     }
   } catch (error) {
     logger.writeError(error);

@@ -179,6 +179,80 @@ describe('conform', () => {
   });
 
   describe('when checks fail', () => {
+    it('should not call process.exit when there are only warnings', async () => {
+      await conform({
+        verbose: false,
+        getResults: async () => {
+          return [
+            {
+              name: 'CONFORMER_NAME/ONE',
+              filter: '*',
+              status: Status.Pass,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be awesome' },
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              filter: '*',
+              status: Status.Warn,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+            },
+          ];
+        },
+        onFix: vi.fn(),
+      });
+
+      expect(process.exit).not.toHaveBeenCalled();
+    });
+
+    it('should exit the process with status code 1 when there are failures', async () => {
+      await conform({
+        verbose: false,
+        getResults: async () => {
+          return [
+            {
+              name: 'CONFORMER_NAME/ONE',
+              filter: '*',
+              status: Status.Pass,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be awesome' },
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              filter: '*',
+              status: Status.Fail,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+            },
+          ];
+        },
+        onFix: vi.fn(),
+      });
+
+      expect(process.exit).toHaveBeenCalledWith(1);
+    });
+
     test('when verbose is false it should match the snapshot', async () => {
       await conform({
         verbose: false,
@@ -456,7 +530,7 @@ describe('conform', () => {
       `);
     });
 
-    test('when user chooses to run fixes and it throws', async () => {
+    test('when user chooses to run fixes and it throws it should match the snapshot', async () => {
       prompts.inject([true]);
 
       await conform({
@@ -514,6 +588,46 @@ describe('conform', () => {
           ],
         ]
       `);
+    });
+
+    test('when user chooses to run fixes and it throws it should exit with status code 1', async () => {
+      prompts.inject([true]);
+
+      await conform({
+        verbose: false,
+        getResults: vi.fn().mockResolvedValueOnce([
+          {
+            name: 'CONFORMER_NAME/ONE',
+            filter: '*',
+            status: Status.Pass,
+            package: {
+              path: '/path',
+              name: 'pkg-one',
+              version: '1.0.0',
+              type: PackageType.NODE,
+            },
+            message: { title: 'This package should be awesome' },
+            fix: () => {},
+          },
+          {
+            name: 'CONFORMER_NAME/TWO',
+            filter: '*',
+            status: Status.Warn,
+            package: {
+              path: '/path',
+              name: 'pkg-two',
+              version: '1.0.0',
+              type: PackageType.NODE,
+            },
+            message: { title: 'This package should be cool' },
+            fix: () => {},
+          },
+        ]),
+        onFix: vi.fn().mockRejectedValue(mockError),
+      });
+
+      expect(process.exit).toHaveBeenCalledTimes(1);
+      expect(process.exit).toHaveBeenCalledWith(1);
     });
   });
 });

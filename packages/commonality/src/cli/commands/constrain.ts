@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Command } from 'commander';
 import { getConstraintResults } from '@commonalityco/data-violations';
 import { ConstraintResult } from '@commonalityco/types';
@@ -11,6 +12,7 @@ import {
 } from '@commonalityco/data-project';
 import { getTagsData } from '@commonalityco/data-tags';
 import { getDependencies, getPackages } from '@commonalityco/data-packages';
+import process from 'node:process';
 
 const constraintSpinner = ora('Validating constraints...');
 
@@ -279,6 +281,10 @@ export const reportConstraintResults = async ({
   });
 
   logger.write();
+
+  if (failConstraintCount > 0) {
+    process.exit(1);
+  }
 };
 
 const action = async (options: { verbose: boolean }) => {

@@ -27,7 +27,7 @@ const getConsoleCalls = () => {
     .mock?.calls?.map((call) => call.map((item) => stripAnsi(item)));
 };
 
-describe.only('constrain', () => {
+describe('constrain', () => {
   beforeEach(() => {
     vi.mocked(process.exit).mockReset();
     vi.mocked(console.log).mockReset();
@@ -58,6 +58,7 @@ describe.only('constrain', () => {
       verbose: false,
     });
 
+    expect(process.exit).not.toHaveBeenCalled();
     expect(getConsoleCalls()).toMatchInlineSnapshot(
       `
         [
@@ -98,6 +99,7 @@ describe.only('constrain', () => {
       verbose: true,
     });
 
+    expect(process.exit).not.toHaveBeenCalled();
     expect(getConsoleCalls()).toMatchInlineSnapshot(`
       [
         [
@@ -141,6 +143,7 @@ describe.only('constrain', () => {
       verbose: false,
     });
 
+    expect(process.exit).toHaveBeenCalledWith(1);
     expect(getConsoleCalls()).toMatchInlineSnapshot(`
       [
         [
@@ -184,6 +187,7 @@ describe.only('constrain', () => {
       verbose: false,
     });
 
+    expect(process.exit).toHaveBeenCalledWith(1);
     expect(getConsoleCalls()).toMatchInlineSnapshot(`
       [
         [
@@ -227,6 +231,7 @@ describe.only('constrain', () => {
       verbose: true,
     });
 
+    expect(process.exit).toHaveBeenCalledWith(1);
     expect(getConsoleCalls()).toMatchInlineSnapshot(`
       [
         [
@@ -276,6 +281,7 @@ describe.only('constrain', () => {
       verbose: true,
     });
 
+    expect(process.exit).toHaveBeenCalledWith(1);
     expect(getConsoleCalls()).toMatchInlineSnapshot(`
       [
         [
@@ -302,6 +308,7 @@ describe.only('constrain', () => {
       verbose: true,
     });
 
+    expect(process.exit).not.toHaveBeenCalled();
     expect(getConsoleCalls()).toMatchInlineSnapshot(`
       [
         [
