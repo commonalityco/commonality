@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { getConstraintResults } from '@commonalityco/data-violations';
+import { getConstraintResults } from '@commonalityco/feature-constraints/data';
 import { ConstraintResult } from '@commonalityco/types';
 import ora from 'ora';
 import c from 'picocolors';

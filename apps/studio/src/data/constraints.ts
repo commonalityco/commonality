@@ -1,7 +1,7 @@
 import { getDependencies, getPackages } from '@commonalityco/data-packages';
 import { getProjectConfig } from '@commonalityco/data-project';
 import { getTagsData } from '@commonalityco/data-tags';
-import { getConstraintResults } from '@commonalityco/data-violations';
+import { getConstraintResults } from '@commonalityco/feature-constraints/data';
 
 export const getConstraintsData = async () => {
   const projectConfig = await getProjectConfig({

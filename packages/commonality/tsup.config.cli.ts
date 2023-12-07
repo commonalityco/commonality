@@ -15,7 +15,6 @@ const config: Options = {
     '@commonalityco/data-packages',
     '@commonalityco/data-project',
     '@commonalityco/data-tags',
-    '@commonalityco/data-violations',
     '@commonalityco/studio',
     '@commonalityco/feature-conformance',
     '@commonalityco/utils-core',

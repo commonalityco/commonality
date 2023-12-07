@@ -1,4 +1,4 @@
-import { GraphChartLoading } from '@commonalityco/ui-graph/graph-chart-loading';
+import { GraphChartLoading } from '@commonalityco/feature-constraints/components';
 
 function ChartLoading() {
   return <GraphChartLoading />;

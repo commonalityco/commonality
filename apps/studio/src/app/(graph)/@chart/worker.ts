@@ -1,3 +1,3 @@
-import { createWorker } from '@commonalityco/data-graph-worker';
+import { createWorker } from '@commonalityco/feature-constraints/utilities';
 
 createWorker();

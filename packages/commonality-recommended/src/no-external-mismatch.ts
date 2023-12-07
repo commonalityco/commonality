@@ -1,6 +1,7 @@
 import { defineCheck, diff, json, PackageJson, Workspace } from 'commonality';
 import { getExternalVersionMap } from './utils/get-external-version-map';
 import path from 'node:path';
+import pick from 'lodash/pick';
 
 export const DEPENDENCY_TYPES = [
   'dependencies',
@@ -137,7 +138,10 @@ export const noExternalMismatch = defineCheck(() => {
       return {
         title:
           'External dependencies must match the most common or highest version',
-        context: diff(packageJson, expectedPackageJson),
+        context: diff(
+          pick(packageJson, DEPENDENCY_TYPES),
+          pick(expectedPackageJson, DEPENDENCY_TYPES),
+        ),
         filepath: 'package.json',
       };
     },

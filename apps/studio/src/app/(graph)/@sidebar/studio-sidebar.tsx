@@ -1,14 +1,17 @@
 'use client';
-import { FeatureGraphSidebar } from '@commonalityco/feature-graph';
+import { FeatureGraphSidebar } from '@commonalityco/feature-constraints/components';
 import { setCookie } from 'cookies-next';
 import { ComponentProps } from 'react';
 
 function StudioSidebar(props: ComponentProps<typeof FeatureGraphSidebar>) {
-  const onLayout = (sizes: number[]) => {
-    setCookie('commonality:sidebar-layout', sizes);
-  };
-
-  return <FeatureGraphSidebar {...props} onLayout={onLayout} />;
+  return (
+    <FeatureGraphSidebar
+      {...props}
+      onLayout={(sizes) => {
+        setCookie('commonality:sidebar-layout', sizes);
+      }}
+    />
+  );
 }
 
 export default StudioSidebar;

@@ -7,7 +7,7 @@ const diffOptions = {
   aColor: chalk.dim,
   bColor: chalk.red,
   changeColor: chalk.red,
-  commonColor: chalk.green.dim,
+  commonColor: chalk.dim,
   aIndicator: ' ',
   bIndicator: '+',
 } as const;

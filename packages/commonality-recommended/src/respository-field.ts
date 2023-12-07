@@ -1,5 +1,6 @@
 import { defineCheck, diff, json, PackageJson, Workspace } from 'commonality';
 import path from 'node:path';
+import pick from 'lodash/pick';
 
 const stripTrailingSlash = (str: string) => {
   return str.endsWith('/') ? str.slice(0, -1) : str;
@@ -142,10 +143,18 @@ export const repositoryField = defineCheck(() => {
       }
 
       return {
-        title:
-          'Repository field extend the repository field at the root of your project.',
+        title: `Package's repository property must extend the repository property at the root of your project.`,
         filepath: 'package.json',
-        context: diff(packageJson, { ...packageJson, ...newConfig }),
+        context: diff(
+          pick(packageJson, ['name', 'repository']),
+          pick(
+            {
+              ...packageJson,
+              ...newConfig,
+            },
+            ['name', 'repository'],
+          ),
+        ),
       };
     },
   };

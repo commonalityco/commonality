@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FeatureGraphChart, GraphProvider } from '@commonalityco/feature-graph';
+import {
+  FeatureGraphChart,
+  GraphProvider,
+} from '@commonalityco/feature-constraints/components';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
 import { ConstraintResult, Dependency, Package } from '@commonalityco/types';
-import { GraphLayoutMain } from '@commonalityco/ui-graph';
+import { GraphLayoutMain } from '@commonalityco/feature-constraints/components';
 import GraphWorker from './feature-graph-worker.ts?worker';
 // const newWorker = new Worker(
 //   new URL('./feature-graph-worker.ts', import.meta.url),

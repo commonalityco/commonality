@@ -226,10 +226,11 @@ export const action = async ({
     );
 
     while (fixableResults.length > 0) {
+      console.log();
       const response = await prompts({
         type: 'confirm',
         name: 'shouldRunFixes',
-        message: `Found ${fixableResults} fixable issues, run fixes?`,
+        message: `Found ${fixableResults.length} auto-fixable checks. Run fixes?`,
         initial: false,
       });
 

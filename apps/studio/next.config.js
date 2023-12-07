@@ -8,7 +8,6 @@ const nextConfig = {
     '@commonalityco/data-packages',
     '@commonalityco/data-project',
     '@commonalityco/data-tags',
-    '@commonalityco/data-violations',
     '@commonalityco/feature-conformance',
     '@commonalityco/feature-graph',
     '@commonalityco/ui-core',

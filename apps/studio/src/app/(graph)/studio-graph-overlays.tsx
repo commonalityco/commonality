@@ -7,7 +7,7 @@ import {
 import {
   FeatureGraphDependencyTooltip,
   FeatureGraphPackageTooltip,
-} from '@commonalityco/feature-graph';
+} from '@commonalityco/feature-constraints/components';
 import { Package, TagsData } from '@commonalityco/types';
 import { useState } from 'react';
 

@@ -1,12 +1,10 @@
 import {
-  FeatureGraphHeader,
-  GraphProvider,
-} from '@commonalityco/feature-graph';
-import {
   GraphLayoutAside,
   GraphLayoutMain,
   GraphLayoutRoot,
-} from '@commonalityco/ui-graph';
+  FeatureGraphHeader,
+  GraphProvider,
+} from '@commonalityco/feature-constraints/components';
 import StudioGraphHeader from './studio-graph-header';
 
 export default async function RootLayout({
@@ -22,7 +20,6 @@ export default async function RootLayout({
     <div className="h-full flex flex-col">
       <GraphProvider>
         <StudioGraphHeader />
-
         <GraphLayoutRoot>
           <GraphLayoutAside>{sidebar}</GraphLayoutAside>
           <GraphLayoutMain>{chart}</GraphLayoutMain>

@@ -240,8 +240,6 @@ describe('no-external-mismatch', () => {
         +     \\"package3\\": \\"1.0.0\\",
             },
             \\"devDependencies\\": Object {},
-            \\"name\\": \\"pkg-a\\",
-            \\"peerDependencies\\": Object {},
           }"
       `);
     });

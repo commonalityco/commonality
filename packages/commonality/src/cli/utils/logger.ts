@@ -34,7 +34,17 @@ export class Logger {
   }
 
   addSubText(text?: string) {
-    this.output += text ? c.dim(`\n│      ${text}`) : c.dim(`\n│      `);
+    if (text === undefined) {
+      this.output += c.dim(`\n│      `);
+      return;
+    }
+
+    const textWithBorder = text
+      .split('\n')
+      .map((line) => `\n│      ${line}`)
+      .join('');
+
+    this.output += c.dim(textWithBorder);
   }
 
   addPackageName({

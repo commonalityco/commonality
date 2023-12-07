@@ -12,7 +12,7 @@ module.exports = {
   ...baseConfig,
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
-    getPkgPattern('@commonalityco/feature-graph'),
+    getPkgPattern('@commonalityco/feature-constraints'),
     getPkgPattern('@commonalityco/feature-conformance'),
     getPkgPattern('@commonalityco/ui-design-system'),
     getPkgPattern('@commonalityco/ui-graph'),

@@ -18,11 +18,10 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     './src/**/*.{js,ts,jsx,tsx}',
-    getPkgPattern('@commonalityco/feature-graph'),
     getPkgPattern('@commonalityco/ui-design-system'),
-    getPkgPattern('@commonalityco/ui-graph'),
     getPkgPattern('@commonalityco/ui-package'),
     getPkgPattern('@commonalityco/ui-core'),
     getPkgPattern('@commonalityco/feature-conformance'),
+    getPkgPattern('@commonalityco/feature-constraints'),
   ],
 };
