@@ -1,5 +1,0 @@
----
-'commonality': patch
----
-
-Release commonality

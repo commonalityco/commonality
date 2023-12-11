@@ -1,6 +1,6 @@
 {
   "name": "commonality",
-  "version": "0.2.23",
+  "version": "0.2.24",
   "bin": {
     "commonality": "./bin.js"
   },
