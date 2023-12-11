@@ -3,7 +3,7 @@ import 'server-only';
 import openEditor from 'open-editor';
 import path from 'node:path';
 import { getProjectData } from '@/data/project';
-import { text } from 'commonality';
+import fs from 'fs-extra';
 
 export async function openEditorAction(filePath: string) {
   const fullPath = path.join(process.env.COMMONALITY_ROOT_DIRECTORY, filePath);
@@ -42,14 +42,10 @@ export async function openProjectConfig() {
       'commonality.config.js',
     );
 
-    await text(defaultPath).set([
-      "import { defineConfig } from 'commonality';",
-      '',
-      'export default defineConfig({',
-      '  // Add checks and constraints here',
-      '  // Check out https://commonality.co/docs/reference/configuration for more all options.',
-      '});',
-    ]);
+    const fileContent =
+      "import { defineConfig } from 'commonality';\n\nexport default defineConfig({\n  // Add checks and constraints here\n  // Check out https://commonality.co/docs/get-started to get started.\n});\n";
+
+    await fs.outputFile(defaultPath, fileContent);
 
     await openEditor([{ file: defaultPath }]);
   }

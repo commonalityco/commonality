@@ -95,9 +95,7 @@ export function ConformanceCell<T extends ColumnData>({
   );
 
   if (!resultsForPackage || resultsForPackage.length === 0) {
-    return (
-      <span className="text-muted-foreground">No conformance results</span>
-    );
+    return <span className="text-muted-foreground">No checks for package</span>;
   }
 
   const passCount = results.filter(

@@ -55,7 +55,14 @@ const createWebsocketConnection = async (server) => {
     });
     console.log({ rootDirectory });
     watcher
-      .on('ready', () => {})
+      .on('ready', () => {
+        console.log('socket ready');
+      })
+      .on('add', async (path) => {
+        socket.emit('project-updated', {
+          message: `File ${path} has been added`,
+        });
+      })
       .on('change', async (path) => {
         socket.emit('project-updated', {
           message: `File ${path} has been changed`,
