@@ -1,5 +1,12 @@
 # @commonalityco/dashboard
 
+## 0.2.24
+
+### Patch Changes
+
+- Updated dependencies [1a98bec]
+  - @commonalityco/feature-conformance@0.0.19
+
 ## 0.2.23
 
 ### Patch Changes
