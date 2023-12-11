@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.25
+
+### Patch Changes
+
+- 2fdde68: Export start script\
+
 ## 0.2.24
 
 ### Patch Changes
