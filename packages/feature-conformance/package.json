@@ -8,7 +8,8 @@
     "main": "./dist/index.js",
     "exports": {
       ".": "./dist/index.js",
-      "./ui": "./dist/ui/index.js"
+      "./ui": "./dist/ui/index.js",
+      "./utilities": "./dist/utils/index.js"
     },
     "types": "./dist/index.d.ts"
   },

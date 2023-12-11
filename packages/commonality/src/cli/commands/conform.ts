@@ -1,8 +1,10 @@
-import { getStatusForResults } from './../../../../feature-conformance/src/utils/get-status-for-results';
 import { formatTagName } from '@commonalityco/utils-core';
 /* eslint-disable unicorn/no-process-exit */
-import { runFixes } from '@commonalityco/feature-conformance';
-import { getConformanceResults } from '@commonalityco/feature-conformance';
+import {
+  getConformanceResults,
+  runFixes,
+  getStatusForResults,
+} from '@commonalityco/feature-conformance/utilities';
 import { Command } from 'commander';
 import {
   getProjectConfig,

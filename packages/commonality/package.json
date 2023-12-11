@@ -71,9 +71,6 @@
     "yaml": "^2.3.2",
     "zod": "^3.22.2"
   },
-  "optionalDependencies": {
-    "@commonalityco/studio": "*"
-  },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/data-codeowners": "workspace:*",

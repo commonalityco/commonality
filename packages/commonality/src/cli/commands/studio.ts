@@ -43,7 +43,8 @@ export async function ensurePackageInstalled(dependency: string, root: string) {
   if (!promptInstall) return false;
 
   const prompts = await import('prompts');
-  const { install } = await prompts.prompt({
+
+  const { install } = await prompts.default.prompt({
     type: 'confirm',
     name: 'install',
     message: c.reset(`Do you want to install ${c.green(dependency)}?`),
@@ -89,7 +90,7 @@ export const studio = command
       const rootDirectory = await getRootDirectory();
 
       await ensurePackageInstalled(DEPENDENCY_NAME, rootDirectory);
-
+      console.log('prevent');
       const studio = await import(DEPENDENCY_NAME);
 
       const port = await getPort({ port: 8888 });

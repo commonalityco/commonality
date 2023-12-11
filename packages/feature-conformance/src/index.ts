@@ -1,10 +1,11 @@
-export * from './get-conformance-results';
-export * from './run-fixes';
+export * from './utils/get-conformance-results';
+export * from './utils/run-fixes';
 
-export * from './create-test-conformer';
-export * from './define-check';
+export * from './utils/create-test-conformer';
+export * from './utils/define-check';
 
-export * from './files/json';
-export * from './files/text';
+export * from './utils/json';
+export * from './utils/text';
 
 export * from './utils/diff';
+export * from './utils/get-status-for-results';
