@@ -1,6 +1,6 @@
 import type {
   Message,
-  Conformer,
+  Check,
   CheckFn,
   Tag,
   Codeowner,
@@ -21,7 +21,7 @@ type TestConformer<T> = {
     : T[P];
 };
 
-export function createTestCheck<T extends Conformer>(
+export function createTestCheck<T extends Check>(
   conformer: T,
   testOptions?: {
     workspace?: Workspace;

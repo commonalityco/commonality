@@ -103,18 +103,15 @@ export type Message = {
   filepath?: string;
 };
 
-export interface Conformer {
+export interface Check {
   name: string;
   level?: 'error' | 'warning';
   validate: CheckFn<ValidationResult>;
   fix?: CheckFn<void>;
-  type?: 'warning' | 'error';
   message: string | CheckFn<Message>;
 }
 
-export type CheckCreator<C extends Conformer, O = undefined> = (
-  options?: O,
-) => C;
+export type CheckCreator<C extends Check, O = undefined> = (options?: O) => C;
 
 export type ConformanceResult = {
   name: string;
@@ -127,7 +124,7 @@ export type ConformanceResult = {
 
 export interface ProjectConfig {
   constraints?: Record<string, Constraint>;
-  checks?: Record<string, Conformer[]>;
+  checks?: Record<string, Check[]>;
 }
 
 export interface ProjectConfigData {

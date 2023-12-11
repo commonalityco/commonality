@@ -1,6 +1,6 @@
-import type { Conformer, CheckCreator } from '@commonalityco/types';
+import type { Check, CheckCreator } from '@commonalityco/types';
 
-export function defineCheck<T extends Conformer, O>(
+export function defineCheck<T extends Check, O>(
   checkCreator: CheckCreator<T, O>,
 ): CheckCreator<T, O> {
   return checkCreator;

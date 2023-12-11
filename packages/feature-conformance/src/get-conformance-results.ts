@@ -1,5 +1,5 @@
 import {
-  Conformer,
+  Check,
   TagsData,
   ConformanceResult,
   CodeownersData,
@@ -15,7 +15,7 @@ export const getConformanceResults = async ({
   rootDirectory,
   codeownersData,
 }: {
-  conformersByPattern: Record<string, Conformer[]>;
+  conformersByPattern: Record<string, Check[]>;
   rootDirectory: string;
   packages: Package[];
   tagsData: TagsData[];
