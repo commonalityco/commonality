@@ -1,5 +1,11 @@
 # @commonalityco/ui-design-system
 
+## 0.0.13
+
+### Patch Changes
+
+- ad4a813: Finalize Commonality Studio, checks, and constraints
+
 ## 0.0.12
 
 ### Patch Changes

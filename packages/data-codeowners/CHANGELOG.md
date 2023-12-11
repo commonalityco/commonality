@@ -1,5 +1,11 @@
 # @commonalityco/traverse
 
+## 0.0.17
+
+### Patch Changes
+
+- ad4a813: Finalize Commonality Studio, checks, and constraints
+
 ## 0.0.16
 
 ### Patch Changes

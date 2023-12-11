@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.23
+
+### Patch Changes
+
+- ad4a813: Finalize Commonality Studio, checks, and constraints
+
 ## 0.2.22
 
 ### Patch Changes

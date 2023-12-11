@@ -1,5 +1,13 @@
 # @commonalityco/types
 
+## 0.0.15
+
+### Patch Changes
+
+- ad4a813: Finalize Commonality Studio, checks, and constraints
+- Updated dependencies [ad4a813]
+  - @commonalityco/utils-core@0.0.11
+
 ## 0.0.14
 
 ### Patch Changes

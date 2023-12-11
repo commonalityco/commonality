@@ -1,5 +1,14 @@
 # @commonalityco/ui-core
 
+## 0.0.15
+
+### Patch Changes
+
+- ad4a813: Finalize Commonality Studio, checks, and constraints
+- Updated dependencies [ad4a813]
+  - @commonalityco/ui-design-system@0.0.13
+  - @commonalityco/types@0.0.15
+
 ## 0.0.14
 
 ### Patch Changes
