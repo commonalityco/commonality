@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.25
+
+### Patch Changes
+
+- 1a98bec: Update Studio install
+
 ## 0.2.24
 
 ### Patch Changes
