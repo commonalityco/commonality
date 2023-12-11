@@ -1,5 +1,12 @@
 # commonality-recommended
 
+## 0.0.4
+
+### Patch Changes
+
+- 33f249e: Always list filepath and publish recommended
+  - commonality@0.2.25
+
 ## 0.0.3
 
 ### Patch Changes

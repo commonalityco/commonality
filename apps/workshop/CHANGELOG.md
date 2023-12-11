@@ -1,5 +1,12 @@
 # workshop
 
+## 1.0.19
+
+### Patch Changes
+
+- Updated dependencies [33f249e]
+  - @commonalityco/feature-conformance@0.0.20
+
 ## 1.0.18
 
 ### Patch Changes
