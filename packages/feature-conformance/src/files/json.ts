@@ -9,9 +9,9 @@ type Data = Record<string, unknown>;
 
 export interface JsonFile<T extends Data> extends Omit<File, 'get'> {
   get: () => Promise<T | undefined>;
-  contains(value: Data): Promise<boolean>;
+  contains(value: Partial<Data>): Promise<boolean>;
   set(value: Data): Promise<void>;
-  merge(value: Data): Promise<void>;
+  merge(value: Partial<Data>): Promise<void>;
   remove(path: string): Promise<void>;
 }
 

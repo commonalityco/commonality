@@ -1,0 +1,580 @@
+import { Callout } from 'nextra/components';
+
+# Checks
+
+Checks are best created using the `defineCheck` function and are passed to the `checks` property in you [project's configuration](/reference/configuration#project-configuration). This function will
+provide type-safety and intellisense for properties.
+
+## Properties
+
+### `name`
+
+| Default | Required |
+| :------ | :------- |
+| None    | true     |
+
+**Type**
+
+`string{:ts}`
+
+**Description**
+
+A unique identifier for the check. This will be used to parallelize checks and prevent write conflicts when running fix functions.
+
+<Callout type="info">
+  When creating sharable checks, we recommend using a namespace to prevent
+  naming conflicts.
+</Callout>
+
+```ts import {defineCheck} from 'commonality/checks';
+const ensureCodeowner = defineCheck(() => {
+  return {
+    // ...
+    name: 'my-team/ensure-codeowner',
+  };
+});
+```
+
+### `level`
+
+| Default          | Required |
+| :--------------- | :------- |
+| `"warning"{:ts}` | false    |
+
+**Type**
+
+`'warning' | 'error'{:ts}`
+
+**Description**
+
+By default the level will be set to `"warning"`.
+If set to `"error"`, the CLI will exit with a non-zero exit code if this check is ever invalid.
+
+### `message`
+
+| Default | Required |
+| :------ | :------- |
+| None    | true     |
+
+**Type**
+
+`"string" | (options: CheckOptions) => Message | Promise<Message>{:ts}`
+
+**Description**
+
+The `message` property can be a string for simple checks or dynamically created using a function.
+
+#### Simple message
+
+You can provide a string as the message, this is useful for checks that don't require much context or have a single way of failing.
+
+```ts
+import { defineCheck } from 'commonality/checks';
+
+const ensureCodeowner = defineCheck(() => {
+  return {
+    // ...
+    message: 'Every package must have at least one codeowner',
+  };
+});
+```
+
+The following output will be shown when running the check:
+
+```
+✓ warn Every package must have at least one codeowner
+```
+
+#### Dynamic message
+
+Sometimes you'll want to provide more context or account for multiple ways a check can fail.
+You can return a `Message` object from the `message` function to dynamically construct the output shown below.
+
+```ts
+type Message = {
+  text: string;
+  filepath?: string;
+  context?: string;
+};
+```
+
+```ts
+import { defineCheck, json, diff } from 'commonality/checks';
+import path from 'node:path';
+
+const ensureTSConfigExtends = defineCheck((base: string) => {
+  return {
+    // ...
+    message: async ({ workspace }) => {
+      const tsConfig = await json(
+        path.join(workspace.path, 'tsconfig.json'),
+      ).get();
+
+      if (!tsConfig) {
+        return {
+          text: 'tsconfig.json does not exist',
+          filepath: 'tsconfig.json',
+        };
+      }
+
+      return {
+        text: `tsconfig.json must extend ${base}`,
+        filepath: 'tsconfig.json',
+        context: diff(tsConfig, { ...tsConfig, extends: base }),
+      };
+    },
+  };
+});
+```
+
+The following output will be shown when running the check:
+
+```
+✓ warn Every package must have at least one codeowner
+|      packages/pkg-a/tsconfig.json
+│        Object {
+│            "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+│      +     "extends": "@scope/tsconfig/react",
+│        }
+```
+
+### `validate`
+
+| Default | Required |
+| :------ | :------- |
+| None    | true     |
+
+**Type**
+
+`"string" | (options: CheckOptions) => ValidationResult | Promise<ValidationResult>{:ts}`
+
+```ts
+type CheckOptions = {
+  workspace: {
+    path: string;
+    relativePath: string;
+  };
+  allWorkspaces: Array<{
+    path: string;
+    relativePath: string;
+  }>;
+  rootWorkspace: {
+    path: string;
+    relativePath: string;
+  };
+  codeowners: string[];
+  tags: string[];
+};
+```
+
+**Description**
+
+The `validate` function is the primary mechanism for determining if a package is valid or not and will run against all packages in your project.
+A returned truthy value will be considered a `pass`, while a falsy value will mark the check as `warn` or `fail` based on the configured [level](#level).
+
+```ts
+import { defineCheck } from 'commonality/checks';
+
+const ensureCodeowner = defineCheck(() => {
+  return {
+    // ...
+    validate: ({ codeowners }) => codeowners.length,
+  };
+});
+```
+
+### `fix`
+
+| Default | Required |
+| :------ | :------- |
+| None    | false    |
+
+**Type**
+
+`"string" | (options: CheckOptions) => void | Promise<void>{:ts}`
+
+```ts
+type CheckOptions = {
+  workspace: {
+    path: string;
+    relativePath: string;
+  };
+  allWorkspaces: Array<{
+    path: string;
+    relativePath: string;
+  }>;
+  rootWorkspace: {
+    path: string;
+    relativePath: string;
+  };
+  codeowners: string[];
+  tags: string[];
+};
+```
+
+**Description**
+
+A check's `fix` function will only run on packages that are not [valid](#validate). This function should update packages so that they pass the check's [validate](#validate) function.
+
+<Callout type="info">
+  We provide helper utilities like [`json`](#json) and [`text`](#text) to make
+  it easier to read and write to files in `fix` functions.
+</Callout>
+
+```ts
+import { defineCheck, json } from 'commonality/checks';
+
+const ensureTSConfigExtends = defineCheck((base: string) => {
+  return {
+    // ...
+    fix: async ({ workspace }) => {
+      const tsConfig = await json(
+        path.join(workspace.path, 'tsconfig.json'),
+      ).get();
+
+      if (!tsConfig) {
+        return;
+      }
+
+      await tsConfig.merge({ extends: base });
+    },
+  };
+});
+```
+
+## Utilities
+
+### `defineCheck`
+
+**Type**
+
+`(check: () => Check) => () => Check{:ts}`
+
+**Description**
+
+This utility provides type-safety and intellisense for check options.
+Checks are not required to be wrapped with this utility, however doing so will provide a better developer experience and encourage re-usable checks.
+
+**Example:**
+
+```ts
+import { defineCheck } from 'commonality/checks';
+
+const ensureCodeowner = defineCheck(() => {
+  return {
+    // ...
+  };
+});
+```
+
+### `json`
+
+The `json` utility makes it easier to read and write to JSON files within in your checks. The `json` helper expects an absolute path to a JSON file and returns an object with helper methods.
+To get full type-safety on all returned methods you can pass a generic type to the `json` function.
+
+**Example:**
+
+```ts
+import { json } from 'commonality/checks';
+
+const packageJson = json<{ name: string; version: string }>(
+  '/path/from/root/package.json',
+);
+```
+
+#### `exists`
+
+**Type**
+
+`() => Promise<boolean>{:ts}`
+
+**Description**
+
+Returns a boolean value indicating whether or not the file exists on disk.
+
+**Example**
+
+```ts
+const exists = await json('/path/from/root/package.json').exists();
+
+console.log(exists);
+// true
+```
+
+#### `get`
+
+**Type**
+
+`() => Promise<T extends Record<string, unknown> | undefined>{:ts}`
+
+**Description**
+
+Returns the contents of a JSON file as an object. If the file does not exist or is not valid JSON, `undefined` will be returned.
+
+**Example**
+
+```ts
+const packageJson = await json('/path/from/root/package.json').get();
+
+console.log(packageJson);
+// {
+//   "name": "my-package",
+//   "version": "1.0.0",
+// }
+```
+
+#### `contains`
+
+**Type**
+
+`(value: Record<string, unknown>) => Promise<boolean>{:ts}`
+
+**Description**
+
+Returns a boolean value indicating whether or not an object is a subset of the JSON file's contents. If the file does not exist or is not valid JSON, `false` will be returned.
+
+**Example**
+
+```ts
+const containsValue = await json('/path/from/root/package.json').contains({
+  name: 'my-package',
+});
+
+console.log(containsValue);
+// true
+```
+
+#### `set`
+
+**Type**
+
+`(value: Record<string, unknown>) => Promise<void>{:ts}`
+
+**Description**
+
+Overwrites the entire contents of a JSON file with the provided value. If the file does not exist, it will be created.
+
+**Example**
+
+```ts
+await json('/path/from/root/package.json').set({
+  name: 'my-package',
+  version: '1.0.0',
+});
+```
+
+#### `merge`
+
+**Type**
+
+`(value: Record<string, unknown>) => Promise<void>{:ts}`
+
+**Description**
+
+Merges an object with the contents of a JSON file.
+If the file has the same keys as the passed-in object, the values for those keys will be overwritten.
+If the file does not exist, it will be created.
+
+**Example**
+
+```ts
+await json('/path/from/root/package.json').merge({
+  private: true,
+});
+```
+
+#### `remove`
+
+**Type**
+
+`(path: string) => Promise<void>{:ts}`
+
+**Description**
+
+Removes a property from a JSON file using a lodash style object path.
+
+**Example**
+
+```ts
+await json('/path/from/root/package.json').remove('scripts.dev');
+
+await json('/path/from/root/package.json').remove(
+  `dependencies[${dependencyName}]`,
+);
+```
+
+#### `delete`
+
+**Type**
+
+`() => Promise<void>{:ts}`
+
+**Description**
+
+Deletes a JSON file from disk.
+
+**Example**
+
+```ts
+await json('/path/from/root/package.json').delete();
+```
+
+---
+
+### `text`
+
+The `text` utility makes it easier to read and write to any file within in your checks. The `json` helper expects an absolute path to a JSON file and returns an object with helper methods.
+
+**Example:**
+
+```ts
+import { json } from 'commonality/checks';
+
+const readme = text('/path/from/root/README.md');
+```
+
+#### `exists`
+
+**Type**
+
+`() => Promise<boolean>{:ts}`
+
+**Description**
+
+Returns a boolean value indicating whether or not the file exists on disk.
+
+**Example**
+
+```ts
+const exists = await text('/path/from/root/README.md').exists();
+
+console.log(exists);
+// true
+```
+
+#### `get`
+
+**Type**
+
+`() => Promise<string[] | undefined>{:ts}`
+
+**Description**
+
+Returns the contents of a file as an array of strings representing each line. If the file does not exist, `undefined` will be returned.
+
+**Example**
+
+```ts
+const readme = await text('/path/from/root/README.md').get();
+
+console.log(readme);
+// [
+//   '# My Package',
+//   '',
+//   'This is my package',
+// ]
+```
+
+#### `contains`
+
+**Type**
+
+`(value: string[]) => Promise<boolean>{:ts}`
+
+**Description**
+
+Returns a boolean value indicating whether specified lines exist in the file. If the file does not exist, `false` will be returned.
+
+**Example**
+
+````ts
+const containsValue = await text('/path/from/root/README.json').contains([
+  '```bash',
+  'npm install my-package',
+  '```
+]);
+
+console.log(containsValue);
+// true
+````
+
+#### `set`
+
+**Type**
+
+`(value: string[]) => Promise<void>{:ts}`
+
+**Description**
+
+Overwrites the entire contents of a file with the provided lines of text. If the file does not exist, it will be created.
+
+**Example**
+
+```ts
+await text('/path/from/root/README.md').set([
+  '# My Package',
+  '',
+  'This is my package',
+]);
+```
+
+#### `remove`
+
+**Type**
+
+`(value: string[]) => Promise<void>{:ts}`
+
+**Description**
+
+Removes lines of text from a file.
+
+**Example**
+
+```ts
+await text('/path/from/root/README.md').remove(['# My Package']);
+```
+
+#### `delete`
+
+**Type**
+
+`() => Promise<void>{:ts}`
+
+**Description**
+
+Deletes a file from disk.
+
+**Example**
+
+```ts
+await text('/path/from/root/README.md').delete();
+```
+
+---
+
+### `diff`
+
+**Type**
+
+`(a: unknown, b: unknown) => string{:ts}`
+
+**Description**
+
+The `diff` utility makes it easier to provide helpful `context` for check [messages](#message).
+The `diff` helper expects two objects and returns a string representing the diff between the two objects.
+
+```ts
+diff('first', 'second');
+//   first
+// + second
+
+diff(
+  { name: 'my-package', version: '1.0.0' },
+  { name: 'my-package', version: '2.0.0' },
+);
+//   Object {
+//     "name": "my-package",
+//     "version": "1.0.0",
+// +   "version": "2.0.0",
+//   }
+```

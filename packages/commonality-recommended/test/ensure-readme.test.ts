@@ -47,15 +47,7 @@ describe('ensureReadme', () => {
 
       const readme = await text('README.md').get();
 
-      expect(readme).toEqual([
-        '# workspaceName',
-        '> workspaceDescription',
-        '## Installation',
-        '',
-        '```sh',
-        'npm install workspaceName',
-        '```',
-      ]);
+      expect(readme).toEqual(['# workspaceName', '> workspaceDescription']);
     });
   });
 });

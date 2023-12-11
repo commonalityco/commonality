@@ -1,0 +1,79 @@
+# Constraints
+
+Constraints are used to limit which packages can depend on one another.
+
+Constraints are applied to dependencies where there both the source and target are in the same workspace.
+This means that constraints cannot be applied to external dependencies.
+
+A constraint can have both `allow` and `disallow` properties, however any dependency that matches a `disallow` constraint will cause a constraint to fail regardless of whether it matches an `allow` constraint.
+
+## Properties
+
+### `disallow`
+
+**Type**
+
+`"*" | string[]{:ts}`
+
+**Description**
+
+Disallow constraints are applied to all direct and transitive dependencies.
+
+**Example**
+
+| value                    | description                        |
+| :----------------------- | :--------------------------------- |
+| `"*"`                    | Constraint will fail if it has any |
+| `["tag-one", "tag-two"]` | Allow all tags.                    |
+
+#### Disallow all direct and transitive dependencies
+
+```json
+{
+  "disallow": "*"
+}
+```
+
+#### Allow specific direct and transitive dependencies
+
+Commonality will only allow direct dependencies that have the `api` or `internal` tag in it's [package configuration](/reference/configuration#package-configuration).
+
+```json
+{
+  "disallow": ["api", "internal"]
+}
+```
+
+### `disallow`
+
+| Default | Required |
+| :------ | :------- |
+| None    | false    |
+
+**Type**
+
+`"*" | string[]{:ts}`
+
+**Description**
+
+Constraints may allow all direct dependencies or a list of tags that all direct dependencies must have.
+If `"*"` is specified, all internal dependencies are allowed.
+If a list of tags is specified, only dependencies whose target packages has a matching tag will be allowed.
+
+#### Allow all direct dependencies
+
+```json
+{
+  "allow": "*"
+}
+```
+
+#### Allow specific direct dependencies
+
+Commonality will only allow direct dependencies that have the `api` or `internal` tag in it's [package configuration](/reference/configuration#package-configuration).
+
+```json
+{
+  "allow": ["api", "internal"]
+}
+```

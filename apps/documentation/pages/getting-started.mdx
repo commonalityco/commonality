@@ -1,0 +1,48 @@
+import { Steps, Callout } from 'nextra/components';
+
+# How to adopt Commonality
+
+Every feature in Commonality is opt-in and designed to be adopted incrementally but here's how we recommended getting started.
+
+<Steps>
+### Categorize your packages
+
+Commonality helps you scale a consistent developer experience across your monorepo and organization.
+To do this, it helps you codify best practices for groups of packages in your project.
+
+Open Commonality Studio to see all the packages within your monorepo.
+
+```bash copy
+commonality studio
+```
+
+Next, try and find common groups of packages that have similar needs. Some examples are:
+
+- **Tooling:** packages that require common boilerplate or configuration files for tooling.
+  I.e. `buildable`, `deployable`, `testable`
+
+- **Concern:** packages that have a common concern or purpose
+  I.e. `ui`, `data`, `config`
+
+- **Domain:** packages that have a common product vertical or feature
+  I.e. `checkout`, `marketing`, `ai`
+
+Finally, attach tags that match your categories to packages directly in Commonality Studio.
+
+<Callout type="info">
+  Editing tags in Commonality Studio will update or create a `commonality.json`
+  in each package directories automatically. This saves you from manually
+  managing many configuration files across your monorepo.
+</Callout>
+
+### Add constraints
+
+Now let's leverage the tags we just created to add constraints to your dependency graph.
+
+You may find that there are certain packages that should never depend on each other. For example:
+
+- `config` packages shouldn't depend on `deployable` packages.
+
+- `high-stability` packages shouldn't depend on `beta` packages
+
+</Steps>

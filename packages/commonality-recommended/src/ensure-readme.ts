@@ -5,9 +5,7 @@ export const ensureReadme = defineCheck(() => ({
   name: 'commonality/ensure-readme',
 
   validate: async ({ workspace }) => {
-    const result = await text(path.join(workspace.path, 'README.md')).exists();
-
-    return result;
+    return text(path.join(workspace.path, 'README.md')).exists();
   },
 
   fix: async ({ workspace }) => {
@@ -19,21 +17,10 @@ export const ensureReadme = defineCheck(() => ({
       return;
     }
 
-    const readmePath = path.join(workspace.path, 'README.md');
-
-    try {
-      await text(readmePath).set([
-        `# ${packageJson.name}`,
-        `> ${packageJson.description}`,
-        '## Installation',
-        '',
-        '```sh',
-        `npm install ${packageJson.name}`,
-        '```',
-      ]);
-    } catch (error) {
-      console.log({ error });
-    }
+    await text(path.join(workspace.path, 'README.md')).set([
+      `# ${packageJson.name}`,
+      `> ${packageJson.description}`,
+    ]);
   },
 
   message: `Package must have a README.md file`,
