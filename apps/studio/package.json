@@ -57,6 +57,7 @@
     "socket.io": "4.x"
   },
   "files": [
+    "start.mjs",
     ".next/",
     "next.config.js",
     "server.js",
