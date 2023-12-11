@@ -1,5 +1,5 @@
 export {
-  createTestConformer,
+  createTestCheck,
   diff,
   json,
   text,

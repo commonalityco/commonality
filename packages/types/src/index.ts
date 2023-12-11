@@ -86,7 +86,7 @@ export type FileCreatorFactory<File> = ({
   workspace: Workspace;
 }) => File;
 
-export type ConformerOptions = {
+export type CheckOptions = {
   workspace: Workspace;
   allWorkspaces: Workspace[];
   rootWorkspace: Workspace;
@@ -94,7 +94,7 @@ export type ConformerOptions = {
   tags: Tag[];
 };
 
-export type ConformerFn<T> = (opts: ConformerOptions) => T | Promise<T>;
+export type CheckFn<T> = (opts: CheckOptions) => T | Promise<T>;
 
 export type Message = {
   title: string;
@@ -106,10 +106,10 @@ export type Message = {
 export interface Conformer {
   name: string;
   level?: 'error' | 'warning';
-  validate: ConformerFn<ValidationResult>;
-  fix?: ConformerFn<void>;
+  validate: CheckFn<ValidationResult>;
+  fix?: CheckFn<void>;
   type?: 'warning' | 'error';
-  message: string | ConformerFn<Message>;
+  message: string | CheckFn<Message>;
 }
 
 export type CheckCreator<C extends Conformer, O = undefined> = (
@@ -119,7 +119,7 @@ export type CheckCreator<C extends Conformer, O = undefined> = (
 export type ConformanceResult = {
   name: string;
   filter: string;
-  fix?: ConformerFn<void>;
+  fix?: CheckFn<void>;
   status: Status;
   package: Package;
   message: Message;

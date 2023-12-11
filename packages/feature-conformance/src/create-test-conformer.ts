@@ -1,17 +1,17 @@
 import type {
   Message,
   Conformer,
-  ConformerFn,
+  CheckFn,
   Tag,
   Codeowner,
-  ConformerOptions,
+  CheckOptions,
   Workspace,
 } from '@commonalityco/types';
 import stripAnsi from 'strip-ansi';
 
 type Awaitable<T> = T | PromiseLike<T>;
 
-type FunctionType<T = unknown> = (options: ConformerOptions) => Awaitable<T>;
+type FunctionType<T = unknown> = (options: CheckOptions) => Awaitable<T>;
 
 type TestConformer<T> = {
   [P in keyof T]: P extends 'fix' | 'message' | 'validate'
@@ -21,7 +21,7 @@ type TestConformer<T> = {
     : T[P];
 };
 
-export function createTestConformer<T extends Conformer>(
+export function createTestCheck<T extends Conformer>(
   conformer: T,
   testOptions?: {
     workspace?: Workspace;
@@ -63,7 +63,7 @@ export function createTestConformer<T extends Conformer>(
     message:
       typeof conformer.message === 'function'
         ? async () => {
-            const result = await (conformer.message as ConformerFn<Message>)({
+            const result = await (conformer.message as CheckFn<Message>)({
               ...testFixtures,
             });
 

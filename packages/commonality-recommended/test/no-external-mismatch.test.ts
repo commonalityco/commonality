@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { noExternalMismatch } from '../src/no-external-mismatch';
-import { createTestConformer, json } from 'commonality';
+import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('no-external-mismatch', () => {
@@ -45,7 +45,7 @@ describe('no-external-mismatch', () => {
         },
       });
 
-      const conformer = createTestConformer(noExternalMismatch(), {
+      const conformer = createTestCheck(noExternalMismatch(), {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -98,7 +98,7 @@ describe('no-external-mismatch', () => {
         },
       });
 
-      const conformer = createTestConformer(noExternalMismatch(), {
+      const conformer = createTestCheck(noExternalMismatch(), {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -153,7 +153,7 @@ describe('no-external-mismatch', () => {
         },
       });
 
-      const conformer = createTestConformer(noExternalMismatch(), {
+      const conformer = createTestCheck(noExternalMismatch(), {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -235,7 +235,7 @@ describe('no-external-mismatch', () => {
         },
       });
 
-      const conformer = createTestConformer(noExternalMismatch(), {
+      const conformer = createTestCheck(noExternalMismatch(), {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -302,7 +302,7 @@ describe('no-external-mismatch', () => {
         },
       });
 
-      const conformer = createTestConformer(noExternalMismatch(), {
+      const conformer = createTestCheck(noExternalMismatch(), {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },

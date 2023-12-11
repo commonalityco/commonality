@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { sortedDependencies } from '../src/sorted-dependencies';
-import { createTestConformer, json } from 'commonality';
+import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('sortedDependencies', () => {
@@ -18,7 +18,7 @@ describe('sortedDependencies', () => {
         }),
       });
 
-      const conformer = createTestConformer(sortedDependencies());
+      const conformer = createTestCheck(sortedDependencies());
 
       const result = await conformer.validate();
 
@@ -34,7 +34,7 @@ describe('sortedDependencies', () => {
         }),
       });
 
-      const conformer = createTestConformer(sortedDependencies());
+      const conformer = createTestCheck(sortedDependencies());
 
       const result = await conformer.validate();
 
@@ -51,7 +51,7 @@ describe('sortedDependencies', () => {
           peerDependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
         }),
       });
-      const conformer = createTestConformer(sortedDependencies());
+      const conformer = createTestCheck(sortedDependencies());
 
       await conformer.fix();
 

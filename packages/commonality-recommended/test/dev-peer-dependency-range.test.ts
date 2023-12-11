@@ -1,6 +1,6 @@
 import { devPeerDependencyRange } from './../src/dev-peer-dependency-range';
 import { describe, it, expect, afterEach } from 'vitest';
-import { createTestConformer, json } from 'commonality';
+import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('dev-peer-dependency-range', () => {
@@ -18,7 +18,7 @@ describe('dev-peer-dependency-range', () => {
             },
           }),
         });
-        const conformer = createTestConformer(devPeerDependencyRange());
+        const conformer = createTestCheck(devPeerDependencyRange());
 
         const result = await conformer.validate();
 
@@ -39,7 +39,7 @@ describe('dev-peer-dependency-range', () => {
             },
           }),
         });
-        const conformer = createTestConformer(devPeerDependencyRange());
+        const conformer = createTestCheck(devPeerDependencyRange());
         const result = await conformer.validate();
 
         expect(result).toBe(false);
@@ -59,7 +59,7 @@ describe('dev-peer-dependency-range', () => {
             },
           }),
         });
-        const conformer = createTestConformer(devPeerDependencyRange());
+        const conformer = createTestCheck(devPeerDependencyRange());
 
         const result = await conformer.validate();
 
@@ -80,7 +80,7 @@ describe('dev-peer-dependency-range', () => {
             },
           }),
         });
-        const conformer = createTestConformer(devPeerDependencyRange());
+        const conformer = createTestCheck(devPeerDependencyRange());
 
         const result = await conformer.validate();
 
@@ -101,7 +101,7 @@ describe('dev-peer-dependency-range', () => {
             },
           }),
         });
-        const conformer = createTestConformer(devPeerDependencyRange());
+        const conformer = createTestCheck(devPeerDependencyRange());
 
         const result = await conformer.validate();
 
@@ -122,7 +122,7 @@ describe('dev-peer-dependency-range', () => {
             },
           }),
         });
-        const conformer = createTestConformer(devPeerDependencyRange());
+        const conformer = createTestCheck(devPeerDependencyRange());
 
         const result = await conformer.validate();
 
@@ -143,7 +143,7 @@ describe('dev-peer-dependency-range', () => {
             },
           }),
         });
-        const conformer = createTestConformer(devPeerDependencyRange());
+        const conformer = createTestCheck(devPeerDependencyRange());
 
         const result = await conformer.validate();
 
@@ -163,7 +163,7 @@ describe('dev-peer-dependency-range', () => {
           },
         }),
       });
-      const conformer = createTestConformer(devPeerDependencyRange());
+      const conformer = createTestCheck(devPeerDependencyRange());
 
       await conformer.fix();
 
@@ -190,7 +190,7 @@ describe('dev-peer-dependency-range', () => {
           },
         }),
       });
-      const conformer = createTestConformer(devPeerDependencyRange());
+      const conformer = createTestCheck(devPeerDependencyRange());
 
       await conformer.fix();
 
@@ -222,7 +222,7 @@ describe('dev-peer-dependency-range', () => {
         }),
       });
 
-      const conformer = createTestConformer(devPeerDependencyRange());
+      const conformer = createTestCheck(devPeerDependencyRange());
 
       const result = await conformer.message();
 
@@ -255,7 +255,7 @@ describe('dev-peer-dependency-range', () => {
         }),
       });
 
-      const conformer = createTestConformer(devPeerDependencyRange());
+      const conformer = createTestCheck(devPeerDependencyRange());
 
       const result = await conformer.message();
 

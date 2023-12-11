@@ -1,6 +1,6 @@
 import { multipleDependencyTypes } from './../src/multiple-dependency-types';
 import { describe, it, expect, afterEach } from 'vitest';
-import { createTestConformer, json } from 'commonality';
+import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('multipleDependencyTypes', () => {
@@ -17,7 +17,7 @@ describe('multipleDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestConformer(multipleDependencyTypes());
+      const conformer = createTestCheck(multipleDependencyTypes());
 
       const result = await conformer.validate();
 
@@ -36,7 +36,7 @@ describe('multipleDependencyTypes', () => {
         }),
       });
 
-      const conformer = createTestConformer(multipleDependencyTypes());
+      const conformer = createTestCheck(multipleDependencyTypes());
       const result = await conformer.validate();
 
       expect(result).toBe(false);
@@ -53,7 +53,7 @@ describe('multipleDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestConformer(multipleDependencyTypes());
+      const conformer = createTestCheck(multipleDependencyTypes());
       const result = await conformer.validate();
 
       expect(result).toBe(false);
@@ -73,7 +73,7 @@ describe('multipleDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestConformer(multipleDependencyTypes());
+      const conformer = createTestCheck(multipleDependencyTypes());
       const result = await conformer.validate();
 
       expect(result).toBe(false);
@@ -93,7 +93,7 @@ describe('multipleDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestConformer(multipleDependencyTypes());
+      const conformer = createTestCheck(multipleDependencyTypes());
 
       await conformer.fix();
 
@@ -120,7 +120,7 @@ describe('multipleDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestConformer(multipleDependencyTypes());
+      const conformer = createTestCheck(multipleDependencyTypes());
 
       await conformer.fix();
 
@@ -151,7 +151,7 @@ describe('multipleDependencyTypes', () => {
         }),
       });
 
-      const conformer = createTestConformer(multipleDependencyTypes());
+      const conformer = createTestCheck(multipleDependencyTypes());
 
       await conformer.fix();
 
@@ -187,7 +187,7 @@ describe('multipleDependencyTypes', () => {
         }),
       });
 
-      const conformer = createTestConformer(multipleDependencyTypes());
+      const conformer = createTestCheck(multipleDependencyTypes());
       const message = await conformer.message();
 
       expect(message.title).toEqual(

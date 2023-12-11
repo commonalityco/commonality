@@ -1,5 +1,5 @@
 import { repositoryField } from './../src/respository-field';
-import { createTestConformer, json } from 'commonality';
+import { createTestCheck, json } from 'commonality';
 import { describe, it, expect, afterEach } from 'vitest';
 import mockFs from 'mock-fs';
 
@@ -18,7 +18,7 @@ describe('repository-field', () => {
           },
         },
       });
-      const conformer = createTestConformer(repositoryField(), {
+      const conformer = createTestCheck(repositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -46,7 +46,7 @@ describe('repository-field', () => {
         },
       });
 
-      const conformer = createTestConformer(repositoryField(), {
+      const conformer = createTestCheck(repositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -76,7 +76,7 @@ describe('repository-field', () => {
         },
       });
 
-      const conformer = createTestConformer(repositoryField(), {
+      const conformer = createTestCheck(repositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -106,7 +106,7 @@ describe('repository-field', () => {
         },
       });
 
-      const conformer = createTestConformer(repositoryField(), {
+      const conformer = createTestCheck(repositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -137,7 +137,7 @@ describe('repository-field', () => {
         },
       });
 
-      const conformer = createTestConformer(repositoryField(), {
+      const conformer = createTestCheck(repositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -170,7 +170,7 @@ describe('repository-field', () => {
         },
       });
 
-      const conformer = createTestConformer(repositoryField(), {
+      const conformer = createTestCheck(repositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -200,7 +200,7 @@ describe('repository-field', () => {
         }),
       });
 
-      const conformer = createTestConformer(repositoryField(), {
+      const conformer = createTestCheck(repositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -232,7 +232,7 @@ describe('repository-field', () => {
         }),
       });
 
-      const conformer = createTestConformer(repositoryField(), {
+      const conformer = createTestCheck(repositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -269,7 +269,7 @@ describe('repository-field', () => {
         }),
       });
 
-      const conformer = createTestConformer(repositoryField(), {
+      const conformer = createTestCheck(repositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -306,7 +306,7 @@ describe('repository-field', () => {
         }),
       });
 
-      const conformer = createTestConformer(repositoryField(), {
+      const conformer = createTestCheck(repositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -345,7 +345,7 @@ describe('repository-field', () => {
           }),
         });
 
-        const conformer = createTestConformer(repositoryField(), {
+        const conformer = createTestCheck(repositoryField(), {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -385,7 +385,7 @@ describe('repository-field', () => {
           }),
         });
 
-        const conformer = createTestConformer(repositoryField(), {
+        const conformer = createTestCheck(repositoryField(), {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -398,9 +398,7 @@ describe('repository-field', () => {
 
         const result = await conformer.message();
 
-        expect(result.context).toMatchInlineSnapshot(
-          'undefined',
-        );
+        expect(result.context).toMatchInlineSnapshot('undefined');
       });
     });
   });
