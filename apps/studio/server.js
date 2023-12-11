@@ -13,10 +13,7 @@ if (!process.env.COMMONALITY_ROOT_DIRECTORY) {
 }
 
 /** @type {string} */
-const rootDirectory = path.resolve(
-  process.env.COMMONALITY_ROOT_DIRECTORY,
-  '../vercel',
-);
+const rootDirectory = path.resolve(process.env.COMMONALITY_ROOT_DIRECTORY);
 const app = next({ dev, port });
 const handle = app.getRequestHandler();
 
@@ -45,8 +42,8 @@ const createWebsocketConnection = async (server) => {
       '.github/CODEOWNERS',
       '.gitlab/CODEOWNERS',
       'docs/CODEOWNERS',
-      '**/package.json',
-      '**/commonality.json',
+      '**/**/package.json',
+      '**/**/commonality.json',
       'commonality.config.ts',
       'commonality.config.js',
     ];
@@ -56,14 +53,17 @@ const createWebsocketConnection = async (server) => {
       persistent: true,
       cwd: rootDirectory,
     });
-
+    console.log({ rootDirectory });
     watcher
+      .on('ready', () => {})
       .on('change', async (path) => {
         socket.emit('project-updated', {
           message: `File ${path} has been changed`,
         });
       })
-      .on('error', (error) => {});
+      .on('error', (error) => {
+        console.log(error);
+      });
 
     socket.on('disconnect', () => {
       watcher.close();

@@ -12,14 +12,19 @@ function LastUpdateTime() {
     const createSocketConnection = async () => {
       const socket = io();
 
-      socket.on('connect', () => {});
+      socket.on('connect', () => {
+        console.log('Watching for updates...');
+      });
 
       socket.on('project-updated', async () => {
+        console.log('Project updated');
         router.refresh();
 
         setLastUpdated(new Date());
       });
-      socket.on('disconnect', () => {});
+      socket.on('disconnect', () => {
+        console.log('Stopped watching for updates...');
+      });
     };
 
     createSocketConnection();

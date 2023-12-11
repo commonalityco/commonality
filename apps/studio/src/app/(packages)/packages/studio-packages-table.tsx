@@ -44,6 +44,7 @@ export function ActionButton({
           tags={tags}
           existingTags={existingTags}
           packageName={pkg.name}
+          onEdit={() => setOpen(false)}
         />
       </EditTagsDialog>
       <DropdownMenu>
@@ -68,8 +69,9 @@ export function ActionButton({
 }
 
 export function StudioTagsCell<T extends ColumnData>({
+  tags,
   ...rest
-}: Omit<ComponentProps<typeof TagsCell<T>>, 'onAddTags'>) {
+}: Omit<ComponentProps<typeof TagsCell<T>>, 'onAddTags'> & { tags: string[] }) {
   const [open, setOpen] = useState(false);
   const data = rest.row.original;
 
@@ -77,9 +79,10 @@ export function StudioTagsCell<T extends ColumnData>({
     <>
       <EditTagsDialog open={open} onOpenChange={setOpen}>
         <EditTagsDialogContent
-          tags={data.tags}
+          tags={tags}
           existingTags={data.tags}
           packageName={data.package.name}
+          onEdit={() => setOpen(false)}
         />
       </EditTagsDialog>
       {data.tags.length > 0 ? (
@@ -127,7 +130,9 @@ function StudioPackagesTable({
       {
         accessorKey: 'tags',
         header: 'Tags',
-        cell: (cellProps) => <StudioTagsCell {...cellProps} />,
+        cell: (cellProps) => (
+          <StudioTagsCell {...cellProps} tags={props.tags} />
+        ),
       },
       {
         accessorKey: 'codeowners',

@@ -86,7 +86,6 @@ export function EditTagsDialogContent({
                       noOptionsMessage={() =>
                         'Start typing to create a new tag'
                       }
-                      closeMenuOnSelect={false}
                       formatCreateLabel={(inputValue) => {
                         return `Create ${formatTagName(inputValue)}`;
                       }}
