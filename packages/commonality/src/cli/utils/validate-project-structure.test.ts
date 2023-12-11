@@ -83,7 +83,7 @@ describe('validateProjectStructure', () => {
       });
 
       expect(spy).toHaveBeenCalledWith(
-        expect.stringContaining('No valid root package detected'),
+        expect.stringContaining('No root package.json detected'),
         expect.objectContaining({ exitCode: 1 }),
       );
     });
@@ -119,7 +119,7 @@ describe('validateProjectStructure', () => {
       });
 
       expect(spy).toHaveBeenCalledWith(
-        expect.stringContaining('No valid root package detected'),
+        expect.stringContaining('No "name" detected in root package.json'),
         expect.objectContaining({ exitCode: 1 }),
       );
     });

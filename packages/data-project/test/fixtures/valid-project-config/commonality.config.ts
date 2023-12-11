@@ -1,27 +1,21 @@
 import { defineConfig } from 'commonality';
 
 export default defineConfig({
-  projectId: '123',
-  constraints: [
-    {
-      applyTo: 'feature',
+  constraints: {
+    '*': {
       allow: '*',
     },
-    {
-      applyTo: 'config',
+    config: {
       allow: ['config'],
     },
-    {
-      applyTo: 'ui',
+    ui: {
       allow: ['ui', 'utility', 'config'],
     },
-    {
-      applyTo: 'data',
+    data: {
       allow: ['data', 'utility', 'config'],
     },
-    {
-      applyTo: 'utility',
+    utility: {
       allow: ['data', 'utility', 'config'],
     },
-  ],
+  },
 });
