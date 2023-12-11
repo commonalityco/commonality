@@ -1,5 +1,11 @@
 # @commonalityco/config-tsconfig
 
+## 0.0.11
+
+### Patch Changes
+
+- ad4a813: Finalize Commonality Studio, checks, and constraints
+
 ## 0.0.10
 
 ### Patch Changes

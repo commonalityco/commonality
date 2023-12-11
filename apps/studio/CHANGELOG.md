@@ -1,5 +1,23 @@
 # @commonalityco/dashboard
 
+## 0.2.23
+
+### Patch Changes
+
+- ad4a813: Finalize Commonality Studio, checks, and constraints
+- Updated dependencies [ad4a813]
+  - @commonalityco/feature-conformance@0.0.18
+  - @commonalityco/feature-constraints@0.0.18
+  - @commonalityco/ui-design-system@0.0.13
+  - @commonalityco/data-codeowners@0.0.17
+  - @commonalityco/data-packages@0.0.18
+  - @commonalityco/utils-package@0.0.11
+  - @commonalityco/data-project@0.0.12
+  - @commonalityco/ui-package@0.0.16
+  - @commonalityco/utils-core@0.0.11
+  - @commonalityco/data-tags@0.0.13
+  - @commonalityco/ui-core@0.0.15
+
 ## 0.2.22
 
 ### Patch Changes

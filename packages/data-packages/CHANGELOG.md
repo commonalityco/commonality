@@ -1,5 +1,14 @@
 # @commonalityco/constraints
 
+## 0.0.18
+
+### Patch Changes
+
+- ad4a813: Finalize Commonality Studio, checks, and constraints
+- Updated dependencies [ad4a813]
+  - @commonalityco/data-project@0.0.12
+  - @commonalityco/utils-core@0.0.11
+
 ## 0.0.17
 
 ### Patch Changes

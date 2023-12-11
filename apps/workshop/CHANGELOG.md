@@ -1,5 +1,19 @@
 # workshop
 
+## 1.0.17
+
+### Patch Changes
+
+- ad4a813: Finalize Commonality Studio, checks, and constraints
+- Updated dependencies [ad4a813]
+  - @commonalityco/feature-conformance@0.0.18
+  - @commonalityco/feature-constraints@0.0.18
+  - @commonalityco/ui-design-system@0.0.13
+  - @commonalityco/ui-package@0.0.16
+  - @commonalityco/utils-core@0.0.11
+  - @commonalityco/ui-core@0.0.15
+  - @commonalityco/types@0.0.15
+
 ## 1.0.16
 
 ### Patch Changes

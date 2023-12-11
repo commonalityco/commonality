@@ -1,5 +1,11 @@
 # eslint-config-commonality
 
+## 0.0.10
+
+### Patch Changes
+
+- ad4a813: Finalize Commonality Studio, checks, and constraints
+
 ## 0.0.9
 
 ### Patch Changes

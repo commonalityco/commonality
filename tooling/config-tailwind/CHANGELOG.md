@@ -1,5 +1,11 @@
 # @commonalityco/config-tailwind
 
+## 0.0.7
+
+### Patch Changes
+
+- ad4a813: Finalize Commonality Studio, checks, and constraints
+
 ## 0.0.6
 
 ### Patch Changes

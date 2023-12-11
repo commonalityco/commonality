@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/feature-constraints",
   "description": "Get conformance information about a local project",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "type": "module",
   "publishConfig": {
     "access": "public",
