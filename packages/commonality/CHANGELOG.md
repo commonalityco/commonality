@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.24
+
+### Patch Changes
+
+- 1c2d7a5: Release commonality
+
 ## 0.2.23
 
 ### Patch Changes
