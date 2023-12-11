@@ -2,6 +2,8 @@ import { getRootPackageName, getPackages } from '@commonalityco/data-packages';
 import { getRootDirectory } from '@commonalityco/data-project';
 import chalk from 'chalk';
 import { Command } from 'commander';
+import path from 'node:path';
+import fs from 'fs-extra';
 
 export const validateProjectStructure = async ({
   directory,
@@ -30,11 +32,23 @@ export const validateProjectStructure = async ({
   if (!rootDirectory) return;
 
   try {
+    const packageJsonPath = path.join(rootDirectory, 'package.json');
+
+    const exists = await fs.pathExists(packageJsonPath);
+
+    if (!exists) {
+      command.error(
+        chalk.red.bold('No root package.json detected') +
+          '\n You must have a package.json file within the same directory as your lockfile.',
+        { exitCode: 1 },
+      );
+    }
+
     await getRootPackageName({ rootDirectory });
   } catch {
     command.error(
-      chalk.red.bold('No valid root package detected') +
-        '\n You must have a package.json file within the same directory as your lockfile. Your package.json file must also have a name property.',
+      chalk.red.bold('No "name" detected in root package.json') +
+        '\n Your root package.json must have a valid "name" property.',
       { exitCode: 1 },
     );
   }
