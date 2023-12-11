@@ -48,7 +48,7 @@ export const validateProjectStructure = async ({
   } catch {
     command.error(
       chalk.red.bold('No "name" detected in root package.json') +
-        '\n Your root package.json must have a valid "name" property.',
+        '\nYour root package.json must have a valid "name" property.',
       { exitCode: 1 },
     );
   }
