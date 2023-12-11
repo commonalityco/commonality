@@ -51,5 +51,8 @@
     "turbo": "^1.10.16",
     "typescript": "^5.3.2",
     "vitest": "^0.34.6"
+  },
+  "devDependencies": {
+    "@commonalityco/studio": "workspace:^"
   }
 }

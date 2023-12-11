@@ -2,7 +2,10 @@
 import { Command } from 'commander';
 import getPort from 'get-port';
 import { validateProjectStructure } from '../utils/validate-project-structure.js';
-import { getRootDirectory } from '@commonalityco/data-project';
+import {
+  getPackageManager,
+  getRootDirectory,
+} from '@commonalityco/data-project';
 import chalk from 'chalk';
 import waitOn from 'wait-on';
 import killPort from 'kill-port';
@@ -52,7 +55,11 @@ export async function ensurePackageInstalled(dependency: string, root: string) {
 
   if (install) {
     const installPkg = await import('@antfu/install-pkg');
-    await installPkg.installPackage(dependency, { dev: true });
+    const packageManager = await getPackageManager({ rootDirectory: root });
+    await installPkg.installPackage(dependency, {
+      dev: true,
+      additionalArgs: packageManager === 'pnpm' ? ['-w'] : [],
+    });
     process.stderr.write(
       c.yellow(
         `\nPackage ${dependency} installed, re-run the command to start.\n`,
@@ -90,7 +97,7 @@ export const studio = command
       const rootDirectory = await getRootDirectory();
 
       await ensurePackageInstalled(DEPENDENCY_NAME, rootDirectory);
-      console.log('prevent');
+
       const studio = await import(DEPENDENCY_NAME);
 
       const port = await getPort({ port: 8888 });

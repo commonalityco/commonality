@@ -65,6 +65,10 @@ importers:
       vitest:
         specifier: ^0.34.6
         version: 0.34.6
+    devDependencies:
+      '@commonalityco/studio':
+        specifier: workspace:^
+        version: link:apps/studio
 
   apps/documentation:
     dependencies:

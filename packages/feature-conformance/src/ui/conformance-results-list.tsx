@@ -22,7 +22,7 @@ import {
   X,
 } from 'lucide-react';
 import { Fragment, useMemo } from 'react';
-import { getStatusForResults } from '../utils';
+import { getStatusForResults } from '../utils/get-status-for-results';
 
 export function CheckTitle({ result }: { result: ConformanceResult }) {
   const getStatusText = () => {

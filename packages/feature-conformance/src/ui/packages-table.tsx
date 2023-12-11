@@ -33,9 +33,14 @@ import { useState } from 'react';
 import { Status, formatTagName } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-core/ui';
 import { ConformanceResult, Package } from '@commonalityco/types';
-import { ChevronDown, Plus, X } from 'lucide-react';
-import { CheckContent, CheckTitle, FilterTitle, StatusCount } from '.';
-import { getStatusForResults } from '../utils';
+import { ChevronDown, Plus } from 'lucide-react';
+import {
+  CheckContent,
+  CheckTitle,
+  FilterTitle,
+  StatusCount,
+} from './conformance-results-list';
+import { getStatusForResults } from '../utils/get-status-for-results';
 
 export type ColumnData = {
   package: Package;
