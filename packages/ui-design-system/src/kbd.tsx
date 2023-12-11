@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cn } from './cn.js';
+import { cn } from './cn';
 
 const Kbd = ({
   children,

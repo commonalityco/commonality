@@ -7,6 +7,10 @@ export const getPackageManager = async ({
 }: {
   rootDirectory: string;
 }): Promise<PackageManager> => {
+  if (!rootDirectory) {
+    return PackageManager.NPM;
+  }
+
   const getFileExistsAtRoot = async (fileName: string) =>
     fs.pathExists(path.join(rootDirectory, fileName));
 
@@ -20,6 +24,10 @@ export const getPackageManager = async ({
 
   if (await getFileExistsAtRoot(Lockfile.PNPM_LOCKFILE)) {
     return PackageManager.PNPM;
+  }
+
+  if (await getFileExistsAtRoot(Lockfile.BUN_LOCKFILE)) {
+    return PackageManager.BUN;
   }
 
   throw new Error('Could not detect package manager');

@@ -1,0 +1,73 @@
+# Testing checks
+
+For more complex checks you may want to make sure that your validation
+and fix logic is what you would expect it to be. We recommend using
+`mock-fs` along with our [`createTestCheck`](#createtestcheck) utility to mock the file system to ensure that your read and write
+logic is correct.
+
+## Example
+
+```ts filename="packages/checks/ensure-license.ts"
+import { createTestCheck, defineCheck, json } from 'commonality/checks';
+
+const ensureLicense = defineCheck((license: string = 'MIT') => {
+  return {
+    name: 'my-team/ensure-license',
+    level: 'error',
+    validate: async ({ workspace }) => {
+      const packageJson = await json(
+        path.join(workspace.path, 'package.json'),
+      ).get();
+
+      // This check should fail if the package's license does not match the one we specified
+      return packageJson.license === license;
+    },
+    fix: async ({ workspace }) => {
+      // We'll want to test that this file gets updated correctly
+      await json(path.join(workspace.path, 'package.json')).merge({
+        license,
+      });
+    },
+    message: async ({ workspace }) => {
+      const packageJson = await json(
+        path.join(workspace.path, 'package.json'),
+      ).get();
+
+      // Since we return multiple messsages we should test for each scenario
+      if (!packageJson || !packageJson.license) {
+        return {
+          title: 'Package.json must have a license',
+        };
+      }
+
+      return {
+        title: `Package.json license must be ${license}`,
+      };
+    },
+  };
+});
+```
+
+```ts filename="packages/checks/ensure-license.test.ts"
+import { ensureLicense } from './ensure-license';
+
+describe('ensureLicense', () => {
+  describe('validate', () => {
+    const testCheck = createTestCheck(ensureLicense, {
+      'package.json': {
+        scripts: {
+          foo: 'bar',
+        },
+      },
+    });
+  });
+
+  describe('fix', () => {});
+
+  describe('message', () => {});
+});
+```
+
+## Utilities
+
+### `createTestCheck`

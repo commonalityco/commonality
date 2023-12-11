@@ -19,7 +19,7 @@ describe('studio', () => {
     await fs.remove(temporaryPath);
   });
 
-  test('logs the URL to open Commonality Studio', async (done) => {
+  test('logs the URL to open Commonality Studio', async () => {
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
       '../../test/fixtures/kitchen-sink',

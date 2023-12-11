@@ -1,6 +1,6 @@
 import React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from './cn.js';
+import { cn } from './cn';
 
 type HeaderProperties = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLHeadingElement>,

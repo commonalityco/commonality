@@ -1,16 +1,7 @@
-# Workshop
+# workshop
+> The Storybook application for developing Commonality UI components
+## Installation
 
-This is a Storybook application that allows modular development of UI components throughout the Commonality monorepo.
-
-## Get started
-Run the project
-
-```bash
-pnpm run dev
-```
-
-More code
-
-```javascript
-(num) => num + 1
+```sh
+npm install workshop
 ```

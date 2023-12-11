@@ -1,4 +1,4 @@
-import { PackageJson } from '@commonalityco/types';
+import type { PackageJson } from '@commonalityco/types';
 import path from 'node:path';
 import fs from 'fs-extra';
 
@@ -7,6 +7,10 @@ export const getRootPackageName = async ({
 }: {
   rootDirectory: string;
 }): Promise<string> => {
+  if (!rootDirectory) {
+    return '';
+  }
+
   const packageJsonPath = path.join(rootDirectory, 'package.json');
 
   const exists = await fs.pathExists(packageJsonPath);

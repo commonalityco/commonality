@@ -2,19 +2,17 @@ import {
   DependencyType,
   AllPackagesWildcard,
   PackageType,
+  Status,
 } from '@commonalityco/utils-core';
 
 export type Constraint =
   | {
-      applyTo: string;
       allow: string[] | typeof AllPackagesWildcard;
     }
   | {
-      applyTo: string;
       disallow: string[] | typeof AllPackagesWildcard;
     }
   | {
-      applyTo: string;
       allow: string[] | typeof AllPackagesWildcard;
       disallow: string[] | typeof AllPackagesWildcard;
     };
@@ -33,6 +31,14 @@ export type Violation = {
   found?: string[];
 };
 
+export type ConstraintResult = {
+  isValid: boolean;
+  foundTags?: string[];
+  constraint: Constraint;
+  dependencyPath: Dependency[];
+  filter: string;
+};
+
 export type Dependency = {
   version: string;
   type: DependencyType;
@@ -47,18 +53,6 @@ export type CodeownersData = {
   codeowners: Codeowner[];
 };
 
-export type Document = {
-  filename: string;
-  isRoot: boolean;
-  content: string;
-  path: string;
-};
-
-export type DocumentsData = {
-  packageName: string;
-  documents: Document[];
-};
-
 export type Tag = string;
 
 export type TagsData = { packageName: string; tags: Tag[] };
@@ -71,35 +65,121 @@ export type Package = {
   version: string;
 };
 
-export type ProjectConfig = {
-  projectId?: string;
-  constraints?: Constraint[];
+export type Workspace = {
+  path: string;
+  relativePath: string;
 };
+
+export type ValidationResult =
+  | number
+  | string
+  | Record<string, unknown>
+  | Array<unknown>
+  | boolean
+  | undefined
+  | null;
+
+export type FileCreatorFactory<File> = ({
+  rootDirectory,
+}: {
+  rootDirectory: string;
+  workspace: Workspace;
+}) => File;
+
+export type CheckOptions = {
+  workspace: Workspace;
+  allWorkspaces: Workspace[];
+  rootWorkspace: Workspace;
+  codeowners: Codeowner[];
+  tags: Tag[];
+};
+
+export type CheckFn<T> = (opts: CheckOptions) => T | Promise<T>;
+
+export type Message = {
+  title: string;
+  context?: string;
+  // A path to a file relative to the package's folder.
+  filepath?: string;
+};
+
+export interface Check {
+  name: string;
+  level?: 'error' | 'warning';
+  validate: CheckFn<ValidationResult>;
+  fix?: CheckFn<void>;
+  message: string | CheckFn<Message>;
+}
+
+export type CheckCreator<C extends Check, O = undefined> = (options?: O) => C;
+
+export type ConformanceResult = {
+  name: string;
+  filter: string;
+  fix?: CheckFn<void>;
+  status: Status;
+  package: Package;
+  message: Message;
+};
+
+export interface ProjectConfig {
+  constraints?: Record<string, Constraint>;
+  checks?: Record<string, Check[]>;
+}
+
+export interface ProjectConfigData {
+  config: ProjectConfig;
+  filepath: string;
+  isEmpty?: boolean;
+}
 
 export type PackageConfig = {
   tags?: string[];
 };
 
 export type PackageJson = {
-  workspaces?: string[];
   name?: string;
-  description?: string;
   version?: string;
+  description?: string;
+  keywords?: string[];
+  homepage?: string;
+  bugs?: string | { url?: string; email?: string };
+  license?: string;
+  author?: string | { name: string; email?: string; url?: string };
+  contributors?: Array<string | { name: string; email?: string; url?: string }>;
+  funding?:
+    | string
+    | { type: string; url: string }
+    | Array<string | { type: string; url: string }>;
+  files?: string[];
+  main?: string;
+  browser?: string;
+  bin?: Record<string, string>;
+  man?: string | string[];
+  directories?: {
+    bin?: string;
+    man?: string;
+    doc?: string;
+    example?: string;
+    lib?: string;
+    test?: string;
+  };
+  repository?: string | { type: string; url: string; directory?: string };
+  scripts?: Record<string, string>;
+  config?: Record<string, unknown>;
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
-};
-
-export type SnapshotResult = {
-  url: string;
-};
-
-export type SnapshotData = {
-  packages: Package[];
-  tagsData: TagsData[];
-  documentsData: DocumentsData[];
-  codeownersData: CodeownersData[];
-  violations: Violation[];
-  projectConfig: ProjectConfig;
-  dependencies: Dependency[];
+  peerDependenciesMeta?: Record<string, { optional: boolean }>;
+  bundledDependencies?: Array<string> | boolean;
+  bundleDependencies?: Array<string> | boolean;
+  optionalDependencies?: Record<string, string>;
+  overrides?: Record<string, unknown>;
+  engines?: { node?: string; npm?: string };
+  os?: Array<string>;
+  cpu?: Array<string>;
+  private?: boolean;
+  publishConfig?: Record<string, unknown>;
+  workspaces?: string[];
+  [key: string]: unknown;
 };

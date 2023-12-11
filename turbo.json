@@ -10,19 +10,14 @@
       "dependsOn": ["^build"]
     },
     "dev": {
-      "cache": false,
-      "dependsOn": ["^build"]
+      "cache": false
     },
     "test": {
       "dependsOn": ["^build"]
     },
     "test:integration": {},
-    "lint": {
-      "dependsOn": ["^build"]
-    },
-    "lint:fix": {
-      "dependsOn": ["^build"]
-    },
+    "lint": {},
+    "lint:fix": {},
     "type-check": {
       "dependsOn": ["^build"]
     },

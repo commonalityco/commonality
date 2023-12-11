@@ -1,0 +1,9 @@
+{
+  "extends": "@commonalityco/config-tsconfig/react.json",
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "exclude": ["node_modules", "dist", "coverage", "graph-machine.typegen.ts"]
+}

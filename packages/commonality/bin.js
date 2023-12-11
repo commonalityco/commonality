@@ -15,4 +15,4 @@ const notifier = updateNotifier({ pkg: packageJson });
 
 notifier.notify({ isGlobal: true });
 
-import('./dist/index.js');
+import('./dist/cli/cli.js');

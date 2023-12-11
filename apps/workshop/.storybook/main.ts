@@ -13,13 +13,6 @@ const config: StorybookConfig = {
   async viteFinal(config, { configType }) {
     return mergeConfig(config, {
       define: { 'process.env': {} },
-      optimizeDeps: {
-        include: [
-          '@commonalityco/utils-core',
-          '@commonalityco/utils-package',
-          // '@commonalityco/utils-graph',
-        ],
-      },
     });
   },
   framework: {

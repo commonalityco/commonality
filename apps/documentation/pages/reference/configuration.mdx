@@ -1,0 +1,123 @@
+import { Callout } from 'nextra/components';
+
+# Configuration
+
+## Project configuration
+
+**`commonality.config.ts`** **`commonality.config.js`**
+
+Your project's configuration should located be at the root of your project.
+
+<Callout type="info">
+  Use the `defineConfig` helper function to get type checking and intellisense
+  for your configuration.
+</Callout>
+
+```ts filename="commonality.config.ts"
+import { defineConfig } from 'commonality';
+
+export default defineConfig({
+  // ...
+});
+```
+
+### `checks`
+
+`type: Check[]`
+
+The `checks` property expects an object whose keys are [tag filters](#tag-filters) and whose value are all the checks to run for packages that match.
+
+<Callout type="info">Checks will run in the order they are defined.</Callout>
+
+**Example**
+
+```ts filename="commonality.config.ts"
+import { defineConfig } from 'commonality';
+import * as recommended from 'commonality-recommended';
+
+export default defineConfig({
+  checks: {
+    '*': [recommended.ensureReadme()],
+    publishable: [recommended.ensureLicense()],
+  },
+});
+```
+
+### `constraints`
+
+`type: Constraint[]`
+
+The `constraints` property expects an object whose keys are [tag filters](#tag-filters) and whose value are all the constraints to run for packages that match.
+
+```ts filename="commonality.config.ts"
+import { defineConfig } from 'commonality';
+
+export default defineConfig({
+  constraints: {
+    '*': [
+      disallow: ['deployable'],
+    ],
+    config: [
+	  allow: ['config']
+    ],
+  },
+});
+```
+
+## Package configuration
+
+**`commonality.json`**
+
+Package configuration should be located the package directory.
+
+### `tags`
+
+The labels that categorize the package. These tags can be used with tag filters in the project configuration.
+
+**Example**
+
+```json filename="commonality.json"
+{
+  "tags": ["ui", "buildable", "checkout"]
+}
+```
+
+## Tag filters
+
+Tag filters are used to selectively apply constraints and checks to packages.
+
+### Match all packages
+
+Use the `*` tag filter to apply constraints and checks to all packages.
+
+**Example:**
+
+```ts filename="commonality.config.ts"
+import { defineConfig } from 'commonality';
+
+export default defineConfig({
+  constraints: {
+	'*': [
+	  disallow: ['deployable'],
+	],
+  },
+});
+```
+
+### Match specific packages
+
+Specify a tag to apply constraints and checks to packages containing that tag in their `commonality.json` [configuration file](#package-configuration).
+
+**Example:**
+
+```ts filename="commonality.config.ts"
+import { defineConfig } from 'commonality';
+
+export default defineConfig({
+  constraints: {
+	'*': [
+	  disallow: ['deployable'],
+	],
+  },
+});
+```

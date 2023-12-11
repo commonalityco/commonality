@@ -6,10 +6,8 @@ import { fileURLToPath } from 'node:url';
 
 export const getRootDirectory = async (cwd?: string) => {
   const __filename = fileURLToPath(import.meta.url);
-
-  const workingDirectory = cwd
-    ? path.resolve(path.dirname(__filename), cwd)
-    : process.cwd();
+  const dirname = path.dirname(__filename);
+  const workingDirectory = cwd ? path.resolve(dirname, cwd) : process.cwd();
 
   const rootDirectory = await findUp(
     [Lockfile.NPM_LOCKFILE, Lockfile.YARN_LOCKFILE, Lockfile.PNPM_LOCKFILE],

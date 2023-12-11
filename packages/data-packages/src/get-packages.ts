@@ -1,10 +1,10 @@
-import { Package } from '@commonalityco/types';
+import type { Package } from '@commonalityco/types';
 import {
   getPackageDirectories,
   getWorkspaceGlobs,
   getPackageManager,
 } from '@commonalityco/data-project';
-import { getPackage } from './get-package.js';
+import { getPackage } from './get-package';
 
 export const getPackages = async ({
   rootDirectory,

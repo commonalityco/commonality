@@ -1,4 +1,3 @@
-export * from './packages-table.js';
-export * from './tags-filter-button.js';
-export * from './packages-table-paginator.js';
-export * from './codeowners-filter-button.js';
+export * from './tags-filter-button';
+export * from './packages-table-paginator';
+export * from './codeowners-filter-button';

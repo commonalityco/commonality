@@ -1,0 +1,30 @@
+{
+  "name": "@commonalityco/config-tailwind",
+  "description": "TailwindCSS configuration and globals for Commonality projects",
+  "version": "0.0.6",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "main": "./tailwind.config.js",
+  "exports": {
+    ".": "./tailwind.config.js",
+    "./globals.css": "./globals.css"
+  },
+  "engines": {
+    "node": ">=14.6"
+  },
+  "peerDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.2.2"
+  },
+  "repository": "https://github.com/commonalityco/commonality/tooling/config-tailwind",
+  "scripts": {}
+}

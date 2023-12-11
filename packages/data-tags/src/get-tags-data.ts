@@ -17,7 +17,7 @@ export const getTagsData = async ({
       const packageConfigPath = path.join(
         rootDirectory,
         package_.path,
-        'commonality.json'
+        'commonality.json',
       );
 
       if (!(await fs.exists(packageConfigPath))) {
@@ -36,7 +36,7 @@ export const getTagsData = async ({
           tags: formattedTags,
         });
       }
-    })
+    }),
   );
 
   return tagData;

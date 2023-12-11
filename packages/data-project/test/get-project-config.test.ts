@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 describe('getProjectConfig', () => {
   describe('when run in an un-initialized project', () => {
-    it('returns an empty object', async () => {
+    it('returns undefined', async () => {
       const rootDirectory = path.join(
         path.dirname(fileURLToPath(import.meta.url)),
         './fixtures',
@@ -14,7 +14,7 @@ describe('getProjectConfig', () => {
 
       const config = await getProjectConfig({ rootDirectory });
 
-      expect(config).toEqual({});
+      expect(config).toEqual(undefined);
     });
   });
 
@@ -29,40 +29,28 @@ describe('getProjectConfig', () => {
       const config = await getProjectConfig({ rootDirectory });
 
       expect(config).toEqual({
-        projectId: '123',
-        constraints: [
-          {
-            applyTo: 'feature',
-            allow: '*',
+        isEmpty: false,
+        filepath: expect.stringContaining('commonality.config.ts'),
+        config: {
+          constraints: {
+            '*': {
+              allow: '*',
+            },
+            config: {
+              allow: ['config'],
+            },
+            ui: {
+              allow: ['ui', 'utility', 'config'],
+            },
+            data: {
+              allow: ['data', 'utility', 'config'],
+            },
+            utility: {
+              allow: ['data', 'utility', 'config'],
+            },
           },
-          {
-            applyTo: 'config',
-            allow: ['config'],
-          },
-          {
-            applyTo: 'ui',
-            allow: ['ui', 'utility', 'config'],
-          },
-          {
-            applyTo: 'data',
-            allow: ['data', 'utility', 'config'],
-          },
-          {
-            applyTo: 'utility',
-            allow: ['data', 'utility', 'config'],
-          },
-        ],
+        },
       });
-    });
-
-    it('should return the parsed project config without invalid properties', async () => {
-      const rootDirectory = path.join(
-        path.dirname(fileURLToPath(import.meta.url)),
-        './fixtures',
-        'invalid-project-config',
-      );
-
-      await expect(getProjectConfig({ rootDirectory })).rejects.toThrow();
     });
   });
 });

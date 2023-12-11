@@ -1,6 +1,6 @@
-import { CodeownersData, Package } from '@commonalityco/types';
-import { getCodeowners } from './core/get-codeowners.js';
-import { getOwnersForPath } from './core/get-owners-for-path.js';
+import type { CodeownersData, Package } from '@commonalityco/types';
+import { getCodeowners } from './core/get-codeowners';
+import { getOwnersForPath } from './core/get-owners-for-path';
 
 export const getCodeownersData = async ({
   rootDirectory,

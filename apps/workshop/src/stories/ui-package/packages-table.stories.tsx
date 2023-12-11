@@ -2,14 +2,15 @@ import type { Meta, StoryObj } from '@storybook/react';
 import {
   CodeownersCell,
   ColumnData,
-  DocumentsCell,
+  ConformanceCell,
   NameCell,
   PackageTableColumns,
   PackagesTable,
   SortableHeader,
   TagsCell,
-} from '@commonalityco/ui-package';
-import { PackageType } from '@commonalityco/utils-core';
+} from '@commonalityco/feature-conformance/ui';
+import { PackageType, Status } from '@commonalityco/utils-core';
+import { Package } from '@commonalityco/types';
 
 const columns = [
   {
@@ -17,27 +18,24 @@ const columns = [
     header: ({ column }) => {
       return <SortableHeader column={column} title="Name" />;
     },
-    size: 300,
     cell: NameCell,
-  },
-  {
-    accessorKey: 'documents',
-    header: 'Documents',
-    cell: (props) => (
-      <DocumentsCell {...props} onDocumentOpen={async () => {}} />
-    ),
   },
   {
     accessorKey: 'tags',
     header: 'Tags',
-    cell: TagsCell,
+    cell: (props) => <TagsCell {...props} onAddTags={async () => {}} />,
   },
   {
     accessorKey: 'codeowners',
     header: 'Codeowners',
     cell: CodeownersCell,
   },
-] satisfies PackageTableColumns;
+  {
+    accessorKey: 'results',
+    header: 'Conformance',
+    cell: ConformanceCell,
+  },
+] satisfies PackageTableColumns<Package>;
 
 const meta = {
   title: 'ui-package/PackagesTable',
@@ -60,10 +58,13 @@ export const StressTest: Story = {
     columns: columns as any,
     data: [
       {
-        name: 'package-one',
-        type: PackageType.NODE,
-        version: '1.0.0',
-        path: '/path',
+        package: {
+          path: '/',
+          name: 'package-one',
+          type: PackageType.NODE,
+          version: '1.0.0',
+        },
+        results: [],
         codeowners: [
           '@team1',
           '@team2',
@@ -88,44 +89,15 @@ export const StressTest: Story = {
           '#tag9',
           '#tag10',
         ],
-        documents: [
-          {
-            filename: 'README',
-            isRoot: true,
-            content: 'content1',
-            path: '/path/doc1',
-          },
-          {
-            filename: 'CHANGELOG',
-            isRoot: false,
-            content: 'content2',
-            path: '/path/doc2',
-          },
-          {
-            filename: 'doc3',
-            isRoot: false,
-            content: 'content3',
-            path: '/path/doc3',
-          },
-          {
-            filename: 'doc4',
-            isRoot: false,
-            content: 'content4',
-            path: '/path/doc4',
-          },
-          {
-            filename: 'doc5',
-            isRoot: false,
-            content: 'content5',
-            path: '/path/doc5',
-          },
-        ],
       },
       {
-        name: 'package-two',
-        type: PackageType.NODE,
-        version: '1.0.0',
-        path: '/path',
+        package: {
+          name: 'package-two',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [],
         codeowners: [
           '@team11',
           '@team12',
@@ -150,44 +122,15 @@ export const StressTest: Story = {
           '#tag19',
           '#tag20',
         ],
-        documents: [
-          {
-            filename: 'README',
-            isRoot: true,
-            content: 'content6',
-            path: '/path/doc6',
-          },
-          {
-            filename: 'doc7',
-            isRoot: false,
-            content: 'content7',
-            path: '/path/doc7',
-          },
-          {
-            filename: 'doc8',
-            isRoot: false,
-            content: 'content8',
-            path: '/path/doc8',
-          },
-          {
-            filename: 'doc9',
-            isRoot: false,
-            content: 'content9',
-            path: '/path/doc9',
-          },
-          {
-            filename: 'doc10',
-            isRoot: false,
-            content: 'content10',
-            path: '/path/doc10',
-          },
-        ],
       },
       {
-        name: 'package-three',
-        type: PackageType.NODE,
-        version: '1.0.0',
-        path: '/path',
+        package: {
+          name: 'package-three',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [],
         codeowners: [
           '@team21',
           '@team22',
@@ -212,38 +155,90 @@ export const StressTest: Story = {
           '#tag29',
           '#tag30',
         ],
-        documents: [
+      },
+    ] satisfies ColumnData[],
+  },
+};
+
+export const Basic: Story = {
+  args: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    columns: columns as any,
+    data: [
+      {
+        package: {
+          name: 'package-one',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [
           {
-            filename: 'CHANGELOG',
-            isRoot: false,
-            content: 'content11',
-            path: '/path/doc11',
+            status: Status.Warn,
+            name: 'conformance-one',
+            filter: 'tag-one',
+            message: {
+              title: 'This package should adhere to a certain standard',
+              filepath: 'package.json',
+              context: `
+              "  Object {
+                  \\"devDependencies\\": Object {
+                    \\"pkg-b\\": \\"^18.0.2\\",
+                  },
+                  \\"peerDependencies\\": Object {
+                    \\"pkg-b\\": \\">=18\\",
+                  },
+                }"
+            `,
+            },
+            package: {
+              name: 'package-one',
+              type: PackageType.NODE,
+              version: '1.0.0',
+              path: '/path',
+              description: 'description',
+            },
           },
           {
-            filename: 'doc12',
-            isRoot: false,
-            content: 'content12',
-            path: '/path/doc12',
-          },
-          {
-            filename: 'doc13',
-            isRoot: false,
-            content: 'content13',
-            path: '/path/doc13',
-          },
-          {
-            filename: 'doc14',
-            isRoot: false,
-            content: 'content14',
-            path: '/path/doc14',
-          },
-          {
-            filename: 'doc15',
-            isRoot: false,
-            content: 'content15',
-            path: '/path/doc15',
+            status: Status.Fail,
+            name: 'conformance-two',
+            filter: 'tag-two',
+            message: {
+              title: 'This package is bad',
+              filepath: 'package.json',
+              context: `
+              "  Object {
+                  \\"devDependencies\\": Object {
+                    \\"pkg-b\\": \\"^18.0.2\\",
+                  },
+                  \\"peerDependencies\\": Object {
+                    \\"pkg-b\\": \\">=18\\",
+                  },
+                }"
+                `,
+            },
+            package: {
+              name: 'package-one',
+              type: PackageType.NODE,
+              version: '1.0.0',
+              path: '/path',
+              description: 'description',
+            },
           },
         ],
+        codeowners: ['@team1', '@team2'],
+        tags: ['#tag1', '#tag2'],
+      },
+      {
+        package: {
+          name: 'package-two',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [],
+        codeowners: ['@team1', '@team2'],
+        tags: ['#tag1', '#tag2'],
       },
     ] satisfies ColumnData[],
   },
@@ -255,22 +250,26 @@ export const EmptyMetadata: Story = {
     columns: columns as any,
     data: [
       {
-        name: 'package-one',
-        type: PackageType.NODE,
-        version: '1.0.0',
-        path: '/path',
+        package: {
+          name: 'package-one',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [],
         codeowners: [],
         tags: [],
-        documents: [],
       },
       {
-        name: 'package-two',
-        type: PackageType.NODE,
-        version: '1.0.0',
-        path: '/path',
+        package: {
+          name: 'package-two',
+          type: PackageType.NODE,
+          version: '1.0.0',
+          path: '/path',
+        },
+        results: [],
         codeowners: [],
         tags: [],
-        documents: [],
       },
     ] satisfies ColumnData[],
   },

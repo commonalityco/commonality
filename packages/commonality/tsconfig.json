@@ -1,11 +1,9 @@
 {
-  "extends": "@commonalityco/config-tsconfig/node16.json",
+  "extends": "@commonalityco/config-tsconfig/react.json",
   "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
-    "outDir": "dist",
-    "module": "Node16",
-    "moduleResolution": "Node16",
-    "resolveJsonModule": true,
+    "outDir": "./dist",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true

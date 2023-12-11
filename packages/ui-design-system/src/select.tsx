@@ -8,7 +8,7 @@ import ReactSelect, {
 } from 'react-select';
 import { ChevronDown, X } from 'lucide-react';
 import { CSSProperties } from 'react';
-import { cn } from './cn.js';
+import { cn } from './cn';
 import Creatable, { CreatableProps } from 'react-select/creatable';
 import { cva, VariantProps } from 'class-variance-authority';
 

@@ -60,6 +60,5 @@ lib-cov
 
 # Build
 lib
-dist
 .next
 .turbo

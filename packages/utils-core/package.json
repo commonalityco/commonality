@@ -1,32 +1,46 @@
 {
   "name": "@commonalityco/utils-core",
-  "version": "0.0.11",
+  "version": "0.0.10",
   "type": "module",
   "description": "Contains the common constants used in all Commonality applications and packages",
   "sideEffects": false,
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": "./dist/index.js",
+      "./ui": "./dist/ui/index.ts"
+    }
   },
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
+  "main": "./src/index.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./*": "./dist/*.js"
+    ".": "./src/index.ts",
+    "./ui": "./src/ui/index.ts"
   },
-  "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "build": "tsc",
-    "dev": "tsc --watch",
-    "test": "vitest"
+    "build": "tsc --build",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
   },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "eslint-config-commonality": "workspace:*",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "@types/react": "^18.2.22",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^2.2.1"
-  }
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/utils-core"
 }

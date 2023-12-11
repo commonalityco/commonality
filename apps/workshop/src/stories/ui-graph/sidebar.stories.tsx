@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Sidebar } from '@commonalityco/ui-graph';
+import { Sidebar } from '@commonalityco/feature-constraints/components';
 import type { Package } from '@commonalityco/types';
 import { PackageType } from '@commonalityco/utils-core';
 
