@@ -93,7 +93,7 @@ describe('<StudioTagsCell />', () => {
       } as unknown as Row<ColumnData>,
     };
 
-    render(<StudioTagsCell {...mockData} />);
+    render(<StudioTagsCell {...mockData} tags={[]} />);
 
     const tagOne = screen.getByText(/#tag1/i);
     expect(tagOne).toBeInTheDocument();
@@ -118,7 +118,7 @@ describe('<StudioTagsCell />', () => {
       } as unknown as Row<ColumnData>,
     };
 
-    render(<StudioTagsCell {...mockData} />);
+    render(<StudioTagsCell {...mockData} tags={[]} />);
 
     const addTagsButton = screen.getByRole('button', { name: /add tags/i });
     await userEvent.click(addTagsButton);
