@@ -8,7 +8,7 @@ export const getProjectConfig = async ({
   rootDirectory?: string;
 }): Promise<ProjectConfigData | undefined> => {
   const configPath = await findUp(
-    ['.commonality/config.js', '.commonality/config.ts'],
+    ['commonality.config.js', 'commonality.config.ts'],
     {
       cwd: rootDirectory,
       stopAt: rootDirectory,

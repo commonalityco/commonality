@@ -30,7 +30,7 @@ describe('getProjectConfig', () => {
 
       expect(config).toEqual({
         isEmpty: false,
-        filepath: expect.stringContaining('.commonality/config.ts'),
+        filepath: expect.stringContaining('commonality.config.ts'),
         config: {
           projectId: '123',
           constraints: [
