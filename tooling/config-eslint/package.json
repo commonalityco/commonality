@@ -6,9 +6,6 @@
     "name": "Alec Ortega",
     "email": "alec@commonality.co"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "license": "MIT",
   "main": ".eslintrc.js",
   "engines": {
