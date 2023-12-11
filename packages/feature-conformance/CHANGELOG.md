@@ -1,5 +1,11 @@
 # @commonalityco/feature-conformance
 
+## 0.0.20
+
+### Patch Changes
+
+- 33f249e: Always list filepath and publish recommended
+
 ## 0.0.19
 
 ### Patch Changes
