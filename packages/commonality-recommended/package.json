@@ -1,7 +1,9 @@
 {
   "name": "commonality-recommended",
   "description": "Commonality's recommended conformers.",
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.3",
   "type": "module",
   "types": "./dist/index.d.ts",

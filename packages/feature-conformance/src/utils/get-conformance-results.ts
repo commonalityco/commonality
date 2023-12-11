@@ -78,7 +78,7 @@ export const getConformanceResults = async ({
               }
 
               try {
-                return await conformer.message({
+                const message = await conformer.message({
                   workspace: Object.freeze({
                     path: path.join(rootDirectory, pkg.path),
                     relativePath: pkg.path,
@@ -94,10 +94,16 @@ export const getConformanceResults = async ({
                   tags: tagsMap.get(pkg.name as string) ?? [],
                   codeowners: codeownersMap.get(pkg.name as string) ?? [],
                 });
+
+                return {
+                  ...message,
+                  filepath: message.filepath ?? pkg.path,
+                };
               } catch (error) {
                 if (error instanceof Error) {
                   return {
                     title: error.message,
+                    filepath: pkg.path,
                     context: error.stack,
                   };
                 }
