@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.26
+
+### Patch Changes
+
+- 25fcefa: Fix studio startup
+
 ## 0.2.25
 
 ### Patch Changes

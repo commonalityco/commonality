@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.27
+
+### Patch Changes
+
+- 25fcefa: Fix studio startup
+
 ## 0.2.26
 
 ### Patch Changes
