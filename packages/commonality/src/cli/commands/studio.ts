@@ -12,7 +12,7 @@ import killPort from 'kill-port';
 import url from 'node:url';
 import { createRequire } from 'node:module';
 import c from 'picocolors';
-import { isPackageExists } from 'local-pkg';
+import { resolveModule } from 'local-pkg';
 import { isCI } from 'std-env';
 const EXIT_CODE_RESTART = 43;
 
@@ -20,18 +20,26 @@ const command = new Command();
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-export async function ensurePackageInstalled(dependency: string, root: string) {
+export async function ensurePackageInstalled(
+  dependency: string,
+  root: string,
+): Promise<string | undefined> {
   if (process.versions.pnp) {
     const targetRequire = createRequire(__dirname);
     try {
-      targetRequire.resolve(dependency, { paths: [root, __dirname] });
-      return true;
+      return targetRequire.resolve(dependency, {
+        paths: [root, __dirname],
+      });
     } catch {
-      return false;
+      return;
     }
   }
 
-  if (isPackageExists(dependency, { paths: [root, __dirname] })) return true;
+  const resolved = resolveModule(DEPENDENCY_NAME, {
+    paths: [root, __dirname],
+  });
+
+  if (resolved) return resolved;
 
   const promptInstall = !isCI && process.stdout.isTTY;
 
@@ -43,7 +51,7 @@ export async function ensurePackageInstalled(dependency: string, root: string) {
     ),
   );
 
-  if (!promptInstall) return false;
+  if (!promptInstall) return;
 
   const prompts = await import('prompts');
 
@@ -67,8 +75,6 @@ export async function ensurePackageInstalled(dependency: string, root: string) {
     );
     process.exit(EXIT_CODE_RESTART);
   }
-
-  return false;
 }
 
 const DEPENDENCY_NAME = '@commonalityco/studio';
@@ -96,9 +102,16 @@ export const studio = command
 
       const rootDirectory = await getRootDirectory();
 
-      await ensurePackageInstalled(DEPENDENCY_NAME, rootDirectory);
+      const resolved = await ensurePackageInstalled(
+        DEPENDENCY_NAME,
+        rootDirectory,
+      );
 
-      const studio = await import(DEPENDENCY_NAME);
+      if (!resolved) {
+        return;
+      }
+
+      const studio = await import(resolved);
 
       const port = await getPort({ port: 8888 });
 

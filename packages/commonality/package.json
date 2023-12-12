@@ -8,6 +8,10 @@
   "engines": {
     "node": ">=16"
   },
+  "files": [
+    "dist",
+    "bin.js"
+  ],
   "types": "./dist/utilities/index.d.ts",
   "main": "./dist/utilities/index.js",
   "exports": {
