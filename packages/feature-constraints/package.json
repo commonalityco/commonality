@@ -72,7 +72,7 @@
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
-    "lucide-react": "^0.274.0",
+    "lucide-react": "^0.294.0",
     "mock-fs": "^5.2.0",
     "react-resizable-panels": "^0.0.63",
     "server-only": "^0.0.1",

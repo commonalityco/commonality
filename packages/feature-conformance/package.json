@@ -55,7 +55,7 @@
     "fs-extra": "^11.1.1",
     "jest-diff": "^29.7.0",
     "lodash-es": "^4.17.21",
-    "lucide-react": "^0.274.0",
+    "lucide-react": "^0.294.0",
     "mock-fs": "^5.2.0",
     "server-only": "^0.0.1",
     "strip-ansi": "^7.1.0"
