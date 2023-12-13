@@ -1,7 +1,7 @@
 'use client';
 import 'xstate';
 import { createActorContext } from '@xstate/react';
-import { graphMachine } from '../data';
+import { graphMachine } from '../state/graph-machine';
 
 export const GraphContext: ReturnType<
   typeof createActorContext<typeof graphMachine>

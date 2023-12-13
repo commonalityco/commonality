@@ -16,6 +16,7 @@
     ".": "./src/index.ts",
     "./components": "./src/components/index.ts",
     "./data": "./src/data/index.ts",
+    "./state": "./src/state/index.ts",
     "./utilities": "./src/utilities/index.ts"
   },
   "license": "MIT",

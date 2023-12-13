@@ -5,6 +5,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "COMMONALITY_ROOT_DIRECTORY='../../' NODE_ENV=development node server.js",
     "build": "next build",
@@ -19,8 +22,38 @@
     "lint:fix": "eslint . --fix"
   },
   "main": "./start.mjs",
+  "files": [
+    "start.mjs",
+    ".next/",
+    "next.config.js",
+    "server.js",
+    "dist/"
+  ],
   "dependencies": {
+    "execa": "^7.2.0",
+    "socket.io-client": "^4.7.2",
+    "next": "14.0.1",
+    "socket.io": "^4.7.2",
+    "chokidar": "^3.5.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.20",
+    "@babel/preset-env": "^7.22.20",
     "@commonalityco/data-codeowners": "workspace:*",
+    "bufferutil": "^4.0.7",
+    "cookies-next": "^3.0.0",
+    "cytoscape": "^3.26.0",
+    "date-fns": "^2.30.0",
+    "localforage": "^1.10.0",
+    "lodash": "^4.17.21",
+    "open-editor": "^4.1.1",
+    "path-browserify": "^1.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "strip-ansi": "^7.1.0",
+    "utf-8-validate": "^6.0.3",
+    "xstate": "^4.38.2",
+    "zod": "^3.22.2",
     "@commonalityco/data-packages": "workspace:*",
     "@commonalityco/data-project": "workspace:*",
     "@commonalityco/data-tags": "workspace:*",
@@ -34,38 +67,6 @@
     "@hookform/resolvers": "^3.3.1",
     "@tanstack/react-table": "^8.10.1",
     "@xstate/react": "^3.2.2",
-    "bufferutil": "^4.0.7",
-    "cookies-next": "^3.0.0",
-    "cytoscape": "^3.26.0",
-    "date-fns": "^2.30.0",
-    "localforage": "^1.10.0",
-    "lodash": "^4.17.21",
-    "open-editor": "^4.1.1",
-    "path-browserify": "^1.0.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "socket.io-client": "^4.7.2",
-    "strip-ansi": "^7.1.0",
-    "utf-8-validate": "^6.0.3",
-    "xstate": "^4.38.2",
-    "zod": "^3.22.2"
-  },
-  "peerDependencies": {
-    "chokidar": "3.x",
-    "next": "14.0.1",
-    "react-hook-form": "7.x",
-    "socket.io": "4.x"
-  },
-  "files": [
-    "start.mjs",
-    ".next/",
-    "next.config.js",
-    "server.js",
-    "dist/"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.22.20",
-    "@babel/preset-env": "^7.22.20",
     "@commonalityco/config-tailwind": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@next/bundle-analyzer": "^13.5.2",
@@ -90,7 +91,6 @@
     "eslint": "^8.49.0",
     "eslint-config-commonality": "workspace:*",
     "eslint-config-next": "13.4.19",
-    "execa": "^7.2.0",
     "fs-extra": "^11.1.1",
     "get-port": "^7.0.0",
     "jest": "^29.7.0",
@@ -105,7 +105,6 @@
     "prettier-plugin-tailwindcss": "^0.5.4",
     "react-hook-form": "^7.46.1",
     "server-only": "^0.0.1",
-    "socket.io": "^4.7.2",
     "start-server-and-test": "^2.0.0",
     "tailwindcss": "^3.3.3",
     "ts-node": "^10.9.1",
