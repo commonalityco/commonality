@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getConformanceResults } from '../src/get-conformance-results';
+import { getConformanceResults } from './get-conformance-results';
 import { Check, Package, TagsData } from '@commonalityco/types';
 import { PackageType, Status } from '@commonalityco/utils-core';
 

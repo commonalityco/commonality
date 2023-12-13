@@ -13,6 +13,9 @@
     },
     "types": "./dist/index.d.ts"
   },
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": "./src/index.ts",
     "./ui": "./src/ui/index.ts",

@@ -1,5 +1,5 @@
 import { describe, expect, it, afterEach } from 'vitest';
-import { file } from '../../src/files/file';
+import { file } from './file';
 import fs from 'fs-extra';
 import mock from 'mock-fs';
 
