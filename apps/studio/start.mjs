@@ -1,4 +1,4 @@
-import execa from 'execa';
+import { execa } from 'execa';
 import url from 'node:url';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));

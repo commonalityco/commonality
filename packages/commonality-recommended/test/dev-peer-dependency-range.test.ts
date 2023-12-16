@@ -229,7 +229,7 @@ describe('dev-peer-dependency-range', () => {
       expect(result.title).toEqual(
         'Packages with peerDependencies must have matching devDependencies within a valid range',
       );
-      expect(result.context).toMatchInlineSnapshot(`
+      expect(result.suggestion).toMatchInlineSnapshot(`
         "  Object {
             \\"devDependencies\\": Object {
               \\"pkg-b\\": \\"^17.0.2\\",
@@ -262,7 +262,7 @@ describe('dev-peer-dependency-range', () => {
       expect(result.title).toEqual(
         'Packages with peerDependencies must have matching devDependencies within a valid range',
       );
-      expect(result.context).toMatchInlineSnapshot('undefined');
+      expect(result.suggestion).toMatchInlineSnapshot('undefined');
     });
   });
 });

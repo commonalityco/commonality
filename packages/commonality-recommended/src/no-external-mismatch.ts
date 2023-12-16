@@ -142,7 +142,7 @@ export const noExternalMismatch = defineCheck(() => {
       return {
         title:
           'External dependencies must match the most common or highest version',
-        context: diff(
+        suggestion: diff(
           pick(packageJson, DEPENDENCY_TYPES),
           pick(expectedPackageJson, DEPENDENCY_TYPES),
         ),

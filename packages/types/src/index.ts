@@ -98,7 +98,7 @@ export type CheckFn<T> = (opts: CheckOptions) => T | Promise<T>;
 
 export type Message = {
   title: string;
-  context?: string;
+  suggestion?: string;
   // A path to a file relative to the package's folder.
   filepath?: string;
 };

@@ -129,7 +129,7 @@ export const devPeerDependencyRange = defineCheck(() => {
 
       return {
         title,
-        context: diff(source, target),
+        suggestion: diff(source, target),
         filepath: 'package.json',
       };
     },

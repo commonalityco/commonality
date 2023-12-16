@@ -326,7 +326,7 @@ describe('conform', () => {
               message: {
                 title: 'This package should be awesome',
                 filepath: 'package.json',
-                context: `I\nam\na\nmultiline\nstring`,
+                suggestion: `I\nam\na\nmultiline\nstring`,
               },
             },
             {

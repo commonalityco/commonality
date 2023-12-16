@@ -8,8 +8,6 @@
     "Alec Ortega <alec@commonality.co> (https://github.com/alecortega)"
   ],
   "scripts": {
-    "commonality:studio": "commonality studio",
-    "commonality:validate": "commonality validate",
     "dev": "turbo run dev --parallel",
     "conform": "commonality conform",
     "build": "turbo run build",

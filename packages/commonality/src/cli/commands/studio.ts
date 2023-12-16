@@ -14,6 +14,8 @@ import { createRequire } from 'node:module';
 import c from 'picocolors';
 import { resolveModule } from 'local-pkg';
 import { isCI } from 'std-env';
+import { prompt } from 'prompts';
+
 const EXIT_CODE_RESTART = 43;
 
 const command = new Command();
@@ -53,26 +55,29 @@ export async function ensurePackageInstalled(
 
   if (!promptInstall) return;
 
-  const prompts = await import('prompts');
-
-  const { install } = await prompts.default.prompt({
+  const { install } = await prompt({
     type: 'confirm',
     name: 'install',
     message: c.reset(`Do you want to install ${c.green(dependency)}?`),
+    stdout: process.stdout,
+    stdin: process.stdin,
   });
 
   if (install) {
     const installPkg = await import('@antfu/install-pkg');
     const packageManager = await getPackageManager({ rootDirectory: root });
+
     await installPkg.installPackage(dependency, {
       dev: true,
       additionalArgs: packageManager === 'pnpm' ? ['-w'] : [],
     });
+
     process.stderr.write(
       c.yellow(
         `\nPackage ${dependency} installed, re-run the command to start.\n`,
       ),
     );
+
     process.exit(EXIT_CODE_RESTART);
   }
 }
@@ -84,6 +89,8 @@ export const studio = command
   .description('Open Commonality Studio')
   .option('--debug')
   .action(async (options: { debug?: boolean }) => {
+    console.log(`📦 Starting Commonality Studio...\n`);
+
     const debug = Boolean(options.debug);
 
     process.on('SIGINT', async function () {
@@ -116,8 +123,6 @@ export const studio = command
       const port = await getPort({ port: 8888 });
 
       const url = `http://127.0.0.1:${port}`;
-
-      console.log(`📦 Starting Commonality Studio...\n`);
 
       studio.startStudio({ port, rootDirectory, debug });
 

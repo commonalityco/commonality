@@ -19,14 +19,9 @@ A constraint can have both `allow` and `disallow` properties, however any depend
 
 Disallow constraints are applied to all direct and transitive dependencies.
 
-**Example**
-
-| value                    | description                        |
-| :----------------------- | :--------------------------------- |
-| `"*"`                    | Constraint will fail if it has any |
-| `["tag-one", "tag-two"]` | Allow all tags.                    |
-
 #### Disallow all direct and transitive dependencies
+
+Commonality will disallow any direct or indirect dependency
 
 ```json
 {
@@ -44,11 +39,7 @@ Commonality will only allow direct dependencies that have the `api` or `internal
 }
 ```
 
-### `disallow`
-
-| Default | Required |
-| :------ | :------- |
-| None    | false    |
+### `allow`
 
 **Type**
 
@@ -57,10 +48,10 @@ Commonality will only allow direct dependencies that have the `api` or `internal
 **Description**
 
 Constraints may allow all direct dependencies or a list of tags that all direct dependencies must have.
-If `"*"` is specified, all internal dependencies are allowed.
-If a list of tags is specified, only dependencies whose target packages has a matching tag will be allowed.
 
 #### Allow all direct dependencies
+
+Commonality will allow all direct dependencies
 
 ```json
 {

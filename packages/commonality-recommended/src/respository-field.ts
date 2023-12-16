@@ -130,7 +130,7 @@ export const repositoryField = defineCheck(() => {
         return {
           title: 'Package.json is missing.',
           filepath: 'package.json',
-          context: 'Create a package.json file in your workspace.',
+          suggestion: 'Create a package.json file in your workspace.',
         };
       }
 
@@ -138,14 +138,14 @@ export const repositoryField = defineCheck(() => {
         return {
           title: 'Repository field is missing.',
           filepath: 'package.json',
-          context: 'Add a repository field to your root package.json',
+          suggestion: 'Add a repository field to your root package.json',
         };
       }
 
       return {
         title: `Package's repository property must extend the repository property at the root of your project.`,
         filepath: 'package.json',
-        context: diff(
+        suggestion: diff(
           pick(packageJson, ['name', 'repository']),
           pick(
             {

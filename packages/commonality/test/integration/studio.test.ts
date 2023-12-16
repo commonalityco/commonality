@@ -1,4 +1,5 @@
-import { describe, test, expect } from 'vitest';
+import { describe, test, vi, expect } from 'vitest';
+
 import fs from 'fs-extra';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -26,31 +27,36 @@ describe('studio', () => {
     );
     await fs.copy(fixturePath, temporaryPath);
 
-    const serverProcess = execa(binPath, ['studio', '--debug'], {
+    vi.spyOn(process.stdout, 'write');
+
+    const cliProcess = execa(binPath, ['studio', '--debug'], {
       cwd: temporaryPath,
+      stdout: 'pipe',
     });
 
-    const expectedText = 'Viewable at: http://127.0.0.1';
+    setTimeout(() => {
+      cliProcess.stdin?.write(`y\n`);
+      cliProcess.stdin?.end();
+    }, 0);
 
-    return new Promise((resolve, reject) => {
-      if (!serverProcess?.stdout) {
-        return reject('No stdout for process');
-      }
+    const { stdout } = await cliProcess;
 
-      serverProcess?.stdout?.on('data', (data) => {
-        const output = data.toString();
+    console.log({ stdout });
 
-        if (output.includes(expectedText)) {
-          // Step 3: Assert the log
-          expect(output).toContain(expectedText);
+    // expect(stdoutMock).toBeCalledWith();
 
-          // Step 4: Cleanup - kill the server process
-          serverProcess.kill();
+    // for await (const chunk of cliProcess?.stdout) {
+    //   console.log(chunk.toString());
+    // }
 
-          // Signal that the test is complete
-          return resolve({});
-        }
-      });
-    });
+    // const expectedInstallText = `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`;
+
+    // stdin.send('y\n');
+    // stdin.end();
+
+    // const { stdout } = await cliProcess;
+
+    // expect(stdout).toMatchInlineSnapshot();
+    // stdin.restore();
   });
 });

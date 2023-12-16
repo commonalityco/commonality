@@ -43,7 +43,7 @@ export const KitchenSink: Story = {
         message: {
           title: 'test-one',
           filepath: 'package.json',
-          context: 'package.json',
+          suggestion: 'package.json',
         },
       },
       {
@@ -59,7 +59,7 @@ export const KitchenSink: Story = {
         message: {
           title: 'test-one',
           filepath: 'package.json',
-          context: 'package.json',
+          suggestion: 'package.json',
         },
       },
       {
@@ -77,7 +77,7 @@ export const KitchenSink: Story = {
             'test-oneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
           filepath:
             'package.jsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
-          context:
+          suggestion:
             'const foo = "fehfwiuheiufhwihuehufwiuhefwuiehfiuhweiufweiuhfwuhefhwiuhefhwiuehfiwuheifhuwihefiuwheihfwieuhfiwuhefihwiehufiwhehfwiheifhwiuehfiwuhefihuweifuhhiwhefiwuh"',
         },
       },
@@ -94,7 +94,7 @@ export const KitchenSink: Story = {
         message: {
           title: 'test-one',
           filepath: 'package.json',
-          context: 'package.json',
+          suggestion: 'package.json',
         },
       },
       {

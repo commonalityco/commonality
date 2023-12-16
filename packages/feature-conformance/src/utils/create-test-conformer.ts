@@ -21,15 +21,17 @@ type TestConformer<T> = {
     : T[P];
 };
 
+interface TestCheckOptions {
+  workspace?: Workspace;
+  rootWorkspace?: Workspace;
+  allWorkspaces?: Workspace[];
+  codeowners?: Codeowner[];
+  tags?: Tag[];
+}
+
 export function createTestCheck<T extends Check>(
   conformer: T,
-  testOptions?: {
-    workspace?: Workspace;
-    rootWorkspace?: Workspace;
-    allWorkspaces?: Workspace[];
-    codeowners?: Codeowner[];
-    tags?: Tag[];
-  },
+  options?: TestCheckOptions,
 ): TestConformer<T> {
   const defaultWorkspace = {
     path: './',
@@ -41,11 +43,11 @@ export function createTestCheck<T extends Check>(
   } satisfies Workspace;
 
   const testFixtures = {
-    tags: testOptions?.tags ?? [],
-    codeowners: testOptions?.codeowners ?? [],
-    workspace: testOptions?.workspace ?? defaultWorkspace,
-    rootWorkspace: testOptions?.rootWorkspace ?? defaultRootWorkspace,
-    allWorkspaces: testOptions?.allWorkspaces ?? [defaultWorkspace],
+    tags: options?.tags ?? [],
+    codeowners: options?.codeowners ?? [],
+    workspace: options?.workspace ?? defaultWorkspace,
+    rootWorkspace: options?.rootWorkspace ?? defaultRootWorkspace,
+    allWorkspaces: options?.allWorkspaces ?? [defaultWorkspace],
   };
 
   return {
@@ -69,8 +71,10 @@ export function createTestCheck<T extends Check>(
 
             return {
               ...result,
-              context: result.context ? stripAnsi(result.context) : undefined,
-            };
+              suggestion: result.suggestion
+                ? stripAnsi(result.suggestion)
+                : undefined,
+            } satisfies Message;
           }
         : conformer.message,
   } as TestConformer<T>;

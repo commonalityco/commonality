@@ -37,7 +37,7 @@ export const validPackageName = defineCheck(() => ({
     return {
       title: 'Invalid package name',
       filepath: 'package.json',
-      context: result.errors
+      suggestion: result.errors
         ? result.errors.join('\n')
         : result.warnings?.join('\n'),
     };

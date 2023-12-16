@@ -173,8 +173,8 @@ const reportConformanceResults = ({
             );
           }
 
-          if (result.message.context) {
-            logger.addSubText(result.message.context);
+          if (result.message.suggestion) {
+            logger.addSubText(result.message.suggestion);
           }
 
           logger.addSubText();

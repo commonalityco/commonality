@@ -180,7 +180,7 @@ export const Basic: Story = {
             message: {
               title: 'This package should adhere to a certain standard',
               filepath: 'package.json',
-              context: `
+              suggestion: `
               "  Object {
                   \\"devDependencies\\": Object {
                     \\"pkg-b\\": \\"^18.0.2\\",
@@ -206,7 +206,7 @@ export const Basic: Story = {
             message: {
               title: 'This package is bad',
               filepath: 'package.json',
-              context: `
+              suggestion: `
               "  Object {
                   \\"devDependencies\\": Object {
                     \\"pkg-b\\": \\"^18.0.2\\",

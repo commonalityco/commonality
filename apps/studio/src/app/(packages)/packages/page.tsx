@@ -54,12 +54,12 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
   const data = await getTableData({
     packages,
     results: results.map((result) => {
-      const strippedResult = result.message.context
+      const strippedResult = result.message.suggestion
         ? {
             ...result,
             message: {
               ...result.message,
-              context: stripAnsi(result.message.context),
+              suggestion: stripAnsi(result.message.suggestion),
             },
           }
         : result;
