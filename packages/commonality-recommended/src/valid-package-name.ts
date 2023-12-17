@@ -3,8 +3,11 @@ import validateNpmPackageName from 'validate-npm-package-name';
 
 export const validPackageName = defineCheck(() => ({
   name: 'commonality/valid-package-name',
-  validate: async () => {
-    const packageJson = await json<PackageJson>('package.json').get();
+  validate: async ({ workspace }) => {
+    const packageJson = await json<PackageJson>(
+      workspace.path,
+      'package.json',
+    ).get();
 
     if (!packageJson || !packageJson.name) {
       return false;
@@ -22,8 +25,11 @@ export const validPackageName = defineCheck(() => ({
     return true;
   },
   type: 'error',
-  message: async () => {
-    const packageJson = await json<PackageJson>('package.json').get();
+  message: async ({ workspace }) => {
+    const packageJson = await json<PackageJson>(
+      workspace.path,
+      'package.json',
+    ).get();
 
     if (!packageJson || !packageJson.name) {
       return {

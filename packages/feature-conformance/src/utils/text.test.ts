@@ -17,7 +17,7 @@ describe('text', () => {
       mock({
         [filename]: content,
       });
-      const lines = await text(filename).get();
+      const lines = await text('./', filename).get();
 
       expect(lines).toEqual([
         '# First line',
@@ -29,7 +29,7 @@ describe('text', () => {
 
     it('should return undefined if the file does not exist', async () => {
       mock({});
-      const lines = await text(filename).get();
+      const lines = await text('./', filename).get();
 
       expect(lines).toEqual(undefined);
     });
@@ -41,7 +41,7 @@ describe('text', () => {
         [filename]: content,
       });
 
-      const result = await text(filename).contains(['# First line']);
+      const result = await text('./', filename).contains(['# First line']);
 
       expect(result).toEqual(true);
     });
@@ -51,7 +51,7 @@ describe('text', () => {
         [filename]: content,
       });
 
-      const result = await text(filename).contains(['# Fourth line']);
+      const result = await text('./', filename).contains(['# Fourth line']);
 
       expect(result).toEqual(false);
     });
@@ -59,7 +59,7 @@ describe('text', () => {
     it('should return false if the file does exist', async () => {
       mock({});
 
-      const result = await text(filename).contains(['# Fourth line']);
+      const result = await text('./', filename).contains(['# Fourth line']);
 
       expect(result).toEqual(false);
     });
@@ -71,7 +71,7 @@ describe('text', () => {
         [filename]: content,
       });
 
-      await text(filename).set(['line1', 'line2', 'line3']);
+      await text('./', filename).set(['line1', 'line2', 'line3']);
 
       const textData = await fs.readFile(filename, 'utf8');
 
@@ -85,7 +85,7 @@ describe('text', () => {
     it('should write lines to text file if it does not exist', async () => {
       mock({});
 
-      await text(filename).set(['line1', 'line2', 'line3']);
+      await text('./', filename).set(['line1', 'line2', 'line3']);
 
       const textData = await fs.readFile(filename, 'utf8');
 
@@ -103,7 +103,7 @@ describe('text', () => {
         [filename]: content,
       });
 
-      await text(filename).add(['### Fourth line']);
+      await text('./', filename).add(['### Fourth line']);
 
       const textData = await fs.readFile(filename, 'utf8');
 
@@ -119,7 +119,7 @@ describe('text', () => {
     it('should add lines to text file if it does not exist', async () => {
       mock({});
 
-      await text(filename).add(['### Fourth line']);
+      await text('./', filename).add(['### Fourth line']);
 
       const textData = await fs.readFile(filename, 'utf8');
 
@@ -133,7 +133,7 @@ describe('text', () => {
         [filename]: content,
       });
 
-      await text(filename).remove(['### Third line']);
+      await text('./', filename).remove(['### Third line']);
 
       const textData = await fs.readFile(filename, 'utf8');
 
@@ -147,9 +147,9 @@ describe('text', () => {
     it('should not throw if file does not exist', async () => {
       mock({});
 
-      await expect(text(filename).remove(['### Third line'])).resolves.toEqual(
-        undefined,
-      );
+      await expect(
+        text('./', filename).remove(['### Third line']),
+      ).resolves.toEqual(undefined);
     });
   });
 });

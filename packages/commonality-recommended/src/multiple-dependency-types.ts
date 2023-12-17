@@ -44,8 +44,11 @@ export const multipleDependencyTypes = defineCheck(() => {
   return {
     name: 'commonality/multiple-dependency-types',
 
-    validate: async () => {
-      const packageJson = await json<PackageJson>('package.json').get();
+    validate: async ({ workspace }) => {
+      const packageJson = await json<PackageJson>(
+        workspace.path,
+        'package.json',
+      ).get();
 
       if (!packageJson) {
         return false;
@@ -62,8 +65,11 @@ export const multipleDependencyTypes = defineCheck(() => {
       return multipleDependencyTypes.length === 0;
     },
 
-    fix: async () => {
-      const packageJson = await json<PackageJson>('package.json').get();
+    fix: async ({ workspace }) => {
+      const packageJson = await json<PackageJson>(
+        workspace.path,
+        'package.json',
+      ).get();
 
       if (!packageJson) {
         return;
@@ -71,11 +77,14 @@ export const multipleDependencyTypes = defineCheck(() => {
 
       const newPackageJson = getExpectedPackageJson(packageJson);
 
-      await json('package.json').set(newPackageJson);
+      await json(workspace.path, 'package.json').set(newPackageJson);
     },
 
-    message: async () => {
-      const packageJson = await json<PackageJson>('package.json').get();
+    message: async ({ workspace }) => {
+      const packageJson = await json<PackageJson>(
+        workspace.path,
+        'package.json',
+      ).get();
 
       if (!packageJson) {
         return { title: 'Package.json is missing' };

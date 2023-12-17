@@ -16,11 +16,13 @@ const getExpectedProperties = async ({
   { repository: { url: string } } | { repository: string } | undefined
 > => {
   const rootPackageJson = await json<PackageJson>(
-    path.join(rootWorkspace.path, 'package.json'),
+    rootWorkspace.path,
+    'package.json',
   ).get();
 
   const packageJson = await json<PackageJson>(
-    path.join(workspace.path, 'package.json'),
+    workspace.path,
+    'package.json',
   ).get();
 
   if (!packageJson) {
@@ -73,10 +75,12 @@ export const repositoryField = defineCheck(() => {
     name: 'commonality/repository-field',
     validate: async ({ rootWorkspace, workspace }): Promise<boolean> => {
       const rootPackageJson = await json<PackageJson>(
-        path.join(rootWorkspace.path, 'package.json'),
+        rootWorkspace.path,
+        'package.json',
       ).get();
       const packageJson = await json<PackageJson>(
-        path.join(workspace.path, 'package.json'),
+        workspace.path,
+        'package.json',
       ).get();
 
       if (!rootPackageJson || !rootPackageJson.repository || !packageJson) {
@@ -113,7 +117,7 @@ export const repositoryField = defineCheck(() => {
         return;
       }
 
-      return json(path.join(workspace.path, 'package.json')).merge(newConfig);
+      return json(workspace.path, 'package.json').merge(newConfig);
     },
 
     message: async ({ workspace, rootWorkspace }) => {
@@ -123,7 +127,8 @@ export const repositoryField = defineCheck(() => {
       });
 
       const packageJson = await json<PackageJson>(
-        path.join(workspace.path, 'package.json'),
+        workspace.path,
+        'package.json',
       ).get();
 
       if (!packageJson) {

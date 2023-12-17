@@ -36,8 +36,11 @@ const getExpectedPackageJson = (packageJson: PackageJson) => {
 export const sortedDependencies = defineCheck(() => {
   return {
     name: 'commonality/ensure-sorted-dependencies',
-    validate: async () => {
-      const packageJson = await json<PackageJson>('package.json').get();
+    validate: async ({ workspace }) => {
+      const packageJson = await json<PackageJson>(
+        workspace.path,
+        'package.json',
+      ).get();
 
       if (!packageJson) {
         return false;
@@ -54,8 +57,11 @@ export const sortedDependencies = defineCheck(() => {
         return deps && hasSortedKeys;
       });
     },
-    fix: async () => {
-      const packageJson = await json<PackageJson>('package.json').get();
+    fix: async ({ workspace }) => {
+      const packageJson = await json<PackageJson>(
+        workspace.path,
+        'package.json',
+      ).get();
 
       if (!packageJson) {
         return;
@@ -63,7 +69,7 @@ export const sortedDependencies = defineCheck(() => {
 
       const expectedPackageJson = getExpectedPackageJson(packageJson);
 
-      await json('package.json').set(expectedPackageJson);
+      await json(workspace.path, 'package.json').set(expectedPackageJson);
     },
     message: () => {
       return {
