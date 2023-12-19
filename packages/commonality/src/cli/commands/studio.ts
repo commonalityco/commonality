@@ -14,7 +14,8 @@ import { createRequire } from 'node:module';
 import c from 'picocolors';
 import { resolveModule } from 'local-pkg';
 import { isCI } from 'std-env';
-import { prompt } from 'prompts';
+import prompts from 'prompts';
+import { ExecaChildProcess } from 'execa';
 
 const EXIT_CODE_RESTART = 43;
 
@@ -55,7 +56,7 @@ export async function ensurePackageInstalled(
 
   if (!promptInstall) return;
 
-  const { install } = await prompt({
+  const { install } = await prompts.prompt({
     type: 'confirm',
     name: 'install',
     message: c.reset(`Do you want to install ${c.green(dependency)}?`),
@@ -88,18 +89,16 @@ export const studio = command
   .name('studio')
   .description('Open Commonality Studio')
   .option('--debug')
-  .action(async (options: { debug?: boolean }) => {
+  .option(
+    '--port <port>',
+    'The port that Commonality Studio will run on',
+    '8888',
+  )
+  .action(async (options: { debug?: boolean; port?: string }) => {
     console.log(`📦 Starting Commonality Studio...\n`);
 
+    const preferredPort = Number(options.port);
     const debug = Boolean(options.debug);
-
-    process.on('SIGINT', async function () {
-      try {
-        await killPort(8888);
-      } finally {
-        process.exit();
-      }
-    });
 
     try {
       await validateProjectStructure({
@@ -120,13 +119,28 @@ export const studio = command
 
       const studio = await import(resolved);
 
-      const port = await getPort({ port: 8888 });
+      const port = await getPort({
+        port: preferredPort,
+      });
 
       const url = `http://127.0.0.1:${port}`;
 
-      studio.startStudio({ port, rootDirectory, debug });
+      const { kill } = await studio.startStudio({
+        port,
+        rootDirectory,
+        debug,
+        onExit: () => {
+          console.log('Successfully exited Commonality Studio');
+        },
+      });
 
-      await waitOn({ resources: [url] });
+      const handleExit = () => {
+        kill();
+      };
+
+      process.on('SIGINT', handleExit);
+      process.on('SIGTERM', handleExit);
+      process.on('exit', handleExit);
 
       console.log(
         `Viewable at: ${chalk.blue.bold(url)} ${chalk.dim(
@@ -134,10 +148,10 @@ export const studio = command
         )}`,
       );
     } catch (error) {
+      console.log(chalk.red('Failed to start Commonality Studio'));
+
       if (debug) {
         console.log(error);
       }
-
-      console.log(chalk.red('Failed to start Commonality Studio'));
     }
   });

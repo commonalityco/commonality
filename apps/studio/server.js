@@ -53,7 +53,7 @@ const createWebsocketConnection = async (server) => {
       persistent: true,
       cwd: rootDirectory,
     });
-    console.log({ rootDirectory });
+
     watcher
       .on('ready', () => {
         console.log('socket ready');

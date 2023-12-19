@@ -54,10 +54,6 @@ const getExpectedPackageJson = async ({
     }
   }
 
-  if (externalVersionMap.size === 0) {
-    console.log({ workspace, allPackageJsons, allWorkspaces });
-  }
-
   return packageJson;
 };
 
