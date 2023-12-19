@@ -8,6 +8,7 @@ import os from 'node:os';
 import { afterEach } from 'node:test';
 import { Writable } from 'node:stream';
 import getPort from 'get-port';
+import stripAnsi from 'strip-ansi';
 
 const binPath = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -52,7 +53,7 @@ describe('studio', () => {
       const stdoutMock = new Writable({
         write(chunk, encoding, callback) {
           console.log({ chunk: chunk.toString() });
-          output += chunk.toString();
+          output += stripAnsi(chunk.toString());
           callback();
         },
       });
