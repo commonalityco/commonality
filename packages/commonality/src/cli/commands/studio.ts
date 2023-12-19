@@ -23,10 +23,15 @@ const command = new Command();
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-export async function ensurePackageInstalled(
-  dependency: string,
-  root: string,
-): Promise<string | undefined> {
+export async function ensurePackageInstalled({
+  dependency,
+  root,
+  forceInstall,
+}: {
+  forceInstall?: boolean;
+  dependency: string;
+  root: string;
+}): Promise<string | undefined> {
   if (process.versions.pnp) {
     const targetRequire = createRequire(__dirname);
     try {
@@ -44,8 +49,6 @@ export async function ensurePackageInstalled(
 
   if (resolved) return resolved;
 
-  const promptInstall = !isCI && process.stdout.isTTY;
-
   process.stderr.write(
     c.red(
       `${c.inverse(
@@ -54,17 +57,29 @@ export async function ensurePackageInstalled(
     ),
   );
 
-  if (!promptInstall) return;
+  const getShouldInstall = async () => {
+    if (forceInstall) return true;
 
-  const { install } = await prompts.prompt({
-    type: 'confirm',
-    name: 'install',
-    message: c.reset(`Do you want to install ${c.green(dependency)}?`),
-    stdout: process.stdout,
-    stdin: process.stdin,
-  });
+    if (isCI) return false;
 
-  if (install) {
+    if (process.stdout.isTTY) {
+      const { install } = await prompts.prompt({
+        type: 'confirm',
+        name: 'install',
+        message: c.reset(`Do you want to install ${c.green(dependency)}?`),
+        stdout: process.stdout,
+        stdin: process.stdin,
+      });
+
+      return install;
+    } else {
+      return false;
+    }
+  };
+
+  const shouldInstall = await getShouldInstall();
+
+  if (shouldInstall) {
     const installPkg = await import('@antfu/install-pkg');
     const packageManager = await getPackageManager({ rootDirectory: root });
 
@@ -73,13 +88,11 @@ export async function ensurePackageInstalled(
       additionalArgs: packageManager === 'pnpm' ? ['-w'] : [],
     });
 
-    process.stderr.write(
-      c.yellow(
-        `\nPackage ${dependency} installed, re-run the command to start.\n`,
-      ),
-    );
+    const resolved = resolveModule(DEPENDENCY_NAME, {
+      paths: [root, __dirname],
+    });
 
-    process.exit(EXIT_CODE_RESTART);
+    return resolved;
   }
 }
 
@@ -88,70 +101,74 @@ const DEPENDENCY_NAME = '@commonalityco/studio';
 export const studio = command
   .name('studio')
   .description('Open Commonality Studio')
-  .option('--debug')
+  .option('--debug', 'Show debug logs')
+  .option('--install', 'Install Commonality Studio if not already installed')
   .option(
     '--port <port>',
     'The port that Commonality Studio will run on',
     '8888',
   )
-  .action(async (options: { debug?: boolean; port?: string }) => {
-    console.log(`📦 Starting Commonality Studio...\n`);
+  .action(
+    async (options: { debug?: boolean; port?: string; install?: boolean }) => {
+      console.log(`📦 Starting Commonality Studio...\n`);
 
-    const preferredPort = Number(options.port);
-    const debug = Boolean(options.debug);
+      const preferredPort = Number(options.port);
+      const debug = Boolean(options.debug);
 
-    try {
-      await validateProjectStructure({
-        directory: process.cwd(),
-        command,
-      });
+      try {
+        await validateProjectStructure({
+          directory: process.cwd(),
+          command,
+        });
 
-      const rootDirectory = await getRootDirectory();
+        const rootDirectory = await getRootDirectory();
 
-      const resolved = await ensurePackageInstalled(
-        DEPENDENCY_NAME,
-        rootDirectory,
-      );
+        const resolved = await ensurePackageInstalled({
+          dependency: DEPENDENCY_NAME,
+          root: rootDirectory,
+          forceInstall: options.install,
+        });
 
-      if (!resolved) {
-        return;
-      }
+        if (!resolved) {
+          return;
+        }
 
-      const studio = await import(resolved);
+        const studio = await import(resolved);
 
-      const port = await getPort({
-        port: preferredPort,
-      });
+        const port = await getPort({
+          port: preferredPort,
+        });
 
-      const url = `http://127.0.0.1:${port}`;
+        const { kill } = studio.startStudio({
+          port,
+          rootDirectory,
+          debug,
+        });
 
-      const { kill } = await studio.startStudio({
-        port,
-        rootDirectory,
-        debug,
-        onExit: () => {
+        const url = `http://127.0.0.1:${port}`;
+
+        await waitOn({ resources: [url] });
+
+        const handleExit = () => {
+          kill();
           console.log('Successfully exited Commonality Studio');
-        },
-      });
+        };
 
-      const handleExit = () => {
-        kill();
-      };
+        process.on('SIGINT', handleExit);
+        process.on('SIGTERM', handleExit);
+        process.on('exit', handleExit);
 
-      process.on('SIGINT', handleExit);
-      process.on('SIGTERM', handleExit);
-      process.on('exit', handleExit);
+        console.log(
+          `Viewable at: ${chalk.blue.bold(url)} ${chalk.dim(
+            '(press ctrl-c to quit)',
+          )}`,
+        );
+      } catch (error) {
+        console.log(chalk.red('Failed to start Commonality Studio'));
 
-      console.log(
-        `Viewable at: ${chalk.blue.bold(url)} ${chalk.dim(
-          '(press ctrl-c to quit)',
-        )}`,
-      );
-    } catch (error) {
-      console.log(chalk.red('Failed to start Commonality Studio'));
-
-      if (debug) {
-        console.log(error);
+        if (debug) {
+          console.log(error);
+        }
       }
-    }
-  });
+    },
+  );

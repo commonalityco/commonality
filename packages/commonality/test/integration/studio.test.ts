@@ -63,7 +63,7 @@ describe('studio', () => {
 
       cliProcess = execa(
         binPath,
-        ['studio', '--debug', '--port', String(preferredPort)],
+        ['studio', '--debug', '--port', String(preferredPort), '--install'],
         {
           cwd: temporaryPath,
           stdout: 'pipe',
@@ -73,22 +73,31 @@ describe('studio', () => {
       let output = '';
       const stdoutMock = new Writable({
         write(chunk, encoding, callback) {
+          console.log({ chunk: chunk.toString() });
           output += chunk.toString();
           callback();
         },
       });
 
       cliProcess.stdout?.pipe(stdoutMock);
+      cliProcess.stderr?.pipe(stdoutMock);
 
-      await waitOn({
-        resources: [`http://127.0.0.1:${preferredPort}`],
-      });
-
+      console.log({ output });
       await waitFor(() => {
         return output.includes('📦 Starting Commonality Studio...');
       });
 
       expect(output).toContain('📦 Starting Commonality Studio...');
+
+      await waitFor(() => {
+        return output.includes(
+          `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
+        );
+      });
+
+      expect(output).toContain(
+        `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
+      );
 
       await waitFor(() => {
         return output.includes(
@@ -100,32 +109,16 @@ describe('studio', () => {
         `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
       );
 
-      cliProcess.kill();
+      cliProcess.kill('SIGTERM', {
+        forceKillAfterTimeout: 2000,
+      });
 
       await waitFor(() => {
         return output.includes(`Successfully exited Commonality Studio`);
       });
 
       expect(output).toContain(`Successfully exited Commonality Studio`);
-
-      // await new Promise((resolve) => {
-      //   setTimeout(() => resolve({}), 5000);
-      // });
-
-      // cliProcess.kill();
-
-      // expect(stdoutMock).toBeCalledWith();
-
-      // const expectedInstallText = `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`;
-
-      // stdin.send('y\n');
-      // stdin.end();
-
-      // const { stdout } = await cliProcess;
-
-      // expect(stdout).toMatchInlineSnapshot();
-      // stdin.restore();
     },
-    { timeout: 5000 },
+    { timeout: 50_000 },
   );
 });
