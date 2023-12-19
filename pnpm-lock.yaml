@@ -722,7 +722,7 @@ importers:
         specifier: ^2.3.2
         version: 2.3.4
       zod:
-        specifier: ^3.22.2
+        specifier: ^3.22.4
         version: 3.22.4
     devDependencies:
       '@commonalityco/config-tsconfig':
@@ -740,6 +740,9 @@ importers:
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
+      mock-fs:
+        specifier: ^5.2.0
+        version: 5.2.0
       typescript:
         specifier: ^5.2.2
         version: 5.3.2
@@ -1246,6 +1249,9 @@ importers:
       '@sindresorhus/slugify':
         specifier: ^2.2.1
         version: 2.2.1
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*

@@ -48,6 +48,7 @@
   },
   "peerDependencies": {
     "@commonalityco/ui-design-system": "*",
+    "@commonalityco/utils-core": "*",
     "react": ">=18",
     "react-dom": ">=18"
   },

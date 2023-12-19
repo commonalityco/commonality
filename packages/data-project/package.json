@@ -31,6 +31,7 @@
     "@types/fs-extra": "^11.0.2",
     "@types/node": "^20.10.0",
     "eslint-config-commonality": "workspace:*",
+    "mock-fs": "^5.2.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
@@ -43,7 +44,7 @@
     "globby": "^13.2.2",
     "jiti": "^1.21.0",
     "yaml": "^2.3.2",
-    "zod": "^3.22.2"
+    "zod": "^3.22.4"
   },
   "repository": "https://github.com/commonalityco/commonality/packages/data-project"
 }
