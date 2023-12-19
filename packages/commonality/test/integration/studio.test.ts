@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach } from 'vitest';
+import { describe, test, expect, beforeEach, vi } from 'vitest';
 
 import fs from 'fs-extra';
 import path from 'node:path';
@@ -6,35 +6,13 @@ import { fileURLToPath } from 'node:url';
 import { ExecaChildProcess, execa } from 'execa';
 import os from 'node:os';
 import { afterEach } from 'node:test';
-import waitOn from 'wait-on';
 import { Writable } from 'node:stream';
-import killPort from 'kill-port';
 import getPort from 'get-port';
 
 const binPath = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '../../bin.js',
 );
-
-const waitFor = (
-  fn: () => Promise<boolean> | boolean,
-  interval: number = 1000,
-) => {
-  return new Promise((resolve, reject) => {
-    const intervalId = setInterval(async () => {
-      try {
-        const result = await fn();
-        if (result) {
-          clearInterval(intervalId);
-          resolve(result);
-        }
-      } catch (error) {
-        clearInterval(intervalId);
-        reject(error);
-      }
-    }, interval);
-  });
-};
 
 describe('studio', () => {
   const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
@@ -82,42 +60,29 @@ describe('studio', () => {
       cliProcess.stdout?.pipe(stdoutMock);
       cliProcess.stderr?.pipe(stdoutMock);
 
-      console.log({ output });
-      await waitFor(() => {
-        return output.includes('📦 Starting Commonality Studio...');
+      await vi.waitFor(() => {
+        expect(output).toContain('📦 Starting Commonality Studio...');
       });
 
-      expect(output).toContain('📦 Starting Commonality Studio...');
-
-      await waitFor(() => {
-        return output.includes(
+      await vi.waitFor(() => {
+        expect(output).toContain(
           `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
         );
       });
 
-      expect(output).toContain(
-        `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
-      );
-
-      await waitFor(() => {
-        return output.includes(
+      await vi.waitFor(() => {
+        expect(output).toContain(
           `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
         );
       });
-
-      expect(output).toContain(
-        `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
-      );
 
       cliProcess.kill('SIGTERM', {
         forceKillAfterTimeout: 2000,
       });
 
-      await waitFor(() => {
-        return output.includes(`Successfully exited Commonality Studio`);
+      await vi.waitFor(() => {
+        expect(output).toContain(`Successfully exited Commonality Studio`);
       });
-
-      expect(output).toContain(`Successfully exited Commonality Studio`);
     },
     { timeout: 50_000 },
   );

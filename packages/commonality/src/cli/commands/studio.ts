@@ -8,16 +8,12 @@ import {
 } from '@commonalityco/data-project';
 import chalk from 'chalk';
 import waitOn from 'wait-on';
-import killPort from 'kill-port';
 import url from 'node:url';
 import { createRequire } from 'node:module';
 import c from 'picocolors';
 import { resolveModule } from 'local-pkg';
 import { isCI } from 'std-env';
 import prompts from 'prompts';
-import { ExecaChildProcess } from 'execa';
-
-const EXIT_CODE_RESTART = 43;
 
 const command = new Command();
 
