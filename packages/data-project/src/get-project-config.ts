@@ -2,7 +2,6 @@ import jiti from 'jiti';
 import { findUp } from 'find-up';
 import { ProjectConfig, projectConfigSchema } from '@commonalityco/utils-core';
 import { ZodError } from 'zod';
-import z from 'zod';
 
 const normalizeZodMessage = (error: unknown): string => {
   return (error as ZodError).issues

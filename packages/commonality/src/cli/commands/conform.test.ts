@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
 import { action as conform } from './conform.js';
+import { ConformanceResult } from '@commonalityco/feature-conformance/utilities';
 import process from 'node:process';
 import console from 'node:console';
-import { ConformanceResult } from '@commonalityco/types';
 import { PackageType, Status } from '@commonalityco/utils-core';
 import stripAnsi from 'strip-ansi';
 import prompts from 'prompts';
@@ -140,7 +140,7 @@ describe('conform', () => {
               },
               message: {
                 title: 'This package should be cool',
-                filepath: 'package.json',
+                filePath: 'package.json',
               },
             },
             {
@@ -325,7 +325,7 @@ describe('conform', () => {
               },
               message: {
                 title: 'This package should be awesome',
-                filepath: 'package.json',
+                filePath: 'package.json',
                 suggestion: `I\nam\na\nmultiline\nstring`,
               },
             },

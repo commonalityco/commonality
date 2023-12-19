@@ -1,4 +1,3 @@
-import { ConformanceResult } from '@commonalityco/types';
 import {
   Accordion,
   AccordionContent,
@@ -23,6 +22,7 @@ import {
 } from 'lucide-react';
 import { Fragment, useMemo } from 'react';
 import { getStatusForResults } from '../utils/get-status-for-results';
+import type { ConformanceResult } from '../utils/get-conformance-results';
 
 export function CheckTitle({ result }: { result: ConformanceResult }) {
   const getStatusText = () => {
@@ -67,7 +67,7 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
 }
 
 export function CheckContent({ result }: { result: ConformanceResult }) {
-  if (!result.message.filepath && !result.message.suggestion) {
+  if (!result.message.filePath && !result.message.suggestion) {
     return (
       <p className="pl-[74px] text-muted-foreground text-xs">
         No additional context
@@ -77,9 +77,9 @@ export function CheckContent({ result }: { result: ConformanceResult }) {
 
   return (
     <div className="pl-[74px] space-y-1">
-      {result.message.filepath ? (
+      {result.message.filePath ? (
         <p className="text-muted-foreground font-mono text-xs truncate block">
-          {result.message.filepath}
+          {result.message.filePath}
         </p>
       ) : undefined}
       {result.message.suggestion ? (

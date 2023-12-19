@@ -1,9 +1,9 @@
 import type {
   Dependency,
   TagsData,
-  ProjectConfig,
   ConstraintResult,
 } from '@commonalityco/types';
+import { ProjectConfig } from '@commonalityco/utils-core';
 
 const edgeKey = (dep: Dependency) => `${dep.source}|${dep.target}`;
 
@@ -41,8 +41,7 @@ function getDependencyPath(
     const { node, path } = stack.pop()!;
     if (
       node === endDependency.target &&
-      (path.length === 0 ||
-        path.at(-1)?.target === endDependency.target)
+      (path.length === 0 || path.at(-1)?.target === endDependency.target)
     ) {
       return path;
     }

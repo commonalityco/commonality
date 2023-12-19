@@ -2,7 +2,6 @@ import {
   DependencyType,
   AllPackagesWildcard,
   PackageType,
-  Status,
 } from '@commonalityco/utils-core';
 
 export type Constraint =
@@ -85,53 +84,6 @@ export type FileCreatorFactory<File> = ({
   rootDirectory: string;
   workspace: Workspace;
 }) => File;
-
-export type CheckOptions = {
-  workspace: Workspace;
-  allWorkspaces: Workspace[];
-  rootWorkspace: Workspace;
-  codeowners: Codeowner[];
-  tags: Tag[];
-};
-
-export type CheckFn<T> = (opts: CheckOptions) => T | Promise<T>;
-
-export type Message = {
-  title: string;
-  suggestion?: string;
-  // A path to a file relative to the package's folder.
-  filepath?: string;
-};
-
-export interface Check {
-  name: string;
-  level?: 'error' | 'warning';
-  validate: CheckFn<ValidationResult>;
-  fix?: CheckFn<void>;
-  message: string | CheckFn<Message>;
-}
-
-export type CheckCreator<C extends Check, O = undefined> = (options?: O) => C;
-
-export type ConformanceResult = {
-  name: string;
-  filter: string;
-  fix?: CheckFn<void>;
-  status: Status;
-  package: Package;
-  message: Message;
-};
-
-export interface ProjectConfig {
-  constraints?: Record<string, Constraint>;
-  checks?: Record<string, Check[]>;
-}
-
-export interface ProjectConfigData {
-  config: ProjectConfig;
-  filepath: string;
-  isEmpty?: boolean;
-}
 
 export type PackageConfig = {
   tags?: string[];

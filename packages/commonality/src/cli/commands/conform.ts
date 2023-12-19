@@ -4,13 +4,14 @@ import {
   getConformanceResults,
   runFixes,
   getStatusForResults,
+  ConformanceResult,
 } from '@commonalityco/feature-conformance/utilities';
 import { Command } from 'commander';
 import {
   getProjectConfig,
   getRootDirectory,
 } from '@commonalityco/data-project';
-import { ConformanceResult } from '@commonalityco/types';
+
 import path from 'node:path';
 import { getPackages } from '@commonalityco/data-packages';
 import { getTagsData } from '@commonalityco/data-tags';
@@ -21,7 +22,6 @@ import prompts from 'prompts';
 import process from 'node:process';
 import { Logger } from '../utils/logger';
 import { Status } from '@commonalityco/utils-core';
-
 const command = new Command();
 
 const checksSpinner = ora('Running checks...');
@@ -167,9 +167,9 @@ const reportConformanceResults = ({
         if (result.status !== Status.Pass || verbose) {
           logger.addCheckName({ result });
 
-          if (result.message.filepath) {
+          if (result.message.filePath) {
             logger.addSubText(
-              c.dim(path.join(result.package.path, result.message.filepath)),
+              c.dim(path.join(result.package.path, result.message.filePath)),
             );
           }
 

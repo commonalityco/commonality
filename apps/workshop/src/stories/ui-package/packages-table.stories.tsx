@@ -179,7 +179,7 @@ export const Basic: Story = {
             filter: 'tag-one',
             message: {
               title: 'This package should adhere to a certain standard',
-              filepath: 'package.json',
+              filePath: 'package.json',
               suggestion: `
               "  Object {
                   \\"devDependencies\\": Object {
@@ -205,7 +205,7 @@ export const Basic: Story = {
             filter: 'tag-two',
             message: {
               title: 'This package is bad',
-              filepath: 'package.json',
+              filePath: 'package.json',
               suggestion: `
               "  Object {
                   \\"devDependencies\\": Object {

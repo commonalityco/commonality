@@ -1,11 +1,20 @@
+import { TagsData, CodeownersData, Package } from '@commonalityco/types';
 import {
-  TagsData,
-  ConformanceResult,
-  CodeownersData,
-  Package,
-} from '@commonalityco/types';
-import { Status, ProjectConfig } from '@commonalityco/utils-core';
+  Status,
+  ProjectConfig,
+  Check,
+  Message,
+} from '@commonalityco/utils-core';
 import path from 'node:path';
+
+export type ConformanceResult = {
+  name: string;
+  filter: string;
+  fix?: Check['fix'];
+  status: Status;
+  package: Package;
+  message: Message;
+};
 
 export const getConformanceResults = async ({
   conformersByPattern,

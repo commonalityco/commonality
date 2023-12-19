@@ -1,13 +1,6 @@
-import type {
-  Message,
-  Check,
-  CheckFn,
-  Tag,
-  Codeowner,
-  CheckOptions,
-  Workspace,
-} from '@commonalityco/types';
+import type { Tag, Codeowner, Workspace } from '@commonalityco/types';
 import stripAnsi from 'strip-ansi';
+import { Message, Check, CheckOptions } from '@commonalityco/utils-core';
 
 type Awaitable<T> = T | PromiseLike<T>;
 
@@ -63,9 +56,12 @@ export function createTestCheck<T extends Check>(
           })
       : undefined,
     message:
-      typeof conformer.message === 'function'
-        ? async () => {
-            const result = await (conformer.message as CheckFn<Message>)({
+      typeof conformer.message === 'string'
+        ? conformer.message
+        : async () => {
+            if (typeof conformer.message === 'string') return;
+
+            const result = await conformer.message({
               ...testFixtures,
             });
 
@@ -75,7 +71,6 @@ export function createTestCheck<T extends Check>(
                 ? stripAnsi(result.suggestion)
                 : undefined,
             } satisfies Message;
-          }
-        : conformer.message,
+          },
   } as TestConformer<T>;
 }

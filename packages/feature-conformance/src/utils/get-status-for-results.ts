@@ -1,4 +1,4 @@
-import { ConformanceResult } from '@commonalityco/types';
+import type { ConformanceResult } from '../utils/get-conformance-results';
 import { Status } from '@commonalityco/utils-core';
 
 export const getStatusForResults = (results: ConformanceResult[]) => {
