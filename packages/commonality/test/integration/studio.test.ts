@@ -106,7 +106,6 @@ describe.concurrent('studio', () => {
       let output = '';
       const stdoutMock = new Writable({
         write(chunk, encoding, callback) {
-          console.log(chunk.toString());
           output += stripAnsi(chunk.toString());
           callback();
         },
