@@ -39,9 +39,11 @@ describe('studio', () => {
       let output = '';
 
       cliProcess.stdout?.on('data', (data) => {
+        console.log({ out: data.toString() });
         output += stripAnsi(data.toString());
       });
       cliProcess.stderr?.on('data', (data) => {
+        console.log({ err: data.toString() });
         output += stripAnsi(data.toString());
       });
 
