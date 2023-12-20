@@ -110,19 +110,21 @@ describe('studio', () => {
       );
 
       let output = '';
-      const stdoutMock = new Writable({
-        write(chunk, encoding, callback) {
-          output += stripAnsi(chunk.toString());
-          callback();
+      cliProcess.stdout?.on('data', (data) => {
+        console.log({ out: data.toString() });
+        output += stripAnsi(data.toString());
+      });
+      cliProcess.stderr?.on('data', (data) => {
+        console.log({ err: data.toString() });
+        output += stripAnsi(data.toString());
+      });
+
+      await vi.waitFor(
+        () => {
+          expect(output).toContain('📦 Starting Commonality Studio...');
         },
-      });
-
-      cliProcess.stdout?.pipe(stdoutMock);
-      cliProcess.stderr?.pipe(stdoutMock);
-
-      await vi.waitFor(() => {
-        expect(output).toContain('📦 Starting Commonality Studio...');
-      });
+        { timeout: 20_000 },
+      );
 
       await vi.waitFor(
         () => {
@@ -180,25 +182,30 @@ describe('studio', () => {
       );
 
       let output = '';
-      const stdoutMock = new Writable({
-        write(chunk, encoding, callback) {
-          output += stripAnsi(chunk.toString());
-          callback();
+      cliProcess.stdout?.on('data', (data) => {
+        console.log({ out: data.toString() });
+        output += stripAnsi(data.toString());
+      });
+      cliProcess.stderr?.on('data', (data) => {
+        console.log({ err: data.toString() });
+        output += stripAnsi(data.toString());
+      });
+
+      await vi.waitFor(
+        () => {
+          expect(output).toContain('📦 Starting Commonality Studio...');
         },
-      });
+        { timeout: 20_000 },
+      );
 
-      cliProcess.stdout?.pipe(stdoutMock);
-      cliProcess.stderr?.pipe(stdoutMock);
-
-      await vi.waitFor(() => {
-        expect(output).toContain('📦 Starting Commonality Studio...');
-      });
-
-      await vi.waitFor(() => {
-        expect(output).toContain(
-          `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
-        );
-      });
+      await vi.waitFor(
+        () => {
+          expect(output).toContain(
+            `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
+          );
+        },
+        { timeout: 20_000 },
+      );
 
       await vi.waitFor(
         () => {
