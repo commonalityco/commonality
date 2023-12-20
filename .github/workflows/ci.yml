@@ -20,8 +20,10 @@ jobs:
     steps:
       - name: Checkout respository
         uses: actions/checkout@v4
+
       - name: Setup
         uses: ./.github/actions/setup
+
       - name: Lint
         run: pnpm run lint
 
@@ -30,8 +32,10 @@ jobs:
     steps:
       - name: Checkout respository
         uses: actions/checkout@v4
+
       - name: Setup
         uses: ./.github/actions/setup
+
       - name: Type check
         run: pnpm run type-check
 
@@ -43,10 +47,13 @@ jobs:
     steps:
       - name: Checkout respository
         uses: actions/checkout@v4
+
       - name: Setup
         uses: ./.github/actions/setup
+
       - name: Build
         run: pnpm run build
+
       - name: Test
         run: pnpm run test
 
@@ -60,12 +67,15 @@ jobs:
     steps:
       - name: Checkout respository
         uses: actions/checkout@v4
+
       - name: Setup
         uses: ./.github/actions/setup
+
       - name: Build
         run: pnpm run build
+
       - name: Prune devDependencies
         run: pnpm prune --prod
 
       - name: Integration Test
-        run: pnpm run test:integration
+        run: pnpm -F commonality run test:integration
