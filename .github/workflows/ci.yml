@@ -21,6 +21,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/actions/setup
       - name: Lint
         run: pnpm run lint
@@ -28,6 +29,7 @@ jobs:
   type-check:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/actions/setup
       - name: Type check
         run: pnpm run type-check
@@ -36,6 +38,7 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: ./.github/actions/setup
       - name: Test
         run: pnpm run test
