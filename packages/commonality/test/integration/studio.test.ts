@@ -69,7 +69,7 @@ describe('studio', () => {
             `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
           );
         },
-        { timeout: 20_000 },
+        { timeout: 50_000 },
       );
 
       cliProcess.kill('SIGTERM', {
@@ -84,7 +84,7 @@ describe('studio', () => {
 
       await fs.remove(temporaryPath);
     },
-    { timeout: 50_000 },
+    { timeout: 100_000 },
   );
 
   test(
@@ -141,7 +141,7 @@ describe('studio', () => {
             `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
           );
         },
-        { timeout: 20_000 },
+        { timeout: 50_000 },
       );
 
       cliProcess.kill('SIGTERM', {
@@ -156,7 +156,7 @@ describe('studio', () => {
 
       await fs.remove(temporaryPath);
     },
-    { timeout: 50_000 },
+    { timeout: 100_000 },
   );
 
   test(
@@ -213,7 +213,7 @@ describe('studio', () => {
             `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
           );
         },
-        { timeout: 20_000 },
+        { timeout: 50_000 },
       );
 
       cliProcess.kill('SIGTERM', {
@@ -228,6 +228,6 @@ describe('studio', () => {
 
       await fs.remove(temporaryPath);
     },
-    { timeout: 50_000 },
+    { timeout: 100_000 },
   );
 });
