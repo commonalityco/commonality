@@ -1,3 +1,4 @@
 {
-  "name": "pkg-one"
+  "name": "pkg-one",
+  "version": "1.0.0"
 }
