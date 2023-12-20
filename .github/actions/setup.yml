@@ -1,0 +1,31 @@
+name: Setup
+description: Setup for node and pnpm
+inputs:
+  node-version:
+    required: false
+    description: Node version for setup-node
+    default: 20.x
+
+runs:
+  using: composite
+
+  steps:
+    - name: 'Setup pnpm'
+      uses: pnpm/action-setup@v2
+
+    - name: Setup Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'pnpm'
+
+    - name: Cache pnpm modules
+      uses: actions/cache@v3
+      with:
+        path: ~/.pnpm-store
+        key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
