@@ -51,7 +51,7 @@
     "storybook-dark-mode": "^3.0.1",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2",
-    "vite": "^4.4.9",
+    "vite": "^4.5.1",
     "webpack": "^5.88.2"
   },
   "repository": "https://github.com/commonalityco/commonality/apps/workshop"
