@@ -5,11 +5,7 @@ const config: Options = {
   format: ['esm'],
   platform: 'node',
   outDir: './dist/utilities',
-  noExternal: [
-    '@commonalityco/feature-conformance',
-    '@commonalityco/utils-core',
-    '@commonalityco/types',
-  ],
+  noExternal: [/^@commonalityco\/.*/],
   dts: true,
 };
 

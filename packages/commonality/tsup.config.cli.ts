@@ -6,7 +6,8 @@ const config: Options = {
   platform: 'node',
   outDir: './dist/cli',
   cjsInterop: true,
-  noExternal: ['@commonalityco/feature-constraints'],
+  noExternal: [/^@commonalityco\/.*/],
+  treeshake: true,
 };
 
 export default config;

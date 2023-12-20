@@ -471,6 +471,9 @@ importers:
       '@antfu/install-pkg':
         specifier: ^0.3.1
         version: 0.3.1
+      '@sindresorhus/slugify':
+        specifier: ^2.2.1
+        version: 2.2.1
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
@@ -480,21 +483,48 @@ importers:
       commander:
         specifier: ^11.0.0
         version: 11.1.0
+      detect-indent:
+        specifier: ^7.0.1
+        version: 7.0.1
+      find-up:
+        specifier: ^6.3.0
+        version: 6.3.0
       fs-extra:
         specifier: ^11.1.1
         version: 11.2.0
       get-port:
         specifier: ^7.0.0
         version: 7.0.0
+      globby:
+        specifier: ^13.2.2
+        version: 13.2.2
+      jest-diff:
+        specifier: ^29.7.0
+        version: 29.7.0
+      jiti:
+        specifier: ^1.21.0
+        version: 1.21.0
       kill-port:
         specifier: ^2.0.1
         version: 2.0.1
       local-pkg:
         specifier: ^0.5.0
         version: 0.5.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      minimatch:
+        specifier: ^9.0.3
+        version: 9.0.3
       ora:
         specifier: ^7.0.1
         version: 7.0.1
+      pathe:
+        specifier: ^1.1.1
+        version: 1.1.1
       picocolors:
         specifier: ^1.0.0
         version: 1.0.0
@@ -508,7 +538,7 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2
       wait-on:
-        specifier: ^7.0.1
+        specifier: ^7.2.0
         version: 7.2.0(debug@4.3.4)
       yaml:
         specifier: ^2.3.2
@@ -761,9 +791,12 @@ importers:
       fs-extra:
         specifier: ^11.1.1
         version: 11.2.0
-      lodash.uniq:
-        specifier: ^4.5.0
-        version: 4.5.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
@@ -774,9 +807,12 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.2
         version: 11.0.4
-      '@types/lodash.uniq':
-        specifier: ^4.5.7
-        version: 4.5.9
+      '@types/lodash':
+        specifier: ^4.14.198
+        version: 4.14.202
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/node':
         specifier: ^20.10.0
         version: 20.10.5
@@ -7083,12 +7119,6 @@ packages:
 
   /@types/lodash-es@4.17.12:
     resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
-    dependencies:
-      '@types/lodash': 4.14.202
-    dev: true
-
-  /@types/lodash.uniq@4.5.9:
-    resolution: {integrity: sha512-2Vd5avnDMNLbDSnUwwgwExKXvX9W3CN72rodT+ikGqGHXn7gVK6BM6Z+kHonbpGgCI2BzM+QDMHrkgKoofOi6A==}
     dependencies:
       '@types/lodash': 4.14.202
     dev: true
@@ -13512,10 +13542,6 @@ packages:
 
   /lodash.startcase@4.4.0:
     resolution: {integrity: sha512-+WKqsK294HMSc2jEbNgpHpd0JfIBhp7rEV4aqXWqFr6AlXov+SlcgB1Fv01y2kGe3Gc8nMW7VA0SrGuSkRfIEg==}
-    dev: false
-
-  /lodash.uniq@4.5.0:
-    resolution: {integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==}
     dev: false
 
   /lodash@4.17.21:

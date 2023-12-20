@@ -1,8 +1,6 @@
 import { file, File } from './file';
 import fs from 'fs-extra';
-import omit from 'lodash-es/omit';
-import merge from 'lodash-es/merge';
-import isMatch from 'lodash-es/isMatch';
+import { isMatch, merge, omit } from 'lodash-es';
 import detectIndent from 'detect-indent';
 import path from 'pathe';
 
