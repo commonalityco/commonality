@@ -37,15 +37,13 @@ describe('studio', () => {
       );
 
       let output = '';
-      const stdoutMock = new Writable({
-        write(chunk, encoding, callback) {
-          output += stripAnsi(chunk.toString());
-          callback();
-        },
-      });
 
-      cliProcess.stdout?.pipe(stdoutMock);
-      cliProcess.stderr?.pipe(stdoutMock);
+      cliProcess.stdout?.on('data', (data) => {
+        output += stripAnsi(data.toString());
+      });
+      cliProcess.stderr?.on('data', (data) => {
+        output += stripAnsi(data.toString());
+      });
 
       await vi.waitFor(() => {
         expect(output).toContain('📦 Starting Commonality Studio...');
