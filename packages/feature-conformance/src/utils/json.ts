@@ -1,9 +1,8 @@
 import { file, File } from './file';
 import fs from 'fs-extra';
-import omit from 'lodash-es/omit';
-import merge from 'lodash-es/merge';
-import isMatch from 'lodash-es/isMatch';
+import { isMatch, merge, omit } from 'lodash-es';
 import detectIndent from 'detect-indent';
+import path from 'pathe';
 
 type Data = Record<string, unknown>;
 
@@ -15,13 +14,18 @@ export interface JsonFile<T extends Data> extends Omit<File, 'get'> {
   remove(path: string): Promise<void>;
 }
 
-export function json<T extends Data>(filepath: string): JsonFile<T> {
-  const rawFile = file(filepath);
+export function json<T extends Data>(
+  rootPath: string,
+  filePath: string,
+): JsonFile<T> {
+  const fullPath = path.join(rootPath, filePath);
+
+  const rawFile = file(fullPath);
 
   const _exists = rawFile.exists();
 
   const getText = async (): Promise<string | undefined> => {
-    return (await _exists) ? await fs.readFile(filepath, 'utf8') : undefined;
+    return (await _exists) ? await fs.readFile(fullPath, 'utf8') : undefined;
   };
 
   const _text = getText();
@@ -33,7 +37,7 @@ export function json<T extends Data>(filepath: string): JsonFile<T> {
       ? detectIndent(text).indent || defaultIndent
       : defaultIndent;
 
-    await fs.writeFile(filepath, JSON.stringify(json, undefined, indent));
+    await fs.writeFile(fullPath, JSON.stringify(json, undefined, indent));
   };
 
   const getJson = async (): Promise<T | undefined> => {

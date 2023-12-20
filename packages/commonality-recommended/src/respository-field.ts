@@ -16,11 +16,13 @@ const getExpectedProperties = async ({
   { repository: { url: string } } | { repository: string } | undefined
 > => {
   const rootPackageJson = await json<PackageJson>(
-    path.join(rootWorkspace.path, 'package.json'),
+    rootWorkspace.path,
+    'package.json',
   ).get();
 
   const packageJson = await json<PackageJson>(
-    path.join(workspace.path, 'package.json'),
+    workspace.path,
+    'package.json',
   ).get();
 
   if (!packageJson) {
@@ -73,10 +75,12 @@ export const repositoryField = defineCheck(() => {
     name: 'commonality/repository-field',
     validate: async ({ rootWorkspace, workspace }): Promise<boolean> => {
       const rootPackageJson = await json<PackageJson>(
-        path.join(rootWorkspace.path, 'package.json'),
+        rootWorkspace.path,
+        'package.json',
       ).get();
       const packageJson = await json<PackageJson>(
-        path.join(workspace.path, 'package.json'),
+        workspace.path,
+        'package.json',
       ).get();
 
       if (!rootPackageJson || !rootPackageJson.repository || !packageJson) {
@@ -113,7 +117,7 @@ export const repositoryField = defineCheck(() => {
         return;
       }
 
-      return json(path.join(workspace.path, 'package.json')).merge(newConfig);
+      return json(workspace.path, 'package.json').merge(newConfig);
     },
 
     message: async ({ workspace, rootWorkspace }) => {
@@ -123,14 +127,15 @@ export const repositoryField = defineCheck(() => {
       });
 
       const packageJson = await json<PackageJson>(
-        path.join(workspace.path, 'package.json'),
+        workspace.path,
+        'package.json',
       ).get();
 
       if (!packageJson) {
         return {
           title: 'Package.json is missing.',
           filepath: 'package.json',
-          context: 'Create a package.json file in your workspace.',
+          suggestion: 'Create a package.json file in your workspace.',
         };
       }
 
@@ -138,14 +143,14 @@ export const repositoryField = defineCheck(() => {
         return {
           title: 'Repository field is missing.',
           filepath: 'package.json',
-          context: 'Add a repository field to your root package.json',
+          suggestion: 'Add a repository field to your root package.json',
         };
       }
 
       return {
         title: `Package's repository property must extend the repository property at the root of your project.`,
         filepath: 'package.json',
-        context: diff(
+        suggestion: diff(
           pick(packageJson, ['name', 'repository']),
           pick(
             {

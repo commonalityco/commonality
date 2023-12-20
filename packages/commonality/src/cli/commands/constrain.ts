@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import { getConstraintResults } from '@commonalityco/feature-constraints/data';
 import { ConstraintResult } from '@commonalityco/types';
 import ora from 'ora';
-import c from 'picocolors';
+import c from 'chalk';
 import { Logger } from '../utils/logger.js';
 import { DependencyType } from '@commonalityco/utils-core';
 import {
@@ -21,6 +21,14 @@ const command = new Command();
 class ConstrainLogger extends Logger {
   constructor() {
     super();
+  }
+
+  addEmptyMessage() {
+    const title = c.bold(`You don't have any constraints configured.`);
+    const body = `Prevent endless dependency debugging by limiting the which packages can depend on each other.`;
+    const link = 'https://commonality.co/docs/constraints';
+
+    this.output += `\n${title}\n\n${body}\n\n${link}`;
   }
 
   addFilterTitle({
@@ -156,10 +164,6 @@ class ConstrainLogger extends Logger {
 
     this.addSubText();
   }
-  writeEmpty({ title, text }: { title: string; text: string }) {
-    this.output += `\n${title}\n${c.dim(text)}`;
-    this.write();
-  }
 }
 
 export const reportConstraintResults = async ({
@@ -172,10 +176,8 @@ export const reportConstraintResults = async ({
   verbose: boolean;
 }) => {
   if (results.length === 0) {
-    logger.writeEmpty({
-      title: 'No constraints found',
-      text: 'Add constraints to your commonality.json to limit dependencies',
-    });
+    logger.addEmptyMessage();
+    logger.write();
     return;
   }
   // This is keyed by packageName

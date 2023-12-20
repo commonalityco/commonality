@@ -1,12 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import { runFixes } from './run-fixes';
-import {
-  ConformanceResult,
-  Package,
-  TagsData,
-  CodeownersData,
-} from '@commonalityco/types';
+import { Package, TagsData, CodeownersData } from '@commonalityco/types';
 import { PackageType, Status } from '@commonalityco/utils-core';
+import type { ConformanceResult } from '../utils/get-conformance-results';
 
 describe('runFixes', () => {
   it('should call .fix with correct arguments', async () => {

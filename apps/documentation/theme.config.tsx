@@ -1,14 +1,20 @@
-import React from "react";
-import { DocsThemeConfig } from "nextra-theme-docs";
+import React from 'react';
+import { DocsThemeConfig } from 'nextra-theme-docs';
+import { Logo } from './logo';
 
 const config: DocsThemeConfig = {
-  logo: <span>Commonality</span>,
+  logo: (
+    <span>
+      <Logo />
+      Commonality
+    </span>
+  ),
   project: {
-    link: "https://github.com/commonalityco/commonality",
+    link: 'https://github.com/commonalityco/commonality',
   },
-  docsRepositoryBase: "https://github.com/shuding/nextra-docs-template",
+  docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
   footer: {
-    text: "Nextra Docs Template",
+    text: 'Nextra Docs Template',
   },
 };
 

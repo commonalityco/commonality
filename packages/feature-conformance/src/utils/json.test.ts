@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import { json } from '../../src/files/json';
+import { json } from './json';
 import mock from 'mock-fs';
 
 describe('json', () => {
@@ -18,7 +18,7 @@ describe('json', () => {
         }),
       });
 
-      const result = await json('package.json').get();
+      const result = await json('./', 'package.json').get();
 
       expect(result).toEqual({
         name: 'pkg-a',
@@ -31,7 +31,7 @@ describe('json', () => {
     it('returns undefined when the file does not exist', async () => {
       mock({});
 
-      const result = await json('package.json').get();
+      const result = await json('./', 'package.json').get();
 
       expect(result).toEqual(undefined);
     });
@@ -48,7 +48,7 @@ describe('json', () => {
         }),
       });
 
-      const result = await json('package.json').contains({
+      const result = await json('./', 'package.json').contains({
         scripts: {
           build: 'build',
         },
@@ -67,7 +67,7 @@ describe('json', () => {
         }),
       });
 
-      const result = await json('package.json').contains({
+      const result = await json('./', 'package.json').contains({
         scripts: {
           dev: 'foo',
         },
@@ -86,7 +86,7 @@ describe('json', () => {
           },
         }),
       });
-      const result = await json('package.json').contains({
+      const result = await json('./', 'package.json').contains({
         scripts: {
           dev: 'dev',
           baz: 'baz',
@@ -99,7 +99,7 @@ describe('json', () => {
     it('should return false if the file does not exist', async () => {
       mock({});
 
-      const result = await json('package.json').contains({
+      const result = await json('./', 'package.json').contains({
         scripts: {
           dev: 'dev',
           baz: 'baz',
@@ -121,11 +121,11 @@ describe('json', () => {
         }),
       });
 
-      await json('package.json').set({
+      await json('./', 'package.json').set({
         scripts: { build: 'npm run build' },
       });
 
-      const result = await json('package.json').get();
+      const result = await json('./', 'package.json').get();
 
       expect(result).toEqual({
         scripts: {
@@ -137,9 +137,11 @@ describe('json', () => {
     it('should create the file and set the value if the file does not exist', async () => {
       mock({});
 
-      await json('package.json').set({ scripts: { build: 'npm run build' } });
+      await json('./', 'package.json').set({
+        scripts: { build: 'npm run build' },
+      });
 
-      const result = await json('package.json').get();
+      const result = await json('./', 'package.json').get();
 
       expect(result).toEqual({
         scripts: {
@@ -158,12 +160,12 @@ describe('json', () => {
         }),
       });
 
-      const originalJson = await json('package.json').get();
+      const originalJson = await json('./', 'package.json').get();
 
       // @ts-expect-error - Testing invalid arguments
       await json('./package.json').set();
 
-      const result = await json('package.json').get();
+      const result = await json('./', 'package.json').get();
 
       expect(result).toEqual(originalJson);
     });
@@ -180,9 +182,11 @@ describe('json', () => {
         }),
       });
 
-      await json('package.json').merge({ publishConfig: { access: 'public' } });
+      await json('./', 'package.json').merge({
+        publishConfig: { access: 'public' },
+      });
 
-      const result = await json('package.json').get();
+      const result = await json('./', 'package.json').get();
 
       expect(result).toEqual({
         name: 'pkg-a',
@@ -198,9 +202,11 @@ describe('json', () => {
     it('should create the file and merge the values if the file does not exist', async () => {
       mock({});
 
-      await json('package.json').merge({ scripts: { test: 'npm run test' } });
+      await json('./', 'package.json').merge({
+        scripts: { test: 'npm run test' },
+      });
 
-      const result = await json('package.json').get();
+      const result = await json('./', 'package.json').get();
 
       expect(result).toEqual({
         scripts: {
@@ -219,12 +225,12 @@ describe('json', () => {
         }),
       });
 
-      const originalJson = await json('package.json').get();
+      const originalJson = await json('./', 'package.json').get();
 
       // @ts-expect-error - Testing invalid arguments
-      await json('package.json').merge();
+      await json('./', 'package.json').merge();
 
-      const updatedJson = await json('package.json').get();
+      const updatedJson = await json('./', 'package.json').get();
 
       expect(updatedJson).toEqual(originalJson);
     });
@@ -242,9 +248,9 @@ describe('json', () => {
         }),
       });
 
-      await json('package.json').remove('scripts.build');
+      await json('./', 'package.json').remove('scripts.build');
 
-      const result = await json('package.json').get();
+      const result = await json('./', 'package.json').get();
 
       expect(result).toEqual({
         name: 'pkg-a',
@@ -264,12 +270,12 @@ describe('json', () => {
         }),
       });
 
-      const originalJson = await json('package.json').get();
+      const originalJson = await json('./', 'package.json').get();
 
       //   @ts-expect-error - Testing invalid arguments
-      await json('package.json').remove();
+      await json('./', 'package.json').remove();
 
-      const result = await json('package.json').get();
+      const result = await json('./', 'package.json').get();
 
       expect(result).toEqual(originalJson);
     });
@@ -277,9 +283,9 @@ describe('json', () => {
     it('should do nothing if the file does not exist', async () => {
       mock({});
 
-      await expect(json('package.json').remove('version')).resolves.toEqual(
-        undefined,
-      );
+      await expect(
+        json('./', 'package.json').remove('version'),
+      ).resolves.toEqual(undefined);
     });
   });
 });

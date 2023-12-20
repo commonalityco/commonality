@@ -194,7 +194,7 @@ describe('multipleDependencyTypes', () => {
         'A dependency should only be in one of dependencies, devDependencies, or optionalDependencies',
       );
 
-      expect(message.context ?? '').toMatchInlineSnapshot(
+      expect(message.suggestion ?? '').toMatchInlineSnapshot(
         `
           "  Object {
               \\"dependencies\\": Object {

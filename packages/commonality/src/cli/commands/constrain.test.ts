@@ -313,8 +313,11 @@ describe('constrain', () => {
       [
         [
           "
-      No constraints found
-      Add constraints to your commonality.json to limit dependencies",
+      You don't have any constraints configured.
+
+      Prevent endless dependency debugging by limiting the which packages can depend on each other.
+
+      https://commonality.co/docs/constraints",
         ],
       ]
     `);

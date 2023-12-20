@@ -52,8 +52,11 @@ export const devPeerDependencyRange = defineCheck(() => {
   return {
     name: 'commonality/dev-peer-dependency-range',
     level: 'warning',
-    validate: async () => {
-      const packageJson = await json<PackageJson>('package.json').get();
+    validate: async ({ workspace }) => {
+      const packageJson = await json<PackageJson>(
+        workspace.path,
+        'package.json',
+      ).get();
 
       if (!packageJson) {
         return false;
@@ -88,8 +91,11 @@ export const devPeerDependencyRange = defineCheck(() => {
 
       return true;
     },
-    fix: async () => {
-      const packageJson = await json<PackageJson>('package.json').get();
+    fix: async ({ workspace }) => {
+      const packageJson = await json<PackageJson>(
+        workspace.path,
+        'package.json',
+      ).get();
 
       if (!packageJson) {
         return;
@@ -97,10 +103,13 @@ export const devPeerDependencyRange = defineCheck(() => {
 
       const devDependencies = getExpectedDevDependencies(packageJson);
 
-      await json('package.json').merge({ devDependencies });
+      await json(workspace.path, 'package.json').merge({ devDependencies });
     },
-    message: async () => {
-      const packageJson = await json<PackageJson>('package.json').get();
+    message: async ({ workspace }) => {
+      const packageJson = await json<PackageJson>(
+        workspace.path,
+        'package.json',
+      ).get();
 
       if (!packageJson) {
         return { title: 'Package.json is missing' };
@@ -129,7 +138,7 @@ export const devPeerDependencyRange = defineCheck(() => {
 
       return {
         title,
-        context: diff(source, target),
+        suggestion: diff(source, target),
         filepath: 'package.json',
       };
     },

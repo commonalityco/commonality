@@ -1,12 +1,12 @@
-import execa from 'execa';
+import { execa } from 'execa';
 import url from 'node:url';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 export const startStudio = ({ port, rootDirectory, debug }) => {
-  return execa('node', ['server.js'], {
-    stdout: debug ? 'inherit' : 'ignore',
-    stderr: debug ? 'inherit' : 'ignore',
+  const serverProcess = execa('node', ['server.js'], {
+    stdout: debug ? 'pipe' : 'ignore',
+    stderr: debug ? 'pipe' : 'ignore',
     cwd: __dirname,
     env: {
       NODE_ENV: 'production',
@@ -14,4 +14,14 @@ export const startStudio = ({ port, rootDirectory, debug }) => {
       COMMONALITY_ROOT_DIRECTORY: rootDirectory,
     },
   });
+
+  const handleExit = () => {
+    serverProcess.kill();
+  };
+
+  process.on('SIGINT', handleExit);
+  process.on('SIGTERM', handleExit);
+  process.on('exit', handleExit);
+
+  return { kill: () => serverProcess.kill() };
 };

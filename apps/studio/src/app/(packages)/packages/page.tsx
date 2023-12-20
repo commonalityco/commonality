@@ -1,11 +1,4 @@
 'use server';
-import {
-  Badge,
-  Button,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@commonalityco/ui-design-system';
 import { getCodeownersData } from '@/data/codeowners';
 import { getPackagesData } from '@/data/packages';
 import { getTagsData } from '@/data/tags';
@@ -19,13 +12,9 @@ import { getTableData } from './get-table-data';
 import { getConformanceResultsData } from '@/data/conformance';
 import omit from 'lodash/omit';
 import stripAnsi from 'strip-ansi';
-import { ConformanceResult } from '@commonalityco/types';
 import { EditConfigButton } from '@/components/edit-config-button';
-import { ChevronDown } from 'lucide-react';
-import {
-  ConformanceHeader,
-  ConformanceResults,
-} from '@commonalityco/feature-conformance/ui';
+import { ConformanceHeader } from '@commonalityco/feature-conformance/ui';
+import type { ConformanceResult } from '@commonalityco/feature-conformance/utilities';
 
 async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
   const [packages, tagsData, codeownersData, results] = await Promise.all([
@@ -54,12 +43,12 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
   const data = await getTableData({
     packages,
     results: results.map((result) => {
-      const strippedResult = result.message.context
+      const strippedResult = result.message.suggestion
         ? {
             ...result,
             message: {
               ...result.message,
-              context: stripAnsi(result.message.context),
+              suggestion: stripAnsi(result.message.suggestion),
             },
           }
         : result;

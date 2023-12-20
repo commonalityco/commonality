@@ -8,7 +8,7 @@ logic is correct.
 ## Example
 
 ```ts filename="packages/checks/ensure-license.ts"
-import { createTestCheck, defineCheck, json } from 'commonality/checks';
+import { createTestCheck, defineCheck, json, diff } from 'commonality/checks';
 
 const ensureLicense = defineCheck((license: string = 'MIT') => {
   return {
@@ -37,11 +37,21 @@ const ensureLicense = defineCheck((license: string = 'MIT') => {
       if (!packageJson || !packageJson.license) {
         return {
           title: 'Package.json must have a license',
+          filepath: 'package.json',
+          context: diff(
+            { name: packageJson.name },
+            { name: packageJson.name, license },
+          ),
         };
       }
 
       return {
         title: `Package.json license must be ${license}`,
+        filepath: 'package.json',
+        context: diff(
+          { name: packageJson.name, license: packageJson.license },
+          { name: packageJson.name, license },
+        ),
       };
     },
   };
@@ -50,24 +60,133 @@ const ensureLicense = defineCheck((license: string = 'MIT') => {
 
 ```ts filename="packages/checks/ensure-license.test.ts"
 import { ensureLicense } from './ensure-license';
+import { createTestCheck, json } from 'commonality/checks';
+import mockFs from 'mock-fs';
 
 describe('ensureLicense', () => {
   describe('validate', () => {
-    const testCheck = createTestCheck(ensureLicense, {
-      'package.json': {
-        scripts: {
-          foo: 'bar',
-        },
-      },
+    test('returns false if package.json does not contain a matching license', () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          name: 'my-pkg',
+        }),
+      });
+
+      const check = createTestCheck(ensureLicense('MIT'));
+
+      const result = await check.validate();
+
+      expect(result).toBeFalsey();
+    });
+
+    test('returns true if package.json does contain a matching license', () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          name: 'my-pkg',
+          license: 'MIT',
+        }),
+      });
+
+      const check = createTestCheck(ensureLicense('MIT'));
+
+      const result = await check.validate();
+
+      expect(result).toBeTruthy();
     });
   });
 
-  describe('fix', () => {});
+  describe('fix', () => {
+    test('updates the package.json file with the correct license', () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          name: 'my-pkg',
+        }),
+      });
 
-  describe('message', () => {});
+      const check = createTestCheck(ensureLicense('MIT'));
+
+      await check.fix();
+
+      // You can re-use our helpers in tests to get the contents of files
+      const packageJson = await json('package.json').get();
+
+      expect(packageJson).toEqual({
+        name: 'my-pkg',
+        license: 'MIT',
+      });
+    });
+  });
+
+  describe('message', () => {
+    test('returns the correct message when there is no package.json', () => {
+      mockFs({});
+
+      const check = createTestCheck(ensureLicense('MIT'));
+
+      const message = await check.message();
+
+      expect(message).toEqual({
+        title: 'Package.json must have a license',
+      });
+    });
+
+    test('returns the correct message when there is a package.json', () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          name: 'my-pkg',
+        }),
+      });
+
+      const check = createTestCheck(ensureLicense('MIT'));
+
+      const message = await check.message();
+
+      expect(message.title).toEqual('Package.json license must be MIT');
+      expect(message.filepath).toEqual('package.json');
+      // We recommend snapshot testing suggestions as the formatting can be tricky to hardode
+      expect(message.suggestion).toMatchInlineSnapshot();
+    });
+  });
 });
 ```
 
 ## Utilities
 
 ### `createTestCheck`
+
+**Type**
+
+`(check: Check, options?: TestCheckOptions) => Check{:ts}`
+
+```ts
+interface TestCheckOptions {
+  workspace?: {
+    path: string;
+    relativePath: string;
+  };
+  rootWorkspace?: {
+    path: string;
+    relativePath: string;
+  };
+  allWorkspaces?: Array<{
+    path: string;
+    relativePath: string;
+  }>;
+  codeowners?: string[];
+  tags?: string[];
+}
+```
+
+**Description**
+
+The `validate`, `fix` and `message` check functions all receive metadata about the current package that it is running against.
+`createTestCheck` wraps your checks and decorates these functions with sensible defaults that you can override. This cuts down
+on repetitive boilerplate when writing tests for your checks.
+
+| Default                 | Required                                  |
+| :---------------------- | :---------------------------------------- |
+| `options.tags`          | `[]{:ts}`                                 |
+| `options.codeowners`    | `[]{:ts}`                                 |
+| `options.workspace`     | `{relativePath: './', path: './'}{:ts}`   |
+| `options.rootWorkspace` | `{relativePath: './', path: './'}{:ts}`   |
+| `options.allWorkspaces` | `[{relativePath: './', path: './'}]{:ts}` |

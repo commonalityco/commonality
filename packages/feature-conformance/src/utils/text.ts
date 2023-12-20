@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import { File, file } from './file';
+import path from 'pathe';
 
 type Data = string[];
 
@@ -11,10 +12,11 @@ export interface TextFile extends Omit<File, 'get'> {
   remove(lines: Data): Promise<void>;
 }
 
-export type TextFileCreator = (filename: string) => TextFile;
+export type TextFileCreator = (rootPath: string, filePath: string) => TextFile;
 
-export const text: TextFileCreator = (filepath): TextFile => {
-  const rawFile = file(filepath);
+export const text: TextFileCreator = (rootPath, filePath): TextFile => {
+  const fullPath = path.join(rootPath, filePath);
+  const rawFile = file(fullPath);
 
   const getLines = async (): Promise<Data | undefined> => {
     const text = await rawFile.get();
@@ -29,7 +31,7 @@ export const text: TextFileCreator = (filepath): TextFile => {
   const writeLines = async (lines: string[]) => {
     const text = lines.join('\n');
 
-    await fs.writeFile(filepath, text);
+    await fs.writeFile(fullPath, text);
   };
 
   return {

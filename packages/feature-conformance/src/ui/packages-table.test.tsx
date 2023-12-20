@@ -11,7 +11,7 @@ import {
   PackagesTable,
   PackageTableColumns,
   ConformanceCell,
-} from '../../src/ui/packages-table';
+} from './packages-table';
 import { describe, it, expect, vi } from 'vitest';
 import { Row } from '@tanstack/react-table';
 import { PackageType } from '@commonalityco/utils-core';

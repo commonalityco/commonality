@@ -4,24 +4,24 @@ import {
   getConformanceResults,
   runFixes,
   getStatusForResults,
+  ConformanceResult,
 } from '@commonalityco/feature-conformance/utilities';
 import { Command } from 'commander';
 import {
   getProjectConfig,
   getRootDirectory,
 } from '@commonalityco/data-project';
-import { ConformanceResult } from '@commonalityco/types';
+
 import path from 'node:path';
 import { getPackages } from '@commonalityco/data-packages';
 import { getTagsData } from '@commonalityco/data-tags';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
 import ora from 'ora';
-import c from 'picocolors';
+import c from 'chalk';
 import prompts from 'prompts';
 import process from 'node:process';
 import { Logger } from '../utils/logger';
 import { Status } from '@commonalityco/utils-core';
-
 const command = new Command();
 
 const checksSpinner = ora('Running checks...');
@@ -29,6 +29,15 @@ const checksSpinner = ora('Running checks...');
 class ConformLogger extends Logger {
   constructor() {
     super();
+  }
+
+  addEmptyMessage() {
+    const title = c.bold(`You don't have any checks configured.`);
+    const body =
+      'Create powerful conformance rules that run like tests and can be shared like lint rules.';
+    const link = 'https://commonality.co/docs/checks';
+
+    this.output += `\n${title}\n\n${body}\n\n${link}`;
   }
 
   addFilterTitle({
@@ -78,6 +87,11 @@ const reportConformanceResults = ({
   verbose: boolean;
   results: ConformanceResult[];
 }) => {
+  if (results.length === 0) {
+    logger.addEmptyMessage();
+    logger.write();
+    return;
+  }
   // This is keyed by packageName
   const resultsMap = new Map<string, Set<ConformanceResult>>();
 
@@ -167,14 +181,14 @@ const reportConformanceResults = ({
         if (result.status !== Status.Pass || verbose) {
           logger.addCheckName({ result });
 
-          if (result.message.filepath) {
+          if (result.message.filePath) {
             logger.addSubText(
-              c.dim(path.join(result.package.path, result.message.filepath)),
+              c.dim(path.join(result.package.path, result.message.filePath)),
             );
           }
 
-          if (result.message.context) {
-            logger.addSubText(result.message.context);
+          if (result.message.suggestion) {
+            logger.addSubText(result.message.suggestion);
           }
 
           logger.addSubText();
@@ -253,7 +267,7 @@ export const action = async ({
   }
 };
 
-export const conform = command
+export const check = command
   .name('check')
   .description('Validate that packages pass conformance checks')
   .option('--verbose', 'Show the result of all checks')

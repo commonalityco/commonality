@@ -1,4 +1,4 @@
-import c from 'picocolors';
+import c from 'chalk';
 import console from 'node:console';
 
 export class Logger {

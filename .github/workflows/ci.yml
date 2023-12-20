@@ -1,45 +1,85 @@
 name: Continuous Integration
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+env:
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
 jobs:
-  CI:
-    name: Lint + Test + Build
-    timeout-minutes: 15
+  lint:
     runs-on: ubuntu-latest
-    env:
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
     steps:
       - name: Checkout respository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: 'Setup pnpm'
-        uses: pnpm/action-setup@v2
-
-      - name: Setup Node.js 18.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm run build
+      - name: Setup
+        uses: ./.github/actions/setup
 
       - name: Lint
         run: pnpm run lint
 
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout respository
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
       - name: Type check
         run: pnpm run type-check
 
+  test:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: 'test'
+    steps:
+      - name: Checkout respository
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build
+        run: pnpm run build
+
       - name: Test
         run: pnpm run test
+
+  integration-test:
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        node-version: [16.x, 17.x, 18.x]
+        os:
+          - runner: ubuntu-latest
+          - runner: macos-latest
+          - runner: windows-latest
+    needs: [lint, type-check, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout respository
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build
+        run: pnpm run build
 
       - name: Prune devDependencies
         run: pnpm prune --prod
 
       - name: Integration Test
-        run: pnpm run test:integration
+        run: pnpm -F commonality run test:integration

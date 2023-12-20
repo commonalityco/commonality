@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
-import { action as conform } from './conform.js';
+import { action as check } from './check.js';
+import { ConformanceResult } from '@commonalityco/feature-conformance/utilities';
 import process from 'node:process';
 import console from 'node:console';
-import { ConformanceResult } from '@commonalityco/types';
 import { PackageType, Status } from '@commonalityco/utils-core';
 import stripAnsi from 'strip-ansi';
 import prompts from 'prompts';
@@ -32,15 +32,62 @@ const getConsoleCalls = () => {
     );
 };
 
-describe('conform', () => {
+describe('check', () => {
   beforeEach(() => {
     vi.mocked(process.exit).mockReset();
     vi.mocked(console.log).mockReset();
   });
 
+  describe('when there are no results', () => {
+    it('should show an empty state message', async () => {
+      await check({
+        verbose: false,
+        getResults: async () => [],
+        onFix: vi.fn(),
+      });
+
+      expect(console.log).toHaveBeenCalledTimes(1);
+
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
+        You don't have any checks configured.
+
+        Create powerful conformance rules that run like tests and can be shared like lint rules.
+
+        https://commonality.co/docs/checks",
+          ],
+        ]
+      `);
+    });
+
+    it('output should match snapshot', async () => {
+      await check({
+        verbose: false,
+        getResults: async () => {
+          throw mockError;
+        },
+        onFix: vi.fn(),
+      });
+
+      expect(console.log).toHaveBeenCalledTimes(1);
+
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
+         Error:  this-is-an-error
+        mock-stack",
+          ],
+        ]
+      `);
+    });
+  });
+
   describe('when there is an error getting results', () => {
     it('should exit the process with status code 1', async () => {
-      await conform({
+      await check({
         verbose: false,
         getResults: async () => {
           throw mockError;
@@ -52,7 +99,7 @@ describe('conform', () => {
     });
 
     it('output should match snapshot', async () => {
-      await conform({
+      await check({
         verbose: false,
         getResults: async () => {
           throw mockError;
@@ -76,7 +123,7 @@ describe('conform', () => {
 
   describe('when all checks pass', () => {
     test('when verbose is false it should match the snapshot', async () => {
-      await conform({
+      await check({
         verbose: false,
         getResults: async () => {
           return [
@@ -124,7 +171,7 @@ describe('conform', () => {
     });
 
     test('when verbose is true it should match the snapshot', async () => {
-      await conform({
+      await check({
         verbose: true,
         getResults: async () => {
           return [
@@ -140,7 +187,7 @@ describe('conform', () => {
               },
               message: {
                 title: 'This package should be cool',
-                filepath: 'package.json',
+                filePath: 'package.json',
               },
             },
             {
@@ -184,7 +231,7 @@ describe('conform', () => {
 
   describe('when checks fail', () => {
     it('should not call process.exit when there are only warnings', async () => {
-      await conform({
+      await check({
         verbose: false,
         getResults: async () => {
           return [
@@ -221,7 +268,7 @@ describe('conform', () => {
     });
 
     it('should exit the process with status code 1 when there are failures', async () => {
-      await conform({
+      await check({
         verbose: false,
         getResults: async () => {
           return [
@@ -258,7 +305,7 @@ describe('conform', () => {
     });
 
     test('when verbose is false it should match the snapshot', async () => {
-      await conform({
+      await check({
         verbose: false,
         getResults: async () => {
           return [
@@ -309,7 +356,7 @@ describe('conform', () => {
     });
 
     test('when verbose is true it should match the snapshot', async () => {
-      await conform({
+      await check({
         verbose: true,
         getResults: async () => {
           return [
@@ -325,8 +372,8 @@ describe('conform', () => {
               },
               message: {
                 title: 'This package should be awesome',
-                filepath: 'package.json',
-                context: `I\nam\na\nmultiline\nstring`,
+                filePath: 'package.json',
+                suggestion: `I\nam\na\nmultiline\nstring`,
               },
             },
             {
@@ -375,7 +422,7 @@ describe('conform', () => {
     test('when user does not choose to run fixes', async () => {
       prompts.inject([false]);
 
-      await conform({
+      await check({
         verbose: false,
         getResults: vi
           .fn()
@@ -458,7 +505,7 @@ describe('conform', () => {
     test('when user chooses to run fixes and it is successful', async () => {
       prompts.inject([true]);
 
-      await conform({
+      await check({
         verbose: false,
         getResults: vi
           .fn()
@@ -552,7 +599,7 @@ describe('conform', () => {
     test('when user chooses to run fixes and it throws it should match the snapshot', async () => {
       prompts.inject([true]);
 
-      await conform({
+      await check({
         verbose: false,
         getResults: vi.fn().mockResolvedValueOnce([
           {
@@ -613,7 +660,7 @@ describe('conform', () => {
     test('when user chooses to run fixes and it throws it should exit with status code 1', async () => {
       prompts.inject([true]);
 
-      await conform({
+      await check({
         verbose: false,
         getResults: vi.fn().mockResolvedValueOnce([
           {

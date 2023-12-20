@@ -1,13 +1,6 @@
-import type {
-  Message,
-  Check,
-  CheckFn,
-  Tag,
-  Codeowner,
-  CheckOptions,
-  Workspace,
-} from '@commonalityco/types';
+import type { Tag, Codeowner, Workspace } from '@commonalityco/types';
 import stripAnsi from 'strip-ansi';
+import { Message, Check, CheckOptions } from '@commonalityco/utils-core';
 
 type Awaitable<T> = T | PromiseLike<T>;
 
@@ -21,15 +14,17 @@ type TestConformer<T> = {
     : T[P];
 };
 
+interface TestCheckOptions {
+  workspace?: Workspace;
+  rootWorkspace?: Workspace;
+  allWorkspaces?: Workspace[];
+  codeowners?: Codeowner[];
+  tags?: Tag[];
+}
+
 export function createTestCheck<T extends Check>(
   conformer: T,
-  testOptions?: {
-    workspace?: Workspace;
-    rootWorkspace?: Workspace;
-    allWorkspaces?: Workspace[];
-    codeowners?: Codeowner[];
-    tags?: Tag[];
-  },
+  options?: TestCheckOptions,
 ): TestConformer<T> {
   const defaultWorkspace = {
     path: './',
@@ -41,11 +36,11 @@ export function createTestCheck<T extends Check>(
   } satisfies Workspace;
 
   const testFixtures = {
-    tags: testOptions?.tags ?? [],
-    codeowners: testOptions?.codeowners ?? [],
-    workspace: testOptions?.workspace ?? defaultWorkspace,
-    rootWorkspace: testOptions?.rootWorkspace ?? defaultRootWorkspace,
-    allWorkspaces: testOptions?.allWorkspaces ?? [defaultWorkspace],
+    tags: options?.tags ?? [],
+    codeowners: options?.codeowners ?? [],
+    workspace: options?.workspace ?? defaultWorkspace,
+    rootWorkspace: options?.rootWorkspace ?? defaultRootWorkspace,
+    allWorkspaces: options?.allWorkspaces ?? [defaultWorkspace],
   };
 
   return {
@@ -61,17 +56,21 @@ export function createTestCheck<T extends Check>(
           })
       : undefined,
     message:
-      typeof conformer.message === 'function'
-        ? async () => {
-            const result = await (conformer.message as CheckFn<Message>)({
+      typeof conformer.message === 'string'
+        ? conformer.message
+        : async () => {
+            if (typeof conformer.message === 'string') return;
+
+            const result = await conformer.message({
               ...testFixtures,
             });
 
             return {
               ...result,
-              context: result.context ? stripAnsi(result.context) : undefined,
-            };
-          }
-        : conformer.message,
+              suggestion: result.suggestion
+                ? stripAnsi(result.suggestion)
+                : undefined,
+            } satisfies Message;
+          },
   } as TestConformer<T>;
 }

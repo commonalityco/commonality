@@ -1,6 +1,6 @@
 import stripAnsi from 'strip-ansi';
 import { describe, test, expect } from 'vitest';
-import { diff } from '../../src/utils/diff';
+import { diff } from './diff';
 
 describe('diff', () => {
   test('returns undefined if source and target are equal', () => {

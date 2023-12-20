@@ -316,7 +316,7 @@ describe('no-external-mismatch', () => {
 
       const result = await conformer.message();
 
-      expect(result.context).toMatchInlineSnapshot(`
+      expect(result.suggestion).toMatchInlineSnapshot(`
         "  Object {
             \\"dependencies\\": Object {
               \\"package-b\\": \\"workspace:*\\",

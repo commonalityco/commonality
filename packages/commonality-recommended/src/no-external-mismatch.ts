@@ -18,11 +18,12 @@ const getExpectedPackageJson = async ({
 }): Promise<PackageJson> => {
   const allPackageJsons = await Promise.all(
     allWorkspaces.map((workspace) =>
-      json<PackageJson>(path.join(workspace.path, 'package.json')).get(),
+      json<PackageJson>(workspace.path, 'package.json').get(),
     ),
   );
   const packageJson = await json<PackageJson>(
-    path.join(workspace.path, 'package.json'),
+    workspace.path,
+    'package.json',
   ).get();
 
   if (!packageJson) {
@@ -53,10 +54,6 @@ const getExpectedPackageJson = async ({
     }
   }
 
-  if (externalVersionMap.size === 0) {
-    console.log({ workspace, allPackageJsons, allWorkspaces });
-  }
-
   return packageJson;
 };
 
@@ -65,7 +62,8 @@ export const noExternalMismatch = defineCheck(() => {
     name: 'commonality/external-mismatch',
     validate: async ({ allWorkspaces, workspace }) => {
       const packageJson = await json<PackageJson>(
-        path.join(workspace.path, 'package.json'),
+        workspace.path,
+        'package.json',
       ).get();
 
       if (!packageJson) {
@@ -74,7 +72,7 @@ export const noExternalMismatch = defineCheck(() => {
 
       const packageJsonsWithFalsey = await Promise.all(
         allWorkspaces.map((workspace) =>
-          json(path.join(workspace.path, 'package.json')).get(),
+          json(workspace.path, 'package.json').get(),
         ),
       );
 
@@ -124,14 +122,13 @@ export const noExternalMismatch = defineCheck(() => {
         allWorkspaces,
       });
 
-      await json(path.join(workspace.path, 'package.json')).set(
-        expectedPackageJson,
-      );
+      await json(workspace.path, 'package.json').set(expectedPackageJson);
     },
 
     message: async ({ workspace, allWorkspaces }) => {
       const packageJson = await json<PackageJson>(
-        path.join(workspace.path, 'package.json'),
+        workspace.path,
+        'package.json',
       ).get();
 
       const expectedPackageJson = await getExpectedPackageJson({
@@ -142,11 +139,11 @@ export const noExternalMismatch = defineCheck(() => {
       return {
         title:
           'External dependencies must match the most common or highest version',
-        context: diff(
+        suggestion: diff(
           pick(packageJson, DEPENDENCY_TYPES),
           pick(expectedPackageJson, DEPENDENCY_TYPES),
         ),
-        filepath: 'package.json',
+        filePath: 'package.json',
       };
     },
   };

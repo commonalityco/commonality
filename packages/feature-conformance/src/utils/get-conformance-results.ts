@@ -1,12 +1,20 @@
+import { TagsData, CodeownersData, Package } from '@commonalityco/types';
 import {
+  Status,
+  ProjectConfig,
   Check,
-  TagsData,
-  ConformanceResult,
-  CodeownersData,
-  Package,
-} from '@commonalityco/types';
-import { Status } from '@commonalityco/utils-core';
-import path from 'node:path';
+  Message,
+} from '@commonalityco/utils-core';
+import path from 'pathe';
+
+export type ConformanceResult = {
+  name: string;
+  filter: string;
+  fix?: Check['fix'];
+  status: Status;
+  package: Package;
+  message: Message;
+};
 
 export const getConformanceResults = async ({
   conformersByPattern,
@@ -15,7 +23,7 @@ export const getConformanceResults = async ({
   rootDirectory,
   codeownersData,
 }: {
-  conformersByPattern: Record<string, Check[]>;
+  conformersByPattern: ProjectConfig['checks'];
   rootDirectory: string;
   packages: Package[];
   tagsData: TagsData[];
@@ -97,15 +105,15 @@ export const getConformanceResults = async ({
 
                 return {
                   ...message,
-                  filepath: message.filepath ?? pkg.path,
-                };
+                  filePath: message.filePath ?? pkg.path,
+                } satisfies Message;
               } catch (error) {
                 if (error instanceof Error) {
                   return {
                     title: error.message,
-                    filepath: pkg.path,
-                    context: error.stack,
-                  };
+                    filePath: pkg.path,
+                    suggestion: error.stack,
+                  } satisfies Message;
                 }
 
                 return {

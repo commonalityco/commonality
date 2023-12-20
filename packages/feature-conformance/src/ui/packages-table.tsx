@@ -32,8 +32,9 @@ import {
 import { useState } from 'react';
 import { Status, formatTagName } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-core/ui';
-import { ConformanceResult, Package } from '@commonalityco/types';
+import { Package } from '@commonalityco/types';
 import { ChevronDown, Plus } from 'lucide-react';
+import type { ConformanceResult } from '../utils/get-conformance-results';
 import {
   CheckContent,
   CheckTitle,

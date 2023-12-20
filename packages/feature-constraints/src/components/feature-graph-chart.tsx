@@ -1,10 +1,5 @@
 'use client';
-import {
-  ConstraintResult,
-  Dependency,
-  Package,
-  ProjectConfig,
-} from '@commonalityco/types';
+import { ConstraintResult, Dependency, Package } from '@commonalityco/types';
 import { Package as PackageIcon } from 'lucide-react';
 import { GraphChart } from './graph-chart';
 import { useEffect, useRef } from 'react';
@@ -13,6 +8,7 @@ import FeatureGraphToolbar from './feature-graph-toolbar';
 import { cn } from '@commonalityco/ui-design-system/cn';
 import debounce from 'lodash/debounce';
 import { getElementDefinitions } from '../utilities';
+import { ProjectConfig } from '@commonalityco/utils-core';
 
 interface GraphProperties {
   packages: Package[];

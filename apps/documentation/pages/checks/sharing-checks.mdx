@@ -1,5 +1,28 @@
-# Checks at scale
+# Organizing checks
 
-## Organizing checks
+While you definitely can define checks directly within a project configuration file, we recommend using packages to organize your checks.
+This has the added benefit of making your checks ready to share with teams external to your project when you're ready to publish.
 
-## Organizing checks
+## Exporting checks
+
+We recommend exporting checks as named exports from your checks package.
+This encourages consumers to explicitly import the checks they want to apply to their project.
+If you want to apply checks from multiple checks packages you can namespace your import to make it clearer.
+
+```ts filename="packages/platform-checks/src/index.ts"
+import { defineCheck } from 'commonality/checks';
+
+export ensureESLintConfig = defineCheck(() => {
+	return {
+		// ...check definition
+	}
+})
+```
+
+```ts filename="commonality.config.ts"
+import * platform from '@scope/commonality-checks-platform';
+
+export default {
+  checks: [],
+};
+```

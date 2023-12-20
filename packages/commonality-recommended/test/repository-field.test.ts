@@ -358,7 +358,7 @@ describe('repository-field', () => {
 
         const result = await conformer.message();
 
-        expect(result.context).toMatchInlineSnapshot(`
+        expect(result.suggestion).toMatchInlineSnapshot(`
           "  Object {
               \\"name\\": \\"foo\\",
           +   \\"repository\\": \\"https://github.com/npm/cli.git/packages/pkg-a\\",
@@ -398,7 +398,7 @@ describe('repository-field', () => {
 
         const result = await conformer.message();
 
-        expect(result.context).toMatchInlineSnapshot('undefined');
+        expect(result.suggestion).toMatchInlineSnapshot('undefined');
       });
     });
   });
