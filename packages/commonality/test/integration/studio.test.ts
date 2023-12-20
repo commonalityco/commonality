@@ -4,7 +4,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execa } from 'execa';
 import os from 'node:os';
-import { Writable } from 'node:stream';
 import getPort from 'get-port';
 import stripAnsi from 'strip-ansi';
 
@@ -13,7 +12,7 @@ const binPath = path.resolve(
   '../../bin.js',
 );
 
-describe('studio', () => {
+describe.concurrent('studio', () => {
   test(
     'logs the URL to open Commonality Studio in a pnpm monorepo',
     async () => {
