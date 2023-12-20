@@ -13,7 +13,7 @@ const binPath = path.resolve(
   '../../bin.js',
 );
 
-describe.concurrent('studio', () => {
+describe('studio', () => {
   test(
     'logs the URL to open Commonality Studio in a pnpm monorepo',
     async () => {
