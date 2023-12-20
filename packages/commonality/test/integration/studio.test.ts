@@ -32,7 +32,7 @@ describe('studio', () => {
         ['studio', '--debug', '--port', String(preferredPort), '--install'],
         {
           cwd: temporaryPath,
-          stdout: 'inherit',
+          stdout: 'pipe',
         },
       );
 
