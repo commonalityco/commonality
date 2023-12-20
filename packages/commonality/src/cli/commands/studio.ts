@@ -98,8 +98,6 @@ export const studio = command
   .name('studio')
   .description('Open Commonality Studio')
   .option('--debug', 'Show debug logs')
-  .option('--color', 'Force the use of color in output')
-  .option('--no-color', 'Suppress the use of color in output')
   .option('--install', 'Install Commonality Studio if not already installed')
   .option(
     '--port <port>',

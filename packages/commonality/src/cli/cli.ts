@@ -1,10 +1,14 @@
 import { Command } from 'commander';
 import { constrain } from './commands/constrain.js';
 import { studio } from './commands/studio.js';
-import { conform } from './commands/conform.js';
+import { check } from './commands/check.js';
 import packageJson from '../../package.json';
 
 const program = new Command();
+
+program
+  .option('--color', 'Force the use of color in output')
+  .option('--no-color', 'Suppress the use of color in output');
 
 program
   .name('commonality')
@@ -13,6 +17,6 @@ program
 
 program.addCommand(constrain);
 program.addCommand(studio);
-program.addCommand(conform);
+program.addCommand(check);
 
 program.parse(process.argv);

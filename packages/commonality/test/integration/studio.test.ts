@@ -42,14 +42,7 @@ describe('studio', () => {
 
       cliProcess = execa(
         binPath,
-        [
-          'studio',
-          '--debug',
-          '--port',
-          String(preferredPort),
-          '--install',
-          '--no-color',
-        ],
+        ['studio', '--debug', '--port', String(preferredPort), '--install'],
         {
           cwd: temporaryPath,
           stdout: 'pipe',
@@ -59,7 +52,6 @@ describe('studio', () => {
       let output = '';
       const stdoutMock = new Writable({
         write(chunk, encoding, callback) {
-          console.log({ chunk: chunk.toString() });
           output += stripAnsi(chunk.toString());
           callback();
         },
@@ -78,11 +70,14 @@ describe('studio', () => {
         );
       });
 
-      await vi.waitFor(() => {
-        expect(output).toContain(
-          `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
-        );
-      });
+      await vi.waitFor(
+        () => {
+          expect(output).toContain(
+            `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
+          );
+        },
+        { timeout: 20_000 },
+      );
 
       cliProcess.kill('SIGTERM', {
         forceKillAfterTimeout: 2000,
