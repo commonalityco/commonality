@@ -2,7 +2,6 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Node 16",
   "compilerOptions": {
-    "incremental": true,
     "lib": ["es2022"],
     "target": "ES2021",
     "module": "ESNext",

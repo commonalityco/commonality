@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import { getConstraintResults } from '@commonalityco/feature-constraints/data';
 import { ConstraintResult } from '@commonalityco/types';
 import ora from 'ora';
-import c from 'picocolors';
+import c from 'chalk';
 import { Logger } from '../utils/logger.js';
 import { DependencyType } from '@commonalityco/utils-core';
 import {

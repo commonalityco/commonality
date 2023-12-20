@@ -42,7 +42,14 @@ describe('studio', () => {
 
       cliProcess = execa(
         binPath,
-        ['studio', '--debug', '--port', String(preferredPort), '--install'],
+        [
+          'studio',
+          '--debug',
+          '--port',
+          String(preferredPort),
+          '--install',
+          '--no-color',
+        ],
         {
           cwd: temporaryPath,
           stdout: 'pipe',

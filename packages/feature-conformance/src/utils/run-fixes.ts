@@ -1,6 +1,6 @@
 import { TagsData, CodeownersData, Package } from '@commonalityco/types';
 import { Status } from '@commonalityco/utils-core';
-import path from 'node:path';
+import path from 'pathe';
 import { ConformanceResult } from './get-conformance-results';
 
 export const runFixes = async ({

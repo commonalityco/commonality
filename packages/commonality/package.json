@@ -26,11 +26,11 @@
     "access": "public"
   },
   "scripts": {
-    "build:cli": "tsup --config tsup.config.cli.ts",
-    "build:utilities": "tsup --config tsup.config.utilities.ts",
+    "build:cli": "tsup-node --config tsup.config.cli.ts",
+    "build:utilities": "tsup-node --config tsup.config.utilities.ts",
     "build": "npm-run-all clean build:*",
-    "dev:cli": "tsup --config tsup.config.cli.ts --watch",
-    "dev:utilities": "tsup --config tsup.config.utilities.ts --watch",
+    "dev:cli": "tsup-nodesup --config tsup-node.config.cli.ts --watch",
+    "dev:utilities": "tsup-node --config tsup.config.utilities.ts --watch",
     "clean": "rimraf ./dist",
     "dev": "pnpm run clean && npm-run-all --parallel dev:*",
     "postbuild": "tsc --emitDeclarationOnly --declaration",
@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@antfu/install-pkg": "^0.3.1",
-    "chalk": "^4.0.0",
+    "chalk": "^5.3.0",
     "chokidar": "^3.5.3",
     "commander": "^11.0.0",
     "fs-extra": "^11.1.1",

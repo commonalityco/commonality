@@ -10,7 +10,7 @@ import chalk from 'chalk';
 import waitOn from 'wait-on';
 import url from 'node:url';
 import { createRequire } from 'node:module';
-import c from 'picocolors';
+import c from 'chalk';
 import { resolveModule } from 'local-pkg';
 import { isCI } from 'std-env';
 import prompts from 'prompts';
@@ -98,6 +98,8 @@ export const studio = command
   .name('studio')
   .description('Open Commonality Studio')
   .option('--debug', 'Show debug logs')
+  .option('--color', 'Force the use of color in output')
+  .option('--no-color', 'Suppress the use of color in output')
   .option('--install', 'Install Commonality Studio if not already installed')
   .option(
     '--port <port>',

@@ -1,5 +1,4 @@
 import { Command } from 'commander';
-import { init } from './commands/init.js';
 import { constrain } from './commands/constrain.js';
 import { studio } from './commands/studio.js';
 import { conform } from './commands/conform.js';
@@ -12,7 +11,6 @@ program
   .description('Infinitely scalable front-end ecosystems')
   .version(packageJson.version);
 
-program.addCommand(init);
 program.addCommand(constrain);
 program.addCommand(studio);
 program.addCommand(conform);

@@ -74,11 +74,13 @@ const constraintSchema = z.union([
   }),
 ]);
 
-const messageSchema = z.object({
-  title: z.string(),
-  filePath: z.string().optional(),
-  suggestion: z.string().optional(),
-});
+const messageSchema = z
+  .object({
+    title: z.string(),
+    filePath: z.string().optional(),
+    suggestion: z.string().optional(),
+  })
+  .strict();
 
 const checkSchema = z.object({
   name: z.string(),

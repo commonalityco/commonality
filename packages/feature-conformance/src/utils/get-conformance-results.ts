@@ -5,7 +5,7 @@ import {
   Check,
   Message,
 } from '@commonalityco/utils-core';
-import path from 'node:path';
+import path from 'pathe';
 
 export type ConformanceResult = {
   name: string;
@@ -105,15 +105,15 @@ export const getConformanceResults = async ({
 
                 return {
                   ...message,
-                  filepath: message.filePath ?? pkg.path,
-                };
+                  filePath: message.filePath ?? pkg.path,
+                } satisfies Message;
               } catch (error) {
                 if (error instanceof Error) {
                   return {
                     title: error.message,
-                    filepath: pkg.path,
-                    context: error.stack,
-                  };
+                    filePath: pkg.path,
+                    suggestion: error.stack,
+                  } satisfies Message;
                 }
 
                 return {

@@ -17,7 +17,7 @@ import { getPackages } from '@commonalityco/data-packages';
 import { getTagsData } from '@commonalityco/data-tags';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
 import ora from 'ora';
-import c from 'picocolors';
+import c from 'chalk';
 import prompts from 'prompts';
 import process from 'node:process';
 import { Logger } from '../utils/logger';

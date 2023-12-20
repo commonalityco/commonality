@@ -5,8 +5,11 @@ const config: Options = {
   format: ['esm'],
   platform: 'node',
   outDir: './dist/utilities',
-  noExternal: ['@commonalityco/feature-conformance', '@commonalityco/types'],
-  cjsInterop: true,
+  noExternal: [
+    '@commonalityco/feature-conformance',
+    '@commonalityco/utils-core',
+    '@commonalityco/types',
+  ],
   dts: true,
 };
 

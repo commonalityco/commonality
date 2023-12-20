@@ -143,7 +143,7 @@ export const noExternalMismatch = defineCheck(() => {
           pick(packageJson, DEPENDENCY_TYPES),
           pick(expectedPackageJson, DEPENDENCY_TYPES),
         ),
-        filepath: 'package.json',
+        filePath: 'package.json',
       };
     },
   };
