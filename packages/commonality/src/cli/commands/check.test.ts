@@ -38,6 +38,53 @@ describe('check', () => {
     vi.mocked(console.log).mockReset();
   });
 
+  describe('when there are no results', () => {
+    it('should show an empty state message', async () => {
+      await check({
+        verbose: false,
+        getResults: async () => [],
+        onFix: vi.fn(),
+      });
+
+      expect(console.log).toHaveBeenCalledTimes(1);
+
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
+        You don't have any checks configured.
+
+        Create powerful conformance rules that run like tests and can be shared like lint rules.
+
+        https://commonality.co/docs/checks",
+          ],
+        ]
+      `);
+    });
+
+    it('output should match snapshot', async () => {
+      await check({
+        verbose: false,
+        getResults: async () => {
+          throw mockError;
+        },
+        onFix: vi.fn(),
+      });
+
+      expect(console.log).toHaveBeenCalledTimes(1);
+
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
+         Error:  this-is-an-error
+        mock-stack",
+          ],
+        ]
+      `);
+    });
+  });
+
   describe('when there is an error getting results', () => {
     it('should exit the process with status code 1', async () => {
       await check({

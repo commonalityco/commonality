@@ -31,6 +31,15 @@ class ConformLogger extends Logger {
     super();
   }
 
+  addEmptyMessage() {
+    const title = c.bold(`You don't have any checks configured.`);
+    const body =
+      'Create powerful conformance rules that run like tests and can be shared like lint rules.';
+    const link = 'https://commonality.co/docs/checks';
+
+    this.output += `\n${title}\n\n${body}\n\n${link}`;
+  }
+
   addFilterTitle({
     filter,
     count,
@@ -78,6 +87,11 @@ const reportConformanceResults = ({
   verbose: boolean;
   results: ConformanceResult[];
 }) => {
+  if (results.length === 0) {
+    logger.addEmptyMessage();
+    logger.write();
+    return;
+  }
   // This is keyed by packageName
   const resultsMap = new Map<string, Set<ConformanceResult>>();
 
