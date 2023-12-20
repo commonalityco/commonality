@@ -27,7 +27,6 @@ jobs:
 
   type-check:
     runs-on: ubuntu-latest
-    uses: ./.github/actions/setup.yml
     steps:
       - name: Checkout respository
         uses: actions/checkout@v4
