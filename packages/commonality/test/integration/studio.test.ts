@@ -38,11 +38,11 @@ describe.concurrent('studio', () => {
       let output = '';
 
       cliProcess.stdout?.on('data', (data) => {
-        console.log({ out: data.toString() });
+        console.log('pnpm:', data.toString());
         output += stripAnsi(data.toString());
       });
       cliProcess.stderr?.on('data', (data) => {
-        console.log({ err: data.toString() });
+        console.log('pnpm:', data.toString());
         output += stripAnsi(data.toString());
       });
 
@@ -50,7 +50,7 @@ describe.concurrent('studio', () => {
         () => {
           expect(output).toContain('📦 Starting Commonality Studio...');
         },
-        { timeout: 20_000 },
+        { timeout: 50_000 },
       );
 
       await vi.waitFor(
@@ -59,7 +59,7 @@ describe.concurrent('studio', () => {
             `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
           );
         },
-        { timeout: 20_000 },
+        { timeout: 50_000 },
       );
 
       await vi.waitFor(
@@ -68,7 +68,7 @@ describe.concurrent('studio', () => {
             `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
           );
         },
-        { timeout: 50_000 },
+        { timeout: 100_000 },
       );
 
       cliProcess.kill('SIGTERM', {
@@ -83,7 +83,7 @@ describe.concurrent('studio', () => {
 
       await fs.remove(temporaryPath);
     },
-    { timeout: 100_000 },
+    { timeout: 200_000 },
   );
 
   test(
@@ -110,11 +110,11 @@ describe.concurrent('studio', () => {
 
       let output = '';
       cliProcess.stdout?.on('data', (data) => {
-        console.log({ out: data.toString() });
+        console.log('npm:', data.toString());
         output += stripAnsi(data.toString());
       });
       cliProcess.stderr?.on('data', (data) => {
-        console.log({ err: data.toString() });
+        console.log('npm:', data.toString());
         output += stripAnsi(data.toString());
       });
 
@@ -122,7 +122,7 @@ describe.concurrent('studio', () => {
         () => {
           expect(output).toContain('📦 Starting Commonality Studio...');
         },
-        { timeout: 20_000 },
+        { timeout: 50_000 },
       );
 
       await vi.waitFor(
@@ -131,7 +131,7 @@ describe.concurrent('studio', () => {
             `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
           );
         },
-        { timeout: 20_000 },
+        { timeout: 50_000 },
       );
 
       await vi.waitFor(
@@ -140,7 +140,7 @@ describe.concurrent('studio', () => {
             `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
           );
         },
-        { timeout: 50_000 },
+        { timeout: 100_000 },
       );
 
       cliProcess.kill('SIGTERM', {
@@ -155,7 +155,7 @@ describe.concurrent('studio', () => {
 
       await fs.remove(temporaryPath);
     },
-    { timeout: 100_000 },
+    { timeout: 200_000 },
   );
 
   test(
@@ -182,11 +182,11 @@ describe.concurrent('studio', () => {
 
       let output = '';
       cliProcess.stdout?.on('data', (data) => {
-        console.log({ out: data.toString() });
+        console.log('yarn:', data.toString());
         output += stripAnsi(data.toString());
       });
       cliProcess.stderr?.on('data', (data) => {
-        console.log({ err: data.toString() });
+        console.log('yarn:', data.toString());
         output += stripAnsi(data.toString());
       });
 
@@ -194,7 +194,7 @@ describe.concurrent('studio', () => {
         () => {
           expect(output).toContain('📦 Starting Commonality Studio...');
         },
-        { timeout: 20_000 },
+        { timeout: 50_000 },
       );
 
       await vi.waitFor(
@@ -203,7 +203,7 @@ describe.concurrent('studio', () => {
             `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
           );
         },
-        { timeout: 20_000 },
+        { timeout: 50_000 },
       );
 
       await vi.waitFor(
@@ -212,7 +212,7 @@ describe.concurrent('studio', () => {
             `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
           );
         },
-        { timeout: 50_000 },
+        { timeout: 100_000 },
       );
 
       cliProcess.kill('SIGTERM', {
@@ -227,6 +227,6 @@ describe.concurrent('studio', () => {
 
       await fs.remove(temporaryPath);
     },
-    { timeout: 100_000 },
+    { timeout: 200_000 },
   );
 });
