@@ -79,9 +79,23 @@ export async function ensurePackageInstalled({
     const installPkg = await import('@antfu/install-pkg');
     const packageManager = await getPackageManager({ rootDirectory: root });
 
+    const getAdditionalArgs = () => {
+      switch (packageManager) {
+        case 'pnpm': {
+          return ['-w'];
+        }
+        case 'yarn': {
+          return ['-W'];
+        }
+        default: {
+          return [];
+        }
+      }
+    };
+
     await installPkg.installPackage(dependency, {
       dev: true,
-      additionalArgs: packageManager === 'pnpm' ? ['-w'] : [],
+      additionalArgs: getAdditionalArgs(),
     });
 
     const resolved = resolveModule(DEPENDENCY_NAME, {

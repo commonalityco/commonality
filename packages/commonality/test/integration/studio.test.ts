@@ -16,12 +16,13 @@ const binPath = path.resolve(
 );
 
 describe('studio', () => {
-  const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
-  const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
+  let temporaryPath: string | undefined;
   let preferredPort: number | undefined;
   let cliProcess: ExecaChildProcess | undefined;
 
   beforeEach(async () => {
+    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
+    temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     preferredPort = await getPort();
   });
 
@@ -170,6 +171,7 @@ describe('studio', () => {
       let output = '';
       const stdoutMock = new Writable({
         write(chunk, encoding, callback) {
+          console.log(chunk.toString());
           output += stripAnsi(chunk.toString());
           callback();
         },
