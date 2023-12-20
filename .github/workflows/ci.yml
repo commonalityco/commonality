@@ -3,41 +3,65 @@ name: Continuous Integration
 on: [pull_request]
 
 jobs:
-  CI:
-    name: Lint + Test + Build
-    timeout-minutes: 15
+  setup:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 15.x, 16.x, 17.x, 18.x]
+    name: Setup (Node ${{ matrix.node-version }})
+    timeout-minutes: 15
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
     steps:
-      - name: Checkout respository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: 'Setup pnpm'
         uses: pnpm/action-setup@v2
 
-      - name: Setup Node.js 18.x
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
+
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm run build
-
+  lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Lint
         run: pnpm run lint
 
+  type-check:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Type check
         run: pnpm run type-check
 
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Test
         run: pnpm run test
 
+  integration-test:
+    needs: [setup, lint, type-check, test]
+    runs-on: ubuntu-latest
+    steps:
       - name: Prune devDependencies
         run: pnpm prune --prod
 
