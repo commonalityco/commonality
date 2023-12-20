@@ -38,6 +38,8 @@ jobs:
   test:
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: 'test'
     steps:
       - name: Checkout respository
         uses: actions/checkout@v4
