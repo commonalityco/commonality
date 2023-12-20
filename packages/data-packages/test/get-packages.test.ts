@@ -5,6 +5,26 @@ import { PackageType } from '@commonalityco/utils-core';
 import { fileURLToPath } from 'node:url';
 
 describe('getPackages', () => {
+  it('should return the root package if the project is not a monorepo', async () => {
+    const rootDirectory = path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './fixtures',
+      'single-package-repo',
+    );
+
+    const packages = await getPackages({ rootDirectory });
+
+    expect(packages).toEqual([
+      {
+        name: 'root',
+        version: '1.0.0',
+        description: 'root description',
+        path: '.',
+        type: PackageType.NODE,
+      },
+    ]);
+  });
+
   it('should return an array of packages with internal dependencies excluding the root package', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
@@ -30,18 +50,6 @@ describe('getPackages', () => {
         type: PackageType.NODE,
       },
     ]);
-  });
-
-  it('should return an empty array if no packages are found', async () => {
-    const rootDirectory = path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      './fixtures',
-      'no-packages',
-    );
-
-    const packages = await getPackages({ rootDirectory });
-
-    expect(packages).toEqual([]);
   });
 
   it('should throw an error if a lockfile does not exist', async () => {

@@ -21,6 +21,15 @@ export const getPackages = async ({
     workspaceGlobs,
   });
 
+  if (packageDirectories.length === 0) {
+    return [
+      await getPackage({
+        rootDirectory,
+        directory: '.',
+      }),
+    ];
+  }
+
   const packageResults = await Promise.all(
     packageDirectories.map((directory) => {
       return getPackage({
