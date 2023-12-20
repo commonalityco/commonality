@@ -17,7 +17,6 @@ describe('studio', () => {
   test(
     'logs the URL to open Commonality Studio in a pnpm monorepo',
     async () => {
-      console.log({ env: process.env });
       const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
       const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
       const preferredPort = await getPort();
@@ -33,7 +32,7 @@ describe('studio', () => {
         ['studio', '--debug', '--port', String(preferredPort), '--install'],
         {
           cwd: temporaryPath,
-          stdout: 'pipe',
+          stdout: 'overlapped',
         },
       );
 
