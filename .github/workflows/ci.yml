@@ -62,6 +62,10 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x, 17.x, 18.x]
+        os:
+          - runner: ubuntu-latest
+          - runner: macos-latest
+          - runner: windows-latest
     needs: [lint, type-check, test]
     runs-on: ubuntu-latest
     steps:
