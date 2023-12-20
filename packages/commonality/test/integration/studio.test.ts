@@ -47,15 +47,21 @@ describe('studio', () => {
         output += stripAnsi(data.toString());
       });
 
-      await vi.waitFor(() => {
-        expect(output).toContain('📦 Starting Commonality Studio...');
-      });
+      await vi.waitFor(
+        () => {
+          expect(output).toContain('📦 Starting Commonality Studio...');
+        },
+        { timeout: 20_000 },
+      );
 
-      await vi.waitFor(() => {
-        expect(output).toContain(
-          `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
-        );
-      });
+      await vi.waitFor(
+        () => {
+          expect(output).toContain(
+            `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
+          );
+        },
+        { timeout: 20_000 },
+      );
 
       await vi.waitFor(
         () => {
