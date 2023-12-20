@@ -8,14 +8,14 @@
     "Alec Ortega <alec@commonality.co> (https://github.com/alecortega)"
   ],
   "scripts": {
-    "dev": "turbo run dev --parallel",
+    "dev": "turbo run dev --parallel --cache-dir=.turbo",
     "conform": "commonality conform",
-    "build": "turbo run build",
+    "build": "turbo run build --cache-dir=.turbo",
     "clean": "rimraf ./packages/**/dist ./packages/**/.turbo ./packages/*/node_modules ./coverage ./node_modules",
     "test": "vitest run",
     "test:integration": "CI=true turbo run test:integration",
     "test:watch": "vitest run --watch",
-    "lint": "turbo run lint",
+    "lint": "turbo run lint --cache-dir=.turbo",
     "lint:fix": "turbo run lint:fix",
     "link-all": "ts-node scripts/link-all.ts",
     "unlink-all": "ts-node scripts/unlink-all.ts",
@@ -24,7 +24,7 @@
     "changeset:release": "changeset publish",
     "commonality:publish": "commonality publish",
     "prepare": "husky install",
-    "type-check": "turbo run type-check"
+    "type-check": "turbo run type-check --cache-dir=.turbo"
   },
   "keywords": [],
   "author": "",

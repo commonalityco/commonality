@@ -12,20 +12,35 @@ runs:
   steps:
     - name: 'Setup pnpm'
       uses: pnpm/action-setup@v2
+      with:
+        run_install: false
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - name: Setup pnpm cache
+      uses: actions/cache@v3
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Cache turbo build setup
+      uses: actions/cache@v3
+      with:
+        path: .turbo
+        key: ${{ runner.os }}-turbo-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-turbo-
 
     - name: Setup Node.js ${{ inputs.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
         cache: 'pnpm'
-
-    - name: Cache pnpm modules
-      uses: actions/cache@v3
-      with:
-        path: ~/.pnpm-store
-        key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-pnpm-
 
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
