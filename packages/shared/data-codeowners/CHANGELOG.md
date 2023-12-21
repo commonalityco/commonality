@@ -1,5 +1,11 @@
 # @commonalityco/traverse
 
+## 0.0.18
+
+### Patch Changes
+
+- 4bd3547: Create granular packages
+
 ## 0.0.17
 
 ### Patch Changes

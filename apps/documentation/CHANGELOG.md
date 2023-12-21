@@ -1,5 +1,12 @@
 # documentation
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [4bd3547]
+  - @commonalityco/ui-design-system@0.0.14
+
 ## 0.0.2
 
 ### Patch Changes

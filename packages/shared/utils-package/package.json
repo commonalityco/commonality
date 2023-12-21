@@ -7,7 +7,7 @@
   },
   "main": "./src/index.ts",
   "sideEffects": false,
-  "version": "0.0.11",
+  "version": "0.0.12",
   "publishConfig": {
     "access": "public",
     "exports": {
