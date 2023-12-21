@@ -74,7 +74,7 @@ export const sortedDependencies = defineCheck(() => {
     message: () => {
       return {
         title: 'Dependencies in package.json must be sorted alphabetically',
-        filepath: 'package.json',
+        filePath: 'package.json',
       };
     },
   };

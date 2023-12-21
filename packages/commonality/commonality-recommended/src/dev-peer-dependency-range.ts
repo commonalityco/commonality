@@ -118,7 +118,7 @@ export const devPeerDependencyRange = defineCheck(() => {
       const expectedDevDependencies = getExpectedDevDependencies(packageJson);
 
       if (!expectedDevDependencies) {
-        return { title, filepath: 'package.json' };
+        return { title, filePath: 'package.json' };
       }
 
       const source: Partial<PackageJson> = {
@@ -139,7 +139,7 @@ export const devPeerDependencyRange = defineCheck(() => {
       return {
         title,
         suggestion: diff(source, target),
-        filepath: 'package.json',
+        filePath: 'package.json',
       };
     },
   };
