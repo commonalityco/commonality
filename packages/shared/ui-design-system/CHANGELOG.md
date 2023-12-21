@@ -1,5 +1,11 @@
 # @commonalityco/ui-design-system
 
+## 0.0.14
+
+### Patch Changes
+
+- 4bd3547: Create granular packages
+
 ## 0.0.13
 
 ### Patch Changes

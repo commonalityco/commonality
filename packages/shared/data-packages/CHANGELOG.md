@@ -1,5 +1,14 @@
 # @commonalityco/constraints
 
+## 0.0.19
+
+### Patch Changes
+
+- 4bd3547: Create granular packages
+- Updated dependencies [4bd3547]
+  - @commonalityco/data-project@0.0.13
+  - @commonalityco/utils-core@0.0.12
+
 ## 0.0.18
 
 ### Patch Changes

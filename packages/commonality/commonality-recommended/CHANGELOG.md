@@ -1,5 +1,13 @@
 # commonality-recommended
 
+## 0.0.7
+
+### Patch Changes
+
+- 4bd3547: Create granular packages
+- Updated dependencies [4bd3547]
+  - commonality@0.2.28
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.28
+
+### Patch Changes
+
+- 4bd3547: Create granular packages
+
 ## 0.2.27
 
 ### Patch Changes

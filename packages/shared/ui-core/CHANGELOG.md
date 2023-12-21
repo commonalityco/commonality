@@ -1,5 +1,13 @@
 # @commonalityco/ui-core
 
+## 0.0.16
+
+### Patch Changes
+
+- 4bd3547: Create granular packages
+- Updated dependencies [4bd3547]
+  - @commonalityco/ui-design-system@0.0.14
+
 ## 0.0.15
 
 ### Patch Changes

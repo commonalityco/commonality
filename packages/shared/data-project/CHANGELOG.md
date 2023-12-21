@@ -1,5 +1,13 @@
 # @commonalityco/snapshot
 
+## 0.0.13
+
+### Patch Changes
+
+- 4bd3547: Create granular packages
+- Updated dependencies [4bd3547]
+  - @commonalityco/utils-core@0.0.12
+
 ## 0.0.12
 
 ### Patch Changes

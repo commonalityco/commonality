@@ -1,5 +1,11 @@
 # @commonalityco/utils-core
 
+## 0.0.12
+
+### Patch Changes
+
+- 4bd3547: Create granular packages
+
 ## 0.0.11
 
 ### Patch Changes
