@@ -69,13 +69,11 @@ describe.concurrent('studio', () => {
         { timeout: 100_000 },
       );
 
-      cliProcess.kill('SIGKILL');
+      cliProcess.kill('SIGINT');
 
       await vi.waitFor(() => {
         expect(output).toContain(`Successfully exited Commonality Studio`);
       });
-
-      cliProcess?.kill();
 
       await fs.remove(temporaryPath);
     },
@@ -137,13 +135,11 @@ describe.concurrent('studio', () => {
         { timeout: 100_000 },
       );
 
-      cliProcess.kill('SIGKILL');
+      cliProcess.kill('SIGINT');
 
       await vi.waitFor(() => {
         expect(output).toContain(`Successfully exited Commonality Studio`);
       });
-
-      cliProcess?.kill();
 
       await fs.remove(temporaryPath);
     },
@@ -205,13 +201,11 @@ describe.concurrent('studio', () => {
         { timeout: 100_000 },
       );
 
-      cliProcess.kill('SIGKILL');
+      cliProcess.kill('SIGINT');
 
       await vi.waitFor(() => {
         expect(output).toContain(`Successfully exited Commonality Studio`);
       });
-
-      cliProcess?.kill();
 
       await fs.remove(temporaryPath);
     },
