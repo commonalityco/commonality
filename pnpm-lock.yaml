@@ -835,8 +835,8 @@ importers:
         specifier: ^0.26.4
         version: 0.26.4(react-dom@18.2.0)(react@18.2.0)
       '@xstate/react':
-        specifier: ^4.0.1
-        version: 4.0.1(@types/react@18.2.45)(react@18.2.0)(xstate@5.3.1)
+        specifier: ^3.2.2
+        version: 3.2.2(@types/react@18.2.45)(react@18.2.0)(xstate@4.38.3)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -847,8 +847,8 @@ importers:
         specifier: ^0.0.54
         version: 0.0.54(react-dom@18.2.0)(react@18.2.0)
       xstate:
-        specifier: ^5.3.1
-        version: 5.3.1
+        specifier: ^4.38.2
+        version: 4.38.3
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
@@ -7922,19 +7922,22 @@ packages:
       '@xtuc/long': 4.2.2
     dev: true
 
-  /@xstate/react@4.0.1(@types/react@18.2.45)(react@18.2.0)(xstate@5.3.1):
-    resolution: {integrity: sha512-UB9qUC11wcaYd05wGea0mvEA3uTHikNaB4InMZfxD7MVFxzBFU+3JFkemjiN8bDdPJfDrObyP9ZPDVojq2LytA==}
+  /@xstate/react@3.2.2(@types/react@18.2.45)(react@18.2.0)(xstate@4.38.3):
+    resolution: {integrity: sha512-feghXWLedyq8JeL13yda3XnHPZKwYDN5HPBLykpLeuNpr9178tQd2/3d0NrH6gSd0sG5mLuLeuD+ck830fgzLQ==}
     peerDependencies:
+      '@xstate/fsm': ^2.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      xstate: ^5.1.0
+      xstate: ^4.37.2
     peerDependenciesMeta:
+      '@xstate/fsm':
+        optional: true
       xstate:
         optional: true
     dependencies:
       react: 18.2.0
       use-isomorphic-layout-effect: 1.1.2(@types/react@18.2.45)(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
-      xstate: 5.3.1
+      xstate: 4.38.3
     transitivePeerDependencies:
       - '@types/react'
     dev: false
@@ -19103,10 +19106,6 @@ packages:
 
   /xstate@4.38.3:
     resolution: {integrity: sha512-SH7nAaaPQx57dx6qvfcIgqKRXIh4L0A1iYEqim4s1u7c9VoCgzZc+63FY90AKU4ZzOC2cfJzTnpO4zK7fCUzzw==}
-    dev: false
-
-  /xstate@5.3.1:
-    resolution: {integrity: sha512-j4lYbMKqTQ1gxS0NAhjX0JkFJ44OLqYgXV7kVSc0YpnENhPNigvrFMqpBFtfho39pgzdcmpmnmUyEUVWwYMOdA==}
     dev: false
 
   /xtend@4.0.2:
