@@ -9,6 +9,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./test/setup.ts'],
   },
+
   plugins: [tsconfigPaths(), react()],
   resolve: {
     alias: {
