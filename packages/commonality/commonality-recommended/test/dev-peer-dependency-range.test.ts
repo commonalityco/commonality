@@ -167,7 +167,7 @@ describe('dev-peer-dependency-range', () => {
 
       await conformer.fix();
 
-      const packageJson = await json('package.json').get();
+      const packageJson = await json('./', 'package.json').get();
 
       expect(packageJson).toEqual({
         name: 'pkg-a',
@@ -194,7 +194,7 @@ describe('dev-peer-dependency-range', () => {
 
       await conformer.fix();
 
-      const packageJson = await json('package.json').get();
+      const packageJson = await json('./', 'package.json').get();
 
       expect(packageJson).toEqual({
         name: 'pkg-a',
@@ -229,6 +229,7 @@ describe('dev-peer-dependency-range', () => {
       expect(result.title).toEqual(
         'Packages with peerDependencies must have matching devDependencies within a valid range',
       );
+      expect(result.filePath).toEqual('package.json');
       expect(result.suggestion).toMatchInlineSnapshot(`
         "  Object {
             \\"devDependencies\\": Object {
@@ -262,6 +263,7 @@ describe('dev-peer-dependency-range', () => {
       expect(result.title).toEqual(
         'Packages with peerDependencies must have matching devDependencies within a valid range',
       );
+      expect(result.filePath).toEqual('package.json');
       expect(result.suggestion).toMatchInlineSnapshot('undefined');
     });
   });

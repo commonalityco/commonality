@@ -93,7 +93,7 @@ You can return a `Message` object from the `message` function to dynamically con
 ```ts
 type Message = {
   text: string;
-  filepath?: string;
+  filePath?: string;
   context?: string;
 };
 ```
@@ -113,13 +113,13 @@ const ensureTSConfigExtends = defineCheck((base: string) => {
       if (!tsConfig) {
         return {
           text: 'tsconfig.json does not exist',
-          filepath: 'tsconfig.json',
+          filePath: 'tsconfig.json',
         };
       }
 
       return {
         text: `tsconfig.json must extend ${base}`,
-        filepath: 'tsconfig.json',
+        filePath: 'tsconfig.json',
         context: diff(tsConfig, { ...tsConfig, extends: base }),
       };
     },

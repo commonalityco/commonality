@@ -37,7 +37,7 @@ const ensureLicense = defineCheck((license: string = 'MIT') => {
       if (!packageJson || !packageJson.license) {
         return {
           title: 'Package.json must have a license',
-          filepath: 'package.json',
+          filePath: 'package.json',
           context: diff(
             { name: packageJson.name },
             { name: packageJson.name, license },
@@ -47,7 +47,7 @@ const ensureLicense = defineCheck((license: string = 'MIT') => {
 
       return {
         title: `Package.json license must be ${license}`,
-        filepath: 'package.json',
+        filePath: 'package.json',
         context: diff(
           { name: packageJson.name, license: packageJson.license },
           { name: packageJson.name, license },
@@ -142,7 +142,7 @@ describe('ensureLicense', () => {
       const message = await check.message();
 
       expect(message.title).toEqual('Package.json license must be MIT');
-      expect(message.filepath).toEqual('package.json');
+      expect(message.filePath).toEqual('package.json');
       // We recommend snapshot testing suggestions as the formatting can be tricky to hardode
       expect(message.suggestion).toMatchInlineSnapshot();
     });

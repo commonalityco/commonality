@@ -45,7 +45,7 @@ describe('ensureReadme', () => {
 
       await conformer.fix();
 
-      const readme = await text('README.md').get();
+      const readme = await text('./', 'README.md').get();
 
       expect(readme).toEqual(['# workspaceName', '> workspaceDescription']);
     });

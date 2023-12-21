@@ -97,7 +97,7 @@ describe('multipleDependencyTypes', () => {
 
       await conformer.fix();
 
-      const packageJson = await json('package.json').get();
+      const packageJson = await json('./', 'package.json').get();
 
       expect(packageJson).toEqual({
         name: 'pkg-b',
@@ -124,7 +124,7 @@ describe('multipleDependencyTypes', () => {
 
       await conformer.fix();
 
-      const packageJson = await json('package.json').get();
+      const packageJson = await json('./', 'package.json').get();
 
       expect(packageJson).toEqual({
         name: 'pkg-b',
@@ -155,7 +155,7 @@ describe('multipleDependencyTypes', () => {
 
       await conformer.fix();
 
-      const packageJson = await json('package.json').get();
+      const packageJson = await json('./', 'package.json').get();
 
       expect(packageJson).toEqual({
         name: 'pkg-b',
@@ -193,7 +193,7 @@ describe('multipleDependencyTypes', () => {
       expect(message.title).toEqual(
         'A dependency should only be in one of dependencies, devDependencies, or optionalDependencies',
       );
-
+      expect(message.filePath).toEqual('package.json');
       expect(message.suggestion ?? '').toMatchInlineSnapshot(
         `
           "  Object {

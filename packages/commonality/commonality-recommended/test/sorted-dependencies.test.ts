@@ -55,7 +55,7 @@ describe('sortedDependencies', () => {
 
       await conformer.fix();
 
-      const result = await json('package.json').get();
+      const result = await json('./', 'package.json').get();
 
       expect(result).toEqual({
         dependencies: {
@@ -71,6 +71,26 @@ describe('sortedDependencies', () => {
           'b-dep': '1.0.0',
         },
       });
+    });
+  });
+
+  describe('message', () => {
+    it('return the correct message for unsorted dependencies', async () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          dependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
+          devDependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
+          peerDependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
+        }),
+      });
+      const conformer = createTestCheck(sortedDependencies());
+
+      const result = await conformer.message();
+      console.log({ result });
+      expect(result.title).toEqual(
+        'Dependencies in package.json must be sorted alphabetically',
+      );
+      expect(result.filePath).toEqual('package.json');
     });
   });
 });
