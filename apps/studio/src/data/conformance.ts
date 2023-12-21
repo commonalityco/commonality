@@ -3,7 +3,7 @@ import 'server-only';
 import { getProjectConfig } from '@commonalityco/data-project';
 import { getPackagesData } from './packages';
 import { getTagsData } from '@commonalityco/data-tags';
-import { getConformanceResults } from '@commonalityco/feature-conformance';
+import { getConformanceResults } from '@commonalityco/utils-conformance';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
 
 export const getConformanceResultsData = async () => {

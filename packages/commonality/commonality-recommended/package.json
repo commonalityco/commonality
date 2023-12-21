@@ -1,0 +1,42 @@
+{
+  "name": "commonality-recommended",
+  "description": "Commonality's recommended conformers.",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.6",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "commonality": "workspace:*"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@types/lodash": "^4.14.198",
+    "@types/mock-fs": "^4.13.4",
+    "@types/semver": "^7.5.6",
+    "@types/validate-npm-package-name": "^4.0.2",
+    "commonality": "workspace:*",
+    "eslint-config-commonality": "workspace:*",
+    "mock-fs": "^5.2.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "semver": "^7.5.4",
+    "validate-npm-package-name": "^5.0.0"
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/commonality/commonality-recommended"
+}

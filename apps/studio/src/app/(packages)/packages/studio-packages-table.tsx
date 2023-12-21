@@ -9,7 +9,7 @@ import {
   SortableHeader,
   TagsCell,
   ColumnData,
-} from '@commonalityco/feature-conformance/ui';
+} from '@commonalityco/ui-conformance';
 import {
   DropdownMenu,
   DropdownMenuContent,

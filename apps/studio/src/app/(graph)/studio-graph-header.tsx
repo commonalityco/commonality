@@ -1,7 +1,7 @@
 'use server';
 import { EditConfigButton } from '@/components/edit-config-button';
 import { getConstraintsData } from '@/data/constraints';
-import { FeatureGraphHeader } from '@commonalityco/feature-constraints/components';
+import { FeatureGraphHeader } from '@commonalityco/ui-constraints';
 import React from 'react';
 
 async function StudioGraphHeader() {

@@ -1,0 +1,54 @@
+{
+  "name": "@commonalityco/utils-conformance",
+  "description": "Get conformance information about a local project",
+  "version": "0.0.20",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/ui-design-system": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "@types/lodash-es": "^4.17.12",
+    "eslint-config-commonality": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "@commonalityco/ui-design-system": "*",
+    "@commonalityco/utils-core": "*",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "detect-indent": "^7.0.1",
+    "fs-extra": "^11.1.1",
+    "jest-diff": "^29.7.0",
+    "lodash-es": "^4.17.21",
+    "mock-fs": "^5.2.0",
+    "pathe": "^1.1.1",
+    "strip-ansi": "^7.1.0"
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/conformance/utils-conformance"
+}

@@ -1,0 +1,42 @@
+{
+  "name": "@commonalityco/data-tags",
+  "description": "Utilities getting and setting metadata for a Commonality project",
+  "version": "0.0.13",
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": "./dist/index.js"
+    }
+  },
+  "type": "module",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@types/fs-extra": "^11.0.2",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^20.10.0",
+    "eslint-config-commonality": "workspace:*",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@commonalityco/data-project": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "fs-extra": "^11.1.1",
+    "lodash-es": "^4.17.21"
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/shared/data-tags"
+}

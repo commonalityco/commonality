@@ -1,5 +1,4 @@
-// @ts-check
-import { defineCheck, defineConfig, json } from 'commonality';
+import { defineConfig } from 'commonality';
 import * as recommended from 'commonality-recommended';
 
 export default defineConfig({
@@ -13,15 +12,6 @@ export default defineConfig({
       recommended.devPeerDependencyRange(),
       recommended.noExternalMismatch(),
       recommended.repositoryField(),
-    ],
-    testable: [
-      defineCheck(() => {
-        return {
-          name: 'ensure-test-tooling',
-          message: 'Testable packages must have test tooling configured',
-          validate: ({ workspace }) => {},
-        };
-      }),
     ],
   },
   constraints: {

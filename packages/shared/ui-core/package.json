@@ -1,0 +1,60 @@
+{
+  "name": "@commonalityco/ui-core",
+  "description": "Presentational components used to build Commonality applications",
+  "type": "module",
+  "version": "0.0.15",
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "tailwind-merge": "^1.14.0"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tailwind": "workspace:*",
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/ui-design-system": "workspace:*",
+    "@types/react": "^18.2.22",
+    "eslint-config-commonality": "workspace:*",
+    "lucide-react": "^0.274.0",
+    "next": "14.0.1",
+    "next-themes": "^0.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.2"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@commonalityco/ui-design-system": "*",
+    "lucide-react": "^0.x",
+    "next": "14.0.1",
+    "next-themes": "^0.x",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "tsc --build",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./dist/*.js"
+  },
+  "main": "./src/index.ts",
+  "engines": {
+    "node": ">=16"
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/shared/ui-core"
+}

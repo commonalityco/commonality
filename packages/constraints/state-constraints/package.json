@@ -1,0 +1,44 @@
+{
+  "name": "@commonalityco/state-constraints",
+  "version": "0.0.1",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/ui-core": "workspace:*",
+    "@commonalityco/ui-design-system": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "@commonalityco/utils-package": "workspace:*",
+    "@types/cytoscape": "^3.19.16",
+    "@types/lodash": "^4.14.198",
+    "cytoscape": "^3.26.0",
+    "eslint-config-commonality": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.2.2",
+    "@floating-ui/react": "^0.26.3"
+  },
+  "dependencies": {
+    "@commonalityco/utils-constraints": "workspace:*",
+    "lodash": "^4.17.21",
+    "xstate": "^4.38.2"
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/constraints/state-constraints"
+}

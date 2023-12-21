@@ -1,3 +1,3 @@
-import { createWorker } from '@commonalityco/feature-constraints/utilities';
+import { createWorker } from '@commonalityco/utils-constraints';
 
 createWorker();
