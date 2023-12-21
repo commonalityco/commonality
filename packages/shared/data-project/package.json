@@ -31,14 +31,10 @@
     "@types/fs-extra": "^11.0.2",
     "@types/node": "^20.10.0",
     "eslint-config-commonality": "workspace:*",
-    "mock-fs": "^5.2.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
     "@commonalityco/utils-core": "workspace:*",
-    "chalk": "^5.3.0",
-    "cosmiconfig": "^8.3.6",
-    "cosmiconfig-typescript-loader": "^5.0.0",
     "find-up": "^6.3.0",
     "fs-extra": "^11.1.1",
     "globby": "^13.2.2",

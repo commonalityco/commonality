@@ -1,4 +1,4 @@
-import { defineCheck, defineConfig } from 'commonality';
+import { defineConfig } from 'commonality';
 import * as recommended from 'commonality-recommended';
 
 export default defineConfig({

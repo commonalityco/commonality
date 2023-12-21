@@ -14,21 +14,15 @@
   "sideEffects": false,
   "types": "./src/index.ts",
   "dependencies": {
-    "@commonalityco/types": "workspace:*",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
-    "react-markdown": "^8.0.7",
-    "react-syntax-highlighter": "^15.5.0",
-    "remark-gfm": "^3.0.1",
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
     "@commonalityco/config-tailwind": "workspace:*",
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
-    "@testing-library/react": "^14.0.0",
     "@types/react": "^18.2.22",
-    "@types/react-syntax-highlighter": "^15.5.7",
     "eslint-config-commonality": "workspace:*",
     "lucide-react": "^0.274.0",
     "next": "14.0.1",
