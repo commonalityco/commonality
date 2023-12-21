@@ -77,7 +77,7 @@
     "bufferutil": "^4.0.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
-    "cookies-next": "^3.0.0",
+    "cookies-next": "^4.1.0",
     "cypress": "^12.17.4",
     "cytoscape": "^3.26.0",
     "date-fns": "^2.30.0",

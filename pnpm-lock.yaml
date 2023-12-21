@@ -382,8 +382,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       cookies-next:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^4.1.0
+        version: 4.1.0
       cypress:
         specifier: ^12.17.4
         version: 12.17.4
@@ -9056,8 +9056,8 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
-  /cookies-next@3.0.0:
-    resolution: {integrity: sha512-VaSrsjQJ8yHnGAGulV9zJxBr7hrKJ/O2mo87evsGIMF7XvJI3AJNguevotx0Gek1MMMBkZvZNWu2JueSNoSKEQ==}
+  /cookies-next@4.1.0:
+    resolution: {integrity: sha512-BREVc4TJT4NwXfyKjdjnYFXM6iRns+MYpCd34ClXuYqeisXnkPkbq7Ok9xaqi9mHmV6H2rwPE+p3EpMz4pF/kQ==}
     dependencies:
       '@types/cookie': 0.4.1
       '@types/node': 16.18.65
