@@ -47,7 +47,7 @@
     "@floating-ui/react": "^0.26.3",
     "@xstate/react": "^3.2.2",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.274.0",
+    "lucide-react": "^0.299.0",
     "react-resizable-panels": "^0.0.63",
     "xstate": "^4.38.2"
   },

@@ -25,7 +25,7 @@
     "@types/react": "^18.2.22",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "eslint-config-commonality": "workspace:*",
-    "lucide-react": "^0.274.0",
+    "lucide-react": "^0.299.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.3.3",
