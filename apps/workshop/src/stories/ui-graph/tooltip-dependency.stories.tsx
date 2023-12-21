@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { TooltipDependency } from '@commonalityco/feature-constraints/components';
+import { TooltipDependency } from '@commonalityco/ui-constraints';
 import { DependencyType } from '@commonalityco/utils-core';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction

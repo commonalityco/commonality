@@ -1,6 +1,6 @@
 import { CodeownersData, Package, TagsData } from '@commonalityco/types';
-import { ColumnData } from '@commonalityco/feature-conformance/ui';
-import { ConformanceResult } from '@commonalityco/feature-conformance/utilities';
+import { ColumnData } from '@commonalityco/ui-conformance';
+import { ConformanceResult } from '@commonalityco/utils-conformance';
 
 function keyBy<Data extends Record<string, any>>(
   array: Data[],

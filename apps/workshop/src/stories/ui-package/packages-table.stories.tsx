@@ -8,7 +8,7 @@ import {
   PackagesTable,
   SortableHeader,
   TagsCell,
-} from '@commonalityco/feature-conformance/ui';
+} from '@commonalityco/ui-conformance';
 import { PackageType, Status } from '@commonalityco/utils-core';
 import { Package } from '@commonalityco/types';
 

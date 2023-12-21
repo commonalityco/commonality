@@ -6,7 +6,7 @@ import { slugifyPackageName } from '@commonalityco/utils-core';
 import {
   FeatureGraphChart,
   GraphChartLoading,
-} from '@commonalityco/feature-constraints/components';
+} from '@commonalityco/ui-constraints';
 
 function StudioChart(
   props: Omit<

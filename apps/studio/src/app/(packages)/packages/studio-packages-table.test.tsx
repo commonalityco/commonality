@@ -5,7 +5,7 @@ import { Package } from '@commonalityco/types';
 import { PackageType } from '@commonalityco/utils-core';
 import { expect, it, vi } from 'vitest';
 import { Row } from '@tanstack/react-table';
-import { ColumnData } from '@commonalityco/feature-conformance/ui';
+import { ColumnData } from '@commonalityco/ui-conformance';
 
 const mocks = vi.hoisted(() => {
   return {

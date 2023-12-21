@@ -1,5 +1,5 @@
 'use client';
-import { FeatureGraphSidebar } from '@commonalityco/feature-constraints/components';
+import { FeatureGraphSidebar } from '@commonalityco/ui-constraints';
 import { setCookie } from 'cookies-next';
 import { ComponentProps } from 'react';
 

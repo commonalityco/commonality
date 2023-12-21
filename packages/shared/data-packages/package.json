@@ -1,0 +1,41 @@
+{
+  "name": "@commonalityco/data-packages",
+  "description": "Get package information about a local project",
+  "version": "0.0.18",
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": "./dist/index.js"
+    }
+  },
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "main": "./src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@commonalityco/data-project": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "fs-extra": "^11.1.1"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@types/fs-extra": "^11.0.2",
+    "@types/node": "^20.10.0",
+    "eslint-config-commonality": "workspace:*",
+    "typescript": "^5.2.2"
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/shared/data-packages"
+}

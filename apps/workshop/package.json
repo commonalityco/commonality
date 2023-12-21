@@ -10,9 +10,9 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@commonalityco/feature-conformance": "workspace:*",
-    "@commonalityco/feature-constraints": "workspace:*",
     "@commonalityco/types": "workspace:*",
+    "@commonalityco/ui-conformance": "workspace:*",
+    "@commonalityco/ui-constraints": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
     "@commonalityco/ui-package": "workspace:*",

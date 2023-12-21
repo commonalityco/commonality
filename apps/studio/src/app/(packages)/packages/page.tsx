@@ -13,8 +13,8 @@ import { getConformanceResultsData } from '@/data/conformance';
 import omit from 'lodash/omit';
 import stripAnsi from 'strip-ansi';
 import { EditConfigButton } from '@/components/edit-config-button';
-import { ConformanceHeader } from '@commonalityco/feature-conformance/ui';
-import type { ConformanceResult } from '@commonalityco/feature-conformance/utilities';
+import { ConformanceHeader } from '@commonalityco/ui-conformance';
+import type { ConformanceResult } from '@commonalityco/utils-conformance';
 
 async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
   const [packages, tagsData, codeownersData, results] = await Promise.all([

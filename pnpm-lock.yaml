@@ -25,10 +25,10 @@ importers:
         version: 0.34.6(vitest@0.34.6)
       commonality:
         specifier: workspace:*
-        version: link:packages/commonality
+        version: link:apps/commonality
       commonality-recommended:
         specifier: workspace:*
-        version: link:packages/commonality-recommended
+        version: link:packages/commonality/commonality-recommended
       eslint:
         specifier: ^8.54.0
         version: 8.54.0
@@ -73,11 +73,174 @@ importers:
         specifier: workspace:^
         version: link:apps/studio
 
+  apps/commonality:
+    dependencies:
+      '@antfu/install-pkg':
+        specifier: ^0.3.1
+        version: 0.3.1
+      '@sindresorhus/slugify':
+        specifier: ^2.2.1
+        version: 2.2.1
+      chalk:
+        specifier: ^5.3.0
+        version: 5.3.0
+      chokidar:
+        specifier: ^3.5.3
+        version: 3.5.3
+      commander:
+        specifier: ^11.0.0
+        version: 11.1.0
+      detect-indent:
+        specifier: ^7.0.1
+        version: 7.0.1
+      find-up:
+        specifier: ^6.3.0
+        version: 6.3.0
+      fs-extra:
+        specifier: ^11.1.1
+        version: 11.2.0
+      get-port:
+        specifier: ^7.0.0
+        version: 7.0.0
+      globby:
+        specifier: ^13.2.2
+        version: 13.2.2
+      jest-diff:
+        specifier: ^29.7.0
+        version: 29.7.0
+      jiti:
+        specifier: ^1.21.0
+        version: 1.21.0
+      kill-port:
+        specifier: ^2.0.1
+        version: 2.0.1
+      local-pkg:
+        specifier: ^0.5.0
+        version: 0.5.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      minimatch:
+        specifier: ^9.0.3
+        version: 9.0.3
+      ora:
+        specifier: ^7.0.1
+        version: 7.0.1
+      pathe:
+        specifier: ^1.1.1
+        version: 1.1.1
+      picocolors:
+        specifier: ^1.0.0
+        version: 1.0.0
+      prompts:
+        specifier: ^2.4.2
+        version: 2.4.2
+      std-env:
+        specifier: ^3.6.0
+        version: 3.6.0
+      strip-ansi:
+        specifier: ^7.1.0
+        version: 7.1.0
+      update-notifier:
+        specifier: ^6.0.2
+        version: 6.0.2
+      wait-on:
+        specifier: ^7.2.0
+        version: 7.2.0(debug@4.3.4)
+      yaml:
+        specifier: ^2.3.2
+        version: 2.3.4
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+    devDependencies:
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/config-tsconfig
+      '@commonalityco/data-codeowners':
+        specifier: workspace:*
+        version: link:../../packages/shared/data-codeowners
+      '@commonalityco/data-conformance':
+        specifier: workspace:*
+        version: link:../../packages/conformance/data-conformance
+      '@commonalityco/data-constraints':
+        specifier: workspace:*
+        version: link:../../packages/constraints/data-constraints
+      '@commonalityco/data-packages':
+        specifier: workspace:*
+        version: link:../../packages/shared/data-packages
+      '@commonalityco/data-project':
+        specifier: workspace:*
+        version: link:../../packages/shared/data-project
+      '@commonalityco/data-tags':
+        specifier: workspace:*
+        version: link:../../packages/shared/data-tags
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../../packages/shared/types
+      '@commonalityco/utils-conformance':
+        specifier: workspace:*
+        version: link:../../packages/conformance/utils-conformance
+      '@commonalityco/utils-constraints':
+        specifier: workspace:*
+        version: link:../../packages/constraints/utils-constraints
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../../packages/shared/utils-core
+      '@swc/core':
+        specifier: ^1.3.86
+        version: 1.3.99
+      '@types/fs-extra':
+        specifier: ^11.0.2
+        version: 11.0.4
+      '@types/kill-port':
+        specifier: ^2.0.1
+        version: 2.0.3
+      '@types/node':
+        specifier: ^20.10.0
+        version: 20.10.5
+      '@types/prompts':
+        specifier: ^2.4.4
+        version: 2.4.9
+      '@types/update-notifier':
+        specifier: ^6.0.5
+        version: 6.0.8
+      '@types/wait-on':
+        specifier: ^5.3.1
+        version: 5.3.4
+      dts-bundle-generator:
+        specifier: ^9.0.0
+        version: 9.0.0
+      esbuild:
+        specifier: ^0.19.3
+        version: 0.19.8
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../../tooling/config-eslint
+      mock-stdin:
+        specifier: ^1.0.0
+        version: 1.0.0
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
+      ts-node:
+        specifier: ^10.9.1
+        version: 10.9.2(@swc/core@1.3.99)(@types/node@20.10.5)(typescript@5.3.3)
+      tsup:
+        specifier: ^8.0.1
+        version: 8.0.1(@swc/core@1.3.99)(ts-node@10.9.2)(typescript@5.3.3)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
   apps/documentation:
     dependencies:
       '@commonalityco/ui-design-system':
         specifier: workspace:*
-        version: link:../../packages/ui-design-system
+        version: link:../../packages/shared/ui-design-system
       next:
         specifier: ^13.0.6
         version: 13.5.6(react-dom@18.2.0)(react@18.2.0)
@@ -139,40 +302,49 @@ importers:
         version: link:../../tooling/config-tailwind
       '@commonalityco/data-codeowners':
         specifier: workspace:*
-        version: link:../../packages/data-codeowners
+        version: link:../../packages/shared/data-codeowners
+      '@commonalityco/data-constraints':
+        specifier: workspace:*
+        version: link:../../packages/constraints/data-constraints
       '@commonalityco/data-packages':
         specifier: workspace:*
-        version: link:../../packages/data-packages
+        version: link:../../packages/shared/data-packages
       '@commonalityco/data-project':
         specifier: workspace:*
-        version: link:../../packages/data-project
+        version: link:../../packages/shared/data-project
       '@commonalityco/data-tags':
         specifier: workspace:*
-        version: link:../../packages/data-tags
-      '@commonalityco/feature-conformance':
-        specifier: workspace:*
-        version: link:../../packages/feature-conformance
-      '@commonalityco/feature-constraints':
-        specifier: workspace:*
-        version: link:../../packages/feature-constraints
+        version: link:../../packages/shared/data-tags
       '@commonalityco/types':
         specifier: workspace:*
-        version: link:../../packages/types
+        version: link:../../packages/shared/types
+      '@commonalityco/ui-conformance':
+        specifier: workspace:*
+        version: link:../../packages/conformance/ui-conformance
+      '@commonalityco/ui-constraints':
+        specifier: workspace:*
+        version: link:../../packages/constraints/ui-constraints
       '@commonalityco/ui-core':
         specifier: workspace:*
-        version: link:../../packages/ui-core
+        version: link:../../packages/shared/ui-core
       '@commonalityco/ui-design-system':
         specifier: workspace:*
-        version: link:../../packages/ui-design-system
+        version: link:../../packages/shared/ui-design-system
       '@commonalityco/ui-package':
         specifier: workspace:*
-        version: link:../../packages/ui-package
+        version: link:../../packages/shared/ui-package
+      '@commonalityco/utils-conformance':
+        specifier: workspace:*
+        version: link:../../packages/conformance/utils-conformance
+      '@commonalityco/utils-constraints':
+        specifier: workspace:*
+        version: link:../../packages/constraints/utils-constraints
       '@commonalityco/utils-core':
         specifier: workspace:*
-        version: link:../../packages/utils-core
+        version: link:../../packages/shared/utils-core
       '@commonalityco/utils-package':
         specifier: workspace:*
-        version: link:../../packages/utils-package
+        version: link:../../packages/shared/utils-package
       '@hookform/resolvers':
         specifier: ^3.3.1
         version: 3.3.2(react-hook-form@7.49.2)
@@ -341,27 +513,27 @@ importers:
 
   apps/workshop:
     dependencies:
-      '@commonalityco/feature-conformance':
-        specifier: workspace:*
-        version: link:../../packages/feature-conformance
-      '@commonalityco/feature-constraints':
-        specifier: workspace:*
-        version: link:../../packages/feature-constraints
       '@commonalityco/types':
         specifier: workspace:*
-        version: link:../../packages/types
+        version: link:../../packages/shared/types
+      '@commonalityco/ui-conformance':
+        specifier: workspace:*
+        version: link:../../packages/conformance/ui-conformance
+      '@commonalityco/ui-constraints':
+        specifier: workspace:*
+        version: link:../../packages/constraints/ui-constraints
       '@commonalityco/ui-core':
         specifier: workspace:*
-        version: link:../../packages/ui-core
+        version: link:../../packages/shared/ui-core
       '@commonalityco/ui-design-system':
         specifier: workspace:*
-        version: link:../../packages/ui-design-system
+        version: link:../../packages/shared/ui-design-system
       '@commonalityco/ui-package':
         specifier: workspace:*
-        version: link:../../packages/ui-package
+        version: link:../../packages/shared/ui-package
       '@commonalityco/utils-core':
         specifier: workspace:*
-        version: link:../../packages/utils-core
+        version: link:../../packages/shared/utils-core
       next:
         specifier: 14.0.1
         version: 14.0.1(@babel/core@7.23.6)(react-dom@18.2.0)(react@18.2.0)
@@ -466,161 +638,7 @@ importers:
         specifier: ^5.88.2
         version: 5.89.0(esbuild@0.18.20)
 
-  packages/commonality:
-    dependencies:
-      '@antfu/install-pkg':
-        specifier: ^0.3.1
-        version: 0.3.1
-      '@sindresorhus/slugify':
-        specifier: ^2.2.1
-        version: 2.2.1
-      chalk:
-        specifier: ^5.3.0
-        version: 5.3.0
-      chokidar:
-        specifier: ^3.5.3
-        version: 3.5.3
-      commander:
-        specifier: ^11.0.0
-        version: 11.1.0
-      detect-indent:
-        specifier: ^7.0.1
-        version: 7.0.1
-      find-up:
-        specifier: ^6.3.0
-        version: 6.3.0
-      fs-extra:
-        specifier: ^11.1.1
-        version: 11.2.0
-      get-port:
-        specifier: ^7.0.0
-        version: 7.0.0
-      globby:
-        specifier: ^13.2.2
-        version: 13.2.2
-      jest-diff:
-        specifier: ^29.7.0
-        version: 29.7.0
-      jiti:
-        specifier: ^1.21.0
-        version: 1.21.0
-      kill-port:
-        specifier: ^2.0.1
-        version: 2.0.1
-      local-pkg:
-        specifier: ^0.5.0
-        version: 0.5.0
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
-      minimatch:
-        specifier: ^9.0.3
-        version: 9.0.3
-      ora:
-        specifier: ^7.0.1
-        version: 7.0.1
-      pathe:
-        specifier: ^1.1.1
-        version: 1.1.1
-      picocolors:
-        specifier: ^1.0.0
-        version: 1.0.0
-      prompts:
-        specifier: ^2.4.2
-        version: 2.4.2
-      std-env:
-        specifier: ^3.6.0
-        version: 3.6.0
-      strip-ansi:
-        specifier: ^7.1.0
-        version: 7.1.0
-      update-notifier:
-        specifier: ^6.0.2
-        version: 6.0.2
-      wait-on:
-        specifier: ^7.2.0
-        version: 7.2.0(debug@4.3.4)
-      yaml:
-        specifier: ^2.3.2
-        version: 2.3.4
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
-    devDependencies:
-      '@commonalityco/config-tsconfig':
-        specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
-      '@commonalityco/data-codeowners':
-        specifier: workspace:*
-        version: link:../data-codeowners
-      '@commonalityco/data-packages':
-        specifier: workspace:*
-        version: link:../data-packages
-      '@commonalityco/data-project':
-        specifier: workspace:*
-        version: link:../data-project
-      '@commonalityco/data-tags':
-        specifier: workspace:*
-        version: link:../data-tags
-      '@commonalityco/feature-conformance':
-        specifier: workspace:*
-        version: link:../feature-conformance
-      '@commonalityco/feature-constraints':
-        specifier: workspace:*
-        version: link:../feature-constraints
-      '@commonalityco/types':
-        specifier: workspace:*
-        version: link:../types
-      '@commonalityco/utils-core':
-        specifier: workspace:*
-        version: link:../utils-core
-      '@swc/core':
-        specifier: ^1.3.86
-        version: 1.3.99
-      '@types/fs-extra':
-        specifier: ^11.0.2
-        version: 11.0.4
-      '@types/kill-port':
-        specifier: ^2.0.1
-        version: 2.0.3
-      '@types/node':
-        specifier: ^20.10.0
-        version: 20.10.5
-      '@types/prompts':
-        specifier: ^2.4.4
-        version: 2.4.9
-      '@types/update-notifier':
-        specifier: ^6.0.5
-        version: 6.0.8
-      '@types/wait-on':
-        specifier: ^5.3.1
-        version: 5.3.4
-      esbuild:
-        specifier: ^0.19.3
-        version: 0.19.8
-      eslint-config-commonality:
-        specifier: workspace:*
-        version: link:../../tooling/config-eslint
-      mock-stdin:
-        specifier: ^1.0.0
-        version: 1.0.0
-      npm-run-all:
-        specifier: ^4.1.5
-        version: 4.1.5
-      ts-node:
-        specifier: ^10.9.1
-        version: 10.9.2(@swc/core@1.3.99)(@types/node@20.10.5)(typescript@5.3.3)
-      tsup:
-        specifier: ^8.0.1
-        version: 8.0.1(@swc/core@1.3.99)(ts-node@10.9.2)(typescript@5.3.3)
-      typescript:
-        specifier: ^5.2.2
-        version: 5.3.3
-
-  packages/commonality-recommended:
+  packages/commonality/commonality-recommended:
     dependencies:
       lodash:
         specifier: ^4.17.21
@@ -634,7 +652,7 @@ importers:
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
+        version: link:../../../tooling/config-tsconfig
       '@types/lodash':
         specifier: ^4.14.198
         version: 4.14.202
@@ -649,10 +667,10 @@ importers:
         version: 4.0.2
       commonality:
         specifier: workspace:*
-        version: link:../commonality
+        version: link:../../../apps/commonality
       eslint-config-commonality:
         specifier: workspace:*
-        version: link:../../tooling/config-eslint
+        version: link:../../../tooling/config-eslint
       mock-fs:
         specifier: ^5.2.0
         version: 5.2.0
@@ -660,170 +678,7 @@ importers:
         specifier: ^5.2.2
         version: 5.3.3
 
-  packages/data-codeowners:
-    dependencies:
-      fast-glob:
-        specifier: ^3.3.1
-        version: 3.3.2
-      fs-extra:
-        specifier: ^11.1.1
-        version: 11.2.0
-      ignore:
-        specifier: ^5.2.4
-        version: 5.3.0
-      minimatch:
-        specifier: ^9.0.3
-        version: 9.0.3
-    devDependencies:
-      '@commonalityco/config-tsconfig':
-        specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
-      '@commonalityco/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/fs-extra':
-        specifier: ^11.0.2
-        version: 11.0.4
-      '@types/node':
-        specifier: ^20.10.0
-        version: 20.10.5
-      eslint-config-commonality:
-        specifier: workspace:*
-        version: link:../../tooling/config-eslint
-      typescript:
-        specifier: ^5.2.2
-        version: 5.3.3
-
-  packages/data-packages:
-    dependencies:
-      '@commonalityco/data-project':
-        specifier: workspace:*
-        version: link:../data-project
-      '@commonalityco/utils-core':
-        specifier: workspace:*
-        version: link:../utils-core
-      fs-extra:
-        specifier: ^11.1.1
-        version: 11.2.0
-    devDependencies:
-      '@commonalityco/config-tsconfig':
-        specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
-      '@commonalityco/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/fs-extra':
-        specifier: ^11.0.2
-        version: 11.0.4
-      '@types/node':
-        specifier: ^20.10.0
-        version: 20.10.5
-      eslint-config-commonality:
-        specifier: workspace:*
-        version: link:../../tooling/config-eslint
-      typescript:
-        specifier: ^5.2.2
-        version: 5.3.3
-
-  packages/data-project:
-    dependencies:
-      '@commonalityco/utils-core':
-        specifier: workspace:*
-        version: link:../utils-core
-      chalk:
-        specifier: ^5.3.0
-        version: 5.3.0
-      cosmiconfig:
-        specifier: ^8.3.6
-        version: 8.3.6(typescript@5.3.3)
-      cosmiconfig-typescript-loader:
-        specifier: ^5.0.0
-        version: 5.0.0(@types/node@20.10.5)(cosmiconfig@8.3.6)(typescript@5.3.3)
-      find-up:
-        specifier: ^6.3.0
-        version: 6.3.0
-      fs-extra:
-        specifier: ^11.1.1
-        version: 11.2.0
-      globby:
-        specifier: ^13.2.2
-        version: 13.2.2
-      jiti:
-        specifier: ^1.21.0
-        version: 1.21.0
-      yaml:
-        specifier: ^2.3.2
-        version: 2.3.4
-      zod:
-        specifier: ^3.22.4
-        version: 3.22.4
-    devDependencies:
-      '@commonalityco/config-tsconfig':
-        specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
-      '@commonalityco/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/fs-extra':
-        specifier: ^11.0.2
-        version: 11.0.4
-      '@types/node':
-        specifier: ^20.10.0
-        version: 20.10.5
-      eslint-config-commonality:
-        specifier: workspace:*
-        version: link:../../tooling/config-eslint
-      mock-fs:
-        specifier: ^5.2.0
-        version: 5.2.0
-      typescript:
-        specifier: ^5.2.2
-        version: 5.3.3
-
-  packages/data-tags:
-    dependencies:
-      '@commonalityco/data-project':
-        specifier: workspace:*
-        version: link:../data-project
-      '@commonalityco/utils-core':
-        specifier: workspace:*
-        version: link:../utils-core
-      fs-extra:
-        specifier: ^11.1.1
-        version: 11.2.0
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-      lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
-    devDependencies:
-      '@commonalityco/config-tsconfig':
-        specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
-      '@commonalityco/types':
-        specifier: workspace:*
-        version: link:../types
-      '@types/fs-extra':
-        specifier: ^11.0.2
-        version: 11.0.4
-      '@types/lodash':
-        specifier: ^4.14.198
-        version: 4.14.202
-      '@types/lodash-es':
-        specifier: ^4.17.12
-        version: 4.17.12
-      '@types/node':
-        specifier: ^20.10.0
-        version: 20.10.5
-      eslint-config-commonality:
-        specifier: workspace:*
-        version: link:../../tooling/config-eslint
-      typescript:
-        specifier: ^5.2.2
-        version: 5.3.3
-
-  packages/feature-conformance:
+  packages/conformance/data-conformance:
     dependencies:
       '@tanstack/react-table':
         specifier: ^8.10.1
@@ -861,16 +716,16 @@ importers:
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
+        version: link:../../../tooling/config-tsconfig
       '@commonalityco/types':
         specifier: workspace:*
-        version: link:../types
+        version: link:../../shared/types
       '@commonalityco/ui-design-system':
         specifier: workspace:*
-        version: link:../ui-design-system
+        version: link:../../shared/ui-design-system
       '@commonalityco/utils-core':
         specifier: workspace:*
-        version: link:../utils-core
+        version: link:../../shared/utils-core
       '@testing-library/jest-dom':
         specifier: ^6.1.3
         version: 6.1.5(jest@29.7.0)(vitest@0.34.6)
@@ -891,7 +746,7 @@ importers:
         version: 18.2.45
       eslint-config-commonality:
         specifier: workspace:*
-        version: link:../../tooling/config-eslint
+        version: link:../../../tooling/config-eslint
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -902,7 +757,168 @@ importers:
         specifier: ^5.2.2
         version: 5.3.3
 
-  packages/feature-constraints:
+  packages/conformance/ui-conformance:
+    dependencies:
+      '@tanstack/react-table':
+        specifier: ^8.10.1
+        version: 8.11.0(react-dom@18.2.0)(react@18.2.0)
+      chalk:
+        specifier: ^5.3.0
+        version: 5.3.0
+      detect-indent:
+        specifier: ^7.0.1
+        version: 7.0.1
+      fs-extra:
+        specifier: ^11.1.1
+        version: 11.2.0
+      jest-diff:
+        specifier: ^29.7.0
+        version: 29.7.0
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lucide-react:
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
+      mock-fs:
+        specifier: ^5.2.0
+        version: 5.2.0
+      pathe:
+        specifier: ^1.1.1
+        version: 1.1.1
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
+      strip-ansi:
+        specifier: ^7.1.0
+        version: 7.1.0
+    devDependencies:
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/config-tsconfig
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../../shared/types
+      '@commonalityco/ui-design-system':
+        specifier: workspace:*
+        version: link:../../shared/ui-design-system
+      '@commonalityco/utils-conformance':
+        specifier: workspace:*
+        version: link:../utils-conformance
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../../shared/utils-core
+      '@testing-library/jest-dom':
+        specifier: ^6.1.3
+        version: 6.1.5(jest@29.7.0)(vitest@0.34.6)
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
+      '@types/fs-extra':
+        specifier: ^11.0.2
+        version: 11.0.4
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
+      '@types/mock-fs':
+        specifier: ^4.13.4
+        version: 4.13.4
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.45
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../../../tooling/config-eslint
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/conformance/utils-conformance:
+    dependencies:
+      '@tanstack/react-table':
+        specifier: ^8.10.1
+        version: 8.11.0(react-dom@18.2.0)(react@18.2.0)
+      chalk:
+        specifier: ^5.3.0
+        version: 5.3.0
+      detect-indent:
+        specifier: ^7.0.1
+        version: 7.0.1
+      fs-extra:
+        specifier: ^11.1.1
+        version: 11.2.0
+      jest-diff:
+        specifier: ^29.7.0
+        version: 29.7.0
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lucide-react:
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
+      mock-fs:
+        specifier: ^5.2.0
+        version: 5.2.0
+      pathe:
+        specifier: ^1.1.1
+        version: 1.1.1
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
+      strip-ansi:
+        specifier: ^7.1.0
+        version: 7.1.0
+    devDependencies:
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/config-tsconfig
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../../shared/types
+      '@commonalityco/ui-design-system':
+        specifier: workspace:*
+        version: link:../../shared/ui-design-system
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../../shared/utils-core
+      '@testing-library/jest-dom':
+        specifier: ^6.1.3
+        version: 6.1.5(jest@29.7.0)(vitest@0.34.6)
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
+      '@types/fs-extra':
+        specifier: ^11.0.2
+        version: 11.0.4
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
+      '@types/mock-fs':
+        specifier: ^4.13.4
+        version: 4.13.4
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.45
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../../../tooling/config-eslint
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/constraints/data-constraints:
     dependencies:
       '@floating-ui/react':
         specifier: ^0.26.3
@@ -964,22 +980,22 @@ importers:
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
+        version: link:../../../tooling/config-tsconfig
       '@commonalityco/types':
         specifier: workspace:*
-        version: link:../types
+        version: link:../../shared/types
       '@commonalityco/ui-core':
         specifier: workspace:*
-        version: link:../ui-core
+        version: link:../../shared/ui-core
       '@commonalityco/ui-design-system':
         specifier: workspace:*
-        version: link:../ui-design-system
+        version: link:../../shared/ui-design-system
       '@commonalityco/utils-core':
         specifier: workspace:*
-        version: link:../utils-core
+        version: link:../../shared/utils-core
       '@commonalityco/utils-package':
         specifier: workspace:*
-        version: link:../utils-package
+        version: link:../../shared/utils-package
       '@testing-library/jest-dom':
         specifier: ^6.1.3
         version: 6.1.5(jest@29.7.0)(vitest@0.34.6)
@@ -1018,7 +1034,7 @@ importers:
         version: 3.28.0
       eslint-config-commonality:
         specifier: workspace:*
-        version: link:../../tooling/config-eslint
+        version: link:../../../tooling/config-eslint
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -1029,22 +1045,575 @@ importers:
         specifier: ^5.2.2
         version: 5.3.3
 
-  packages/types:
+  packages/constraints/state-constraints:
+    dependencies:
+      '@floating-ui/react':
+        specifier: ^0.26.3
+        version: 0.26.3(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-table':
+        specifier: ^8.10.1
+        version: 8.11.0(react-dom@18.2.0)(react@18.2.0)
+      '@xstate/react':
+        specifier: ^3.2.2
+        version: 3.2.2(@types/react@18.2.45)(react@18.2.0)(xstate@4.38.3)
+      chalk:
+        specifier: ^5.3.0
+        version: 5.3.0
+      crypto-js:
+        specifier: ^4.2.0
+        version: 4.2.0
+      cytoscape-dagre:
+        specifier: ^2.5.0
+        version: 2.5.0(cytoscape@3.28.0)
+      cytoscape-popper:
+        specifier: ^2.0.0
+        version: 2.0.0(cytoscape@3.28.0)
+      detect-indent:
+        specifier: ^7.0.1
+        version: 7.0.1
+      fs-extra:
+        specifier: ^11.1.1
+        version: 11.2.0
+      jest-diff:
+        specifier: ^29.7.0
+        version: 29.7.0
+      localforage:
+        specifier: ^1.10.0
+        version: 1.10.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lucide-react:
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
+      mock-fs:
+        specifier: ^5.2.0
+        version: 5.2.0
+      react-resizable-panels:
+        specifier: ^0.0.63
+        version: 0.0.63(react-dom@18.2.0)(react@18.2.0)
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
+      strip-ansi:
+        specifier: ^7.1.0
+        version: 7.1.0
+      xstate:
+        specifier: ^4.38.2
+        version: 4.38.3
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
+        version: link:../../../tooling/config-tsconfig
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../../shared/types
+      '@commonalityco/ui-core':
+        specifier: workspace:*
+        version: link:../../shared/ui-core
+      '@commonalityco/ui-design-system':
+        specifier: workspace:*
+        version: link:../../shared/ui-design-system
+      '@commonalityco/utils-constraints':
+        specifier: workspace:*
+        version: link:../utils-constraints
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../../shared/utils-core
+      '@commonalityco/utils-package':
+        specifier: workspace:*
+        version: link:../../shared/utils-package
+      '@testing-library/jest-dom':
+        specifier: ^6.1.3
+        version: 6.1.5(jest@29.7.0)(vitest@0.34.6)
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
+      '@types/crypto-js':
+        specifier: ^4.2.1
+        version: 4.2.1
+      '@types/cytoscape':
+        specifier: ^3.19.16
+        version: 3.19.16
+      '@types/cytoscape-dagre':
+        specifier: ^2.3.3
+        version: 2.3.3
+      '@types/cytoscape-popper':
+        specifier: ^2.0.4
+        version: 2.0.4
+      '@types/fs-extra':
+        specifier: ^11.0.2
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.198
+        version: 4.14.202
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
+      '@types/mock-fs':
+        specifier: ^4.13.4
+        version: 4.13.4
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.45
+      cytoscape:
+        specifier: ^3.26.0
+        version: 3.28.0
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../../../tooling/config-eslint
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/constraints/ui-constraints:
+    dependencies:
+      '@floating-ui/react':
+        specifier: ^0.26.3
+        version: 0.26.3(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-table':
+        specifier: ^8.10.1
+        version: 8.11.0(react-dom@18.2.0)(react@18.2.0)
+      '@xstate/react':
+        specifier: ^3.2.2
+        version: 3.2.2(@types/react@18.2.45)(react@18.2.0)(xstate@4.38.3)
+      chalk:
+        specifier: ^5.3.0
+        version: 5.3.0
+      crypto-js:
+        specifier: ^4.2.0
+        version: 4.2.0
+      cytoscape-dagre:
+        specifier: ^2.5.0
+        version: 2.5.0(cytoscape@3.28.0)
+      cytoscape-popper:
+        specifier: ^2.0.0
+        version: 2.0.0(cytoscape@3.28.0)
+      detect-indent:
+        specifier: ^7.0.1
+        version: 7.0.1
+      fs-extra:
+        specifier: ^11.1.1
+        version: 11.2.0
+      jest-diff:
+        specifier: ^29.7.0
+        version: 29.7.0
+      localforage:
+        specifier: ^1.10.0
+        version: 1.10.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lucide-react:
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
+      mock-fs:
+        specifier: ^5.2.0
+        version: 5.2.0
+      react-resizable-panels:
+        specifier: ^0.0.63
+        version: 0.0.63(react-dom@18.2.0)(react@18.2.0)
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
+      strip-ansi:
+        specifier: ^7.1.0
+        version: 7.1.0
+      xstate:
+        specifier: ^4.38.2
+        version: 4.38.3
+    devDependencies:
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/config-tsconfig
+      '@commonalityco/state-constraints':
+        specifier: workspace:*
+        version: link:../state-constraints
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../../shared/types
+      '@commonalityco/ui-core':
+        specifier: workspace:*
+        version: link:../../shared/ui-core
+      '@commonalityco/ui-design-system':
+        specifier: workspace:*
+        version: link:../../shared/ui-design-system
+      '@commonalityco/utils-constraints':
+        specifier: workspace:*
+        version: link:../utils-constraints
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../../shared/utils-core
+      '@commonalityco/utils-package':
+        specifier: workspace:*
+        version: link:../../shared/utils-package
+      '@testing-library/jest-dom':
+        specifier: ^6.1.3
+        version: 6.1.5(jest@29.7.0)(vitest@0.34.6)
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
+      '@types/crypto-js':
+        specifier: ^4.2.1
+        version: 4.2.1
+      '@types/cytoscape':
+        specifier: ^3.19.16
+        version: 3.19.16
+      '@types/cytoscape-dagre':
+        specifier: ^2.3.3
+        version: 2.3.3
+      '@types/cytoscape-popper':
+        specifier: ^2.0.4
+        version: 2.0.4
+      '@types/fs-extra':
+        specifier: ^11.0.2
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.198
+        version: 4.14.202
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
+      '@types/mock-fs':
+        specifier: ^4.13.4
+        version: 4.13.4
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.45
+      cytoscape:
+        specifier: ^3.26.0
+        version: 3.28.0
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../../../tooling/config-eslint
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/constraints/utils-constraints:
+    dependencies:
+      '@floating-ui/react':
+        specifier: ^0.26.3
+        version: 0.26.3(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-table':
+        specifier: ^8.10.1
+        version: 8.11.0(react-dom@18.2.0)(react@18.2.0)
+      '@xstate/react':
+        specifier: ^3.2.2
+        version: 3.2.2(@types/react@18.2.45)(react@18.2.0)(xstate@4.38.3)
+      chalk:
+        specifier: ^5.3.0
+        version: 5.3.0
+      crypto-js:
+        specifier: ^4.2.0
+        version: 4.2.0
+      cytoscape-dagre:
+        specifier: ^2.5.0
+        version: 2.5.0(cytoscape@3.28.0)
+      cytoscape-popper:
+        specifier: ^2.0.0
+        version: 2.0.0(cytoscape@3.28.0)
+      detect-indent:
+        specifier: ^7.0.1
+        version: 7.0.1
+      fs-extra:
+        specifier: ^11.1.1
+        version: 11.2.0
+      jest-diff:
+        specifier: ^29.7.0
+        version: 29.7.0
+      localforage:
+        specifier: ^1.10.0
+        version: 1.10.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lucide-react:
+        specifier: ^0.274.0
+        version: 0.274.0(react@18.2.0)
+      mock-fs:
+        specifier: ^5.2.0
+        version: 5.2.0
+      react-resizable-panels:
+        specifier: ^0.0.63
+        version: 0.0.63(react-dom@18.2.0)(react@18.2.0)
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
+      strip-ansi:
+        specifier: ^7.1.0
+        version: 7.1.0
+      xstate:
+        specifier: ^4.38.2
+        version: 4.38.3
+    devDependencies:
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/config-tsconfig
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../../shared/types
+      '@commonalityco/ui-core':
+        specifier: workspace:*
+        version: link:../../shared/ui-core
+      '@commonalityco/ui-design-system':
+        specifier: workspace:*
+        version: link:../../shared/ui-design-system
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../../shared/utils-core
+      '@commonalityco/utils-package':
+        specifier: workspace:*
+        version: link:../../shared/utils-package
+      '@testing-library/jest-dom':
+        specifier: ^6.1.3
+        version: 6.1.5(jest@29.7.0)(vitest@0.34.6)
+      '@testing-library/react':
+        specifier: ^14.0.0
+        version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
+      '@types/crypto-js':
+        specifier: ^4.2.1
+        version: 4.2.1
+      '@types/cytoscape':
+        specifier: ^3.19.16
+        version: 3.19.16
+      '@types/cytoscape-dagre':
+        specifier: ^2.3.3
+        version: 2.3.3
+      '@types/cytoscape-popper':
+        specifier: ^2.0.4
+        version: 2.0.4
+      '@types/fs-extra':
+        specifier: ^11.0.2
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.198
+        version: 4.14.202
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
+      '@types/mock-fs':
+        specifier: ^4.13.4
+        version: 4.13.4
+      '@types/react':
+        specifier: ^18.2.22
+        version: 18.2.45
+      cytoscape:
+        specifier: ^3.26.0
+        version: 3.28.0
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../../../tooling/config-eslint
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/shared/data-codeowners:
+    dependencies:
+      fast-glob:
+        specifier: ^3.3.1
+        version: 3.3.2
+      fs-extra:
+        specifier: ^11.1.1
+        version: 11.2.0
+      ignore:
+        specifier: ^5.2.4
+        version: 5.3.0
+      minimatch:
+        specifier: ^9.0.3
+        version: 9.0.3
+    devDependencies:
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/config-tsconfig
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../types
+      '@types/fs-extra':
+        specifier: ^11.0.2
+        version: 11.0.4
+      '@types/node':
+        specifier: ^20.10.0
+        version: 20.10.5
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../../../tooling/config-eslint
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/shared/data-packages:
+    dependencies:
+      '@commonalityco/data-project':
+        specifier: workspace:*
+        version: link:../data-project
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../utils-core
+      fs-extra:
+        specifier: ^11.1.1
+        version: 11.2.0
+    devDependencies:
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/config-tsconfig
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../types
+      '@types/fs-extra':
+        specifier: ^11.0.2
+        version: 11.0.4
+      '@types/node':
+        specifier: ^20.10.0
+        version: 20.10.5
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../../../tooling/config-eslint
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/shared/data-project:
+    dependencies:
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../utils-core
+      chalk:
+        specifier: ^5.3.0
+        version: 5.3.0
+      cosmiconfig:
+        specifier: ^8.3.6
+        version: 8.3.6(typescript@5.3.3)
+      cosmiconfig-typescript-loader:
+        specifier: ^5.0.0
+        version: 5.0.0(@types/node@20.10.5)(cosmiconfig@8.3.6)(typescript@5.3.3)
+      find-up:
+        specifier: ^6.3.0
+        version: 6.3.0
+      fs-extra:
+        specifier: ^11.1.1
+        version: 11.2.0
+      globby:
+        specifier: ^13.2.2
+        version: 13.2.2
+      jiti:
+        specifier: ^1.21.0
+        version: 1.21.0
+      yaml:
+        specifier: ^2.3.2
+        version: 2.3.4
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
+    devDependencies:
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/config-tsconfig
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../types
+      '@types/fs-extra':
+        specifier: ^11.0.2
+        version: 11.0.4
+      '@types/node':
+        specifier: ^20.10.0
+        version: 20.10.5
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../../../tooling/config-eslint
+      mock-fs:
+        specifier: ^5.2.0
+        version: 5.2.0
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/shared/data-tags:
+    dependencies:
+      '@commonalityco/data-project':
+        specifier: workspace:*
+        version: link:../data-project
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../utils-core
+      fs-extra:
+        specifier: ^11.1.1
+        version: 11.2.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+    devDependencies:
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/config-tsconfig
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../types
+      '@types/fs-extra':
+        specifier: ^11.0.2
+        version: 11.0.4
+      '@types/lodash':
+        specifier: ^4.14.198
+        version: 4.14.202
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
+      '@types/node':
+        specifier: ^20.10.0
+        version: 20.10.5
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../../../tooling/config-eslint
+      typescript:
+        specifier: ^5.2.2
+        version: 5.3.3
+
+  packages/shared/types:
+    devDependencies:
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../../tooling/config-tsconfig
       '@commonalityco/utils-core':
         specifier: workspace:*
         version: link:../utils-core
       eslint-config-commonality:
         specifier: workspace:*
-        version: link:../../tooling/config-eslint
+        version: link:../../../tooling/config-eslint
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
 
-  packages/ui-core:
+  packages/shared/ui-core:
     dependencies:
       '@commonalityco/types':
         specifier: workspace:*
@@ -1070,10 +1639,10 @@ importers:
     devDependencies:
       '@commonalityco/config-tailwind':
         specifier: workspace:*
-        version: link:../../tooling/config-tailwind
+        version: link:../../../tooling/config-tailwind
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
+        version: link:../../../tooling/config-tsconfig
       '@commonalityco/ui-design-system':
         specifier: workspace:*
         version: link:../ui-design-system
@@ -1088,7 +1657,7 @@ importers:
         version: 15.5.10
       eslint-config-commonality:
         specifier: workspace:*
-        version: link:../../tooling/config-eslint
+        version: link:../../../tooling/config-eslint
       lucide-react:
         specifier: ^0.274.0
         version: 0.274.0(react@18.2.0)
@@ -1111,7 +1680,7 @@ importers:
         specifier: ^5.2.2
         version: 5.3.3
 
-  packages/ui-design-system:
+  packages/shared/ui-design-system:
     dependencies:
       '@hookform/resolvers':
         specifier: ^3.3.1
@@ -1185,10 +1754,10 @@ importers:
     devDependencies:
       '@commonalityco/config-tailwind':
         specifier: workspace:*
-        version: link:../../tooling/config-tailwind
+        version: link:../../../tooling/config-tailwind
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
+        version: link:../../../tooling/config-tsconfig
       '@testing-library/jest-dom':
         specifier: ^6.1.3
         version: 6.1.5(jest@29.7.0)(vitest@0.34.6)
@@ -1200,7 +1769,7 @@ importers:
         version: 18.2.45
       eslint-config-commonality:
         specifier: workspace:*
-        version: link:../../tooling/config-eslint
+        version: link:../../../tooling/config-eslint
       lucide-react:
         specifier: ^0.274.0
         version: 0.274.0(react@18.2.0)
@@ -1220,14 +1789,14 @@ importers:
         specifier: ^5.2.2
         version: 5.3.3
 
-  packages/ui-package:
+  packages/shared/ui-package:
     devDependencies:
       '@commonalityco/config-tailwind':
         specifier: workspace:*
-        version: link:../../tooling/config-tailwind
+        version: link:../../../tooling/config-tailwind
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
+        version: link:../../../tooling/config-tsconfig
       '@commonalityco/types':
         specifier: workspace:*
         version: link:../types
@@ -1266,7 +1835,7 @@ importers:
         version: 3.5.0(vite@4.5.1)
       eslint-config-commonality:
         specifier: workspace:*
-        version: link:../../tooling/config-eslint
+        version: link:../../../tooling/config-eslint
       lucide-react:
         specifier: ^0.274.0
         version: 0.274.0(react@18.2.0)
@@ -1283,7 +1852,7 @@ importers:
         specifier: ^5.2.2
         version: 5.3.3
 
-  packages/utils-core:
+  packages/shared/utils-core:
     dependencies:
       '@sindresorhus/slugify':
         specifier: ^2.2.1
@@ -1294,13 +1863,13 @@ importers:
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
+        version: link:../../../tooling/config-tsconfig
       '@types/react':
         specifier: ^18.2.22
         version: 18.2.45
       eslint-config-commonality:
         specifier: workspace:*
-        version: link:../../tooling/config-eslint
+        version: link:../../../tooling/config-eslint
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -1311,7 +1880,7 @@ importers:
         specifier: ^5.2.2
         version: 5.3.3
 
-  packages/utils-package:
+  packages/shared/utils-package:
     dependencies:
       '@commonalityco/utils-core':
         specifier: workspace:*
@@ -1319,7 +1888,7 @@ importers:
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
+        version: link:../../../tooling/config-tsconfig
       '@commonalityco/types':
         specifier: workspace:*
         version: link:../types
@@ -1328,7 +1897,7 @@ importers:
         version: 18.2.45
       eslint-config-commonality:
         specifier: workspace:*
-        version: link:../../tooling/config-eslint
+        version: link:../../../tooling/config-eslint
       postcss:
         specifier: ^8.4.30
         version: 8.4.32
@@ -9962,6 +10531,15 @@ packages:
   /dotenv@16.3.1:
     resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
     engines: {node: '>=12'}
+    dev: true
+
+  /dts-bundle-generator@9.0.0:
+    resolution: {integrity: sha512-4XPDOb+F1fkPrvqFL4hnNW2Edc3uiFxQDsK8gUMP8/45+QkA+dSOH0ZWZCKXEjA3ITVbPGV1li8oP8JE4Z/Y0g==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      typescript: 5.3.3
+      yargs: 17.7.2
     dev: true
 
   /duplexer@0.1.2:
