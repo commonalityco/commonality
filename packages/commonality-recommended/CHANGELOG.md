@@ -1,5 +1,13 @@
 # commonality-recommended
 
+## 0.0.6
+
+### Patch Changes
+
+- 129d264: stability
+- Updated dependencies [129d264]
+  - commonality@0.2.27
+
 ## 0.0.5
 
 ### Patch Changes

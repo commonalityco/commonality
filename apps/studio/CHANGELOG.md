@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.28
+
+### Patch Changes
+
+- 129d264: stability
+
 ## 0.2.27
 
 ### Patch Changes
