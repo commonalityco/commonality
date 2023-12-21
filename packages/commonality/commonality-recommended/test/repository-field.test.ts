@@ -213,7 +213,7 @@ describe('repository-field', () => {
 
       await conformer.fix();
 
-      const result = await json('./packages/pkg-a/package.json').get();
+      const result = await json('./', './packages/pkg-a/package.json').get();
 
       expect(result).toEqual({
         repository: 'https://github.com/npm/cli.git/packages/pkg-a',
@@ -245,7 +245,7 @@ describe('repository-field', () => {
 
       await conformer.fix();
 
-      const result = await json('./packages/pkg-a/package.json').get();
+      const result = await json('./', './packages/pkg-a/package.json').get();
 
       expect(result).toEqual({
         repository: 'https://github.com/npm/cli.git/packages/pkg-a',
@@ -282,7 +282,7 @@ describe('repository-field', () => {
 
       await conformer.fix();
 
-      const result = await json('./packages/pkg-a/package.json').get();
+      const result = await json('./', './packages/pkg-a/package.json').get();
 
       expect(result).toEqual({
         repository: {
@@ -319,7 +319,7 @@ describe('repository-field', () => {
 
       await conformer.fix();
 
-      const result = await json('./packages/pkg-a/package.json').get();
+      const result = await json('./', './packages/pkg-a/package.json').get();
 
       expect(result).toEqual({
         repository: 'https://github.com/npm/cli.git/packages/pkg-a',
@@ -358,6 +358,10 @@ describe('repository-field', () => {
 
         const result = await conformer.message();
 
+        expect(result.title).toEqual(
+          `Package's repository property must extend the repository property at the root of your project.`,
+        );
+        expect(result.filePath).toEqual('package.json');
         expect(result.suggestion).toMatchInlineSnapshot(`
           "  Object {
               \\"name\\": \\"foo\\",
@@ -398,6 +402,10 @@ describe('repository-field', () => {
 
         const result = await conformer.message();
 
+        expect(result.title).toEqual(
+          `Package's repository property must extend the repository property at the root of your project.`,
+        );
+        expect(result.filePath).toEqual('package.json');
         expect(result.suggestion).toMatchInlineSnapshot('undefined');
       });
     });

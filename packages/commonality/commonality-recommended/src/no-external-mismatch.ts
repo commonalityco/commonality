@@ -1,6 +1,5 @@
 import { defineCheck, diff, json, PackageJson, Workspace } from 'commonality';
 import { getExternalVersionMap } from './utils/get-external-version-map';
-import path from 'node:path';
 import pick from 'lodash/pick';
 
 export const DEPENDENCY_TYPES = [

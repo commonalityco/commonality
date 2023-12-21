@@ -9,7 +9,7 @@ type FunctionType<T = unknown> = (options: CheckOptions) => Awaitable<T>;
 type TestConformer<T> = {
   [P in keyof T]: P extends 'fix' | 'message' | 'validate'
     ? T[P] extends FunctionType
-      ? () => ReturnType<T[P]>
+      ? () => Promise<ReturnType<T[P]>>
       : T[P]
     : T[P];
 };
