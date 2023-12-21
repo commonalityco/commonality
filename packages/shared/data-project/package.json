@@ -35,9 +35,9 @@
   },
   "dependencies": {
     "@commonalityco/utils-core": "workspace:*",
-    "find-up": "^6.3.0",
+    "find-up": "^7.0.0",
     "fs-extra": "^11.1.1",
-    "globby": "^13.2.2",
+    "globby": "^14.0.0",
     "jiti": "^1.21.0",
     "yaml": "^2.3.2",
     "zod": "^3.22.4"

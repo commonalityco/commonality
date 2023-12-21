@@ -35,7 +35,7 @@
     "cmdk": "^0.2.0",
     "react-hook-form": "^7.46.1",
     "react-select": "^5.7.5",
-    "tailwind-merge": "^1.14.0"
+    "tailwind-merge": "^2.1.0"
   },
   "devDependencies": {
     "@commonalityco/config-tailwind": "workspace:*",

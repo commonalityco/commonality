@@ -19,7 +19,7 @@
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
     "@commonalityco/ui-design-system": "workspace:*",
-    "next": "^13.0.6",
+    "next": "^14.0.4",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
     "react": "^18.2.0",
@@ -29,6 +29,6 @@
   "devDependencies": {
     "@commonalityco/config-tailwind": "workspace:*",
     "@types/node": "^20.10.5",
-    "typescript": "^4.9.3"
+    "typescript": "^5.2.2"
   }
 }
