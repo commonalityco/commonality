@@ -531,6 +531,9 @@ importers:
       '@commonalityco/ui-package':
         specifier: workspace:*
         version: link:../../packages/shared/ui-package
+      '@commonalityco/utils-constraints':
+        specifier: workspace:*
+        version: link:../../packages/constraints/utils-constraints
       '@commonalityco/utils-core':
         specifier: workspace:*
         version: link:../../packages/shared/utils-core
