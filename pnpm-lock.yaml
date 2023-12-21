@@ -14,9 +14,6 @@ importers:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
         version: link:tooling/config-tsconfig
-      '@commonalityco/studio':
-        specifier: workspace:^
-        version: link:apps/studio
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.15.0
         version: 6.15.0(@typescript-eslint/parser@6.15.0)(eslint@8.56.0)(typescript@5.3.3)
@@ -71,6 +68,10 @@ importers:
       vitest:
         specifier: ^1.1.0
         version: 1.1.0(@types/node@20.10.5)
+    devDependencies:
+      '@commonalityco/studio':
+        specifier: workspace:^
+        version: link:apps/studio
 
   apps/commonality:
     dependencies:

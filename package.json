@@ -32,7 +32,6 @@
   "dependencies": {
     "@changesets/cli": "^2.27.1",
     "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/studio": "workspace:^",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "@vitest/coverage-v8": "^1.1.0",
@@ -51,5 +50,8 @@
     "turbo": "^1.11.2",
     "typescript": "^5.3.3",
     "vitest": "^1.1.0"
+  },
+  "devDependencies": {
+    "@commonalityco/studio": "workspace:^"
   }
 }
