@@ -1,5 +1,5 @@
-import type { BaseLayoutOptions } from 'cytoscape';
-import type { DagreLayoutOptions } from 'cytoscape-dagre';
+import { BaseLayoutOptions } from 'cytoscape';
+import { DagreLayoutOptions } from 'cytoscape-dagre';
 
 export const layoutOptions: DagreLayoutOptions & BaseLayoutOptions = {
   name: 'dagre',

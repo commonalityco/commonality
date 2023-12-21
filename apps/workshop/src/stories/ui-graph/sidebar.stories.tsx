@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { Sidebar } from '@commonalityco/ui-constraints';
-import type { Package } from '@commonalityco/types';
+import { Package } from '@commonalityco/types';
 import { PackageType } from '@commonalityco/utils-core';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction

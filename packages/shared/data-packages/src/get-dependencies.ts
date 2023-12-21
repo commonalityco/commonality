@@ -6,7 +6,7 @@ import {
 import path from 'node:path';
 import fs from 'fs-extra';
 import { DependencyType } from '@commonalityco/utils-core';
-import type { Dependency, PackageJson } from '@commonalityco/types';
+import { Dependency, PackageJson } from '@commonalityco/types';
 
 type PackageJsonWithName = PackageJson & { name: string };
 

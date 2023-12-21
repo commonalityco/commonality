@@ -1,5 +1,5 @@
 import { getElementDefinitionsWithUpdatedLayout } from './get-element-definitions-with-updated-layout';
-import type { ElementDefinition } from 'cytoscape';
+import { ElementDefinition } from 'cytoscape';
 import MD5 from 'crypto-js/md5';
 import localforage from 'localforage';
 

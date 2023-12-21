@@ -1,4 +1,4 @@
-import type {
+import {
   CollectionArgument,
   Core,
   Selector,

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { ConformanceResults } from '@commonalityco/ui-conformance';
 import { PackageType, Status } from '@commonalityco/utils-core';
 

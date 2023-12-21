@@ -1,5 +1,5 @@
 import { ConstraintResult } from '@commonalityco/types';
-import type { Core, EdgeSingular, EventObject, NodeSingular } from 'cytoscape';
+import { Core, EdgeSingular, EventObject, NodeSingular } from 'cytoscape';
 
 interface EventHandlerArguments {
   renderGraph: Core;

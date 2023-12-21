@@ -1,4 +1,4 @@
-import type { Check } from '@commonalityco/utils-core';
+import { Check } from '@commonalityco/utils-core';
 
 type CheckCreator<C extends Check, O = undefined> = (options?: O) => C;
 

@@ -1,4 +1,4 @@
-import type { VirtualElement } from '@floating-ui/react';
+import { VirtualElement } from '@floating-ui/react';
 import {
   focus,
   hide,
@@ -11,9 +11,9 @@ import {
   showDependants,
   showDependencies,
 } from '@commonalityco/utils-constraints';
-import type { ConstraintResult, Package } from '@commonalityco/types';
+import { ConstraintResult, Package } from '@commonalityco/types';
 import { assign, createMachine } from 'xstate';
-import type {
+import {
   CollectionArgument,
   Core,
   EdgeSingular,

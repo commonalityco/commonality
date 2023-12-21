@@ -1,4 +1,4 @@
-import type { Package, PackageJson } from '@commonalityco/types';
+import { Package, PackageJson } from '@commonalityco/types';
 import path from 'node:path';
 import fs from 'fs-extra';
 import { PackageType } from '@commonalityco/utils-core';
@@ -55,7 +55,7 @@ export const getPackage = async ({
 
   if (!packageJson.name) {
     throw new Error(
-      `${directory} has a package.json that does not contain a name property`
+      `${directory} has a package.json that does not contain a name property`,
     );
   }
 

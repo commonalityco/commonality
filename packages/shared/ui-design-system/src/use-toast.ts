@@ -1,9 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import type {
-  ToastActionElement,
-  ToastProps as ToastProperties,
-} from './toast.js';
+import { ToastActionElement, ToastProps as ToastProperties } from './toast.js';
 
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1_000_000;

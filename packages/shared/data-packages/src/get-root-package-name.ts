@@ -1,4 +1,4 @@
-import type { PackageJson } from '@commonalityco/types';
+import { PackageJson } from '@commonalityco/types';
 import path from 'node:path';
 import fs from 'fs-extra';
 

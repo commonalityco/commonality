@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { TooltipDependency } from '@commonalityco/ui-constraints';
 import { DependencyType } from '@commonalityco/utils-core';
 

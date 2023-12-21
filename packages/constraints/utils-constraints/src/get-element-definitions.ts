@@ -1,6 +1,6 @@
 import { Dependency, Package } from '@commonalityco/types';
 import { PackageType } from '@commonalityco/utils-core';
-import type { ElementDefinition, NodeDefinition } from 'cytoscape';
+import { ElementDefinition, NodeDefinition } from 'cytoscape';
 import { fontFamily, fontSize, fontWeight } from './styles/node';
 
 const nodeImage =

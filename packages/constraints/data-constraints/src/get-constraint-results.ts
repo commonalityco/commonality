@@ -1,8 +1,4 @@
-import type {
-  Dependency,
-  TagsData,
-  ConstraintResult,
-} from '@commonalityco/types';
+import { Dependency, TagsData, ConstraintResult } from '@commonalityco/types';
 import { ProjectConfig } from '@commonalityco/utils-core';
 
 const edgeKey = (dep: Dependency) => `${dep.source}|${dep.target}`;

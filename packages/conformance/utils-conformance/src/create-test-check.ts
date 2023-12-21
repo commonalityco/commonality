@@ -1,4 +1,4 @@
-import type { Tag, Codeowner, Workspace } from '@commonalityco/types';
+import { Tag, Codeowner, Workspace } from '@commonalityco/types';
 import stripAnsi from 'strip-ansi';
 import { Message, Check, CheckOptions } from '@commonalityco/utils-core';
 

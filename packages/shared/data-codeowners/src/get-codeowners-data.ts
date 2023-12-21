@@ -1,4 +1,4 @@
-import type { CodeownersData, Package } from '@commonalityco/types';
+import { CodeownersData, Package } from '@commonalityco/types';
 import { getCodeowners } from './core/get-codeowners';
 import { getOwnersForPath } from './core/get-owners-for-path';
 

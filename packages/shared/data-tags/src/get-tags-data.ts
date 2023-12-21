@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import type { Package, PackageConfig, TagsData } from '@commonalityco/types';
+import { Package, PackageConfig, TagsData } from '@commonalityco/types';
 import { slugifyTagName } from '@commonalityco/utils-core';
 
 export const getTagsData = async ({

@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import type { PackageConfig, PackageJson } from '@commonalityco/types';
+import { PackageConfig, PackageJson } from '@commonalityco/types';
 import { uniq } from 'lodash-es';
 import { getPackageDirectories } from '@commonalityco/data-project/get-package-directories';
 import { getWorkspaceGlobs } from '@commonalityco/data-project/get-workspace-globs';

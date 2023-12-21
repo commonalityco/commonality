@@ -8,7 +8,7 @@ import {
 import { ChevronDown } from 'lucide-react';
 import React from 'react';
 import { ConformanceResults, StatusCount } from './conformance-results-list';
-import type { ConformanceResult } from '@commonalityco/utils-conformance';
+import { ConformanceResult } from '@commonalityco/utils-conformance';
 import { Status } from '@commonalityco/utils-core';
 
 export function ConformanceHeader({

@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import type { PackageJson } from '@commonalityco/types';
+import { PackageJson } from '@commonalityco/types';
 import yaml from 'yaml';
 import { PackageManager } from '@commonalityco/utils-core';
 

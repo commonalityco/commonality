@@ -1,6 +1,6 @@
 'use client';
 import { GraphContext } from './graph-provider';
-import type { CodeownersData, Package, TagsData } from '@commonalityco/types';
+import { CodeownersData, Package, TagsData } from '@commonalityco/types';
 import { Sidebar } from './sidebar';
 import { ComponentProps } from 'react';
 
