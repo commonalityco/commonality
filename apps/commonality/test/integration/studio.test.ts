@@ -2,7 +2,7 @@ import { describe, test, expect, vi } from 'vitest';
 import fs from 'fs-extra';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { execa } from 'execa';
+import { exec } from 'node:child_process';
 import os from 'node:os';
 import getPort from 'get-port';
 import stripAnsi from 'strip-ansi';
@@ -26,12 +26,10 @@ describe.concurrent('studio', () => {
       );
       await fs.copy(fixturePath, temporaryPath);
 
-      const cliProcess = execa(
-        binPath,
-        ['studio', '--debug', '--port', String(preferredPort), '--install'],
+      const cliProcess = exec(
+        `${binPath} studio --debug --port ${String(preferredPort)} --install`,
         {
           cwd: temporaryPath,
-          stdout: 'pipe',
         },
       );
 
@@ -71,9 +69,7 @@ describe.concurrent('studio', () => {
         { timeout: 100_000 },
       );
 
-      cliProcess.kill('SIGTERM', {
-        forceKillAfterTimeout: 2000,
-      });
+      cliProcess.kill();
 
       await vi.waitFor(() => {
         expect(output).toContain(`Successfully exited Commonality Studio`);
@@ -99,12 +95,10 @@ describe.concurrent('studio', () => {
       );
       await fs.copy(fixturePath, temporaryPath);
 
-      const cliProcess = execa(
-        binPath,
-        ['studio', '--debug', '--port', String(preferredPort), '--install'],
+      const cliProcess = exec(
+        `${binPath} studio --debug --port ${String(preferredPort)} --install`,
         {
           cwd: temporaryPath,
-          stdout: 'pipe',
         },
       );
 
@@ -143,9 +137,7 @@ describe.concurrent('studio', () => {
         { timeout: 100_000 },
       );
 
-      cliProcess.kill('SIGTERM', {
-        forceKillAfterTimeout: 2000,
-      });
+      cliProcess.kill();
 
       await vi.waitFor(() => {
         expect(output).toContain(`Successfully exited Commonality Studio`);
@@ -171,12 +163,10 @@ describe.concurrent('studio', () => {
       );
       await fs.copy(fixturePath, temporaryPath);
 
-      const cliProcess = execa(
-        binPath,
-        ['studio', '--debug', '--port', String(preferredPort), '--install'],
+      const cliProcess = exec(
+        `${binPath} studio --debug --port ${String(preferredPort)} --install`,
         {
           cwd: temporaryPath,
-          stdout: 'pipe',
         },
       );
 
@@ -215,9 +205,7 @@ describe.concurrent('studio', () => {
         { timeout: 100_000 },
       );
 
-      cliProcess.kill('SIGTERM', {
-        forceKillAfterTimeout: 2000,
-      });
+      cliProcess.kill();
 
       await vi.waitFor(() => {
         expect(output).toContain(`Successfully exited Commonality Studio`);
