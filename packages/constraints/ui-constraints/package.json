@@ -44,7 +44,7 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.26.4",
+    "@floating-ui/react": "^0.26.3",
     "@xstate/react": "^3.2.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.299.0",

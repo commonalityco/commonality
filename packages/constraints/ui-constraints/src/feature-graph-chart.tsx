@@ -5,7 +5,7 @@ import { GraphChart } from './graph-chart';
 import { useEffect, useRef } from 'react';
 import { GraphContext } from './graph-provider';
 import FeatureGraphToolbar from './feature-graph-toolbar';
-import { cn } from '@commonalityco/ui-design-system/cn';
+import { cn } from '@commonalityco/ui-design-system';
 import debounce from 'lodash/debounce';
 import { getElementDefinitions } from '@commonalityco/utils-constraints';
 import { ProjectConfig } from '@commonalityco/utils-core';

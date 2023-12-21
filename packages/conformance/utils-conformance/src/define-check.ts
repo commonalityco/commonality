@@ -1,6 +1,6 @@
 import { Check } from '@commonalityco/utils-core';
 
-type CheckCreator<C extends Check, O = undefined> = (options?: O) => C;
+type CheckCreator<T extends Check, O = undefined> = (options?: O) => T;
 
 export function defineCheck<T extends Check, O>(
   checkCreator: CheckCreator<T, O>,

@@ -6,8 +6,8 @@ export interface File {
   delete: () => Promise<void>;
 }
 
-export function file(filepath: string): File {
-  const _exists = fs.pathExists(filepath);
+export function file(filePath: string): File {
+  const _exists = fs.pathExists(filePath);
 
   const get = async () => {
     const exists = await _exists;
@@ -16,7 +16,7 @@ export function file(filepath: string): File {
       return;
     }
 
-    return fs.readFile(filepath, 'utf8');
+    return fs.readFile(filePath, 'utf8');
   };
 
   return {
@@ -28,7 +28,7 @@ export function file(filepath: string): File {
       }
     },
     delete: async () => {
-      await fs.remove(filepath);
+      await fs.remove(filePath);
     },
     exists: async () => {
       const foo = await _exists;

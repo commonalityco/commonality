@@ -82,14 +82,14 @@ const messageSchema = z
   })
   .strict();
 
-const checkSchema = z.object({
+export const checkSchema = z.object({
   name: z.string(),
   level: z.union([z.literal('error'), z.literal('warning')]).optional(),
   validate: checkFn,
   fix: checkFn.returns(z.union([z.void(), z.promise(z.void())])).optional(),
   message: z.union([
-    z.string(),
     checkFn.returns(z.union([messageSchema, z.promise(messageSchema)])),
+    z.string(),
   ]),
 });
 

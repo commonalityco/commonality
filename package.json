@@ -8,7 +8,7 @@
     "Alec Ortega <alec@commonality.co> (https://github.com/alecortega)"
   ],
   "scripts": {
-    "dev": "turbo run dev --parallel --cache-dir=.turbo",
+    "dev": "turbo run dev --cache-dir=.turbo --concurrency=26",
     "conform": "commonality conform",
     "build": "turbo run build --cache-dir=.turbo",
     "clean": "rimraf ./packages/**/dist ./packages/**/.turbo ./packages/*/node_modules ./coverage ./node_modules",

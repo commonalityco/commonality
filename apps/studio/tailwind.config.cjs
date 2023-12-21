@@ -1,4 +1,3 @@
-// @ts-check
 const path = require('path');
 const baseConfig = require('@commonalityco/config-tailwind');
 

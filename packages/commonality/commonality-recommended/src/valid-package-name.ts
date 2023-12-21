@@ -34,7 +34,7 @@ export const validPackageName = defineCheck(() => ({
     if (!packageJson || !packageJson.name) {
       return {
         title: 'Package name must be set in package.json',
-        filepath: 'package.json',
+        filePath: 'package.json',
       };
     }
 
@@ -42,7 +42,7 @@ export const validPackageName = defineCheck(() => ({
 
     return {
       title: 'Invalid package name',
-      filepath: 'package.json',
+      filePath: 'package.json',
       suggestion: result.errors
         ? result.errors.join('\n')
         : result.warnings?.join('\n'),

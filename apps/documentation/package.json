@@ -18,17 +18,20 @@
   },
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
+    "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
     "next": "^14.0.4",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwindcss": "^3.3.3"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@commonalityco/config-tailwind": "workspace:*",
     "@types/node": "^20.10.5",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.30",
+    "tailwindcss": "^3.4.0",
     "typescript": "^5.2.2"
   }
 }

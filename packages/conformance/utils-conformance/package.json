@@ -48,7 +48,8 @@
     "lodash-es": "^4.17.21",
     "mock-fs": "^5.2.0",
     "pathe": "^1.1.1",
-    "strip-ansi": "^7.1.0"
+    "strip-ansi": "^7.1.0",
+    "zod": "^3.22.4"
   },
   "repository": "https://github.com/commonalityco/commonality/packages/conformance/utils-conformance"
 }

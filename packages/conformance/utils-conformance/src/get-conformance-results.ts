@@ -6,6 +6,7 @@ import {
   Message,
 } from '@commonalityco/utils-core';
 import path from 'pathe';
+import { ZodError } from 'zod';
 
 export type ConformanceResult = {
   name: string;
@@ -108,6 +109,13 @@ export const getConformanceResults = async ({
                   filePath: message.filePath ?? pkg.path,
                 } satisfies Message;
               } catch (error) {
+                if (error instanceof ZodError) {
+                  return {
+                    title: 'Invalid check configuration',
+                    filePath: pkg.path,
+                    suggestion: error.stack,
+                  } satisfies Message;
+                }
                 if (error instanceof Error) {
                   return {
                     title: error.message,

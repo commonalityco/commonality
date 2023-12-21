@@ -93,7 +93,7 @@ export const multipleDependencyTypes = defineCheck(() => {
       return {
         title:
           'A dependency should only be in one of dependencies, devDependencies, or optionalDependencies',
-        filepath: 'package.json',
+        filePath: 'package.json',
         suggestion: diff(packageJson, getExpectedPackageJson(packageJson)),
       };
     },

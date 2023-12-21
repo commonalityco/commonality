@@ -3,16 +3,24 @@
   "description": "UI primitives built with shadcn",
   "version": "0.0.14",
   "publishConfig": {
-    "access": "public",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "exports": {
-      ".": "./dist/index.js"
-    }
+    "access": "public"
   },
   "sideEffects": false,
   "type": "module",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./cn": "./dist/cn.js",
+    "./dropdown-menu": "./dist/dropdown-menu.js",
+    "./tooltip": "./dist/tooltip.js",
+    "./button": "./dist/button.js",
+    "./toaster": "./dist/toaster.js"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -54,16 +62,12 @@
     "react": ">=18",
     "react-dom": ">=18"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./*": "./dist/*.js"
-  },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "tsc --build",
+    "dev": "tsc --build --watch",
     "type-check": "tsc --noEmit"
   },
-  "main": "./src/index.ts",
   "repository": "https://github.com/commonalityco/commonality/packages/shared/ui-design-system"
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import { DocsThemeConfig } from 'nextra-theme-docs';
-import { Logo } from './logo';
+import { Logo } from '@commonalityco/ui-core';
 
 const config: DocsThemeConfig = {
   logo: (
-    <span>
+    <span className="flex gap-3 items-center">
       <Logo />
-      Commonality
+      <span className="font-serif text-xl font-semibold">commonality</span>
     </span>
   ),
   project: {
