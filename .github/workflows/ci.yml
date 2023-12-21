@@ -63,7 +63,6 @@ jobs:
           - runner: ubuntu-latest
           - runner: macos-latest
           - runner: windows-latest
-    needs: [lint, type-check, test]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout respository
