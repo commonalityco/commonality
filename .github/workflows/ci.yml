@@ -70,6 +70,8 @@ jobs:
 
       - name: Setup
         uses: ./.github/actions/setup
+        with:
+          node-version: ${{ matrix.node-version }}
 
       - name: Build
         run: pnpm run build
