@@ -360,8 +360,8 @@ describe('repository-field', () => {
 
         expect(result.suggestion).toMatchInlineSnapshot(`
           "  Object {
-              \\"name\\": \\"foo\\",
-          +   \\"repository\\": \\"https://github.com/npm/cli.git/packages/pkg-a\\",
+              "name": "foo",
+          +   "repository": "https://github.com/npm/cli.git/packages/pkg-a",
             }"
         `);
       });

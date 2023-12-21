@@ -167,7 +167,10 @@ describe('no-external-mismatch', () => {
 
       await conformer.fix();
 
-      const pkgAResult = await json('./packages/pkg-a/package.json').get();
+      const pkgAResult = await json(
+        './',
+        './packages/pkg-a/package.json',
+      ).get();
 
       expect(pkgAResult).toEqual({
         name: 'pkg-a',
@@ -251,7 +254,10 @@ describe('no-external-mismatch', () => {
 
       await conformer.fix();
 
-      const pkgEResult = await json('./packages/pkg-e/package.json').get();
+      const pkgEResult = await json(
+        './',
+        './packages/pkg-e/package.json',
+      ).get();
 
       expect(pkgEResult).toEqual({
         name: 'pkg-e',
@@ -318,12 +324,12 @@ describe('no-external-mismatch', () => {
 
       expect(result.suggestion).toMatchInlineSnapshot(`
         "  Object {
-            \\"dependencies\\": Object {
-              \\"package-b\\": \\"workspace:*\\",
-              \\"package3\\": \\"3.0.0\\",
-        +     \\"package3\\": \\"1.0.0\\",
+            "dependencies": Object {
+              "package-b": "workspace:*",
+              "package3": "3.0.0",
+        +     "package3": "1.0.0",
             },
-            \\"devDependencies\\": Object {},
+            "devDependencies": Object {},
           }"
       `);
     });

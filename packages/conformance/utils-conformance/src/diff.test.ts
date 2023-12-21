@@ -33,8 +33,8 @@ describe('diff', () => {
 
     expect(result).toMatchInlineSnapshot(`
       "  Object {
-          \\"name\\": \\"pkg-a\\",
-      +   \\"name\\": \\"pkg-b\\",
+          "name": "pkg-a",
+      +   "name": "pkg-b",
         }"
     `);
   });

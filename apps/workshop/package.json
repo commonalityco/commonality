@@ -38,7 +38,7 @@
     "@storybook/cli": "^7.4.3",
     "@storybook/react": "^7.4.3",
     "@storybook/react-vite": "^7.4.3",
-    "@storybook/testing-library": "0.2.0",
+    "@storybook/testing-library": "0.2.2",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.0.4",

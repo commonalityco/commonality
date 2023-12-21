@@ -231,12 +231,12 @@ describe('dev-peer-dependency-range', () => {
       );
       expect(result.suggestion).toMatchInlineSnapshot(`
         "  Object {
-            \\"devDependencies\\": Object {
-              \\"pkg-b\\": \\"^17.0.2\\",
-        +     \\"pkg-b\\": \\"^18.0.0\\",
+            "devDependencies": Object {
+              "pkg-b": "^17.0.2",
+        +     "pkg-b": "^18.0.0",
             },
-            \\"peerDependencies\\": Object {
-              \\"pkg-b\\": \\">=18\\",
+            "peerDependencies": Object {
+              "pkg-b": ">=18",
             },
           }"
       `);

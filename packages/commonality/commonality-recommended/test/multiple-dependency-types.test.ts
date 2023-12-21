@@ -97,7 +97,7 @@ describe('multipleDependencyTypes', () => {
 
       await conformer.fix();
 
-      const packageJson = await json('package.json').get();
+      const packageJson = await json('./', 'package.json').get();
 
       expect(packageJson).toEqual({
         name: 'pkg-b',
@@ -124,7 +124,7 @@ describe('multipleDependencyTypes', () => {
 
       await conformer.fix();
 
-      const packageJson = await json('package.json').get();
+      const packageJson = await json('./', 'package.json').get();
 
       expect(packageJson).toEqual({
         name: 'pkg-b',
@@ -155,7 +155,7 @@ describe('multipleDependencyTypes', () => {
 
       await conformer.fix();
 
-      const packageJson = await json('package.json').get();
+      const packageJson = await json('./', 'package.json').get();
 
       expect(packageJson).toEqual({
         name: 'pkg-b',
@@ -197,16 +197,16 @@ describe('multipleDependencyTypes', () => {
       expect(message.suggestion ?? '').toMatchInlineSnapshot(
         `
           "  Object {
-              \\"dependencies\\": Object {
-                \\"pkg-a\\": \\"1.0.0\\",
+              "dependencies": Object {
+                "pkg-a": "1.0.0",
               },
-          +   \\"dependencies\\": Object {},
-              \\"devDependencies\\": Object {
-                \\"pkg-a\\": \\"1.0.0\\",
+          +   "dependencies": Object {},
+              "devDependencies": Object {
+                "pkg-a": "1.0.0",
               },
-              \\"name\\": \\"pkg-b\\",
-              \\"optionalDependencies\\": Object {
-                \\"pkg-a\\": \\"1.0.0\\",
+              "name": "pkg-b",
+              "optionalDependencies": Object {
+                "pkg-a": "1.0.0",
               },
             }"
         `,
