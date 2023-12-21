@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it, vi } from 'vitest';
-import { execa } from 'execa';
+import { exec } from 'node:child_process';
 import stripAnsi from 'strip-ansi';
 import os from 'node:os';
 import fs from 'fs-extra';
@@ -23,9 +23,8 @@ describe('smoke', () => {
 
     await fs.copy(fixturePath, temporaryPath);
 
-    const cliProcess = execa(binPath, {
+    const cliProcess = exec(binPath, {
       cwd: temporaryPath,
-      stdout: 'pipe',
     });
 
     let output = '';
