@@ -69,7 +69,7 @@ describe.concurrent('studio', () => {
         { timeout: 100_000 },
       );
 
-      cliProcess.kill();
+      cliProcess.kill(cliProcess.pid);
 
       await vi.waitFor(() => {
         expect(output).toContain(`Successfully exited Commonality Studio`);
@@ -137,7 +137,7 @@ describe.concurrent('studio', () => {
         { timeout: 100_000 },
       );
 
-      cliProcess.kill();
+      cliProcess.kill(cliProcess.pid);
 
       await vi.waitFor(() => {
         expect(output).toContain(`Successfully exited Commonality Studio`);
@@ -205,7 +205,7 @@ describe.concurrent('studio', () => {
         { timeout: 100_000 },
       );
 
-      cliProcess.kill();
+      cliProcess.kill(cliProcess.pid);
 
       await vi.waitFor(() => {
         expect(output).toContain(`Successfully exited Commonality Studio`);
