@@ -52,9 +52,9 @@ export const devPeerDependencyRange = defineCheck(() => {
   return {
     name: 'commonality/dev-peer-dependency-range',
     level: 'warning',
-    validate: async ({ workspace }) => {
+    validate: async (context) => {
       const packageJson = await json<PackageJson>(
-        workspace.path,
+        context.package.path,
         'package.json',
       ).get();
 
@@ -91,9 +91,9 @@ export const devPeerDependencyRange = defineCheck(() => {
 
       return true;
     },
-    fix: async ({ workspace }) => {
+    fix: async (context) => {
       const packageJson = await json<PackageJson>(
-        workspace.path,
+        context.package.path,
         'package.json',
       ).get();
 
@@ -103,11 +103,13 @@ export const devPeerDependencyRange = defineCheck(() => {
 
       const devDependencies = getExpectedDevDependencies(packageJson);
 
-      await json(workspace.path, 'package.json').merge({ devDependencies });
+      await json(context.package.path, 'package.json').merge({
+        devDependencies,
+      });
     },
-    message: async ({ workspace }) => {
+    message: async (context) => {
       const packageJson = await json<PackageJson>(
-        workspace.path,
+        context.package.path,
         'package.json',
       ).get();
 

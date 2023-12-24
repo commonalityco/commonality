@@ -193,8 +193,8 @@ describe('getConformanceResults', () => {
         {
           name: 'MessageFunctionConformer',
           validate: () => true,
-          message: ({ workspace }) => ({
-            title: `Valid workspace for ${workspace.relativePath}`,
+          message: (context) => ({
+            title: `Valid package for ${context.package.relativePath}`,
           }),
         },
       ],

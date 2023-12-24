@@ -59,9 +59,9 @@ const getExpectedPackageJson = async ({
 export const noExternalMismatch = defineCheck(() => {
   return {
     name: 'commonality/external-mismatch',
-    validate: async ({ allWorkspaces, workspace }) => {
+    validate: async (context) => {
       const packageJson = await json<PackageJson>(
-        workspace.path,
+        context.package.path,
         'package.json',
       ).get();
 
@@ -70,9 +70,7 @@ export const noExternalMismatch = defineCheck(() => {
       }
 
       const packageJsonsWithFalsey = await Promise.all(
-        allWorkspaces.map((workspace) =>
-          json(workspace.path, 'package.json').get(),
-        ),
+        context.allPackages.map((pkg) => json(pkg.path, 'package.json').get()),
       );
 
       const packageJsons = packageJsonsWithFalsey.filter(
@@ -115,24 +113,24 @@ export const noExternalMismatch = defineCheck(() => {
 
       return true;
     },
-    fix: async ({ allWorkspaces, workspace }) => {
+    fix: async (context) => {
       const expectedPackageJson = await getExpectedPackageJson({
-        workspace,
-        allWorkspaces,
+        workspace: context.package,
+        allWorkspaces: context.allPackages,
       });
 
-      await json(workspace.path, 'package.json').set(expectedPackageJson);
+      await json(context.package.path, 'package.json').set(expectedPackageJson);
     },
 
-    message: async ({ workspace, allWorkspaces }) => {
+    message: async (context) => {
       const packageJson = await json<PackageJson>(
-        workspace.path,
+        context.package.path,
         'package.json',
       ).get();
 
       const expectedPackageJson = await getExpectedPackageJson({
-        workspace,
-        allWorkspaces,
+        workspace: context.package,
+        allWorkspaces: context.allPackages,
       });
 
       return {

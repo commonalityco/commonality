@@ -3,13 +3,13 @@ import { defineCheck, json, text, PackageJson } from 'commonality';
 export const ensureReadme = defineCheck(() => ({
   name: 'commonality/ensure-readme',
 
-  validate: async ({ workspace }) => {
-    return text(workspace.path, 'README.md').exists();
+  validate: async (context) => {
+    return text(context.package.path, 'README.md').exists();
   },
 
-  fix: async ({ workspace }) => {
+  fix: async (context) => {
     const packageJson = await json<PackageJson>(
-      workspace.path,
+      context.package.path,
       'package.json',
     ).get();
 
@@ -17,7 +17,7 @@ export const ensureReadme = defineCheck(() => ({
       return;
     }
 
-    await text(workspace.path, 'README.md').set([
+    await text(context.package.path, 'README.md').set([
       `# ${packageJson.name}`,
       `> ${packageJson.description}`,
     ]);

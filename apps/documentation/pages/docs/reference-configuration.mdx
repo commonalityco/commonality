@@ -1,4 +1,5 @@
 import { Callout } from 'nextra/components';
+import { Subtext } from '../../components/subtext.tsx';
 
 # Configuration
 
@@ -21,9 +22,11 @@ export default defineConfig({
 });
 ```
 
+---
+
 ### `checks`
 
-`type: Check[]`
+`Record<string, Check[]>{:ts}`
 
 The `checks` property expects an object whose keys are [tag filters](#tag-filters) and whose value are all the checks to run for packages that match.
 
@@ -43,9 +46,13 @@ export default defineConfig({
 });
 ```
 
+---
+
 ### `constraints`
 
-`type: Constraint[]`
+<Subtext>
+`Record<string, Constraint[]>{:ts}`
+</Subtext>
 
 The `constraints` property expects an object whose keys are [tag filters](#tag-filters) and whose value are all the constraints to run for packages that match.
 
@@ -71,6 +78,10 @@ export default defineConfig({
 Package configuration should be located the package directory.
 
 ### `tags`
+
+<Subtext>
+`string[]{:ts}`
+</Subtext>
 
 The labels that categorize the package. These tags can be used with tag filters in the project configuration.
 
@@ -115,8 +126,8 @@ import { defineConfig } from 'commonality';
 
 export default defineConfig({
   constraints: {
-	'*': [
-	  disallow: ['deployable'],
+	'config': [
+	  disallow: ['application'],
 	],
   },
 });

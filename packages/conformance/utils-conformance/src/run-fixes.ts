@@ -42,15 +42,15 @@ export const runFixes = async ({
 
         if (result.fix) {
           await result.fix({
-            workspace: Object.freeze({
+            package: Object.freeze({
               path: path.join(rootDirectory, result.package.path),
               relativePath: result.package.path,
             }),
-            allWorkspaces: allPackages.map((pkg) => ({
+            allPackages: allPackages.map((pkg) => ({
               path: path.join(rootDirectory, pkg.path),
               relativePath: pkg.path,
             })),
-            rootWorkspace: {
+            rootPackage: {
               path: rootDirectory,
               relativePath: '.',
             },

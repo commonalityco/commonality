@@ -4,15 +4,14 @@
   "type": "module",
   "version": "0.0.16",
   "publishConfig": {
-    "access": "public",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "exports": {
-      ".": "./dist/index.js"
-    }
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
   },
   "sideEffects": false,
-  "types": "./src/index.ts",
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
@@ -48,11 +47,6 @@
     "test": "vitest",
     "type-check": "tsc --noEmit"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./*": "./dist/*.js"
-  },
-  "main": "./src/index.ts",
   "engines": {
     "node": ">=16"
   },

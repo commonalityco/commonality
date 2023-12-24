@@ -1,3 +1,5 @@
+import { Subtext } from '../../components/subtext.tsx';
+
 # Constraints
 
 Constraints are used to limit which packages can depend on one another.
@@ -11,11 +13,9 @@ A constraint can have both `allow` and `disallow` properties, however any depend
 
 ### `disallow`
 
-**Type**
-
+<Subtext>
 `"*" | string[]{:ts}`
-
-**Description**
+</Subtext>
 
 Disallow constraints are applied to all direct and transitive dependencies.
 
@@ -41,11 +41,9 @@ Commonality will only allow direct dependencies that have the `api` or `internal
 
 ### `allow`
 
-**Type**
-
+<Subtext>
 `"*" | string[]{:ts}`
-
-**Description**
+</Subtext>
 
 Constraints may allow all direct dependencies or a list of tags that all direct dependencies must have.
 

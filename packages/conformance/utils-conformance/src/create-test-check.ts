@@ -1,10 +1,10 @@
 import { Tag, Codeowner, Workspace } from '@commonalityco/types';
 import stripAnsi from 'strip-ansi';
-import { Message, Check, CheckOptions } from '@commonalityco/utils-core';
+import { Message, Check, CheckContext } from '@commonalityco/utils-core';
 
 type Awaitable<T> = T | PromiseLike<T>;
 
-type FunctionType<T = unknown> = (options: CheckOptions) => Awaitable<T>;
+type FunctionType<T = unknown> = (options: CheckContext) => Awaitable<T>;
 
 type TestConformer<T> = {
   [P in keyof T]: P extends 'fix' | 'message' | 'validate'
@@ -38,10 +38,10 @@ export function createTestCheck<T extends Check>(
   const testFixtures = {
     tags: options?.tags ?? [],
     codeowners: options?.codeowners ?? [],
-    workspace: options?.workspace ?? defaultWorkspace,
-    rootWorkspace: options?.rootWorkspace ?? defaultRootWorkspace,
-    allWorkspaces: options?.allWorkspaces ?? [defaultWorkspace],
-  };
+    package: options?.workspace ?? defaultWorkspace,
+    rootPackage: options?.rootWorkspace ?? defaultRootWorkspace,
+    allPackages: options?.allWorkspaces ?? [defaultWorkspace],
+  } satisfies CheckContext;
 
   return {
     ...conformer,

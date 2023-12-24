@@ -1,9 +1,10 @@
 # Testing checks
 
 For more complex checks you may want to make sure that your validation
-and fix logic is what you would expect it to be. We recommend using
-`mock-fs` along with our [`createTestCheck`](#createtestcheck) utility to mock the file system to ensure that your read and write
-logic is correct.
+and fix logic is what you would expect it to be.
+
+We recommend using `mock-fs` along with our [`createTestCheck`](#createtestcheck) utility to mock the file system.
+This combination will test your checks end-to-end to ensure that your checks never create unexpected changes.
 
 ## Example
 

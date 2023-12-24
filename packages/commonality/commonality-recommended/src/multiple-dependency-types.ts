@@ -44,9 +44,9 @@ export const multipleDependencyTypes = defineCheck(() => {
   return {
     name: 'commonality/multiple-dependency-types',
 
-    validate: async ({ workspace }) => {
+    validate: async (context) => {
       const packageJson = await json<PackageJson>(
-        workspace.path,
+        context.package.path,
         'package.json',
       ).get();
 
@@ -65,9 +65,9 @@ export const multipleDependencyTypes = defineCheck(() => {
       return multipleDependencyTypes.length === 0;
     },
 
-    fix: async ({ workspace }) => {
+    fix: async (context) => {
       const packageJson = await json<PackageJson>(
-        workspace.path,
+        context.package.path,
         'package.json',
       ).get();
 
@@ -77,12 +77,12 @@ export const multipleDependencyTypes = defineCheck(() => {
 
       const newPackageJson = getExpectedPackageJson(packageJson);
 
-      await json(workspace.path, 'package.json').set(newPackageJson);
+      await json(context.package.path, 'package.json').set(newPackageJson);
     },
 
-    message: async ({ workspace }) => {
+    message: async (context) => {
       const packageJson = await json<PackageJson>(
-        workspace.path,
+        context.package.path,
         'package.json',
       ).get();
 

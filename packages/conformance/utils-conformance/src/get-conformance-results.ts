@@ -52,15 +52,15 @@ export const getConformanceResults = async ({
             const getStatus = async (): Promise<Status> => {
               try {
                 const result = await conformer.validate({
-                  workspace: Object.freeze({
+                  package: Object.freeze({
                     path: path.join(rootDirectory, pkg.path),
                     relativePath: pkg.path,
                   }),
-                  allWorkspaces: packages.map((innerPkg) => ({
+                  allPackages: packages.map((innerPkg) => ({
                     path: path.join(rootDirectory, innerPkg.path),
                     relativePath: innerPkg.path,
                   })),
-                  rootWorkspace: {
+                  rootPackage: {
                     path: rootDirectory,
                     relativePath: '.',
                   },
@@ -87,15 +87,15 @@ export const getConformanceResults = async ({
 
               try {
                 const message = await conformer.message({
-                  workspace: Object.freeze({
+                  package: Object.freeze({
                     path: path.join(rootDirectory, pkg.path),
                     relativePath: pkg.path,
                   }),
-                  allWorkspaces: packages.map((innerPkg) => ({
+                  allPackages: packages.map((innerPkg) => ({
                     path: path.join(rootDirectory, innerPkg.path),
                     relativePath: innerPkg.path,
                   })),
-                  rootWorkspace: {
+                  rootPackage: {
                     path: rootDirectory,
                     relativePath: '.',
                   },

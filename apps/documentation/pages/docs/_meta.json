@@ -1,0 +1,24 @@
+{
+  "-- Getting Started": {
+    "type": "separator",
+    "title": "Getting Started"
+  },
+  "overview": "",
+  "installation": "",
+  "getting-started": "Getting Started",
+  "-- Guides": {
+    "type": "separator",
+    "title": "Guides"
+  },
+  "checks": "Checks",
+  "constraints": "Constraints",
+  "sharing": "",
+  "project-metadata": "",
+  "-- Reference": {
+    "type": "separator",
+    "title": "Reference"
+  },
+  "reference-checks": "Checks",
+  "reference-constraints": "Constraints",
+  "reference-configuration": "Configuration"
+}
