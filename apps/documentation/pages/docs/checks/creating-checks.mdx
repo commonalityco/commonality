@@ -8,15 +8,15 @@ Checks are defined in the configuration file at the root of your project. You ca
 
 All checks have three required properties:
 
-**`name`** A unique identifier for the check, we use this to parallelize checks and avoid write collisions.
+**`name`** A unique identifier for the check, we use this to parallelize checks and prevent write collisions.
 
 **`validate`** A function that should return either a truthy or falsey value indicating whether or not the check is valid.
 
-**`message`** A string or function that that gives a developer more context about the check.
+**`message`** A string or function that that provides more context about the check.
 
 <Callout type="info">
-  You can view all available properties in our [reference
-  documentation](/api/checks).
+  You can view all available check properties and more examples in our
+  [reference documentation](/reference/checks).
 </Callout>
 
 Here's an example of a simple check that ensures every package has at least one codeowner.

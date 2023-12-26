@@ -18,7 +18,5 @@
     "type": "separator",
     "title": "Reference"
   },
-  "reference-checks": "Checks",
-  "reference-constraints": "Constraints",
-  "reference-configuration": "Configuration"
+  "api": "API"
 }

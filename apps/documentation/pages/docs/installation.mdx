@@ -1,3 +1,5 @@
+import { Tabs, Tab } from 'nextra/components';
+
 # Installation
 
 Commonality works with any existing JavaScript project.
@@ -6,13 +8,27 @@ Commonality works with any existing JavaScript project.
 
 A global installation of Commonality will automatically detect the structure of your project based on the directory that the command is run in.
 
-```bash npm2yarn
-npm install -g commonality
-```
+<Tabs items={['npm', 'yarn', 'pnpm']} storageKey="selected-pkg-manager">
+  <Tab>
+  ```bash copy
+  npm install commonality --global 
+  ```
+  </Tab>
+  <Tab>
+  ```bash copy
+  yarn global add commonality 
+  ```
+  </Tab>
+  <Tab>
+  ```bash copy
+  pnpm install commonality --global 
+  ```
+  </Tab>
+</Tabs>
 
 Navigate to any JavaScript project and open Commonality Studio to get started.
 
-```bash
+```bash copy
 commonality studio
 ```
 
@@ -20,8 +36,22 @@ commonality studio
 
 If you're collaborating with others on the same project or if you're planning on running Commonality in CI you may want to add `commonality` as a dev dependency at the root of your project.
 
-```bash npm2yarn
-npm install -D commonality
-```
+<Tabs items={['npm', 'yarn', 'pnpm']} storageKey="selected-pkg-manager">
+  <Tab>
+  ```bash copy
+  npm install commonality --save-dev 
+  ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    yarn add commonality --dev --ignore-workspace-root-check 
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    pnpm add commonality --save-dev --ignore-workspace-root-check 
+    ```
+  </Tab>
+</Tabs>
 
 Your global installation of Commonality will continue to work in other projects but your local installation will always take precedence.

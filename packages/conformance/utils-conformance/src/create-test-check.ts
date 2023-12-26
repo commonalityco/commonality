@@ -14,7 +14,7 @@ type TestConformer<T> = {
     : T[P];
 };
 
-interface TestCheckOptions {
+interface TestCheckContext {
   workspace?: Workspace;
   rootWorkspace?: Workspace;
   allWorkspaces?: Workspace[];
@@ -24,7 +24,7 @@ interface TestCheckOptions {
 
 export function createTestCheck<T extends Check>(
   conformer: T,
-  options?: TestCheckOptions,
+  options?: TestCheckContext,
 ): TestConformer<T> {
   const defaultWorkspace = {
     path: './',

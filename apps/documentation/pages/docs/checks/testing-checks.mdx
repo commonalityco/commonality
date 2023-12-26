@@ -1,11 +1,12 @@
+import { Callout } from 'nextra/components';
+
 # Testing checks
 
 For more complex checks you may want to make sure that your validation
 and fix logic is what you would expect it to be.
 
-We recommend using `mock-fs` along with our [`createTestCheck`](#createtestcheck) utility to mock the file system.
+We recommend using [`mock-fs`](https://github.com/tschaub/mock-fs) along with our [`createTestCheck`](/docs/api/checks#createtestcheck) utility to mock the file system.
 This combination will test your checks end-to-end to ensure that your checks never create unexpected changes.
-
 ## Example
 
 ```ts filename="packages/checks/ensure-license.ts"
@@ -150,44 +151,3 @@ describe('ensureLicense', () => {
   });
 });
 ```
-
-## Utilities
-
-### `createTestCheck`
-
-**Type**
-
-`(check: Check, options?: TestCheckOptions) => Check{:ts}`
-
-```ts
-interface TestCheckOptions {
-  workspace?: {
-    path: string;
-    relativePath: string;
-  };
-  rootWorkspace?: {
-    path: string;
-    relativePath: string;
-  };
-  allWorkspaces?: Array<{
-    path: string;
-    relativePath: string;
-  }>;
-  codeowners?: string[];
-  tags?: string[];
-}
-```
-
-**Description**
-
-The `validate`, `fix` and `message` check functions all receive metadata about the current package that it is running against.
-`createTestCheck` wraps your checks and decorates these functions with sensible defaults that you can override. This cuts down
-on repetitive boilerplate when writing tests for your checks.
-
-| Default                 | Required                                  |
-| :---------------------- | :---------------------------------------- |
-| `options.tags`          | `[]{:ts}`                                 |
-| `options.codeowners`    | `[]{:ts}`                                 |
-| `options.workspace`     | `{relativePath: './', path: './'}{:ts}`   |
-| `options.rootWorkspace` | `{relativePath: './', path: './'}{:ts}`   |
-| `options.allWorkspaces` | `[{relativePath: './', path: './'}]{:ts}` |
