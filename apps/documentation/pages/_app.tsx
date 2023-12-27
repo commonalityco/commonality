@@ -10,7 +10,6 @@ export const inter = Inter({
 export const firaCode = Fira_Code({
   subsets: ['latin'],
   variable: '--font-fira-code',
-  display: 'swap',
 });
 
 export default function MyApp({ Component, pageProps }: AppProps) {
