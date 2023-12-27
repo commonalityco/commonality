@@ -20,7 +20,7 @@
   "dependencies": {
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
-    "next": "^13.0.6",
+    "next": "^14.0.4",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
     "react": "^18.2.0",
