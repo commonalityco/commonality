@@ -4,15 +4,4 @@ While you can certainly define checks directly within a project configuration fi
 
 This approach has the added benefit of preparing your checks for sharing with teams external to your project when you're ready to publish.
 
-## Example
-
-```ts filename="commonality.config.ts"
-import * as myTeamChecks from 'commonality-my-team/checks';
-
-export default defineConfig({
-  checks: {
-    ui: myTeamChecks.ensureReactTsConfig(),
-    node: myTeamChecks.ensureNodeTsConfig(),
-  },
-});
-```
+For a more detailed approach on how to do this check out sharing checks. 

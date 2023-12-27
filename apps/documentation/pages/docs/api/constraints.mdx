@@ -4,11 +4,6 @@ import { Subtext } from '../../../components/subtext.tsx';
 
 Constraints are used to limit which packages can depend on one another.
 
-Constraints are applied to dependencies where there both the source and target are in the same workspace.
-This means that constraints cannot be applied to external dependencies.
-
-A constraint can have both `allow` and `disallow` properties, however any dependency that matches a `disallow` constraint will cause a constraint to fail regardless of whether it matches an `allow` constraint.
-
 ## Properties
 
 ### `disallow`

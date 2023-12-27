@@ -1,4 +1,4 @@
-import { defineCheck, json, text, PackageJson } from 'commonality';
+import { defineCheck, json, text, PackageJson, diff } from 'commonality';
 
 export const ensureReadme = defineCheck(() => ({
   name: 'commonality/ensure-readme',
@@ -25,3 +25,5 @@ export const ensureReadme = defineCheck(() => ({
 
   message: `Package must have a README.md file`,
 }));
+
+

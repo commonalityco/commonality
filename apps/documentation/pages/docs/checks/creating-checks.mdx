@@ -2,7 +2,7 @@ import { Callout } from 'nextra/components';
 
 # Creating checks
 
-## Building your first check
+## Creating your first check
 
 Checks are defined in the configuration file at the root of your project. You can use matchers to run checks against all the packages in your project or a subset of packages.
 
@@ -45,7 +45,7 @@ commonality check
 
 ## Auto-fixable checks
 
-It's great to be notified that something isn't right, but it's even better when you can fix it with a single command.
+It's great to be notified that something isn't right, but it's even better when you can fix it with a single key press.
 
 To make a check fixable just add a `fix` property to your check. This function will only run against the package if the result of `validate` is falsey.
 

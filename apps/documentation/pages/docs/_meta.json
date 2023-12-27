@@ -6,14 +6,17 @@
   "overview": "",
   "installation": "",
   "getting-started": "Getting Started",
+
   "-- Guides": {
     "type": "separator",
     "title": "Guides"
   },
   "checks": "Checks",
   "constraints": "Constraints",
+  "codeowners": "",
   "sharing": "",
-  "project-metadata": "",
+  "ci": "CI",
+
   "-- Reference": {
     "type": "separator",
     "title": "Reference"

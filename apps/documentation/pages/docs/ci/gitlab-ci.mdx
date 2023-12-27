@@ -1,0 +1,79 @@
+import { Tabs, Tab } from 'nextra/components';
+
+# Running Commonality in Github Actions
+
+Ensure that you have `commonality` installed as a dependency at the root of your project.
+Given a `package.json` with the following scripts:
+
+```json filename="package.json"
+{
+  "name": "my-project",
+  "scripts": {
+    "check": "commonality check",
+    "constrain": "commonality constrain"
+  },
+  "dependencies": {
+    "commonality": "<version>"
+  }
+}
+```
+
+Create a workflow file for CI at `.gitlab-ci.yml` if not already present and add the `check` and `constrain` scripts as a step.
+
+<Tabs items={['npm', 'yarn', 'pnpm']} storageKey="selected-pkg-manager">
+  <Tab>
+    ```yaml copy filename=".gitlab-ci.yml"
+    image: node:latest
+    stages:
+      - build
+    build:
+      stage: build
+      script:
+        - npm install
+        - npm run check
+        - npm run constrain
+    ````
+
+  </Tab>
+  <Tab>
+    ```yaml copy filename=".gitlab-ci.yml"
+    image: node:latest
+    stages:
+      - build
+    build:
+      stage: build
+      script:
+        - yarn install
+        - yarn check
+        - yarn constrain
+      cache:
+        paths:
+          - node_modules/
+          - .yarn
+    ```
+  </Tab>
+  <Tab>
+    ```yaml copy filename=".gitlab-ci.yml"
+    image: node:latest
+    stages:
+      - build
+    build:
+      stage: build
+      before_script:
+        - corepack enable
+        - corepack prepare pnpm@latest-8 --activate
+        - pnpm config set store-dir .pnpm-store
+      script:
+        - pnpm install
+        - pnpm check
+        - pnpm constrain
+      cache:
+        key:
+          files:
+            - pnpm-lock.yaml
+        paths:
+          - .pnpm-store
+    ```
+  </Tab>
+</Tabs>
+
