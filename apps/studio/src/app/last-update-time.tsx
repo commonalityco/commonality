@@ -2,6 +2,7 @@ import { formatRelative } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
+import debounce from 'lodash/debounce';
 
 function LastUpdateTime() {
   const router = useRouter();
@@ -16,12 +17,15 @@ function LastUpdateTime() {
         console.log('Watching for updates...');
       });
 
-      socket.on('project-updated', async () => {
-        console.log('Project updated');
-        router.refresh();
+      socket.on(
+        'project-updated',
+        debounce(() => {
+          console.log('project updated');
+          router.refresh();
 
-        setLastUpdated(new Date());
-      });
+          setLastUpdated(new Date());
+        }, 500),
+      );
       socket.on('disconnect', () => {
         console.log('Stopped watching for updates...');
       });

@@ -3,9 +3,9 @@ import validateNpmPackageName from 'validate-npm-package-name';
 
 export const validPackageName = defineCheck(() => ({
   name: 'commonality/valid-package-name',
-  validate: async ({ workspace }) => {
+  validate: async (context) => {
     const packageJson = await json<PackageJson>(
-      workspace.path,
+      context.package.path,
       'package.json',
     ).get();
 
@@ -25,9 +25,9 @@ export const validPackageName = defineCheck(() => ({
     return true;
   },
   type: 'error',
-  message: async ({ workspace }) => {
+  message: async (context) => {
     const packageJson = await json<PackageJson>(
-      workspace.path,
+      context.package.path,
       'package.json',
     ).get();
 

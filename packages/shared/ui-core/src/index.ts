@@ -10,3 +10,5 @@ export { NavigationLogo } from './navigation-logo';
 export { Divider } from './divider';
 export { ThemeButtonLoading } from './theme-button-loading';
 export { NavigationButton } from './navigation-button';
+export { WordLogo } from './word-logo';
+export { WordLogoFull } from './word-logo-full';

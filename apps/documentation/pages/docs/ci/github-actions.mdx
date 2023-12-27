@@ -1,0 +1,140 @@
+import { Tabs, Tab } from 'nextra/components';
+
+# Running Commonality in Github Actions
+
+Ensure that you have `commonality` installed as a dependency at the root of your project.
+Given a `package.json` with the following scripts:
+
+```json filename="package.json"
+{
+  "name": "my-project",
+  "scripts": {
+    "check": "commonality check",
+    "constrain": "commonality constrain"
+  },
+  "dependencies": {
+    "commonality": "<version>"
+  }
+}
+```
+
+Create a workflow file for CI at `.github/workflows/ci.yml` if not already present and add the `check` and `constrain` scripts as a step.
+
+<Tabs items={['npm', 'yarn', 'pnpm']} storageKey="selected-pkg-manager">
+  <Tab>
+    ```yaml copy filename=".github/workflows/ci.yml"
+    name: CI
+
+    on:
+      push:
+        branches: ["main"]
+      pull_request:
+        types: [opened, synchronize]
+
+    jobs:
+      validate:
+        name: Validate
+        timeout-minutes: 15
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v3
+            with:
+              fetch-depth: 2
+
+          - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+              node-version: 18
+              cache: 'npm'
+
+          - name: Install dependencies
+            run: npm install
+
+          - name: Check
+            run: npm run check
+
+          - name: Constrain
+            run: npm run constrain
+    ````
+
+  </Tab>
+  <Tab>
+    ```yaml copy filename=".github/workflows/ci.yml"
+    name: CI
+
+    on:
+      push:
+        branches: ["main"]
+      pull_request:
+        types: [opened, synchronize]
+
+    jobs:
+      validate:
+        name: Validate
+        timeout-minutes: 15
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v3
+            with:
+              fetch-depth: 2
+
+          - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+              node-version: 18
+              cache: 'yarn'
+
+          - name: Install dependencies
+            run: yarn
+
+          - name: Check
+            run: yarn check
+
+          - name: Constrain
+            run: yarn check
+    ```
+  </Tab>
+  <Tab>
+    ```yaml copy filename=".github/workflows/ci.yml"
+    name: CI
+
+    on:
+      push:
+        branches: ["main"]
+      pull_request:
+        types: [opened, synchronize]
+
+    jobs:
+      validate:
+        name: Validate
+        timeout-minutes: 15
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v3
+            with:
+              fetch-depth: 2
+
+          - name: Setup pnpm
+            uses: pnpm/action-setup@v2
+
+          - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+              node-version: 18
+              cache: 'pnpm'
+
+          - name: Install dependencies
+            run: pnpm install
+
+          - name: Check
+            run: pnpm check
+
+          - name: Constrain
+            run: pnpm constrain
+    ```
+  </Tab>
+</Tabs>
+

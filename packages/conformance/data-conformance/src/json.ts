@@ -4,17 +4,15 @@ import { isMatch, merge, omit } from 'lodash-es';
 import detectIndent from 'detect-indent';
 import path from 'pathe';
 
-type Data = Record<string, unknown>;
-
-export interface JsonFile<T extends Data> extends Omit<File, 'get'> {
+export interface JsonFile<T extends Record<string, unknown>> extends Omit<File, 'get'> {
   get: () => Promise<T | undefined>;
-  contains(value: Partial<Data>): Promise<boolean>;
-  set(value: Data): Promise<void>;
-  merge(value: Partial<Data>): Promise<void>;
+  contains(value: Partial<Record<string, unknown>>): Promise<boolean>;
+  set(value: Record<string, unknown>): Promise<void>;
+  merge(value: Partial<Record<string, unknown>>): Promise<void>;
   remove(path: string): Promise<void>;
 }
 
-export function json<T extends Data>(
+export function json<T extends Record<string, unknown>>(
   rootPath: string,
   filePath: string,
 ): JsonFile<T> {
@@ -30,7 +28,7 @@ export function json<T extends Data>(
 
   const _text = getText();
 
-  const writeFile = async (json: Data) => {
+  const writeFile = async (json: Record<string, unknown>) => {
     const text = await _text;
     const defaultIndent = '    ';
     const indent = text

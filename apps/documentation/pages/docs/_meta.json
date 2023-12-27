@@ -1,0 +1,25 @@
+{
+  "-- Getting Started": {
+    "type": "separator",
+    "title": "Getting Started"
+  },
+  "overview": "",
+  "installation": "",
+  "getting-started": "Getting Started",
+
+  "-- Guides": {
+    "type": "separator",
+    "title": "Guides"
+  },
+  "checks": "Checks",
+  "constraints": "Constraints",
+  "codeowners": "",
+  "sharing": "",
+  "ci": "CI",
+
+  "-- Reference": {
+    "type": "separator",
+    "title": "Reference"
+  },
+  "api": "API"
+}

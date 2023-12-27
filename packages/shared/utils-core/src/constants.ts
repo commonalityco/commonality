@@ -49,15 +49,15 @@ const packagePaths = z.object({
   relativePath: z.string(),
 });
 
-const checkOptionsSchema = z.object({
-  workspace: packagePaths,
-  allWorkspaces: z.array(packagePaths),
-  rootWorkspace: packagePaths,
+const checkContextSchema = z.object({
+  package: packagePaths,
+  allPackages: z.array(packagePaths),
+  rootPackage: packagePaths,
   codeowners: z.array(z.string()),
   tags: z.array(z.string()),
 });
 
-const checkFn = z.function().args(checkOptionsSchema);
+const checkFn = z.function().args(checkContextSchema);
 
 const wildcard = z.literal('*');
 
@@ -101,7 +101,7 @@ export const projectConfigSchema = z.object({
 export type ProjectConfig = z.infer<typeof projectConfigSchema>;
 
 export type Check = z.infer<typeof checkSchema>;
-export type CheckOptions = z.infer<typeof checkOptionsSchema>;
+export type CheckContext = z.infer<typeof checkContextSchema>;
 export type Message = z.infer<typeof messageSchema>;
 
 export type Constraint = z.infer<typeof constraintSchema>;

@@ -1,22 +1,22 @@
 import { Callout } from 'nextra/components';
 
-# Building checks
+# Creating checks
 
-## Building your first check
+## Creating your first check
 
 Checks are defined in the configuration file at the root of your project. You can use matchers to run checks against all the packages in your project or a subset of packages.
 
 All checks have three required properties:
 
-**`name`** A unique identifier for the check, we use this to parallelize checks and avoid write collisions.
+**`name`** A unique identifier for the check, we use this to parallelize checks and prevent write collisions.
 
 **`validate`** A function that should return either a truthy or falsey value indicating whether or not the check is valid.
 
-**`message`** A string or function that that gives a developer more context about the check.
+**`message`** A string or function that that provides more context about the check.
 
 <Callout type="info">
-  You can view all available properties in our [reference
-  documentation](/api/checks).
+  You can view all available check properties and more examples in our
+  [reference documentation](/reference/checks).
 </Callout>
 
 Here's an example of a simple check that ensures every package has at least one codeowner.
@@ -45,7 +45,7 @@ commonality check
 
 ## Auto-fixable checks
 
-It's great to be notified that something isn't right, but it's even better when you can fix it with a single command.
+It's great to be notified that something isn't right, but it's even better when you can fix it with a single key press.
 
 To make a check fixable just add a `fix` property to your check. This function will only run against the package if the result of `validate` is falsey.
 
@@ -86,7 +86,7 @@ export default defineConfig({
 });
 ```
 
-## Composable checks
+## Composing checks
 
 While basic checks go a long way, you may want to pass options to your checks to make them re-usable in a variety of different scenarios.
 

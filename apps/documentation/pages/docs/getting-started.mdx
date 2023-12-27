@@ -1,0 +1,165 @@
+import { Steps, Callout, Tabs, Tab, Cards, Card } from 'nextra/components';
+
+# Getting Started
+
+You can run `npx commonality studio` in any monorepo to get started without installing any dependencies.
+However, Commonality is most useful when it becomes a part of your daily workflow.
+
+All features are designed to be adopted incrementally.
+Here's how we recommend getting up an running in a repostitory that has multiple collaborators.
+
+<Steps>
+
+### Install dependencies
+
+If you're working on a project with others, you'll want to locally install `commonality` at the root of your project 
+to get a consistent developer experience. We're also going to install the `commonality-recommended` package 
+to set up some initial [checks](/docs/checks).
+
+<Tabs items={['npm', 'yarn', 'pnpm']} storageKey="selected-pkg-manager">
+  <Tab>
+  ```bash copy
+  npm install commonality commonality-recommended --save-dev 
+  ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    yarn add commonality commonality-recommended --dev --ignore-workspace-root-check 
+    ```
+  </Tab>
+  <Tab>
+    ```bash copy
+    pnpm add commonality commonality-recommended --save-dev --ignore-workspace-root-check 
+    ```
+  </Tab>
+</Tabs>
+
+
+### Set up checks
+
+You'll be able to get value from Commonality right away by installing our `commonality-recommended`
+package which includes common checks useful in any monorepo.
+
+Create a `commonality.config.ts` or `commonality.config.js` at the root of your repository and apply
+checks that you feel make the most sense for your project. Alternatively, you can [create your own
+checks](/docs/checks/creating-checks) or use checks from other packages.
+
+<Callout type="info">
+  For documentation on all rules in the `commonality-recommended` package check
+  out the README
+</Callout>
+
+```ts filename="commonality.config.ts"
+import { defineConfig } from 'commonality';
+import * as recommended from 'commonality-recommended';
+
+export default defineConfig({
+  checks: {
+    '*': [
+      recommended.devPeerDependencyRange(),
+      recommended.ensureCodeowner(),
+      recommended.ensureLicense(),
+      recommended.ensureReadme(),
+      recommended.multipleDependencyTypes(),
+      recommended.noExternalMismatch(),
+      recommended.repositoryField(),
+      recommended.sortedDependencies(),
+      recommended.validPackageName(),
+    ],
+  },
+});
+```
+
+Let's try running these checks against your project with:
+```bash copy
+commonality check
+```
+
+### Categorize your packages
+
+Commonality helps you scale a consistent developer experience across your monorepo and organization.
+[Tag filters](/docs/api/configuration#tag-filters) help you achieve this by helping you codify best 
+practices for groups or categories of packages in your project. Let's define those categories now.
+
+Open Commonality Studio to see all the packages within your monorepo.
+
+```bash copy
+commonality studio
+```
+
+Next, try and find common groups of packages that have similar needs. Some examples of categories are:
+
+- **Tooling:** packages that require common boilerplate or configuration files for tooling.
+  I.e. `buildable`, `deployable`, `testable`
+
+- **Concern:** packages that have a common concern or purpose
+  I.e. `ui`, `data`, `config`
+
+- **Domain:** packages that have a common product vertical or feature
+  I.e. `checkout`, `marketing`, `ai`
+
+Attach tags that match categories found in your project to packages directly in Commonality Studio.
+
+<Callout type="info">
+  Editing tags in Commonality Studio will update or create a `commonality.json`
+  in each package directories automatically. This saves you from manually
+  managing many configuration files across your monorepo.
+</Callout>
+
+### Add constraints
+
+Now let's leverage the tags we just created to add [constraints](/docs/constraints) to the dependency graph.
+
+You may find that there are certain packages that should never depend on each other. For example:
+
+- All packages should never depend on `deployable` packages.
+
+- `ui` packages should only depend on `utility`, and `config` packages.
+
+- `config` packages should only depend on other `config` packages.
+
+Adding constraints allows you to codify these rules and prevent your dependency graph from becoming spaghetti.
+This saves you from endless dependency debugging and increased mental overhead.
+
+Let's add some of these rules to our project configuration file
+
+```ts filename="commonality.config.ts"
+import { defineConfig } from 'commonality';
+import * as recommended from 'commonality-recommended';
+
+export default defineConfig({
+  checks: {
+    // ...
+  },
+  constraints: {
+    "*": {
+      disallow: ["deployable"]
+    },
+    "ui": {
+      allow: ["utility", "config"]
+    },
+    "config": {  
+      "allow": ["config"]
+    }
+  }
+});
+```
+
+Let's check the validity of the constraints we just created with:
+```bash copy
+commonality check
+```
+
+### Next steps
+Now that you've learned the basics of checks and constraints you can further customize Commonality to your own workflows
+by creating custom checks or integrate Commonality into your CI pipeline to prevent regressions.
+
+
+<Cards>
+<Card title="Create your first check" href="/docs/checks/creating-checks">
+</Card>
+
+<Card title="Set up CI" href="/">
+</Card>
+</Cards>
+</Steps>

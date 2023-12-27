@@ -55,17 +55,17 @@ describe('runFixes', () => {
     });
 
     expect(mockFix).toHaveBeenCalledWith({
-      workspace: Object.freeze({
+      package: {
         path: 'root/directory/path/to/test-package',
         relativePath: 'path/to/test-package',
-      }),
-      allWorkspaces: [
+      },
+      allPackages: [
         {
           path: 'root/directory/path/to/test-package',
           relativePath: 'path/to/test-package',
         },
       ],
-      rootWorkspace: {
+      rootPackage: {
         path: 'root/directory',
         relativePath: '.',
       },
