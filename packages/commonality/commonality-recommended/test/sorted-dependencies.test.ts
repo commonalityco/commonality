@@ -86,7 +86,7 @@ describe('sortedDependencies', () => {
       const conformer = createTestCheck(sortedDependencies());
 
       const result = await conformer.message();
-      console.log({ result });
+
       expect(result.title).toEqual(
         'Dependencies in package.json must be sorted alphabetically',
       );

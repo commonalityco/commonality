@@ -221,7 +221,7 @@ describe('getConformanceResults', () => {
     expect(results).toHaveLength(1);
     expect(results[0].status).toBe(Status.Pass);
     expect(results[0].message.title).toBe(
-      'Valid workspace for /path/to/workspace',
+      'Valid package for /path/to/workspace',
     );
     expect(results[0].filter).toBe('*');
     expect(results[0].package).toEqual(packages[0]);
