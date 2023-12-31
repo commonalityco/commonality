@@ -15,10 +15,17 @@ const config: DocsThemeConfig = {
   docsRepositoryBase:
     'https://github.com/commonalityco/commonality/tree/main/apps/documentation',
   footer: {
-    text: 'Nextra Docs Template',
+    text: 'Commonality',
   },
-  // primaryHue: 180,
-  // primarySaturation: 40,
+  banner: {
+    key: '0-beta',
+    text: '🎉 Commonality is now in beta',
+  },
+  useNextSeoProps() {
+    return {
+      titleTemplate: '%s – Commonality',
+    };
+  },
 };
 
 export default config;

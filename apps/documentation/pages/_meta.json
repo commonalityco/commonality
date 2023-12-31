@@ -1,7 +1,11 @@
 {
   "index": {
-    "title": "Home",
-    "type": "page"
+    "title": "Commonality",
+    "type": "page",
+    "display": "hidden",
+    "theme": {
+      "layout": "raw"
+    }
   },
   "docs": {
     "title": "Documentation",
