@@ -8,43 +8,10 @@ import Image from 'next/image';
 import { TurboLogo } from '../components/turbo-logo';
 import { TagsImage } from '../components/tags-image';
 import { ConstraintsImage } from '../components/constraints-image';
+import { Grid } from '../components/images/grid';
+import { ScreenshotSelector } from '../components/screenshot-selector';
 import { FileTree } from 'nextra/components';
 import * as Tabs from '@radix-ui/react-tabs';
-
-export function WindowSelector() {
-  return (
-    <Tabs.Root defaultValue="commonality">
-      <Tabs.List aria-label="Choose a project">
-        <Tabs.Trigger value="commonality">
-          commonality
-        </Tabs.Trigger>
-        <Tabs.Trigger value="vercel">
-          vercel
-        </Tabs.Trigger>
-        <Tabs.Trigger value="pnpm">
-          pnpm
-        </Tabs.Trigger>
-      </Tabs.List>
-      <Tabs.Content className="max-w-[800px] w-full relative" value="commonality">
-        <MockWindow>
-          <Image src="/studio-commonality.png" fill/>
-        </MockWindow>
-      </Tabs.Content>
-
-      <Tabs.Content className="max-w-[800px] w-full relative" value="vercel">
-        <MockWindow>
-          ![](/studio-vercel.png)
-        </MockWindow>
-      </Tabs.Content>
-
-      <Tabs.Content className="max-w-[800px] w-full relative" value="pnpm">
-        <MockWindow>
-          ![](/studio-pnpm.png)
-        </MockWindow>
-      </Tabs.Content>
-    </Tabs.Root>
-  )
-}
 
 export function CheckCard({ title, icon, status = 'pass' }) {
   return (
@@ -77,36 +44,45 @@ export function MockWindow({ children }) {
 }
 
 
-<div className="mt-6 py-24 rounded-2xl bg-interactive border container mb-24 px-6">
-  <div className="max-w-[500px]">
-    <h1 className="font-serif text-7xl font-semibold text-primary mb-6 leading-none">Build bigger</h1>
-    <p className="text-muted-foreground text-lg mb-3">Commonality helps you scale JavaScript monorepos and ecosystems with the tools you already love.</p>
-    <p className="text-muted-foreground text-lg mb-6">No wrappers. No lock-in. Open-source.</p>
+<div className="px-6 relative">
+  <div className="mt-6 py-8 md:py-16 px-6 md:px-20 rounded-2xl bg-interactive border container mb-24 relative overflow-hidden">
+    <div className="absolute top-0 right-0 bottom-0 left-0">
+      <Grid className="object-cover w-full h-full rounded-2xl"/>
+    </div>
+    <div className="flex flex-col-reverse md:flex-row gap-6 items-stretch">
+      <div className="max-w-[550px] relative z-10 flex items-center">
+        <div>
+          <h1 className="font-serif text-5xl md:text-8xl font-semibold text-primary mb-6 leading-none">Build bigger</h1>
+          <p className="text-muted-foreground text-base md:text-lg mb-3">Commonality helps you scale JavaScript monorepos and ecosystems with the tools you already love.</p>
+          <p className="text-muted-foreground text-base md:text-lg mb-6">No wrappers. No lock-in. Open-source.</p>
 
-    <Button size="lg" asChild>
-      <Link href="/docs/overview">Get started</Link>
-    </Button>
+          <Button size="lg" asChild>
+            <Link href="/docs/overview">Get started</Link>
+          </Button>
+        </div>
+      </div>
 
+      <div className="flex justify-center grow h-full">
+        <Image src="/cube.svg" width={364} height={409} className="relative z-5 h-full max-h-[250px] md:max-h-[450px]"/>
+      </div>
+    </div>
   </div>
-
 </div>
 
-<div className="flex items-center flex-col px-6">
-  <h2 className="font-serif text-5xl font-semibold text-primary mb-4 leading-none text-center">Visualize your codebase</h2>
-  <p className="text-muted-foreground text-lg mb-12 text-center max-w-[600px]">Explore your dependency graph, categorize packages with tags, view conformance health and more with Commonality Studio.</p>
-  <WindowSelector/>
-  <div className="max-w-[800px] w-full">
-    <MockWindow>
-    ![](/studio-commonality.png)
-    </MockWindow>
+<div className="flex items-center flex-col">
+  <div className="px-6">
+    <h2 className="font-serif text-5xl font-semibold text-primary mb-4 leading-none text-center">Visualize any codebase</h2>
+    <p className="text-muted-foreground text-lg mb-12 text-center max-w-[600px] mx-auto">Explore your dependency graph, categorize packages with tags, view conformance health and more with Commonality Studio.</p>
+    <ScreenshotSelector />
   </div>
-  <div className="relative w-full h-[250px] -mt-[240px] backdrop-blur flex items-end justify-center" style={{'-webkit-mask': 'linear-gradient(180deg, transparent, black 50%)'}}>
+  <div className="relative w-full flex items-end justify-center -mt-[400px] h-[400px]">
     <div className="absolute bg-gradient-to-t from-interactive to-transparent top-0 bottom-0 right-0 left-0"/>
     <div className="max-w-[500px] z-10 w-full text-center">
-
-      <div className="inline-block">
-        <div className="p-px bg-gradient-to-tr dark:bg-gradient-to-br shadow from-[#829995] to-border rounded-md">
-          <div className="bg-background py-2 pr-3 pl-6 flex gap-2 flex-nowrap items-center rounded-[5px]">
+      <div className="inline-block px-6">
+        <div className="relative">
+          <div className="absolute -top-2 -right-2 -bottom-2 -left-2 border rounded-xl border-neutral-300 dark:border-neutral-800"/>
+          <div className="absolute -top-1 -right-1 -bottom-1 -left-1 border rounded-lg border-neutral-400 dark:border-neutral-700"/>
+          <div className="bg-background py-2 pr-3 pl-6 flex gap-2 flex-nowrap items-center rounded-md border border-neutral-500 dark:border-neutral-500">
             <p className="font-mono text-primary font-medium">npx commonality studio</p>
             <Button variant="ghost" size="icon" ><Copy className="w-4 h-4"/></Button>
           </div>
@@ -114,12 +90,10 @@ export function MockWindow({ children }) {
       </div>
       <p className=" font-serif text-primary mt-4">Explore any JavaScript project with one command</p>
     </div>
-
   </div>
-
 </div>
 
-<div className="py-36 w-full bg-interactive px-6">
+<div className="py-36 w-full bg-interactive relative px-6 z-10">
   <div className="mx-auto text-center mb-12">
     <h2 className="font-serif text-5xl font-semibold text-primary mb-4 leading-none text-center">Discover <span className="italic">frustration-free</span> monorepos</h2>
     <p className="max-w-xl mx-auto text-muted-foreground text-lg">Commonality helps you tame the chaos that comes with multi-package workspaces and growing package ecosystems.</p>
@@ -139,18 +113,11 @@ export function MockWindow({ children }) {
 
       </div>
       <div className="relative min-h-[280px]">
-        <div className="md:absolute md:-right-9 md:-top-9 bottom-0 flex flex-col gap-4">
+        <div className="md:absolute md:-right-9 md:top-0 bottom-0 md:bottom-0 my-auto grid gap-4">
           <CheckCard title={`The "build" script must have a matching pipeline`} icon={<TurboLogo/>} />
           <CheckCard title={`ESLint configuration must extend "react"`} icon={<Image src="/eslint.svg" height={24} width={24}/>} status="fail"/>
           <CheckCard title={`Package must have a codeowner`} icon={<Logo src="/logo.svg" height={24} width={24}/>} />
           <CheckCard title="Package must to publish to private registry"/>
-          <div className="pl-6 mt-2">
-            <div className="flex flex-nowrap gap-2 mb-2">
-              <p className="font-mono font-medium text-xs text-destructive">1 failed</p>
-              <p className="font-mono font-medium text-xs text-success">3 passed</p>
-            </div>
-            <p className="font-mono font-medium text-xs">Found 1 auto-fixable checks. Run fixes? <span className="text-muted-foreground">(y/N)</span></p>
-          </div>
         </div>
       </div>
     </div>
@@ -160,7 +127,6 @@ export function MockWindow({ children }) {
         <p className="font-semibold mb-2 text-3xl text-primary font-serif">Tags</p>
         <p className="text-muted-foreground">Categorize packages by domain or concern or anything you can think of.</p>
       </div>
-      {/* <TagsImage /> */}
       <Image src="/tags.svg" width={365} height={194} className="w-full self-end"/>
     </div>
 
@@ -173,8 +139,6 @@ export function MockWindow({ children }) {
     </div>
 
     <div className="bg-background border rounded-2xl p-8 col-span-1 md:col-span-2 shadow grid overflow-hidden md:grid-cols-2 gap-6">
-      {/* <Image src="/constraints.svg" width={175} height={175} className="w-full self-end"/> */}
-
       <div className="flex md:items-center">
         <div>
           <p className="font-semibold mb-2 text-3xl text-primary font-serif">Constraints</p>
