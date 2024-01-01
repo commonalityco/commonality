@@ -64,13 +64,13 @@ export const handleEdgeMouseout = ({
 export const bindRenderGraphEvents = (arguments_: EventHandlerArguments) => {
   const { renderGraph, onNodeClick, onEdgeClick, onMove } = arguments_;
 
-  renderGraph.nodes().removeListener('click');
-  renderGraph.nodes().addListener('click', onNodeClick);
+  renderGraph.nodes().removeListener('tap');
+  renderGraph.nodes().addListener('tap', onNodeClick);
 
   renderGraph.nodes().removeListener('mouseover');
   renderGraph
     .nodes()
-    .on('mouseover', (event) =>
+    .on('mouseover, tap', (event) =>
       handleNodeMouseover({ ...arguments_, target: event.target }),
     );
 
@@ -81,8 +81,8 @@ export const bindRenderGraphEvents = (arguments_: EventHandlerArguments) => {
       handleNodeMouseout({ ...arguments_, target: event.target }),
     );
 
-  renderGraph.edges().removeListener('click');
-  renderGraph.edges().addListener('click', onEdgeClick);
+  renderGraph.edges().removeListener('tap');
+  renderGraph.edges().addListener('tap', onEdgeClick);
 
   renderGraph.edges().removeListener('mouseover');
   renderGraph

@@ -1,2 +1,9 @@
+@tailwind base;
+
 @import '@commonalityco/config-tailwind/globals.css';
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+}

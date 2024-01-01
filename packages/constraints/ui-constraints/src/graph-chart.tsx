@@ -38,19 +38,19 @@ export const GraphChart = memo(
           </div>
           <GradientFade
             placement="top"
-            className="absolute left-0 right-0 z-20 h-10 from-interactive"
+            className="absolute left-0 right-0 z-20 h-10 from-interactive to-transparent"
           />
           <GradientFade
             placement="bottom"
-            className="absolute left-0 right-0 z-20 h-10 from-interactive"
+            className="absolute left-0 right-0 z-20 h-10 from-interactive to-transparent"
           />
           <GradientFade
             placement="left"
-            className="absolute bottom-0 top-0 z-20 w-10 from-interactive"
+            className="absolute bottom-0 top-0 z-20 w-10 from-interactive to-transparent"
           />
           <GradientFade
             placement="right"
-            className="absolute bottom-0 top-0 z-20 w-10 from-interactive"
+            className="absolute bottom-0 top-0 z-20 w-10 from-interactive to-transparent"
           />
 
           <div
