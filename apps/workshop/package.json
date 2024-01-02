@@ -41,7 +41,7 @@
     "@storybook/testing-library": "0.2.0",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.18",
-    "@vitejs/plugin-react": "^4.0.4",
+    "@vitejs/plugin-react": "^4.2.1",
     "@vitejs/plugin-react-swc": "^3.3.2",
     "autoprefixer": "^10.4.16",
     "eslint-config-commonality": "workspace:*",
