@@ -9,13 +9,16 @@ import { TurboLogo } from '../components/turbo-logo';
 import { TagsImage } from '../components/tags-image';
 import { ConstraintsImage } from '../components/constraints-image';
 import { Grid } from '../components/images/grid';
+import { Codeowners } from '../components/images/codeowners';
+import { Constraints } from '../components/images/constraints';
+import { Cube } from '../components/images/cube';
 import { ScreenshotSelector } from '../components/screenshot-selector';
 import { FileTree } from 'nextra/components';
 import * as Tabs from '@radix-ui/react-tabs';
 
 export function CheckCard({ title, icon, status = 'pass' }) {
   return (
-    <div className="rounded-md bg-muted border py-3 px-5 flex items-center gap-4">
+    <div className="rounded-md bg-interactive border py-3 px-5 flex items-center gap-4">
       {icon ?? <PackageCheck className="w-6 h-6" />}
       <p className="font-mono font-medium grow text-xs">{title}</p>
       <p
@@ -63,7 +66,7 @@ export function MockWindow({ children }) {
       </div>
 
       <div className="flex justify-center grow h-full">
-        <Image src="/cube.svg" width={364} height={409} className="relative z-5 h-full max-h-[250px] md:max-h-[450px]"/>
+        <Cube className="z-10 relative"/>
       </div>
     </div>
   </div>
@@ -75,8 +78,8 @@ export function MockWindow({ children }) {
     <p className="text-muted-foreground text-lg mb-12 text-center max-w-[600px] mx-auto">Explore your dependency graph, categorize packages with tags, view conformance health and more with Commonality Studio.</p>
     <ScreenshotSelector />
   </div>
-  <div className="relative w-full flex items-end justify-center -mt-[400px] h-[400px]">
-    <div className="absolute bg-gradient-to-t from-interactive to-transparent top-0 bottom-0 right-0 left-0"/>
+  <div className="relative w-full flex items-end justify-center -mt-[300px] md:-mt-[400px] h-[300px] md:h-[400px]">
+    <div className="absolute bg-gradient-to-t from-interactive from-25% to-transparent top-0 bottom-0 right-0 left-0"/>
     <div className="max-w-[500px] z-10 w-full text-center">
       <div className="inline-block px-6">
         <div className="relative">
@@ -134,7 +137,8 @@ export function MockWindow({ children }) {
       <p className="font-semibold mb-2 text-3xl text-primary font-serif">Codeowners</p>
       <p className="text-muted-foreground">View ownership for all your packages based on your CODEOWNERS file.</p>
       <div className="flex grow items-end pt-4">
-        <Image src="/codeowners.svg" width={365} height={194} className="w-full self-end"/>
+        {/* <Image src="/codeowners.svg" width={365} height={194} className="w-full self-end"/> */}
+        <Codeowners className="w-full self-end" />
       </div>
     </div>
 
@@ -150,7 +154,8 @@ export function MockWindow({ children }) {
       </div>
 
       <div className="flex items-center justify-center">
-      <Image src="/constraints.svg" width={193} height={165}  className="w-full h-full self-end"/>
+      <Constraints className="w-full h-full self-end" />
+      {/* <Image src="/constraints.svg" width={193} height={165}  className="w-full h-full self-end"/> */}
 
       </div>
     </div>
