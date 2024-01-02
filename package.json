@@ -9,8 +9,9 @@
   ],
   "scripts": {
     "dev": "turbo run dev --parallel --cache-dir=.turbo",
-    "conform": "commonality conform",
+    "check": "commonality check",
     "build": "turbo run build --cache-dir=.turbo",
+    "constrain": "commonality constrain",
     "clean": "rimraf ./packages/**/dist ./packages/**/.turbo ./packages/*/node_modules ./coverage ./node_modules",
     "test": "vitest run",
     "test:integration": "CI=true turbo run test:integration",
