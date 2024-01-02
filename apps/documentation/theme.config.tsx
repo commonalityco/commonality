@@ -3,12 +3,20 @@ import type { DocsThemeConfig } from 'nextra-theme-docs';
 import { Logo, WordLogo } from '@commonalityco/ui-core';
 import { useRouter } from 'next/router';
 import { useConfig } from 'nextra-theme-docs';
+import path from 'node:path';
+import packageJson from '../commonality/package.json';
 
 const config: DocsThemeConfig = {
   logo: (
     <span className="flex gap-3 items-center">
       <Logo />
       <WordLogo />
+      <span className="text-xs font-mono font-medium hidden md:block">
+        {packageJson.version}
+      </span>
+      <div className="uppercase text-xs bg-gradient-to-r from-[#839996] to-[#496767] px-3 py-1 rounded-full font-bold text-white hidden md:block">
+        Beta
+      </div>
     </span>
   ),
   project: {
@@ -21,7 +29,7 @@ const config: DocsThemeConfig = {
   },
   banner: {
     key: '0-beta',
-    text: 'Commonality is now in beta 🎉',
+    text: '🎉 Commonality is now in Beta',
   },
   useNextSeoProps() {
     const { asPath } = useRouter();
