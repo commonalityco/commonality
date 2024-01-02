@@ -6,7 +6,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18.17.0"
   },
   "scripts": {
     "dev": "COMMONALITY_ROOT_DIRECTORY='../../' NODE_ENV=development node server.js",

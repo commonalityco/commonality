@@ -1,4 +1,4 @@
-# commonality-recommended
+# commonality-checks-recommended
 
 ## 0.0.8
 

@@ -1,5 +1,5 @@
 import { defineConfig } from 'commonality';
-import * as recommended from 'commonality-recommended';
+import * as recommended from 'commonality-checks-recommended';
 
 export default defineConfig({
   checks: {

@@ -48,11 +48,26 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
 
-      - name: Build
-        run: pnpm run build
-
       - name: Test
         run: pnpm run test
+
+  validate:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: 'test'
+    steps:
+      - name: Checkout respository
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Check
+        run: pnpm check
+
+      - name: Constrain
+        run: pnpm constrain
 
   integration-test:
     timeout-minutes: 15
@@ -70,9 +85,6 @@ jobs:
 
       - name: Setup
         uses: ./.github/actions/setup
-
-      - name: Build
-        run: pnpm run build
 
       - name: Prune devDependencies
         run: pnpm prune --prod

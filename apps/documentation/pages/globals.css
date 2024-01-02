@@ -8,7 +8,7 @@
   }
 
   .noise {
-    background: url('/white-noise.png'), #FFFFFF;
+    background: url('/white-noise.png'), #ffffff;
   }
 
   .dark .noise {

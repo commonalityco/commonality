@@ -12,24 +12,24 @@ Here's how we recommend getting up an running in a repostitory that has multiple
 
 ### Install dependencies
 
-If you're working on a project with others, you'll want to locally install `commonality` at the root of your project 
-to get a consistent developer experience. We're also going to install the `commonality-recommended` package 
+If you're working on a project with others, you'll want to locally install `commonality` at the root of your project
+to get a consistent developer experience. We're also going to install the `commonality-checks-recommended` package
 to set up some initial [checks](/docs/checks).
 
 <Tabs items={['npm', 'yarn', 'pnpm']} storageKey="selected-pkg-manager">
   <Tab>
   ```bash copy
-  npm install commonality commonality-recommended --save-dev 
+  npm install commonality commonality-checks-recommended --save-dev
   ```
   </Tab>
   <Tab>
     ```bash copy
-    yarn add commonality commonality-recommended --dev --ignore-workspace-root-check 
+    yarn add commonality commonality-checks-recommended --dev --ignore-workspace-root-check
     ```
   </Tab>
   <Tab>
     ```bash copy
-    pnpm add commonality commonality-recommended --save-dev --ignore-workspace-root-check 
+    pnpm add commonality commonality-checks-recommended --save-dev --ignore-workspace-root-check
     ```
   </Tab>
 </Tabs>
@@ -37,7 +37,7 @@ to set up some initial [checks](/docs/checks).
 
 ### Set up checks
 
-You'll be able to get value from Commonality right away by installing our `commonality-recommended`
+You'll be able to get value from Commonality right away by installing our `commonality-checks-recommended`
 package which includes common checks useful in any monorepo.
 
 Create a `commonality.config.ts` or `commonality.config.js` at the root of your repository and apply
@@ -45,13 +45,13 @@ checks that you feel make the most sense for your project. Alternatively, you ca
 checks](/docs/checks/creating-checks) or use checks from other packages.
 
 <Callout type="info">
-  For documentation on all rules in the `commonality-recommended` package check
+  For documentation on all rules in the `commonality-checks-recommended` package check
   out the README
 </Callout>
 
 ```ts filename="commonality.config.ts"
 import { defineConfig } from 'commonality';
-import * as recommended from 'commonality-recommended';
+import * as recommended from 'commonality-checks-recommended';
 
 export default defineConfig({
   checks: {
@@ -78,7 +78,7 @@ commonality check
 ### Categorize your packages
 
 Commonality helps you scale a consistent developer experience across your monorepo and organization.
-[Tag filters](/docs/api/configuration#tag-filters) help you achieve this by helping you codify best 
+[Tag filters](/docs/api/configuration#tag-filters) help you achieve this by helping you codify best
 practices for groups or categories of packages in your project. Let's define those categories now.
 
 Open Commonality Studio to see all the packages within your monorepo.
@@ -125,7 +125,7 @@ Let's add some of these rules to our project configuration file
 
 ```ts filename="commonality.config.ts"
 import { defineConfig } from 'commonality';
-import * as recommended from 'commonality-recommended';
+import * as recommended from 'commonality-checks-recommended';
 
 export default defineConfig({
   checks: {
@@ -138,7 +138,7 @@ export default defineConfig({
     "ui": {
       allow: ["utility", "config"]
     },
-    "config": {  
+    "config": {
       "allow": ["config"]
     }
   }

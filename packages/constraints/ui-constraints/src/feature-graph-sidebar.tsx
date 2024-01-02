@@ -3,7 +3,6 @@ import { GraphContext } from './graph-provider';
 import { CodeownersData, Package, TagsData } from '@commonalityco/types';
 import { Sidebar } from './sidebar';
 import { ComponentProps } from 'react';
-import { Skeleton } from '@commonalityco/ui-design-system';
 
 interface FeatureGraphSidebarProperties {
   codeownersData: CodeownersData[];
