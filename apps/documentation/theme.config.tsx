@@ -60,7 +60,11 @@ const config: DocsThemeConfig = {
         <meta name="twitter:url" content="https://commonality.co" />
         <meta
           name="og:title"
-          content={title ? title + ' – Commonality' : 'Commonality'}
+          content={
+            title && title !== 'Commonality'
+              ? title + ' – Commonality'
+              : 'Commonality'
+          }
         />
         <meta name="og:image" content={socialCard} />
         <meta name="apple-mobile-web-app-title" content="Commonality" />
