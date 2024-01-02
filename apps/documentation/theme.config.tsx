@@ -28,7 +28,7 @@ const config: DocsThemeConfig = {
 
     if (asPath !== '/') {
       return {
-        titleTemplate: '%s – SWR',
+        titleTemplate: '%s – Commonality',
       };
     }
   },
