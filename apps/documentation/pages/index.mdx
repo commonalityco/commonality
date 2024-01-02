@@ -47,7 +47,7 @@ export function MockWindow({ children }) {
 }
 
 
-<div className="px-6 relative noise pt-12 pb-24">
+<div className="px-6 relative noise pt-6 pb-32">
   <div className="py-8 md:py-16 px-6 md:px-20 rounded-2xl bg-interactive border container relative overflow-hidden">
     <div className="absolute top-0 right-0 bottom-0 left-0">
       <div className="absolute top-0 right-0 bottom-0 left-0 bg-gradient-to-t md:bg-gradient-to-r from-interactive to-transparent"/>
@@ -75,8 +75,8 @@ export function MockWindow({ children }) {
 
 <div className="flex items-center flex-col noise">
   <div className="px-6">
-    <h2 className="font-serif text-5xl font-semibold text-primary mb-4 leading-none text-center">Visualize any codebase</h2>
-    <p className="text-muted-foreground text-lg mb-12 text-center max-w-[600px] mx-auto">Explore your dependency graph, categorize packages with tags, view conformance health and more with Commonality Studio.</p>
+    <h2 className="font-serif text-4xl md:text-5xl font-semibold text-primary mb-4 leading-none text-center">Visualize any codebase</h2>
+    <p className="text-muted-foreground text-base md:text-lg mb-12 text-center max-w-[600px] mx-auto">Explore your dependency graph, categorize packages with tags, view conformance health and more with Commonality Studio.</p>
     <ScreenshotSelector />
   </div>
   <div className="relative w-full flex items-end justify-center -mt-[300px] md:-mt-[400px] h-[300px] md:h-[400px]">
@@ -97,10 +97,10 @@ export function MockWindow({ children }) {
   </div>
 </div>
 
-<div className="py-36 w-full bg-interactive relative px-6 z-10">
+<div className="py-32 w-full bg-interactive relative px-6 z-10">
   <div className="mx-auto text-center mb-12">
-    <h2 className="font-serif text-5xl font-semibold text-primary mb-4 leading-none text-center">Discover <span className="italic">frustration-free</span> monorepos</h2>
-    <p className="max-w-xl mx-auto text-muted-foreground text-lg">Commonality helps you tame the chaos that comes with multi-package workspaces and growing package ecosystems.</p>
+    <h2 className="font-serif text-4xl md:text-5xl font-semibold text-primary mb-4 leading-none text-center">Discover <span className="italic">frustration-free</span> monorepos</h2>
+    <p className="max-w-xl mx-auto text-muted-foreground text-base md:text-lg">Commonality helps you tame the chaos that comes with multi-package workspaces and growing package ecosystems.</p>
   </div>
 
   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-screen-xl mx-auto">
@@ -159,9 +159,9 @@ export function MockWindow({ children }) {
     </div>
   </div>
 
-  <div className="flex justify-center w-full mt-36 flex-col items-center">
-    <h2 className="font-serif text-5xl font-semibold text-primary mb-4 leading-none text-center">Get started in seconds</h2>
-    <p className="text-muted-foreground text-lg mb-3">Commonality is designed to be incrementally adoptable with zero lock-in.</p>
+  <div className="flex justify-center w-full mt-32 flex-col items-center">
+    <h2 className="font-serif text-4xl md:text-5xl font-semibold text-primary mb-4 leading-none text-center">Get started in seconds</h2>
+    <p className="text-muted-foreground text-base md:text-lg mb-6 text-center md:text-left">Commonality is designed to be incrementally adoptable with zero lock-in.</p>
     <Button size="lg" asChild>
       <Link href="/docs/getting-started">Get started</Link>
     </Button>
