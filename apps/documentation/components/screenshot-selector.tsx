@@ -21,12 +21,14 @@ export function ScreenshotSelector() {
       <div className="relative mx-auto block">
         <MockWindow key="commonality">
           <Image
+            alt="A visualization of a depenency graph in Commonality Studio with a light theme"
             src="/commonality-light.png"
             width={1200}
             height={800}
             className="dark:hidden"
           />
           <Image
+            alt="A visualization of a depenency graph in Commonality Studio with a dark theme"
             src="/commonality-dark.png"
             width={1200}
             height={800}
