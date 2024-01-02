@@ -165,7 +165,9 @@ export function MockWindow({ children }) {
   <div className="flex justify-center w-full mt-36 flex-col items-center">
     <h2 className="font-serif text-5xl font-semibold text-primary mb-4 leading-none text-center">Get started in seconds</h2>
     <p className="text-muted-foreground text-lg mb-3">Commonality is designed to be incrementally adoptable with zero lock-in.</p>
-    <Button size="lg">Get started</Button>
+    <Button size="lg" asChild>
+      <Link href="/docs/getting-started">Get started</Link>
+    </Button>
   </div>
 
 </div>

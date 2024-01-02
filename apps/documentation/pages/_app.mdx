@@ -1,6 +1,8 @@
 import './globals.css';
 import { AppProps } from 'next/app';
 import { Inter, Fira_Code, Vollkorn } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const inter = Inter({
   subsets: ['latin'],
@@ -24,6 +26,8 @@ export default function MyApp({ Component, pageProps }) {
       className={`${inter.className} ${firaCode.variable} ${inter.variable} ${vollkorn.variable}`}
     >
       <Component {...pageProps} />
+      <Analytics />
+      <SpeedInsights />
     </div>
   );
 }
