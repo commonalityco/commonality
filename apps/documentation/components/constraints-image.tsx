@@ -411,7 +411,7 @@ export function ConstraintsImage({ className }) {
       <path
         d="M32.2051 21.2426L23.7686 16.3718M32.2051 21.2426L40.6417 16.3718M32.2051 21.2426L32.2052 30.9844M23.7686 16.3718L32.2051 11.501L40.6417 16.3718M23.7686 16.3718L23.7686 26.1135L32.2052 30.9844M40.6417 16.3718V26.1135L32.2052 30.9844"
         className="dark:stroke-neutral-500 stroke-neutral-400"
-        stroke-width="0.5"
+        strokeWidth="0.5"
       />
       <path
         d="M71.166 44.322L79.6026 49.1928L88.0392 44.322L79.6026 39.4512L71.166 44.322Z"
@@ -428,7 +428,7 @@ export function ConstraintsImage({ className }) {
       <path
         d="M79.6026 49.1928L71.166 44.322M79.6026 49.1928L88.0392 44.322M79.6026 49.1928L79.6026 58.9346M71.166 44.322L79.6026 39.4512L88.0392 44.322M71.166 44.322L71.166 54.0637L79.6026 58.9346M88.0392 44.322V54.0637L79.6026 58.9346"
         className="dark:stroke-neutral-500 stroke-neutral-400"
-        stroke-width="0.5"
+        strokeWidth="0.5"
       />
       <path
         d="M118.56 72.2731L126.996 77.144L135.433 72.2731L126.996 67.4023L118.56 72.2731Z"
@@ -445,7 +445,7 @@ export function ConstraintsImage({ className }) {
       <path
         d="M126.996 77.144L118.56 72.2731M126.996 77.144L135.433 72.2731M126.996 77.144L126.996 86.8857M118.56 72.2731L126.996 67.4023L135.433 72.2731M118.56 72.2731L118.56 82.0148L126.996 86.8857M135.433 72.2731V82.0148L126.996 86.8857"
         className="dark:stroke-neutral-500 stroke-neutral-400"
-        stroke-width="0.5"
+        strokeWidth="0.5"
       />
       <path
         d="M118.56 16.3718L126.996 21.2426L135.433 16.3718L126.996 11.501L118.56 16.3718Z"
@@ -462,7 +462,7 @@ export function ConstraintsImage({ className }) {
       <path
         d="M126.996 21.2426L118.56 16.3718M126.996 21.2426L135.433 16.3718M126.996 21.2426L126.996 30.9844M118.56 16.3718L126.996 11.501L135.433 16.3718M118.56 16.3718L118.56 26.1135L126.996 30.9844M135.433 16.3718V26.1135L126.996 30.9844"
         className="dark:stroke-neutral-500 stroke-neutral-400"
-        stroke-width="0.5"
+        strokeWidth="0.5"
       />
       <path
         d="M71.165 100.224L79.6016 105.095L88.0382 100.224L79.6016 95.3535L71.165 100.224Z"
@@ -479,7 +479,7 @@ export function ConstraintsImage({ className }) {
       <path
         d="M79.6016 105.095L71.165 100.224M79.6016 105.095L88.0382 100.224M79.6016 105.095L79.6017 114.837M71.165 100.224L79.6016 95.3535L88.0382 100.224M71.165 100.224L71.165 109.966L79.6017 114.837M88.0382 100.224V109.966L79.6017 114.837"
         className="dark:stroke-neutral-500 stroke-neutral-400"
-        stroke-width="0.5"
+        strokeWidth="0.5"
       />
       <path
         d="M118.56 128.176L126.996 133.047L135.433 128.176L126.996 123.306L118.56 128.176Z"
@@ -496,7 +496,7 @@ export function ConstraintsImage({ className }) {
       <path
         d="M126.996 133.047L118.56 128.176M126.996 133.047L135.433 128.176M126.996 133.047L126.996 142.789M118.56 128.176L126.996 123.306L135.433 128.176M118.56 128.176L118.56 137.918L126.996 142.789M135.433 128.176V137.918L126.996 142.789"
         className="dark:stroke-neutral-500 stroke-neutral-400"
-        stroke-width="0.5"
+        strokeWidth="0.5"
       />
       <path
         d="M23.7686 128.176L32.2051 133.047L40.6417 128.176L32.2051 123.306L23.7686 128.176Z"
@@ -513,7 +513,7 @@ export function ConstraintsImage({ className }) {
       <path
         d="M32.2051 133.047L23.7686 128.176M32.2051 133.047L40.6417 128.176M32.2051 133.047L32.2052 142.789M23.7686 128.176L32.2051 123.306L40.6417 128.176M23.7686 128.176L23.7686 137.918L32.2052 142.789M40.6417 128.176V137.918L32.2052 142.789"
         className="dark:stroke-neutral-500 stroke-neutral-400"
-        stroke-width="0.5"
+        strokeWidth="0.5"
       />
       <path
         d="M23.7686 72.2731L32.2051 77.144L40.6417 72.2731L32.2051 67.4023L23.7686 72.2731Z"
@@ -530,79 +530,79 @@ export function ConstraintsImage({ className }) {
       <path
         d="M32.2051 77.144L23.7686 72.2731M32.2051 77.144L40.6417 72.2731M32.2051 77.144L32.2052 86.8857M23.7686 72.2731L32.2051 67.4023L40.6417 72.2731M23.7686 72.2731L23.7686 82.0148L32.2052 86.8857M40.6417 72.2731V82.0148L32.2052 86.8857"
         className="dark:stroke-neutral-500 stroke-neutral-400"
-        stroke-width="0.5"
+        strokeWidth="0.5"
       />
       <path
         d="M95.3867 95.7734L111.198 86.4612"
         stroke="#10B981"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M47.9912 67.8271L63.8023 58.5149"
         stroke="#10B981"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M47.9912 123.726L63.8023 114.413"
         stroke="#10B981"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M111.198 67.8271L95.3872 58.5149"
         stroke="#10B981"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M111.198 123.729L95.3872 114.416"
         stroke="#EF4444"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M63.8018 39.8711L47.9907 30.5589"
         stroke="#10B981"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M47.1179 68.3351L48.4914 68.6929L47.4914 66.9609L47.1179 68.3351Z"
         stroke="#10B981"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M47.1179 124.247L48.4914 124.605L47.4914 122.873L47.1179 124.247Z"
         stroke="#10B981"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M94.5017 96.2804L95.8752 96.6382L94.8752 94.9062L94.5017 96.2804Z"
         stroke="#10B981"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M64.6907 40.3566L63.3172 40.7144L64.3172 38.9824L64.6907 40.3566Z"
         stroke="#10B981"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M112.073 68.3351L110.699 68.6929L111.699 66.9609L112.073 68.3351Z"
         stroke="#10B981"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M112.073 124.238L110.699 124.596L111.699 122.864L112.073 124.238Z"
         stroke="#EF4444"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
     </svg>
   );

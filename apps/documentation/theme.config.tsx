@@ -33,7 +33,7 @@ const config: DocsThemeConfig = {
     const { route } = useRouter();
     const socialCard =
       route === '/' || !title
-        ? 'https://commonality.co/og.jpeg'
+        ? 'https://commonality.co/og.png'
         : `https://commonality.co/api/og?title=${title}`;
 
     return (
