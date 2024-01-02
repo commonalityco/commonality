@@ -23,7 +23,9 @@ import * as Tabs from '@radix-ui/react-tabs';
 export function CheckCard({ title, icon, status = 'pass' }) {
   return (
     <div className="rounded-md bg-interactive border py-3 px-5 flex items-center gap-4">
-      {icon ?? <PackageCheck className="w-6 h-6" alt="Generic check logo" />}
+      <div className="shrink-0">
+        {icon ?? <PackageCheck className="w-6 h-6" alt="Generic check logo" />}
+      </div>
       <p className="font-mono font-medium grow text-xs">{title}</p>
       <p
         className={cn('font-mono text-success text-xs font-medium', {
