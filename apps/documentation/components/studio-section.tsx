@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@commonalityco/ui-design-system';
 import { Copy, Check } from 'lucide-react';
+import Balancer from 'react-wrap-balancer';
 
 function CopyButton({ value }) {
   const [copied, setCopied] = useState(false);
@@ -29,16 +30,18 @@ function CopyButton({ value }) {
 
 const STUDIO_COMMAND = 'npx commonality studio';
 
-export function ScreenshotSelector() {
+export function StudioSection() {
   return (
     <div className="flex items-center flex-col noise">
       <div className="px-6">
         <h2 className="font-serif text-4xl md:text-5xl font-semibold text-primary mb-4 leading-none text-center">
-          Visualize any codebase
+          <Balancer>Visualize any codebase</Balancer>
         </h2>
         <p className="text-muted-foreground text-base md:text-lg mb-12 text-center max-w-[600px] mx-auto font-medium">
-          Explore your dependency graph, categorize packages with tags, view
-          conformance health and more with Commonality Studio.
+          <Balancer>
+            Explore your dependency graph, categorize packages with tags, view
+            conformance health and more with Commonality Studio.
+          </Balancer>
         </p>
 
         <div className="w-full mx-auto">
@@ -70,7 +73,7 @@ export function ScreenshotSelector() {
         </div>
       </div>
       <div className="relative w-full flex items-end justify-center -mt-[300px] md:-mt-[400px] h-[300px] md:h-[400px] z-10">
-        <div className="absolute bg-gradient-to-t from-interactive from-25% to-transparent top-0 bottom-0 right-0 left-0" />
+        <div className="absolute bg-gradient-to-t from-interactive top-0 bottom-0 right-0 left-0" />
         <div className="max-w-[500px] z-10 w-full text-center">
           <div className="inline-block px-6">
             <div className="relative">
