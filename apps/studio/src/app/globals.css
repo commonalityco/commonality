@@ -6,4 +6,8 @@
   body {
     @apply text-sm;
   }
+
+  * {
+    @apply border-border
+  }
 }

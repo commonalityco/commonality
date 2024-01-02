@@ -576,8 +576,8 @@ export function Sidebar({
             onLayout={onLayout}
           >
             <Panel
-              defaultSizePercentage={defaultLayout?.[0] ?? 33}
-              minSizePercentage={5}
+              defaultSize={defaultLayout?.[0] ?? 33}
+              minSize={5}
               className="grid content-start"
             >
               <PackagesFilterSection
@@ -592,8 +592,8 @@ export function Sidebar({
             </Panel>
             <ResizeBar />
             <Panel
-              defaultSizePercentage={defaultLayout?.[1] ?? 33}
-              minSizePercentage={5}
+              defaultSize={defaultLayout?.[1] ?? 33}
+              minSize={5}
               className="grid content-start"
             >
               <TagsFilterSection
@@ -607,8 +607,8 @@ export function Sidebar({
             </Panel>
             <ResizeBar />
             <Panel
-              defaultSizePercentage={defaultLayout?.[2] ?? 33}
-              minSizePercentage={5}
+              defaultSize={defaultLayout?.[2] ?? 33}
+              minSize={5}
               className="grid content-start"
             >
               <CodeownersFilterSection
