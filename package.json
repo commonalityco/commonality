@@ -36,7 +36,7 @@
     "@typescript-eslint/parser": "^6.16.0",
     "@vitest/coverage-v8": "^0.34.6",
     "commonality": "workspace:*",
-    "commonality-recommended": "workspace:*",
+    "commonality-checks-recommended": "workspace:*",
     "eslint": "^8.56.0",
     "eslint-config-commonality": "workspace:*",
     "eslint-plugin-unused-imports": "^3.0.0",

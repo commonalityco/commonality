@@ -1,9 +1,9 @@
-# commonality-recommended
+# commonality-checks-recommended
 
 > Commonality's recommended conformers.
 
 ## Installation
 
 ```sh
-npm install commonality-recommended
+npm install commonality-checks-recommended
 ```
