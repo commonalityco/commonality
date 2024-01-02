@@ -21,7 +21,7 @@ export function HeroSection() {
               </h1>
               <p className="text-muted-foreground text-base md:text-lg mb-3 font-medium">
                 <Balancer>
-                  Commonality helps you scale JavaScript monorepos and
+                  Commonality helps you scale JavaScript monorepos and package
                   ecosystems with the tools you already love.
                 </Balancer>
               </p>
