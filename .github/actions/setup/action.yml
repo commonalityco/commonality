@@ -55,3 +55,4 @@ runs:
 
     - name: Build
       run: pnpm run build
+      shell: bash
