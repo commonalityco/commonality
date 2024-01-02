@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.30
+
+### Patch Changes
+
+- d693d39: Update Commonality Studio styles
+
 ## 0.2.29
 
 ### Patch Changes
