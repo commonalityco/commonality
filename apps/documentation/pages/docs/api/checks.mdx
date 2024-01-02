@@ -3,7 +3,7 @@ import { Subtext } from '../../../components/subtext.tsx';
 
 # Checks
 
-Checks are best created using the `defineCheck` function and are passed to the `checks` property in you [project's configuration](/reference/configuration#project-configuration). This function will
+Checks are best created using the `defineCheck` function and are passed to the `checks` property in you [project's configuration](/docs/api/configuration#projectconfiguration). This function will
 provide type-safety and intellisense for properties.
 
 ```ts
@@ -193,7 +193,7 @@ If set to `"error"`, the CLI will exit with a non-zero exit code if this check i
 ## `CheckContext`
 
 The `validate`, `fix`, and `message` functions are all passed a `CheckContext` object that contains metadata about the package the check is being run against.
-The `codeowners` and `tags` that correspond to the package from the [project metadata](/docs/project-metadata) is also included.
+The [`codeowners`](/docs/codeowners) and [`tags`](/docs/tags) that correspond to the package are also included.
 
 ```ts
 type CheckContext = {
@@ -244,16 +244,17 @@ const ensureCodeowner = defineCheck(() => {
 `createTestCheck` wraps your checks and decorates these functions with sensible defaults for [CheckContext](/docs/api/checks#checkcontext) that you can override.
 This cuts down on repetitive boilerplate when writing tests for your checks.
 
-
 **Parameters**
 
 `check`
+
 <Subtext requirementLevel="required">
 `Check{:ts}`
 </Subtext>
 A valid [check](/api/checks#check-properties) object
 
 `context`
+
 <Subtext>
 `TestCheckContext{:ts}`
 </Subtext>
@@ -291,16 +292,18 @@ test('validate - returns true when valid', () => {
       relativePath: './',
     },
 
-    allPackages: [{
-      path: './',
-      relativePath: './',
-    }],
+    allPackages: [
+      {
+        path: './',
+        relativePath: './',
+      },
+    ],
     codeowners: [],
-    tags: []
+    tags: [],
   });
 
   expect(result).toEqual(true);
-})
+});
 
 // With createTestCheck
 test('validate - returns true when valid', () => {
@@ -315,9 +318,8 @@ test('validate - returns true when valid', () => {
   const result = myCheck.validate();
 
   expect(result).toEqual(true);
-})
+});
 ```
-
 
 ---
 

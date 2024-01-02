@@ -1,7 +1,0 @@
-{
-  "extends": ["plugin:mdx/recommended", "next/core-web-vitals"],
-  "settings": {
-    "mdx/code-blocks": true
-  },
-  "root": true
-}

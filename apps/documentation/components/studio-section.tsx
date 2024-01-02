@@ -54,14 +54,14 @@ export function StudioSection() {
               </div>
               <div className="aspect-[15/10] max-w-[800px] w-full relative block">
                 <Image
-                  alt="A visualization of a depenency graph in Commonality Studio with a light theme"
+                  alt="A visualization of a dependency graph in Commonality Studio with a light theme"
                   src="/commonality-light.png"
                   width={1200}
                   height={800}
                   className="dark:hidden"
                 />
                 <Image
-                  alt="A visualization of a depenency graph in Commonality Studio with a dark theme"
+                  alt="A visualization of a dependency graph in Commonality Studio with a dark theme"
                   src="/commonality-dark.png"
                   width={1200}
                   height={800}
@@ -73,7 +73,7 @@ export function StudioSection() {
         </div>
       </div>
       <div className="relative w-full flex items-end justify-center -mt-[300px] md:-mt-[400px] h-[300px] md:h-[400px] z-10">
-        <div className="absolute bg-gradient-to-t from-interactive top-0 bottom-0 right-0 left-0" />
+        <div className="absolute bg-gradient-to-t from-interactive from-30% top-0 bottom-0 right-0 left-0" />
         <div className="max-w-[500px] z-10 w-full text-center">
           <div className="inline-block px-6">
             <div className="relative">
