@@ -48,9 +48,9 @@ export function MockWindow({ children }) {
 
 
 <div className="px-6 relative">
-  <div className="mt-6 py-8 md:py-16 px-6 md:px-20 rounded-2xl bg-interactive border container mb-24 relative overflow-hidden">
+  <div className="mt-12 py-8 md:py-16 px-6 md:px-20 rounded-2xl bg-interactive border container mb-24 relative overflow-hidden">
     <div className="absolute top-0 right-0 bottom-0 left-0">
-      <div className=""/>
+      <div className="absolute top-0 right-0 bottom-0 left-0 bg-gradient-to-t md:bg-gradient-to-r from-interactive to-transparent"/>
       <Grid className="object-cover w-full h-full rounded-2xl"/>
     </div>
     <div className="flex flex-col-reverse md:flex-row gap-6 items-stretch">
@@ -67,7 +67,7 @@ export function MockWindow({ children }) {
       </div>
 
       <div className="flex justify-center grow h-full">
-        <Cube className="z-10 relative"/>
+        <Cube className="z-10 relative max-w-[300px] md:max-w-[400px] min-w-[200px] w-full"/>
       </div>
     </div>
   </div>
