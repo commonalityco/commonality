@@ -203,7 +203,7 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1(@swc/core@1.3.102)(ts-node@10.9.2)(typescript@5.3.3)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
       vitest:
         specifier: ^0.34.6
@@ -276,8 +276,8 @@ importers:
         specifier: ^3.4.0
         version: 3.4.0(ts-node@10.9.2)
       typescript:
-        specifier: ^4.9.3
-        version: 4.9.5
+        specifier: ^5.3.3
+        version: 5.3.3
 
   apps/studio:
     dependencies:
@@ -502,7 +502,7 @@ importers:
         specifier: ^10.9.1
         version: 10.9.2(@types/node@20.10.6)(typescript@5.3.3)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
       utf-8-validate:
         specifier: ^6.0.3
@@ -641,7 +641,7 @@ importers:
         specifier: ^3.3.3
         version: 3.4.0(ts-node@10.9.2)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
       vite:
         specifier: ^4.5.1
@@ -687,7 +687,7 @@ importers:
         specifier: ^5.2.0
         version: 5.2.0
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/conformance/data-conformance:
@@ -748,7 +748,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/conformance/ui-conformance:
@@ -794,7 +794,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/conformance/utils-conformance:
@@ -849,7 +849,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/constraints/data-constraints:
@@ -867,7 +867,7 @@ importers:
         specifier: workspace:*
         version: link:../../../tooling/config-eslint
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/constraints/state-constraints:
@@ -922,7 +922,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/constraints/ui-constraints:
@@ -989,7 +989,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/constraints/utils-constraints:
@@ -1050,7 +1050,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/shared/data-codeowners:
@@ -1081,7 +1081,7 @@ importers:
         specifier: workspace:*
         version: link:../../../tooling/config-eslint
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/shared/data-packages:
@@ -1112,7 +1112,7 @@ importers:
         specifier: workspace:*
         version: link:../../../tooling/config-eslint
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/shared/data-project:
@@ -1155,7 +1155,7 @@ importers:
         specifier: workspace:*
         version: link:../../../tooling/config-eslint
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/shared/data-tags:
@@ -1192,7 +1192,7 @@ importers:
         specifier: workspace:*
         version: link:../../../tooling/config-eslint
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/shared/types:
@@ -1207,7 +1207,7 @@ importers:
         specifier: workspace:*
         version: link:../../../tooling/config-eslint
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/shared/ui-core:
@@ -1256,7 +1256,7 @@ importers:
         specifier: ^3.3.3
         version: 3.4.0(ts-node@10.9.2)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/shared/ui-design-system:
@@ -1353,7 +1353,7 @@ importers:
         specifier: ^3.3.3
         version: 3.4.0(ts-node@10.9.2)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/shared/ui-package:
@@ -1404,7 +1404,7 @@ importers:
         specifier: ^3.3.3
         version: 3.4.0(ts-node@10.9.2)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/shared/utils-core:
@@ -1432,7 +1432,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/shared/utils-package:
@@ -1453,7 +1453,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   tooling/config-eslint:
@@ -1472,7 +1472,7 @@ importers:
         version: 3.0.0(@typescript-eslint/eslint-plugin@6.16.0)(eslint@8.56.0)
     devDependencies:
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   tooling/config-tailwind:
@@ -1487,13 +1487,13 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.0)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
   tooling/config-tsconfig:
     devDependencies:
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
 
 packages:
@@ -19372,12 +19372,6 @@ packages:
 
   /typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
-    dev: true
-
-  /typescript@4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
     dev: true
 
   /typescript@5.3.3:

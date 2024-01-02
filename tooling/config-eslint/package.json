@@ -18,7 +18,7 @@
     "eslint-plugin-unused-imports": "^3.0.0"
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   },
   "repository": "https://github.com/commonalityco/commonality/tooling/config-eslint",
   "scripts": {}

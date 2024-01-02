@@ -32,7 +32,7 @@
     "eslint-config-commonality": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.3",
     "@floating-ui/react": "^0.26.3"
   },
   "dependencies": {
