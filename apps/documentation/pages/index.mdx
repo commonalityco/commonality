@@ -23,7 +23,7 @@ import * as Tabs from '@radix-ui/react-tabs';
 export function CheckCard({ title, icon, status = 'pass' }) {
   return (
     <div className="rounded-md bg-interactive border py-3 px-5 flex items-center gap-4">
-      {icon ?? <PackageCheck className="w-6 h-6" />}
+      {icon ?? <PackageCheck className="w-6 h-6" alt="Generic check logo" />}
       <p className="font-mono font-medium grow text-xs">{title}</p>
       <p
         className={cn('font-mono text-success text-xs font-medium', {
@@ -92,7 +92,7 @@ export function MockWindow({ children }) {
           <div className="absolute -top-1 -right-1 -bottom-1 -left-1 border rounded-lg border-neutral-400 dark:border-neutral-700"/>
           <div className="bg-background py-2 pr-3 pl-6 flex gap-2 flex-nowrap items-center rounded-md border border-neutral-500 dark:border-neutral-500">
             <p className="font-mono text-primary font-medium">npx commonality studio</p>
-            <Button variant="ghost" size="icon" ><Copy className="w-4 h-4"/></Button>
+            <Button variant="ghost" size="icon" aria-label="Copy command"><Copy className="w-4 h-4"/></Button>
           </div>
         </div>
       </div>
@@ -121,9 +121,9 @@ export function MockWindow({ children }) {
       </div>
       <div className="relative min-h-[280px] order-1 md:order-2">
         <div className="md:absolute md:-right-12 md:top-0 bottom-0 md:bottom-0 my-auto grid gap-4">
-          <CheckCard title={`The "build" script must have a matching pipeline`} icon={<TurboLogo/>} />
-          <CheckCard title={`ESLint configuration must extend "react"`} icon={<Image src="/eslint.svg" height={24} width={24}/>} status="fail"/>
-          <CheckCard title={`Package must have a codeowner`} icon={<Logo src="/logo.svg" height={24} width={24}/>} />
+          <CheckCard title={`The "build" script must have a matching pipeline`} icon={<TurboLogo alt="Turborepo logo"/>} />
+          <CheckCard title={`ESLint configuration must extend "react"`} icon={<Image src="/eslint.svg" height={24} width={24}/>} status="fail" alt="ESLint logo"/>
+          <CheckCard title={`Package must have a codeowner`} icon={<Logo src="/logo.svg" height={24} width={24} alt="Commonality logo" />} />
           <CheckCard title="Package must to publish to private registry"/>
         </div>
       </div>
@@ -134,14 +134,13 @@ export function MockWindow({ children }) {
         <p className="font-semibold mb-2 text-3xl text-primary font-serif">Tags</p>
         <p className="text-muted-foreground">Categorize packages by domain or concern or anything you can think of.</p>
       </div>
-      <Image src="/tags.svg" width={365} height={194} className="w-full self-end"/>
+      <Image src="/tags.svg" width={365} height={194} className="w-full self-end" alt="Various tags describing categories of packages" />
     </div>
 
     <div className="noise border rounded-2xl p-6 md:p-9 col-span-1 shadow flex flex-col">
       <p className="font-semibold mb-2 text-3xl text-primary font-serif">Codeowners</p>
       <p className="text-muted-foreground">View ownership for all your packages based on your CODEOWNERS file.</p>
       <div className="flex grow items-end pt-4">
-        {/* <Image src="/codeowners.svg" width={365} height={194} className="w-full self-end"/> */}
         <Codeowners className="w-full self-end" />
       </div>
     </div>

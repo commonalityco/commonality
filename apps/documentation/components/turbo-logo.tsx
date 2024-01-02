@@ -14,10 +14,10 @@ export function TurboLogo() {
         className="dark:fill-white fill-black"
       ></path>
       <path
-        clip-rule="evenodd"
+        clipRule="evenodd"
         d="M21.0734 4.85648V0C31.621 0.564369 40 9.30362 40 19.9999C40 30.6963 31.621 39.4332 21.0734 40V35.1435C28.9344 34.5815 35.1594 28.0078 35.1594 19.9999C35.1594 11.9922 28.9344 5.41843 21.0734 4.85648ZM8.52181 29.931C6.43794 27.5233 5.09469 24.4568 4.85508 21.09H0C0.251709 25.8011 2.13468 30.0763 5.08501 33.368L8.51938 29.931H8.52181ZM18.8951 40V35.1435C15.5285 34.9037 12.4644 33.5619 10.0587 31.4739L6.62435 34.9109C9.91593 37.866 14.1876 39.7481 18.8927 40H18.8951Z"
         fill="url(#:R0:paint0_linear_902_224)"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       ></path>
       <defs>
         <linearGradient
@@ -28,8 +28,8 @@ export function TurboLogo() {
           y1="2.81244"
           y2="22.4844"
         >
-          <stop stop-color="#0096FF"></stop>
-          <stop offset="1" stop-color="#FF1E56"></stop>
+          <stop stopColor="#0096FF"></stop>
+          <stop offset="1" stopColor="#FF1E56"></stop>
         </linearGradient>
       </defs>
     </svg>
