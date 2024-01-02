@@ -1,5 +1,13 @@
 # documentation
 
+## 0.0.4
+
+### Patch Changes
+
+- d693d39: Update Commonality Studio styles
+  - @commonalityco/ui-core@0.0.16
+  - @commonalityco/ui-design-system@0.0.14
+
 ## 0.0.3
 
 ### Patch Changes
