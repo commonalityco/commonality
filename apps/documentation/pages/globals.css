@@ -6,4 +6,12 @@
   * {
     @apply border-border;
   }
+
+  .noise {
+    background: url('/white-noise.png'), #FFFFFF;
+  }
+
+  .dark .noise {
+    background: url('/noise.png'), #171717;
+  }
 }
