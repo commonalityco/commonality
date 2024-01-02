@@ -3,6 +3,7 @@ import { AppProps } from 'next/app';
 import { Inter, Fira_Code, Vollkorn } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Toaster } from '@commonalityco/ui-design-system/toaster';
 
 export const inter = Inter({
   subsets: ['latin'],
@@ -28,6 +29,7 @@ export default function MyApp({ Component, pageProps }) {
       <Component {...pageProps} />
       <Analytics />
       <SpeedInsights />
+      <Toaster />
     </div>
   );
 }
