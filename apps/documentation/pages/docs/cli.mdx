@@ -3,6 +3,7 @@ import { Subtext } from '../../components/subtext';
 # CLI
 
 ## Option Syntax
+
 Options that accept a value can be passed with or without an equals sign.
 
 ```bash
@@ -13,8 +14,9 @@ Options that accept a value can be passed with or without an equals sign.
 --option "value"
 ```
 
-Options that accept a boolean value be `true` if no value is passed. 
+Options that accept a boolean value be `true` if no value is passed.
 Options can explicitly be set to `false` by passed it as a value.
+
 ```bash
 # Set as true
 --option
@@ -24,12 +26,13 @@ Options can explicitly be set to `false` by passed it as a value.
 --option=false
 ```
 
-
 ## Global Options
+
 These options can be used with any command.
 
 ### `--color`
-Force color in output when running Commonality CLI commands. 
+
+Force color in output when running Commonality CLI commands.
 You can also use the `FORCE_COLOR` environment variable to control which colors should be output.
 This flag hooks into [supports-color](https://github.com/chalk/supports-color) under the hood.
 
@@ -43,6 +46,7 @@ commonality check --color
 ```
 
 ### `--no-color`
+
 Suppress all color in output when running Commonality CLI commands.
 This flag hooks into [supports-color](https://github.com/chalk/supports-color) under the hood.
 
@@ -56,8 +60,10 @@ commonality check
 ```
 
 ## Commands
+
 ### `check`
-Run configured checks against the current project. If there are invalid checks that are [fixable](/docs/checks/creating-checks#auto-fixable-checks), 
+
+Run configured checks against the current project. If there are invalid checks that are [fixable](/docs/checks/creating-checks#auto-fixable-checks),
 a prompt will appear asking if you would like to automatically fix them. This prompt will not appear if `process.env.CI` is set to `true` or if Commonality
 detects a CI provider. Process will exit with a status code of `1` if any checks are invalid.
 
@@ -68,6 +74,7 @@ commonality check
 #### Options
 
 ##### `--verbose`
+
 Show the status of all checks regardless of status. By default, only invalid checks will be shown. Default is `false`.
 
 ```bash copy
@@ -77,6 +84,7 @@ commonality check --verbose
 ---
 
 ### `constrain`
+
 Show the status of configured constraints in the current project. Process will exit with a status code of `1` if any constraints are invalid.
 
 ```bash copy
@@ -86,6 +94,7 @@ commonality constrain
 #### Options
 
 ##### `--verbose`
+
 Show the status of all constraints regardless of status. By default, only invalid constraints will be shown. Default is `false`.
 
 ```bash copy
@@ -95,6 +104,7 @@ commonality constrain --verbose
 ---
 
 ### `studio`
+
 Start Commonality Studio for the current project.
 If `@commonality/studio` is not already installed you will be prompted to install it when running this command.
 
@@ -105,6 +115,7 @@ commonality studio
 #### Options
 
 #### `--install`
+
 Automatically install `@commonalityco/studio` if it is not already installed in the project. Default is `false`.
 
 ```bash copy
@@ -112,6 +123,7 @@ commonality studio --install
 ```
 
 ##### `--port`
+
 The port that Commonality Studio should run on. By default, Commonality Studio will run on port `8888`.
 
 ```bash copy
@@ -119,6 +131,7 @@ commonality studio --port 1234
 ```
 
 ##### `--debug`
+
 Show the server logs from the Commonality Studio application.
 
 ```bash copy

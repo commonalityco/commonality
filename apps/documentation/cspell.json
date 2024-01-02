@@ -1,0 +1,17 @@
+{
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "buildable",
+        "Codeowner",
+        "CODEOWNERS",
+        "commonalityco",
+        "corepack",
+        "myteam",
+        "nextra"
+    ],
+    "ignoreWords": [],
+    "import": []
+}

@@ -6,7 +6,7 @@ You can run `npx commonality studio` in any monorepo to get started without inst
 However, Commonality is most useful when it becomes a part of your daily workflow.
 
 All features are designed to be adopted incrementally.
-Here's how we recommend getting up an running in a repostitory that has multiple collaborators.
+Here's how we recommend getting up an running in a repository that has multiple collaborators.
 
 <Steps>
 
@@ -18,22 +18,18 @@ to set up some initial [checks](/docs/checks).
 
 <Tabs items={['npm', 'yarn', 'pnpm']} storageKey="selected-pkg-manager">
   <Tab>
-  ```bash copy
-  npm install commonality commonality-checks-recommended --save-dev
-  ```
+    ```bash copy npm install commonality commonality-checks-recommended
+    --save-dev ```
   </Tab>
   <Tab>
-    ```bash copy
-    yarn add commonality commonality-checks-recommended --dev --ignore-workspace-root-check
-    ```
+    ```bash copy yarn add commonality commonality-checks-recommended --dev
+    --ignore-workspace-root-check ```
   </Tab>
   <Tab>
-    ```bash copy
-    pnpm add commonality commonality-checks-recommended --save-dev --ignore-workspace-root-check
-    ```
+    ```bash copy pnpm add commonality commonality-checks-recommended --save-dev
+    --ignore-workspace-root-check ```
   </Tab>
 </Tabs>
-
 
 ### Set up checks
 
@@ -45,8 +41,8 @@ checks that you feel make the most sense for your project. Alternatively, you ca
 checks](/docs/checks/creating-checks) or use checks from other packages.
 
 <Callout type="info">
-  For documentation on all rules in the `commonality-checks-recommended` package check
-  out the README
+  For documentation on all rules in the `commonality-checks-recommended` package
+  check out the README
 </Callout>
 
 ```ts filename="commonality.config.ts"
@@ -71,6 +67,7 @@ export default defineConfig({
 ```
 
 Let's try running these checks against your project with:
+
 ```bash copy
 commonality check
 ```
@@ -102,8 +99,8 @@ Attach tags that match categories found in your project to packages directly in 
 
 <Callout type="info">
   Editing tags in Commonality Studio will update or create a `commonality.json`
-  in each package directories automatically. This saves you from manually
-  managing many configuration files across your monorepo.
+  in package directories automatically. This saves you from manually managing
+  many configuration files across your monorepo.
 </Callout>
 
 ### Add constraints
@@ -132,34 +129,35 @@ export default defineConfig({
     // ...
   },
   constraints: {
-    "*": {
-      disallow: ["deployable"]
+    '*': {
+      disallow: ['deployable'],
     },
-    "ui": {
-      allow: ["utility", "config"]
+    ui: {
+      allow: ['utility', 'config'],
     },
-    "config": {
-      "allow": ["config"]
-    }
-  }
+    config: {
+      allow: ['config'],
+    },
+  },
 });
 ```
 
 Let's check the validity of the constraints we just created with:
+
 ```bash copy
 commonality check
 ```
 
 ### Next steps
+
 Now that you've learned the basics of checks and constraints you can further customize Commonality to your own workflows
 by creating custom checks or integrate Commonality into your CI pipeline to prevent regressions.
 
-
 <Cards>
-<Card title="Create your first check" href="/docs/checks/creating-checks">
-</Card>
+  <Card title="Create your first check" href="/docs/checks/creating-checks">
+  </Card>
 
-<Card title="Set up CI" href="/">
-</Card>
+  <Card title="Set up CI" href="/">
+  </Card>
 </Cards>
 </Steps>
