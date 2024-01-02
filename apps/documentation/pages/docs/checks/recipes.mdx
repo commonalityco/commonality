@@ -8,7 +8,7 @@ While you can enforce almost anything we wanted to examples to spark inspiration
 ### Check that a package has a CODEOWNER
 
 The `validate`, `fix`, and `message` functions are all passed a `CheckContext` object that contains metadata about the package the check is being run against.
-We can use the `codeowners` property to check if the package is covered by a pattern [in the project's CODEOWNERS file](/docs/project-metadata#codeowners).
+We can use the `codeowners` property to check if the package is covered by a pattern in the project's [CODEOWNERS](/docs/codeowners) file.
 
 #### Example
 
@@ -86,16 +86,19 @@ export default defineConfig({
 const FILE_NAME = 'package.json';
 
 type PackageJson = {
-  scripts: Record<string, string>
-}
+  scripts: Record<string, string>;
+};
 
 const hasScript = defineCheck((name: string, value: string) => ({
   name: 'has-script',
 
   validate: async (ctx) => {
-    const packageJson = await json<PackageJson>(ctx.package.path, FILE_NAME).get();
+    const packageJson = await json<PackageJson>(
+      ctx.package.path,
+      FILE_NAME,
+    ).get();
 
-    if(!packageJson) {
+    if (!packageJson) {
       return false;
     }
 
@@ -103,7 +106,10 @@ const hasScript = defineCheck((name: string, value: string) => ({
   },
 
   fix: async (ctx) => {
-    const packageJson = await json<PackageJson>(ctx.package.path, FILE_NAME).get();
+    const packageJson = await json<PackageJson>(
+      ctx.package.path,
+      FILE_NAME,
+    ).get();
 
     if (!packageJson) {
       return;
@@ -117,7 +123,10 @@ const hasScript = defineCheck((name: string, value: string) => ({
   },
 
   message: async (ctx) => {
-    const packageJson = await json<PackageJson>(ctx.package.path, FILE_NAME).get();
+    const packageJson = await json<PackageJson>(
+      ctx.package.path,
+      FILE_NAME,
+    ).get();
 
     return {
       title: `Package must have a "${name}" script with value "${value}"`,

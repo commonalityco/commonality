@@ -137,7 +137,7 @@ export function BentoSection() {
                 Constraints
               </p>
               <p className="text-muted-foreground mb-6">
-                Maintain a dependency graph that's easy to reason about by
+                Maintain a dependency graph that&apos;s easy to reason about by
                 limiting which packages can depend on each other.
               </p>
               <Button asChild className="w-full md:w-auto">

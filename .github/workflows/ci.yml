@@ -24,6 +24,9 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
+      - name: Spell check
+        run: pnpm -F documentation run spellcheck
+
   type-check:
     runs-on: ubuntu-latest
     steps:

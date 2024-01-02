@@ -3,7 +3,7 @@ import { Subtext } from '../../../components/subtext.tsx';
 
 # Checks
 
-Checks are best created using the `defineCheck` function and are passed to the `checks` property in you [project's configuration](/reference/configuration#project-configuration). This function will
+Checks are best created using the `defineCheck` function and are passed to the `checks` property in you [project's configuration](/docs/api/configuration#projectconfiguration). This function will
 provide type-safety and intellisense for properties.
 
 ```ts
@@ -44,7 +44,7 @@ const ensureCodeowner = defineCheck(() => {
 `"string" | (options: CheckContext) => Message | Promise<Message>{:ts}`
 </Subtext>
 
-You can pass a static string for simple checks or dynamically return a Message with a function that is passed [CheckContext](#checkoptions).
+You can pass a static string for simple checks or dynamically return a Message with a function that is passed [CheckContext](#checkcontext).
 
 #### Simple message
 
@@ -193,7 +193,7 @@ If set to `"error"`, the CLI will exit with a non-zero exit code if this check i
 ## `CheckContext`
 
 The `validate`, `fix`, and `message` functions are all passed a `CheckContext` object that contains metadata about the package the check is being run against.
-The `codeowners` and `tags` that correspond to the package from the [project metadata](/docs/project-metadata) is also included.
+The [`codeowners`](/docs/codeowners) and [`tags`](/docs/tags) that correspond to the package are also included.
 
 ```ts
 type CheckContext = {
@@ -241,23 +241,24 @@ const ensureCodeowner = defineCheck(() => {
 
 `(check: Check, context?: TestCheckContext) => Check{:ts}`
 
-`createTestCheck` wraps your checks and decorates these functions with sensible defaults for [CheckContext](/docs/api/checks#checkcontext) that you can override. 
+`createTestCheck` wraps your checks and decorates these functions with sensible defaults for [CheckContext](/docs/api/checks#checkcontext) that you can override.
 This cuts down on repetitive boilerplate when writing tests for your checks.
-
 
 **Parameters**
 
 `check`
+
 <Subtext requirementLevel="required">
 `Check{:ts}`
 </Subtext>
 A valid [check](/api/checks#check-properties) object
 
 `context`
+
 <Subtext>
 `TestCheckContext{:ts}`
 </Subtext>
-Pass options that will be used as the check's [`CheckContext`](/docs/api/checks#checkcontext). 
+Pass options that will be used as the check's [`CheckContext`](/docs/api/checks#checkcontext).
 If a property is not explicitly passed, the check will be passed a default from the table below.
 
 | Name                    | Default                                   |
@@ -269,7 +270,7 @@ If a property is not explicitly passed, the check will be passed a default from 
 | `context.allWorkspaces` | `[{relativePath: './', path: './'}]{:ts}` |
 
 **Returns**
-Returns the original check function, however the `validate`, `fix`, and `message` functions 
+Returns the original check function, however the `validate`, `fix`, and `message` functions
 will be passed the `TestCheckContext` rather than requiring that `CheckContext` be passed.
 
 **Example**
@@ -291,16 +292,18 @@ test('validate - returns true when valid', () => {
       relativePath: './',
     },
 
-    allPackages: [{
-      path: './',
-      relativePath: './',
-    }],
+    allPackages: [
+      {
+        path: './',
+        relativePath: './',
+      },
+    ],
     codeowners: [],
-    tags: []
+    tags: [],
   });
 
   expect(result).toEqual(true);
-})
+});
 
 // With createTestCheck
 test('validate - returns true when valid', () => {
@@ -313,11 +316,10 @@ test('validate - returns true when valid', () => {
 
   const check = createTestCheck(myCheck());
   const result = myCheck.validate();
-  
-  expect(result).toEqual(true);
-})
-```
 
+  expect(result).toEqual(true);
+});
+```
 
 ---
 
