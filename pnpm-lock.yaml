@@ -26,7 +26,7 @@ importers:
       commonality:
         specifier: workspace:*
         version: link:apps/commonality
-      commonality-recommended:
+      commonality-checks-recommended:
         specifier: workspace:*
         version: link:packages/commonality/commonality-recommended
       eslint:

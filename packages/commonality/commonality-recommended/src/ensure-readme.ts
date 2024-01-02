@@ -1,4 +1,4 @@
-import { defineCheck, json, text, PackageJson, diff } from 'commonality';
+import { defineCheck, json, text, PackageJson } from 'commonality';
 
 export const ensureReadme = defineCheck(() => ({
   name: 'commonality/ensure-readme',
