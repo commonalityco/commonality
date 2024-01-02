@@ -1,0 +1,7 @@
+{
+  "extends": ["plugin:mdx/recommended"],
+  "settings": {
+    "mdx/code-blocks": true
+  },
+  "root": true
+}

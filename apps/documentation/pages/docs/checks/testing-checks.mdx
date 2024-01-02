@@ -21,7 +21,7 @@ const ensureLicense = defineCheck((license: string = 'MIT') => {
         path.join(workspace.path, 'package.json'),
       ).get();
 
-      // This check should fail if the package's license does not match the one we specified
+      // This check will fail if the package's license does not match the one specified
       return packageJson.license === license;
     },
     fix: async ({ workspace }) => {
@@ -35,7 +35,7 @@ const ensureLicense = defineCheck((license: string = 'MIT') => {
         path.join(workspace.path, 'package.json'),
       ).get();
 
-      // Since we return multiple messsages we should test for each scenario
+      // Since we return multiple messages we should test for each scenario
       if (!packageJson || !packageJson.license) {
         return {
           title: 'Package.json must have a license',
@@ -145,7 +145,7 @@ describe('ensureLicense', () => {
 
       expect(message.title).toEqual('Package.json license must be MIT');
       expect(message.filePath).toEqual('package.json');
-      // We recommend snapshot testing suggestions as the formatting can be tricky to hardode
+      // We recommend snapshot testing suggestions as the formatting can be tricky to hardcode
       expect(message.suggestion).toMatchInlineSnapshot();
     });
   });

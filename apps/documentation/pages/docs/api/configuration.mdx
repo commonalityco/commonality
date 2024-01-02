@@ -7,7 +7,7 @@ import { Subtext } from '../../../components/subtext.tsx';
 
 **`commonality.config.ts`** **`commonality.config.js`**
 
-Your project's configuration should located be at the root of your project.
+Your project's configuration should be located at the root of your project.
 
 <Callout type="info">
   Use the `defineConfig` helper function to get type checking and intellisense
@@ -62,10 +62,10 @@ import { defineConfig } from 'commonality';
 export default defineConfig({
   constraints: {
     '*': [
-      disallow: ['deployable'],
+      { disallow: ['deployable'] },
     ],
     config: [
-	  allow: ['config']
+	    { allow: ['config'] }
     ],
   },
 });

@@ -44,7 +44,7 @@ const ensureCodeowner = defineCheck(() => {
 `"string" | (options: CheckContext) => Message | Promise<Message>{:ts}`
 </Subtext>
 
-You can pass a static string for simple checks or dynamically return a Message with a function that is passed [CheckContext](#checkoptions).
+You can pass a static string for simple checks or dynamically return a Message with a function that is passed [CheckContext](#checkcontext).
 
 #### Simple message
 
@@ -241,7 +241,7 @@ const ensureCodeowner = defineCheck(() => {
 
 `(check: Check, context?: TestCheckContext) => Check{:ts}`
 
-`createTestCheck` wraps your checks and decorates these functions with sensible defaults for [CheckContext](/docs/api/checks#checkcontext) that you can override. 
+`createTestCheck` wraps your checks and decorates these functions with sensible defaults for [CheckContext](/docs/api/checks#checkcontext) that you can override.
 This cuts down on repetitive boilerplate when writing tests for your checks.
 
 
@@ -257,7 +257,7 @@ A valid [check](/api/checks#check-properties) object
 <Subtext>
 `TestCheckContext{:ts}`
 </Subtext>
-Pass options that will be used as the check's [`CheckContext`](/docs/api/checks#checkcontext). 
+Pass options that will be used as the check's [`CheckContext`](/docs/api/checks#checkcontext).
 If a property is not explicitly passed, the check will be passed a default from the table below.
 
 | Name                    | Default                                   |
@@ -269,7 +269,7 @@ If a property is not explicitly passed, the check will be passed a default from 
 | `context.allWorkspaces` | `[{relativePath: './', path: './'}]{:ts}` |
 
 **Returns**
-Returns the original check function, however the `validate`, `fix`, and `message` functions 
+Returns the original check function, however the `validate`, `fix`, and `message` functions
 will be passed the `TestCheckContext` rather than requiring that `CheckContext` be passed.
 
 **Example**
@@ -313,7 +313,7 @@ test('validate - returns true when valid', () => {
 
   const check = createTestCheck(myCheck());
   const result = myCheck.validate();
-  
+
   expect(result).toEqual(true);
 })
 ```
