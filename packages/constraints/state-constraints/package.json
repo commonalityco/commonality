@@ -28,7 +28,7 @@
     "@commonalityco/utils-package": "workspace:*",
     "@types/cytoscape": "^3.19.16",
     "@types/lodash": "^4.14.198",
-    "cytoscape": "^3.26.0",
+    "cytoscape": "^3.28.1",
     "eslint-config-commonality": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

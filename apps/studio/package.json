@@ -79,7 +79,7 @@
     "clsx": "^2.0.0",
     "cookies-next": "^4.1.0",
     "cypress": "^13.6.1",
-    "cytoscape": "^3.26.0",
+    "cytoscape": "^3.28.1",
     "date-fns": "^2.30.0",
     "eslint-config-next": "^14.0.1",
     "fs-extra": "^11.1.1",
