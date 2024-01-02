@@ -1,5 +1,11 @@
 # @commonalityco/config-tailwind
 
+## 0.0.8
+
+### Patch Changes
+
+- d693d39: Update Commonality Studio styles
+
 ## 0.0.7
 
 ### Patch Changes

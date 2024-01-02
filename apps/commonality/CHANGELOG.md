@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.29
+
+### Patch Changes
+
+- d693d39: Update Commonality Studio styles
+
 ## 0.2.28
 
 ### Patch Changes
