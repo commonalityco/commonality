@@ -1,5 +1,12 @@
 # @commonalityco/ui-package
 
+## 0.0.18
+
+### Patch Changes
+
+- 74e1a9c: update engines
+- 74e1a9c: update checks package namne
+
 ## 0.0.17
 
 ### Patch Changes
