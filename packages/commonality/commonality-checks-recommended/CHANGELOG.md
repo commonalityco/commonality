@@ -1,5 +1,11 @@
 # commonality-checks-recommended
 
+## 0.0.10
+
+### Patch Changes
+
+- a2a8cac: Update checks
+
 ## 0.0.9
 
 ### Patch Changes
