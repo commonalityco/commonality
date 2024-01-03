@@ -25,7 +25,33 @@ const config: DocsThemeConfig = {
   docsRepositoryBase:
     'https://github.com/commonalityco/commonality/tree/main/apps/documentation',
   footer: {
-    text: 'Commonality',
+    text: (
+      <div className="flex flex-col md:flex-row gap-4 items-center md:justify-between w-full">
+        <span className="flex gap-3 items-center text-primary">
+          <Logo />
+          <WordLogo />
+        </span>
+        <div className="text-center md:text-left">
+          <p className="text-xs mb-2">
+            MPL-2.0 {new Date().getFullYear()} ©{' '}
+            <a href="https://commonality.co" target="_blank">
+              Commonality
+            </a>
+            .
+          </p>
+          <p className="block text-xs">
+            Created by{' '}
+            <a
+              className="text-primary"
+              href="https://twitter.com/alecchernicki"
+              target="_blank"
+            >
+              Alec Chernicki
+            </a>
+          </p>
+        </div>
+      </div>
+    ),
   },
   banner: {
     key: '0-beta',
