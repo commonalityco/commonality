@@ -1,0 +1,8 @@
+{
+  "constraints": [
+    {
+      "applyTo": "tag-one",
+      "allow": ["foo"]
+    }
+  ]
+}

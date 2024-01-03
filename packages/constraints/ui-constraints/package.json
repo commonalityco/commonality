@@ -1,0 +1,55 @@
+{
+  "name": "@commonalityco/ui-constraints",
+  "version": "0.0.4",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/state-constraints": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@commonalityco/ui-core": "workspace:*",
+    "@commonalityco/ui-design-system": "workspace:*",
+    "@commonalityco/utils-constraints": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
+    "@commonalityco/utils-package": "workspace:*",
+    "@testing-library/react": "^14.0.0",
+    "@types/lodash": "^4.14.198",
+    "@types/react": "^18.2.22",
+    "eslint-config-commonality": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "@commonalityco/ui-core": "*",
+    "@commonalityco/ui-design-system": "*",
+    "@commonalityco/utils-package": "*",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@floating-ui/react": "^0.26.3",
+    "@xstate/react": "^3.2.2",
+    "lodash": "^4.17.21",
+    "lucide-react": "^0.299.0",
+    "react-resizable-panels": "^0.0.54",
+    "xstate": "^4.38.2"
+  },
+  "repository": "https://github.com/commonalityco/commonality/packages/constraints/ui-constraints"
+}

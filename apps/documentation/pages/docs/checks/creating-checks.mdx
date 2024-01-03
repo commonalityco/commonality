@@ -1,0 +1,129 @@
+import { Callout } from 'nextra/components';
+
+# Creating checks
+
+## Creating your first check
+
+Checks are defined in the configuration file at the root of your project. You can use matchers to run checks against all the packages in your project or a subset of packages.
+
+All checks have three required properties:
+
+**`name`** A unique identifier for the check, we use this to parallelize checks and prevent write collisions.
+
+**`validate`** A function that should return either a truthy or falsey value indicating whether or not the check is valid.
+
+**`message`** A string or function that that provides more context about the check.
+
+<Callout type="info">
+  You can view all available check properties and more examples in our
+  [reference documentation](/docs/api/checks).
+</Callout>
+
+Here's an example of a simple check that ensures every package has at least one codeowner.
+
+```ts filename="commonality.config.ts"
+import { defineConfig } from 'commonality';
+
+export default defineConfig({
+  checks: {
+    '*': [
+      {
+        name: 'ensure-codeowner',
+        validate: ({ codeowners }) => codeowners.length > 0,
+        message: 'Packages must have at least one codeowner',
+      },
+    ],
+  },
+});
+```
+
+We can run this check with
+
+```bash copy
+commonality check
+```
+
+## Auto-fixable checks
+
+It's great to be notified that something isn't right, but it's even better when you can fix it with a single key press.
+
+To make a check fixable just add a `fix` property to your check. This function will only run against the package if the result of `validate` is falsey.
+
+Here's an example of a check that will automatically create a README for a package if it does not exist.
+
+```ts filename="commonality.config.ts"
+import { defineConfig } from 'commonality';
+import { json, text } from 'commonality/checks';
+
+export default defineConfig({
+  checks: {
+    '*': [
+      {
+        name: 'ensure-readme',
+        validate: async ({ workspace }) => {
+          return text(path.join(workspace.path, 'README.md')).exists();
+        },
+        fix: async ({ workspace }) => {
+          // Get the contents of the package.json file
+          const packageJson = await json(
+            path.join(workspace.path, 'package.json'),
+          ).get();
+
+          if (!packageJson) {
+            return;
+          }
+
+          // Create a README.md with some basic content about the package
+          await text(path.join(workspace.path, 'README.md')).set([
+            `# ${packageJson.name}`,
+            `> ${packageJson.description}`,
+          ]);
+        },
+        message: `Package must have a README.md file`,
+      },
+    ],
+  },
+});
+```
+
+## Composing checks
+
+While basic checks go a long way, you may want to pass options to your checks to make them re-usable in a variety of different scenarios.
+
+Instead of defining checks as an object you can use our `defineCheck` helper to define checks as functions, allowing you to dynamically pass options to checks.
+
+Here's an example of a configuration that ensures that all packages with the tag `buildable` have `build` and `dev` scripts.
+
+```ts filename="commonality.config.ts"
+import { defineConfig } from 'commonality';
+import { defineCheck } from 'commonality/checks';
+
+const ensureScript = defineCheck((scriptName: string, value: string) => ({
+  name: 'ensure-script',
+  validate: ({ workspace }) => {
+    const packageJson = json(path.join(workspace.path, 'package.json')).get();
+
+    if (!packageJson) {
+      return false;
+    }
+
+    return packageJson.scripts && packageJson.scripts[scriptName];
+  },
+  fix: ({ workspace }) => {
+    return json(path.join(workspace.path, 'package.json')).merge({
+      scripts: {
+        [scriptName]: value,
+      },
+    });
+  },
+}));
+
+export default defineConfig({
+  checks: {
+    buildable: [
+      ensureScript('build', 'tsc'),
+      ensureScript('dev', 'tsc --watch'),
+    ],
+  },
+});
+```

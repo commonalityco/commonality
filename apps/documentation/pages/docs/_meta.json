@@ -1,0 +1,25 @@
+{
+  "overview": "",
+  "installation": "",
+  "getting-started": "Getting Started",
+  "acknowledgements": "",
+
+  "-- Guides": {
+    "type": "separator",
+    "title": "Guides"
+  },
+  "studio": "",
+  "checks": "",
+  "constraints": "",
+  "tags": "",
+  "codeowners": "",
+  "sharing": "",
+  "ci": "CI Integration",
+
+  "-- Reference": {
+    "type": "separator",
+    "title": "Reference"
+  },
+  "api": "API",
+  "cli": "CLI"
+}

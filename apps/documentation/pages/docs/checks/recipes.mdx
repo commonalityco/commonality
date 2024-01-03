@@ -1,0 +1,226 @@
+import { Callout } from 'nextra/components';
+
+## Recipes
+
+We believe that Commonality's strength lies in the ability to easily create powerful conformance tests.
+While you can enforce almost anything we wanted to examples to spark inspiration for what you might build checks for.
+
+### Check that a package has a CODEOWNER
+
+The `validate`, `fix`, and `message` functions are all passed a `CheckContext` object that contains metadata about the package the check is being run against.
+We can use the `codeowners` property to check if the package is covered by a pattern in the project's [CODEOWNERS](/docs/codeowners) file.
+
+#### Example
+
+```ts
+import { defineCheck } from 'commonality';
+
+const hasCodeowner = defineCheck({
+  name: 'has-codeowner',
+
+  message: 'Package must have a CODEOWNER',
+
+  validate: async (ctx) => ctx.codeowners.length,
+});
+```
+
+#### Usage
+
+```ts filename="commonality.config.ts"
+export default defineConfig({
+  checks: {
+    '*': [hasReadme()],
+  },
+});
+```
+
+### Check that a package has a `README.md`
+
+#### Example
+
+```ts
+import { defineCheck, text, json } from 'commonality';
+
+const hasReadme = defineCheck(() => ({
+  name: 'has-readme',
+
+  validate: async (ctx) => {
+    return text(ctx.package.path, 'README.md').exists();
+  },
+
+  fix: async (ctx) => {
+    const packageJson = await json<PackageJson>(
+      ctx.package.path,
+      'package.json',
+    ).get();
+
+    if (!packageJson) {
+      return;
+    }
+
+    await text(ctx.package.path, 'README.md').set([
+      `# ${packageJson.name}`,
+      `> ${packageJson.description}`,
+    ]);
+  },
+
+  message: `Package must have a README.md`,
+}));
+```
+
+#### Usage
+
+```ts filename="commonality.config.ts"
+export default defineConfig({
+  checks: {
+    '*': [hasReadme()],
+  },
+});
+```
+
+### Check that a package has certain NPM scripts
+
+#### Example
+
+```ts
+const FILE_NAME = 'package.json';
+
+type PackageJson = {
+  scripts: Record<string, string>;
+};
+
+const hasScript = defineCheck((name: string, value: string) => ({
+  name: 'has-script',
+
+  validate: async (ctx) => {
+    const packageJson = await json<PackageJson>(
+      ctx.package.path,
+      FILE_NAME,
+    ).get();
+
+    if (!packageJson) {
+      return false;
+    }
+
+    return packageJson.scripts[name] === value;
+  },
+
+  fix: async (ctx) => {
+    const packageJson = await json<PackageJson>(
+      ctx.package.path,
+      FILE_NAME,
+    ).get();
+
+    if (!packageJson) {
+      return;
+    }
+
+    await json<PackageJson>(ctx.package.path, FILE_NAME).merge({
+      scripts: {
+        [name]: value,
+      },
+    });
+  },
+
+  message: async (ctx) => {
+    const packageJson = await json<PackageJson>(
+      ctx.package.path,
+      FILE_NAME,
+    ).get();
+
+    return {
+      title: `Package must have a "${name}" script with value "${value}"`,
+      filePath: FILE_NAME,
+      // Provide a diff for better contextual information when the check fails
+      suggestion: diff(packageJson?.scripts, { scripts: { [name]: value } }),
+    };
+  },
+}));
+```
+
+#### Usage
+
+```ts filename="commonality.config.ts"
+export default defineConfig({
+  checks: {
+    buildable: [
+      hasScript('build', 'tsc'),
+      hasScript('dev', 'tsc --watch'),
+      hasScript('clean', 'rimraf dist'),
+    ],
+  },
+});
+```
+
+<Callout type="info" emoji="💡">
+  Creating checks with parameters makes them reusable for a variety use cases.
+</Callout>
+
+### Check that a package extends a certain base config
+
+#### Example
+
+```ts filename="extends-eslint-config.ts"
+import { defineCheck, json, diff } from 'commonality';
+
+const FILE_NAME = '.eslintrc.json';
+
+type Config = {
+  extends?: string[];
+};
+
+export const extendsESLintConfig = defineCheck((baseConfig?: string) => ({
+  name: 'extends-eslint-config',
+
+  validate: async (ctx) => {
+    const eslintConfig = await json<Config>(ctx.package.path, FILE_NAME).get();
+
+    if (!eslintConfig) {
+      return false;
+    }
+
+    return eslintConfig.extends?.includes('base-config');
+  },
+
+  fix: async (ctx) => {
+    const eslintConfig = await json<Config>(ctx.package.path, FILE_NAME).get();
+
+    if (!eslintConfig) {
+      return;
+    }
+
+    const existingExtends = eslintConfig.extends ?? [];
+
+    await json<Config>(ctx.package.path, FILE_NAME).merge({
+      extends: [...existingExtends, baseConfig],
+    });
+  },
+
+  message: async (ctx) => {
+    const eslintConfig = await json<Config>(ctx.package.path, FILE_NAME).get();
+
+    const existingExtends = eslintConfig?.extends ?? [];
+
+    return {
+      title: `ESLint configuration must extend "${baseConfig}"`,
+      filePath: FILE_NAME,
+      suggestion: diff(
+        { extends: eslintConfig?.extends },
+        { extends: { extends: [...existingExtends, baseConfig] } },
+      ),
+    };
+  },
+}));
+```
+
+#### Usage
+
+```ts filename="commonality.config.ts"
+export default defineConfig({
+  checks: {
+    app: [extendsESLintConfig('next')],
+    ui: [extendsESLintConfig('react')],
+    utility: [extendsESLintConfig('node')],
+  },
+});
+```

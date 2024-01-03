@@ -1,0 +1,13 @@
+*.hbs
+.gitkeep
+.env*
+*.ico
+*.lock
+db/migrations
+.next
+.yarn
+.pnp.*
+node_modules
+dist
+.turbo
+.next

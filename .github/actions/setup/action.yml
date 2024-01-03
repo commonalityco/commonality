@@ -1,0 +1,58 @@
+name: Setup and Cache
+description: Setup for node and pnpm
+inputs:
+  node-version:
+    required: false
+    description: Node version for setup-node
+    default: 20.x
+
+runs:
+  using: composite
+
+  steps:
+    - name: 'Setup pnpm'
+      uses: pnpm/action-setup@v2
+      with:
+        run_install: false
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+    - name: Create pnpm cache
+      uses: actions/cache@v3
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+
+    - name: Create turbo cache
+      uses: actions/cache@v3
+      with:
+        path: .turbo
+        key: ${{ runner.os }}-turbo-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-turbo-
+
+    - name: Cache .next directory
+      uses: actions/cache@v3
+      with:
+        path: apps/studio/.next/cache
+        key: ${{ runner.os }}-nextjs-${{ hashFiles('apps/studio/**/*.js', 'apps/studio/**/*.jsx', 'apps/studio/**/*.ts', 'apps/studio/**/*.tsx') }}
+        restore-keys: ${{ runner.os }}-nextjs-
+
+    - name: Setup Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'pnpm'
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      shell: bash
+
+    - name: Build
+      run: pnpm run build
+      shell: bash

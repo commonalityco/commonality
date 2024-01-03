@@ -1,0 +1,13 @@
+@tailwind base;
+
+@import '@commonalityco/config-tailwind/globals.css';
+
+@layer base {
+  body {
+    @apply text-sm;
+  }
+
+  * {
+    @apply border-border
+  }
+}

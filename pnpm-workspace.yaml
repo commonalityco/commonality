@@ -1,0 +1,8 @@
+packages:
+  - 'packages/**'
+  - 'tooling/**'
+  - 'apps/**'
+  - '!**/dist/**'
+  - '!**/test/**'
+  - '!**/.next/**'
+  - '!**/fixtures/**'

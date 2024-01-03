@@ -1,0 +1,28 @@
+{
+  "pipeline": {
+    "build": {
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "storybook-static/**",
+        "node_modules/.cache/tsbuildinfo.json"
+      ],
+      "dependsOn": ["^build"]
+    },
+    "dev": {
+      "cache": false
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    },
+    "test:integration": {},
+    "lint": {},
+    "lint:fix": {},
+    "type-check": {
+      "dependsOn": ["^build"]
+    },
+    "e2e": {
+      "dependsOn": ["build"]
+    }
+  }
+}

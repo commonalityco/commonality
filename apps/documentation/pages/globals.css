@@ -1,0 +1,17 @@
+@tailwind base;
+
+@import '@commonalityco/config-tailwind/globals.css';
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  .noise {
+    background: url('/white-noise.png'), #ffffff;
+  }
+
+  .dark .noise {
+    background: url('/noise.png'), #171717;
+  }
+}

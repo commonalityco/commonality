@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  src: url('./Inter-roman.var.woff2') format('woff2 supports variations'),
+    url('./Inter-roman.var.woff2') format('woff2-variations');
+  font-variation-settings: 'wght' 400;
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  font-style: normal;
+  font-weight: 100 900;
+  src: url('./FiraCode.var.woff2') format('woff2 supports variations'),
+    url('./FiraCode.var.woff2') format('woff2-variations');
+  font-variation-settings: 'wght' 400;
+}
