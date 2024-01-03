@@ -1,8 +1,8 @@
 import { defineCheck, PackageJson, json } from 'commonality';
 import validateNpmPackageName from 'validate-npm-package-name';
 
-export const validPackageName = defineCheck(() => ({
-  name: 'commonality/valid-package-name',
+export const hasValidPackageName = defineCheck(() => ({
+  name: 'commonality/has-valid-package-name',
   validate: async (context) => {
     const packageJson = await json<PackageJson>(
       context.package.path,

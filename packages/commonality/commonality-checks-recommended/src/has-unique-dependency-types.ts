@@ -40,9 +40,9 @@ function getExpectedPackageJson(packageJson: PackageJson) {
   return newPackageJson;
 }
 
-export const multipleDependencyTypes = defineCheck(() => {
+export const hasUniqueDependencyTypes = defineCheck(() => {
   return {
-    name: 'commonality/multiple-dependency-types',
+    name: 'commonality/has-unique-dependency-types',
 
     validate: async (context) => {
       const packageJson = await json<PackageJson>(
@@ -57,12 +57,12 @@ export const multipleDependencyTypes = defineCheck(() => {
       const { dependencies, devDependencies, optionalDependencies } =
         packageJson;
 
-      const multipleDependencyTypes = Object.keys(dependencies || {}).filter(
+      const hasUniqueDependencyTypes = Object.keys(dependencies || {}).filter(
         (dep) =>
           (devDependencies && devDependencies[dep]) ||
           (optionalDependencies && optionalDependencies[dep]),
       );
-      return multipleDependencyTypes.length === 0;
+      return hasUniqueDependencyTypes.length === 0;
     },
 
     fix: async (context) => {

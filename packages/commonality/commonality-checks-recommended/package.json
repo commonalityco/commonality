@@ -1,6 +1,6 @@
 {
   "name": "commonality-checks-recommended",
-  "description": "Commonality's recommended conformers.",
+  "description": "Commonality's recommended checks.",
   "publishConfig": {
     "access": "public"
   },

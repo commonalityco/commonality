@@ -1,7 +1,7 @@
 import { defineCheck, json, text, PackageJson } from 'commonality';
 
-export const ensureReadme = defineCheck(() => ({
-  name: 'commonality/ensure-readme',
+export const hasReadme = defineCheck(() => ({
+  name: 'commonality/has-readme',
 
   validate: async (context) => {
     return text(context.package.path, 'README.md').exists();
@@ -25,5 +25,3 @@ export const ensureReadme = defineCheck(() => ({
 
   message: `Package must have a README.md file`,
 }));
-
-
