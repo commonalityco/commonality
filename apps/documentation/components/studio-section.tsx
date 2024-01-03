@@ -79,7 +79,7 @@ export function StudioSection() {
             <div className="relative">
               <div className="absolute -top-2 -right-2 -bottom-2 -left-2 border rounded-xl border-neutral-300 dark:border-neutral-800" />
               <div className="absolute -top-1 -right-1 -bottom-1 -left-1 border rounded-lg border-neutral-400 dark:border-neutral-700" />
-              <div className="bg-background py-2 pr-3 pl-6 flex gap-2 flex-nowrap items-center rounded-md border border-neutral-500 dark:border-neutral-500">
+              <div className="bg-background py-2 pr-2 pl-6 flex gap-6 flex-nowrap items-center rounded-md border border-neutral-500 dark:border-neutral-500">
                 <p className="font-mono text-primary font-medium">
                   {STUDIO_COMMAND}
                 </p>
