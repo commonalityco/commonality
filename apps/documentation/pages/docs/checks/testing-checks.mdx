@@ -16,23 +16,23 @@ const ensureLicense = defineCheck((license: string = 'MIT') => {
   return {
     name: 'my-team/ensure-license',
     level: 'error',
-    validate: async ({ workspace }) => {
+    validate: async (ctx) => {
       const packageJson = await json(
-        path.join(workspace.path, 'package.json'),
+        path.join(ctx.package.path, 'package.json'),
       ).get();
 
       // This check will fail if the package's license does not match the one specified
       return packageJson.license === license;
     },
-    fix: async ({ workspace }) => {
+    fix: async (ctx) => {
       // We'll want to test that this file gets updated correctly
-      await json(path.join(workspace.path, 'package.json')).merge({
+      await json(path.join(ctx.package.path, 'package.json')).merge({
         license,
       });
     },
-    message: async ({ workspace }) => {
+    message: async (ctx) => {
       const packageJson = await json(
-        path.join(workspace.path, 'package.json'),
+        path.join(ctx.package.path, 'package.json'),
       ).get();
 
       // Since we return multiple messages we should test for each scenario

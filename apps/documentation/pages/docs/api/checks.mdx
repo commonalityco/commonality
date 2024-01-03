@@ -265,9 +265,9 @@ If a property is not explicitly passed, the check will be passed a default from 
 | :---------------------- | :---------------------------------------- |
 | `context.tags`          | `[]{:ts}`                                 |
 | `context.codeowners`    | `[]{:ts}`                                 |
-| `context.workspace`     | `{relativePath: './', path: './'}{:ts}`   |
-| `context.rootWorkspace` | `{relativePath: './', path: './'}{:ts}`   |
-| `context.allWorkspaces` | `[{relativePath: './', path: './'}]{:ts}` |
+| `context.package`     | `{relativePath: './', path: './'}{:ts}`   |
+| `context.rootPackage` | `{relativePath: './', path: './'}{:ts}`   |
+| `context.allPackages` | `[{relativePath: './', path: './'}]{:ts}` |
 
 **Returns**
 Returns the original check function, however the `validate`, `fix`, and `message` functions
