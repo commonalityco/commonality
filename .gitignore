@@ -62,3 +62,4 @@ lib-cov
 lib
 .next
 .turbo
+storybook-static/
