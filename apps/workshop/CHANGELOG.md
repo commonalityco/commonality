@@ -1,5 +1,18 @@
 # workshop
 
+## 1.0.22
+
+### Patch Changes
+
+- Updated dependencies [74e1a9c]
+- Updated dependencies [74e1a9c]
+  - @commonalityco/ui-constraints@0.0.4
+  - @commonalityco/ui-design-system@0.0.15
+  - @commonalityco/ui-package@0.0.18
+  - @commonalityco/ui-conformance@0.0.2
+  - @commonalityco/utils-constraints@0.0.3
+  - @commonalityco/ui-core@0.0.16
+
 ## 1.0.21
 
 ### Patch Changes
