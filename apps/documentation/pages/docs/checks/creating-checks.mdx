@@ -61,12 +61,13 @@ export default defineConfig({
       {
         name: 'ensure-readme',
         validate: async (ctx) => {
-          return text(path.join(ctx.package.path, 'README.md')).exists();
+          return text(ctx.package.path, 'README.md').exists();
         },
         fix: async (ctx) => {
           // Get the contents of the package.json file
           const packageJson = await json(
-            path.join(ctx.package.path, 'package.json'),
+            ctx.package.path,
+            'package.json',
           ).get();
 
           if (!packageJson) {
@@ -74,7 +75,7 @@ export default defineConfig({
           }
 
           // Create a README.md with some basic content about the package
-          await text(path.join(ctx.package.path, 'README.md')).set([
+          await text(ctx.package.path, 'README.md').set([
             `# ${packageJson.name}`,
             `> ${packageJson.description}`,
           ]);
@@ -100,7 +101,7 @@ import { defineConfig, defineCheck } from 'commonality';
 const ensureScript = defineCheck((scriptName: string, value: string) => ({
   name: 'ensure-script',
   validate: (ctx) => {
-    const packageJson = json(path.join(ctx.package.path, 'package.json')).get();
+    const packageJson = json(ctx.package.path, 'package.json').get();
 
     if (!packageJson) {
       return false;
@@ -109,7 +110,7 @@ const ensureScript = defineCheck((scriptName: string, value: string) => ({
     return packageJson.scripts && packageJson.scripts[scriptName];
   },
   fix: (ctx) => {
-    return json(path.join(ctx.package.path, 'package.json')).merge({
+    return json(ctx.package.path, 'package.json').merge({
       scripts: {
         [scriptName]: value,
       },
