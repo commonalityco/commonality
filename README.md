@@ -31,7 +31,7 @@ Correlate ownership rules from a `CODEOWNERS` file to packages in your project.
 
 ## Studio
 
-![](/assets/commonality-light.png)
+![](/assets/commonality-studio.png)
 
 Commonality Studio is the best way to visualize your monorepo. Explore your dependency graph, manage tags, and view conformance health.
 
