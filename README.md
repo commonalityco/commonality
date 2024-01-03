@@ -1,27 +1,48 @@
-<p align="center">
-  <a href="https://commonality.co">
-    <img src="https://" height="96">
-    <h3 align="center">Commonality</h3>
-  </a>
-</p>
+![](/assets/banner.png)
 
-<p align="center">
-  Build infinitely scalable front-end ecosystems.
-</p>
+# Commonality
 
-<p align="center">
-  <a href="https://vercel.com/docs"><strong>Documentation</strong></a> ·
-  <a href="https://vercel.com/changelog"><strong>Changelog</strong></a> ·
-  <a href="https://vercel.com/cli"><strong>CLI</strong></a>
-</p>
-<br/>
+Commonality helps you scale JavaScript monorepos and package ecosystems with the tools you already love.
 
-## Commonality
+No wrappers. No lock-in. Open-source.
 
-The Commonality CLI simplifies scaling modular JavaScript projects for indie hackers and large teams alike. Dive into stunning visualizations of your dependency graph and swiftly access documentation, ownership, and context for any package in your project.
+[**Overview**](https://www.commonality.co/docs/overview) &nbsp;&nbsp;&nbsp;
+[**Get started**](https://www.commonality.co/docs/getting-started)
 
-Commonality Dashboard elevates your local experience to new heights in the cloud and allows you to view packages for all your organization's projects in a single location. Harness graph-aware automation to enhance team communication and collaboration across teams. Leverage AI-powered insights to search internal documentation and effortlessly engage with peers for follow-up conversations.
+## Features
 
+Every feature in Commonality is designed to be adopted incrementally. Start with a single package and scale it to an entire organization.
 
-## Reference
-- [Apache 2.0 License](./LICENSE)
+[**Checks**](https://www.commonality.co/docs/checks)
+
+Scale a consistently amazing developer experience with dynamic conformance checks that are run like tests and shared like lint rules.
+
+[**Constraints**](https://www.commonality.co/docs/constraints)
+
+Maintain a dependency graph that's easy to reason about by limiting which packages can depend on each other.
+
+[**Tags**](https://www.commonality.co/docs/tags)
+
+Group packages by their purpose, concern, or domain without a tight coupling to directory structure. Use tags to selectively apply checks and constraints to packages.
+
+[**Codeowners**](https://www.commonality.co/docs/codeowners)
+
+Correlate ownership rules from a `CODEOWNERS` file to packages in your project.
+
+## Studio
+
+![](/assets/commonality-light.png)
+
+Commonality Studio is the best way to visualize your monorepo. Explore your dependency graph, manage tags, and view conformance health.
+
+Explore any JavaScript project with a single command:
+
+```
+npx commonality studio
+```
+
+[**Learn more about Commonality Studio**](https://www.commonality.co/docs/studio)
+
+## Author
+
+Created by [Alec Chernicki](https://twitter.com/alecchernicki)
