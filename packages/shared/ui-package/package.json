@@ -2,7 +2,7 @@
   "name": "@commonalityco/ui-package",
   "description": "Presentational components to build the Commonality package view",
   "type": "module",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "publishConfig": {
     "access": "public",
     "module": "./dist/index.js",
