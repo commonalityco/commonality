@@ -88,9 +88,7 @@ const ensureTSConfigExtends = defineCheck((base: string) => {
   return {
     // ...
     message: async (ctx) => {
-      const tsConfig = await json(
-        path.join(ctx.package.path, 'tsconfig.json'),
-      ).get();
+      const tsConfig = await json(ctx.package.path, 'tsconfig.json').get();
 
       if (!tsConfig) {
         return {
@@ -166,9 +164,7 @@ const ensureTSConfigExtends = defineCheck((base: string) => {
   return {
     // ...
     fix: async (ctx) => {
-      const tsConfig = await json(
-        path.join(ctx.package.path, 'tsconfig.json'),
-      ).get();
+      const tsConfig = await json(ctx.package.path, 'tsconfig.json').get();
 
       if (!tsConfig) {
         return;
@@ -261,13 +257,13 @@ A valid [check](/api/checks#check-properties) object
 Pass options that will be used as the check's [`CheckContext`](/docs/api/checks#checkcontext).
 If a property is not explicitly passed, the check will be passed a default from the table below.
 
-| Name                    | Default                                   |
-| :---------------------- | :---------------------------------------- |
-| `context.tags`          | `[]{:ts}`                                 |
-| `context.codeowners`    | `[]{:ts}`                                 |
-| `context.workspace`     | `{relativePath: './', path: './'}{:ts}`   |
-| `context.rootWorkspace` | `{relativePath: './', path: './'}{:ts}`   |
-| `context.allWorkspaces` | `[{relativePath: './', path: './'}]{:ts}` |
+| Name                  | Default                                   |
+| :-------------------- | :---------------------------------------- |
+| `context.tags`        | `[]{:ts}`                                 |
+| `context.codeowners`  | `[]{:ts}`                                 |
+| `context.package`     | `{relativePath: './', path: './'}{:ts}`   |
+| `context.rootPackage` | `{relativePath: './', path: './'}{:ts}`   |
+| `context.allPackages` | `[{relativePath: './', path: './'}]{:ts}` |
 
 **Returns**
 Returns the original check function, however the `validate`, `fix`, and `message` functions

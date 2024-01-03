@@ -93,7 +93,7 @@ export async function ensurePackageInstalled({
       }
     };
 
-    await installPkg.installPackage(dependency, {
+    await installPkg.installPackage(`${dependency}@latest`, {
       dev: true,
       additionalArgs: getAdditionalArgs(),
     });

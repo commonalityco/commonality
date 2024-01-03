@@ -16,7 +16,7 @@ All checks have three required properties:
 
 <Callout type="info">
   You can view all available check properties and more examples in our
-  [reference documentation](/docs/api/checks).
+  [reference documentation](/docs/reference/checks).
 </Callout>
 
 Here's an example of a simple check that ensures every package has at least one codeowner.
@@ -29,7 +29,7 @@ export default defineConfig({
     '*': [
       {
         name: 'ensure-codeowner',
-        validate: ({ codeowners }) => codeowners.length > 0,
+        validate: (ctx) => ctx.codeowners.length > 0,
         message: 'Packages must have at least one codeowner',
       },
     ],
@@ -60,13 +60,14 @@ export default defineConfig({
     '*': [
       {
         name: 'ensure-readme',
-        validate: async ({ workspace }) => {
-          return text(path.join(workspace.path, 'README.md')).exists();
+        validate: async (ctx) => {
+          return text(ctx.package.path, 'README.md').exists();
         },
-        fix: async ({ workspace }) => {
+        fix: async (ctx) => {
           // Get the contents of the package.json file
           const packageJson = await json(
-            path.join(workspace.path, 'package.json'),
+            ctx.package.path,
+            'package.json',
           ).get();
 
           if (!packageJson) {
@@ -74,7 +75,7 @@ export default defineConfig({
           }
 
           // Create a README.md with some basic content about the package
-          await text(path.join(workspace.path, 'README.md')).set([
+          await text(ctx.package.path, 'README.md').set([
             `# ${packageJson.name}`,
             `> ${packageJson.description}`,
           ]);
@@ -95,13 +96,12 @@ Instead of defining checks as an object you can use our `defineCheck` helper to 
 Here's an example of a configuration that ensures that all packages with the tag `buildable` have `build` and `dev` scripts.
 
 ```ts filename="commonality.config.ts"
-import { defineConfig } from 'commonality';
-import { defineCheck } from 'commonality/checks';
+import { defineConfig, defineCheck } from 'commonality';
 
 const ensureScript = defineCheck((scriptName: string, value: string) => ({
   name: 'ensure-script',
-  validate: ({ workspace }) => {
-    const packageJson = json(path.join(workspace.path, 'package.json')).get();
+  validate: (ctx) => {
+    const packageJson = json(ctx.package.path, 'package.json').get();
 
     if (!packageJson) {
       return false;
@@ -109,8 +109,8 @@ const ensureScript = defineCheck((scriptName: string, value: string) => ({
 
     return packageJson.scripts && packageJson.scripts[scriptName];
   },
-  fix: ({ workspace }) => {
-    return json(path.join(workspace.path, 'package.json')).merge({
+  fix: (ctx) => {
+    return json(ctx.package.path, 'package.json').merge({
       scripts: {
         [scriptName]: value,
       },
