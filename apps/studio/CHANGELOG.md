@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.31
+
+### Patch Changes
+
+- 74e1a9c: update engines
+
 ## 0.2.30
 
 ### Patch Changes

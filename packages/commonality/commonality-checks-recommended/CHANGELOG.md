@@ -1,5 +1,14 @@
 # commonality-checks-recommended
 
+## 0.0.9
+
+### Patch Changes
+
+- 74e1a9c: update engines
+- 74e1a9c: update checks package namne
+- Updated dependencies [74e1a9c]
+  - commonality@0.2.30
+
 ## 0.0.8
 
 ### Patch Changes
