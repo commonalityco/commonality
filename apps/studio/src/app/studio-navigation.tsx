@@ -69,7 +69,7 @@ function StudioNavigation({
             </Button>
             <Button variant="link" asChild>
               <Link
-                href="https://www.commonality.co/docs/overview"
+                href="https://commonality.co/docs/overview"
                 target="_blank"
                 rel="noopener noreferrer"
               >

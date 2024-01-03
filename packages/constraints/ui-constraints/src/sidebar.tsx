@@ -576,7 +576,7 @@ export function Sidebar({
             onLayout={onLayout}
           >
             <Panel
-              defaultSize={defaultLayout?.[0] ?? 33}
+              defaultSize={defaultLayout?.[0] ?? 34}
               minSize={5}
               className="grid content-start"
             >
