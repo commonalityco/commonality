@@ -1,9 +1,9 @@
-import { repositoryField } from './../src/respository-field';
+import { extendsRepositoryField } from '../src/extends-repository-field';
 import { createTestCheck, json } from 'commonality';
 import { describe, it, expect, afterEach } from 'vitest';
 import mockFs from 'mock-fs';
 
-describe('repository-field', () => {
+describe('extendsRepositoryField', () => {
   afterEach(() => {
     mockFs.restore();
   });
@@ -18,7 +18,7 @@ describe('repository-field', () => {
           },
         },
       });
-      const conformer = createTestCheck(repositoryField(), {
+      const conformer = createTestCheck(extendsRepositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -46,7 +46,7 @@ describe('repository-field', () => {
         },
       });
 
-      const conformer = createTestCheck(repositoryField(), {
+      const conformer = createTestCheck(extendsRepositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -76,7 +76,7 @@ describe('repository-field', () => {
         },
       });
 
-      const conformer = createTestCheck(repositoryField(), {
+      const conformer = createTestCheck(extendsRepositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -106,7 +106,7 @@ describe('repository-field', () => {
         },
       });
 
-      const conformer = createTestCheck(repositoryField(), {
+      const conformer = createTestCheck(extendsRepositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -137,7 +137,7 @@ describe('repository-field', () => {
         },
       });
 
-      const conformer = createTestCheck(repositoryField(), {
+      const conformer = createTestCheck(extendsRepositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -170,7 +170,7 @@ describe('repository-field', () => {
         },
       });
 
-      const conformer = createTestCheck(repositoryField(), {
+      const conformer = createTestCheck(extendsRepositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -200,7 +200,7 @@ describe('repository-field', () => {
         }),
       });
 
-      const conformer = createTestCheck(repositoryField(), {
+      const conformer = createTestCheck(extendsRepositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -232,7 +232,7 @@ describe('repository-field', () => {
         }),
       });
 
-      const conformer = createTestCheck(repositoryField(), {
+      const conformer = createTestCheck(extendsRepositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -269,7 +269,7 @@ describe('repository-field', () => {
         }),
       });
 
-      const conformer = createTestCheck(repositoryField(), {
+      const conformer = createTestCheck(extendsRepositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -306,7 +306,7 @@ describe('repository-field', () => {
         }),
       });
 
-      const conformer = createTestCheck(repositoryField(), {
+      const conformer = createTestCheck(extendsRepositoryField(), {
         workspace: {
           path: './packages/pkg-a',
           relativePath: './packages/pkg-a',
@@ -345,7 +345,7 @@ describe('repository-field', () => {
           }),
         });
 
-        const conformer = createTestCheck(repositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField(), {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -389,7 +389,7 @@ describe('repository-field', () => {
           }),
         });
 
-        const conformer = createTestCheck(repositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField(), {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',

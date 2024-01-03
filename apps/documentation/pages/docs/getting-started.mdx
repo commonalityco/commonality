@@ -55,15 +55,14 @@ import * as recommended from 'commonality-checks-recommended';
 export default defineConfig({
   checks: {
     '*': [
-      recommended.devPeerDependencyRange(),
-      recommended.ensureCodeowner(),
-      recommended.ensureLicense(),
-      recommended.ensureReadme(),
-      recommended.multipleDependencyTypes(),
-      recommended.noExternalMismatch(),
-      recommended.repositoryField(),
-      recommended.sortedDependencies(),
-      recommended.validPackageName(),
+      recommended.hasCodeowner(),
+      recommended.hasReadme(),
+      recommended.hasMatchingDevPeerVersions(),
+      recommended.hasUniqueDependencyTypes(),
+      recommended.hasConsistentExternalVersion(),
+      recommended.hasSortedDependencies(),
+      recommended.hasValidPackageName(),
+      recommended.extendsRepositoryField(),
     ],
   },
 });

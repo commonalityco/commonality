@@ -45,13 +45,13 @@ const getExpectedProperties = async ({
     return;
   };
 
-  const rootRepsitoryRaw = getRootRepository();
+  const rootRepositoryRaw = getRootRepository();
 
-  if (!rootRepsitoryRaw) {
+  if (!rootRepositoryRaw) {
     return;
   }
 
-  const rootRepsitoryUrl = stripTrailingSlash(rootRepsitoryRaw);
+  const rootRepositoryUrl = stripTrailingSlash(rootRepositoryRaw);
 
   const workspacePath = path
     .normalize(workspace.relativePath)
@@ -61,18 +61,18 @@ const getExpectedProperties = async ({
 
   const newConfig = isObjectConfig
     ? {
-        repository: { url: rootRepsitoryUrl + '/' + workspacePath },
+        repository: { url: rootRepositoryUrl + '/' + workspacePath },
       }
     : {
-        repository: rootRepsitoryUrl + '/' + workspacePath,
+        repository: rootRepositoryUrl + '/' + workspacePath,
       };
 
   return newConfig;
 };
 
-export const repositoryField = defineCheck(() => {
+export const extendsRepositoryField = defineCheck(() => {
   return {
-    name: 'commonality/repository-field',
+    name: 'commonality/extends-repository-field',
     validate: async (context): Promise<boolean> => {
       const rootPackageJson = await json<PackageJson>(
         context.rootPackage.path,

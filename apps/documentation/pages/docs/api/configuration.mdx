@@ -40,7 +40,7 @@ import * as recommended from 'commonality-checks-recommended';
 
 export default defineConfig({
   checks: {
-    '*': [recommended.ensureReadme()],
+    '*': [recommended.hasReadme()],
     publishable: [recommended.ensureLicense()],
   },
 });

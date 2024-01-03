@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { noExternalMismatch } from '../src/no-external-mismatch';
+import { hasConsistentExternalVersion } from '../src/has-consistent-external-version';
 import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
-describe('no-external-mismatch', () => {
+describe('hasConsistentExternalVersion', () => {
   afterEach(() => {
     mockFs.restore();
   });
@@ -45,7 +45,7 @@ describe('no-external-mismatch', () => {
         },
       });
 
-      const conformer = createTestCheck(noExternalMismatch(), {
+      const conformer = createTestCheck(hasConsistentExternalVersion(), {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -98,7 +98,7 @@ describe('no-external-mismatch', () => {
         },
       });
 
-      const conformer = createTestCheck(noExternalMismatch(), {
+      const conformer = createTestCheck(hasConsistentExternalVersion(), {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -153,7 +153,7 @@ describe('no-external-mismatch', () => {
         },
       });
 
-      const conformer = createTestCheck(noExternalMismatch(), {
+      const conformer = createTestCheck(hasConsistentExternalVersion(), {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -238,7 +238,7 @@ describe('no-external-mismatch', () => {
         },
       });
 
-      const conformer = createTestCheck(noExternalMismatch(), {
+      const conformer = createTestCheck(hasConsistentExternalVersion(), {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -308,7 +308,7 @@ describe('no-external-mismatch', () => {
         },
       });
 
-      const conformer = createTestCheck(noExternalMismatch(), {
+      const conformer = createTestCheck(hasConsistentExternalVersion(), {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },

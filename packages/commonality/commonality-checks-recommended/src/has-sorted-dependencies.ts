@@ -33,9 +33,9 @@ const getExpectedPackageJson = (packageJson: PackageJson) => {
   return newPackageJson;
 };
 
-export const sortedDependencies = defineCheck(() => {
+export const hasSortedDependencies = defineCheck(() => {
   return {
-    name: 'commonality/ensure-sorted-dependencies',
+    name: 'commonality/has-sorted-dependencies',
     validate: async (ctx) => {
       const packageJson = await json<PackageJson>(
         ctx.package.path,

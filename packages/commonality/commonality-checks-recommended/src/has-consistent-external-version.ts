@@ -56,9 +56,9 @@ const getExpectedPackageJson = async ({
   return packageJson;
 };
 
-export const noExternalMismatch = defineCheck(() => {
+export const hasConsistentExternalVersion = defineCheck(() => {
   return {
-    name: 'commonality/external-mismatch',
+    name: 'commonality/has-consistent-external-version',
     validate: async (context) => {
       const packageJson = await json<PackageJson>(
         context.package.path,

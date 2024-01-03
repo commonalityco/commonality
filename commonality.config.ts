@@ -4,14 +4,14 @@ import * as recommended from 'commonality-checks-recommended';
 export default defineConfig({
   checks: {
     '*': [
-      recommended.ensureReadme(),
-      recommended.ensureCodeowner(),
-      recommended.validPackageName(),
-      recommended.multipleDependencyTypes(),
-      recommended.sortedDependencies(),
-      recommended.devPeerDependencyRange(),
-      recommended.noExternalMismatch(),
-      recommended.repositoryField(),
+      recommended.hasReadme(),
+      recommended.hasCodeowner(),
+      recommended.hasValidPackageName(),
+      recommended.hasUniqueDependencyTypes(),
+      recommended.hasSortedDependencies(),
+      recommended.hasMatchingDevPeerVersions(),
+      recommended.hasConsistentExternalVersion(),
+      recommended.extendsRepositoryField(),
     ],
   },
   constraints: {

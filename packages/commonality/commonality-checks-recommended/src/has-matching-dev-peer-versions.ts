@@ -48,9 +48,9 @@ const getExpectedDevDependencies = (
   return Object.keys(devDependencies).length > 0 ? devDependencies : undefined;
 };
 
-export const devPeerDependencyRange = defineCheck(() => {
+export const hasMatchingDevPeerVersions = defineCheck(() => {
   return {
-    name: 'commonality/dev-peer-dependency-range',
+    name: 'commonality/has-matching-dev-peer-versions',
     level: 'warning',
     validate: async (context) => {
       const packageJson = await json<PackageJson>(
