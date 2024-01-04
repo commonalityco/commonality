@@ -98,8 +98,8 @@ function StudioNavigation({
           </NavigationButton>
           <NavigationButton
             className="flex gap-2 items-center"
-            href="/packages"
-            active={pathname === '/packages'}
+            href="/checks"
+            active={pathname === '/checks'}
           >
             <PackageCheck className="h-4 w-4" />
             <span>Checks</span>
