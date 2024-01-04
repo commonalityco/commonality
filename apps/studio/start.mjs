@@ -17,6 +17,7 @@ export const startStudio = ({ port, rootDirectory, debug }) => {
     stderr: debug ? 'pipe' : 'ignore',
     cwd: __dirname,
     env: {
+      PATH: process.env.PATH,
       NODE_ENV: 'production',
       PORT: port?.toString(),
       COMMONALITY_ROOT_DIRECTORY: rootDirectory,
