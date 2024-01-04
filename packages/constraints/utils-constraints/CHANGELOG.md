@@ -1,5 +1,11 @@
 # @commonalityco/utils-constraints
 
+## 0.0.4
+
+### Patch Changes
+
+- 202b591: Fixes initialization issues with Commonality Studio and broken links
+
 ## 0.0.3
 
 ### Patch Changes

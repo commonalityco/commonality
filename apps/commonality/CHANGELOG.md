@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.31
+
+### Patch Changes
+
+- 70ac615: Fixes an issue where you could not exit out of the studio process if the Commonality Studio port never becomes available
+
 ## 0.2.30
 
 ### Patch Changes

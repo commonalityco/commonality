@@ -2,7 +2,7 @@
   "name": "workshop",
   "description": "The Storybook application for developing Commonality UI components",
   "private": true,
-  "version": "1.0.22",
+  "version": "1.0.23",
   "scripts": {
     "dev": "storybook dev -p 6006",
     "lint": "eslint .",
