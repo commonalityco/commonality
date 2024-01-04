@@ -11,7 +11,6 @@ import {
   getProjectConfig,
   getRootDirectory,
 } from '@commonalityco/data-project';
-
 import path from 'node:path';
 import { getPackages } from '@commonalityco/data-packages';
 import { getTagsData } from '@commonalityco/data-tags';
@@ -23,6 +22,7 @@ import process from 'node:process';
 import { Logger } from '../utils/logger';
 import { Status } from '@commonalityco/utils-core';
 const command = new Command();
+import { isCI } from 'std-env';
 
 const checksSpinner = ora('Running checks...');
 
@@ -237,7 +237,7 @@ export const action = async ({
         (result) => result.status !== Status.Pass && result.fix,
       );
 
-      if (fixableResults && fixableResults.length > 0) {
+      if (fixableResults && fixableResults.length > 0 && !isCI) {
         console.log();
         const response = await prompts({
           type: 'confirm',
