@@ -5,20 +5,22 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  test-studio:
+  e2e-studio:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: npm install -g pnpm && pnpm install
+      - name: Checkout respository
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
       - name: Install Playwright Browsers
         run: pnpm -F studio exec playwright install --with-deps
+
       - name: Run Playwright tests
         run: pnpm -F studio exec playwright test
+
       - uses: actions/upload-artifact@v3
         if: always()
         with:
