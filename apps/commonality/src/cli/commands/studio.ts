@@ -155,18 +155,18 @@ export const studio = command
           debug,
         });
 
-        const url = `http://127.0.0.1:${port}`;
-
-        await waitOn({ resources: [url] });
-
         const handleExit = () => {
           kill();
-          console.log('Successfully exited Commonality Studio');
+          console.log(chalk.green('\nSuccessfully exited Commonality Studio'));
+          process.exit();
         };
 
         process.on('SIGINT', handleExit);
         process.on('SIGTERM', handleExit);
-        process.on('exit', handleExit);
+
+        const url = `http://127.0.0.1:${port}`;
+
+        await waitOn({ resources: [url], timeout: 10_000 });
 
         console.log(
           `Viewable at: ${chalk.blue.bold(url)} ${chalk.dim(

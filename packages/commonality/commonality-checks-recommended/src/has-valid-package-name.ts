@@ -3,6 +3,7 @@ import validateNpmPackageName from 'validate-npm-package-name';
 
 export const hasValidPackageName = defineCheck(() => ({
   name: 'commonality/has-valid-package-name',
+  level: 'error',
   validate: async (context) => {
     const packageJson = await json<PackageJson>(
       context.package.path,
