@@ -70,7 +70,7 @@ export const bindRenderGraphEvents = (arguments_: EventHandlerArguments) => {
   renderGraph.nodes().removeListener('mouseover');
   renderGraph
     .nodes()
-    .on('mouseover, tap', (event) =>
+    .on('mouseover', (event) =>
       handleNodeMouseover({ ...arguments_, target: event.target }),
     );
 

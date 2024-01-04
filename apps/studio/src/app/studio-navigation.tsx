@@ -60,7 +60,7 @@ function StudioNavigation({
           <div className="flex items-center space-x-2">
             <Button variant="link" asChild>
               <Link
-                href="https://commonality.co/feedback"
+                href="https://github.com/commonalityco/commonality/issues/new?title=Feedback+for+%22Commonality+Studio%22&labels=feedback"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -69,11 +69,11 @@ function StudioNavigation({
             </Button>
             <Button variant="link" asChild>
               <Link
-                href="https://commonality.co/docs"
+                href="https://commonality.co/docs/overview"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Docs
+                Documentation
               </Link>
             </Button>
             <ThemeButton

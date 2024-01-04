@@ -52,6 +52,7 @@ lib-cov
 .node_repl_history
 .yarn-integrity
 
+
 # Serverless directories
 .serverless/
 
@@ -60,6 +61,7 @@ lib-cov
 
 # Build
 lib
+.nx
 .next
 .turbo
 storybook-static/
