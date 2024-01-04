@@ -23,13 +23,9 @@ export const startStudio = ({ port, rootDirectory, debug }) => {
     },
   });
 
-  const handleExit = () => {
-    serverProcess.kill();
+  return {
+    kill: () => {
+      serverProcess.kill();
+    },
   };
-
-  process.on('SIGINT', handleExit);
-  process.on('SIGTERM', handleExit);
-  process.on('exit', handleExit);
-
-  return { kill: () => serverProcess.kill() };
 };

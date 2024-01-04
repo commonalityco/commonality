@@ -63,5 +63,6 @@ lib-cov
 lib
 .nx
 .next
+.tsup
 .turbo
 storybook-static/
