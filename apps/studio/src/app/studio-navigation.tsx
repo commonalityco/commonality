@@ -73,7 +73,7 @@ function StudioNavigation({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Docs
+                Documentation
               </Link>
             </Button>
             <ThemeButton
