@@ -1,5 +1,11 @@
 # documentation
 
+## 0.0.7
+
+### Patch Changes
+
+- 70ac615: Fixes an issue where you could not exit out of the studio process if the Commonality Studio port never becomes available
+
 ## 0.0.6
 
 ### Patch Changes

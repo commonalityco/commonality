@@ -1,6 +1,6 @@
 {
   "name": "documentation",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Nextra docs template",
   "private": true,
   "scripts": {

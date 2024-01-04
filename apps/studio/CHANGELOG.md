@@ -1,5 +1,12 @@
 # @commonalityco/dashboard
 
+## 0.2.32
+
+### Patch Changes
+
+- 70ac615: Fixes an issue where you could not exit out of the studio process if the Commonality Studio port never becomes available
+- 202b591: Fixes initialization issues with Commonality Studio and broken links
+
 ## 0.2.31
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # workshop
 
+## 1.0.23
+
+### Patch Changes
+
+- Updated dependencies [202b591]
+  - @commonalityco/utils-constraints@0.0.4
+  - @commonalityco/ui-constraints@0.0.5
+
 ## 1.0.22
 
 ### Patch Changes
