@@ -1,35 +1,21 @@
 import { Tabs, Tab } from 'nextra/components';
 
-# Running Commonality in Github Actions
+# Github Actions
 
 Ensure that you have `commonality` installed as a dependency at the root of your project.
-Given a `package.json` with the following scripts:
 
-```json filename="package.json"
-{
-  "name": "my-project",
-  "scripts": {
-    "check": "commonality check",
-    "constrain": "commonality constrain"
-  },
-  "dependencies": {
-    "commonality": "<version>"
-  }
-}
-```
-
-Create a workflow file for CI at `.github/workflows/ci.yml` if not already present and add the `check` and `constrain` scripts as a step.
+Create a workflow file for Commonality at `.github/workflows/commonality.yml` and add steps to run `commonality check` and `commonality constrain`.
 
 <Tabs items={['npm', 'yarn', 'pnpm']} storageKey="selected-pkg-manager">
   <Tab>
-    ```yaml copy filename=".github/workflows/ci.yml"
-    name: CI
+    ```yaml copy filename=".github/workflows/commonality.yml"
+    name: Commonality
 
     on:
       push:
-        branches: ["main"]
+        branches: [main]
       pull_request:
-        types: [opened, synchronize]
+        branches: [main]
 
     jobs:
       validate:
@@ -38,36 +24,34 @@ Create a workflow file for CI at `.github/workflows/ci.yml` if not already prese
         runs-on: ubuntu-latest
         steps:
           - name: Checkout
-            uses: actions/checkout@v3
-            with:
-              fetch-depth: 2
+            uses: actions/checkout@v4
 
           - name: Setup Node.js
-            uses: actions/setup-node@v3
+            uses: actions/setup-node@v4
             with:
-              node-version: 18
+              node-version: 20
               cache: 'npm'
 
           - name: Install dependencies
             run: npm install
 
           - name: Check
-            run: npm run check
+            run: npx commonality check
 
           - name: Constrain
-            run: npm run constrain
+            run: npx commonality constrain
     ````
 
   </Tab>
   <Tab>
-    ```yaml copy filename=".github/workflows/ci.yml"
-    name: CI
+    ```yaml copy filename=".github/workflows/commonality.yml"
+    name: Commonality
 
     on:
       push:
-        branches: ["main"]
+        branches: [main]
       pull_request:
-        types: [opened, synchronize]
+        branches: [main]
 
     jobs:
       validate:
@@ -76,35 +60,33 @@ Create a workflow file for CI at `.github/workflows/ci.yml` if not already prese
         runs-on: ubuntu-latest
         steps:
           - name: Checkout
-            uses: actions/checkout@v3
-            with:
-              fetch-depth: 2
+            uses: actions/checkout@v4
 
           - name: Setup Node.js
-            uses: actions/setup-node@v3
+            uses: actions/setup-node@v4
             with:
-              node-version: 18
+              node-version: 20
               cache: 'yarn'
 
           - name: Install dependencies
             run: yarn
 
           - name: Check
-            run: yarn check
+            run: yarn exec commonality check
 
           - name: Constrain
-            run: yarn check
+            run: yarn exec commonality check
     ```
   </Tab>
   <Tab>
-    ```yaml copy filename=".github/workflows/ci.yml"
-    name: CI
+    ```yaml copy filename=".github/workflows/commonality.yml"
+    name: Commonality
 
     on:
       push:
-        branches: ["main"]
+        branches: [main]
       pull_request:
-        types: [opened, synchronize]
+        branches: [main]
 
     jobs:
       validate:
@@ -113,27 +95,25 @@ Create a workflow file for CI at `.github/workflows/ci.yml` if not already prese
         runs-on: ubuntu-latest
         steps:
           - name: Checkout
-            uses: actions/checkout@v3
-            with:
-              fetch-depth: 2
+            uses: actions/checkout@v4
 
           - name: Setup pnpm
             uses: pnpm/action-setup@v2
 
           - name: Setup Node.js
-            uses: actions/setup-node@v3
+            uses: actions/setup-node@v4
             with:
-              node-version: 18
+              node-version: 20
               cache: 'pnpm'
 
           - name: Install dependencies
             run: pnpm install
 
           - name: Check
-            run: pnpm check
+            run: pnpm exec commonality check
 
           - name: Constrain
-            run: pnpm constrain
+            run: pnpm exec commonality constrain
     ```
   </Tab>
 </Tabs>

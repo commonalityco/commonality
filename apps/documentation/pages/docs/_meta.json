@@ -14,7 +14,7 @@
   "tags": "",
   "codeowners": "",
   "sharing": "",
-  "ci": "CI Integration",
+  "continuous-integration": "Continuous Integration",
 
   "-- Reference": {
     "type": "separator",
