@@ -61,12 +61,8 @@ import { defineConfig } from 'commonality';
 
 export default defineConfig({
   constraints: {
-    '*': [
-      { disallow: ['deployable'] },
-    ],
-    config: [
-	    { allow: ['config'] }
-    ],
+    '*': { disallow: ['deployable'] },
+    config: { allow: ['config'] },
   },
 });
 ```
@@ -108,9 +104,7 @@ import { defineConfig } from 'commonality';
 
 export default defineConfig({
   constraints: {
-	'*': [
-	  disallow: ['deployable'],
-	],
+    '*': { disallow: ['deployable'] },
   },
 });
 ```
@@ -126,9 +120,7 @@ import { defineConfig } from 'commonality';
 
 export default defineConfig({
   constraints: {
-	'config': [
-	  disallow: ['application'],
-	],
+    config: { disallow: ['application'] },
   },
 });
 ```

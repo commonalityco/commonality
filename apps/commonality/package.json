@@ -29,7 +29,7 @@
     "build:cli": "tsup-node --config tsup.config.cli.ts",
     "build:utilities": "tsup-node --config tsup.config.utilities.ts",
     "build": "npm-run-all clean build:*",
-    "dev:cli": "tsup-node --config tsup-node.config.cli.ts --watch",
+    "dev:cli": "tsup-node --config tsup.config.cli.ts --watch",
     "dev:utilities": "tsup-node --config tsup.config.utilities.ts --watch",
     "clean": "rimraf ./dist",
     "dev": "pnpm run clean && npm-run-all --parallel dev:*",

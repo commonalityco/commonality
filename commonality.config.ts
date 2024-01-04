@@ -15,11 +15,26 @@ export default defineConfig({
     ],
   },
   constraints: {
-    feature: { allow: '*' },
-    deliverable: { disallow: ['deliverable'] },
-    config: { allow: ['config'], disallow: ['feature'] },
-    ui: { allow: ['ui', 'utility', 'config'], disallow: ['feature'] },
-    data: { allow: ['data', 'utility', 'config'], disallow: ['feature'] },
-    utility: { allow: ['data', 'utility', 'config'], disallow: ['feature'] },
+    '*': {
+      disallow: ['deployable'],
+    },
+    deployable: {
+      allow: ['ui', 'data', 'utility', 'config'],
+    },
+    ui: {
+      allow: ['utility', 'config'],
+    },
+    state: {
+      allow: ['utility', 'config'],
+    },
+    data: {
+      allow: ['utility', 'config'],
+    },
+    utility: {
+      allow: ['utility', 'config'],
+    },
+    config: {
+      disallow: '*',
+    },
   },
 });
