@@ -18,7 +18,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Check
-        run: pnpm check
+        run: pnpm exec commonality check
 
       - name: Constrain
-        run: pnpm constrain
+        run: pnpm exec commonality check
