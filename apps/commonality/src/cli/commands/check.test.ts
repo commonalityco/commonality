@@ -21,6 +21,12 @@ vi.mock('node:console', async () => ({
   },
 }));
 
+vi.mock('std-env', () => {
+  return {
+    isCI: false,
+  };
+});
+
 const mockError = new Error('this-is-an-error');
 mockError.stack = 'mock-stack';
 
@@ -419,7 +425,7 @@ describe('check', () => {
       `);
     });
 
-    test('when user does not choose to run fixes', async () => {
+    test('when there are fixes and the user does not choose to run them', async () => {
       prompts.inject([false]);
 
       await check({
@@ -502,7 +508,94 @@ describe('check', () => {
       `);
     });
 
-    test('when user chooses to run fixes and it is successful', async () => {
+    test('when there are fixes and the command is run in CI', async () => {
+      vi.doMock('std-env', () => {
+        return {
+          isCI: true,
+        };
+      });
+
+      await check({
+        verbose: false,
+        getResults: vi
+          .fn()
+          .mockResolvedValueOnce([
+            {
+              name: 'CONFORMER_NAME/ONE',
+              filter: '*',
+              status: Status.Pass,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be awesome' },
+              fix: () => {},
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              filter: '*',
+              status: Status.Warn,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+              fix: () => {},
+            },
+          ])
+          .mockResolvedValueOnce([
+            {
+              name: 'CONFORMER_NAME/ONE',
+              filter: '*',
+              status: Status.Pass,
+              package: {
+                path: '/path',
+                name: 'pkg-one',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be awesome' },
+              fix: () => {},
+            },
+            {
+              name: 'CONFORMER_NAME/TWO',
+              filter: '*',
+              status: Status.Pass,
+              package: {
+                path: '/path',
+                name: 'pkg-two',
+                version: '1.0.0',
+                type: PackageType.NODE,
+              },
+              message: { title: 'This package should be cool' },
+              fix: () => {},
+            },
+          ]),
+        onFix: vi.fn(),
+      });
+
+      expect(getConsoleCalls()).toMatchInlineSnapshot(`
+        [
+          [
+            "
+        ✓ pkg-one (1)
+        ❯ pkg-two (1)
+        • Applied to: All packages (1)
+        ⚠ warn This package should be cool
+        │      
+
+        Packages: 0 failed 1 warnings 1 passed (2)
+          Checks: 0 failed 1 warnings 1 passed (2)",
+          ],
+        ]
+      `);
+    });
+
+    test('when there are fixes and the user chooses to run them and it is successful', async () => {
       prompts.inject([true]);
 
       await check({
