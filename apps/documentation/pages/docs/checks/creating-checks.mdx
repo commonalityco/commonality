@@ -2,17 +2,17 @@ import { Callout } from 'nextra/components';
 
 # Creating checks
 
-## Creating your first check
-
 Checks are defined in the configuration file at the root of your project. You can use matchers to run checks against all the packages in your project or a subset of packages.
+
+## Creating your first check
 
 All checks have three required properties:
 
-**`name`** A unique identifier for the check, we use this to parallelize checks and prevent write collisions.
+1. [**`name`**](/docs/api/checks#name) A unique identifier for the check, we use this to parallelize checks and prevent write collisions.
 
-**`validate`** A function that should return either a truthy or falsey value indicating whether or not the check is valid.
+2. [**`validate`**](/docs/api/checks#validate) A function that should return either a truthy or falsey value indicating whether or not the check is valid.
 
-**`message`** A string or function that that provides more context about the check.
+3. [**`message`**](/docs/api/checks#message) A string or function that that provides more context about the check.
 
 <Callout type="info">
   You can view all available check properties and more examples in our
@@ -47,9 +47,9 @@ commonality check
 
 It's great to be notified that something isn't right, but it's even better when you can fix it with a single key press.
 
-To make a check fixable just add a `fix` property to your check. This function will only run against the package if the result of `validate` is falsey.
+To make a check fixable just add a [`fix`](/docs/api/checks#fix) property to your check. This function will only run against the package if the result of [`validate`](/docs/api/checks#validate) is falsey.
 
-Here's an example of a check that will automatically create a README for a package if it does not exist.
+Here's an example of a check that will automatically create a `README.md` for a package if it does not exist.
 
 ```ts filename="commonality.config.ts"
 import { defineConfig } from 'commonality';
@@ -87,11 +87,83 @@ export default defineConfig({
 });
 ```
 
+## Customizing messages
+
+Messages can be provided as a string for simple checks or constructed dynamically using a function that is passed [`CheckContext`](/docs/api/checks#checkcontext) and returns a [`Message`]((/docs/api/checks#message-1)) object.
+
+### Static message
+
+You can provide a string as the message, this is useful for checks that don't require much context or have a single way of failing.
+
+```ts
+import { defineCheck } from 'commonality/checks';
+
+const hasCodeowner = defineCheck(() => {
+  return {
+    // ...
+    message: 'Every package must have at least one codeowner',
+  };
+});
+```
+
+The following output will be shown when running the check:
+
+```
+✓ warn Every package must have at least one codeowner
+```
+
+### Dynamic message
+
+Sometimes you'll want to provide more context or account for multiple ways a check can fail.
+You can return a [`Message`](/docs/api/checks#message-1) object from the [`message`](/docs/api/checks#message) function to dynamically construct the output shown below.
+
+```ts
+import { defineCheck, json, diff } from 'commonality/checks';
+import path from 'node:path';
+
+const ensureTSConfigExtends = defineCheck((base: string) => {
+  return {
+    // ...
+    message: async (ctx) => {
+      const tsConfig = await json(ctx.package.path, 'tsconfig.json').get();
+
+      if (!tsConfig) {
+        return {
+          text: 'tsconfig.json does not exist',
+          filePath: 'tsconfig.json',
+        };
+      }
+
+      return {
+        text: `tsconfig.json must extend ${base}`,
+        filePath: 'tsconfig.json',
+        suggestion: diff(tsConfig, { ...tsConfig, extends: base }),
+      };
+    },
+  };
+});
+```
+
+Use the [`diff`](/docs/api/checks#diff) utility to suggest file edits needed to pass checks. The `suggestion` property is also useful for showing how a [`fix`](/docs/api/checks#fix) function will modify a file.
+
+The [`diff`](/docs/api/checks#diff) function will return a pretty printed string where unique properties and values in the second argument appear in red and are prefixed with `+`."
+
+The following output will be shown when running the check above:
+
+```
+✓ warn Every package must have at least one codeowner
+|      packages/pkg-a/tsconfig.json
+│        Object {
+│            "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+│      +     "extends": "@scope/tsconfig/react",
+│        }
+```
+
 ## Composing checks
 
 While basic checks go a long way, you may want to pass options to your checks to make them re-usable in a variety of different scenarios.
 
-Instead of defining checks as an object you can use our `defineCheck` helper to define checks as functions, allowing you to dynamically pass options to checks.
+Instead of defining checks as an object you can use our [`defineCheck`](/docs/api/checks#definecheck) helper to define checks as functions, allowing you to dynamically pass options to checks.
 
 Here's an example of a configuration that ensures that all packages with the tag `buildable` have `build` and `dev` scripts.
 
@@ -127,3 +199,4 @@ export default defineConfig({
   },
 });
 ```
+

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useConfig } from 'nextra-theme-docs';
 import path from 'node:path';
 import packageJson from '../commonality/package.json';
+import { Badge } from '@commonalityco/ui-design-system';
 
 const config: DocsThemeConfig = {
   logo: (
@@ -14,9 +15,9 @@ const config: DocsThemeConfig = {
       <span className="text-xs font-mono font-medium hidden md:block">
         {packageJson.version}
       </span>
-      <div className="uppercase text-xs bg-gradient-to-r from-[#839996] to-[#496767] px-3 py-1 rounded-full font-bold text-white hidden md:block">
-        Beta
-      </div>
+      <Badge className="border-blue-700  bg-blue-700/10 text-blue-700 dark:border-blue-400 dark:bg-blue-400/20 dark:text-blue-400 rounded-full shadow-none hover:bg-inherit">
+        BETA
+      </Badge>
     </span>
   ),
   project: {
