@@ -12,7 +12,7 @@ program
 
 program
   .name('commonality')
-  .description('Build bigger with the tools you already love.')
+  .description('Build bigger with the tools you already love')
   .version(packageJson.version);
 
 program.addCommand(check);
