@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.33
+
+### Patch Changes
+
+- d9e7a5d: fix(studio): add PATH variable for server starting
+
 ## 0.2.32
 
 ### Patch Changes
