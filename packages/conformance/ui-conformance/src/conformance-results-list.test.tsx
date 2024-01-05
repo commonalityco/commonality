@@ -269,6 +269,7 @@ describe('ConformanceResults', () => {
     ] satisfies ConformanceResult[];
 
     render(<ConformanceResults results={results} />);
+
     const accordionElement = screen.getByText('This package is cool');
 
     await userEvent.click(accordionElement);

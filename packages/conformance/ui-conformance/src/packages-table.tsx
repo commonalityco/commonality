@@ -28,6 +28,7 @@ import {
   Accordion,
   AccordionItem,
   AccordionContent,
+  AccordionTrigger,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
 import { Status, formatTagName } from '@commonalityco/utils-core';
@@ -186,7 +187,9 @@ export function ConformanceCell<T extends ColumnData>({
 
                         return (
                           <AccordionItem key={key} value={key}>
-                            <CheckTitle result={result} />
+                            <AccordionTrigger>
+                              <CheckTitle result={result} />
+                            </AccordionTrigger>
                             <AccordionContent>
                               <CheckContent result={result} />
                             </AccordionContent>
