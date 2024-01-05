@@ -1,8 +1,6 @@
 name: Continuous Integration
 
-on:
-  pull_request:
-    branches: ['*']
+on: ['push', 'pull_request']
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
