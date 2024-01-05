@@ -1,5 +1,11 @@
 # @commonalityco/ui-conformance
 
+## 0.2.34
+
+### Patch Changes
+
+- 447c12d: Fixes an issue where checks were incorrectly rendering in Commonality Studio
+
 ## 0.0.2
 
 ### Patch Changes
