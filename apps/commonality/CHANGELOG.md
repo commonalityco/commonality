@@ -1,5 +1,12 @@
 # @commonalityco/cli
 
+## 0.2.32
+
+### Patch Changes
+
+- c55750f: Fix checks not applying to "\*" when no tags exist in the project
+- de5ffc5: Update message for CLI help screen
+
 ## 0.2.31
 
 ### Patch Changes
