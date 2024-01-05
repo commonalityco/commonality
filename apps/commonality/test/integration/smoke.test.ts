@@ -40,7 +40,9 @@ describe('smoke', () => {
 
     await vi.waitFor(
       () => {
-        expect(output).toContain('Infinitely scalable front-end ecosystems');
+        expect(output).toContain(
+          'Build bigger with the tools you already love',
+        );
       },
       { timeout: 20_000 },
     );
