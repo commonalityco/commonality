@@ -46,78 +46,6 @@ const hasCodeowner = defineCheck(() => {
 
 You can pass a static string for simple checks or dynamically return a Message with a function that is passed [CheckContext](#checkcontext).
 
-#### Simple message
-
-You can provide a string as the message, this is useful for checks that don't require much context or have a single way of failing.
-
-```ts
-import { defineCheck } from 'commonality/checks';
-
-const hasCodeowner = defineCheck(() => {
-  return {
-    // ...
-    message: 'Every package must have at least one codeowner',
-  };
-});
-```
-
-The following output will be shown when running the check:
-
-```
-✓ warn Every package must have at least one codeowner
-```
-
-#### Dynamic message
-
-Sometimes you'll want to provide more context or account for multiple ways a check can fail.
-You can return a `Message` object from the `message` function to dynamically construct the output shown below.
-
-```ts
-type Message = {
-  text: string;
-  filePath?: string;
-  context?: string;
-};
-```
-
-```ts
-import { defineCheck, json, diff } from 'commonality/checks';
-import path from 'node:path';
-
-const ensureTSConfigExtends = defineCheck((base: string) => {
-  return {
-    // ...
-    message: async (ctx) => {
-      const tsConfig = await json(ctx.package.path, 'tsconfig.json').get();
-
-      if (!tsConfig) {
-        return {
-          text: 'tsconfig.json does not exist',
-          filePath: 'tsconfig.json',
-        };
-      }
-
-      return {
-        text: `tsconfig.json must extend ${base}`,
-        filePath: 'tsconfig.json',
-        context: diff(tsConfig, { ...tsConfig, extends: base }),
-      };
-    },
-  };
-});
-```
-
-The following output will be shown when running the check:
-
-```
-✓ warn Every package must have at least one codeowner
-|      packages/pkg-a/tsconfig.json
-│        Object {
-│            "include": ["./src/**/*.ts", "./src/**/*.tsx"]
-│      +     "extends": "@scope/tsconfig/react",
-│        }
-```
-
 ---
 
 ### `validate`
@@ -185,30 +113,6 @@ const ensureTSConfigExtends = defineCheck((base: string) => {
 </Subtext>
 
 If set to `"error"`, the CLI will exit with a non-zero exit code if this check is ever invalid. Default is `"warning"`.
-
-## `CheckContext`
-
-The `validate`, `fix`, and `message` functions are all passed a `CheckContext` object that contains metadata about the package the check is being run against.
-The [`codeowners`](/docs/codeowners) and [`tags`](/docs/tags) that correspond to the package are also included.
-
-```ts
-type CheckContext = {
-  package: {
-    path: string;
-    relativePath: string;
-  };
-  allPackages: {
-    path: string;
-    relativePath: string;
-  }[];
-  rootPackage: {
-    path: string;
-    relativePath: string;
-  };
-  codeowners: string[];
-  tags: string[];
-};
-```
 
 ## Utilities
 
@@ -698,4 +602,40 @@ diff(
 //     "version": "1.0.0",
 // +   "version": "2.0.0",
 //   }
+```
+
+## Types
+
+### `CheckContext`
+
+The `validate`, `fix`, and `message` functions are all passed a `CheckContext` object that contains metadata about the package the check is being run against.
+The [`codeowners`](/docs/codeowners) and [`tags`](/docs/tags) that correspond to the package are also included.
+
+```ts
+type CheckContext = {
+  package: {
+    path: string;
+    relativePath: string;
+  };
+  allPackages: {
+    path: string;
+    relativePath: string;
+  }[];
+  rootPackage: {
+    path: string;
+    relativePath: string;
+  };
+  codeowners: string[];
+  tags: string[];
+};
+```
+
+### `Message`
+If [`message`](#message) is declared as a function, it must return a [`Message`]() object.
+```ts
+type Message = {
+  text: string;
+  filePath?: string;
+  suggestion?: string;
+};
 ```
