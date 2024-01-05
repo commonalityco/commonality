@@ -6,5 +6,19 @@
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": [],
+  "linked": [
+    [
+      "commonality",
+      "@commonalityco/data-codeowners",
+      "@commonalityco/data-conformance",
+      "@commonalityco/data-constraints",
+      "@commonalityco/data-packages",
+      "@commonalityco/data-project",
+      "@commonalityco/data-tags",
+      "@commonalityco/utils-conformance",
+      "@commonalityco/utils-core",
+      "@commonalityco/types"
+    ]
+  ]
 }
