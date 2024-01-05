@@ -7,18 +7,5 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [],
-  "linked": [
-    [
-      "commonality",
-      "@commonalityco/data-codeowners",
-      "@commonalityco/data-conformance",
-      "@commonalityco/data-constraints",
-      "@commonalityco/data-packages",
-      "@commonalityco/data-project",
-      "@commonalityco/data-tags",
-      "@commonalityco/utils-conformance",
-      "@commonalityco/utils-core",
-      "@commonalityco/types"
-    ]
-  ]
+  "linked": [["commonality", "@commonalityco/*"]]
 }
