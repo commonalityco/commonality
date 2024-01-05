@@ -1,5 +1,12 @@
 # @commonalityco/dashboard
 
+## 0.2.34
+
+### Patch Changes
+
+- 447c12d: Fixes an issue where checks were incorrectly rendering in Commonality Studio
+- 665a457: Link all @commonalityco packages and fix missing checks
+
 ## 0.2.33
 
 ### Patch Changes

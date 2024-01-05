@@ -1,5 +1,12 @@
 # workshop
 
+## 1.0.24
+
+### Patch Changes
+
+- Updated dependencies [447c12d]
+  - @commonalityco/ui-conformance@0.2.34
+
 ## 1.0.23
 
 ### Patch Changes
