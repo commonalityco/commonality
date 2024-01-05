@@ -47,10 +47,10 @@ export function BentoSection() {
             Discover <span className="italic">frustration-free</span> monorepos
           </Balancer>
         </h2>
-        <p className="max-w-xl mx-auto text-muted-foreground text-base md:text-lg font-medium">
+        <p className="max-w-3xl mx-auto text-muted-foreground text-base md:text-lg font-medium">
           <Balancer>
-            Commonality helps you tame the chaos that comes with multi-package
-            workspaces and growing package ecosystems.
+            Automate away the tedious maintenance of growing monorepos and
+            package ecosystems.
           </Balancer>
         </p>
       </div>

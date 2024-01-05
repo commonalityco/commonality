@@ -78,7 +78,7 @@ describe('getConformanceResults', () => {
     expect(results[0].package).toEqual(packages[0]);
   });
 
-  it('should return valid results when tests are valid', async () => {
+  it('should return valid results when checks are valid', async () => {
     const conformersByPattern: ProjectConfig['checks'] = {
       '*': [
         {
@@ -98,6 +98,42 @@ describe('getConformanceResults', () => {
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
+
+    const results = await getConformanceResults({
+      conformersByPattern,
+      rootDirectory,
+      packages,
+      tagsData,
+      codeownersData: [],
+    });
+
+    expect(results).toHaveLength(1);
+    expect(results[0].status).toBe(Status.Pass);
+    expect(results[0].message.title).toBe('Valid workspace');
+    expect(results[0].filter).toBe('*');
+    expect(results[0].package).toEqual(packages[0]);
+  });
+
+  it('should return valid results when checks are valid and there are no tags', async () => {
+    const conformersByPattern: ProjectConfig['checks'] = {
+      '*': [
+        {
+          name: 'ValidWorkspaceConformer',
+          validate: () => true,
+          message: 'Valid workspace',
+        },
+      ],
+    };
+    const rootDirectory = '';
+    const packages: Package[] = [
+      {
+        path: '/path/to/workspace',
+        name: 'pkg-a',
+        version: '1.0.0',
+        type: PackageType.NODE,
+      },
+    ];
+    const tagsData: TagsData[] = [];
 
     const results = await getConformanceResults({
       conformersByPattern,
