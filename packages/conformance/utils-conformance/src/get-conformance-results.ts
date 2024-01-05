@@ -16,35 +16,23 @@ export type ConformanceResult = {
   message: Message;
 };
 
-const createMaps = ({
+const filterPackages = ({
   packages,
-  tagsData,
-  codeownersData,
-}: {
-  packages: Package[];
-  tagsData: TagsData[];
-  codeownersData: CodeownersData[];
-}) => {
-  const packagesMap = new Map(packages.map((pkg) => [pkg.name, pkg]));
-  const tagsMap = new Map(
-    tagsData.map((data) => [data.packageName, data.tags]),
-  );
-  const codeownersMap = new Map(
-    codeownersData.map((data) => [data.packageName, data.codeowners]),
-  );
-  return { packagesMap, tagsMap, codeownersMap };
-};
-
-const filterTagsData = ({
   tagsData,
   matchingPattern,
 }: {
+  packages: Package[];
   tagsData: TagsData[];
   matchingPattern: string;
-}) => {
-  return tagsData.filter((data) => {
-    if (matchingPattern === '*') return true;
-    return data.tags.includes(matchingPattern);
+}): Package[] => {
+  if (matchingPattern === '*') return packages;
+
+  return packages.filter((pkg) => {
+    const tagsDataForPackage = tagsData.find(
+      (data) => data.packageName === pkg.name,
+    );
+
+    return tagsDataForPackage?.tags.includes(matchingPattern);
   });
 };
 
@@ -62,7 +50,7 @@ const getStatus = async ({
   tagsMap: Map<string, string[]>;
   codeownersMap: Map<string, string[]>;
   packages: Package[];
-}) => {
+}): Promise<Status> => {
   try {
     const result = await conformer.validate({
       package: Object.freeze({
@@ -105,7 +93,7 @@ const getMessage = async ({
   tagsMap: Map<string, string[]>;
   codeownersMap: Map<string, string[]>;
   packages: Package[];
-}) => {
+}): Promise<Message> => {
   if (typeof conformer.message === 'string') {
     return { title: conformer.message };
   }
@@ -142,7 +130,7 @@ const getMessage = async ({
     }
 
     return {
-      title: 'An unknown error occured while running this conformer',
+      title: 'An unknown error occurred while running this conformer',
     };
   }
 };
@@ -161,17 +149,17 @@ export const getConformanceResults = async ({
   codeownersData: CodeownersData[];
 }): Promise<ConformanceResult[]> => {
   const filters = Object.keys(conformersByPattern);
-  const { packagesMap, tagsMap, codeownersMap } = createMaps({
-    packages,
-    tagsData,
-    codeownersData,
-  });
+  const tagsMap = new Map(
+    tagsData.map((data) => [data.packageName, data.tags]),
+  );
+  const codeownersMap = new Map(
+    codeownersData.map((data) => [data.packageName, data.codeowners]),
+  );
 
   return await Promise.all(
     filters.flatMap((matchingPattern) =>
       conformersByPattern[matchingPattern].flatMap((conformer) =>
-        filterTagsData({ tagsData, matchingPattern })
-          .map((data) => packagesMap.get(data.packageName))
+        filterPackages({ packages, tagsData, matchingPattern })
           .filter((pkg): pkg is Package => !!pkg)
           .map(async (pkg): Promise<ConformanceResult> => {
             const status = await getStatus({

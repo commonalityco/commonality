@@ -49,8 +49,8 @@ export function BentoSection() {
         </h2>
         <p className="max-w-xl mx-auto text-muted-foreground text-base md:text-lg font-medium">
           <Balancer>
-            Commonality helps you tame the chaos that comes with multi-package
-            workspaces and growing package ecosystems.
+            Automate the workflows and maintenance that comes with growing
+            monorepos and package ecosystems.
           </Balancer>
         </p>
       </div>

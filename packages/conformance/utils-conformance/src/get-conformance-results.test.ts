@@ -114,7 +114,7 @@ describe('getConformanceResults', () => {
     expect(results[0].package).toEqual(packages[0]);
   });
 
-  it.skip('should return valid results when checks are valid and there are no tags', async () => {
+  it('should return valid results when checks are valid and there are no tags', async () => {
     const conformersByPattern: ProjectConfig['checks'] = {
       '*': [
         {
