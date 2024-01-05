@@ -4,27 +4,16 @@ import {
   AccordionItem,
   AccordionTrigger,
   Badge,
-  Button,
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
   cn,
 } from '@commonalityco/ui-design-system';
 import { Status, formatTagName } from '@commonalityco/utils-core';
-import {
-  AlertTriangle,
-  Check,
-  ExternalLink,
-  PackageCheck,
-  X,
-} from 'lucide-react';
+import { AlertTriangle, Check, X } from 'lucide-react';
 import { Fragment, useMemo } from 'react';
 import {
   getStatusForResults,
   ConformanceResult,
 } from '@commonalityco/utils-conformance';
+import { ConformanceOnboardingCard } from './conformance-onboarding-card';
 
 export function CheckTitle({ result }: { result: ConformanceResult }) {
   const getStatusText = () => {
@@ -49,7 +38,7 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
         return (
           <span className="text-destructive font-mono font-medium items-center flex flex-nowrap gap-2">
             <X className="h-4 w-4" />
-            pass
+            fail
           </span>
         );
       }
@@ -57,14 +46,14 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
   };
 
   return (
-    <AccordionTrigger className="flex items-center overflow-hidden w-full">
+    <div className="flex items-center overflow-hidden w-full">
       <div className="grid gap-4 grid-cols-[minmax(0,max-content)_1fr] text-left items-start">
         <div className="flex gap-1 items-center">{getStatusText()}</div>
         <div className="text-left grow shrink basis-auto min-w-0 max-w-full">
           {result.message.title}
         </div>
       </div>
-    </AccordionTrigger>
+    </div>
   );
 }
 
@@ -110,19 +99,27 @@ export function StatusCount({
     <div className="font-mono flex gap-4 shrink-0">
       <span
         className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
-          'text-desructive': failCount > 0,
+          'text-destructive': failCount > 0,
           'text-muted-foreground': failCount === 0,
         })}
+        aria-labelledby="fail-count"
       >
+        <span id="fail-count" className="sr-only">
+          Fail count
+        </span>
         <X className="h-4 w-4" />
         {failCount}
       </span>
       <span
         className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
-          'text-yellow-500': warnCount > 0,
+          'text-warning': warnCount > 0,
           'text-muted-foreground': warnCount === 0,
         })}
+        aria-labelledby="warn-count"
       >
+        <span id="warn-count" className="sr-only">
+          Warning count
+        </span>
         <AlertTriangle className="h-4 w-4" />
         {warnCount}
       </span>
@@ -131,7 +128,11 @@ export function StatusCount({
           'text-success': passCount > 0,
           'text-muted-foreground': passCount === 0,
         })}
+        aria-labelledby="pass-count"
       >
+        <span id="pass-count" className="sr-only">
+          Pass count
+        </span>
         <Check className="h-4 w-4" />
         {passCount}
       </span>
@@ -158,38 +159,6 @@ export function FilterTitle({
         {formatTagName(filter)}
       </Badge>
     </div>
-  );
-}
-
-export function ConformanceOnboardingCard() {
-  return (
-    <Card variant="secondary">
-      <CardHeader>
-        <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
-          <div className="bg-secondary rounded-full p-1.5">
-            <PackageCheck className="h-5 w-5" />
-          </div>
-        </div>
-
-        <CardTitle>Codify your best practices</CardTitle>
-        <CardDescription>
-          Scale a consistently amazing developer experience with dynamic
-          conformance checks that are run like tests and shared like lint rules.
-        </CardDescription>
-      </CardHeader>
-      <CardFooter>
-        <Button asChild variant="outline" size="sm">
-          <a
-            href="https://commonality.co/docs/checks"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn more
-            <ExternalLink className="ml-1 h-3 w-3 -translate-y-px" />
-          </a>
-        </Button>
-      </CardFooter>
-    </Card>
   );
 }
 
@@ -222,7 +191,7 @@ export function ConformanceResults({
       {Object.entries(resultsByPackageName).map(
         ([packageName, resultsForPackage]) => {
           if (resultsForPackage.length === 0) {
-            return <p>No results</p>;
+            return <p>No checks for package</p>;
           }
 
           const resultsForPackageByFilter: Record<string, ConformanceResult[]> =
@@ -253,13 +222,15 @@ export function ConformanceResults({
                         className="w-full overflow-hidden"
                       >
                         <FilterTitle filter={filter} status={status} />
-                        {resultsForFilter.map((result) => {
-                          const value = `${result.name}-${result.package.name}`;
+                        {resultsForFilter.map((result, index) => {
+                          const value = `${result.name}-${index}`;
 
                           return (
                             <Fragment key={value}>
                               <AccordionItem value={value}>
-                                <CheckTitle result={result} />
+                                <AccordionTrigger>
+                                  <CheckTitle result={result} />
+                                </AccordionTrigger>
                                 <AccordionContent>
                                   <CheckContent result={result} />
                                 </AccordionContent>
