@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/config-tailwind",
   "description": "TailwindCSS configuration and globals for Commonality projects",
-  "version": "0.0.8",
+  "version": "0.2.35",
   "publishConfig": {
     "access": "public"
   },

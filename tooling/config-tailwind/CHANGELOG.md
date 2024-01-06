@@ -1,5 +1,11 @@
 # @commonalityco/config-tailwind
 
+## 0.2.35
+
+### Patch Changes
+
+- e4e3ba0: Update color palette to all neutral and fix tailwind global.css issue
+
 ## 0.0.8
 
 ### Patch Changes
