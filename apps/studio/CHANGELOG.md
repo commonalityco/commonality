@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.35
+
+### Patch Changes
+
+- e4e3ba0: Update color palette to all neutral and fix tailwind global.css issue
+
 ## 0.2.34
 
 ### Patch Changes
