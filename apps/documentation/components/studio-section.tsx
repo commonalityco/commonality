@@ -72,7 +72,7 @@ export function StudioSection() {
           </div>
         </div>
       </div>
-      <div className="relative w-full flex items-end justify-center -mt-[300px] md:-mt-[400px] h-[300px] md:h-[400px] z-10">
+      <div className="relative w-full flex items-end justify-center -mt-[250px] md:-mt-[400px] h-[350px] md:h-[450px] z-10">
         <div className="absolute bg-gradient-to-t from-interactive from-30% top-0 bottom-0 right-0 left-0" />
         <div className="max-w-[500px] z-10 w-full text-center">
           <div className="inline-block px-6">

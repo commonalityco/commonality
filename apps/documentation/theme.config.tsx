@@ -43,7 +43,7 @@ const config: DocsThemeConfig = {
           <p className="block text-xs">
             Created by{' '}
             <a
-              className="text-primary"
+              className="text-primary font-semibold"
               href="https://twitter.com/alecchernicki"
               target="_blank"
             >
