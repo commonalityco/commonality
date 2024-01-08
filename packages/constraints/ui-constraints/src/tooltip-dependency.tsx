@@ -66,12 +66,7 @@ export function TooltipDependency({
                           key={result.filter}
                           className="space-y-2"
                         >
-                          <AccordionTrigger>
-                            <FilterTitle
-                              isValid={result.isValid}
-                              filter={result.filter}
-                            />
-                          </AccordionTrigger>
+                          <AccordionTrigger></AccordionTrigger>
                           <AccordionContent>
                             <ConstraintContent result={result} />
                           </AccordionContent>

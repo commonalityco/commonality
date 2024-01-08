@@ -2,26 +2,25 @@
 import { GradientFade } from '@commonalityco/ui-core';
 import {
   Button,
+  Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
   Input,
   ScrollArea,
-  Separator,
 } from '@commonalityco/ui-design-system';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, ComponentProps } from 'react';
 import { ConstraintResults } from './constraint-results';
 import { ConstraintResult } from '@commonalityco/types';
 
-export function ConstraintsDialogContent({
+export function AllConstraintsDialog({
   results,
-  onClose = () => {},
+  ...props
 }: {
   results: ConstraintResult[];
-  onClose?: () => void;
-}) {
+} & ComponentProps<typeof Dialog>) {
   const [search, setSearch] = useState('');
 
   const filteredResults = useMemo(() => {
@@ -37,11 +36,13 @@ export function ConstraintsDialogContent({
   const hasResults = filteredResults.length > 0;
 
   return (
-    <>
+    <Dialog {...props}>
+      <DialogTrigger asChild>
+        <Button variant="secondary">View all constraints</Button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>All constraints</DialogTitle>
-          <DialogDescription></DialogDescription>
         </DialogHeader>
         <div>
           <Input
@@ -63,13 +64,16 @@ export function ConstraintsDialogContent({
           <p className="text-center py-16">No packages match your filters</p>
         ) : undefined}
 
-        <Separator className="my-2" />
         <DialogFooter>
-          <Button variant="outline" className="w-full" onClick={onClose}>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => props?.onOpenChange?.(false)}
+          >
             Close
           </Button>
         </DialogFooter>
       </DialogContent>
-    </>
+    </Dialog>
   );
 }
