@@ -71,7 +71,7 @@ export function ConstraintOnboardingCard() {
 
 export function ConstraintTitle({ result }: { result: ConstraintResult }) {
   return (
-    <AccordionTrigger className="flex items-center overflow-hidden w-full relative">
+    <div className="flex items-center overflow-hidden w-full relative">
       <div className="flex gap-4 items-start">
         <div className="flex gap-1 items-center">
           {result.isValid ? (
@@ -103,7 +103,7 @@ export function ConstraintTitle({ result }: { result: ConstraintResult }) {
           })}
         </div>
       </div>
-    </AccordionTrigger>
+    </div>
   );
 }
 
@@ -117,7 +117,6 @@ export function ConstraintContent({ result }: { result: ConstraintResult }) {
           <X className="w-4 h-4 inline-block text-destructive" />
         )}
       </div>
-
       <div className="grid gap-3 grid-cols-[minmax(min-content,max-content)_1fr]">
         <dt id="applied-to" className="shrink-0 whitespace-nowrap">
           Applied to:
@@ -336,7 +335,9 @@ export function ConstraintResults({
                     return (
                       <Accordion type="multiple" key={value}>
                         <AccordionItem value={value}>
-                          <ConstraintTitle result={resultForDependencyPath} />
+                          <AccordionTrigger>
+                            <ConstraintTitle result={resultForDependencyPath} />
+                          </AccordionTrigger>
                           <AccordionContent>
                             <div className="grid gap-8">
                               {Object.entries(resultsByFilter).map(
