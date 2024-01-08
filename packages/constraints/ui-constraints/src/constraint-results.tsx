@@ -15,7 +15,7 @@ import {
 } from '@commonalityco/ui-design-system';
 import { DependencyType, formatTagName } from '@commonalityco/utils-core';
 import { ArrowRight, Check, ExternalLink, Network, X } from 'lucide-react';
-import { useMemo } from 'react';
+import { ComponentProps, useMemo } from 'react';
 import uniqBy from 'lodash/uniqBy';
 import isEqual from 'lodash/isEqual';
 import { GradientFade } from '@commonalityco/ui-core';
@@ -26,8 +26,15 @@ const dependencyTextByType = {
   [DependencyType.PEER]: 'peer',
 };
 
-function TagsContainer({ children }: { children: React.ReactNode }) {
-  return <dd className="flex flex-wrap gap-1 overflow-hidden">{children}</dd>;
+function TagsContainer({
+  children,
+  ...rest
+}: { children: React.ReactNode } & ComponentProps<'dd'>) {
+  return (
+    <dd className="flex flex-wrap gap-1 overflow-hidden" {...rest}>
+      {children}
+    </dd>
+  );
 }
 
 export function ConstraintOnboardingCard() {
@@ -112,18 +119,27 @@ export function ConstraintContent({ result }: { result: ConstraintResult }) {
       </div>
 
       <div className="grid gap-3 grid-cols-[minmax(min-content,max-content)_1fr]">
-        <dt className="shrink-0 whitespace-nowrap">Applied to:</dt>
+        <dt id="applied-to" className="shrink-0 whitespace-nowrap">
+          Applied to:
+        </dt>
 
-        <TagsContainer>
-          <Badge variant="outline" className={cn('truncate inline-block')}>
+        <TagsContainer aria-labelledby="applied-to">
+          <Badge
+            role="tag"
+            aria-label={result.filter}
+            variant="outline"
+            className={cn('truncate inline-block')}
+          >
             {formatTagName(result.filter)}
           </Badge>
         </TagsContainer>
 
         {'allow' in result.constraint ? (
           <>
-            <dt className="shrink-0 whitespace-nowrap">Allowed:</dt>
-            <TagsContainer>
+            <dt id="allowed" className="shrink-0 whitespace-nowrap">
+              Allowed:
+            </dt>
+            <TagsContainer aria-labelledby="allowed">
               {result.constraint.allow === '*' ? (
                 <span className="text-success">All packages</span>
               ) : (
@@ -131,6 +147,8 @@ export function ConstraintContent({ result }: { result: ConstraintResult }) {
                   const isInFoundTags = result.foundTags?.includes(tag);
                   return (
                     <Badge
+                      role="tag"
+                      aria-label={tag}
                       variant="outline"
                       key={tag}
                       className={cn('truncate inline-block', {
@@ -147,8 +165,10 @@ export function ConstraintContent({ result }: { result: ConstraintResult }) {
         ) : undefined}
         {'disallow' in result.constraint ? (
           <>
-            <dt className="shrink-0 whitespace-nowrap">Disallowed:</dt>
-            <TagsContainer>
+            <dt id="disallowed" className="shrink-0 whitespace-nowrap">
+              Disallowed:
+            </dt>
+            <TagsContainer aria-labelledby="disallowed">
               {result.constraint.disallow === '*' ? (
                 <span className="text-destructive">All packages</span>
               ) : (
@@ -156,6 +176,8 @@ export function ConstraintContent({ result }: { result: ConstraintResult }) {
                   const isInFoundTags = result.foundTags?.includes(tag);
                   return (
                     <Badge
+                      role="tag"
+                      aria-label={tag}
                       variant="outline"
                       key={tag}
                       className={cn('truncate inline-block', {
@@ -171,8 +193,10 @@ export function ConstraintContent({ result }: { result: ConstraintResult }) {
           </>
         ) : undefined}
 
-        <p className="shrink-0 whitespace-nowrap">Found:</p>
-        <TagsContainer>
+        <dt id="found" className="shrink-0 whitespace-nowrap">
+          Found:
+        </dt>
+        <TagsContainer aria-labelledby="found">
           {result.foundTags ? (
             result.foundTags.map((tag) => {
               const isAllowAll =
@@ -194,6 +218,8 @@ export function ConstraintContent({ result }: { result: ConstraintResult }) {
 
               return (
                 <Badge
+                  role="tag"
+                  aria-label={tag}
                   variant="outline"
                   key={tag}
                   className={cn('inline-block min-w-0', {

@@ -101,6 +101,7 @@ describe('ConstraintResults', () => {
   it('should expand the accordion item and display the correct constraint information', async () => {
     const results = [
       {
+        foundTags: ['tag-three'],
         dependencyPath: [
           {
             source: 'pkg-a',
@@ -109,19 +110,29 @@ describe('ConstraintResults', () => {
             type: DependencyType.DEVELOPMENT,
           },
         ],
-        filter: 'filter1',
+        filter: 'tag-one',
         isValid: true,
         constraint: {
           allow: ['tag-one'],
+          disallow: ['tag-two'],
         },
       },
-    ];
+    ] satisfies ConstraintResult[];
 
     render(<ConstraintResults results={results} />);
 
     const constraintButton = screen.getByRole('button', { name: /pkg-b dev/i });
 
     await userEvent.click(constraintButton);
-    screen.logTestingPlaygroundURL();
+
+    const appliedToTagsText = screen.getByLabelText('Applied to:');
+    const allowedTagsText = screen.getByLabelText('Allowed:');
+    const disallowedTagsText = screen.getByLabelText('Disallowed:');
+    const foundTagsText = screen.getByLabelText('Found:');
+
+    expect(appliedToTagsText.textContent).toEqual('#tag-one');
+    expect(allowedTagsText.textContent).toEqual('#tag-one');
+    expect(disallowedTagsText.textContent).toEqual('#tag-two');
+    expect(foundTagsText.textContent).toEqual('#tag-three');
   });
 });
