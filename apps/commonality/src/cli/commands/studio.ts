@@ -61,7 +61,11 @@ export async function ensurePackageInstalled({
   if (resolved) return resolved;
 
   const getShouldInstall = async () => {
-    if (forceInstall) return true;
+    if (forceInstall) {
+      writeMissingDependency(dependency);
+
+      return true;
+    }
 
     if (isCI) {
       writeMissingDependency(dependency);
