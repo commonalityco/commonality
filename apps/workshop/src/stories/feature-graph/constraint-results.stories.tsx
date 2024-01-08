@@ -8,6 +8,13 @@ const meta = {
   component: ConstraintResults,
   tags: ['autodocs'],
   argTypes: {},
+  decorators: [
+    (Story) => (
+      <div style={{ maxWidth: '500px', overflow: 'hidden' }}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     backgrounds: {
       default: 'light/secondary',
@@ -41,6 +48,25 @@ export const KitchenSink: Story = {
             type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
+          {
+            source:
+              'pkg-threeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+            target: 'pkg-four',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+          {
+            source: 'pkg-four',
+            target: 'pkg-five',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+          {
+            source: 'pkg-five',
+            target: 'pkg-six',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
         ],
         filter: '*',
       },
@@ -63,8 +89,43 @@ export const KitchenSink: Story = {
             type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
+          {
+            source: 'pkg-three',
+            target: 'pkg-four',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
         ],
         filter: 'tag-one',
+        foundTags: ['tag-three'],
+      },
+      {
+        isValid: false,
+        constraint: {
+          allow: ['tag-one'],
+          disallow: ['tag-three', 'tag-four'],
+        },
+        dependencyPath: [
+          {
+            source: 'pkg-one',
+            target: 'pkg-two',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+          {
+            source: 'pkg-two',
+            target: 'pkg-three',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+          {
+            source: 'pkg-three',
+            target: 'pkg-four',
+            type: DependencyType.PRODUCTION,
+            version: '1.0.0',
+          },
+        ],
+        filter: 'tag-two',
         foundTags: ['tag-three'],
       },
       {

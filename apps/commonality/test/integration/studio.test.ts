@@ -48,7 +48,7 @@ describe.concurrent('studio', () => {
 
       await vi.waitFor(
         () => {
-          expect(output).toContain('📦 Starting Commonality Studio...');
+          expect(output).toContain('Starting Commonality Studio...');
         },
         { timeout: 50_000 },
       );
@@ -65,7 +65,7 @@ describe.concurrent('studio', () => {
       await vi.waitFor(
         () => {
           expect(output).toContain(
-            `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
+            `Viewable at: http://127.0.0.1:${preferredPort}`,
           );
         },
         { timeout: 100_000 },
@@ -120,7 +120,7 @@ describe.concurrent('studio', () => {
 
       await vi.waitFor(
         () => {
-          expect(output).toContain('📦 Starting Commonality Studio...');
+          expect(output).toContain('Starting Commonality Studio...');
         },
         { timeout: 50_000 },
       );
@@ -137,7 +137,7 @@ describe.concurrent('studio', () => {
       await vi.waitFor(
         () => {
           expect(output).toContain(
-            `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
+            `Viewable at: http://127.0.0.1:${preferredPort}`,
           );
         },
         { timeout: 100_000 },
@@ -192,7 +192,7 @@ describe.concurrent('studio', () => {
 
       await vi.waitFor(
         () => {
-          expect(output).toContain('📦 Starting Commonality Studio...');
+          expect(output).toContain('Starting Commonality Studio...');
         },
         { timeout: 50_000 },
       );
@@ -209,7 +209,7 @@ describe.concurrent('studio', () => {
       await vi.waitFor(
         () => {
           expect(output).toContain(
-            `Viewable at: http://127.0.0.1:${preferredPort} (press ctrl-c to quit)`,
+            `Viewable at: http://127.0.0.1:${preferredPort}`,
           );
         },
         { timeout: 100_000 },

@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shuding/nextra-docs-template.git"
+    "url": "https://github.com/commonalityco/commonality/apps/documentation"
   },
   "license": "MIT",
   "bugs": {
@@ -27,7 +27,7 @@
     "@vercel/speed-insights": "^1.0.2",
     "framer-motion": "^10.16.16",
     "lucide-react": "^0.299.0",
-    "next": "14.0.4",
+    "next": "14.0.1",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
     "react": "^18.2.0",
@@ -37,11 +37,11 @@
   },
   "devDependencies": {
     "@commonalityco/config-tailwind": "workspace:*",
-    "@types/node": "18.11.10",
+    "@types/node": "^20.10.0",
     "autoprefixer": "^10.4.16",
     "cspell": "^8.3.2",
     "postcss": "^8.4.30",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^4.9.3"
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.2"
   }
 }

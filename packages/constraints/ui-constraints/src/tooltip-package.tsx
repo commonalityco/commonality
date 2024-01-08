@@ -78,7 +78,7 @@ export const TooltipPackage = ({
             </DropdownButton>
             <DropdownButton onClick={() => onFocus(pkg)}>
               <Focus className="mr-2 h-4 w-4" />
-              Isolate
+              Focus
             </DropdownButton>
             <DropdownButton onClick={() => onHide(pkg)}>
               <EyeOff className="mr-2 h-4 w-4" />

@@ -14,6 +14,7 @@ export {
   hideDependents,
   hideDependencies,
   hide,
+  isolate,
 } from './actions';
 export * from './query-keys';
 export * from './create-worker';

@@ -22,8 +22,6 @@
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
-    "@commonalityco/ui-core": "workspace:*",
-    "@commonalityco/ui-design-system": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-package": "workspace:*",
     "@types/crypto-js": "^4.2.1",
@@ -37,8 +35,6 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@commonalityco/ui-core": "*",
-    "@commonalityco/ui-design-system": "*",
     "@commonalityco/utils-package": "*",
     "react": ">=18",
     "react-dom": ">=18"

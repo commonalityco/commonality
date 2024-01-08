@@ -104,6 +104,5 @@ export {
   TooltipProvider,
 } from './tooltip';
 export { HoverCard, HoverCardTrigger, HoverCardContent } from './hover-card';
-export { Toaster } from './toaster';
-export { useToast } from './use-toast';
+export { Toaster, toast } from './toast';
 export { cn } from './cn';

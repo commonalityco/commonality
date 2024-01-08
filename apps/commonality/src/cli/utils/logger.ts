@@ -87,7 +87,7 @@ export class Logger {
 
   clearScreen() {
     const ESC = '\u001B[';
-    const ERASE_DOWN = `${ESC}J`;
+    const ERASE_DOWN = `${ESC}2J`;
     const CURSOR_TO_START = `${ESC}1;1H`;
 
     console.log(`${CURSOR_TO_START}${ERASE_DOWN}`);

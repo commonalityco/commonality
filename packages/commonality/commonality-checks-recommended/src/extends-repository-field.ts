@@ -73,6 +73,7 @@ const getExpectedProperties = async ({
 export const extendsRepositoryField = defineCheck(() => {
   return {
     name: 'commonality/extends-repository-field',
+    level: 'error',
     validate: async (context): Promise<boolean> => {
       const rootPackageJson = await json<PackageJson>(
         context.rootPackage.path,

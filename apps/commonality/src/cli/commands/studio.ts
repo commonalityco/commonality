@@ -14,19 +14,34 @@ import c from 'chalk';
 import { resolveModule } from 'local-pkg';
 import { isCI } from 'std-env';
 import prompts from 'prompts';
+import ora from 'ora';
 
 const command = new Command();
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
+const writeMissingDependency = (dependency: string) => {
+  process.stderr.write(
+    c.red(
+      `\n${c.inverse(
+        c.red(' MISSING DEPENDENCY '),
+      )} Cannot find dependency '${dependency}'\n\n`,
+    ),
+  );
+};
+
 export async function ensurePackageInstalled({
   dependency,
   root,
   forceInstall,
+  onInstall,
+  onPrompt,
 }: {
   forceInstall?: boolean;
   dependency: string;
   root: string;
+  onPrompt: () => void;
+  onInstall: () => void;
 }): Promise<string | undefined> {
   if (process.versions.pnp) {
     const targetRequire = createRequire(__dirname);
@@ -45,20 +60,24 @@ export async function ensurePackageInstalled({
 
   if (resolved) return resolved;
 
-  process.stderr.write(
-    c.red(
-      `${c.inverse(
-        c.red(' MISSING DEPENDENCY '),
-      )} Cannot find dependency '${dependency}'\n\n`,
-    ),
-  );
-
   const getShouldInstall = async () => {
-    if (forceInstall) return true;
+    if (forceInstall) {
+      writeMissingDependency(dependency);
 
-    if (isCI) return false;
+      return true;
+    }
+
+    if (isCI) {
+      writeMissingDependency(dependency);
+
+      return false;
+    }
 
     if (process.stdout.isTTY) {
+      onPrompt();
+
+      writeMissingDependency(dependency);
+
       const { install } = await prompts.prompt({
         type: 'confirm',
         name: 'install',
@@ -69,6 +88,8 @@ export async function ensurePackageInstalled({
 
       return install;
     } else {
+      writeMissingDependency(dependency);
+
       return false;
     }
   };
@@ -108,6 +129,8 @@ export async function ensurePackageInstalled({
 
 const DEPENDENCY_NAME = '@commonalityco/studio';
 
+const spinner = ora('Starting Commonality Studio...');
+
 export const studio = command
   .name('studio')
   .description('Open Commonality Studio')
@@ -120,7 +143,7 @@ export const studio = command
   )
   .action(
     async (options: { debug?: boolean; port?: string; install?: boolean }) => {
-      console.log(`📦 Starting Commonality Studio...\n`);
+      spinner.start();
 
       const preferredPort = Number(options.port);
       const debug = Boolean(options.debug);
@@ -137,6 +160,8 @@ export const studio = command
           dependency: DEPENDENCY_NAME,
           root: rootDirectory,
           forceInstall: options.install,
+          onInstall: () => spinner.stop(),
+          onPrompt: () => spinner.stop(),
         });
 
         if (!resolved) {
@@ -157,7 +182,7 @@ export const studio = command
 
         const handleExit = () => {
           kill();
-          console.log(chalk.green('\nSuccessfully exited Commonality Studio'));
+          console.log('\nSuccessfully exited Commonality Studio');
           process.exit();
         };
 
@@ -168,11 +193,13 @@ export const studio = command
 
         await waitOn({ resources: [url], timeout: 10_000 });
 
-        console.log(
-          `Viewable at: ${chalk.blue.bold(url)} ${chalk.dim(
-            '(press ctrl-c to quit)',
+        spinner.stopAndPersist({
+          prefixText: `\n  ${chalk.bold.underline(
+            'Welcome to Commonality Studio',
           )}`,
-        );
+          text: `\n\n  Viewable at: ${chalk.blue.bold(url)}`,
+          suffixText: chalk.dim('\n  (press ctrl-c to quit)'),
+        });
       } catch (error) {
         console.log(chalk.red('Failed to start Commonality Studio'));
 

@@ -8,6 +8,7 @@ import {
   setInitialElements,
   show,
   showAll,
+  isolate,
   showDependants,
   showDependencies,
 } from '@commonalityco/utils-constraints';
@@ -68,6 +69,7 @@ type Event =
   | { type: 'SHOW_DEPENDENCIES'; pkg: Package }
   | { type: 'HIDE_DEPENDENCIES'; pkg: Package }
   | { type: 'FOCUS'; selector: Filter }
+  | { type: 'ISOLATE'; selector: Filter }
   | { type: 'ZOOM_IN' }
   | { type: 'ZOOM_OUT' }
   | { type: 'FIT'; selector: Filter }
@@ -173,6 +175,11 @@ export const graphMachine = createMachine(
             target: 'updating',
             cond: 'hasInitialized',
             actions: ['focus', 'unselect'],
+          },
+          ISOLATE: {
+            target: 'updating',
+            cond: 'hasInitialized',
+            actions: ['isolate', 'unselect'],
           },
           SET_THEME: {
             target: 'updating',
@@ -436,6 +443,16 @@ export const graphMachine = createMachine(
           if (!context.traversalGraph) return [];
 
           return focus({
+            traversalGraph: context.traversalGraph,
+            selector: event.selector,
+          });
+        },
+      }),
+      isolate: assign({
+        elements: (context, event) => {
+          if (!context.traversalGraph) return [];
+
+          return isolate({
             traversalGraph: context.traversalGraph,
             selector: event.selector,
           });

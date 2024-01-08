@@ -25,7 +25,6 @@
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
-    "@commonalityco/ui-design-system": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@types/fs-extra": "^11.0.2",
     "@types/lodash-es": "^4.17.12",
@@ -36,7 +35,6 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@commonalityco/ui-design-system": "*",
     "@commonalityco/utils-core": "*",
     "react": ">=18",
     "react-dom": ">=18"

@@ -14,7 +14,7 @@
     "./cn": "./dist/cn.js",
     "./tooltip": "./dist/tooltip.js",
     "./button": "./dist/button.js",
-    "./toaster": "./dist/toaster.js",
+    "./toast": "./dist/toast.js",
     "./dropdown-menu": "./dist/dropdown-menu.js"
   },
   "files": [
@@ -42,6 +42,7 @@
     "cmdk": "^0.2.0",
     "react-hook-form": "^7.46.1",
     "react-select": "^5.7.5",
+    "sonner": "^1.3.1",
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {

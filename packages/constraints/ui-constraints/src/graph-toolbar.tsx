@@ -20,10 +20,10 @@ export function GraphToolbar({
   onFit = () => {},
 }: GraphToolbarProperties) {
   return (
-    <div className="flex w-full px-3 pt-3">
+    <div className="absolute top-0 left-0 right-0 z-20 flex w-full px-3 pt-3">
       <div className="grow" />
-      <div className="flex items-center gap-1">
-        <div className="flex gap-1">
+      <div className="flex items-center gap-1 ">
+        <div className="flex gap-1 shadow-interactive">
           <TooltipProvider>
             <Tooltip delayDuration={200}>
               <TooltipTrigger asChild>

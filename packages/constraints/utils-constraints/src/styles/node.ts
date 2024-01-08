@@ -1,7 +1,7 @@
 import { Stylesheet } from 'cytoscape';
 
 export const fontSize = 24;
-export const fontFamily = 'Fira Code';
+export const fontFamily = 'Fira Code, monospace';
 export const fontWeight = 600;
 
 export const nodeStyles: Stylesheet[] = [

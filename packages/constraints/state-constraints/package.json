@@ -22,18 +22,16 @@
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
-    "@commonalityco/ui-core": "workspace:*",
-    "@commonalityco/ui-design-system": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-package": "workspace:*",
+    "@floating-ui/react": "^0.26.3",
     "@types/cytoscape": "^3.19.16",
     "@types/lodash": "^4.14.198",
     "cytoscape": "^3.26.0",
     "eslint-config-commonality": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^5.2.2",
-    "@floating-ui/react": "^0.26.3"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "@commonalityco/utils-constraints": "workspace:*",

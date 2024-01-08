@@ -43,7 +43,7 @@ export function ActionButton({
         <EditTagsDialogContent
           tags={tags}
           existingTags={existingTags}
-          packageName={pkg.name}
+          pkg={pkg}
           onEdit={() => setOpen(false)}
         />
       </EditTagsDialog>
@@ -81,7 +81,7 @@ export function StudioTagsCell<T extends ColumnData>({
         <EditTagsDialogContent
           tags={tags}
           existingTags={data.tags}
-          packageName={data.package.name}
+          pkg={data.package}
           onEdit={() => setOpen(false)}
         />
       </EditTagsDialog>

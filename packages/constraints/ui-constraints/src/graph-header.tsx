@@ -5,10 +5,19 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
   cn,
+  ScrollArea,
 } from '@commonalityco/ui-design-system';
 import { Check, ChevronDown, X } from 'lucide-react';
 import { ConstraintResults } from '.';
+import { GradientFade } from '@commonalityco/ui-core';
+import { useState } from 'react';
+import { ConstraintsDialogContent } from './constraints-dialog-content';
 
 function GraphHeader({
   totalCount,
@@ -21,6 +30,7 @@ function GraphHeader({
   results: ConstraintResult[];
   children?: React.ReactNode;
 }) {
+  const [open, setOpen] = useState(false);
   const failCount = results.filter((result) => !result.isValid).length;
   const passCount = results.filter((result) => result.isValid).length;
 
@@ -62,20 +72,16 @@ function GraphHeader({
             {` passed`}
           </p>
         </div>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="secondary" className="flex gap-2">
-              View all constraints
-              <ChevronDown className="h-4 w-4" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent
-            align="end"
-            className="max-h-[500px] w-[500px] overflow-auto"
-          >
-            <ConstraintResults results={results} />
-          </PopoverContent>
-        </Popover>
+
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Button variant="secondary">View all constraints</Button>
+          </DialogTrigger>
+          <ConstraintsDialogContent
+            results={results}
+            onClose={() => setOpen(false)}
+          />
+        </Dialog>
         {children}
       </div>
     </div>
