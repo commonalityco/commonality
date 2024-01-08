@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.37
+
+### Patch Changes
+
+- cd668c3: Include updates to upstream packages
+
 ## 0.2.36
 
 ### Patch Changes
