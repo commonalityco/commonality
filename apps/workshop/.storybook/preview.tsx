@@ -1,7 +1,7 @@
 import React from 'react';
 import { Preview } from '@storybook/react';
 import { withThemeByDataAttribute } from '@storybook/addon-styling';
-import '@commonalityco/config-tailwind/globals.css';
+import './globals.css';
 
 const preview: Preview = {
   decorators: [

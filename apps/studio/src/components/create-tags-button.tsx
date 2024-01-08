@@ -6,7 +6,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  useToast,
+  toast,
 } from '@commonalityco/ui-design-system';
 import { formatTagName } from '@commonalityco/utils-core';
 import { Package, TagsData } from '@commonalityco/types';
@@ -21,16 +21,11 @@ export function CreateTagsButton({
   pkg: Package;
   tagsData: TagsData[];
 }) {
-  const { toast } = useToast();
+  const onSetTags = async (tags: string[]) => {
+    const configPath = await setTagsAction({ pkg, tags });
 
-  const onSetTags = async (options: {
-    packageName: string;
-    tags: string[];
-  }) => {
-    await setTagsAction(options);
-
-    toast({
-      description: 'Successfully updated package configuration',
+    toast.success('Tags updated', {
+      description: configPath,
     });
   };
 
@@ -103,7 +98,7 @@ export function CreateTagsButton({
           value={value}
           onChange={(options) => {
             const tags = options.map((opt) => opt.value);
-            onSetTags({ packageName: pkg.name, tags });
+            onSetTags(tags);
           }}
           options={allTags.map((tag) => ({
             label: formatTagName(tag),

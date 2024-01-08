@@ -22,8 +22,6 @@
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
-    "@commonalityco/ui-core": "workspace:*",
-    "@commonalityco/ui-design-system": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-package": "workspace:*",
     "@floating-ui/react": "^0.26.3",

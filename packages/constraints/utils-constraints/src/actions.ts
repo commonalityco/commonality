@@ -104,6 +104,25 @@ export const focus = withSerialization(
   }) => {
     // eslint-disable-next-line unicorn/no-array-callback-reference
     const matchingNodes = traversalGraph.nodes().filter(selector);
+    const edgesToRender = matchingNodes.add(matchingNodes.neighborhood());
+
+    return traversalGraph
+      .collection()
+      .union(matchingNodes)
+      .union(edgesToRender);
+  },
+);
+
+export const isolate = withSerialization(
+  ({
+    traversalGraph,
+    selector,
+  }: {
+    traversalGraph: Core;
+    selector: Filter;
+  }) => {
+    // eslint-disable-next-line unicorn/no-array-callback-reference
+    const matchingNodes = traversalGraph.nodes().filter(selector);
     const edgesToRender = matchingNodes.edgesTo(matchingNodes);
 
     return traversalGraph

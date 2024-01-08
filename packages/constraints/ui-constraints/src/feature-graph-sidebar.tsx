@@ -74,7 +74,7 @@ export function FeatureGraphSidebar({
       }
       onTagFocus={(tag) =>
         send({
-          type: 'FOCUS',
+          type: 'ISOLATE',
           selector: (element) => {
             if (element.isEdge()) {
               return false;
@@ -117,7 +117,7 @@ export function FeatureGraphSidebar({
       }}
       onTeamFocus={(team) =>
         send({
-          type: 'FOCUS',
+          type: 'ISOLATE',
           selector: (element) => {
             if (element.isEdge()) {
               return false;

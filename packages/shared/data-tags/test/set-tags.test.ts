@@ -4,6 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { setTags } from '../src/set-tags';
 import { fileURLToPath } from 'node:url';
+import { PackageType } from '@commonalityco/utils-core';
 
 describe('setTags', () => {
   describe('when setting tags for a package with no configuration file', () => {
@@ -25,7 +26,12 @@ describe('setTags', () => {
     test('creates the configuration file', async () => {
       await setTags({
         rootDirectory: temporaryPath,
-        packageName: 'pkg-one',
+        pkg: {
+          name: 'pkg-one',
+          path: './packages/pkg-one',
+          type: PackageType.NEXT,
+          version: '1.0.0',
+        },
         tags: ['tag-one'],
       });
 
@@ -36,14 +42,21 @@ describe('setTags', () => {
       expect(isFileCreated).toEqual(true);
     });
 
-    test('returns the correct tags', async () => {
+    test('returns the path to the updated config file', async () => {
       const newTags = await setTags({
         rootDirectory: temporaryPath,
-        packageName: 'pkg-one',
+        pkg: {
+          name: 'pkg-one',
+          path: './packages/pkg-one',
+          type: PackageType.NEXT,
+          version: '1.0.0',
+        },
         tags: ['tag-one'],
       });
 
-      expect(newTags).toEqual(['tag-one']);
+      expect(newTags).toEqual(
+        `${temporaryPath}/packages/pkg-one/commonality.json`,
+      );
     });
   });
 
@@ -66,7 +79,12 @@ describe('setTags', () => {
     test('sets the new tags within the configuration file', async () => {
       await setTags({
         rootDirectory: temporaryPath,
-        packageName: 'pkg-one',
+        pkg: {
+          name: 'pkg-one',
+          path: './packages/pkg-one',
+          type: PackageType.NEXT,
+          version: '1.0.0',
+        },
         tags: ['tag-one', 'new-tag'],
       });
 

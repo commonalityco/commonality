@@ -1,0 +1,15 @@
+@import '@commonalityco/config-tailwind/globals.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-sm bg-background text-foreground;
+  }
+
+  * {
+    @apply border-border;
+  }
+}

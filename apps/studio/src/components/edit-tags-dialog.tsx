@@ -9,11 +9,11 @@ import {
   DialogTitle,
   FormField,
   FormItem,
-  FormLabel,
   FormControl,
   FormMessage,
   Form,
   DialogDescription,
+  toast,
 } from '@commonalityco/ui-design-system';
 import { formatTagName } from '@commonalityco/utils-core';
 import React, { ComponentProps, useTransition } from 'react';
@@ -21,18 +21,19 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { setTagsAction } from '@/actions/metadata';
+import { Package } from '@commonalityco/types';
 
 const formSchema = z.object({
   tags: z.array(z.object({ label: z.string(), value: z.string() })),
 });
 
 export function EditTagsDialogContent({
-  packageName,
+  pkg,
   tags,
   existingTags,
   onEdit,
 }: {
-  packageName: string;
+  pkg: Package;
   tags: string[];
   existingTags: string[];
   onEdit?: () => void;
@@ -52,8 +53,12 @@ export function EditTagsDialogContent({
     const newTags = values.tags.map((item) => item.value);
 
     startTransition(async () => {
-      await setTagsAction({ packageName, tags: newTags });
+      const configPath = await setTagsAction({ pkg, tags: newTags });
       onEdit?.();
+
+      toast.success('Tags updated', {
+        description: configPath,
+      });
     });
   }
 
@@ -68,8 +73,8 @@ export function EditTagsDialogContent({
               commonality.json
             </span>
             file for{' '}
-            <span className="text-foreground font-medium">{packageName}</span>{' '}
-            with the tags you select.
+            <span className="text-foreground font-medium">{pkg.name}</span> with
+            the tags you select.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

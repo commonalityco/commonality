@@ -32,7 +32,7 @@ function StudioGraphOverlays({ tagsData }: { tagsData: TagsData[] }) {
       >
         {packageToEdit ? (
           <EditTagsDialogContent
-            packageName={packageToEdit.name}
+            pkg={packageToEdit}
             existingTags={tagsForPackage}
             tags={uniqueTags}
             onEdit={() => setPackageToEdit(null)}

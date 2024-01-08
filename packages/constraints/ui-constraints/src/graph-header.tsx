@@ -5,10 +5,18 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
   cn,
+  ScrollArea,
 } from '@commonalityco/ui-design-system';
 import { Check, ChevronDown, X } from 'lucide-react';
 import { ConstraintResults } from '.';
+import { GradientFade } from '@commonalityco/ui-core';
+import { useState } from 'react';
 
 function GraphHeader({
   totalCount,
@@ -21,6 +29,7 @@ function GraphHeader({
   results: ConstraintResult[];
   children?: React.ReactNode;
 }) {
+  const [open, setOpen] = useState(false);
   const failCount = results.filter((result) => !result.isValid).length;
   const passCount = results.filter((result) => result.isValid).length;
 
@@ -62,20 +71,32 @@ function GraphHeader({
             {` passed`}
           </p>
         </div>
-        <Popover>
-          <PopoverTrigger asChild>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
             <Button variant="secondary" className="flex gap-2">
               View all constraints
               <ChevronDown className="h-4 w-4" />
             </Button>
-          </PopoverTrigger>
-          <PopoverContent
-            align="end"
-            className="max-h-[500px] w-[500px] overflow-auto"
-          >
-            <ConstraintResults results={results} />
-          </PopoverContent>
-        </Popover>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>All constraints</DialogTitle>
+            </DialogHeader>
+            <ScrollArea className="max-h-[500px] pt-2">
+              <ConstraintResults results={results} />
+              <GradientFade placement="bottom" />
+            </ScrollArea>
+            <div>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => setOpen(false)}
+              >
+                Close
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
         {children}
       </div>
     </div>

@@ -49,7 +49,7 @@ function ShowHideButton({
       })}
     >
       <TooltipProvider>
-        <Tooltip delayDuration={200}>
+        <Tooltip>
           <TooltipTrigger asChild>
             <Button
               variant="ghost"
@@ -84,7 +84,7 @@ function FocusButton({
 }) {
   return (
     <TooltipProvider>
-      <Tooltip delayDuration={200}>
+      <Tooltip>
         <TooltipTrigger asChild>
           <Button
             onClick={onClick}
@@ -196,7 +196,7 @@ function PackagesFilterSection({
                         onShow={() => onShow(package_.name)}
                       />
                       <FocusButton onClick={() => onFocus(package_.name)}>
-                        Only show this package
+                        Focus
                       </FocusButton>
                     </div>
                   </div>
@@ -322,7 +322,7 @@ function TagsFilterSection({
                       onHide={() => onHide(tag)}
                     />
                     <FocusButton onClick={() => onFocus(tag)}>
-                      Only show packages with this tag
+                      Focus
                     </FocusButton>
                   </div>
                 </div>
@@ -447,7 +447,7 @@ function CodeownersFilterSection({
                     </div>
                     <div className="shrink-0">
                       <FocusButton onClick={() => onFocus(owner)}>
-                        Only show packages with this codeowner
+                        Focus
                       </FocusButton>
                     </div>
                   </div>

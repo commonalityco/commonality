@@ -1,6 +1,12 @@
 'use client';
-import { Toaster } from '@commonalityco/ui-design-system/toaster';
-import { ThemeProvider } from 'next-themes';
+import { Toaster } from '@commonalityco/ui-design-system/toast';
+import { ThemeProvider, useTheme } from 'next-themes';
+
+function ToasterWithTheme() {
+  const { theme } = useTheme();
+
+  return <Toaster theme={theme as 'light' | 'dark' | 'system' | undefined} />;
+}
 
 export function Providers({
   children,
@@ -12,7 +18,7 @@ export function Providers({
   return (
     <ThemeProvider attribute="class" defaultTheme={defaultTheme}>
       {children}
-      <Toaster />
+      <ToasterWithTheme />
     </ThemeProvider>
   );
 }

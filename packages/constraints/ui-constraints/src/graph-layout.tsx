@@ -44,7 +44,7 @@ export function GraphLayoutMain({
     <div className="align-stretch flex h-full grow pb-4 w-full overflow-hidden">
       <div
         className={cn(
-          'flex h-full w-full flex-col rounded-lg border overflow-hidden bg-interactive',
+          'flex h-full w-full flex-col rounded-lg border overflow-hidden bg-interactive relative',
           className,
         )}
         id="graph-layout-root"

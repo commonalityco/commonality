@@ -1,61 +1,34 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import { PackageConfig, PackageJson } from '@commonalityco/types';
-import { uniq } from 'lodash-es';
-import { getPackageDirectories } from '@commonalityco/data-project/get-package-directories';
-import { getWorkspaceGlobs } from '@commonalityco/data-project/get-workspace-globs';
-import { getPackageManager } from '@commonalityco/data-project/get-package-manager';
+import { Package, PackageConfig } from '@commonalityco/types';
 
 export const setTags = async ({
-  packageName,
   tags,
+  pkg,
   rootDirectory,
 }: {
-  packageName: string;
-  tags: string[];
   rootDirectory: string;
-}): Promise<string[]> => {
-  const packageManager = await getPackageManager({ rootDirectory });
-  const workspaceGlobs = await getWorkspaceGlobs({
+  tags: string[];
+  pkg: Package;
+}): Promise<string> => {
+  const packageConfigPath = path.join(
     rootDirectory,
-    packageManager,
-  });
-  const packageDirectories = await getPackageDirectories({
-    workspaceGlobs,
-    rootDirectory,
-  });
+    pkg.path,
+    'commonality.json',
+  );
 
-  //  TODO: Looping through every package and reading it is expensive, update this to be a mapping of directory to package.json contents.
-  for (const directory of packageDirectories) {
-    const packageJsonPath = path.join(rootDirectory, directory, 'package.json');
+  const packageConfigExists = await fs.pathExists(packageConfigPath);
 
-    if (!fs.existsSync(packageJsonPath)) {
-      continue;
-    }
-
-    const packageJson = fs.readJSONSync(packageJsonPath) as PackageJson;
-
-    if (packageJson.name !== packageName) {
-      continue;
-    }
-
-    const packageConfigPath = path.join(
-      rootDirectory,
-      directory,
-      'commonality.json',
-    );
-
-    if (!fs.existsSync(packageConfigPath)) {
-      await fs.writeJSON(packageConfigPath, {});
-    }
-
-    const packageConfig = fs.readJSONSync(packageConfigPath) as PackageConfig;
-
-    fs.writeJSONSync(packageConfigPath, {
-      ...packageConfig,
-      tags: [...new Set(tags)],
-    });
+  if (!packageConfigExists) {
+    await fs.writeJSON(packageConfigPath, {});
   }
 
-  return uniq(tags);
+  const packageConfig = fs.readJSONSync(packageConfigPath) as PackageConfig;
+
+  fs.writeJSONSync(packageConfigPath, {
+    ...packageConfig,
+    tags: [...new Set(tags)],
+  });
+
+  return packageConfigPath;
 };
