@@ -17,6 +17,7 @@ import { Check, ChevronDown, X } from 'lucide-react';
 import { ConstraintResults } from '.';
 import { GradientFade } from '@commonalityco/ui-core';
 import { useState } from 'react';
+import { ConstraintsDialogContent } from './constraints-dialog-content';
 
 function GraphHeader({
   totalCount,
@@ -71,31 +72,15 @@ function GraphHeader({
             {` passed`}
           </p>
         </div>
+
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button variant="secondary" className="flex gap-2">
-              View all constraints
-              <ChevronDown className="h-4 w-4" />
-            </Button>
+            <Button variant="secondary">View all constraints</Button>
           </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>All constraints</DialogTitle>
-            </DialogHeader>
-            <ScrollArea className="max-h-[500px] pt-2">
-              <ConstraintResults results={results} />
-              <GradientFade placement="bottom" />
-            </ScrollArea>
-            <div>
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={() => setOpen(false)}
-              >
-                Close
-              </Button>
-            </div>
-          </DialogContent>
+          <ConstraintsDialogContent
+            results={results}
+            onClose={() => setOpen(false)}
+          />
         </Dialog>
         {children}
       </div>
