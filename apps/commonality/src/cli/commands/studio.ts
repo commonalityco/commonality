@@ -20,14 +20,28 @@ const command = new Command();
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
+const writeMissingDependency = (dependency: string) => {
+  process.stderr.write(
+    c.red(
+      `\n${c.inverse(
+        c.red(' MISSING DEPENDENCY '),
+      )} Cannot find dependency '${dependency}'\n\n`,
+    ),
+  );
+};
+
 export async function ensurePackageInstalled({
   dependency,
   root,
   forceInstall,
+  onInstall,
+  onPrompt,
 }: {
   forceInstall?: boolean;
   dependency: string;
   root: string;
+  onPrompt: () => void;
+  onInstall: () => void;
 }): Promise<string | undefined> {
   if (process.versions.pnp) {
     const targetRequire = createRequire(__dirname);
@@ -46,20 +60,20 @@ export async function ensurePackageInstalled({
 
   if (resolved) return resolved;
 
-  process.stderr.write(
-    c.red(
-      `${c.inverse(
-        c.red(' MISSING DEPENDENCY '),
-      )} Cannot find dependency '${dependency}'\n\n`,
-    ),
-  );
-
   const getShouldInstall = async () => {
     if (forceInstall) return true;
 
-    if (isCI) return false;
+    if (isCI) {
+      writeMissingDependency(dependency);
+
+      return false;
+    }
 
     if (process.stdout.isTTY) {
+      onPrompt();
+
+      writeMissingDependency(dependency);
+
       const { install } = await prompts.prompt({
         type: 'confirm',
         name: 'install',
@@ -70,6 +84,8 @@ export async function ensurePackageInstalled({
 
       return install;
     } else {
+      writeMissingDependency(dependency);
+
       return false;
     }
   };
@@ -140,6 +156,8 @@ export const studio = command
           dependency: DEPENDENCY_NAME,
           root: rootDirectory,
           forceInstall: options.install,
+          onInstall: () => spinner.stop(),
+          onPrompt: () => spinner.stop(),
         });
 
         if (!resolved) {
