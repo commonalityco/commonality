@@ -14,6 +14,7 @@ import c from 'chalk';
 import { resolveModule } from 'local-pkg';
 import { isCI } from 'std-env';
 import prompts from 'prompts';
+import ora from 'ora';
 
 const command = new Command();
 
@@ -108,6 +109,8 @@ export async function ensurePackageInstalled({
 
 const DEPENDENCY_NAME = '@commonalityco/studio';
 
+const spinner = ora('Starting Commonality Studio...');
+
 export const studio = command
   .name('studio')
   .description('Open Commonality Studio')
@@ -120,7 +123,7 @@ export const studio = command
   )
   .action(
     async (options: { debug?: boolean; port?: string; install?: boolean }) => {
-      console.log(`📦 Starting Commonality Studio...\n`);
+      spinner.start();
 
       const preferredPort = Number(options.port);
       const debug = Boolean(options.debug);
@@ -157,7 +160,7 @@ export const studio = command
 
         const handleExit = () => {
           kill();
-          console.log(chalk.green('\nSuccessfully exited Commonality Studio'));
+          console.log('\nSuccessfully exited Commonality Studio');
           process.exit();
         };
 
@@ -168,11 +171,13 @@ export const studio = command
 
         await waitOn({ resources: [url], timeout: 10_000 });
 
-        console.log(
-          `Viewable at: ${chalk.blue.bold(url)} ${chalk.dim(
-            '(press ctrl-c to quit)',
+        spinner.stopAndPersist({
+          prefixText: `\n  ${chalk.bold.underline(
+            'Welcome to Commonality Studio',
           )}`,
-        );
+          text: `\n\n  Viewable at: ${chalk.blue.bold(url)}`,
+          suffixText: chalk.dim('\n  (press ctrl-c to quit)'),
+        });
       } catch (error) {
         console.log(chalk.red('Failed to start Commonality Studio'));
 
