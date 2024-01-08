@@ -1,5 +1,11 @@
 # eslint-config-commonality
 
+## 0.0.11
+
+### Patch Changes
+
+- 3f1e821: Improve tag editing and constraints UX in Commonality Studio
+
 ## 0.0.10
 
 ### Patch Changes
