@@ -1,5 +1,14 @@
 # @commonalityco/constraints
 
+## 0.2.36
+
+### Patch Changes
+
+- 3f1e821: Improve tag editing and constraints UX in Commonality Studio
+- Updated dependencies [3f1e821]
+  - @commonalityco/data-project@0.2.36
+  - @commonalityco/utils-core@0.2.36
+
 ## 0.0.19
 
 ### Patch Changes
