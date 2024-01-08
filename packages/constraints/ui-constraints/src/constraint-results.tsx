@@ -270,9 +270,7 @@ export function ConstraintResults({
     return <ConstraintOnboardingCard />;
   }
 
-  const resultsByPackageName = useMemo<
-    Record<string, ConstraintResult[]>
-  >(() => {
+  const resultsByPackageName = useMemo(() => {
     const resultsMap: Record<string, ConstraintResult[]> = {};
 
     for (const result of results) {
@@ -292,134 +290,84 @@ export function ConstraintResults({
   return (
     <div className="grid gap-6 w-full">
       {Object.entries(resultsByPackageName).map(
-        ([packageName, resultsForPackage]) => (
-          <PackageResults
-            key={packageName}
-            packageName={packageName}
-            resultsForPackage={resultsForPackage}
-          >
-            {(resultsUniqueByDependencyPath) => {
-              return resultsUniqueByDependencyPath.map(
-                (resultForDependencyPath) => {
-                  return (
-                    <DependencyPathResults
-                      result={resultForDependencyPath}
-                      resultsForPackage={resultsForPackage}
-                    >
-                      {(resultsByFilter) => {
-                        return Object.entries(resultsByFilter).map(
-                          ([filter, results]) => {
-                            return (
-                              <FilterResults
-                                filter={filter}
-                                results={results}
-                              />
-                            );
-                          },
-                        );
-                      }}
-                    </DependencyPathResults>
-                  );
-                },
-              );
-            }}
-          </PackageResults>
-        ),
+        ([packageName, resultsForPackage]) => {
+          if (resultsForPackage.length === 0) {
+            return <p>No results</p>;
+          }
+
+          const resultsUniqueByDependencyPath = uniqBy(
+            resultsForPackage,
+            (result) => JSON.stringify(result.dependencyPath),
+          );
+
+          return (
+            <div key={packageName} className="grid relative">
+              <div className="sticky top-0 z-10">
+                <p className="font-medium text-base bg-background">
+                  {packageName}
+                </p>
+                <GradientFade placement="top" className="h-2" />
+              </div>
+              <div className="grid">
+                {resultsUniqueByDependencyPath.map(
+                  (resultForDependencyPath) => {
+                    const value = JSON.stringify(
+                      resultForDependencyPath.dependencyPath,
+                    );
+                    const allResultsForDependencyPath =
+                      resultsForPackage.filter((result) =>
+                        isEqual(
+                          result.dependencyPath,
+                          resultForDependencyPath.dependencyPath,
+                        ),
+                      );
+
+                    const resultsByFilter: Record<string, ConstraintResult[]> =
+                      {};
+                    for (const result of allResultsForDependencyPath) {
+                      const filter = result.filter;
+                      if (!resultsByFilter[filter]) {
+                        resultsByFilter[filter] = [];
+                      }
+                      resultsByFilter[filter].push(result);
+                    }
+
+                    return (
+                      <Accordion type="multiple" key={value}>
+                        <AccordionItem value={value}>
+                          <AccordionTrigger>
+                            <ConstraintTitle result={resultForDependencyPath} />
+                          </AccordionTrigger>
+                          <AccordionContent>
+                            <div className="grid gap-8">
+                              {Object.entries(resultsByFilter).map(
+                                ([filter, results]) => {
+                                  return (
+                                    <div key={filter} className="grid gap-2">
+                                      {results.map((result) => (
+                                        <ConstraintContent
+                                          result={result}
+                                          key={JSON.stringify(
+                                            result.dependencyPath,
+                                          )}
+                                        />
+                                      ))}
+                                    </div>
+                                  );
+                                },
+                              )}
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
+                    );
+                  },
+                )}
+              </div>
+            </div>
+          );
+        },
       )}
-    </div>
-  );
-}
-
-function PackageResults({
-  packageName,
-  resultsForPackage,
-  children,
-}: {
-  packageName: string;
-  resultsForPackage: ConstraintResult[];
-  children: (
-    resultsUniqueByDependencyPath: ConstraintResult[],
-  ) => React.ReactNode;
-}) {
-  if (resultsForPackage.length === 0) {
-    return <p>No results</p>;
-  }
-
-  const resultsUniqueByDependencyPath = useMemo(() => {
-    return uniqBy(resultsForPackage, (result) =>
-      JSON.stringify(result.dependencyPath),
-    );
-  }, [resultsForPackage]);
-
-  return (
-    <div className="grid relative">
-      <div className="sticky top-0 z-10">
-        <p className="font-medium text-base bg-background">{packageName}</p>
-        <GradientFade placement="top" className="h-2" />
-      </div>
-      <div className="grid">{children(resultsUniqueByDependencyPath)}</div>
-    </div>
-  );
-}
-
-function DependencyPathResults({
-  result,
-  resultsForPackage,
-  children,
-}: {
-  result: ConstraintResult;
-  resultsForPackage: ConstraintResult[];
-  children: (
-    resultsByFilter: Record<string, ConstraintResult[]>,
-  ) => React.ReactNode;
-}) {
-  const value = JSON.stringify(result.dependencyPath);
-  const allResultsForDependencyPath = resultsForPackage.filter((result) =>
-    isEqual(result.dependencyPath, result.dependencyPath),
-  );
-
-  const resultsByFilter = useMemo(() => {
-    const resultsByFilter: Record<string, ConstraintResult[]> = {};
-    for (const result of allResultsForDependencyPath) {
-      const filter = result.filter;
-      if (!resultsByFilter[filter]) {
-        resultsByFilter[filter] = [];
-      }
-      resultsByFilter[filter].push(result);
-    }
-
-    return resultsByFilter;
-  }, []);
-
-  return (
-    <Accordion type="multiple" key={value}>
-      <AccordionItem value={value}>
-        <AccordionTrigger>
-          <ConstraintTitle result={result} />
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className="grid gap-8">{children(resultsByFilter)}</div>
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  );
-}
-
-function FilterResults({
-  filter,
-  results,
-}: {
-  filter: string;
-  results: ConstraintResult[];
-}) {
-  return (
-    <div key={filter} className="grid gap-2">
-      {results.map((result) => (
-        <ConstraintContent
-          key={JSON.stringify(result.dependencyPath)}
-          result={result}
-        />
-      ))}
     </div>
   );
 }
