@@ -1,5 +1,13 @@
 # @commonalityco/ui-core
 
+## 0.2.37
+
+### Patch Changes
+
+- 4661b6b: Display dependency constraints in searchable modal
+- Updated dependencies [4661b6b]
+  - @commonalityco/ui-design-system@0.2.37
+
 ## 0.2.36
 
 ### Patch Changes

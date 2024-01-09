@@ -2,7 +2,7 @@
   "name": "@commonalityco/ui-core",
   "description": "Presentational components used to build Commonality applications",
   "type": "module",
-  "version": "0.2.36",
+  "version": "0.2.37",
   "publishConfig": {
     "access": "public"
   },
