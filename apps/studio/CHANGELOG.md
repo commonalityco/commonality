@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.38
+
+### Patch Changes
+
+- 4661b6b: Display dependency constraints in searchable modal
+
 ## 0.2.37
 
 ### Patch Changes
