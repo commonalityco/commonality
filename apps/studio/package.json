@@ -31,7 +31,7 @@
   "dependencies": {
     "chokidar": "^3.5.3",
     "execa": "^7.2.0",
-    "next": "14.0.1",
+    "next": "14.0.4",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
     "wait-on": "^7.2.0"

@@ -24,7 +24,7 @@
     "@types/react": "^18.2.22",
     "eslint-config-commonality": "workspace:*",
     "lucide-react": "^0.299.0",
-    "next": "14.0.1",
+    "next": "14.0.4",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -35,7 +35,7 @@
   "peerDependencies": {
     "@commonalityco/ui-design-system": "*",
     "lucide-react": "^0.x",
-    "next": "14.0.1",
+    "next": "14.0.4",
     "next-themes": "^0.x",
     "react": ">=18",
     "react-dom": ">=18"
