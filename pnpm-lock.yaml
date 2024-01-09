@@ -766,6 +766,9 @@ importers:
       '@commonalityco/types':
         specifier: workspace:*
         version: link:../../shared/types
+      '@commonalityco/ui-core':
+        specifier: workspace:*
+        version: link:../../shared/ui-core
       '@commonalityco/ui-design-system':
         specifier: workspace:*
         version: link:../../shared/ui-design-system

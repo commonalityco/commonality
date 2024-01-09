@@ -10,11 +10,9 @@ import {
 import { Status, formatTagName } from '@commonalityco/utils-core';
 import { AlertTriangle, Check, X } from 'lucide-react';
 import { Fragment, useMemo } from 'react';
-import {
-  getStatusForResults,
-  ConformanceResult,
-} from '@commonalityco/utils-conformance';
+import { ConformanceResult } from '@commonalityco/utils-conformance';
 import { ConformanceOnboardingCard } from './conformance-onboarding-card';
+import { GradientFade } from '@commonalityco/ui-core';
 
 export function CheckTitle({ result }: { result: ConformanceResult }) {
   const getStatusText = () => {
@@ -47,7 +45,7 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
     <div className="flex items-center overflow-hidden w-full">
       <div className="grid gap-4 grid-cols-[minmax(0,max-content)_1fr] text-left items-start">
         <div className="flex gap-1 items-center">{getStatusText()}</div>
-        <div className="text-left grow shrink basis-auto min-w-0 max-w-full">
+        <div className="text-left grow shrink basis-auto min-w-0 max-w-full truncate">
           {result.message.title}
         </div>
       </div>
@@ -196,62 +194,40 @@ export function ConformanceResults({
   }, [results]);
 
   return (
-    <div className="grid gap-6 overflow-hidden">
+    <div className="grid gap-4">
       {Object.entries(resultsByPackageName).map(
         ([packageName, resultsForPackage]) => {
           if (resultsForPackage.length === 0) {
             return <p>No checks for package</p>;
           }
 
-          const resultsForPackageByFilter: Record<string, ConformanceResult[]> =
-            {};
-          for (const result of resultsForPackage) {
-            const filter = result.filter;
-            const existingResultsForFilter = resultsForPackageByFilter[filter];
-
-            if (existingResultsForFilter) {
-              existingResultsForFilter.push(result);
-            } else {
-              resultsForPackageByFilter[filter] = [result];
-            }
-          }
-
           return (
-            <div key={packageName} className="grid gap-2">
-              <p className="font-medium text-base">{packageName}</p>
-              <div className="grid gap-4">
-                {Object.entries(resultsForPackageByFilter).map(
-                  ([filter, resultsForFilter]) => {
-                    const status = getStatusForResults(resultsForFilter);
-
-                    return (
-                      <Accordion
-                        type="multiple"
-                        key={filter}
-                        className="w-full overflow-hidden"
-                      >
-                        <FilterTitle filter={filter} status={status} />
-                        {resultsForFilter.map((result, index) => {
-                          const value = `${result.name}-${index}`;
-
-                          return (
-                            <Fragment key={value}>
-                              <AccordionItem value={value}>
-                                <AccordionTrigger>
-                                  <CheckTitle result={result} />
-                                </AccordionTrigger>
-                                <AccordionContent>
-                                  <CheckContent result={result} />
-                                </AccordionContent>
-                              </AccordionItem>
-                            </Fragment>
-                          );
-                        })}
-                      </Accordion>
-                    );
-                  },
-                )}
+            <div key={packageName} className="grid relative">
+              <div className="sticky top-0 z-10">
+                <p className="font-medium text-base bg-background truncate">
+                  {packageName}
+                </p>
+                <GradientFade placement="top" className="h-2" />
               </div>
+
+              <Accordion type="multiple" className="w-full overflow-hidden">
+                {resultsForPackage.map((result, index) => {
+                  const value = `${result.name}-${index}`;
+
+                  return (
+                    <Fragment key={value}>
+                      <AccordionItem value={value}>
+                        <AccordionTrigger>
+                          <CheckTitle result={result} />
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <CheckContent result={result} />
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Fragment>
+                  );
+                })}
+              </Accordion>
             </div>
           );
         },

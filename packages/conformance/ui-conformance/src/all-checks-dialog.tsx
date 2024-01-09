@@ -12,6 +12,7 @@ import {
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 import { ComponentProps } from 'react';
 import { ConformanceResults } from './conformance-results-list';
+import { GradientFade } from '@commonalityco/ui-core';
 
 export function AllChecksDialog({
   results,
@@ -30,6 +31,7 @@ export function AllChecksDialog({
         </DialogHeader>
         <ScrollArea className="max-h-[400px] py-2 relative">
           <ConformanceResults results={results} />
+          <GradientFade placement="bottom" />
         </ScrollArea>
         <DialogFooter>
           <Button
