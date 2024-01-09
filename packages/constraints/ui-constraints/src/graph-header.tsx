@@ -2,22 +2,13 @@ import { ConstraintResult } from '@commonalityco/types';
 import {
   Badge,
   Button,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
   Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
   cn,
-  ScrollArea,
 } from '@commonalityco/ui-design-system';
-import { Check, ChevronDown, X } from 'lucide-react';
-import { ConstraintResults } from '.';
-import { GradientFade } from '@commonalityco/ui-core';
+import { Check, X } from 'lucide-react';
 import { useState } from 'react';
-import { ConstraintsDialogContent } from './constraints-dialog-content';
+import { AllConstraintsDialog } from './all-constraints-dialog';
 
 function GraphHeader({
   totalCount,
@@ -73,15 +64,11 @@ function GraphHeader({
           </p>
         </div>
 
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button variant="secondary">View all constraints</Button>
-          </DialogTrigger>
-          <ConstraintsDialogContent
-            results={results}
-            onClose={() => setOpen(false)}
-          />
-        </Dialog>
+        <AllConstraintsDialog
+          results={results}
+          onOpenChange={() => setOpen(false)}
+        />
+
         {children}
       </div>
     </div>

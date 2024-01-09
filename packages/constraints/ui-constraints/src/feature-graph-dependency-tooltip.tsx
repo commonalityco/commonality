@@ -1,10 +1,10 @@
 'use client';
-import { TooltipDependency } from './tooltip-dependency';
 import { GraphContext } from './graph-provider';
 import { Dependency } from '@commonalityco/types';
-import { GraphTooltip } from './graph-tooltip';
+import { DependencyConstraintsDialog } from './dependency-constraints-dialog';
 
 export function FeatureGraphDependencyTooltip() {
+  const { send } = GraphContext.useActorRef();
   const selectedEdge = GraphContext.useSelector(
     (state) => state.context.selectedEdge,
   );
@@ -23,22 +23,16 @@ export function FeatureGraphDependencyTooltip() {
   });
 
   return (
-    <>
-      {selectedEdge && data && (
-        <GraphTooltip
-          key={data.id}
-          content={
-            <TooltipDependency
-              dependencies={data.dependencies}
-              results={resultsForEdge}
-            />
-          }
-          open={true}
-          reference={selectedEdge.popperRef()}
-          placement="top"
-        ></GraphTooltip>
-      )}
-    </>
+    <DependencyConstraintsDialog
+      open={Boolean(selectedEdge && data)}
+      results={resultsForEdge || []}
+      dependencies={data?.dependencies || []}
+      onOpenChange={(open) => {
+        if (!open) {
+          send({ type: 'UNSELECT' });
+        }
+      }}
+    />
   );
 }
 

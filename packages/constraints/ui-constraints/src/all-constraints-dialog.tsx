@@ -1,27 +1,26 @@
-// create a ConstraintsDialog component
+'use client';
 import { GradientFade } from '@commonalityco/ui-core';
 import {
   Button,
+  Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
   Input,
   ScrollArea,
-  Separator,
 } from '@commonalityco/ui-design-system';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, ComponentProps } from 'react';
 import { ConstraintResults } from './constraint-results';
 import { ConstraintResult } from '@commonalityco/types';
 
-export function ConstraintsDialogContent({
+export function AllConstraintsDialog({
   results,
-  onClose = () => {},
+  ...props
 }: {
   results: ConstraintResult[];
-  onClose?: () => void;
-}) {
+} & ComponentProps<typeof Dialog>) {
   const [search, setSearch] = useState('');
 
   const filteredResults = useMemo(() => {
@@ -37,39 +36,48 @@ export function ConstraintsDialogContent({
   const hasResults = filteredResults.length > 0;
 
   return (
-    <>
+    <Dialog {...props}>
+      <DialogTrigger asChild>
+        <Button variant="secondary">View all constraints</Button>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>All constraints</DialogTitle>
-          <DialogDescription></DialogDescription>
         </DialogHeader>
-        <div>
-          <Input
-            className="mb-3"
-            placeholder="Search packages"
-            onChange={(event) => setSearch(event.target.value)}
-          />
-          {hasResults ? (
+        {results.length > 0 ? (
+          <div>
+            <Input
+              aria-label="Search packages"
+              className="mb-3"
+              placeholder="Search packages"
+              onChange={(event) => setSearch(event.target.value)}
+            />
+
             <p className="text-xs text-muted-foreground leading-none">{`${filteredResults.length} constraints`}</p>
-          ) : undefined}
-        </div>
+          </div>
+        ) : undefined}
         {hasResults || (!hasResults && !search) ? (
-          <ScrollArea className="max-h-[450px]">
+          <ScrollArea className="max-h-[400px] py-2 relative">
             <ConstraintResults results={filteredResults} />
-            {hasResults ? <GradientFade placement="bottom" /> : undefined}
+            {hasResults ? (
+              <GradientFade placement="bottom" className="z-auto" />
+            ) : undefined}
           </ScrollArea>
         ) : undefined}
         {!hasResults && search ? (
           <p className="text-center py-16">No packages match your filters</p>
         ) : undefined}
 
-        <Separator className="my-2" />
         <DialogFooter>
-          <Button variant="outline" className="w-full" onClick={onClose}>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => props?.onOpenChange?.(false)}
+          >
             Close
           </Button>
         </DialogFooter>
       </DialogContent>
-    </>
+    </Dialog>
   );
 }
