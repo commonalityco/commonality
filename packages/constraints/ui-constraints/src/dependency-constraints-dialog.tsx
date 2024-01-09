@@ -13,6 +13,7 @@ import { ConstraintContent } from './constraint-results';
 import { DependencyType } from '@commonalityco/utils-core';
 import { CornerDownRight } from 'lucide-react';
 import { ComponentProps } from 'react';
+import { ConstraintsOnboardingCard } from './constraints-onboarding-card';
 
 const TextByType = {
   [DependencyType.PRODUCTION]: 'production',
@@ -53,10 +54,15 @@ export function DependencyConstraintsDialog({
                     dep.type === dependency.type,
                 ),
               );
+
               const key = `${dependency.source}-${dependency.target}-${dependency.type}`;
               const isValid = resultsForDependency.every(
                 (result) => result.isValid,
               );
+
+              if (resultsForDependency.length === 0) {
+                return <ConstraintsOnboardingCard key={key} />;
+              }
 
               return (
                 <div key={key}>
@@ -80,7 +86,10 @@ export function DependencyConstraintsDialog({
                   <div className="flex flex-col gap-2">
                     {resultsForDependency.length > 0 ? (
                       resultsForDependency.map((result) => (
-                        <ConstraintContent result={result} />
+                        <ConstraintContent
+                          result={result}
+                          key={JSON.stringify(result.dependencyPath)}
+                        />
                       ))
                     ) : (
                       <p className="text-muted-foreground text-xs mt-2">

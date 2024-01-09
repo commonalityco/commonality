@@ -5,20 +5,15 @@ import {
   AccordionItem,
   AccordionTrigger,
   Badge,
-  Button,
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
   cn,
 } from '@commonalityco/ui-design-system';
 import { DependencyType, formatTagName } from '@commonalityco/utils-core';
-import { ArrowRight, Check, ExternalLink, Network, X } from 'lucide-react';
+import { ArrowRight, Check, X } from 'lucide-react';
 import { ComponentProps, useMemo } from 'react';
 import uniqBy from 'lodash/uniqBy';
 import isEqual from 'lodash/isEqual';
 import { GradientFade } from '@commonalityco/ui-core';
+import { ConstraintsOnboardingCard } from './constraints-onboarding-card';
 
 const dependencyTextByType = {
   [DependencyType.PRODUCTION]: 'prod',
@@ -34,38 +29,6 @@ function TagsContainer({
     <dd className="flex flex-wrap gap-1 overflow-hidden" {...rest}>
       {children}
     </dd>
-  );
-}
-
-export function ConstraintOnboardingCard() {
-  return (
-    <Card variant="secondary">
-      <CardHeader>
-        <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
-          <div className="bg-secondary rounded-full p-1.5">
-            <Network className="h-5 w-5" />
-          </div>
-        </div>
-
-        <CardTitle>Organize your dependency graph</CardTitle>
-        <CardDescription>
-          Prevent endless dependency debugging by limiting the which packages
-          can depend on each other.
-        </CardDescription>
-      </CardHeader>
-      <CardFooter>
-        <Button asChild variant="outline" size="sm">
-          <a
-            href="https://commonality.co/docs/checks"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn more
-            <ExternalLink className="ml-1 h-3 w-3 -translate-y-px" />
-          </a>
-        </Button>
-      </CardFooter>
-    </Card>
   );
 }
 
@@ -267,7 +230,7 @@ export function ConstraintResults({
   results: ConstraintResult[];
 }) {
   if (!results || results.length === 0) {
-    return <ConstraintOnboardingCard />;
+    return <ConstraintsOnboardingCard />;
   }
 
   const resultsByPackageName = useMemo(() => {
