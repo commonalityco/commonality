@@ -185,7 +185,7 @@ export function ConstraintContent({ result }: { result: ConstraintResult }) {
                   variant="outline"
                   key={tag}
                   className={cn('inline-block min-w-0', {
-                    '!border-destructive !text-destructive':
+                    'border-destructive text-destructive':
                       isDisallowAll || isDisallowed,
                     'border-success text-success': isAllowAll || isAllowed,
                   })}
@@ -265,8 +265,8 @@ export function ConstraintResults({
 
           return (
             <div key={packageName} className="grid relative">
-              <div className="sticky top-0 z-10">
-                <p className="font-medium text-base bg-background">
+              <div className="sticky top-0 z-10 overflow-hidden">
+                <p className="font-medium text-base bg-background truncate">
                   {packageName}
                 </p>
                 <GradientFade placement="top" className="h-2" />

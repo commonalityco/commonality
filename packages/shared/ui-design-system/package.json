@@ -66,6 +66,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "tsc --build",
+    "dev": "tsc --watch",
     "type-check": "tsc --noEmit"
   },
   "repository": "https://github.com/commonalityco/commonality/packages/shared/ui-design-system"

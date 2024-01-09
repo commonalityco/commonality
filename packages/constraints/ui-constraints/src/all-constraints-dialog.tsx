@@ -1,4 +1,4 @@
-// create a ConstraintsDialog component
+'use client';
 import { GradientFade } from '@commonalityco/ui-core';
 import {
   Button,
@@ -44,21 +44,24 @@ export function AllConstraintsDialog({
         <DialogHeader>
           <DialogTitle>All constraints</DialogTitle>
         </DialogHeader>
-        <div>
-          <Input
-            aria-label="Search packages"
-            className="mb-3"
-            placeholder="Search packages"
-            onChange={(event) => setSearch(event.target.value)}
-          />
-          {hasResults ? (
+        {results.length > 0 ? (
+          <div>
+            <Input
+              aria-label="Search packages"
+              className="mb-3"
+              placeholder="Search packages"
+              onChange={(event) => setSearch(event.target.value)}
+            />
+
             <p className="text-xs text-muted-foreground leading-none">{`${filteredResults.length} constraints`}</p>
-          ) : undefined}
-        </div>
+          </div>
+        ) : undefined}
         {hasResults || (!hasResults && !search) ? (
-          <ScrollArea className="max-h-[450px]">
+          <ScrollArea className="max-h-[400px] py-2 relative">
             <ConstraintResults results={filteredResults} />
-            {hasResults ? <GradientFade placement="bottom" /> : undefined}
+            {hasResults ? (
+              <GradientFade placement="bottom" className="z-auto" />
+            ) : undefined}
           </ScrollArea>
         ) : undefined}
         {!hasResults && search ? (

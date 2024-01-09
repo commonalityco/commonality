@@ -4,6 +4,7 @@ import {
   Button,
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -34,17 +35,19 @@ export function DependencyConstraintsDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            <div className="flex flex-col gap-2">
-              <span>{dependencies[0]?.source}</span>
-              <div className="flex flex-nowrap items-center space-x-2">
-                <CornerDownRight className="h-4 w-4" />
-                <span>{dependencies[0]?.target}</span>
+            <div className="grid gap-1">
+              <p className="truncate leading-6">{dependencies[0]?.source}</p>
+              <div className="flex flex-nowrap items-center space-x-2 overflow-hidden">
+                <CornerDownRight className="h-4 w-4 min-w-0 shrink-0" />
+                <p className="truncate min-w-0 leading-6">
+                  {dependencies[0]?.target}
+                </p>
               </div>
             </div>
           </DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[450px]">
-          <div className="flex flex-col gap-4 py-4">
+          <div className="flex flex-col gap-4 py-2">
             {dependencies.map((dependency) => {
               const resultsForDependency = results.filter((result) =>
                 result.dependencyPath.some(

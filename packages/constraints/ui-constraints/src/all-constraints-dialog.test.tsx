@@ -87,6 +87,23 @@ describe('AllConstraintsDialog', () => {
     ).toBeInTheDocument();
   });
 
+  it('renders correctly with no results', async () => {
+    const results: ConstraintResult[] = [];
+    const onOpenChange = vi.fn();
+
+    render(
+      <AllConstraintsDialog results={results} onOpenChange={onOpenChange} />,
+    );
+
+    await userEvent.click(
+      screen.getByRole('button', { name: 'View all constraints' }),
+    );
+
+    expect(
+      screen.queryByPlaceholderText('Search packages'),
+    ).not.toBeInTheDocument();
+  });
+
   it('renders correctly with results', async () => {
     const results: ConstraintResult[] = [
       {

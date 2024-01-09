@@ -3,7 +3,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { twMerge } from 'tailwind-merge';
 
 const gradientFadeStyles = cva(
-  'pointer-events-none sticky z-10 from-background',
+  'pointer-events-none sticky z-5 from-background',
   {
     variants: {
       placement: {
