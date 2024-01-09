@@ -53,7 +53,7 @@ export function AllConstraintsDialog({
               onChange={(event) => setSearch(event.target.value)}
             />
 
-            <p className="text-xs text-muted-foreground leading-none">{`${filteredResults.length} constraints`}</p>
+            <p className="text-xs text-muted-foreground leadsing-none">{`${filteredResults.length} constraints`}</p>
           </div>
         ) : undefined}
         {hasResults || (!hasResults && !search) ? (

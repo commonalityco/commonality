@@ -71,7 +71,9 @@ export function AllChecksDialog({
           <Button
             variant="outline"
             className="w-full"
-            onClick={() => props?.onOpenChange?.(false)}
+            onClick={() => {
+              props?.onOpenChange?.(false);
+            }}
           >
             Close
           </Button>

@@ -1,13 +1,7 @@
-import {
-  Badge,
-  Button,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@commonalityco/ui-design-system';
-import { ChevronDown } from 'lucide-react';
-import React from 'react';
-import { ConformanceResults, StatusCount } from './conformance-results-list';
+'use client';
+import { Badge } from '@commonalityco/ui-design-system';
+import React, { useState } from 'react';
+import { StatusCount } from './conformance-results-list';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 import { Status } from '@commonalityco/utils-core';
 import { AllChecksDialog } from './all-checks-dialog';
@@ -23,6 +17,7 @@ export function ConformanceHeader({
   shownCount: number;
   children?: React.ReactNode;
 }) {
+  const [open, setOpen] = useState(false);
   const failCount = results.filter(
     (result) => result.status === Status.Fail,
   ).length;
@@ -49,7 +44,11 @@ export function ConformanceHeader({
           passCount={passCount}
         />
         <div className="flex gap-2 flex-nowrap">
-          <AllChecksDialog results={results} />
+          <AllChecksDialog
+            results={results}
+            open={open}
+            onOpenChange={setOpen}
+          />
           {children}
         </div>
       </div>

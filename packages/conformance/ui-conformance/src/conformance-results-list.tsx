@@ -8,7 +8,6 @@ import {
   cn,
 } from '@commonalityco/ui-design-system';
 import { PackageType, Status, formatTagName } from '@commonalityco/utils-core';
-import { AlertTriangle, Check, X } from 'lucide-react';
 import { Fragment, useMemo } from 'react';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 import { ConformanceOnboardingCard } from './conformance-onboarding-card';
@@ -58,22 +57,36 @@ export function CheckContent({ result }: { result: ConformanceResult }) {
   return (
     <div className="pl-[50px] space-y-4">
       <div>
-        <Label className="block text-xs mb-1">Applied to</Label>
-        <Badge variant="outline">{formatTagName(result.filter)}</Badge>
+        <Label className="block text-xs mb-1" id="applied-to">
+          Applied to
+        </Label>
+        <Badge variant="outline" aria-labelledby="applied-to">
+          {formatTagName(result.filter)}
+        </Badge>
       </div>
 
       {result.message.filePath ? (
         <div>
-          <Label className="block text-xs mb-1">Filepath</Label>
-          <p className="text-muted-foreground font-mono text-xs truncate block">
+          <Label className="block text-xs mb-1" id="filepath">
+            Filepath
+          </Label>
+          <p
+            className="text-muted-foreground font-mono text-xs truncate block"
+            aria-labelledby="filepath"
+          >
             {result.message.filePath}
           </p>
         </div>
       ) : undefined}
       {result.message.suggestion ? (
         <div>
-          <Label className="block text-xs mb-1">Suggestion</Label>
-          <div className="bg-muted border border-border rounded-md overflow-auto">
+          <Label className="block text-xs mb-1" id="suggestion">
+            Suggestion
+          </Label>
+          <div
+            className="bg-muted border border-border rounded-md overflow-auto"
+            aria-labelledby="suggestion"
+          >
             <pre className="px-2 py-1 max-w-full">
               <code className="text-muted-foreground font-mono text-xs">
                 {result.message.suggestion}
@@ -96,46 +109,43 @@ export function StatusCount({
   passCount: number;
 }) {
   return (
-    <div className="font-mono flex gap-4 shrink-0">
-      <span
-        className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
-          'text-destructive': failCount > 0,
-          'text-muted-foreground': failCount === 0,
-        })}
-        aria-labelledby="fail-count"
-      >
-        <span id="fail-count" className="sr-only">
-          Fail count
+    <div className="flex gap-4 shrink-0">
+      {failCount > 0 ? (
+        <span
+          className="shrink-0 flex flex-nowrap items-center gap-1 font-medium text-destructive"
+          aria-labelledby="fail-count"
+        >
+          <span id="fail-count" className="sr-only">
+            Fail count
+          </span>
+          <span>{failCount}</span>
+          failed
         </span>
-        <X className="h-4 w-4" />
-        {failCount}
-      </span>
-      <span
-        className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
-          'text-warning': warnCount > 0,
-          'text-muted-foreground': warnCount === 0,
-        })}
-        aria-labelledby="warn-count"
-      >
-        <span id="warn-count" className="sr-only">
-          Warning count
+      ) : undefined}
+      {warnCount > 0 ? (
+        <span
+          className="shrink-0 flex flex-nowrap items-center gap-1 font-medium text-warning"
+          aria-labelledby="warn-count"
+        >
+          <span id="warn-count" className="sr-only">
+            Warning count
+          </span>
+          <span>{warnCount}</span>
+          warnings
         </span>
-        <AlertTriangle className="h-4 w-4" />
-        {warnCount}
-      </span>
-      <span
-        className={cn('shrink-0 flex flex-nowrap items-center gap-1', {
-          'text-success': passCount > 0,
-          'text-muted-foreground': passCount === 0,
-        })}
-        aria-labelledby="pass-count"
-      >
-        <span id="pass-count" className="sr-only">
-          Pass count
+      ) : undefined}
+      {passCount > 0 ? (
+        <span
+          className="shrink-0 flex flex-nowrap items-center gap-1 font-medium text-success"
+          aria-labelledby="pass-count"
+        >
+          <span id="pass-count" className="sr-only">
+            Pass count
+          </span>
+          <span>{passCount}</span>
+          passed
         </span>
-        <Check className="h-4 w-4" />
-        {passCount}
-      </span>
+      ) : undefined}
     </div>
   );
 }
