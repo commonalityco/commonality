@@ -572,8 +572,8 @@ importers:
         specifier: workspace:*
         version: link:../../tooling/config-tsconfig
       '@storybook/addon-a11y':
-        specifier: ^7.4.3
-        version: 7.6.0
+        specifier: ^7.6.7
+        version: 7.6.7
       '@storybook/addon-docs':
         specifier: ^7.4.3
         version: 7.6.0(@types/react-dom@18.2.18)(@types/react@18.2.45)(react-dom@18.2.0)(react@18.2.0)
@@ -6324,10 +6324,10 @@ packages:
     resolution: {integrity: sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==}
     dev: false
 
-  /@storybook/addon-a11y@7.6.0:
-    resolution: {integrity: sha512-jJbrcqVt6/qn7vbV0tPsd3m8W9eheafBGz2lix5I68ZoaEZNqhlrr3r1pKqlqRkAyisAUI+ctrZsqhqid88VPQ==}
+  /@storybook/addon-a11y@7.6.7:
+    resolution: {integrity: sha512-poT2oXIYDwLnhqn6g9ACTQ+7gi8QDHVlib4TQANdcozC/qYg+Bs6Pd99wT6rT4lrC/npVNTSKKwLw+3oXqlCxg==}
     dependencies:
-      '@storybook/addon-highlight': 7.6.0
+      '@storybook/addon-highlight': 7.6.7
       axe-core: 4.8.2
     dev: true
 
@@ -6430,6 +6430,12 @@ packages:
 
   /@storybook/addon-highlight@7.6.0:
     resolution: {integrity: sha512-9Ho4L47k9e36kIgNa0RA9ZXzn7AWmq/sXBMRK7PcgrMiKvYdRQMU0AMHDvICg2vI8IkMVXTEaT/CQPefG3XT0Q==}
+    dependencies:
+      '@storybook/global': 5.0.0
+    dev: true
+
+  /@storybook/addon-highlight@7.6.7:
+    resolution: {integrity: sha512-2F/tJdn45d4zrvf/cmE1vsczl99wK8+I+kkj0G7jLsrJR0w1zTgbgjy6T9j86HBTBvWcnysNFNIRWPAOh5Wdbw==}
     dependencies:
       '@storybook/global': 5.0.0
     dev: true
