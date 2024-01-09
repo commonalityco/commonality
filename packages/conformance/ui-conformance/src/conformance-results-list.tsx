@@ -7,12 +7,13 @@ import {
   Label,
   cn,
 } from '@commonalityco/ui-design-system';
-import { Status, formatTagName } from '@commonalityco/utils-core';
+import { PackageType, Status, formatTagName } from '@commonalityco/utils-core';
 import { AlertTriangle, Check, X } from 'lucide-react';
 import { Fragment, useMemo } from 'react';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 import { ConformanceOnboardingCard } from './conformance-onboarding-card';
 import { GradientFade } from '@commonalityco/ui-core';
+import { getIconForPackage } from '@commonalityco/utils-core';
 
 export function CheckTitle({ result }: { result: ConformanceResult }) {
   const getStatusText = () => {
@@ -54,14 +55,6 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
 }
 
 export function CheckContent({ result }: { result: ConformanceResult }) {
-  if (!result.message.filePath && !result.message.suggestion) {
-    return (
-      <p className="pl-[74px] text-muted-foreground text-xs">
-        No additional context
-      </p>
-    );
-  }
-
   return (
     <div className="pl-[50px] space-y-4">
       <div>
@@ -198,15 +191,22 @@ export function ConformanceResults({
       {Object.entries(resultsByPackageName).map(
         ([packageName, resultsForPackage]) => {
           if (resultsForPackage.length === 0) {
-            return <p>No checks for package</p>;
+            return;
           }
+
+          const PackageIcon = getIconForPackage(
+            resultsForPackage[0].package.type || PackageType.NODE,
+          );
 
           return (
             <div key={packageName} className="grid relative">
               <div className="sticky top-0 z-10">
-                <p className="font-medium text-base bg-background truncate">
-                  {packageName}
-                </p>
+                <div className="flex gap-2 flex-nowrap bg-background">
+                  <PackageIcon className="shrink-0" />
+                  <p className="font-medium text-base truncate min-w-0">
+                    {packageName}
+                  </p>
+                </div>
                 <GradientFade placement="top" className="h-2" />
               </div>
 

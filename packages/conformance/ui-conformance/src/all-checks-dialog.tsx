@@ -59,7 +59,9 @@ export function AllChecksDialog({
         {hasFilteredResults || (!hasFilteredResults && !search) ? (
           <ScrollArea className="max-h-[400px] py-2 relative">
             <ConformanceResults results={filteredResults} />
-            <GradientFade placement="bottom" />
+            {hasFilteredResults ? (
+              <GradientFade placement="bottom" />
+            ) : undefined}
           </ScrollArea>
         ) : undefined}
         {!hasFilteredResults && search ? (

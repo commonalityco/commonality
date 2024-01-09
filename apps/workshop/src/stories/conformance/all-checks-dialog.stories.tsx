@@ -18,7 +18,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const KitchenSink: Story = {
+export const Checks: Story = {
   args: {
     open: true,
     results: [
@@ -107,7 +107,7 @@ export const KitchenSink: Story = {
   },
 };
 
-export const NoConstraints: Story = {
+export const NoChecks: Story = {
   args: {
     open: true,
     results: [],
