@@ -10,6 +10,7 @@ import React from 'react';
 import { ConformanceResults, StatusCount } from './conformance-results-list';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 import { Status } from '@commonalityco/utils-core';
+import { AllChecksDialog } from './all-checks-dialog';
 
 export function ConformanceHeader({
   results,
@@ -17,7 +18,7 @@ export function ConformanceHeader({
   shownCount,
   totalCount,
 }: {
-  results: ConformanceResult[];
+  results: Omit<ConformanceResult, 'fix'>[];
   totalCount: number;
   shownCount: number;
   children?: React.ReactNode;
@@ -48,20 +49,7 @@ export function ConformanceHeader({
           passCount={passCount}
         />
         <div className="flex gap-2 flex-nowrap">
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="secondary" className="flex gap-2">
-                View all checks
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent
-              align="end"
-              className="max-h-[500px] w-[500px] overflow-auto"
-            >
-              <ConformanceResults results={results} />
-            </PopoverContent>
-          </Popover>
+          <AllChecksDialog results={results} />
           {children}
         </div>
       </div>

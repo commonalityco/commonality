@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
   Badge,
+  Label,
   cn,
 } from '@commonalityco/ui-design-system';
 import { Status, formatTagName } from '@commonalityco/utils-core';
@@ -21,7 +22,6 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
       case Status.Pass: {
         return (
           <span className="text-success font-mono font-medium items-center flex flex-nowrap gap-2">
-            <Check className="h-4 w-4" />
             pass
           </span>
         );
@@ -29,7 +29,6 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
       case Status.Warn: {
         return (
           <span className="text-warning font-mono font-medium items-center flex flex-nowrap gap-2">
-            <AlertTriangle className="h-4 w-4" />
             warn
           </span>
         );
@@ -37,7 +36,6 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
       case Status.Fail: {
         return (
           <span className="text-destructive font-mono font-medium items-center flex flex-nowrap gap-2">
-            <X className="h-4 w-4" />
             fail
           </span>
         );
@@ -67,19 +65,30 @@ export function CheckContent({ result }: { result: ConformanceResult }) {
   }
 
   return (
-    <div className="pl-[74px] space-y-1">
+    <div className="pl-[50px] space-y-4">
+      <div>
+        <Label className="block text-xs mb-1">Applied to</Label>
+        <Badge variant="outline">{formatTagName(result.filter)}</Badge>
+      </div>
+
       {result.message.filePath ? (
-        <p className="text-muted-foreground font-mono text-xs truncate block">
-          {result.message.filePath}
-        </p>
+        <div>
+          <Label className="block text-xs mb-1">Filepath</Label>
+          <p className="text-muted-foreground font-mono text-xs truncate block">
+            {result.message.filePath}
+          </p>
+        </div>
       ) : undefined}
       {result.message.suggestion ? (
-        <div className="bg-muted border border-border rounded-md overflow-auto">
-          <pre className="px-2 py-1 max-w-full">
-            <code className="text-muted-foreground font-mono text-xs">
-              {result.message.suggestion}
-            </code>
-          </pre>
+        <div>
+          <Label className="block text-xs mb-1">Suggestion</Label>
+          <div className="bg-muted border border-border rounded-md overflow-auto">
+            <pre className="px-2 py-1 max-w-full">
+              <code className="text-muted-foreground font-mono text-xs">
+                {result.message.suggestion}
+              </code>
+            </pre>
+          </div>
         </div>
       ) : undefined}
     </div>
