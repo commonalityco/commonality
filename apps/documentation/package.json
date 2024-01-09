@@ -25,7 +25,7 @@
     "@vercel/analytics": "^1.1.1",
     "@vercel/og": "^0.6.1",
     "@vercel/speed-insights": "^1.0.2",
-    "framer-motion": "^10.16.16",
+    "framer-motion": "^10.17.12",
     "lucide-react": "^0.299.0",
     "next": "14.0.4",
     "nextra": "latest",
