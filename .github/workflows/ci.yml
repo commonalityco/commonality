@@ -1,6 +1,19 @@
 name: Continuous Integration
 
-on: ['push', 'pull_request']
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - '**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -11,10 +24,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout respository
+      - name: ⬇️ Checkout respository
         uses: actions/checkout@v4
 
-      - name: Setup
+      - name: 🏗 Setup
         uses: ./.github/actions/setup
 
       - name: Lint
@@ -26,10 +39,10 @@ jobs:
   type-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout respository
+      - name: ⬇️ Checkout respository
         uses: actions/checkout@v4
 
-      - name: Setup
+      - name: 🏗 Setup
         uses: ./.github/actions/setup
 
       - name: Type check
@@ -41,10 +54,10 @@ jobs:
     env:
       NODE_ENV: 'test'
     steps:
-      - name: Checkout respository
+      - name: ⬇️ Checkout respository
         uses: actions/checkout@v4
 
-      - name: Setup
+      - name: 🏗 Setup
         uses: ./.github/actions/setup
 
       - name: Test
@@ -61,10 +74,10 @@ jobs:
           - runner: windows-latest
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout respository
+      - name: ⬇️ Checkout respository
         uses: actions/checkout@v4
 
-      - name: Setup
+      - name: 🏗 Setup
         uses: ./.github/actions/setup
 
       - name: Prune devDependencies
