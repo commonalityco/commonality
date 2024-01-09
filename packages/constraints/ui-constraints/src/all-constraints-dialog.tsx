@@ -46,6 +46,7 @@ export function AllConstraintsDialog({
         </DialogHeader>
         <div>
           <Input
+            aria-label="Search packages"
             className="mb-3"
             placeholder="Search packages"
             onChange={(event) => setSearch(event.target.value)}
