@@ -27,7 +27,6 @@
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@types/fs-extra": "^11.0.2",
-    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.10.0",
     "eslint-config-commonality": "workspace:*",
     "typescript": "^5.2.2"
@@ -35,8 +34,7 @@
   "dependencies": {
     "@commonalityco/data-project": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
-    "fs-extra": "^11.1.1",
-    "lodash-es": "^4.17.21"
+    "fs-extra": "^11.1.1"
   },
   "repository": "https://github.com/commonalityco/commonality/packages/shared/data-tags"
 }

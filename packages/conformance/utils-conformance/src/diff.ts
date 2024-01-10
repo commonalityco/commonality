@@ -1,6 +1,6 @@
 import { diff as jestDiff } from 'jest-diff';
 import chalk from 'chalk';
-import { isEqual } from 'lodash-es';
+import isEqual from 'lodash/isEqual';
 
 const diffOptions = {
   omitAnnotationLines: true,

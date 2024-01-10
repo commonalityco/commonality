@@ -3,10 +3,7 @@ import { ComponentProps, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { slugifyPackageName } from '@commonalityco/utils-core';
-import {
-  FeatureGraphChart,
-  GraphChartLoading,
-} from '@commonalityco/ui-constraints';
+import { FeatureGraphChart, ChartLoading } from '@commonalityco/ui-constraints';
 
 function StudioChart(
   props: Omit<
@@ -27,7 +24,7 @@ function StudioChart(
   }, []);
 
   if (!worker) {
-    return <GraphChartLoading />;
+    return <ChartLoading />;
   }
 
   return (

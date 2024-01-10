@@ -17,6 +17,6 @@ export {
 export { TooltipPackage } from './tooltip-package';
 export { GraphToolbar } from './graph-toolbar';
 export { GraphTooltip } from './graph-tooltip';
-export { GraphChartLoading } from './graph-chart-loading';
+export { ChartLoading } from './chart-loading';
 export { DependencyConstraintsDialog } from './dependency-constraints-dialog';
 export { AllConstraintsDialog } from './all-constraints-dialog';
