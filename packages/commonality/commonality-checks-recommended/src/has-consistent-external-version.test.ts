@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { hasConsistentExternalVersion } from '../src/has-consistent-external-version';
+import { hasConsistentExternalVersion } from './has-consistent-external-version';
 import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 

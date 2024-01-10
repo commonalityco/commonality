@@ -9,7 +9,7 @@ export const hasJsonFile = defineCheck(
       message: async (ctx) => {
         const jsonFile = await json(ctx.package.path, fileName).get();
 
-        if (!jsonFile) return { title: `Missing file "${fileName}"` };
+        if (!jsonFile) return { title: `File "${fileName}" does not exist` };
 
         if (content && !isMatch(jsonFile, content)) {
           return {

@@ -1,4 +1,4 @@
-import { hasMatchingDevPeerVersions } from '../src/has-matching-dev-peer-versions';
+import { hasMatchingDevPeerVersions } from './has-matching-dev-peer-versions';
 import { describe, it, expect, afterEach } from 'vitest';
 import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';

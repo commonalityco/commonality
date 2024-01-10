@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { hasCodeowner } from '../src/has-codeowner';
+import { hasCodeowner } from './has-codeowner';
 import { createTestCheck } from 'commonality';
 
 describe('hasCodeowner', () => {

@@ -1,4 +1,4 @@
-import { extendsRepositoryField } from '../src/extends-repository-field';
+import { extendsRepositoryField } from './extends-repository-field';
 import { createTestCheck, json } from 'commonality';
 import { describe, it, expect, afterEach } from 'vitest';
 import mockFs from 'mock-fs';

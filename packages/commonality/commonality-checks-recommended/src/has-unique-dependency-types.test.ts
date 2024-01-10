@@ -1,4 +1,4 @@
-import { hasUniqueDependencyTypes } from '../src/has-unique-dependency-types';
+import { hasUniqueDependencyTypes } from './has-unique-dependency-types';
 import { describe, it, expect, afterEach } from 'vitest';
 import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';

@@ -1,9 +1,10 @@
-import { getExternalVersionMap } from '../../src/utils/get-external-version-map';
+import { PackageJson } from 'commonality';
+import { getExternalVersionMap } from './get-external-version-map';
 import { describe, it, expect } from 'vitest';
 
 describe('getExternalVersionMap', () => {
   it('should return an empty map when no workspaces are provided', () => {
-    const packageJsons = [];
+    const packageJsons: PackageJson[] = [];
     const versionMap = getExternalVersionMap(packageJsons);
     expect(versionMap.size).toBe(0);
   });

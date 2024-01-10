@@ -1,5 +1,5 @@
 import { describe, expect, it, afterEach } from 'vitest';
-import { hasReadme } from '../src/has-readme';
+import { hasReadme } from './has-readme';
 import { createTestCheck, text } from 'commonality';
 import mockFs from 'mock-fs';
 

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { hasSortedDependencies } from '../src/has-sorted-dependencies';
+import { hasSortedDependencies } from './has-sorted-dependencies';
 import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
