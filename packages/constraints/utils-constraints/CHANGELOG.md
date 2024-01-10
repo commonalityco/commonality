@@ -1,5 +1,12 @@
 # @commonalityco/utils-constraints
 
+## 0.2.37
+
+### Patch Changes
+
+- a8cda3c: Drastically reduce bundle size by deduping and selectively importing
+- 7e440ac: Moves constraints from popover to dedicated modal and improves legibility of nodes
+
 ## 0.2.36
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @commonalityco/state-constraints
 
+## 0.2.37
+
+### Patch Changes
+
+- Updated dependencies [a8cda3c]
+- Updated dependencies [7e440ac]
+  - @commonalityco/utils-constraints@0.2.37
+
 ## 0.2.36
 
 ### Patch Changes

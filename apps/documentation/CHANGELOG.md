@@ -1,5 +1,13 @@
 # documentation
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [7e440ac]
+  - @commonalityco/ui-core@0.2.38
+  - @commonalityco/ui-design-system@0.2.37
+
 ## 0.0.9
 
 ### Patch Changes

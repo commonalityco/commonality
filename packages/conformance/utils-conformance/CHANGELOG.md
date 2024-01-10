@@ -1,5 +1,11 @@
 # @commonalityco/utils-conformance
 
+## 0.2.37
+
+### Patch Changes
+
+- a8cda3c: Drastically reduce bundle size by deduping and selectively importing
+
 ## 0.2.36
 
 ### Patch Changes
