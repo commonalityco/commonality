@@ -38,7 +38,6 @@ function GraphHeader({
               },
             )}
           >
-            <X className="h-4 w-4" />
             {failCount}
             {` failed`}
           </p>
@@ -51,7 +50,6 @@ function GraphHeader({
               },
             )}
           >
-            <Check className="h-4 w-4" />
             {passCount}
             {` passed`}
           </p>
