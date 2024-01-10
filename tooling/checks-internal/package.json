@@ -1,0 +1,36 @@
+{
+  "name": "@commonalityco/checks-internal",
+  "description": "Commonality's internal checks",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "dev": "tsc --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "commonality": "workspace:*"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@types/lodash-es": "^4.14.198",
+    "@types/mock-fs": "^4.13.4",
+    "commonality": "workspace:*",
+    "eslint-config-commonality": "workspace:*",
+    "mock-fs": "^5.2.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  },
+  "repository": "https://github.com/commonalityco/commonality/tooling/checks-internal"
+}

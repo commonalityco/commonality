@@ -15,10 +15,11 @@
   "main": "./src/index.ts",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ./src --fix",
+    "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "lint:fix": "eslint . --fix",
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "dev": "tsc --watch"
   },
   "peerDependencies": {
     "@commonalityco/utils-core": "*"

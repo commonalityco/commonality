@@ -1,6 +1,38 @@
 import { defineConfig } from 'commonality';
 import * as recommended from 'commonality-checks-recommended';
 
+const hasScripts = recommended.hasJsonFile('package.json', {
+  scripts: {
+    build: 'tsc --build',
+    dev: 'tsc --watch',
+    lint: 'eslint .',
+    'type-check': 'tsc --noEmit',
+  },
+});
+
+const hasESLint = recommended.hasJsonFile('.eslintrc.json', {
+  root: true,
+  extends: ['commonality'],
+});
+
+const hasClientTSConfig = recommended.hasJsonFile('tsconfig.json', {
+  extends: '@commonalityco/config-tsconfig/react.json',
+  include: ['src/**/*.ts', 'src/**/*.tsx'],
+  compilerOptions: {
+    outDir: 'dist',
+    typeRoots: ['./node_modules/@types'],
+  },
+});
+
+const hasServerTSConfig = recommended.hasJsonFile('tsconfig.json', {
+  extends: '@commonalityco/config-tsconfig/node.json',
+  include: ['src/**/*.ts', 'src/**/*.tsx'],
+  compilerOptions: {
+    outDir: 'dist',
+    typeRoots: ['./node_modules/@types'],
+  },
+});
+
 export default defineConfig({
   checks: {
     '*': [
@@ -13,7 +45,12 @@ export default defineConfig({
       recommended.hasConsistentExternalVersion(),
       recommended.extendsRepositoryField(),
     ],
+    ui: [hasScripts, hasESLint, hasClientTSConfig],
+    state: [hasScripts, hasESLint, hasClientTSConfig],
+    data: [hasScripts, hasESLint, hasServerTSConfig],
+    utility: [hasScripts, hasESLint, hasServerTSConfig],
   },
+
   constraints: {
     application: {
       allow: ['ui', 'data', 'utility', 'config'],
