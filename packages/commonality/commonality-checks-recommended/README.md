@@ -161,3 +161,47 @@ export default defineConfig({
   },
 });
 ```
+
+### `commonality/has-json-file`
+
+This check ensures that a JSON file exists with the specified content.
+
+**Fix:**
+
+If the JSON file does not exist or does not contain the expected content, it will be created or merged with the specified content.
+
+**Usage:**
+
+```ts
+import * as recommended from 'commonality-checks-recommended';
+
+export default defineConfig({
+  checks: {
+    '*': [
+      recommended.hasJsonFile('package.json', {
+        scripts: { build: 'tsc --build' },
+      }),
+    ],
+  },
+});
+```
+
+### `commonality/has-text-file`
+
+This check ensures that a text file exists with the specified content.
+
+**Fix:**
+
+If the text file does not exist or does not contain the expected content, it will be created or appended to with the specified content.
+
+**Usage:**
+
+```ts
+import * as recommended from 'commonality-checks-recommended';
+
+export default defineConfig({
+  checks: {
+    '*': [recommended.hasTextFile('.npmignore', ['dist'])],
+  },
+});
+```
