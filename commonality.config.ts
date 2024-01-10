@@ -35,6 +35,8 @@ const hasServerTSConfig = recommended.hasJsonFile('tsconfig.json', {
   },
 });
 
+const hasNPMIgnore = recommended.hasTextFile('.npmignore', ['*.test.*']);
+
 export default defineConfig({
   checks: {
     '*': [
@@ -47,10 +49,10 @@ export default defineConfig({
       recommended.hasConsistentExternalVersion(),
       recommended.extendsRepositoryField(),
     ],
-    ui: [hasScripts, hasESLintConfig, hasClientTSConfig],
-    state: [hasScripts, hasESLintConfig, hasClientTSConfig],
-    data: [hasScripts, hasESLintConfig, hasServerTSConfig],
-    utility: [hasScripts, hasESLintConfig, hasServerTSConfig],
+    ui: [hasScripts, hasESLintConfig, hasClientTSConfig, hasNPMIgnore],
+    state: [hasScripts, hasESLintConfig, hasClientTSConfig, hasNPMIgnore],
+    data: [hasScripts, hasESLintConfig, hasServerTSConfig, hasNPMIgnore],
+    utility: [hasScripts, hasESLintConfig, hasServerTSConfig, hasNPMIgnore],
   },
 
   constraints: {
@@ -64,10 +66,6 @@ export default defineConfig({
     },
     data: {
       allow: ['data', 'utility', 'config'],
-      disallow: ['application'],
-    },
-    state: {
-      allow: ['utility', 'config'],
       disallow: ['application'],
     },
     utility: {

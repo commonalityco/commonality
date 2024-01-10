@@ -10,3 +10,4 @@ export * from './has-unique-dependency-types.js';
 
 // Utility
 export * from './has-json-file.js';
+export * from './has-text-file.js';
