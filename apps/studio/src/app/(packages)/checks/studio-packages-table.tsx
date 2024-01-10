@@ -77,7 +77,7 @@ export function ActionButton({
             <DropdownMenuItem onSelect={() => openPackageJson(pkg.path)}>
               Edit package.json
             </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => setOpen(true)}>
+            <DropdownMenuItem onSelect={() => setTagsOpen(true)}>
               Edit tags
             </DropdownMenuItem>
           </DropdownMenuContent>

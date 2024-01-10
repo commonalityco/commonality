@@ -17,9 +17,9 @@ export const NavigationButton = React.forwardRef<
   return (
     <Comp
       className={cn(
-        'relative inline-block cursor-pointer pb-2',
+        'relative inline-block cursor-pointer pb-2 font-medium',
         {
-          'before:border-foreground text-foreground before:absolute before:-bottom-px before:left-0 before:right-0 before:border-b-2 before:content-[""] before:rounded-full font-semibold':
+          'before:border-foreground text-foreground before:absolute before:-bottom-px before:left-0 before:right-0 before:border-b-2 before:content-[""] before:rounded-full':
             active,
         },
         className,

@@ -1,5 +1,4 @@
 'use client';
-import { Badge } from '@commonalityco/ui-design-system';
 import React, { useState } from 'react';
 import { StatusCount } from './conformance-results-list';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
@@ -32,10 +31,7 @@ export function ConformanceHeader({
     <div className="flex justify-between flex-nowrap items-center">
       <div className="flex gap-4 items-center">
         <h1 className="font-medium text-2xl leading-none">Checks</h1>
-        <Badge
-          variant="secondary"
-          className="text-muted-foreground"
-        >{`${shownCount} of ${totalCount} packages`}</Badge>
+        <p className="text-muted-foreground text-xs">{`${shownCount} of ${totalCount} packages`}</p>
       </div>
       <div className="flex gap-4 flex-nowrap">
         <StatusCount

@@ -1,5 +1,5 @@
 import { ConstraintResult } from '@commonalityco/types';
-import { Badge, cn } from '@commonalityco/ui-design-system';
+import { cn } from '@commonalityco/ui-design-system';
 import { Check, X } from 'lucide-react';
 import { useState } from 'react';
 import { AllConstraintsDialog } from './all-constraints-dialog';
@@ -23,10 +23,9 @@ function GraphHeader({
     <div className="flex px-6 py-4 justify-between">
       <div className="flex gap-4 items-center">
         <h1 className="font-medium text-2xl leading-none">Constraints</h1>
-        <Badge
-          variant="outline"
-          className="text-muted-foreground"
-        >{`${shownCount} of ${totalCount} packages`}</Badge>
+        {totalCount > 0 ? (
+          <p className="text-muted-foreground text-xs animate-in fade-in">{`${shownCount} of ${totalCount} packages`}</p>
+        ) : undefined}
       </div>
       <div className="flex gap-2 flex-nowrap">
         <div className="flex gap-4 flex-nowrap mr-3">

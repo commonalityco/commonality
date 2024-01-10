@@ -58,7 +58,7 @@ function StudioNavigation({
             <PackageManagerIcon />
             <h1 className="text-base font-semibold text-foreground">{title}</h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <Button asChild variant="link">
               <Link
                 href="https://github.com/commonalityco/commonality/issues/new?title=Feedback+for+%22Commonality+Studio%22&labels=feedback"
