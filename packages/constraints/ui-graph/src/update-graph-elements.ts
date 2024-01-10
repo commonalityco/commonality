@@ -1,7 +1,6 @@
 'use client';
 import { Core, ElementDefinition } from 'cytoscape';
 import { bindRenderGraphEvents } from './bind-render-graph-events';
-
 import { ConstraintResult, Dependency } from '@commonalityco/types';
 
 const updateStyles = ({

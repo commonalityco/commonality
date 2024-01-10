@@ -1,3 +1,3 @@
-import { createWorker } from '@commonalityco/utils-constraints/create-worker';
+import { createWorker } from '@commonalityco/ui-graph/create-worker';
 
 createWorker();

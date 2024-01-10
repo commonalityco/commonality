@@ -8,7 +8,7 @@
 - Updated dependencies [7e440ac]
 - Updated dependencies [7e440ac]
 - Updated dependencies [7e440ac]
-  - @commonalityco/utils-constraints@0.2.37
+  - @commonalityco/ui-graph@0.2.37
   - @commonalityco/ui-constraints@0.2.38
   - @commonalityco/ui-core@0.2.38
   - @commonalityco/ui-conformance@0.2.37
@@ -32,7 +32,7 @@
 
 - 3f1e821: Improve tag editing and constraints UX in Commonality Studio
 - Updated dependencies [3f1e821]
-  - @commonalityco/utils-constraints@0.2.36
+  - @commonalityco/ui-graph@0.2.36
   - @commonalityco/ui-conformance@0.2.36
   - @commonalityco/ui-constraints@0.2.36
   - @commonalityco/ui-design-system@0.2.36
@@ -53,7 +53,7 @@
 ### Patch Changes
 
 - Updated dependencies [202b591]
-  - @commonalityco/utils-constraints@0.0.4
+  - @commonalityco/ui-graph@0.0.4
   - @commonalityco/ui-constraints@0.0.5
 
 ## 1.0.22
@@ -66,7 +66,7 @@
   - @commonalityco/ui-design-system@0.0.15
   - @commonalityco/ui-package@0.0.18
   - @commonalityco/ui-conformance@0.0.2
-  - @commonalityco/utils-constraints@0.0.3
+  - @commonalityco/ui-graph@0.0.3
   - @commonalityco/ui-core@0.0.16
 
 ## 1.0.21
@@ -74,7 +74,7 @@
 ### Patch Changes
 
 - Updated dependencies [d693d39]
-  - @commonalityco/utils-constraints@0.0.3
+  - @commonalityco/ui-graph@0.0.3
   - @commonalityco/ui-constraints@0.0.3
   - @commonalityco/ui-core@0.0.16
   - @commonalityco/ui-design-system@0.0.14
@@ -86,7 +86,7 @@
 
 - 4bd3547: Create granular packages
 - Updated dependencies [4bd3547]
-  - @commonalityco/utils-constraints@0.0.2
+  - @commonalityco/ui-graph@0.0.2
   - @commonalityco/ui-conformance@0.0.2
   - @commonalityco/ui-constraints@0.0.2
   - @commonalityco/ui-design-system@0.0.14

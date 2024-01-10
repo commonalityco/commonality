@@ -1,17 +1,4 @@
-import { VirtualElement } from '@floating-ui/react';
-import {
-  focus,
-  hide,
-  hideAll,
-  hideDependents,
-  hideDependencies,
-  setInitialElements,
-  show,
-  showAll,
-  isolate,
-  showDependants,
-  showDependencies,
-} from '@commonalityco/utils-constraints';
+import type { VirtualElement } from '@floating-ui/react';
 import { ConstraintResult, Package } from '@commonalityco/types';
 import { assign, createMachine } from 'xstate';
 import {
@@ -24,10 +11,21 @@ import {
 } from 'cytoscape';
 import debounce from 'lodash-es/debounce';
 import {
+  focus,
+  hide,
+  hideAll,
+  hideDependents,
+  hideDependencies,
+  setInitialElements,
+  show,
+  showAll,
+  isolate,
+  showDependants,
+  showDependencies,
   createRenderGraph,
   createTraversalGraph,
   updateGraphElements,
-} from '@commonalityco/utils-constraints';
+} from '@commonalityco/ui-graph';
 
 type Filter =
   | Selector

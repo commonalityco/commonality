@@ -19,7 +19,8 @@ const hasClientTSConfig = recommended.hasJsonFile('tsconfig.json', {
   extends: '@commonalityco/config-tsconfig/react.json',
   include: ['src/**/*.ts', 'src/**/*.tsx'],
   compilerOptions: {
-    outDir: 'dist',
+    outDir: './dist',
+    rootDir: './src',
     typeRoots: ['./node_modules/@types'],
   },
 });
@@ -28,7 +29,8 @@ const hasServerTSConfig = recommended.hasJsonFile('tsconfig.json', {
   extends: '@commonalityco/config-tsconfig/node.json',
   include: ['src/**/*.ts', 'src/**/*.tsx'],
   compilerOptions: {
-    outDir: 'dist',
+    outDir: './dist',
+    rootDir: './src',
     typeRoots: ['./node_modules/@types'],
   },
 });

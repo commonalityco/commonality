@@ -16,7 +16,7 @@ import { ComponentProps } from 'react';
 import { Package } from '@commonalityco/types';
 import { CheckContent, CheckTitle } from './conformance-results-list';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
-import { getIconForPackage } from '@commonalityco/utils-core';
+import { getIconForPackage } from '@commonalityco/ui-core';
 import { GradientFade } from '@commonalityco/ui-core';
 import { ConformanceOnboardingCard } from './conformance-onboarding-card';
 

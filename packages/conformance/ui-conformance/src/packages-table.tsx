@@ -24,7 +24,7 @@ import {
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
 import { Status, formatTagName } from '@commonalityco/utils-core';
-import { getIconForPackage } from '@commonalityco/utils-core/ui';
+import { getIconForPackage } from '@commonalityco/ui-core';
 import { Package } from '@commonalityco/types';
 import { Plus } from 'lucide-react';
 import { StatusCount } from './conformance-results-list';

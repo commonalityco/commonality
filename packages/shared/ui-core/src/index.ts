@@ -12,3 +12,4 @@ export { ThemeButtonLoading } from './theme-button-loading';
 export { NavigationButton } from './navigation-button';
 export { WordLogo } from './word-logo';
 export { WordLogoFull } from './word-logo-full';
+export * from './get-icon-for-package';
