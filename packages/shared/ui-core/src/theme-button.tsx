@@ -16,6 +16,7 @@ import {
 } from '@commonalityco/ui-design-system/tooltip';
 import { Button } from '@commonalityco/ui-design-system/button';
 import { Monitor, Sun, Moon, LucideIcon } from 'lucide-react';
+import { cn } from '@commonalityco/ui-design-system/cn';
 
 interface ThemeButtonProperties
   extends Omit<ComponentProps<typeof Button>, 'label' | 'use'> {
@@ -32,6 +33,7 @@ const IconByTheme: Record<string, LucideIcon> = {
 export function ThemeButton({
   onThemeChange = () => {},
   defaultTheme = 'system',
+  className,
   ...properties
 }: ThemeButtonProperties) {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
@@ -53,7 +55,7 @@ export function ThemeButton({
                 variant="ghost"
                 size="icon"
                 aria-label="Choose theme"
-                className="group"
+                className={cn('group', className)}
               >
                 {Icon && (
                   <Icon className="text-muted-foreground group-hover:text-foreground h-4 w-4 transition-colors" />
@@ -62,7 +64,7 @@ export function ThemeButton({
             </TooltipTrigger>
           </DropdownMenuTrigger>
 
-          <TooltipContent align="end" side="bottom" alignOffset={8}>
+          <TooltipContent align="center" side="bottom" alignOffset={8}>
             Change theme
           </TooltipContent>
         </Tooltip>

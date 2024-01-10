@@ -1,11 +1,5 @@
 import { ConstraintResult } from '@commonalityco/types';
-import {
-  Badge,
-  Button,
-  Dialog,
-  DialogTrigger,
-  cn,
-} from '@commonalityco/ui-design-system';
+import { Badge, cn } from '@commonalityco/ui-design-system';
 import { Check, X } from 'lucide-react';
 import { useState } from 'react';
 import { AllConstraintsDialog } from './all-constraints-dialog';
@@ -66,7 +60,8 @@ function GraphHeader({
 
         <AllConstraintsDialog
           results={results}
-          onOpenChange={() => setOpen(false)}
+          open={open}
+          onOpenChange={setOpen}
         />
 
         {children}

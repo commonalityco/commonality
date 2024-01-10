@@ -7,11 +7,7 @@ import React from 'react';
 async function StudioGraphHeader() {
   const results = await getConstraintsData();
 
-  return (
-    <FeatureGraphHeader results={results}>
-      <EditConfigButton />
-    </FeatureGraphHeader>
-  );
+  return <FeatureGraphHeader results={results}></FeatureGraphHeader>;
 }
 
 export default StudioGraphHeader;

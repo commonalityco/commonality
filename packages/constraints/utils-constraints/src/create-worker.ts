@@ -12,10 +12,10 @@ export const createWorker = () => {
       const cacheKey = MD5(JSON.stringify(event.data)).toString();
       const cachedResult = await localforage.getItem(cacheKey);
 
-      // if (cachedResult) {
-      //   postMessage(cachedResult);
-      //   return;
-      // }
+      if (cachedResult) {
+        postMessage(cachedResult);
+        return;
+      }
 
       const updatedElelementDefinitions =
         await getElementDefinitionsWithUpdatedLayout({

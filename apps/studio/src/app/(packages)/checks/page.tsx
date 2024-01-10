@@ -79,9 +79,7 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
             results={resultsWithoutFix}
             totalCount={packages.length}
             shownCount={data.length}
-          >
-            <EditConfigButton />
-          </ConformanceHeader>
+          ></ConformanceHeader>
           <div className="flex items-center gap-2 shrink-0 relative z-10">
             <PackageTableFilters
               tags={uniqueTags}

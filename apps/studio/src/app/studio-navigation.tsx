@@ -11,12 +11,13 @@ import { Button } from '@commonalityco/ui-design-system';
 import Link from 'next/link';
 import { setCookie } from 'cookies-next';
 import { NavigationButton } from '@commonalityco/ui-core';
-import { Network, PackageCheck } from 'lucide-react';
+import { ExternalLink, Network, PackageCheck } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { PackageManager } from '@commonalityco/utils-core';
 import { NpmLogo, PnpmLogo, YarnLogo } from '@commonalityco/ui-core';
 
 import dynamic from 'next/dynamic';
+import { EditConfigButton } from '@/components/edit-config-button';
 
 const LastUpdateTime = dynamic(() => import('./last-update-time'), {
   ssr: false,
@@ -48,7 +49,7 @@ function StudioNavigation({
     <div>
       <Navigation>
         <div className="flex w-full items-center">
-          <div className="flex grow items-center space-x-3">
+          <div className="flex grow items-center space-x-2">
             <Link href="/">
               <NavigationLogo />
             </Link>
@@ -57,32 +58,40 @@ function StudioNavigation({
             <PackageManagerIcon />
             <h1 className="text-base font-semibold text-foreground">{title}</h1>
           </div>
-          <div className="flex items-center space-x-2">
-            <Button variant="link" asChild>
+          <div className="flex items-center gap-2">
+            <Button asChild variant="ghost">
               <Link
                 href="https://github.com/commonalityco/commonality/issues/new?title=Feedback+for+%22Commonality+Studio%22&labels=feedback"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="flex gap-2 items-center flex-nowrap"
               >
                 Feedback
+                <ExternalLink className="h-4 w-4 shrink-0" />
               </Link>
             </Button>
-            <Button variant="link" asChild>
+            <Button asChild variant="ghost">
               <Link
                 href="https://commonality.co/docs/overview"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="flex gap-2 items-center flex-nowrap"
               >
                 Documentation
+                <ExternalLink className="h-4 w-4 shrink-0" />
               </Link>
             </Button>
+
             <ThemeButton
+              className="mr-4"
               defaultTheme={defaultTheme}
               onThemeChange={(theme) => {
                 setCookie(COOKIE_KEY, theme);
                 setTheme(theme);
               }}
             />
+
+            <EditConfigButton />
           </div>
         </div>
       </Navigation>
