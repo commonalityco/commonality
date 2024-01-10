@@ -199,6 +199,24 @@ export const Stress: Story = {
         filter: 'tag-one',
         foundTags: ['tag-one'],
       },
+      {
+        isValid: true,
+        constraint: {
+          allow: ['tag-one'],
+          disallow: ['tag-two'],
+        },
+        dependencyPath: [
+          {
+            source:
+              'pkg-looooo-oooooooooooooooo-oooooooo-oooooooooo-ooooooo-oooooooo-ooooooooo-ooooooo-ooooooooo-onnnnnnng',
+            target: 'pkg-b',
+            type: DependencyType.DEVELOPMENT,
+            version: '1.0.0',
+          },
+        ],
+        filter: 'tag-one',
+        foundTags: ['tag-one'],
+      },
     ],
   },
 };

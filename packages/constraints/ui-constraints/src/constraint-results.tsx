@@ -7,7 +7,11 @@ import {
   Badge,
   cn,
 } from '@commonalityco/ui-design-system';
-import { DependencyType, formatTagName } from '@commonalityco/utils-core';
+import {
+  DependencyType,
+  formatTagName,
+  getIconForPackage,
+} from '@commonalityco/utils-core';
 import { ArrowRight, Check, X } from 'lucide-react';
 import { ComponentProps, useMemo } from 'react';
 import uniqBy from 'lodash/uniqBy';
@@ -266,7 +270,7 @@ export function ConstraintResults({
           return (
             <div key={packageName} className="grid relative">
               <div className="sticky top-0 z-10 overflow-hidden">
-                <p className="font-medium text-base bg-background truncate">
+                <p className="font-medium text-base bg-background break-words">
                   {packageName}
                 </p>
                 <GradientFade placement="top" className="h-2" />
