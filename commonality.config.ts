@@ -10,7 +10,7 @@ const hasScripts = recommended.hasJsonFile('package.json', {
   },
 });
 
-const hasESLint = recommended.hasJsonFile('.eslintrc.json', {
+const hasESLintConfig = recommended.hasJsonFile('.eslintrc.json', {
   root: true,
   extends: ['commonality'],
 });
@@ -45,10 +45,10 @@ export default defineConfig({
       recommended.hasConsistentExternalVersion(),
       recommended.extendsRepositoryField(),
     ],
-    ui: [hasScripts, hasESLint, hasClientTSConfig],
-    state: [hasScripts, hasESLint, hasClientTSConfig],
-    data: [hasScripts, hasESLint, hasServerTSConfig],
-    utility: [hasScripts, hasESLint, hasServerTSConfig],
+    ui: [hasScripts, hasESLintConfig, hasClientTSConfig],
+    state: [hasScripts, hasESLintConfig, hasClientTSConfig],
+    data: [hasScripts, hasESLintConfig, hasServerTSConfig],
+    utility: [hasScripts, hasESLintConfig, hasServerTSConfig],
   },
 
   constraints: {
