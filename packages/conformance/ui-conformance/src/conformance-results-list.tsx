@@ -211,7 +211,7 @@ export function ConformanceResults({
           return (
             <div key={packageName} className="grid relative">
               <div className="sticky top-0 z-10">
-                <div className="flex gap-2 flex-nowrap bg-background">
+                <div className="flex gap-2 flex-nowrap bg-background items-center">
                   <PackageIcon className="shrink-0" />
                   <p className="font-medium text-base truncate min-w-0">
                     {packageName}

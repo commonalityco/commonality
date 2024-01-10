@@ -21,30 +21,16 @@ import {
   TableRow,
   TableHeadSortButton,
   Button,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  ScrollArea,
-  Accordion,
-  AccordionItem,
-  AccordionContent,
-  AccordionTrigger,
+  DialogTrigger,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
 import { Status, formatTagName } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-core/ui';
 import { Package } from '@commonalityco/types';
 import { ChevronDown, Plus } from 'lucide-react';
-import {
-  CheckContent,
-  CheckTitle,
-  FilterTitle,
-  StatusCount,
-} from './conformance-results-list';
-import {
-  getStatusForResults,
-  ConformanceResult,
-} from '@commonalityco/utils-conformance';
+import { StatusCount } from './conformance-results-list';
+import { ConformanceResult } from '@commonalityco/utils-conformance';
+import { PackageChecksDialog } from './package-checks-dialog';
 
 export type ColumnData = {
   package: Package;
@@ -98,6 +84,7 @@ export function ConformanceCell<T extends ColumnData>({
 }: {
   row: Row<T>;
 }) {
+  const [open, setOpen] = useState(false);
   const results: ConformanceResult[] = row.getValue('results');
   const resultsForPackage = results.filter(
     (result) => result.package.name === row.original.package.name,
@@ -157,8 +144,13 @@ export function ConformanceCell<T extends ColumnData>({
           />
         ) : undefined}
       </div>
-      <Popover>
-        <PopoverTrigger asChild>
+      <PackageChecksDialog
+        open={open}
+        onOpenChange={setOpen}
+        results={resultsForPackage}
+        pkg={row.original.package}
+      >
+        <DialogTrigger asChild>
           <Button variant="ghost" className="flex gap-4 overflow-hidden shrink">
             <StatusCount
               failCount={failCount}
@@ -167,43 +159,8 @@ export function ConformanceCell<T extends ColumnData>({
             />
             <ChevronDown className="h-4 w-4 shrink-0" />
           </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-[500px] p-0" align="end">
-          <ScrollArea className="flex flex-col max-h-[500px]">
-            <div className="p-4 grid flex-col gap-4">
-              {Object.entries(resultsForPackageByFilter).map(
-                ([filter, resultsForFilter]) => {
-                  const status = getStatusForResults(resultsForFilter);
-
-                  return (
-                    <Accordion
-                      key={filter}
-                      type="multiple"
-                      className="w-full overflow-hidden"
-                    >
-                      <FilterTitle filter={filter} status={status} />
-                      {resultsForFilter.map((result) => {
-                        const key = `${result.name}-${result.package.name}`;
-
-                        return (
-                          <AccordionItem key={key} value={key}>
-                            <AccordionTrigger>
-                              <CheckTitle result={result} />
-                            </AccordionTrigger>
-                            <AccordionContent>
-                              <CheckContent result={result} />
-                            </AccordionContent>
-                          </AccordionItem>
-                        );
-                      })}
-                    </Accordion>
-                  );
-                },
-              )}
-            </div>
-          </ScrollArea>
-        </PopoverContent>
-      </Popover>
+        </DialogTrigger>
+      </PackageChecksDialog>
     </div>
   );
 }
