@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react';
 import { GraphContext } from './graph-provider';
 import FeatureGraphToolbar from './feature-graph-toolbar';
 import { cn } from '@commonalityco/ui-design-system/cn';
-import debounce from 'lodash/debounce';
+import debounce from 'lodash-es/debounce';
 import { getElementDefinitions } from '@commonalityco/utils-constraints';
 import { ProjectConfig } from '@commonalityco/utils-core';
 

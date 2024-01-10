@@ -111,7 +111,7 @@ importers:
       local-pkg:
         specifier: ^0.5.0
         version: 0.5.0
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       minimatch:
@@ -387,9 +387,9 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.2
         version: 11.0.4
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: ^4.14.198
-        version: 4.14.202
+        version: 4.17.12
       '@types/node':
         specifier: ^20.10.0
         version: 20.10.6
@@ -447,7 +447,7 @@ importers:
       jest-environment-jsdom:
         specifier: ^29.7.0
         version: 29.7.0(bufferutil@4.0.8)(utf-8-validate@6.0.3)
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
@@ -652,7 +652,7 @@ importers:
 
   packages/commonality/commonality-checks-recommended:
     dependencies:
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       semver:
@@ -665,9 +665,9 @@ importers:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
         version: link:../../../tooling/config-tsconfig
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: ^4.14.198
-        version: 4.14.202
+        version: 4.17.12
       '@types/mock-fs':
         specifier: ^4.13.4
         version: 4.13.4
@@ -704,7 +704,7 @@ importers:
       jest-diff:
         specifier: ^29.7.0
         version: 29.7.0
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       mock-fs:
@@ -729,9 +729,9 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.2
         version: 11.0.4
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: ^4.14.198
-        version: 4.14.202
+        version: 4.17.12
       '@types/mock-fs':
         specifier: ^4.13.4
         version: 4.13.4
@@ -820,7 +820,7 @@ importers:
       jest-diff:
         specifier: ^29.7.0
         version: 29.7.0
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       mock-fs:
@@ -842,9 +842,9 @@ importers:
       '@commonalityco/utils-core':
         specifier: workspace:*
         version: link:../../shared/utils-core
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: ^4.14.198
-        version: 4.14.202
+        version: 4.17.12
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../../tooling/config-eslint
@@ -881,7 +881,7 @@ importers:
       '@commonalityco/utils-constraints':
         specifier: workspace:*
         version: link:../utils-constraints
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       xstate:
@@ -906,9 +906,9 @@ importers:
       '@types/cytoscape':
         specifier: ^3.19.16
         version: 3.19.16
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: ^4.14.198
-        version: 4.14.202
+        version: 4.17.12
       cytoscape:
         specifier: ^3.26.0
         version: 3.28.0
@@ -933,7 +933,7 @@ importers:
       '@xstate/react':
         specifier: ^3.2.2
         version: 3.2.2(@types/react@18.2.45)(react@18.2.0)(xstate@4.38.3)
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
@@ -979,9 +979,9 @@ importers:
       '@testing-library/user-event':
         specifier: ^14.5.2
         version: 14.5.2(@testing-library/dom@9.3.3)
-      '@types/lodash':
+      '@types/lodash-es':
         specifier: ^4.14.198
-        version: 4.14.202
+        version: 4.17.12
       '@types/react':
         specifier: ^18.2.22
         version: 18.2.45
@@ -7892,6 +7892,12 @@ packages:
     resolution: {integrity: sha512-HMwFiRujE5PjrgwHQ25+bsLJgowjGjm5Z8FVSf0N6PwgJrwxH0QxzHYDcKsTfV3wva0vzrpqMTJS2jXPr5BMEQ==}
     dev: false
 
+  /@types/lodash-es@4.17.12:
+    resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
+    dependencies:
+      '@types/lodash': 4.14.202
+    dev: true
+
   /@types/lodash@4.14.202:
     resolution: {integrity: sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==}
     dev: true
@@ -14496,7 +14502,6 @@ packages:
 
   /lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
-    dev: false
 
   /lodash.castarray@4.4.0:
     resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}

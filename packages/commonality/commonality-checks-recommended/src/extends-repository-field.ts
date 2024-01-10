@@ -1,6 +1,6 @@
 import { defineCheck, diff, json, PackageJson, Workspace } from 'commonality';
 import path from 'node:path';
-import pick from 'lodash/pick';
+import pick from 'lodash-es/pick';
 
 const stripTrailingSlash = (str: string) => {
   return str.endsWith('/') ? str.slice(0, -1) : str;
