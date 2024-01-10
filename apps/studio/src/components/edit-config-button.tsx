@@ -9,7 +9,7 @@ export function EditConfigButton({ className }: { className?: string }) {
       onClick={() => openProjectConfig()}
       className={cn('flex gap-2', className)}
     >
-      Edit config <Settings className="h-4 w-4" />
+      <Settings className="h-4 w-4" /> Edit config
     </Button>
   );
 }

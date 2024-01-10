@@ -70,7 +70,7 @@ export function ThemeButton({
         </Tooltip>
       </TooltipProvider>
       <DropdownMenuContent
-        align="end"
+        align="center"
         onCloseAutoFocus={(event) => event.preventDefault()}
       >
         {theme && (

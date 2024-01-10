@@ -59,7 +59,7 @@ function StudioNavigation({
             <h1 className="text-base font-semibold text-foreground">{title}</h1>
           </div>
           <div className="flex items-center gap-2">
-            <Button asChild variant="ghost">
+            <Button asChild variant="link">
               <Link
                 href="https://github.com/commonalityco/commonality/issues/new?title=Feedback+for+%22Commonality+Studio%22&labels=feedback"
                 target="_blank"
@@ -70,7 +70,7 @@ function StudioNavigation({
                 <ExternalLink className="h-4 w-4 shrink-0" />
               </Link>
             </Button>
-            <Button asChild variant="ghost">
+            <Button asChild variant="link">
               <Link
                 href="https://commonality.co/docs/overview"
                 target="_blank"

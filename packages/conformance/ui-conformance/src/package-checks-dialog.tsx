@@ -38,17 +38,17 @@ export function PackageChecksDialog({
         <DialogHeader>
           <DialogTitle className="items-center gap-2 overflow-hidden grid grid-flow-col auto-cols-auto justify-start">
             <PackageIcon className="min-w-0 shrink-0" />
-            <span className="truncate min-w-0 leading-6">{pkg.name}</span>
+            <span className="min-w-0 leading-6 break-words">{pkg.name}</span>
           </DialogTitle>
         </DialogHeader>
-        <ScrollArea className="flex flex-col max-h-[400px]">
+        <ScrollArea className="flex flex-col max-h-[450px]">
           {results.length > 0 ? (
             <GradientFade
               placement="top"
               className="absolute top-0 left-0 right-0"
             />
           ) : undefined}
-          <div className="grid flex-col gap-4">
+          <div className="grid flex-col">
             {results.length > 0 ? (
               results.map((result, index) => {
                 return (

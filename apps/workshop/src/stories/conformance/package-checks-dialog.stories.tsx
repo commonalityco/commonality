@@ -90,7 +90,8 @@ export const Checks: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
+          title:
+            'This package should be correct and it should not have any weird errors or missing files',
           filePath: 'package.json',
           suggestion: 'package.json',
         },

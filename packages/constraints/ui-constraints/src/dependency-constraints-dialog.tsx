@@ -46,7 +46,7 @@ export function DependencyConstraintsDialog({
             </div>
           </DialogTitle>
         </DialogHeader>
-        <ScrollArea className="max-h-[400px]">
+        <ScrollArea className="max-h-[450px]">
           <div className="flex flex-col gap-4 py-2">
             {dependencies.map((dependency) => {
               const resultsForDependency = results.filter((result) =>

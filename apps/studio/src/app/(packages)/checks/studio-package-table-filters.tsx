@@ -6,7 +6,7 @@ import {
   CodeownersFilterButton,
 } from '@commonalityco/ui-package';
 import { useQueryParams } from '@/hooks/use-query-params';
-import { debounce } from '@/utils/debounce';
+import debounce from 'lodash/debounce';
 
 function StudioPackageTableFilters({
   tags,
@@ -25,7 +25,8 @@ function StudioPackageTableFilters({
         deleteQuery('name');
       }
     },
-    100,
+    200,
+    { leading: true, trailing: true },
   );
 
   const setTagsQuery = (selectedTags: string[]) => {

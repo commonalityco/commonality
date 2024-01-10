@@ -57,7 +57,7 @@ export function AllConstraintsDialog({
           </div>
         ) : undefined}
         {hasResults || (!hasResults && !search) ? (
-          <ScrollArea className="max-h-[400px] py-2 relative">
+          <ScrollArea className="max-h-[450px] py-2 relative">
             <ConstraintResults results={filteredResults} />
             {hasResults ? (
               <GradientFade placement="bottom" className="z-auto" />

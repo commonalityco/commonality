@@ -21,16 +21,14 @@ import {
   TableRow,
   TableHeadSortButton,
   Button,
-  DialogTrigger,
 } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
 import { Status, formatTagName } from '@commonalityco/utils-core';
 import { getIconForPackage } from '@commonalityco/utils-core/ui';
 import { Package } from '@commonalityco/types';
-import { ChevronDown, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { StatusCount } from './conformance-results-list';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
-import { PackageChecksDialog } from './package-checks-dialog';
 
 export type ColumnData = {
   package: Package;
@@ -84,7 +82,6 @@ export function ConformanceCell<T extends ColumnData>({
 }: {
   row: Row<T>;
 }) {
-  const [open, setOpen] = useState(false);
   const results: ConformanceResult[] = row.getValue('results');
   const resultsForPackage = results.filter(
     (result) => result.package.name === row.original.package.name,
@@ -103,18 +100,6 @@ export function ConformanceCell<T extends ColumnData>({
   const warnCount = results.filter(
     (result) => result.status === Status.Warn,
   ).length;
-
-  const resultsForPackageByFilter: Record<string, ConformanceResult[]> = {};
-  for (const result of resultsForPackage) {
-    const filter = result.filter;
-    const existingResultsForFilter = resultsForPackageByFilter[filter];
-
-    if (existingResultsForFilter) {
-      existingResultsForFilter.push(result);
-    } else {
-      resultsForPackageByFilter[filter] = [result];
-    }
-  }
 
   return (
     <div className="flex gap-2 items-center">
@@ -144,23 +129,12 @@ export function ConformanceCell<T extends ColumnData>({
           />
         ) : undefined}
       </div>
-      <PackageChecksDialog
-        open={open}
-        onOpenChange={setOpen}
-        results={resultsForPackage}
-        pkg={row.original.package}
-      >
-        <DialogTrigger asChild>
-          <Button variant="ghost" className="flex gap-4 overflow-hidden shrink">
-            <StatusCount
-              failCount={failCount}
-              warnCount={warnCount}
-              passCount={passCount}
-            />
-            <ChevronDown className="h-4 w-4 shrink-0" />
-          </Button>
-        </DialogTrigger>
-      </PackageChecksDialog>
+
+      <StatusCount
+        failCount={failCount}
+        warnCount={warnCount}
+        passCount={passCount}
+      />
     </div>
   );
 }

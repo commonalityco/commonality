@@ -45,7 +45,7 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
     <div className="flex items-center overflow-hidden w-full">
       <div className="grid gap-4 grid-cols-[minmax(0,max-content)_1fr] text-left items-start">
         <div className="flex gap-1 items-center">{getStatusText()}</div>
-        <div className="text-left grow shrink basis-auto min-w-0 max-w-full truncate">
+        <div className="text-left grow shrink basis-auto min-w-0 max-w-full break-words">
           {result.message.title}
         </div>
       </div>
