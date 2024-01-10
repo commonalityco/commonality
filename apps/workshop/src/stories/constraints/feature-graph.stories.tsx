@@ -14,7 +14,7 @@ import GraphWorker from './feature-graph-worker.ts?worker';
 const newWorker = new GraphWorker();
 
 const meta = {
-  title: 'feature-graph/FeatureGraphChart',
+  title: 'Constraints/FeatureGraphChart',
   component: FeatureGraphChart,
   tags: ['autodocs'],
   parameters: {

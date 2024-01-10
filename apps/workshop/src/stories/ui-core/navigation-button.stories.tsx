@@ -3,7 +3,7 @@ import { NavigationButton } from '@commonalityco/ui-core';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
-  title: 'Features/Core/NavigationButton',
+  title: 'Core/NavigationButton',
   component: NavigationButton,
   tags: ['autodocs'],
   argTypes: {},

@@ -5,7 +5,7 @@ import { PackageType } from '@commonalityco/utils-core';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
-  title: 'ui-graph/Sidebar',
+  title: 'Constraints/Sidebar',
   component: Sidebar,
   tags: ['autodocs'],
   argTypes: {},
