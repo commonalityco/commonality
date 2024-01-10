@@ -1,5 +1,12 @@
 # @commonalityco/ui-conformance
 
+## 0.2.37
+
+### Patch Changes
+
+- 7e440ac: Moves checks from popover to dedicated modal
+  - @commonalityco/ui-design-system@0.2.37
+
 ## 0.2.36
 
 ### Patch Changes

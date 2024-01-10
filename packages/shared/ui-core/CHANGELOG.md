@@ -1,5 +1,12 @@
 # @commonalityco/ui-core
 
+## 0.2.38
+
+### Patch Changes
+
+- 7e440ac: Moves edit configuration button to top level navigation
+  - @commonalityco/ui-design-system@0.2.37
+
 ## 0.2.37
 
 ### Patch Changes

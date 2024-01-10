@@ -1,5 +1,11 @@
 # @commonalityco/config-tailwind
 
+## 0.2.36
+
+### Patch Changes
+
+- 7e440ac: Updates the HSL values of colors for improved legibility
+
 ## 0.2.35
 
 ### Patch Changes

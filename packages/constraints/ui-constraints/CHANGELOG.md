@@ -1,5 +1,15 @@
 # @commonalityco/ui-constraints
 
+## 0.2.38
+
+### Patch Changes
+
+- a8cda3c: Drastically reduce bundle size by deduping and selectively importing
+- 7e440ac: Moves constraints from popover to dedicated modal and improves legibility of nodes
+- Updated dependencies [7e440ac]
+  - @commonalityco/ui-core@0.2.38
+  - @commonalityco/ui-design-system@0.2.37
+
 ## 0.2.37
 
 ### Patch Changes

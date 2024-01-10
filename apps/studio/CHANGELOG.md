@@ -1,5 +1,12 @@
 # @commonalityco/dashboard
 
+## 0.2.39
+
+### Patch Changes
+
+- 7e440ac: Moves checks and constraints into dedicated modal
+- a8cda3c: Drastically reduce bundle size by deduping and selectively importing
+
 ## 0.2.38
 
 ### Patch Changes
