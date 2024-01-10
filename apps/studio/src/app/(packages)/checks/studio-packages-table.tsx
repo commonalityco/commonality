@@ -9,6 +9,7 @@ import {
   SortableHeader,
   TagsCell,
   ColumnData,
+  PackageChecksDialog,
 } from '@commonalityco/ui-conformance';
 import {
   DropdownMenu,
@@ -17,7 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@commonalityco/ui-design-system/dropdown-menu';
-import { Button } from '@commonalityco/ui-design-system';
+import { Button, DialogTrigger } from '@commonalityco/ui-design-system';
 import { MoreHorizontal } from 'lucide-react';
 import { openPackageJson } from '@/actions/editor';
 import {
@@ -25,45 +26,63 @@ import {
   EditTagsDialogContent,
 } from '@/components/edit-tags-dialog';
 import { Package } from '@commonalityco/types';
+import { ConformanceResult } from '@commonalityco/utils-conformance';
 
 export function ActionButton({
   existingTags,
   tags,
   pkg,
+  results,
 }: {
   pkg: Package;
   existingTags: string[];
   tags: string[];
+  results: ConformanceResult[];
 }) {
-  const [open, setOpen] = useState(false);
+  const [tagsOpen, setTagsOpen] = useState(false);
+  const [checksOpen, setChecksOpen] = useState(false);
 
   return (
     <>
-      <EditTagsDialog open={open} onOpenChange={setOpen}>
+      <EditTagsDialog open={tagsOpen} onOpenChange={setTagsOpen}>
         <EditTagsDialogContent
           tags={tags}
           existingTags={existingTags}
           pkg={pkg}
-          onEdit={() => setOpen(false)}
+          onEdit={() => setTagsOpen(false)}
         />
       </EditTagsDialog>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0" size="icon">
-            <span className="sr-only">Open menu</span>
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
+      <div className="flex flex-nowrap gap-2 justify-end">
+        <PackageChecksDialog
+          results={results}
+          pkg={pkg}
+          open={checksOpen}
+          onOpenChange={setChecksOpen}
+        >
+          <DialogTrigger asChild>
+            <Button variant="outline" size="sm">
+              View checks
+            </Button>
+          </DialogTrigger>
+        </PackageChecksDialog>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="h-8 w-8 p-0" size="icon">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => openPackageJson(pkg.path)}>
-            Edit package.json
-          </DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => setOpen(true)}>
-            Edit tags
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onSelect={() => openPackageJson(pkg.path)}>
+              Edit package.json
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => setTagsOpen(true)}>
+              Edit tags
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </>
   );
 }
@@ -146,13 +165,14 @@ function StudioPackagesTable({
       },
       {
         id: 'actions',
-        size: 64,
+        // size: 170,
         cell: ({ row }) => {
           return (
             <Suspense fallback={null}>
               <ActionButton
                 existingTags={row.original.tags}
                 pkg={row.original.package}
+                results={row.original.results}
                 tags={props.tags}
               />
             </Suspense>

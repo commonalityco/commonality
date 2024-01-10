@@ -1,1 +1,1 @@
-export * from './get-icon-for-package';
+export * from '../get-icon-for-package';

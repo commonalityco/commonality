@@ -24,6 +24,8 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
     getConformanceResultsData(),
   ]);
 
+  const resultsWithoutFix = results.map((result) => omit(result, ['fix']));
+
   const parsedSearchParams = z
     .object({
       editTags: z.coerce.boolean().optional(),
@@ -42,8 +44,8 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
 
   const data = await getTableData({
     packages,
-    results: results.map((result) => {
-      const strippedResult = result.message.suggestion
+    results: resultsWithoutFix.map((result) => {
+      return result.message.suggestion
         ? {
             ...result,
             message: {
@@ -52,8 +54,6 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
             },
           }
         : result;
-
-      return omit(strippedResult, ['fix']) as Omit<ConformanceResult, 'fix'>;
     }),
     tagsData,
     codeownersData,
@@ -76,12 +76,10 @@ async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
       <div className="grow px-6 py-4 w-full space-y-4 flex flex-col">
         <div className="w-full space-y-4">
           <ConformanceHeader
-            results={results}
+            results={resultsWithoutFix}
             totalCount={packages.length}
             shownCount={data.length}
-          >
-            <EditConfigButton />
-          </ConformanceHeader>
+          ></ConformanceHeader>
           <div className="flex items-center gap-2 shrink-0 relative z-10">
             <PackageTableFilters
               tags={uniqueTags}

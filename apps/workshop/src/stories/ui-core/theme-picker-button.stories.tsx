@@ -4,7 +4,7 @@ import { ThemeProvider } from 'next-themes';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
-  title: 'Features/Core/Theme Button',
+  title: 'Core/Theme Button',
   component: ThemeButton,
   tags: ['autodocs'],
   argTypes: {},

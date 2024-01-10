@@ -1,11 +1,5 @@
 import { ConstraintResult } from '@commonalityco/types';
-import {
-  Badge,
-  Button,
-  Dialog,
-  DialogTrigger,
-  cn,
-} from '@commonalityco/ui-design-system';
+import { cn } from '@commonalityco/ui-design-system';
 import { Check, X } from 'lucide-react';
 import { useState } from 'react';
 import { AllConstraintsDialog } from './all-constraints-dialog';
@@ -29,10 +23,9 @@ function GraphHeader({
     <div className="flex px-6 py-4 justify-between">
       <div className="flex gap-4 items-center">
         <h1 className="font-medium text-2xl leading-none">Constraints</h1>
-        <Badge
-          variant="outline"
-          className="text-muted-foreground"
-        >{`${shownCount} of ${totalCount} packages`}</Badge>
+        {totalCount > 0 ? (
+          <p className="text-muted-foreground text-xs animate-in fade-in">{`${shownCount} of ${totalCount} packages`}</p>
+        ) : undefined}
       </div>
       <div className="flex gap-2 flex-nowrap">
         <div className="flex gap-4 flex-nowrap mr-3">
@@ -45,7 +38,6 @@ function GraphHeader({
               },
             )}
           >
-            <X className="h-4 w-4" />
             {failCount}
             {` failed`}
           </p>
@@ -58,7 +50,6 @@ function GraphHeader({
               },
             )}
           >
-            <Check className="h-4 w-4" />
             {passCount}
             {` passed`}
           </p>
@@ -66,7 +57,8 @@ function GraphHeader({
 
         <AllConstraintsDialog
           results={results}
-          onOpenChange={() => setOpen(false)}
+          open={open}
+          onOpenChange={setOpen}
         />
 
         {children}

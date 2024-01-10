@@ -44,9 +44,12 @@ function ShowHideButton({
 }) {
   return (
     <div
-      className={cn('flex shrink-0 items-center opacity-0 hover:opacity-100', {
-        'opacity-100': visible,
-      })}
+      className={cn(
+        'flex shrink-0 transition duration-200 items-center opacity-0 hover:opacity-100',
+        {
+          'opacity-100': visible,
+        },
+      )}
     >
       <TooltipProvider>
         <Tooltip>

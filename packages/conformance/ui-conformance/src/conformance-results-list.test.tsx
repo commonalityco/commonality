@@ -76,7 +76,7 @@ describe('CheckTitle', () => {
 });
 
 describe('CheckContent', () => {
-  it('should render no additional context when no filePath and suggestion', async () => {
+  it('should render the applied to tag', async () => {
     const result = {
       package: {
         name: 'test-package',
@@ -92,9 +92,11 @@ describe('CheckContent', () => {
 
     render(<CheckContent result={result} />);
 
-    const noContextElement = screen.getByText('No additional context');
+    const appliedToBadge = screen.getByLabelText('Applied to');
 
-    expect(noContextElement).toBeInTheDocument();
+    const appliedToTag = within(appliedToBadge).getByText('#tag-one');
+
+    expect(appliedToTag).toBeInTheDocument();
   });
 
   it('should render filePath and suggestion when provided', async () => {
@@ -146,24 +148,16 @@ describe('StatusCount', () => {
     expect(passCountElement).toBeInTheDocument();
   });
 
-  it('should render correct counts when failCount, warnCount, and passCount are zero', async () => {
+  it('should not render counts when failCount, warnCount, and passCount are zero', async () => {
     render(<StatusCount failCount={0} warnCount={0} passCount={0} />);
 
-    const failCountContainer = screen.getByLabelText('Fail count');
-    const warnCountContainer = screen.getByLabelText('Warning count');
-    const passCountContainer = screen.getByLabelText('Pass count');
+    const failCountElement = screen.queryByText('0');
+    const warnCountElement = screen.queryByText('0');
+    const passCountElement = screen.queryByText('0');
 
-    expect(failCountContainer).toHaveClass('text-muted-foreground');
-    expect(warnCountContainer).toHaveClass('text-muted-foreground');
-    expect(passCountContainer).toHaveClass('text-muted-foreground');
-
-    const failCountElement = within(failCountContainer).getByText('0');
-    const warnCountElement = within(warnCountContainer).getByText('0');
-    const passCountElement = within(passCountContainer).getByText('0');
-
-    expect(failCountElement).toBeInTheDocument();
-    expect(warnCountElement).toBeInTheDocument();
-    expect(passCountElement).toBeInTheDocument();
+    expect(failCountElement).not.toBeInTheDocument();
+    expect(warnCountElement).not.toBeInTheDocument();
+    expect(passCountElement).not.toBeInTheDocument();
   });
 });
 
@@ -231,12 +225,11 @@ describe('ConformanceResults', () => {
 
     const packageOneNameElement = screen.getByText('This package is cool');
     const packageTwoNameElement = screen.getByText('This package is also cool');
-    const filterText = screen.getAllByText('#tag-one');
+
     const statusText = screen.getAllByText('pass');
 
     expect(packageOneNameElement).toBeInTheDocument();
     expect(packageTwoNameElement).toBeInTheDocument();
-    expect(filterText).toHaveLength(1);
     expect(statusText).toHaveLength(2);
   });
 

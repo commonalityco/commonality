@@ -1,7 +1,7 @@
-import { LogoNode } from './images/logo-node';
-import { LogoReact } from './images/logo-react';
-import { LogoNext } from './images/logo-next';
-import { PackageType } from '../constants';
+import { LogoNode } from './ui/images/logo-node';
+import { LogoReact } from './ui/images/logo-react';
+import { LogoNext } from './ui/images/logo-next';
+import { PackageType } from './constants';
 
 const ComponentByType = {
   [PackageType.NEXT]: LogoNext,

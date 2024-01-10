@@ -26,7 +26,7 @@ export const edgeStyles: Stylesheet[] = [
       'target-endpoint': '0% -50%',
       'arrow-scale': 1.5,
       'line-color': colors.light.default,
-      opacity: 0.25,
+      opacity: 0.3,
     } as cytoscape.Css.Edge,
   },
   {
@@ -54,6 +54,7 @@ export const edgeStyles: Stylesheet[] = [
       'line-color': colors.dark.default,
       'target-arrow-color': colors.dark.default,
       'underlay-color': colors.dark.default,
+      opacity: 0.2,
     } as cytoscape.Css.Edge,
   },
   {

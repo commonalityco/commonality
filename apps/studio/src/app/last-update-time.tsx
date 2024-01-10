@@ -47,7 +47,7 @@ function LastUpdateTime() {
   }, [count]);
 
   return (
-    <div className="text-muted-foreground text-xs">
+    <div className="text-muted-foreground text-xs animate-in fade-in">
       {`Last updated ${formatRelative(new Date(), lastUpdated)}`}
     </div>
   );

@@ -1,5 +1,4 @@
 'use client';
-import { GradientFade } from '@commonalityco/ui-core';
 import {
   Button,
   Dialog,
@@ -11,16 +10,17 @@ import {
   Input,
   ScrollArea,
 } from '@commonalityco/ui-design-system';
-import { useMemo, useState, ComponentProps } from 'react';
-import { ConstraintResults } from './constraint-results';
-import { ConstraintResult } from '@commonalityco/types';
+import { ConformanceResult } from '@commonalityco/utils-conformance';
+import { ComponentProps, useMemo, useState } from 'react';
+import { ConformanceResults } from './conformance-results-list';
+import { GradientFade } from '@commonalityco/ui-core';
 
-export function AllConstraintsDialog({
+export function AllChecksDialog({
   results,
   ...props
-}: {
-  results: ConstraintResult[];
-} & ComponentProps<typeof Dialog>) {
+}: ComponentProps<typeof Dialog> & {
+  results: Omit<ConformanceResult, 'fix'>[];
+}) {
   const [search, setSearch] = useState('');
 
   const filteredResults = useMemo(() => {
@@ -29,20 +29,20 @@ export function AllConstraintsDialog({
     }
 
     return results.filter((result) => {
-      return result.dependencyPath[0].source.includes(search);
+      return result.package.name.includes(search);
     });
   }, [results, search]);
 
-  const hasResults = filteredResults.length > 0;
+  const hasFilteredResults = filteredResults.length > 0;
 
   return (
     <Dialog {...props}>
       <DialogTrigger asChild>
-        <Button variant="secondary">View all constraints</Button>
+        <Button variant="secondary">View all checks</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>All constraints</DialogTitle>
+          <DialogTitle>All checks</DialogTitle>
         </DialogHeader>
         {results.length > 0 ? (
           <div>
@@ -53,26 +53,27 @@ export function AllConstraintsDialog({
               onChange={(event) => setSearch(event.target.value)}
             />
 
-            <p className="text-xs text-muted-foreground leadsing-none">{`${filteredResults.length} constraints`}</p>
+            <p className="text-xs text-muted-foreground leading-none">{`${filteredResults.length} checks`}</p>
           </div>
         ) : undefined}
-        {hasResults || (!hasResults && !search) ? (
+        {hasFilteredResults || (!hasFilteredResults && !search) ? (
           <ScrollArea className="max-h-[450px] py-2 relative">
-            <ConstraintResults results={filteredResults} />
-            {hasResults ? (
-              <GradientFade placement="bottom" className="z-auto" />
+            <ConformanceResults results={filteredResults} />
+            {hasFilteredResults ? (
+              <GradientFade placement="bottom" />
             ) : undefined}
           </ScrollArea>
         ) : undefined}
-        {!hasResults && search ? (
+        {!hasFilteredResults && search ? (
           <p className="text-center py-16">No packages match your filters</p>
         ) : undefined}
-
         <DialogFooter>
           <Button
             variant="outline"
             className="w-full"
-            onClick={() => props?.onOpenChange?.(false)}
+            onClick={() => {
+              props?.onOpenChange?.(false);
+            }}
           >
             Close
           </Button>

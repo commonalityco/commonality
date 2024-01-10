@@ -36,6 +36,7 @@ describe('<ActionButton />', () => {
         existingTags={mockData.tags}
         pkg={mockData.package}
         tags={mockData.tags}
+        results={[]}
       />,
     );
 
@@ -62,6 +63,7 @@ describe('<ActionButton />', () => {
         existingTags={mockData.tags}
         pkg={mockData.package}
         tags={mockData.tags}
+        results={[]}
       />,
     );
 

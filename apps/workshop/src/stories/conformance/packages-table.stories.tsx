@@ -38,7 +38,7 @@ const columns = [
 ] satisfies PackageTableColumns<Package>;
 
 const meta = {
-  title: 'ui-package/PackagesTable',
+  title: 'Conformance/PackagesTable',
   component: PackagesTable,
   tags: ['autodocs'],
   argTypes: {},
