@@ -1,7 +1,7 @@
-import { GraphChartLoading } from '@commonalityco/ui-constraints';
+import { ChartLoading } from '@commonalityco/ui-constraints/chart-loading';
 
-function ChartLoading() {
-  return <GraphChartLoading />;
+function Loading() {
+  return <ChartLoading />;
 }
 
-export default ChartLoading;
+export default Loading;

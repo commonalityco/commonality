@@ -8,7 +8,8 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./create-worker": "./dist/create-worker.js"
   },
   "license": "MIT",
   "scripts": {

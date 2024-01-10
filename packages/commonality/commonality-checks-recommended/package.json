@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
-    "@types/lodash": "^4.14.198",
+    "@types/lodash-es": "^4.14.198",
     "@types/mock-fs": "^4.13.4",
     "@types/semver": "^7.5.6",
     "@types/validate-npm-package-name": "^4.0.2",
@@ -34,7 +34,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "semver": "^7.5.4",
     "validate-npm-package-name": "^5.0.0"
   },

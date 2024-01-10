@@ -6,7 +6,7 @@ import {
   CodeownersFilterButton,
 } from '@commonalityco/ui-package';
 import { useQueryParams } from '@/hooks/use-query-params';
-import debounce from 'lodash/debounce';
+import debounce from 'lodash-es/debounce';
 
 function StudioPackageTableFilters({
   tags,

@@ -22,7 +22,7 @@ import {
   NodeSingular,
   Selector,
 } from 'cytoscape';
-import debounce from 'lodash/debounce';
+import debounce from 'lodash-es/debounce';
 import {
   createRenderGraph,
   createTraversalGraph,

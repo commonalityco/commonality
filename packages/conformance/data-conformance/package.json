@@ -27,7 +27,7 @@
     "@commonalityco/types": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@types/fs-extra": "^11.0.2",
-    "@types/lodash-es": "^4.17.12",
+    "@types/lodash-es": "^4.14.198",
     "@types/mock-fs": "^4.13.4",
     "eslint-config-commonality": "workspace:*",
     "react": "^18.2.0",

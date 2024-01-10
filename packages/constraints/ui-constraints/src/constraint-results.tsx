@@ -7,15 +7,11 @@ import {
   Badge,
   cn,
 } from '@commonalityco/ui-design-system';
-import {
-  DependencyType,
-  formatTagName,
-  getIconForPackage,
-} from '@commonalityco/utils-core';
+import { DependencyType, formatTagName } from '@commonalityco/utils-core';
 import { ArrowRight, Check, X } from 'lucide-react';
 import { ComponentProps, useMemo } from 'react';
-import uniqBy from 'lodash/uniqBy';
-import isEqual from 'lodash/isEqual';
+import uniqBy from 'lodash-es/uniqBy';
+import isEqual from 'lodash-es/isEqual';
 import { GradientFade } from '@commonalityco/ui-core';
 import { ConstraintsOnboardingCard } from './constraints-onboarding-card';
 

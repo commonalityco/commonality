@@ -12,7 +12,10 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./get-conformance-results": "./dist/get-conformance-results.js",
+    "./get-status-for-results": "./dist/get-status-for-results.js",
+    "./run-fixes": "./dist/run-fixes.js"
   },
   "license": "MIT",
   "scripts": {
@@ -27,7 +30,7 @@
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
-    "@types/lodash-es": "^4.17.12",
+    "@types/lodash-es": "^4.14.198",
     "eslint-config-commonality": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

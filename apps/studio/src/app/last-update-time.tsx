@@ -2,7 +2,7 @@ import { formatRelative } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import debounce from 'lodash/debounce';
+import debounce from 'lodash-es/debounce';
 
 function LastUpdateTime() {
   const router = useRouter();

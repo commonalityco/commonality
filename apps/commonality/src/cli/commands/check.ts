@@ -1,11 +1,9 @@
 import { formatTagName } from '@commonalityco/utils-core';
 /* eslint-disable unicorn/no-process-exit */
-import {
-  getConformanceResults,
-  runFixes,
-  getStatusForResults,
-  ConformanceResult,
-} from '@commonalityco/utils-conformance';
+import type { ConformanceResult } from '@commonalityco/utils-conformance';
+import { getConformanceResults } from '@commonalityco/utils-conformance/get-conformance-results';
+import { runFixes } from '@commonalityco/utils-conformance/run-fixes';
+import { getStatusForResults } from '@commonalityco/utils-conformance/get-status-for-results';
 import { Command } from 'commander';
 import {
   getProjectConfig,

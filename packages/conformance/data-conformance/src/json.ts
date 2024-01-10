@@ -1,10 +1,13 @@
 import { file, File } from './file';
 import fs from 'fs-extra';
-import { isMatch, merge, omit } from 'lodash-es';
+import isMatch from 'lodash-es/isMatch';
+import merge from 'lodash-es/merge';
+import omit from 'lodash-es/omit';
 import detectIndent from 'detect-indent';
 import path from 'pathe';
 
-export interface JsonFile<T extends Record<string, unknown>> extends Omit<File, 'get'> {
+export interface JsonFile<T extends Record<string, unknown>>
+  extends Omit<File, 'get'> {
   get: () => Promise<T | undefined>;
   contains(value: Partial<Record<string, unknown>>): Promise<boolean>;
   set(value: Record<string, unknown>): Promise<void>;
