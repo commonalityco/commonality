@@ -6,6 +6,5 @@
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [],
-  "linked": [["@commonalityco/*", "commonality"]]
+  "ignore": []
 }
