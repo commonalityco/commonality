@@ -20,7 +20,6 @@ import { Logger } from '../utils/logger';
 import { Status } from '@commonalityco/utils-core';
 const command = new Command();
 import { isCI } from 'std-env';
-import uniqBy from 'lodash-es/uniqBy';
 
 const checksSpinner = ora('Running checks...');
 
@@ -178,41 +177,21 @@ const reportConformanceResults = ({
       count: resultsForPackage.size,
     });
 
-    const resultsForPackageByFilter = new Map<string, ConformanceResult[]>();
     for (const result of resultsForPackage) {
-      const filter = result.filter;
-      const existingResultsForFilter = resultsForPackageByFilter.get(filter);
+      if (result.status !== Status.Pass || verbose) {
+        logger.addCheckName({ result });
 
-      if (existingResultsForFilter) {
-        existingResultsForFilter.push(result);
-      } else {
-        resultsForPackageByFilter.set(filter, [result]);
-      }
-    }
-
-    for (const [filter, resultsForFilter] of resultsForPackageByFilter) {
-      const result = resultsForPackageByFilter.get(filter);
-
-      if (!result) {
-        continue;
-      }
-
-      for (const result of resultsForPackage) {
-        if (result.status !== Status.Pass || verbose) {
-          logger.addCheckName({ result });
-
-          if (result.message.filePath) {
-            logger.addSubText(
-              c.dim(path.join(result.package.path, result.message.filePath)),
-            );
-          }
-
-          if (result.message.suggestion) {
-            logger.addSubText(result.message.suggestion);
-          }
-
-          logger.addSubText();
+        if (result.message.filePath) {
+          logger.addSubText(
+            c.dim(path.join(result.package.path, result.message.filePath)),
+          );
         }
+
+        if (result.message.suggestion) {
+          logger.addSubText(result.message.suggestion);
+        }
+
+        logger.addSubText();
       }
     }
   }
