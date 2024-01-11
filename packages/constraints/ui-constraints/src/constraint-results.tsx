@@ -81,21 +81,6 @@ export function ConstraintContent({ result }: { result: ConstraintResult }) {
         )}
       </div>
       <div className="grid gap-3 grid-cols-[minmax(min-content,max-content)_1fr]">
-        <dt id="applied-to" className="shrink-0 whitespace-nowrap">
-          Applied to:
-        </dt>
-
-        <TagsContainer aria-labelledby="applied-to">
-          <Badge
-            role="tag"
-            aria-label={result.filter}
-            variant="outline"
-            className={cn('truncate inline-block')}
-          >
-            {formatTagName(result.filter)}
-          </Badge>
-        </TagsContainer>
-
         {'allow' in result.constraint ? (
           <>
             <dt id="allowed" className="shrink-0 whitespace-nowrap">

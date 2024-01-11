@@ -37,28 +37,6 @@ class ConformLogger extends Logger {
     this.output += `\n${title}\n\n${body}\n\n${link}`;
   }
 
-  addFilterTitle({
-    filter,
-    count,
-    status,
-  }: {
-    filter: string;
-    count: number;
-    status: Status;
-  }) {
-    const countText = c.dim(`(${count})`);
-
-    const textByStatus = {
-      [Status.Pass]: c.green(`• Applied to: ${formatTagName(filter)}`),
-      [Status.Warn]: c.yellow(`• Applied to: ${formatTagName(filter)}`),
-      [Status.Fail]: c.red(`• Applied to: ${formatTagName(filter)}`),
-    };
-
-    const statusText = textByStatus[status];
-
-    this.output += `\n${statusText} ${countText}`;
-  }
-
   addCheckName({ result }: { result: ConformanceResult }) {
     let status;
     if (result.status === Status.Pass) {
