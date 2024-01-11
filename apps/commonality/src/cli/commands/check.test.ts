@@ -217,12 +217,10 @@ describe('check', () => {
           [
             "
         ❯ pkg-one (1)
-        • Applied to: All packages (1)
         ✓ pass This package should be cool
         │      /path/package.json
         │      
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ✓ pass This package should be cool
         │      
 
@@ -349,7 +347,6 @@ describe('check', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 
@@ -403,7 +400,6 @@ describe('check', () => {
           [
             "
         ❯ pkg-one (1)
-        • Applied to: All packages (1)
         ✓ pass This package should be awesome
         │      /path/package.json
         │      I
@@ -413,7 +409,6 @@ describe('check', () => {
         │      string
         │      
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 
@@ -496,7 +491,6 @@ describe('check', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 
@@ -583,7 +577,6 @@ describe('check', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 
@@ -666,7 +659,6 @@ describe('check', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 
@@ -730,7 +722,6 @@ describe('check', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 
