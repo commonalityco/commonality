@@ -201,30 +201,10 @@ export const reportConstraintResults = async ({
       count: resultsForPackage.size,
     });
 
-    const resultsForPackageByFilter = new Map<string, ConstraintResult[]>();
     for (const result of resultsForPackage) {
-      const filter = result.filter;
-      const existingResultsForFilter = resultsForPackageByFilter.get(filter);
-
-      if (existingResultsForFilter) {
-        existingResultsForFilter.push(result);
-      } else {
-        resultsForPackageByFilter.set(filter, [result]);
-      }
-    }
-
-    for (const [filter, resultsForFilter] of resultsForPackageByFilter) {
-      const result = resultsForPackageByFilter.get(filter);
-
-      if (!result) {
-        continue;
-      }
-
-      for (const result of resultsForFilter) {
-        if (!result.isValid || verbose) {
-          logger.addConstraintTitle({ result });
-          logger.addConstraintTable({ result });
-        }
+      if (!result.isValid || verbose) {
+        logger.addConstraintTitle({ result });
+        logger.addConstraintTable({ result });
       }
     }
   }
