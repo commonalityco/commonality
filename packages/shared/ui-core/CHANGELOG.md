@@ -1,5 +1,19 @@
 # @commonalityco/ui-core
 
+## 1.0.0
+
+### Minor Changes
+
+- 56711e7: Adds @commonalityco/studio as a dependency of commonality
+
+### Patch Changes
+
+- 56711e7: Adds hasTextFile and hasJsonFile checks
+- Updated dependencies [56711e7]
+- Updated dependencies [56711e7]
+  - @commonalityco/ui-design-system@1.0.0
+  - @commonalityco/utils-core@1.0.0
+
 ## 0.2.38
 
 ### Patch Changes

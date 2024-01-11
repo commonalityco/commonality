@@ -1,5 +1,17 @@
 # @commonalityco/cli
 
+## 1.0.0
+
+### Minor Changes
+
+- 56711e7: Adds @commonalityco/studio as a dependency of commonality
+
+### Patch Changes
+
+- Updated dependencies [56711e7]
+- Updated dependencies [56711e7]
+  - @commonalityco/studio@1.0.0
+
 ## 0.2.37
 
 ### Patch Changes
