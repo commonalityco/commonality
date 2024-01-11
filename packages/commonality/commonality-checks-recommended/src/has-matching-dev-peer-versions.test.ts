@@ -266,5 +266,28 @@ describe('hasMatchingDevPeerVersions', () => {
       expect(result.filePath).toEqual('package.json');
       expect(result.suggestion).toMatchInlineSnapshot('undefined');
     });
+
+    it('should show the correct message when there is not a mismatch and dependencies use the workspace protocol', async () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          name: 'pkg-a',
+          devDependencies: {
+            'pkg-b': 'workspace:*',
+          },
+          peerDependencies: {
+            'pkg-b': 'workspace:*',
+          },
+        }),
+      });
+      const conformer = createTestCheck(hasMatchingDevPeerVersions());
+
+      const result = await conformer.message();
+
+      expect(result.title).toEqual(
+        'Packages with peerDependencies must have matching devDependencies within a valid range',
+      );
+      expect(result.filePath).toEqual('package.json');
+      expect(result.suggestion).toMatchInlineSnapshot('undefined');
+    });
   });
 });

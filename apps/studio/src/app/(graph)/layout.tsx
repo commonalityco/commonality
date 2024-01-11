@@ -2,8 +2,8 @@ import {
   GraphLayoutAside,
   GraphLayoutMain,
   GraphLayoutRoot,
-  GraphProvider,
 } from '@commonalityco/ui-constraints';
+import { GraphProvider } from '@commonalityco/ui-graph';
 import StudioGraphHeader from './studio-graph-header';
 
 export default async function RootLayout({

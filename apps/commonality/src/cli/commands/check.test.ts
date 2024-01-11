@@ -151,7 +151,7 @@ describe('check', () => {
               status: Status.Pass,
               package: {
                 path: '/path',
-                name: 'pkg-two',
+                name: 'pkg-one',
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
@@ -166,10 +166,9 @@ describe('check', () => {
         [
           [
             "
-        ✓ pkg-one (1)
-        ✓ pkg-two (1)
+        ✓ pkg-one (2)
 
-        Packages: 0 failed 0 warnings 2 passed (2)
+        Packages: 0 failed 0 warnings 1 passed (1)
           Checks: 0 failed 0 warnings 2 passed (2)",
           ],
         ]
@@ -218,12 +217,10 @@ describe('check', () => {
           [
             "
         ❯ pkg-one (1)
-        • Applied to: All packages (1)
         ✓ pass This package should be cool
         │      /path/package.json
         │      
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ✓ pass This package should be cool
         │      
 
@@ -350,7 +347,6 @@ describe('check', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 
@@ -404,7 +400,6 @@ describe('check', () => {
           [
             "
         ❯ pkg-one (1)
-        • Applied to: All packages (1)
         ✓ pass This package should be awesome
         │      /path/package.json
         │      I
@@ -414,7 +409,6 @@ describe('check', () => {
         │      string
         │      
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 
@@ -497,7 +491,6 @@ describe('check', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 
@@ -584,7 +577,6 @@ describe('check', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 
@@ -667,7 +659,6 @@ describe('check', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 
@@ -731,7 +722,6 @@ describe('check', () => {
             "
         ✓ pkg-one (1)
         ❯ pkg-two (1)
-        • Applied to: All packages (1)
         ⚠ warn This package should be cool
         │      
 

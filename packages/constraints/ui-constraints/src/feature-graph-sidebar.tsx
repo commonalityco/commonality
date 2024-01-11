@@ -1,5 +1,5 @@
 'use client';
-import { GraphContext } from './graph-provider';
+import { GraphContext } from '@commonalityco/ui-graph';
 import { CodeownersData, Package, TagsData } from '@commonalityco/types';
 import { Sidebar } from './sidebar';
 import { ComponentProps } from 'react';

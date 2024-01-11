@@ -32,11 +32,9 @@ describe('ConstraintContent', () => {
 
     render(<ConstraintContent result={result} />);
 
-    const appliedToTagsText = screen.getByLabelText('Applied to:');
     const allowedTagsText = screen.getByLabelText('Allowed:');
     const foundTagsText = screen.getByLabelText('Found:');
 
-    expect(appliedToTagsText.textContent).toEqual('All packages');
     expect(allowedTagsText.textContent).toEqual('All packages');
     expect(foundTagsText.textContent).toEqual('All packages');
   });
@@ -62,12 +60,10 @@ describe('ConstraintContent', () => {
 
     render(<ConstraintContent result={result} />);
 
-    const appliedToTagsText = screen.getByLabelText('Applied to:');
     const allowedTagsText = screen.getByLabelText('Allowed:');
     const disallowedTagsText = screen.getByLabelText('Disallowed:');
     const foundTagsText = screen.getByLabelText('Found:');
 
-    expect(appliedToTagsText.textContent).toEqual('#tag-one');
     expect(allowedTagsText.textContent).toEqual('#tag-one#tag-two');
     expect(disallowedTagsText.textContent).toEqual('#tag-one#tag-two');
     expect(foundTagsText.textContent).toEqual('#tag-one#tag-two');
@@ -305,12 +301,10 @@ describe('ConstraintResults', () => {
 
     await userEvent.click(constraintButton);
 
-    const appliedToTagsText = screen.getByLabelText('Applied to:');
     const allowedTagsText = screen.getByLabelText('Allowed:');
     const disallowedTagsText = screen.getByLabelText('Disallowed:');
     const foundTagsText = screen.getByLabelText('Found:');
 
-    expect(appliedToTagsText.textContent).toEqual('#tag-one');
     expect(allowedTagsText.textContent).toEqual('#tag-one');
     expect(disallowedTagsText.textContent).toEqual('#tag-two');
     expect(foundTagsText.textContent).toEqual('#tag-three');

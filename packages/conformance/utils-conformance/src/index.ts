@@ -1,4 +1,3 @@
-export * from './get-status-for-results';
 export * from './run-fixes';
 export * from './get-conformance-results';
 export * from './diff';

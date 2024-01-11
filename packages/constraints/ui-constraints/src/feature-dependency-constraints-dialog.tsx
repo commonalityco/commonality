@@ -1,9 +1,9 @@
 'use client';
-import { GraphContext } from './graph-provider';
+import { GraphContext } from '@commonalityco/ui-graph';
 import { Dependency } from '@commonalityco/types';
 import { DependencyConstraintsDialog } from './dependency-constraints-dialog';
 
-export function FeatureGraphDependencyTooltip() {
+export function FeatureDependencyConstraintsDialog() {
   const { send } = GraphContext.useActorRef();
   const selectedEdge = GraphContext.useSelector(
     (state) => state.context.selectedEdge,
@@ -36,4 +36,4 @@ export function FeatureGraphDependencyTooltip() {
   );
 }
 
-export default FeatureGraphDependencyTooltip;
+export default FeatureDependencyConstraintsDialog;

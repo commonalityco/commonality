@@ -56,15 +56,6 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
 export function CheckContent({ result }: { result: ConformanceResult }) {
   return (
     <div className="pl-[50px] space-y-4">
-      <div>
-        <Label className="block text-xs mb-1" id="applied-to">
-          Applied to
-        </Label>
-        <Badge variant="outline" aria-labelledby="applied-to">
-          {formatTagName(result.filter)}
-        </Badge>
-      </div>
-
       {result.message.filePath ? (
         <div>
           <Label className="block text-xs mb-1" id="filepath">

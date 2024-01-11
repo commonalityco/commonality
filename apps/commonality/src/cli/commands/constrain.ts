@@ -31,33 +31,6 @@ class ConstrainLogger extends Logger {
     this.output += `\n${title}\n\n${body}\n\n${link}`;
   }
 
-  addFilterTitle({
-    filter,
-    count,
-    isValid,
-  }: {
-    filter: string;
-    count: number;
-    isValid: boolean;
-  }) {
-    const countText = c.dim(`(${count})`);
-    const statusText = isValid ? c.green(`# ${filter}`) : c.red(`# ${filter}`);
-
-    if (statusText === '*') {
-      const statusText = isValid
-        ? c.green(`# All packages`)
-        : c.red(`# All packages`);
-
-      this.output += `\n${statusText} ${countText}`;
-    } else {
-      const statusText = isValid
-        ? c.green(`# ${filter}`)
-        : c.red(`# ${filter}`);
-
-      this.output += `\n${statusText} ${countText}`;
-    }
-  }
-
   addConstraintTitle({ result }: { result: ConstraintResult }) {
     const statusText = result.isValid ? c.green('↳ pass') : c.red('↳ fail');
     const arrowText = result.isValid ? c.green('→') : c.red('→');
@@ -228,42 +201,10 @@ export const reportConstraintResults = async ({
       count: resultsForPackage.size,
     });
 
-    const resultsForPackageByFilter = new Map<string, ConstraintResult[]>();
     for (const result of resultsForPackage) {
-      const filter = result.filter;
-      const existingResultsForFilter = resultsForPackageByFilter.get(filter);
-
-      if (existingResultsForFilter) {
-        existingResultsForFilter.push(result);
-      } else {
-        resultsForPackageByFilter.set(filter, [result]);
-      }
-    }
-
-    for (const [filter, resultsForFilter] of resultsForPackageByFilter) {
-      const hasInvalidFilterResults = resultsForFilter.some(
-        (result) => !result.isValid,
-      );
-
-      const result = resultsForPackageByFilter.get(filter);
-
-      if (!result) {
-        continue;
-      }
-
-      if (hasInvalidFilterResults || verbose) {
-        logger.addFilterTitle({
-          filter,
-          isValid: !hasInvalidFilterResults,
-          count: resultsForFilter.length,
-        });
-      }
-
-      for (const result of resultsForFilter) {
-        if (!result.isValid || verbose) {
-          logger.addConstraintTitle({ result });
-          logger.addConstraintTable({ result });
-        }
+      if (!result.isValid || verbose) {
+        logger.addConstraintTitle({ result });
+        logger.addConstraintTable({ result });
       }
     }
   }

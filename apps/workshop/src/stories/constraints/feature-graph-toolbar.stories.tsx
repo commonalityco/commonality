@@ -1,8 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import {
-  FeatureGraphToolbar,
-  GraphProvider,
-} from '@commonalityco/ui-constraints';
+import { FeatureGraphToolbar } from '@commonalityco/ui-constraints';
+import { GraphProvider } from '@commonalityco/ui-graph';
 import { Violation } from '@commonalityco/types';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction

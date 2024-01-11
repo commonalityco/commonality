@@ -105,7 +105,6 @@ describe('constrain', () => {
         [
           "
       ❯ pkg-one (1)
-      # * (1)
       ↳ pass pkg-two prod
       │      Allowed: *
       │      Found:   No tags found
@@ -149,7 +148,6 @@ describe('constrain', () => {
         [
           "
       ❯ pkg-one (1)
-      # tag-one (1)
       ↳ fail pkg-two prod
       │      Allowed: #tag-two
       │      Found:   #tag-three
@@ -193,7 +191,6 @@ describe('constrain', () => {
         [
           "
       ❯ pkg-one (1)
-      # tag-one (1)
       ↳ fail pkg-two prod
       │      Disallowed: #tag-three
       │      Found:      #tag-three
@@ -237,7 +234,6 @@ describe('constrain', () => {
         [
           "
       ❯ pkg-one (1)
-      # tag-one (1)
       ↳ fail pkg-two prod
       │      Disallowed: #tag-three
       │      Found:      #tag-three
@@ -287,7 +283,6 @@ describe('constrain', () => {
         [
           "
       ❯ pkg-one (1)
-      # tag-one (1)
       ↳ fail pkg-two prod → pkg-three prod
       │      Disallowed: #tag-three
       │      Found:      #tag-three

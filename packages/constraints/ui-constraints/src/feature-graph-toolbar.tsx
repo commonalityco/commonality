@@ -1,5 +1,5 @@
 'use client';
-import { GraphContext } from './graph-provider';
+import { GraphContext } from '@commonalityco/ui-graph';
 import { GraphToolbar } from './graph-toolbar';
 
 export function FeatureGraphToolbar() {

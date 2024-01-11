@@ -26,9 +26,11 @@ const getExpectedDevDependencies = (
     }
 
     const devDependency = packageJson.devDependencies?.[packageName];
-    const minVersion = semver.minVersion(value)?.version;
-    const minVersionWithPrefix = getVersionWithPrefix(minVersion);
+
     const cleanedValue = stripWorkspaceProtocol(value);
+
+    const minVersion = semver.minVersion(cleanedValue)?.version;
+    const minVersionWithPrefix = getVersionWithPrefix(minVersion);
 
     if (devDependency) {
       const cleanedDevDependency = stripWorkspaceProtocol(devDependency);
