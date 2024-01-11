@@ -1,5 +1,17 @@
 # commonality-checks-recommended
 
+## 1.0.0
+
+### Minor Changes
+
+- 56711e7: Adds @commonalityco/studio as a dependency of commonality
+
+### Patch Changes
+
+- 56711e7: Adds hasTextFile and hasJsonFile checks
+- Updated dependencies [56711e7]
+  - commonality@1.0.0
+
 ## 0.0.14
 
 ### Patch Changes

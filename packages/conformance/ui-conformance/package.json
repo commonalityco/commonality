@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/ui-conformance",
-  "version": "0.2.37",
+  "version": "1.0.0",
   "type": "module",
   "publishConfig": {
     "access": "public"

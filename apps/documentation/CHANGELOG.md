@@ -1,5 +1,15 @@
 # documentation
 
+## 0.0.11
+
+### Patch Changes
+
+- 56711e7: Adds hasTextFile and hasJsonFile checks
+- Updated dependencies [56711e7]
+- Updated dependencies [56711e7]
+  - @commonalityco/ui-design-system@1.0.0
+  - @commonalityco/ui-core@1.0.0
+
 ## 0.0.10
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/ui-constraints",
-  "version": "0.2.38",
+  "version": "1.0.0",
   "type": "module",
   "publishConfig": {
     "access": "public"
