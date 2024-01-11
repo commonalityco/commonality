@@ -30,8 +30,7 @@ import {
   Tags,
 } from 'lucide-react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
-import { GradientFade } from '@commonalityco/ui-core';
-import { getIconForPackage } from '@commonalityco/utils-core/ui';
+import { GradientFade, getIconForPackage } from '@commonalityco/ui-core';
 
 function ShowHideButton({
   visible,

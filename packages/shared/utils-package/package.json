@@ -33,7 +33,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "tsc --build",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "dev": "tsc --watch"
   },
   "types": "./src/index.ts",
   "repository": "https://github.com/commonalityco/commonality/packages/shared/utils-package"

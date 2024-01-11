@@ -19,7 +19,8 @@
     "lint:fix": "eslint . --fix",
     "build": "tsc --build",
     "test": "vitest",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "dev": "tsc --watch"
   },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",

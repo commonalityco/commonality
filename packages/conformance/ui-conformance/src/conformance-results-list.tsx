@@ -12,7 +12,7 @@ import { Fragment, useMemo } from 'react';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 import { ConformanceOnboardingCard } from './conformance-onboarding-card';
 import { GradientFade } from '@commonalityco/ui-core';
-import { getIconForPackage } from '@commonalityco/utils-core';
+import { getIconForPackage } from '@commonalityco/ui-core';
 
 export function CheckTitle({ result }: { result: ConformanceResult }) {
   const getStatusText = () => {

@@ -28,7 +28,7 @@ describe.concurrent('studio', () => {
 
       const cliProcess = execa(
         binPath,
-        ['studio', '--debug', '--port', String(preferredPort), '--install'],
+        ['studio', '--debug', '--port', String(preferredPort)],
         {
           cwd: temporaryPath,
           stdout: 'pipe',
@@ -49,15 +49,6 @@ describe.concurrent('studio', () => {
       await vi.waitFor(
         () => {
           expect(output).toContain('Starting Commonality Studio...');
-        },
-        { timeout: 50_000 },
-      );
-
-      await vi.waitFor(
-        () => {
-          expect(output).toContain(
-            `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
-          );
         },
         { timeout: 50_000 },
       );
@@ -101,7 +92,7 @@ describe.concurrent('studio', () => {
 
       const cliProcess = execa(
         binPath,
-        ['studio', '--debug', '--port', String(preferredPort), '--install'],
+        ['studio', '--debug', '--port', String(preferredPort)],
         {
           cwd: temporaryPath,
           stdout: 'pipe',
@@ -121,15 +112,6 @@ describe.concurrent('studio', () => {
       await vi.waitFor(
         () => {
           expect(output).toContain('Starting Commonality Studio...');
-        },
-        { timeout: 50_000 },
-      );
-
-      await vi.waitFor(
-        () => {
-          expect(output).toContain(
-            `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
-          );
         },
         { timeout: 50_000 },
       );
@@ -173,7 +155,7 @@ describe.concurrent('studio', () => {
 
       const cliProcess = execa(
         binPath,
-        ['studio', '--debug', '--port', String(preferredPort), '--install'],
+        ['studio', '--debug', '--port', String(preferredPort)],
         {
           cwd: temporaryPath,
           stdout: 'pipe',
@@ -200,15 +182,6 @@ describe.concurrent('studio', () => {
       await vi.waitFor(
         () => {
           expect(output).toContain(
-            `MISSING DEPENDENCY  Cannot find dependency '@commonalityco/studio'`,
-          );
-        },
-        { timeout: 50_000 },
-      );
-
-      await vi.waitFor(
-        () => {
-          expect(output).toContain(
             `Viewable at: http://127.0.0.1:${preferredPort}`,
           );
         },
@@ -227,6 +200,6 @@ describe.concurrent('studio', () => {
 
       await fs.remove(temporaryPath);
     },
-    { timeout: 200_000 },
+    { timeout: 60_000 }, // 1 minute
   );
 });

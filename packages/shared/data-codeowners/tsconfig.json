@@ -2,7 +2,8 @@
   "extends": "@commonalityco/config-tsconfig/node.json",
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "compilerOptions": {
-    "outDir": "dist",
-    "typeRoots": ["./node_modules/@types"]
+    "outDir": "./dist",
+    "typeRoots": ["./node_modules/@types"],
+    "rootDir": "./src"
   }
 }

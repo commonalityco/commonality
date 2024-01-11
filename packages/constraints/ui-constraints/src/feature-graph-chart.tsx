@@ -7,7 +7,7 @@ import { GraphContext } from './graph-provider';
 import FeatureGraphToolbar from './feature-graph-toolbar';
 import { cn } from '@commonalityco/ui-design-system/cn';
 import debounce from 'lodash-es/debounce';
-import { getElementDefinitions } from '@commonalityco/utils-constraints';
+import { getElementDefinitions } from '@commonalityco/ui-graph';
 import { ProjectConfig } from '@commonalityco/utils-core';
 
 interface GraphProperties {

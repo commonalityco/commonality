@@ -2,3 +2,5 @@
 src/
 test/
 .next/cache/
+.test.ts
+.test.tsx
