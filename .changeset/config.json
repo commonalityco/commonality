@@ -7,5 +7,5 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [],
-  "linked": [["@commonalityco/*", "commonality"]]
+  "linked": [["@commonalityco/studio", "commonality"]]
 }
