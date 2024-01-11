@@ -79,7 +79,7 @@ const getStatus = async ({
   }
 };
 
-const getMessage = async ({
+export const getMessage = async ({
   conformer,
   rootDirectory,
   pkg,
@@ -93,9 +93,9 @@ const getMessage = async ({
   tagsMap: Map<string, string[]>;
   codeownersMap: Map<string, string[]>;
   packages: Package[];
-}): Promise<Message> => {
+}): Promise<Message & { filePath: string }> => {
   if (typeof conformer.message === 'string') {
-    return { title: conformer.message };
+    return { title: conformer.message, filePath: pkg.path };
   }
 
   try {
@@ -131,6 +131,7 @@ const getMessage = async ({
 
     return {
       title: 'An unknown error occurred while running this conformer',
+      filePath: pkg.path,
     };
   }
 };

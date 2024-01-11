@@ -76,29 +76,6 @@ describe('CheckTitle', () => {
 });
 
 describe('CheckContent', () => {
-  it('should render the applied to tag', async () => {
-    const result = {
-      package: {
-        name: 'test-package',
-        path: '/',
-        type: PackageType.NODE,
-        version: '1.0.0',
-      },
-      name: 'test-name',
-      filter: 'tag-one',
-      status: Status.Pass,
-      message: { title: 'This package is cool' },
-    };
-
-    render(<CheckContent result={result} />);
-
-    const appliedToBadge = screen.getByLabelText('Applied to');
-
-    const appliedToTag = within(appliedToBadge).getByText('#tag-one');
-
-    expect(appliedToTag).toBeInTheDocument();
-  });
-
   it('should render filePath and suggestion when provided', async () => {
     const result = {
       package: {

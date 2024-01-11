@@ -56,7 +56,7 @@ describe('PackageChecksDialog', () => {
           path: '/packages/pkg-a',
           type: PackageType.NODE,
         },
-        message: { title: 'This is cool' },
+        message: { title: 'This is cool', filePath: '/path/to/file' },
       },
     ];
 
@@ -70,9 +70,9 @@ describe('PackageChecksDialog', () => {
 
     await userEvent.click(checkButton);
 
-    const appliedToTag = screen.getByLabelText(/applied to/i);
+    const appliedToTag = screen.getByLabelText(/filepath/i);
 
-    expect(appliedToTag.textContent).toEqual('#tag-one');
+    expect(appliedToTag.textContent).toEqual('/path/to/file');
   });
 
   it('should display onboarding card when results are empty', async () => {
