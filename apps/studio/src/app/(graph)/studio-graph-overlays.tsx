@@ -4,7 +4,10 @@ import {
   EditTagsDialog,
   EditTagsDialogContent,
 } from '@/components/edit-tags-dialog';
-import { FeatureGraphPackageTooltip } from '@commonalityco/ui-constraints';
+import {
+  FeatureGraphPackageTooltip,
+  FeatureDependencyConstraintsDialog,
+} from '@commonalityco/ui-constraints';
 import { Package, TagsData } from '@commonalityco/types';
 import { useState } from 'react';
 
@@ -36,7 +39,7 @@ function StudioGraphOverlays({ tagsData }: { tagsData: TagsData[] }) {
           />
         ) : null}
       </EditTagsDialog>
-
+      <FeatureDependencyConstraintsDialog />
       <FeatureGraphPackageTooltip
         onEditTags={(pkg) => setPackageToEdit(pkg)}
         onOpenPackageJson={(pkg) => openPackageJson(pkg.path)}

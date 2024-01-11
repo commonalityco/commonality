@@ -18,3 +18,4 @@ export { GraphTooltip } from './graph-tooltip';
 export { ChartLoading } from './chart-loading';
 export { DependencyConstraintsDialog } from './dependency-constraints-dialog';
 export { AllConstraintsDialog } from './all-constraints-dialog';
+export { FeatureDependencyConstraintsDialog } from './feature-dependency-constraints-dialog';
