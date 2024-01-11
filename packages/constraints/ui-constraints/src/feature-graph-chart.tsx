@@ -3,7 +3,7 @@ import { ConstraintResult, Dependency, Package } from '@commonalityco/types';
 import { Package as PackageIcon } from 'lucide-react';
 import { GraphChart } from './graph-chart';
 import { useEffect, useRef } from 'react';
-import { GraphContext } from './graph-provider';
+import { GraphContext } from '@commonalityco/ui-graph';
 import FeatureGraphToolbar from './feature-graph-toolbar';
 import { cn } from '@commonalityco/ui-design-system/cn';
 import debounce from 'lodash-es/debounce';

@@ -1,6 +1,6 @@
 'use client';
 import { ConstraintResult } from '@commonalityco/types';
-import { GraphContext } from './graph-provider';
+import { GraphContext } from '@commonalityco/ui-graph';
 import GraphHeader from './graph-header';
 
 export function FeatureGraphHeader({

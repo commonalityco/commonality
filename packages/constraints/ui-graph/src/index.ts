@@ -18,3 +18,4 @@ export {
 } from './actions';
 export * from './create-worker';
 export * from './graph-machine';
+export * from './graph-provider';

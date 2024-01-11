@@ -1,8 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import {
-  FeatureGraphChart,
-  GraphProvider,
-} from '@commonalityco/ui-constraints';
+import { FeatureGraphChart } from '@commonalityco/ui-constraints';
+import { GraphProvider } from '@commonalityco/ui-graph';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
 import { ConstraintResult, Dependency, Package } from '@commonalityco/types';
 import { GraphLayoutMain } from '@commonalityco/ui-constraints';
