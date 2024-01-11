@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.40
+
+### Patch Changes
+
+- b453952: Adds hasTextFile and hasJsonFile utility checks. Adds @commonalityco/studio as a dependency to commonality.
+
 ## 0.2.39
 
 ### Patch Changes
