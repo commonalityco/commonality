@@ -78,6 +78,9 @@ importers:
       '@antfu/install-pkg':
         specifier: ^0.3.1
         version: 0.3.1
+      '@commonalityco/studio':
+        specifier: 0.2.39
+        version: link:../studio
       '@sindresorhus/slugify':
         specifier: ^2.2.1
         version: 2.2.1

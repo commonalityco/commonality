@@ -57,8 +57,7 @@ export default defineConfig({
 
   constraints: {
     application: {
-      allow: ['ui', 'data', 'utility', 'config'],
-      disallow: ['application'],
+      allow: ['ui', 'data', 'utility', 'config', 'application'],
     },
     ui: {
       allow: ['ui', 'state', 'utility', 'config'],
