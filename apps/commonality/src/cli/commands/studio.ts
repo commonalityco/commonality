@@ -106,7 +106,7 @@ export async function ensurePackageInstalled({
           return ['-w'];
         }
         case 'yarn': {
-          return ['-W'];
+          return ['--ignore-workspace-root-check'];
         }
         default: {
           return [];
