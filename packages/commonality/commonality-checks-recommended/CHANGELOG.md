@@ -1,5 +1,13 @@
 # commonality-checks-recommended
 
+## 0.0.15
+
+### Patch Changes
+
+- b453952: Adds hasTextFile and hasJsonFile utility checks. Adds @commonalityco/studio as a dependency to commonality.
+- Updated dependencies [b453952]
+  - commonality@0.2.38
+
 ## 0.0.14
 
 ### Patch Changes
