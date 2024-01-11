@@ -49,5 +49,5 @@
     "dev": "tsc --watch"
   },
   "main": "./src/index.ts",
-  "repository": "https://github.com/commonalityco/commonality/packages/shared/ui-package"
+  "repository": "https://github.com/commonalityco/commonality/packages/ui-package"
 }

@@ -38,5 +38,5 @@
     "eslint-config-commonality": "workspace:*",
     "typescript": "^5.2.2"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/shared/data-packages"
+  "repository": "https://github.com/commonalityco/commonality/packages/data-packages"
 }

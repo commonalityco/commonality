@@ -43,5 +43,5 @@
     "yaml": "^2.3.2",
     "zod": "^3.22.4"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/shared/data-project"
+  "repository": "https://github.com/commonalityco/commonality/packages/data-project"
 }

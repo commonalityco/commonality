@@ -26,5 +26,5 @@
     "eslint-config-commonality": "workspace:*",
     "typescript": "^5.2.2"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/constraints/data-constraints"
+  "repository": "https://github.com/commonalityco/commonality/packages/data-constraints"
 }

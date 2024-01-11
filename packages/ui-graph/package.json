@@ -55,5 +55,5 @@
     "lodash-es": "^4.17.21",
     "xstate": "^4.38.2"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/constraints/ui-graph"
+  "repository": "https://github.com/commonalityco/commonality/packages/ui-graph"
 }

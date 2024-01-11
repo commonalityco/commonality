@@ -43,8 +43,8 @@
   "peerDependencies": {
     "@commonalityco/ui-core": "*",
     "@commonalityco/ui-design-system": "*",
-    "@commonalityco/utils-package": "*",
     "@commonalityco/ui-graph": "workspace:*",
+    "@commonalityco/utils-package": "*",
     "react": ">=18",
     "react-dom": ">=18"
   },
@@ -54,5 +54,5 @@
     "lucide-react": "^0.299.0",
     "react-resizable-panels": "^0.0.54"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/constraints/ui-constraints"
+  "repository": "https://github.com/commonalityco/commonality/packages/ui-constraints"
 }
