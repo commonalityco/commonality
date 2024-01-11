@@ -77,6 +77,71 @@ class ConformLogger extends Logger {
   }
 }
 
+const createResultsMap = (results: ConformanceResult[]) => {
+  const resultsMap = new Map<string, Set<ConformanceResult>>();
+
+  for (const result of results) {
+    const packageName = result.package.name;
+    const existingResultsForPackage = resultsMap.get(packageName);
+
+    if (existingResultsForPackage) {
+      existingResultsForPackage.add(result);
+    } else {
+      resultsMap.set(packageName, new Set<ConformanceResult>([result]));
+    }
+  }
+
+  return resultsMap;
+};
+
+const getPackageCounts = (resultsMap: Map<string, Set<ConformanceResult>>) => {
+  let failPackageCount = 0;
+  let warnPackageCount = 0;
+  const totalPackageCount = resultsMap.size;
+
+  for (const packageResults of resultsMap.values()) {
+    const invalidResults = [...packageResults].filter(
+      (result) => result.status !== Status.Pass,
+    );
+
+    if (invalidResults.some((result) => result.status === Status.Fail)) {
+      failPackageCount++;
+      continue;
+    }
+
+    if (invalidResults.some((result) => result.status === Status.Warn)) {
+      warnPackageCount++;
+      continue;
+    }
+  }
+
+  return {
+    totalPackageCount,
+    passPackageCount: totalPackageCount - failPackageCount - warnPackageCount,
+    failPackageCount,
+    warnPackageCount,
+  };
+};
+
+const getCheckCounts = (results: ConformanceResult[]) => {
+  const failCheckCount = results.filter(
+    (result) => result.status === Status.Fail,
+  ).length;
+  const warnCheckCount = results.filter(
+    (result) => result.status === Status.Warn,
+  ).length;
+  const passCheckCount = results.filter(
+    (result) => result.status === Status.Pass,
+  ).length;
+
+  return {
+    totalCheckCount: results.length,
+    passCheckCount,
+    failCheckCount,
+    warnCheckCount,
+  };
+};
+
 const reportConformanceResults = ({
   logger,
   verbose,
@@ -91,45 +156,10 @@ const reportConformanceResults = ({
     logger.write();
     return;
   }
-  // This is keyed by packageName
-  const resultsMap = new Map<string, Set<ConformanceResult>>();
 
-  for (const result of results) {
-    const packageName = result.package.name;
-    const existingResultsForPackage = resultsMap.get(packageName);
-
-    if (existingResultsForPackage) {
-      existingResultsForPackage.add(result);
-    } else {
-      resultsMap.set(packageName, new Set<ConformanceResult>([result]));
-    }
-  }
-
-  const totalPackageCount = uniqBy(results, 'package.name').length;
-
-  let failPackageCount = 0;
-  let warnPackageCount = 0;
-
-  for (const packageResults of resultsMap.values()) {
-    const invalidResults = [...packageResults].filter(
-      (result) => result.status !== Status.Pass,
-    );
-
-    if (invalidResults.some((result) => result.status === Status.Fail)) {
-      failPackageCount++;
-    }
-
-    if (invalidResults.some((result) => result.status === Status.Warn)) {
-      warnPackageCount++;
-    }
-  }
-
-  const failCheckCount = results.filter(
-    (result) => result.status === Status.Fail,
-  ).length;
-  const warnCheckCount = results.filter(
-    (result) => result.status === Status.Warn,
-  ).length;
+  const resultsMap = createResultsMap(results);
+  const packageCounts = getPackageCounts(resultsMap);
+  const checkCounts = getCheckCounts(results);
 
   for (const packageName of resultsMap.keys()) {
     const resultsForPackage = resultsMap.get(packageName);
@@ -200,18 +230,18 @@ const reportConformanceResults = ({
 
   logger.addTotal({
     title: '\nPackages:',
-    totalCount: totalPackageCount,
-    passCount: totalPackageCount - failPackageCount - warnPackageCount,
-    warnCount: warnPackageCount,
-    failCount: failPackageCount,
+    totalCount: packageCounts.totalPackageCount,
+    passCount: packageCounts.passPackageCount,
+    warnCount: packageCounts.warnPackageCount,
+    failCount: packageCounts.failPackageCount,
   });
 
   logger.addTotal({
     title: '  Checks:',
-    totalCount: results.length,
-    passCount: results.length - failCheckCount - warnCheckCount,
-    warnCount: warnCheckCount,
-    failCount: failCheckCount,
+    totalCount: checkCounts.totalCheckCount,
+    passCount: checkCounts.passCheckCount,
+    warnCount: checkCounts.warnCheckCount,
+    failCount: checkCounts.failCheckCount,
   });
 
   logger.write();
