@@ -21,6 +21,7 @@ import { Logger } from '../utils/logger';
 import { Status } from '@commonalityco/utils-core';
 const command = new Command();
 import { isCI } from 'std-env';
+import uniqBy from 'lodash-es/uniqBy';
 
 const checksSpinner = ora('Running checks...');
 
@@ -103,6 +104,8 @@ const reportConformanceResults = ({
       resultsMap.set(packageName, new Set<ConformanceResult>([result]));
     }
   }
+
+  const totalPackageCount = uniqBy(results, 'package.name').length;
 
   let failPackageCount = 0;
   let warnPackageCount = 0;
@@ -197,16 +200,16 @@ const reportConformanceResults = ({
 
   logger.addTotal({
     title: '\nPackages:',
-    totalCount: resultsMap.size,
-    passCount: resultsMap.size - failPackageCount - warnCheckCount,
+    totalCount: totalPackageCount,
+    passCount: totalPackageCount - failPackageCount - warnPackageCount,
     warnCount: warnPackageCount,
     failCount: failPackageCount,
   });
 
   logger.addTotal({
     title: '  Checks:',
-    totalCount: resultsMap.size,
-    passCount: resultsMap.size - failCheckCount - warnCheckCount,
+    totalCount: results.length,
+    passCount: results.length - failCheckCount - warnCheckCount,
     warnCount: warnCheckCount,
     failCount: failCheckCount,
   });
