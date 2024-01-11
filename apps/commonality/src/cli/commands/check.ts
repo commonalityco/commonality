@@ -3,7 +3,6 @@ import { formatTagName } from '@commonalityco/utils-core';
 import type { ConformanceResult } from '@commonalityco/utils-conformance';
 import { getConformanceResults } from '@commonalityco/utils-conformance/get-conformance-results';
 import { runFixes } from '@commonalityco/utils-conformance/run-fixes';
-import { getStatusForResults } from '@commonalityco/utils-conformance/get-status-for-results';
 import { Command } from 'commander';
 import {
   getProjectConfig,
@@ -192,20 +191,10 @@ const reportConformanceResults = ({
     }
 
     for (const [filter, resultsForFilter] of resultsForPackageByFilter) {
-      const statusForResults = getStatusForResults(resultsForFilter);
-
       const result = resultsForPackageByFilter.get(filter);
 
       if (!result) {
         continue;
-      }
-
-      if (statusForResults !== Status.Pass || verbose) {
-        logger.addFilterTitle({
-          filter,
-          status: statusForResults,
-          count: resultsForFilter.length,
-        });
       }
 
       for (const result of resultsForPackage) {
