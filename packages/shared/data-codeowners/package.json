@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/data-codeowners",
-  "version": "1.0.0",
+  "version": "0.2.36",
   "description": "Get CODEOWNERS information about a local project",
   "publishConfig": {
     "access": "public",
