@@ -6,20 +6,10 @@ import { useConfig } from 'nextra-theme-docs';
 import path from 'node:path';
 import packageJson from '../commonality/package.json';
 import { Badge } from '@commonalityco/ui-design-system';
+import { NavigationLogo } from './components/navigation-logo';
 
 const config: DocsThemeConfig = {
-  logo: (
-    <span className="flex gap-3 items-center">
-      <Logo />
-      <WordLogo />
-      <span className="text-xs font-mono font-medium hidden md:block">
-        {packageJson.version}
-      </span>
-      <Badge className="border-blue-700  bg-blue-700/10 text-blue-700 dark:border-blue-400 dark:bg-blue-400/20 dark:text-blue-400 rounded-full shadow-none hover:bg-inherit">
-        BETA
-      </Badge>
-    </span>
-  ),
+  logo: <NavigationLogo version={packageJson.version} />,
   project: {
     link: 'https://github.com/commonalityco/commonality',
   },
