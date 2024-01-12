@@ -18,16 +18,18 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@commonalityco/utils-file": "workspace:*",
     "@commonalityco/config-tsconfig": "workspace:*",
+    "@types/fs-extra": "^11.0.2",
+    "@types/mock-fs": "^4.13.4",
+    "@types/prompts": "^2.4.4",
     "@types/react": "^18.2.22",
     "eslint-config-commonality": "workspace:*",
+    "mock-fs": "^5.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@commonalityco/utils-file": "workspace:*",
     "react": ">=18",
     "react-dom": ">=18"
   },
@@ -36,8 +38,15 @@
     "lint:fix": "eslint . --fix",
     "build": "tsc --build",
     "type-check": "tsc --noEmit",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "test": "vitest"
   },
   "types": "./src/index.ts",
-  "repository": "https://github.com/commonalityco/commonality/packages/shared/utils-onboarding"
+  "repository": "https://github.com/commonalityco/commonality/packages/shared/utils-onboarding",
+  "dependencies": {
+    "fs-extra": "^11.1.1",
+    "local-pkg": "^0.5.0",
+    "pathe": "^1.1.1",
+    "prompts": "^2.4.2"
+  }
 }

@@ -5,15 +5,30 @@
 @tailwind utilities;
 
 @layer base {
+  nav {
+    z-index: 100;
+    position: relative;
+  }
+
   * {
     @apply border-border;
   }
 
   .noise {
-    background: url('/white-noise.png'), #ffffff;
+    background: url('/white-noise.png');
   }
 
   .dark .noise {
-    background: url('/noise.png'), #171717;
+    background: url('/noise.png');
+  }
+
+  .glow {
+    background: radial-gradient(
+      circle,
+      rgba(5, 150, 105, 0.8) 0%,
+      rgba(8, 145, 178, 0.7) 90%,
+      rgba(146, 64, 14, 0.4) 10%,
+      transparent
+    );
   }
 }
