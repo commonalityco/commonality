@@ -2,13 +2,17 @@
 import { Command } from 'commander';
 import ora from 'ora';
 import {
+  installCommonality,
   getInstallChecks,
   getInstallCommonality,
   getUseTypeScript,
   getCreateConfig,
+  installChecks,
+  createConfig,
 } from '@commonalityco/utils-onboarding';
 import { getRootDirectory } from '@commonalityco/data-project';
 import console from 'node:console';
+import prompts from 'prompts';
 
 const command = new Command();
 
@@ -17,14 +21,20 @@ const PROJECT_CONFIG_JS = `commonality.config.js` as const;
 
 export const action = async ({ rootDirectory }: { rootDirectory: string }) => {
   // Prompts
-  const installCommonality = await getInstallCommonality({ rootDirectory });
-  const createConfig = await getCreateConfig({ rootDirectory });
-  const typeScript = createConfig ? await getUseTypeScript() : false;
-  const installChecks = await getInstallChecks({ rootDirectory });
+  const shouldInstallCommonality = await getInstallCommonality({
+    rootDirectory,
+  });
+  const shouldCreateConfig = await getCreateConfig({ rootDirectory });
+  const typeScript = shouldCreateConfig ? await getUseTypeScript() : false;
+  const shouldInstallChecks = await getInstallChecks({ rootDirectory });
 
   // Confirmation
 
-  if (!installCommonality && !installChecks && !createConfig) {
+  if (
+    !shouldInstallCommonality &&
+    !shouldInstallChecks &&
+    !shouldCreateConfig
+  ) {
     console.log(
       `You're already set up with Commonality\n\nHere's how to get started:`,
     );
@@ -35,33 +45,66 @@ export const action = async ({ rootDirectory }: { rootDirectory: string }) => {
 
   console.log(`\nHere are the changes we'll make to your project:`);
 
-  if (installCommonality) {
+  if (shouldInstallCommonality) {
     console.log(`- Install commonality`);
   }
 
-  if (createConfig) {
+  if (shouldCreateConfig) {
     console.log(`- Create a ${configFileName} file`);
   }
 
-  if (installChecks) {
+  if (shouldInstallChecks) {
     console.log(`- Install and set up commonality-checks-recommended`);
+  }
+
+  const response = await prompts([
+    {
+      type: 'confirm',
+      name: 'setup',
+      message: `Would you like to proceed?`,
+    },
+  ]);
+
+  if (!response.setup) {
+    console.log('Sounds good, you can always run this again later.');
+    return;
   }
 
   // Generation
 
-  if (installChecks) {
+  if (shouldInstallCommonality) {
+    const commonalitySpinner = ora();
+
+    commonalitySpinner.start('Installing commonality');
+
+    await installCommonality({ rootDirectory });
+
+    commonalitySpinner.succeed('Installed commonality');
+  }
+
+  if (shouldInstallChecks) {
     const checksSpinner = ora();
 
     checksSpinner.start('Installing commonality-checks-recommended');
 
-    checksSpinner.stop();
+    await installChecks({ rootDirectory });
+
+    checksSpinner.succeed('Installed commonality-checks-recommended');
   }
 
-  const configSpinner = ora();
+  if (shouldCreateConfig) {
+    const configSpinner = ora();
 
-  configSpinner.start(`Creating ${configFileName}`);
+    configSpinner.start(`Creating ${configFileName}`);
 
-  configSpinner.stop();
+    await createConfig({ rootDirectory, enableTypeScript: typeScript });
+
+    configSpinner.start(`Created ${configFileName}`);
+
+    configSpinner.stop();
+  }
+
+  console.log(`You're all set up!`);
 };
 
 export const init = command

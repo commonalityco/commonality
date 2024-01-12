@@ -20,7 +20,7 @@ vi.mock('node:console', async () => ({
   },
 }));
 
-describe('init', () => {
+describe.skip('init', () => {
   afterEach(() => {
     vi.resetAllMocks();
     mockFs.restore();

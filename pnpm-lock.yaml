@@ -1427,6 +1427,9 @@ importers:
 
   packages/utils-onboarding:
     dependencies:
+      '@antfu/install-pkg':
+        specifier: ^0.3.1
+        version: 0.3.1
       fs-extra:
         specifier: ^11.1.1
         version: 11.2.0
