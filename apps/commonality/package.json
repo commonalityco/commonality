@@ -69,7 +69,7 @@
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/data-codeowners": "workspace:*",
-    "@commonalityco/data-conformance": "workspace:*",
+    "@commonalityco/utils-file": "workspace:*",
     "@commonalityco/data-constraints": "workspace:*",
     "@commonalityco/data-packages": "workspace:*",
     "@commonalityco/data-project": "workspace:*",

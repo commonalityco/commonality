@@ -25,76 +25,104 @@ describe('init', () => {
 
       await fs.copy(fixturePath, temporaryPath);
 
-      const cliProcess = execa(binPath, ['init'], {
+      const initProcess = execa(binPath, ['init'], {
         cwd: temporaryPath,
         stdout: 'pipe',
       });
 
-      let output = '';
-      cliProcess.stdout?.on('data', (data) => {
+      let initOutput = '';
+      initProcess.stdout?.on('data', (data) => {
         console.log({ out: data.toString() });
-        output += stripAnsi(data.toString());
+        initOutput += stripAnsi(data.toString());
       });
-      cliProcess.stderr?.on('data', (data) => {
+      initProcess.stderr?.on('data', (data) => {
         console.log({ err: data.toString() });
-        output += stripAnsi(data.toString());
+        initOutput += stripAnsi(data.toString());
       });
 
       await vi.waitFor(() => {
-        expect(output).toContain(`Would you like to use TypeScript?`);
+        expect(initOutput).toContain(`Would you like to use TypeScript?`);
       });
 
-      cliProcess.stdin?.write('y\n');
+      initProcess.stdin?.write('y\n');
 
       await vi.waitFor(() => {
-        expect(output).toContain(
+        expect(initOutput).toContain(
           `Would you like to install our recommended checks that help scale most monorepos?`,
         );
       });
 
-      cliProcess.stdin?.write('y\n');
+      initProcess.stdin?.write('y\n');
 
       await vi.waitFor(() => {
-        expect(output).toContain(
+        expect(initOutput).toContain(
           `Here are the changes we'll make to your project:`,
         );
       });
 
-      cliProcess.stdin?.write('y\n');
+      initProcess.stdin?.write('y\n');
 
       await vi.waitFor(() => {
-        expect(output).toContain(`Installing commonality`);
+        expect(initOutput).toContain(`Installing commonality`);
       });
       await vi.waitFor(
         () => {
-          expect(output).toContain(`Installed commonality`);
+          expect(initOutput).toContain(`Installed commonality`);
         },
         { timeout: 200_000 },
       );
 
       await vi.waitFor(() => {
-        expect(output).toContain(`Installing commonality-checks-recommended`);
+        expect(initOutput).toContain(
+          `Installing commonality-checks-recommended`,
+        );
       });
       await vi.waitFor(
         () => {
-          expect(output).toContain(`Installed commonality-checks-recommended`);
+          expect(initOutput).toContain(
+            `Installed commonality-checks-recommended`,
+          );
         },
         { timeout: 200_000 },
       );
 
       await vi.waitFor(() => {
-        expect(output).toContain(`Creating commonality.config.ts`);
+        expect(initOutput).toContain(`Creating commonality.config.ts`);
       });
       await vi.waitFor(
         () => {
-          expect(output).toContain(`Created commonality.config.ts`);
+          expect(initOutput).toContain(`Created commonality.config.ts`);
         },
         { timeout: 200_000 },
       );
 
       await vi.waitFor(() => {
-        expect(output).toContain(`You're all set up!`);
+        expect(initOutput).toContain(`You're all set up!`);
       });
+
+      const checkProcess = execa(binPath, ['check'], {
+        cwd: temporaryPath,
+        stdout: 'pipe',
+      });
+
+      let checkOutput = '';
+      checkProcess.stdout?.on('data', (data) => {
+        console.log({ out: data.toString() });
+        checkOutput += stripAnsi(data.toString());
+      });
+      checkProcess.stderr?.on('data', (data) => {
+        console.log({ err: data.toString() });
+        checkOutput += stripAnsi(data.toString());
+      });
+
+      await vi.waitFor(
+        () => {
+          expect(checkOutput).toContain(
+            `Packages: 0 failed 1 warnings 0 passed (1)`,
+          );
+        },
+        { timeout: 200_000 },
+      );
     },
     { timeout: 200_000 },
   );

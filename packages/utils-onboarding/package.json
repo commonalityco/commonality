@@ -19,6 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/utils-file": "workspace:*",
     "@types/fs-extra": "^11.0.2",
     "@types/mock-fs": "^4.13.4",
     "@types/prompts": "^2.4.4",
@@ -30,6 +31,7 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
+    "@commonalityco/utils-file": "workspace:*",
     "react": ">=18",
     "react-dom": ">=18"
   },

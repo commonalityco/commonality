@@ -12,7 +12,9 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./json": "./dist/json.js",
+    "./text": "./dist/text.js"
   },
   "license": "MIT",
   "scripts": {
