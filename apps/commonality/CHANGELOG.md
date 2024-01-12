@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.2.39
+
+### Patch Changes
+
+- a88e9ba: Removes the tag filter from checks and constraints UI for clarity
+- Updated dependencies [a88e9ba]
+  - @commonalityco/studio@0.2.41
+
 ## 0.2.38
 
 ### Patch Changes

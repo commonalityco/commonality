@@ -1,5 +1,13 @@
 # commonality-checks-recommended
 
+## 0.0.16
+
+### Patch Changes
+
+- a88e9ba: Removes the tag filter from checks and constraints UI for clarity
+- Updated dependencies [a88e9ba]
+  - commonality@0.2.39
+
 ## 0.0.15
 
 ### Patch Changes

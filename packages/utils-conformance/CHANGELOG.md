@@ -1,5 +1,11 @@
 # @commonalityco/utils-conformance
 
+## 0.2.38
+
+### Patch Changes
+
+- a88e9ba: Removes the tag filter from checks and constraints UI for clarity
+
 ## 0.2.37
 
 ### Patch Changes
