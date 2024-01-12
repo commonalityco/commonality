@@ -34,5 +34,5 @@ jobs:
           version: ./scripts/update-lockfile.sh
           publish: pnpm run changeset:release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SERVICE_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
