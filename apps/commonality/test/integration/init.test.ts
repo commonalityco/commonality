@@ -11,119 +11,135 @@ const binPath = path.resolve(
   '../../bin.js',
 );
 
-describe('init', () => {
-  it.only(
-    'shows the default help information',
-    async () => {
-      const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
-      const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
+const runTest = async ({ fixtureName }: { fixtureName: string }) => {
+  const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
+  const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
 
-      const fixturePath = path.resolve(
-        path.dirname(fileURLToPath(import.meta.url)),
-        '../../test/fixtures/empty-project',
-      );
+  const fixturePath = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    `../../test/fixtures/${fixtureName}`,
+  );
 
-      await fs.copy(fixturePath, temporaryPath);
+  await fs.copy(fixturePath, temporaryPath);
 
-      const initProcess = execa(binPath, ['init'], {
-        cwd: temporaryPath,
-        stdout: 'pipe',
-      });
+  const initProcess = execa(binPath, ['init'], {
+    cwd: temporaryPath,
+    stdout: 'pipe',
+  });
 
-      let initOutput = '';
-      initProcess.stdout?.on('data', (data) => {
-        console.log({ out: data.toString() });
-        initOutput += stripAnsi(data.toString());
-      });
-      initProcess.stderr?.on('data', (data) => {
-        console.log({ err: data.toString() });
-        initOutput += stripAnsi(data.toString());
-      });
+  let initOutput = '';
+  initProcess.stdout?.on('data', (data) => {
+    console.log({ out: data.toString() });
+    initOutput += stripAnsi(data.toString());
+  });
+  initProcess.stderr?.on('data', (data) => {
+    console.log({ err: data.toString() });
+    initOutput += stripAnsi(data.toString());
+  });
 
-      await vi.waitFor(() => {
-        expect(initOutput).toContain(`Would you like to use TypeScript?`);
-      });
+  await vi.waitFor(() => {
+    expect(initOutput).toContain(`Would you like to use TypeScript?`);
+  });
 
-      initProcess.stdin?.write('y\n');
+  initProcess.stdin?.write('y\n');
 
-      await vi.waitFor(() => {
-        expect(initOutput).toContain(
-          `Would you like to install our recommended checks that help scale most monorepos?`,
-        );
-      });
+  await vi.waitFor(() => {
+    expect(initOutput).toContain(
+      `Would you like to install our recommended checks?`,
+    );
+  });
 
-      initProcess.stdin?.write('y\n');
+  initProcess.stdin?.write('y\n');
 
-      await vi.waitFor(() => {
-        expect(initOutput).toContain(
-          `Here are the changes we'll make to your project:`,
-        );
-      });
+  await vi.waitFor(() => {
+    expect(initOutput).toContain(
+      `Here are the changes we'll make to your project:`,
+    );
+  });
 
-      initProcess.stdin?.write('y\n');
+  initProcess.stdin?.write('y\n');
 
-      await vi.waitFor(() => {
-        expect(initOutput).toContain(`Installing commonality`);
-      });
-      await vi.waitFor(
-        () => {
-          expect(initOutput).toContain(`Installed commonality`);
-        },
-        { timeout: 200_000 },
-      );
+  await vi.waitFor(() => {
+    expect(initOutput).toContain(`Installing commonality`);
+  });
+  await vi.waitFor(
+    () => {
+      expect(initOutput).toContain(`Installed commonality`);
+    },
+    { timeout: 10_000 },
+  );
 
-      await vi.waitFor(() => {
-        expect(initOutput).toContain(
-          `Installing commonality-checks-recommended`,
-        );
-      });
-      await vi.waitFor(
-        () => {
-          expect(initOutput).toContain(
-            `Installed commonality-checks-recommended`,
-          );
-        },
-        { timeout: 200_000 },
-      );
+  await vi.waitFor(() => {
+    expect(initOutput).toContain(`Installing commonality-checks-recommended`);
+  });
+  await vi.waitFor(
+    () => {
+      expect(initOutput).toContain(`Installed commonality-checks-recommended`);
+    },
+    { timeout: 10_000 },
+  );
 
-      await vi.waitFor(() => {
-        expect(initOutput).toContain(`Creating commonality.config.ts`);
-      });
-      await vi.waitFor(
-        () => {
-          expect(initOutput).toContain(`Created commonality.config.ts`);
-        },
-        { timeout: 200_000 },
-      );
+  await vi.waitFor(() => {
+    expect(initOutput).toContain(`Creating commonality.config.ts`);
+  });
+  await vi.waitFor(
+    () => {
+      expect(initOutput).toContain(`Created commonality.config.ts`);
+    },
+    { timeout: 10_000 },
+  );
 
-      await vi.waitFor(() => {
-        expect(initOutput).toContain(`You're all set up!`);
-      });
+  await vi.waitFor(() => {
+    expect(initOutput).toContain(`You're all set up!`);
+  });
 
-      const checkProcess = execa(binPath, ['check'], {
-        cwd: temporaryPath,
-        stdout: 'pipe',
-      });
+  const checkProcess = execa(binPath, ['check'], {
+    cwd: temporaryPath,
+    stdout: 'pipe',
+  });
 
-      let checkOutput = '';
-      checkProcess.stdout?.on('data', (data) => {
-        console.log({ out: data.toString() });
-        checkOutput += stripAnsi(data.toString());
-      });
-      checkProcess.stderr?.on('data', (data) => {
-        console.log({ err: data.toString() });
-        checkOutput += stripAnsi(data.toString());
-      });
+  let checkOutput = '';
+  checkProcess.stdout?.on('data', (data) => {
+    console.log({ out: data.toString() });
+    checkOutput += stripAnsi(data.toString());
+  });
+  checkProcess.stderr?.on('data', (data) => {
+    console.log({ err: data.toString() });
+    checkOutput += stripAnsi(data.toString());
+  });
 
-      await vi.waitFor(
-        () => {
-          expect(checkOutput).toContain(
-            `Packages: 0 failed 1 warnings 0 passed (1)`,
-          );
-        },
-        { timeout: 200_000 },
+  await vi.waitFor(
+    () => {
+      expect(checkOutput).toContain(
+        `Packages: 0 failed 1 warnings 0 passed (1)`,
       );
     },
-    { timeout: 200_000 },
+    { timeout: 10_000 },
+  );
+};
+
+describe('init', () => {
+  it(
+    'pnpm - Initializes Commonality in a new project',
+    () => runTest({ fixtureName: 'kitchen-sink' }),
+    {
+      timeout: 20_000,
+    },
+  );
+
+  it.only(
+    'yarn - Initializes Commonality in a new project',
+    () => runTest({ fixtureName: 'kitchen-sink-yarn' }),
+    {
+      timeout: 20_000,
+    },
+  );
+
+  it(
+    'npm - Initializes Commonality in a new project',
+    () => runTest({ fixtureName: 'kitchen-sink-npm' }),
+    {
+      timeout: 20_000,
+    },
   );
 });

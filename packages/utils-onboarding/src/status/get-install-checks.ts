@@ -13,9 +13,12 @@ export const getInstallChecks = async ({
   if (!resolvedChecks) {
     const { installChecks } = await prompts([
       {
-        type: 'text',
+        type: 'toggle',
         name: 'installChecks',
-        message: `Would you like to install our recommended checks that help scale most monorepos?`,
+        message: `Would you like to install our recommended checks?`,
+        initial: true,
+        active: 'yes',
+        inactive: 'no',
       },
     ]);
 

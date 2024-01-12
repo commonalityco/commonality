@@ -13,6 +13,7 @@ import {
 import { getRootDirectory } from '@commonalityco/data-project';
 import console from 'node:console';
 import prompts from 'prompts';
+import c from 'chalk';
 
 const command = new Command();
 
@@ -21,6 +22,8 @@ const PROJECT_CONFIG_JS = `commonality.config.js` as const;
 
 export const action = async ({ rootDirectory }: { rootDirectory: string }) => {
   // Prompts
+  console.log(c.bold('\n  Welcome to Commonality!\n'));
+
   const shouldInstallCommonality = await getInstallCommonality({
     rootDirectory,
   });
@@ -29,39 +32,40 @@ export const action = async ({ rootDirectory }: { rootDirectory: string }) => {
   const shouldInstallChecks = await getInstallChecks({ rootDirectory });
 
   // Confirmation
-
   if (
     !shouldInstallCommonality &&
     !shouldInstallChecks &&
     !shouldCreateConfig
   ) {
-    console.log(
-      `You're already set up with Commonality\n\nHere's how to get started:`,
-    );
+    console.log(`You're already set up with Commonality`);
+    console.log(`\n\nHere's how to get started:`);
     return;
   }
 
   const configFileName = typeScript ? PROJECT_CONFIG_TS : PROJECT_CONFIG_JS;
 
-  console.log(`\nHere are the changes we'll make to your project:`);
+  console.log(`\n  Here are the changes we'll make to your project:\n`);
 
   if (shouldInstallCommonality) {
-    console.log(`- Install commonality`);
+    console.log(`  • Install commonality`);
   }
 
   if (shouldCreateConfig) {
-    console.log(`- Create a ${configFileName} file`);
+    console.log(`  • Create a ${configFileName} file`);
   }
 
   if (shouldInstallChecks) {
-    console.log(`- Install and set up commonality-checks-recommended`);
+    console.log(`  • Install and set up commonality-checks-recommended`);
   }
+
+  console.log();
 
   const response = await prompts([
     {
       type: 'confirm',
       name: 'setup',
       message: `Would you like to proceed?`,
+      initial: true,
     },
   ]);
 
