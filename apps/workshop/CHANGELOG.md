@@ -1,5 +1,15 @@
 # workshop
 
+## 1.0.28
+
+### Patch Changes
+
+- a88e9ba: Removes the tag filter from checks and constraints UI for clarity
+- Updated dependencies [a88e9ba]
+  - @commonalityco/ui-conformance@0.2.38
+  - @commonalityco/ui-constraints@0.2.39
+  - @commonalityco/ui-graph@0.2.38
+
 ## 1.0.27
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.41
+
+### Patch Changes
+
+- a88e9ba: Removes the tag filter from checks and constraints UI for clarity
+
 ## 0.2.40
 
 ### Patch Changes
