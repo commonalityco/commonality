@@ -8,7 +8,7 @@ export const installCommonality = async ({
 }): Promise<void> => {
   await installPackage('commonality@latest', {
     cwd: rootDirectory,
-    silent: true,
+    silent: false,
     additionalArgs: await getAdditionalInstallArgs({ rootDirectory }),
   });
 };
