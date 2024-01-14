@@ -14,6 +14,7 @@ import { getRootDirectory } from '@commonalityco/data-project';
 import console from 'node:console';
 import prompts from 'prompts';
 import c from 'chalk';
+import fs from 'fs-extra';
 
 const command = new Command();
 
@@ -101,11 +102,9 @@ export const action = async ({ rootDirectory }: { rootDirectory: string }) => {
 
     configSpinner.start(`Creating ${configFileName}`);
 
-    await createConfig({ rootDirectory, enableTypeScript: typeScript });
+    await createConfig({ rootDirectory, typeScript });
 
-    configSpinner.start(`Created ${configFileName}`);
-
-    configSpinner.stop();
+    configSpinner.succeed(`Created ${configFileName}`);
   }
 
   console.log(`You're all set up!`);

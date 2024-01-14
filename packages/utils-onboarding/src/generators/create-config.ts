@@ -24,14 +24,12 @@ const lines = [
 
 export const createConfig = async ({
   rootDirectory,
-  enableTypeScript,
+  typeScript,
 }: {
   rootDirectory: string;
-  enableTypeScript: boolean;
+  typeScript: boolean;
 }) => {
-  const configFileName = enableTypeScript
-    ? PROJECT_CONFIG_TS
-    : PROJECT_CONFIG_JS;
+  const configFileName = typeScript ? PROJECT_CONFIG_TS : PROJECT_CONFIG_JS;
 
   await text(rootDirectory, configFileName).set(lines);
 };

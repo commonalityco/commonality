@@ -61,6 +61,7 @@ export const getProjectConfig = async ({
       isEmpty: !defaultExport,
     };
   } catch (error) {
+    console.log({ error });
     if (error instanceof ZodError) {
       console.error(
         `\n[commonality] Invalid project configuration.\n\n${normalizeZodMessage(

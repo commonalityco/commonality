@@ -11,7 +11,15 @@ const binPath = path.resolve(
   '../../bin.js',
 );
 
-const runTest = async ({ fixtureName }: { fixtureName: string }) => {
+const runTest = async ({
+  fixtureName,
+  checkBin,
+  checkArgs,
+}: {
+  fixtureName: string;
+  checkBin: string;
+  checkArgs: string[];
+}) => {
   const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
   const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
 
@@ -93,7 +101,7 @@ const runTest = async ({ fixtureName }: { fixtureName: string }) => {
     expect(initOutput).toContain(`You're all set up!`);
   });
 
-  const checkProcess = execa(binPath, ['check'], {
+  const checkProcess = execa(checkBin, checkArgs, {
     cwd: temporaryPath,
     stdout: 'pipe',
   });
@@ -118,18 +126,28 @@ const runTest = async ({ fixtureName }: { fixtureName: string }) => {
   );
 };
 
-describe('init', () => {
+describe.concurrent('init', () => {
   it(
     'pnpm - Initializes Commonality in a new project',
-    () => runTest({ fixtureName: 'kitchen-sink' }),
+    () =>
+      runTest({
+        fixtureName: 'kitchen-sink',
+        checkBin: 'pnpm',
+        checkArgs: ['exec', 'commonality', 'check'],
+      }),
     {
       timeout: 20_000,
     },
   );
 
-  it.only(
+  it(
     'yarn - Initializes Commonality in a new project',
-    () => runTest({ fixtureName: 'kitchen-sink-yarn' }),
+    () =>
+      runTest({
+        fixtureName: 'kitchen-sink-yarn',
+        checkBin: 'yarn',
+        checkArgs: ['exec', 'commonality', 'check'],
+      }),
     {
       timeout: 20_000,
     },
@@ -137,7 +155,12 @@ describe('init', () => {
 
   it(
     'npm - Initializes Commonality in a new project',
-    () => runTest({ fixtureName: 'kitchen-sink-npm' }),
+    () =>
+      runTest({
+        fixtureName: 'kitchen-sink-npm',
+        checkBin: 'npm',
+        checkArgs: ['exec', '--', 'commonality', 'check'],
+      }),
     {
       timeout: 20_000,
     },
