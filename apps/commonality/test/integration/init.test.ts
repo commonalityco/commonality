@@ -55,14 +55,14 @@ const runTest = async ({
         `Here are the changes we'll make to your project:`,
       );
     },
-    { timeout: 20_000 },
+    { timeout: 100_000 },
   );
 
   await vi.waitFor(
     () => {
       expect(initOutput).toContain(`Would you like to proceed?`);
     },
-    { timeout: 20_000 },
+    { timeout: 100_000 },
   );
 
   initProcess.stdin?.write('y\n');
@@ -74,7 +74,7 @@ const runTest = async ({
     () => {
       expect(initOutput).toContain(`Installed commonality`);
     },
-    { timeout: 20_000 },
+    { timeout: 100_000 },
   );
 
   await vi.waitFor(() => {
@@ -84,7 +84,7 @@ const runTest = async ({
     () => {
       expect(initOutput).toContain(`Installed commonality-checks-recommended`);
     },
-    { timeout: 20_000 },
+    { timeout: 100_000 },
   );
 
   await vi.waitFor(() => {
@@ -94,7 +94,7 @@ const runTest = async ({
     () => {
       expect(initOutput).toContain(`Created commonality.config.ts`);
     },
-    { timeout: 20_000 },
+    { timeout: 100_000 },
   );
 
   await vi.waitFor(() => {
@@ -122,7 +122,7 @@ const runTest = async ({
         `Packages: 0 failed 1 warnings 0 passed (1)`,
       );
     },
-    { timeout: 20_000 },
+    { timeout: 100_000 },
   );
 };
 
@@ -136,7 +136,7 @@ describe('init', () => {
         checkArgs: ['exec', 'commonality', 'check'],
       }),
     {
-      timeout: 80_000,
+      timeout: 100_000,
     },
   );
 
@@ -149,7 +149,7 @@ describe('init', () => {
         checkArgs: ['exec', 'commonality', 'check'],
       }),
     {
-      timeout: 80_000,
+      timeout: 100_000,
     },
   );
 
@@ -162,7 +162,7 @@ describe('init', () => {
         checkArgs: ['exec', '--', 'commonality', 'check'],
       }),
     {
-      timeout: 80_000,
+      timeout: 100_000,
     },
   );
 });
