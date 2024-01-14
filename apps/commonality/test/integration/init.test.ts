@@ -32,7 +32,7 @@ const runTest = async ({
 
   const initProcess = execa(
     binPath,
-    ['init', '--typescript', '--install-checks'],
+    ['init', '--typescript', '--install-checks', '--verbose'],
     {
       cwd: temporaryPath,
       stdout: 'pipe',
