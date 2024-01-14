@@ -119,7 +119,7 @@ const runTest = async ({
   );
 };
 
-describe.concurrent('init', () => {
+describe('init', () => {
   it(
     'pnpm - Initializes Commonality in a new project',
     () =>
