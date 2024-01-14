@@ -3,9 +3,7 @@ import type { DocsThemeConfig } from 'nextra-theme-docs';
 import { Logo, WordLogo } from '@commonalityco/ui-core';
 import { useRouter } from 'next/router';
 import { useConfig } from 'nextra-theme-docs';
-import path from 'node:path';
 import packageJson from '../commonality/package.json';
-import { Badge } from '@commonalityco/ui-design-system';
 import { NavigationLogo } from './components/navigation-logo';
 
 const config: DocsThemeConfig = {

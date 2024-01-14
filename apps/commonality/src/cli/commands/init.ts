@@ -14,17 +14,24 @@ import { getRootDirectory } from '@commonalityco/data-project';
 import console from 'node:console';
 import prompts from 'prompts';
 import c from 'chalk';
-import fs from 'fs-extra';
 
 const command = new Command();
 
 const PROJECT_CONFIG_TS = `commonality.config.ts` as const;
 const PROJECT_CONFIG_JS = `commonality.config.js` as const;
 
+const nextStepsText = `\n  ${c.underline.bold(
+  `Here's what to check out next:`,
+)}\n\n  Codify best practices with checks\n  ${c.dim(
+  'https://www.commonality.co/docs/checks',
+)}\n\n  Structure your dependency graph using constraints\n  ${c.dim(
+  'https://www.commonality.co/docs/constraints',
+)} \n\n  Explore your codebase with Commonality Studio\n  ${c.dim(
+  'npx commonality studio',
+)}`;
+
 export const action = async ({ rootDirectory }: { rootDirectory: string }) => {
   // Prompts
-  console.log(c.bold('\n  Welcome to Commonality!\n'));
-
   const shouldInstallCommonality = await getInstallCommonality({
     rootDirectory,
   });
@@ -38,8 +45,8 @@ export const action = async ({ rootDirectory }: { rootDirectory: string }) => {
     !shouldInstallChecks &&
     !shouldCreateConfig
   ) {
-    console.log(`You're already set up with Commonality`);
-    console.log(`\n\nHere's how to get started:`);
+    console.log(c.green(`\n  Your project is already set up with Commonality`));
+    console.log(nextStepsText);
     return;
   }
 
@@ -107,7 +114,9 @@ export const action = async ({ rootDirectory }: { rootDirectory: string }) => {
     configSpinner.succeed(`Created ${configFileName}`);
   }
 
-  console.log(`You're all set up!`);
+  console.log(c.green(`  You're all set up!`));
+
+  console.log(nextStepsText);
 };
 
 export const init = command
