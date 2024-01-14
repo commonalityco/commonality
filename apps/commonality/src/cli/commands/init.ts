@@ -112,40 +112,46 @@ export const action = async ({
   }
 
   // Generation
+  try {
+    if (shouldInstallCommonality) {
+      const commonalitySpinner = ora();
 
-  if (shouldInstallCommonality) {
-    const commonalitySpinner = ora();
+      commonalitySpinner.start('Installing commonality');
 
-    commonalitySpinner.start('Installing commonality');
+      await installCommonality({ rootDirectory, verbose });
 
-    await installCommonality({ rootDirectory, verbose });
+      commonalitySpinner.succeed('Installed commonality');
+    }
 
-    commonalitySpinner.succeed('Installed commonality');
+    if (shouldInstallChecks) {
+      const checksSpinner = ora();
+
+      checksSpinner.start('Installing commonality-checks-recommended');
+
+      await installChecks({ rootDirectory });
+
+      checksSpinner.succeed('Installed commonality-checks-recommended');
+    }
+
+    if (shouldCreateConfig) {
+      const configSpinner = ora();
+
+      configSpinner.start(`Creating ${configFileName}`);
+
+      await createConfig({ rootDirectory, typeScript });
+
+      configSpinner.succeed(`Created ${configFileName}`);
+    }
+
+    console.log(c.green(`  You're all set up!`));
+
+    console.log(nextStepsText);
+  } catch (error) {
+    if (verbose) {
+      console.error(error);
+      console.log(c.red(`  Something went wrong, please try again.`));
+    }
   }
-
-  if (shouldInstallChecks) {
-    const checksSpinner = ora();
-
-    checksSpinner.start('Installing commonality-checks-recommended');
-
-    await installChecks({ rootDirectory });
-
-    checksSpinner.succeed('Installed commonality-checks-recommended');
-  }
-
-  if (shouldCreateConfig) {
-    const configSpinner = ora();
-
-    configSpinner.start(`Creating ${configFileName}`);
-
-    await createConfig({ rootDirectory, typeScript });
-
-    configSpinner.succeed(`Created ${configFileName}`);
-  }
-
-  console.log(c.green(`  You're all set up!`));
-
-  console.log(nextStepsText);
 };
 
 export const init = command
