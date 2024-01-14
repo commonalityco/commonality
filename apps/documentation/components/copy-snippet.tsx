@@ -2,6 +2,7 @@ import { Check, Copy } from 'lucide-react';
 import React, { useRef } from 'react';
 import { Button, cn } from '@commonalityco/ui-design-system';
 import { useState } from 'react';
+import { track } from '@vercel/analytics';
 
 export function CopySnippet({
   children,
@@ -16,6 +17,10 @@ export function CopySnippet({
   const timeoutId = useRef(null);
 
   const handleClick = () => {
+    track('copied-to-clipboard', {
+      snippet: children,
+    });
+
     navigator.clipboard.writeText(children);
 
     if (timeoutId.current) {
