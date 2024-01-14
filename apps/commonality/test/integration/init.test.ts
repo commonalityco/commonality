@@ -30,10 +30,14 @@ const runTest = async ({
 
   await fs.copy(fixturePath, temporaryPath);
 
-  const initProcess = execa(binPath, ['init'], {
-    cwd: temporaryPath,
-    stdout: 'pipe',
-  });
+  const initProcess = execa(
+    binPath,
+    ['init', '--typescript', '--install-checks'],
+    {
+      cwd: temporaryPath,
+      stdout: 'pipe',
+    },
+  );
 
   let initOutput = '';
   initProcess.stdout?.on('data', (data) => {
@@ -45,25 +49,14 @@ const runTest = async ({
     initOutput += stripAnsi(data.toString());
   });
 
-  await vi.waitFor(() => {
-    expect(initOutput).toContain(`Would you like to use TypeScript?`);
-  });
-
-  initProcess.stdin?.write('y\n');
-
-  await vi.waitFor(() => {
-    expect(initOutput).toContain(
-      `Would you like to install our recommended checks?`,
-    );
-  });
-
-  initProcess.stdin?.write('y\n');
-
-  await vi.waitFor(() => {
-    expect(initOutput).toContain(
-      `Here are the changes we'll make to your project:`,
-    );
-  });
+  await vi.waitFor(
+    () => {
+      expect(initOutput).toContain(
+        `Here are the changes we'll make to your project:`,
+      );
+    },
+    { timeout: 10_000 },
+  );
 
   initProcess.stdin?.write('y\n');
 

@@ -3,12 +3,14 @@ import { getAdditionalInstallArgs } from '../utilities/get-additional-install-ar
 
 export const installChecks = async ({
   rootDirectory,
+  verbose,
 }: {
   rootDirectory: string;
+  verbose?: boolean;
 }): Promise<void> => {
   await installPackage('commonality-checks-recommended@latest', {
     cwd: rootDirectory,
-    silent: true,
+    silent: verbose === undefined ? true : verbose,
     additionalArgs: await getAdditionalInstallArgs({ rootDirectory }),
   });
 };

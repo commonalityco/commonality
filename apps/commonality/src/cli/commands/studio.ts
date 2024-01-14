@@ -20,7 +20,7 @@ const spinner = ora('Starting Commonality Studio...');
 export const studio = command
   .name('studio')
   .description('Open Commonality Studio')
-  .option('--debug', 'Show debug logs')
+  .option('--debug', 'Show additional logging output')
   .option(
     '--port <port>',
     'The port that Commonality Studio will run on',

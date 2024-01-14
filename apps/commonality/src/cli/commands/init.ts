@@ -30,14 +30,43 @@ const nextStepsText = `\n  ${c.underline.bold(
   'npx commonality studio',
 )}`;
 
-export const action = async ({ rootDirectory }: { rootDirectory: string }) => {
+export const action = async ({
+  rootDirectory,
+  typeScriptFlag,
+  installChecksFlag,
+  verbose,
+}: {
+  rootDirectory: string;
+  typeScriptFlag?: boolean;
+  installChecksFlag?: boolean;
+  verbose?: boolean;
+}) => {
+  const getUseTypeScript = async (): Promise<boolean> => {
+    if (typeScriptFlag) return typeScriptFlag;
+
+    const { typescript } = await prompts([
+      {
+        type: 'toggle',
+        name: 'typescript',
+        initial: true,
+        message: `Would you like to use TypeScript?`,
+        active: 'yes',
+        inactive: 'no',
+      },
+    ]);
+
+    return typescript;
+  };
+
   // Prompts
   const shouldInstallCommonality = await getInstallCommonality({
     rootDirectory,
   });
   const shouldCreateConfig = await getCreateConfig({ rootDirectory });
+
   const typeScript = shouldCreateConfig ? await getUseTypeScript() : false;
-  const shouldInstallChecks = await getInstallChecks({ rootDirectory });
+  const shouldInstallChecks =
+    installChecksFlag ?? (await getInstallChecks({ rootDirectory }));
 
   // Confirmation
   if (
@@ -89,7 +118,7 @@ export const action = async ({ rootDirectory }: { rootDirectory: string }) => {
 
     commonalitySpinner.start('Installing commonality');
 
-    await installCommonality({ rootDirectory });
+    await installCommonality({ rootDirectory, verbose });
 
     commonalitySpinner.succeed('Installed commonality');
   }
@@ -122,8 +151,20 @@ export const action = async ({ rootDirectory }: { rootDirectory: string }) => {
 export const init = command
   .name('init')
   .description('Setup Commonality in your project')
-  .action(async () => {
-    const rootDirectory = await getRootDirectory();
+  .option('--debug', 'Show additional logging output')
+  .option('--typescript', 'Create a TypeScript configuration file')
+  .option(
+    '--install-checks',
+    'Install commonality-checks-recommended if not already installed',
+  )
+  .action(
+    async (options: { typescript?: boolean; installChecks?: boolean }) => {
+      const rootDirectory = await getRootDirectory();
 
-    action({ rootDirectory });
-  });
+      action({
+        rootDirectory,
+        typeScriptFlag: options.typescript,
+        installChecksFlag: options.installChecks,
+      });
+    },
+  );
