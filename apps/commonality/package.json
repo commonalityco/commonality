@@ -69,7 +69,6 @@
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/data-codeowners": "workspace:*",
-    "@commonalityco/utils-file": "workspace:*",
     "@commonalityco/data-constraints": "workspace:*",
     "@commonalityco/data-packages": "workspace:*",
     "@commonalityco/data-project": "workspace:*",
@@ -77,6 +76,7 @@
     "@commonalityco/types": "workspace:*",
     "@commonalityco/utils-conformance": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
+    "@commonalityco/utils-file": "workspace:*",
     "@commonalityco/utils-onboarding": "workspace:*",
     "@swc/core": "^1.3.101",
     "@types/fs-extra": "^11.0.2",

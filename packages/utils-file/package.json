@@ -52,5 +52,5 @@
     "pathe": "^1.1.1",
     "strip-ansi": "^7.1.0"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/conformance/utils-file"
+  "repository": "https://github.com/commonalityco/commonality/packages/utils-file"
 }
