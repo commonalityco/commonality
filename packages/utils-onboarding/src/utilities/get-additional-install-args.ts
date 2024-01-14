@@ -5,15 +5,20 @@ export const getAdditionalInstallArgs = async ({
 }: {
   rootDirectory: string;
 }): Promise<string[]> => {
-  const packageManager = await detectPackageManager(rootDirectory);
+  try {
+    const packageManager = await detectPackageManager(rootDirectory);
 
-  if (packageManager === 'pnpm') {
-    return ['--workspace-root'];
+    if (packageManager === 'pnpm') {
+      return ['--workspace-root'];
+    }
+
+    if (packageManager === 'yarn') {
+      return ['--ignore-workspace-root-check'];
+    }
+
+    return [];
+  } catch (error) {
+    console.log(error);
+    return [];
   }
-
-  if (packageManager === 'yarn') {
-    return ['--ignore-workspace-root-check'];
-  }
-
-  return [];
 };
