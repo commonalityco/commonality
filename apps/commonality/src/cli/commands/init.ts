@@ -151,18 +151,23 @@ export const action = async ({
 export const init = command
   .name('init')
   .description('Setup Commonality in your project')
-  .option('--debug', 'Show additional logging output')
+  .option('--verbose', 'Show additional logging output')
   .option('--typescript', 'Create a TypeScript configuration file')
   .option(
     '--install-checks',
     'Install commonality-checks-recommended if not already installed',
   )
   .action(
-    async (options: { typescript?: boolean; installChecks?: boolean }) => {
+    async (options: {
+      typescript?: boolean;
+      installChecks?: boolean;
+      verbose?: boolean;
+    }) => {
       const rootDirectory = await getRootDirectory();
 
       action({
         rootDirectory,
+        verbose: options.verbose,
         typeScriptFlag: options.typescript,
         installChecksFlag: options.installChecks,
       });
