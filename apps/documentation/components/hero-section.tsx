@@ -9,7 +9,7 @@ import { CopySnippet } from './copy-snippet';
 
 export function HeroSection() {
   return (
-    <div className="px-6 relative pt-2 bg-interactive">
+    <div className="px-6 relative pt-2 bg-zinc-100 dark:bg-zinc-900">
       <div className="absolute top-0 right-0 bottom-0 left-0 pointer-events-none z-[1] overflow-hidden">
         <div className="absolute top-0 right-0 bottom-0 left-0 noise z-40" />
         <div className="absolute h-[1300px] -bottom-[500px] left-1/2 -translate-x-1/2 w-[800px] md:w-[1300px] z-[35] glow" />
@@ -43,7 +43,7 @@ export function HeroSection() {
               <Button
                 size="xl"
                 asChild
-                className="w-full max-w-[200px] md:w-auto"
+                className="w-full max-w-[300px] md:w-auto"
               >
                 <Link href="/docs/overview">Get started</Link>
               </Button>
@@ -52,7 +52,7 @@ export function HeroSection() {
         </div>
 
         <div className="flex justify-center grow h-full pointer-events-none relative">
-          <Cube className="z-10 relative max-w-[300px] md:max-w-[400px] min-w-[200px] w-full -mb-16" />
+          <Cube className="z-10 relative max-w-[300px] md:max-w-[400px] min-w-[325px] w-full -mb-16" />
         </div>
       </div>
       <HeroFooter className="w-full pointer-events-none absolute left-0 right-0 -bottom-2 pt-1/3 z-[2]" />

@@ -25,6 +25,15 @@
   .glow {
     background: radial-gradient(
       circle closest-side,
+      rgba(125, 211, 252, 0.5),
+      rgba(125, 211, 252, 0.15),
+      transparent
+    );
+  }
+
+  .dark .glow {
+    background: radial-gradient(
+      circle closest-side,
       rgba(125, 211, 252, 0.6),
       rgba(56, 189, 248, 0.15),
       transparent
