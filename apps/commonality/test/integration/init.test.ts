@@ -58,6 +58,13 @@ const runTest = async ({
     { timeout: 20_000 },
   );
 
+  await vi.waitFor(
+    () => {
+      expect(initOutput).toContain(`Would you like to proceed?`);
+    },
+    { timeout: 20_000 },
+  );
+
   initProcess.stdin?.write('y\n');
 
   await vi.waitFor(() => {
@@ -119,7 +126,7 @@ const runTest = async ({
   );
 };
 
-describe.concurrent('init', () => {
+describe('init', () => {
   it(
     'pnpm - Initializes Commonality in a new project',
     () =>
