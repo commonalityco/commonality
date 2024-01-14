@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Button } from '@commonalityco/ui-design-system';
 import { Copy, Check } from 'lucide-react';
 import Balancer from 'react-wrap-balancer';
+import { CopySnippet } from './copy-snippet';
 
 function CopyButton({ value }) {
   const [copied, setCopied] = useState(false);
@@ -78,12 +79,7 @@ export function StudioSection() {
           </p>
           <div className="inline-block px-6">
             <div className="relative">
-              <div className="py-2 pr-2 pl-6 flex gap-6 flex-nowrap items-center rounded-md border border-border">
-                <p className="font-mono text-primary font-medium">
-                  {STUDIO_COMMAND}
-                </p>
-                <CopyButton value={STUDIO_COMMAND} />
-              </div>
+              <CopySnippet>{STUDIO_COMMAND}</CopySnippet>
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ export function CallToActionSection() {
           lock-in.
         </Balancer>
       </p>
-      <Button size="lg" asChild>
+      <Button size="xl" asChild>
         <Link href="/docs/getting-started">Get started</Link>
       </Button>
     </div>

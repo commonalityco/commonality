@@ -11,4 +11,10 @@ export default {
     'theme.config.tsx',
     '../../packages/ui-design-system/src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  extend: {
+    ...baseConfig.extend,
+    backgroundImage: {
+      'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+    },
+  },
 };

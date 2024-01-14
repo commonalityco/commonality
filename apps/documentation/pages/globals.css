@@ -24,10 +24,9 @@
 
   .glow {
     background: radial-gradient(
-      circle,
-      rgba(5, 150, 105, 0.8) 0%,
-      rgba(8, 145, 178, 0.7) 90%,
-      rgba(146, 64, 14, 0.4) 10%,
+      circle closest-side,
+      rgba(125, 211, 252, 0.6),
+      rgba(56, 189, 248, 0.15),
       transparent
     );
   }
