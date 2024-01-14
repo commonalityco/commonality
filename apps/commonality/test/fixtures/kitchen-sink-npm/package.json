@@ -1,5 +1,6 @@
 {
   "name": "root",
+  "packageManager": "npm@10.3.0",
   "workspaces": [
     "packages/*"
   ]

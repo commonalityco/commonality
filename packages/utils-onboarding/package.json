@@ -1,0 +1,55 @@
+{
+  "name": "@commonalityco/utils-onboarding",
+  "description": "Utilities for initializing Commonality in a project",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "version": "0.2.36",
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": "./dist/index.js"
+    },
+    "types": "./dist/index.d.ts",
+    "main": "./dist/index.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/utils-file": "workspace:*",
+    "@types/fs-extra": "^11.0.2",
+    "@types/mock-fs": "^4.13.4",
+    "@types/prompts": "^2.4.4",
+    "@types/react": "^18.2.22",
+    "eslint-config-commonality": "workspace:*",
+    "mock-fs": "^5.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "@commonalityco/utils-file": "workspace:*",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "tsc --build",
+    "type-check": "tsc --noEmit",
+    "dev": "tsc --watch",
+    "test": "vitest"
+  },
+  "types": "./src/index.ts",
+  "repository": "https://github.com/commonalityco/commonality/packages/utils-onboarding",
+  "dependencies": {
+    "@antfu/install-pkg": "^0.3.1",
+    "fs-extra": "^11.1.1",
+    "local-pkg": "^0.5.0",
+    "pathe": "^1.1.1",
+    "prompts": "^2.4.2"
+  }
+}

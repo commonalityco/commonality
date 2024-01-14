@@ -1,4 +1,3 @@
-import { formatTagName } from '@commonalityco/utils-core';
 /* eslint-disable unicorn/no-process-exit */
 import type { ConformanceResult } from '@commonalityco/utils-conformance';
 import { getConformanceResults } from '@commonalityco/utils-conformance/get-conformance-results';
@@ -18,8 +17,10 @@ import prompts from 'prompts';
 import process from 'node:process';
 import { Logger } from '../utils/logger';
 import { Status } from '@commonalityco/utils-core';
-const command = new Command();
 import { isCI } from 'std-env';
+import fs from 'fs-extra';
+
+const command = new Command();
 
 const checksSpinner = ora('Running checks...');
 

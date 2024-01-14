@@ -1,29 +1,12 @@
 import './globals.css';
-import { AppProps } from 'next/app';
-import { Inter, Fira_Code, Vollkorn } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-
-export const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-});
-
-export const firaCode = Fira_Code({
-  subsets: ['latin'],
-  variable: '--font-fira-code',
-});
-
-export const vollkorn = Vollkorn({
-  subsets: ['latin'],
-  variable: '--font-vollkorn',
-  style: ['normal', 'italic'],
-});
+import {  firaCode, onest } from '../utilities/fonts';
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <div
-      className={`${inter.className} ${firaCode.variable} ${inter.variable} ${vollkorn.variable}`}
+      className={`${onest.className} ${firaCode.variable} ${onest.variable}`}
     >
       <Component {...pageProps} />
       <Analytics />

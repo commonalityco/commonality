@@ -80,6 +80,9 @@ jobs:
       - name: 🏗 Setup
         uses: ./.github/actions/setup
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Prune devDependencies
         run: pnpm prune --prod
 

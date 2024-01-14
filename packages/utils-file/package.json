@@ -1,6 +1,7 @@
 {
-  "name": "@commonalityco/data-conformance",
-  "version": "0.2.37",
+  "name": "@commonalityco/utils-file",
+  "description": "Utilities to read and write to the local file system",
+  "version": "0.0.1",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -11,7 +12,9 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./json": "./dist/json.js",
+    "./text": "./dist/text.js"
   },
   "license": "MIT",
   "scripts": {
@@ -49,5 +52,5 @@
     "pathe": "^1.1.1",
     "strip-ansi": "^7.1.0"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/data-conformance"
+  "repository": "https://github.com/commonalityco/commonality/packages/utils-file"
 }

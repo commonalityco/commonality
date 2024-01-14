@@ -7,7 +7,7 @@ export function LandingHeader() {
   return (
     <div className="mt-6 px-20 py-24 rounded-2xl bg-secondary container">
       <div className="max-w-[500px]">
-        <h1 className="font-serif text-7xl font-semibold text-primary mb-6 leading-none">
+        <h1 className="text-7xl font-semibold text-primary mb-6 leading-none">
           Build bigger
         </h1>
         <p className="text-muted-foreground text-lg mb-3">

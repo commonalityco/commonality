@@ -6,7 +6,7 @@ export function NavigationLogo({ version }: { version: string }) {
   return (
     <span className="flex gap-3 items-center">
       <Logo />
-      <WordLogo />
+      <span className="text-xl font-bold tracking-wide">commonality</span>
       <span className="text-xs font-mono font-medium hidden md:block">
         {version}
       </span>

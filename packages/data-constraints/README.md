@@ -3,5 +3,5 @@
 ## Installation
 
 ```sh
-npm install @commonalityco/data-conformance
+npm install @commonalityco/utils-file
 ```
