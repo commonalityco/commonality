@@ -11,5 +11,9 @@ export const getAdditionalInstallArgs = async ({
     return ['--workspace-root'];
   }
 
+  if (packageManager === 'yarn') {
+    return ['--ignore-workspace-root-check'];
+  }
+
   return [];
 };
