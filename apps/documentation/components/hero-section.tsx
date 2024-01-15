@@ -6,6 +6,7 @@ import { Cube } from './images/cube';
 import Balancer from 'react-wrap-balancer';
 import HeroFooter from './images/hero-footer';
 import { CopySnippet } from './copy-snippet';
+import Image from 'next/image';
 
 export function HeroSection() {
   return (
@@ -35,7 +36,7 @@ export function HeroSection() {
             </p>
             <div className="flex md:flex-nowrap gap-2 mx-auto justify-center">
               <CopySnippet
-                className="backdrop-blur-sm bg-background/50 border-muted-foreground/50 hidden md:flex"
+                className="backdrop-blur-sm bg-background/60 border-muted-foreground/50 hidden md:flex"
                 buttonClassName="hover:bg-muted-foreground/20"
               >
                 npx commonality init
