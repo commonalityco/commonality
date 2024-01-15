@@ -6,7 +6,6 @@ import { Cube } from './images/cube';
 import Balancer from 'react-wrap-balancer';
 import HeroFooter from './images/hero-footer';
 import { CopySnippet } from './copy-snippet';
-import Image from 'next/image';
 
 export function HeroSection() {
   return (

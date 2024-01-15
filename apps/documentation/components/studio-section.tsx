@@ -33,7 +33,8 @@ const STUDIO_COMMAND = 'npx commonality studio';
 
 export function StudioSection() {
   return (
-    <div className="flex items-center flex-col bg-interactive pt-48">
+    <div className="flex items-center flex-col bg-interactive pt-48 relative">
+      <div className="glow top-[25%] md:top-[12%] bottom-0 left-0 right-0 w-full absolute" />
       <div className="px-6">
         <div className="w-full mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 leading-none text-center">
@@ -78,8 +79,10 @@ export function StudioSection() {
             Explore any JavaScript project with a single command
           </p>
           <div className="inline-block px-6">
-            <div className="relative">
-              <CopySnippet>{STUDIO_COMMAND}</CopySnippet>
+            <div className="relative p-px bg-gradient-to-b from-muted-foreground to-muted-foreground/20 rounded-md">
+              <CopySnippet className="border-none bg-background">
+                {STUDIO_COMMAND}
+              </CopySnippet>
             </div>
           </div>
         </div>
