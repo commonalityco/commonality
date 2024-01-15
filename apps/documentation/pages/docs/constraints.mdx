@@ -30,7 +30,7 @@ export default defineConfig({
 
 ...will fail for the following dependency graph.
 
-![Hello](/disallow-constraint.png)
+![A graph that shows that transitive dependencies are traversed with disallow constraints](/disallow-constraint.png)
 
 This is due to the fact that a transient dependency contains the matching `beta` tag.
 
@@ -45,4 +45,4 @@ If any direct or transitive dependency matches a tag filter within the `disallow
 
 These constraints are most helpful when constructing a hierarchy of packages within your project.
 
-###
+
