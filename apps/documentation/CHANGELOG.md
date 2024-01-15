@@ -1,5 +1,14 @@
 # documentation
 
+## 0.0.11
+
+### Patch Changes
+
+- 52d572a: Add new project flow with commonality init
+- Updated dependencies [52d572a]
+  - @commonalityco/ui-design-system@0.2.38
+  - @commonalityco/ui-core@0.2.38
+
 ## 0.0.10
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @commonalityco/utils-package
 
+## 0.2.37
+
+### Patch Changes
+
+- 52d572a: Add new project flow with commonality init
+- Updated dependencies [52d572a]
+  - @commonalityco/utils-file@0.0.2
+
 ## 0.2.36
 
 ### Patch Changes
