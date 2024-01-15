@@ -59,8 +59,8 @@ export function BentoSection() {
         <div className="bg-background border rounded-2xl p-6 md:p-9 col-span-1 md:col-span-2 grid md:grid-cols-2 shadow gap-6 md:gap-9 overflow-hidden relative">
           <div className="flex md:items-center order-2 md:order-1">
             <div>
-              <p className="font-semibold mb-2 text-3xl text-primary">Checks</p>
-              <p className="text-muted-foreground mb-6">
+              <p className="font-semibold mb-4 text-3xl text-primary">Checks</p>
+              <p className="text-muted-foreground mb-8">
                 Scale a consistently amazing developer experience with dynamic
                 conformance checks that are run like tests and shared like lint
                 rules.
@@ -99,7 +99,7 @@ export function BentoSection() {
 
         <div className="bg-background border rounded-2xl col-span-1 shadow overflow-hidden grid">
           <div className="p-6 md:p-9 mb-4">
-            <p className="font-semibold mb-2 text-3xl text-primary">Tags</p>
+            <p className="font-semibold mb-4 text-3xl text-primary">Tags</p>
             <p className="text-muted-foreground">
               Categorize packages by domain or concern or anything you can think
               of.
@@ -115,7 +115,7 @@ export function BentoSection() {
         </div>
 
         <div className="bg-background border rounded-2xl p-6 md:p-9 col-span-1 shadow flex flex-col">
-          <p className="font-semibold mb-2 text-3xl text-primary">Codeowners</p>
+          <p className="font-semibold mb-4 text-3xl text-primary">Codeowners</p>
           <p className="text-muted-foreground">
             View ownership for all your packages based on your CODEOWNERS file.
           </p>
@@ -127,7 +127,7 @@ export function BentoSection() {
         <div className="bg-background border rounded-2xl p-6 md:p-9 col-span-1 md:col-span-2 shadow grid overflow-hidden md:grid-cols-2 gap-6 md:gap-9">
           <div className="flex md:items-center order-2 md:order-1">
             <div>
-              <p className="font-semibold mb-2 text-3xl text-primary">
+              <p className="font-semibold mb-4 text-3xl text-primary">
                 Constraints
               </p>
               <p className="text-muted-foreground mb-6">

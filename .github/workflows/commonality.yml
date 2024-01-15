@@ -21,4 +21,4 @@ jobs:
         run: pnpm exec commonality check
 
       - name: Constrain
-        run: pnpm exec commonality check
+        run: pnpm exec commonality constrain

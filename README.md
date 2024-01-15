@@ -2,7 +2,7 @@
 
 # Commonality
 
-Commonality helps you scale JavaScript monorepos and package ecosystems with the tools you already love.
+Commonality helps you structure growing JavaScript monorepos and package ecosystems with the tools you already love.
 
 No wrappers. No lock-in. Open-source.
 
@@ -31,7 +31,7 @@ Correlate ownership rules from a `CODEOWNERS` file to packages in your project.
 
 ## Studio
 
-![](/assets/commonality-studio.png)
+![](/assets/studio-dark.png)
 
 Commonality Studio is the best way to visualize your monorepo. Explore your dependency graph, manage tags, and view conformance health.
 
