@@ -45,7 +45,7 @@
     "@vitejs/plugin-react-swc": "^3.3.2",
     "autoprefixer": "^10.4.16",
     "eslint-config-commonality": "workspace:*",
-    "postcss": "^8.4.30",
+    "postcss": "^8.4.33",
     "postcss-loader": "^7.3.3",
     "prop-types": "^15.8.1",
     "storybook": "^7.6.6",
