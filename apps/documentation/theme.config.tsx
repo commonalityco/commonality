@@ -18,7 +18,7 @@ const config: DocsThemeConfig = {
       <div className="flex flex-col md:flex-row gap-4 items-center md:justify-between w-full">
         <span className="flex gap-3 items-center text-primary">
           <Logo />
-          <WordLogo />
+          <span className="text-xl font-bold tracking-wide">commonality</span>
         </span>
         <div className="text-center md:text-left">
           <p className="text-xs mb-2">
@@ -71,11 +71,11 @@ const config: DocsThemeConfig = {
         <meta httpEquiv="Content-Language" content="en" />
         <meta
           name="description"
-          content="Commonality helps you scale JavaScript monorepos and package ecosystems with the tools you already love."
+          content="Commonality helps you structure growing JavaScript monorepos and package ecosystems with the tools you already love."
         />
         <meta
           name="og:description"
-          content="Commonality helps you scale JavaScript monorepos and package ecosystems with the tools you already love."
+          content="Commonality helps you structure growing JavaScript monorepos and package ecosystems with the tools you already love."
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={socialCard} />

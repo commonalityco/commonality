@@ -28,7 +28,7 @@ export default defineConfig({
 
 `Record<string, Check[]>{:ts}`
 
-The `checks` property expects an object whose keys are [tag filters](#tag-filters) and whose value are all the checks to run for packages that match.
+The `checks` property expects an object whose keys are [selectors](/docs/selectors) and whose value are all the checks to run for packages that match.
 
 <Callout type="info">Checks will run in the order they are defined.</Callout>
 
@@ -54,7 +54,7 @@ export default defineConfig({
 `Record<string, Constraint[]>{:ts}`
 </Subtext>
 
-The `constraints` property expects an object whose keys are [tag filters](#tag-filters) and whose value are all the constraints to run for packages that match.
+The `constraints` property expects an object whose keys are [selectors](/docs/selectors) and whose value are all the constraints to run for packages that match.
 
 ```ts filename="commonality.config.ts"
 import { defineConfig } from 'commonality';
@@ -79,7 +79,7 @@ Package configuration should be located the package directory.
 `string[]{:ts}`
 </Subtext>
 
-The labels that categorize the package. These tags can be used with tag filters in the project configuration.
+The labels that categorize the package. These tags can be used with selectors in the project configuration.
 
 **Example**
 
@@ -89,38 +89,3 @@ The labels that categorize the package. These tags can be used with tag filters 
 }
 ```
 
-## Tag filters
-
-Tag filters are used to selectively apply constraints and checks to packages.
-
-### Match all packages
-
-Use the `*` tag filter to apply constraints and checks to all packages.
-
-**Example:**
-
-```ts filename="commonality.config.ts"
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  constraints: {
-    '*': { disallow: ['deployable'] },
-  },
-});
-```
-
-### Match specific packages
-
-Specify a tag to apply constraints and checks to packages containing that tag in their `commonality.json` [configuration file](#package-configuration).
-
-**Example:**
-
-```ts filename="commonality.config.ts"
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  constraints: {
-    config: { disallow: ['application'] },
-  },
-});
-```

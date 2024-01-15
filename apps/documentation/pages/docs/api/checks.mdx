@@ -116,113 +116,6 @@ If set to `"error"`, the CLI will exit with a non-zero exit code if this check i
 
 ## Utilities
 
-### `defineCheck`
-
-`(check: () => Check) => () => Check{:ts}`
-
-This utility provides type-safety and intellisense for check options.
-Checks are not required to be wrapped with this utility, however doing so will provide a better developer experience and encourage re-usable checks.
-
-**Example:**
-
-```ts
-import { defineCheck } from 'commonality/checks';
-
-const hasCodeowner = defineCheck(() => {
-  return {
-    // ...
-  };
-});
-```
-
----
-
-### `createTestCheck`
-
-`(check: Check, context?: TestCheckContext) => Check{:ts}`
-
-`createTestCheck` wraps your checks and decorates these functions with sensible defaults for [CheckContext](/docs/api/checks#checkcontext) that you can override.
-This cuts down on repetitive boilerplate when writing tests for your checks.
-
-**Parameters**
-
-`check`
-
-<Subtext requirementLevel="required">
-`Check{:ts}`
-</Subtext>
-A valid [check](/api/checks#check-properties) object
-
-`context`
-
-<Subtext>
-`TestCheckContext{:ts}`
-</Subtext>
-Pass options that will be used as the check's [`CheckContext`](/docs/api/checks#checkcontext).
-If a property is not explicitly passed, the check will be passed a default from the table below.
-
-| Name                  | Default                                   |
-| :-------------------- | :---------------------------------------- |
-| `context.tags`        | `[]{:ts}`                                 |
-| `context.codeowners`  | `[]{:ts}`                                 |
-| `context.package`     | `{relativePath: './', path: './'}{:ts}`   |
-| `context.rootPackage` | `{relativePath: './', path: './'}{:ts}`   |
-| `context.allPackages` | `[{relativePath: './', path: './'}]{:ts}` |
-
-**Returns**
-Returns the original check function, however the `validate`, `fix`, and `message` functions
-will be passed the `TestCheckContext` rather than requiring that `CheckContext` be passed.
-
-**Example**
-
-```ts
-// Without createTestCheck
-test('validate - returns true when valid', () => {
-  mockFs({
-    'package.json': JSON.stringify({
-      name: 'foo',
-      description: 'bar',
-    }),
-  });
-
-  const check = myCheck();
-  const result = myCheck.validate({
-    package: {
-      path: './',
-      relativePath: './',
-    },
-
-    allPackages: [
-      {
-        path: './',
-        relativePath: './',
-      },
-    ],
-    codeowners: [],
-    tags: [],
-  });
-
-  expect(result).toEqual(true);
-});
-
-// With createTestCheck
-test('validate - returns true when valid', () => {
-  mockFs({
-    'package.json': JSON.stringify({
-      name: 'foo',
-      description: 'bar',
-    }),
-  });
-
-  const check = createTestCheck(myCheck());
-  const result = myCheck.validate();
-
-  expect(result).toEqual(true);
-});
-```
-
----
-
 ### `json`
 
 The `json` utility makes it easier to read and write to JSON files within in your checks. The `json` helper expects an absolute path to a JSON file and returns an object with helper methods.
@@ -603,6 +496,114 @@ diff(
 // +   "version": "2.0.0",
 //   }
 ```
+
+
+### `defineCheck`
+
+`(check: () => Check) => () => Check{:ts}`
+
+This utility provides type-safety and intellisense for check options.
+Checks are not required to be wrapped with this utility, however doing so will provide a better developer experience and encourage re-usable checks.
+
+**Example:**
+
+```ts
+import { defineCheck } from 'commonality/checks';
+
+const hasCodeowner = defineCheck(() => {
+  return {
+    // ...
+  };
+});
+```
+
+---
+
+### `createTestCheck`
+
+`(check: Check, context?: TestCheckContext) => Check{:ts}`
+
+`createTestCheck` wraps your checks and decorates these functions with sensible defaults for [CheckContext](/docs/api/checks#checkcontext) that you can override.
+This cuts down on repetitive boilerplate when writing tests for your checks.
+
+**Parameters**
+
+`check`
+
+<Subtext requirementLevel="required">
+`Check{:ts}`
+</Subtext>
+A valid [check](/api/checks#check-properties) object
+
+`context`
+
+<Subtext>
+`TestCheckContext{:ts}`
+</Subtext>
+Pass options that will be used as the check's [`CheckContext`](/docs/api/checks#checkcontext).
+If a property is not explicitly passed, the check will be passed a default from the table below.
+
+| Name                  | Default                                   |
+| :-------------------- | :---------------------------------------- |
+| `context.tags`        | `[]{:ts}`                                 |
+| `context.codeowners`  | `[]{:ts}`                                 |
+| `context.package`     | `{relativePath: './', path: './'}{:ts}`   |
+| `context.rootPackage` | `{relativePath: './', path: './'}{:ts}`   |
+| `context.allPackages` | `[{relativePath: './', path: './'}]{:ts}` |
+
+**Returns**
+Returns the original check function, however the `validate`, `fix`, and `message` functions
+will be passed the `TestCheckContext` rather than requiring that `CheckContext` be passed.
+
+**Example**
+
+```ts
+// Without createTestCheck
+test('validate - returns true when valid', () => {
+  mockFs({
+    'package.json': JSON.stringify({
+      name: 'foo',
+      description: 'bar',
+    }),
+  });
+
+  const check = myCheck();
+  const result = myCheck.validate({
+    package: {
+      path: './',
+      relativePath: './',
+    },
+
+    allPackages: [
+      {
+        path: './',
+        relativePath: './',
+      },
+    ],
+    codeowners: [],
+    tags: [],
+  });
+
+  expect(result).toEqual(true);
+});
+
+// With createTestCheck
+test('validate - returns true when valid', () => {
+  mockFs({
+    'package.json': JSON.stringify({
+      name: 'foo',
+      description: 'bar',
+    }),
+  });
+
+  const check = createTestCheck(myCheck());
+  const result = myCheck.validate();
+
+  expect(result).toEqual(true);
+});
+```
+
+---
 
 ## Types
 

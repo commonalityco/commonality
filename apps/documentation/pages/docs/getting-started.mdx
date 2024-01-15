@@ -1,90 +1,59 @@
-import { Steps, Callout, Tabs, Tab, Cards, Card } from 'nextra/components';
+import { Steps, Callout, Cards, Card } from 'nextra/components';
 
 # Getting Started
 
-You can run `npx commonality studio` in any monorepo to get started without installing any dependencies.
-However, Commonality is most useful when it becomes a part of your daily workflow.
+Commonality is designed to be incrementally adoptable and work alongside your existing workflows.
 
-All features are designed to be adopted incrementally.
-Here's how we recommend getting up and running in a repository that has multiple collaborators.
+This guide will get you set up in a few seconds and show you how to leverage Commonality to scale your existing JavaScript projects.
 
 <Steps>
 
-### Install dependencies
+### Initialize `commonality`
 
-If you're working on a project with others, you'll want to locally install `commonality` at the root of your project
-to get a consistent developer experience. We're also going to install the `commonality-checks-recommended` package
-to set up some initial [checks](/docs/checks).
+We've created a command that will quickly get you up and running in an existing JavaScript project.
 
-<Tabs items={['npm', 'yarn', 'pnpm']} storageKey="selected-pkg-manager">
-  <Tab>
-    ```bash copy
-      npm install commonality commonality-checks-recommended --save-dev
-    ```
-  </Tab>
-  <Tab>
-    ```bash copy
-      yarn add commonality commonality-checks-recommended --dev --ignore-workspace-root-check
-    ```
-  </Tab>
-  <Tab>
-    ```bash copy
-      pnpm add commonality commonality-checks-recommended --save-dev --ignore-workspace-root-check
-    ```
-  </Tab>
-</Tabs>
+This command will:
 
-### Set up checks
+- Install `commonality` at the root of your project
+- Install and configure checks that benefit most multi-package projects from `commonaity-checks-recommended` (optional)
 
-You'll be able to get value from Commonality right away by installing our `commonality-checks-recommended`
-package which includes common checks useful in any monorepo.
+```bash copy
+npx commonality@latest init
+```
 
-Create a `commonality.config.ts` or `commonality.config.js` at the root of your repository and apply
-checks that you feel make the most sense for your project. Alternatively, you can [create your own
-checks](/docs/checks/creating-checks) or use checks from other packages.
+### Run your first checks
+
+[Checks](http://localhost:3000/docs/checks) ensure that the structure of a package conforms to a set of rules.
+They're just functions so you can compose them together or publish them as you would any other package.
+Checks help you deliver a consistently amazing developer experience across your monorepo or package ecosystem.
+
+Try running the command below to view the status of the checks we've set up for you.
+
+```bash copy
+commonality check
+```
+
+You'll see the result of the checks run against the packages in your project.
+Checks can also be auto-fixable, making it easy for teams to keep packages in sync with the rules defined in the project configuration.
 
 <Callout type="info">
   For documentation on all rules in the `commonality-checks-recommended` package
   check out the README
 </Callout>
 
-```ts filename="commonality.config.ts"
-import { defineConfig } from 'commonality';
-import * as recommended from 'commonality-checks-recommended';
+### Tag your packages
 
-export default defineConfig({
-  checks: {
-    '*': [
-      recommended.hasCodeowner(),
-      recommended.hasReadme(),
-      recommended.hasMatchingDevPeerVersions(),
-      recommended.hasUniqueDependencyTypes(),
-      recommended.hasConsistentExternalVersion(),
-      recommended.hasSortedDependencies(),
-      recommended.hasValidPackageName(),
-      recommended.extendsRepositoryField(),
-    ],
-  },
-});
-```
+We've applied these checks to all packages using the `*` [selector](/docs/selectors) but you can selectively apply checks to any subset of packages within your repo using [tags](http://localhost:3000/docs/tags).
 
-Let's try running these checks against your project with:
-
-```bash copy
-commonality check
-```
-
-### Categorize your packages
-
-Commonality helps you scale a consistent developer experience across your monorepo and organization.
-[Tag filters](/docs/api/configuration#tag-filters) help you achieve this by helping you codify best
-practices for groups or categories of packages in your project. Let's define those categories now.
-
-Open Commonality Studio to see all the packages within your monorepo.
+Commonality Studio is the best way to create and manage tags for packages, open it by running the command below.
 
 ```bash copy
 commonality studio
 ```
+
+You can edit a package's tags either by selecting a package in the dependency graph under the "Constraints" view, or by clicking on a package's dropdown button in the "Checks" view.
+
+![](/studio-edit-tags.png)
 
 <Callout type="info">
   Editing tags in Commonality Studio will update or create a `commonality.json`
@@ -92,22 +61,22 @@ commonality studio
   many configuration files across your monorepo.
 </Callout>
 
+With [selectors](/docs/selectors) and checks you can [compose checks](/docs/checks/creating-checks#composing-checks) to enforce different tooling for different types of packages. For example:
+
+- Check that packages with the tag `buildable` have a `build` and `dev` script.
+- Check that packages with the tag `ui` have a `tsconfig.json` that is configured to handle JSX.
+- Check that packages with the tag `nextjs` have a `next.config.js` that matches a standard config.
+
 ### Set up constraints
 
-Now let's leverage the tags we just created to add [constraints](/docs/constraints) to the dependency graph.
+[Selectors](/docs/selectors) can also be used to apply constraints.
+[Constraints](/docs/constraints) prevent packages from depending on each other in ways that don't make sense but are allowed by your package manager. For example:
 
-You may find that there are certain packages that should never depend on each other. For example:
-
-- All packages should never depend on `deployable` packages.
-
-- `ui` packages should only depend on `utility`, and `config` packages.
-
+- No package should ever depend on an `application`
+- `data` packages shouldn't depend on `ui` packages
 - `config` packages should only depend on other `config` packages.
 
-Adding constraints allows you to codify these rules and prevent your dependency graph from becoming spaghetti.
-This saves you from endless dependency debugging and increased mental overhead.
-
-Let's add some of these rules to our project configuration file
+[Constraints](/docs/constraints) are defined in your project configuration file and can be used to `allow` and `disallow` packages matching a [selector](/docs/selectors).
 
 ```ts filename="commonality.config.ts"
 import { defineConfig } from 'commonality';
@@ -121,8 +90,8 @@ export default defineConfig({
     '*': {
       disallow: ['deployable'],
     },
-    ui: {
-      allow: ['utility', 'config'],
+    data: {
+      disallow: ['ui'],
     },
     config: {
       allow: ['config'],
@@ -131,7 +100,14 @@ export default defineConfig({
 });
 ```
 
-Let's check the validity of the constraints we just created with:
+[Constraints](/docs/constraints) can also be used to create otherwise impossible workflows like:
+
+- Simulating the functionality of private packages within the same monorepo with explicit `shared` tags.
+- Ensuring that applications tagged `high-stability` cannot depend on packages tagged `experimental`.
+
+[Constraints](/docs/constraints) help you maintain a dependency graph that is easy to reason about at scale.
+
+You can check ensure that your constraints are valid by running the command below.
 
 ```bash copy
 commonality constrain

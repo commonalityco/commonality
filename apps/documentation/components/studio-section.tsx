@@ -52,19 +52,19 @@ export function StudioSection() {
                 <div className="h-2 w-2 rounded-full bg-warning" />
                 <div className="h-2 w-2 rounded-full bg-destructive" />
               </div>
-              <div className="aspect-[15/10] max-w-[800px] w-full relative block">
+              <div className="aspect-[3410/2040] max-w-[1000px] w-full relative block">
                 <Image
                   alt="A visualization of a dependency graph in Commonality Studio with a light theme"
-                  src="/commonality-light.png"
-                  width={1200}
-                  height={800}
+                  src="/studio-light.png"
+                  width={3410}
+                  height={2040}
                   className="dark:hidden"
                 />
                 <Image
                   alt="A visualization of a dependency graph in Commonality Studio with a dark theme"
-                  src="/commonality-dark.png"
-                  width={1200}
-                  height={800}
+                  src="/studio-dark.png"
+                  width={3410}
+                  height={2040}
                   className="hidden dark:block"
                 />
               </div>

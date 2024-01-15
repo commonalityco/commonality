@@ -5,7 +5,7 @@ import Balancer from 'react-wrap-balancer';
 
 export function CallToActionSection() {
   return (
-    <div className="flex justify-center w-full pb-20 md:pb-32 flex-col items-center bg-interactive">
+    <div className="flex justify-center w-full pb-20 md:pb-32 flex-col items-center bg-interactive px-6">
       <h2 className="text-4xl md:text-5xl font-semibold text-primary mb-4 leading-none text-center">
         <Balancer>Get started in seconds</Balancer>
       </h2>
