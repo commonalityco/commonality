@@ -5,7 +5,7 @@ Constraints help you maintain a dependency graph that's easy to reason about by 
 Constraints are applied to dependencies where there both the source and target package are in the same workspace.
 This means that constraints cannot be applied to external dependencies.
 
-A constraint can `allow` and `disallow` packages using [tag filters](), however if a dependency matches a `disallow` filter the constraint will fail even if it is allowed by an `allow` filter.
+A constraint can `allow` and `disallow` packages using [selectors](/docs/selectors), however if a dependency matches a `disallow` selector the constraint will fail even if it is allowed by an `allow` filter.
 
 ## `allow` vs `disallow`
 
@@ -13,7 +13,7 @@ Commonality provides two different ways to enforce constraints, each with varyin
 
 ### `disallow` matches direct and transitive dependencies
 `disallow` constraints will evaluate the entire upstream dependency graph for a package.
-If any direct or transitive dependency matches a tag filter within the `disallow` array, then the constraint will fail.
+If any direct or transitive dependency matches a [selector](/docs/selectors) within the `disallow` array, then the constraint will fail.
 
 The following constraint...
 ```ts filename="commonality.config.ts"

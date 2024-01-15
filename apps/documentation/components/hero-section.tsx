@@ -18,7 +18,7 @@ export function HeroSection() {
 
         <div className="absolute top-0 right-0 bottom-0 left-0 bg-gradient-to-t from-background z-10" />
       </div>
-      <div className="flex flex-col items-center justify-center pt-16 gap-6 md:items-stretch relative z-[3]">
+      <div className="flex flex-col items-center justify-center pt-8 md:pt-16 gap-6 md:items-stretch relative z-[3]">
         <div className="max-w-[800px] relative z-10 flex text-center items-center justify-center md:justify-start self-center md:self-auto mx-auto mb-6 overflow-hidden">
           <div>
             <h1 className="text-7xl md:text-9xl font-bold text-primary mb-6 leading-none">
@@ -26,8 +26,8 @@ export function HeroSection() {
             </h1>
             <p className="text-primary/70 text-base md:text-lg mb-3 font-medium">
               <Balancer>
-                Commonality helps you scale JavaScript monorepos and package
-                ecosystems with the tools you already love.
+                Commonality helps you structure growing JavaScript monorepos and
+                package ecosystems with the tools you already love.
               </Balancer>
             </p>
             <p className="text-muted-foreground text-base md:text-lg mb-10 font-medium">
@@ -45,14 +45,14 @@ export function HeroSection() {
                 asChild
                 className="w-full max-w-[300px] md:w-auto"
               >
-                <Link href="/docs/overview">Get started</Link>
+                <Link href="/docs/getting-started">Get started</Link>
               </Button>
             </div>
           </div>
         </div>
 
         <div className="flex justify-center grow h-full pointer-events-none relative">
-          <Cube className="z-10 relative max-w-[300px] md:max-w-[400px] min-w-[325px] w-full -mb-16" />
+          <Cube className="z-10 relative max-w-[250px] md:max-w-[400px] min-w-[325px] w-full -mb-16" />
         </div>
       </div>
       <HeroFooter className="w-full pointer-events-none absolute left-0 right-0 -bottom-2 pt-1/3 z-[2]" />
