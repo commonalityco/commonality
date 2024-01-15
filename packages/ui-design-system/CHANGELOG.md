@@ -1,5 +1,11 @@
 # @commonalityco/ui-design-system
 
+## 0.2.38
+
+### Patch Changes
+
+- 52d572a: Add new project flow with commonality init
+
 ## 0.2.37
 
 ### Patch Changes
