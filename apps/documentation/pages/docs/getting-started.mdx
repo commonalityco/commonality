@@ -15,7 +15,7 @@ We've created a command that will quickly get you up and running in an existing 
 This command will:
 
 - Install `commonality` at the root of your project
-- Install and configure checks that benefit most multi-package projects from `commonaity-checks-recommended` (optional)
+- Install and configure checks that benefit most multi-package projects from [`commonaity-checks-recommended`](/docs/commonality-checks-recommended) (optional)
 
 ```bash copy
 npx commonality@latest init
@@ -36,10 +36,6 @@ commonality check
 You'll see the result of the checks run against the packages in your project.
 Checks can also be auto-fixable, making it easy for teams to keep packages in sync with the rules defined in the project configuration.
 
-<Callout type="info">
-  For documentation on all rules in the `commonality-checks-recommended` package
-  check out the README
-</Callout>
 
 ### Tag your packages
 
@@ -56,7 +52,7 @@ You can edit a package's tags either by selecting a package in the dependency gr
 ![](/studio-edit-tags.png)
 
 <Callout type="info">
-  Editing tags in Commonality Studio will update or create a `commonality.json`
+  Editing tags in Commonality Studio will update or create a [`commonality.json`](/docs/api/configuration#package-configuration)
   in package directories automatically. This saves you from manually managing
   many configuration files across your monorepo.
 </Callout>

@@ -2,7 +2,34 @@ import { Callout } from 'nextra/components';
 
 # Creating checks
 
-Checks are defined in the configuration file at the root of your project. You can use matchers to run checks against all the packages in your project or a subset of packages.
+
+
+## Using checks
+
+Checks are defined your [project configuration file](/docs/api/configuration) at the root of your project.
+You can use [selectors](/docs/selectors) to run checks against all the packages in your project or a subset of packages.
+
+<Callout type="info" emoji="💡">
+  Leverage the [utility checks](/docs/commonality-checks-recommended#utility) from our [`commonality-checks-recommended`](/docs/commonality-checks-recommended) package to quickly get up and running for simple use cases.
+</Callout>
+
+```ts filename="commonality.config.ts"
+import { defineConfig } from 'commonality';
+import * as recommended from 'commonality-checks-recommended';
+
+export default defineConfig({
+  checks: {
+    'buildable': [
+      recommended.hasFile('package.json', {
+        build: 'tsc --build',
+        dev: 'tsc --watch',
+      }),
+    ],
+
+  },
+});
+```
+
 
 ## Creating your first check
 
@@ -16,7 +43,7 @@ All checks have three required properties:
 
 <Callout type="info">
   You can view all available check properties and more examples in our
-  [reference documentation](/docs/reference/checks).
+  [reference documentation](/docs/api/checks).
 </Callout>
 
 Here's an example of a simple check that ensures every package has at least one codeowner.
@@ -37,17 +64,15 @@ export default defineConfig({
 });
 ```
 
-We can run this check with
-
-```bash copy
-commonality check
-```
+While the check above is fairly simple, checks can be made highly dynamic.
+The `validate`, `message`, and `fix` properties for a check can all be functions that are passed context about the package being checked.
 
 ## Auto-fixable checks
 
-It's great to be notified that something isn't right, but it's even better when you can fix it with a single key press.
+Failures are helpful but add friction to developer workflows. To solve this, checks can automatically fix themselves.
+This makes it easy for teams to adhere to best practices.
 
-To make a check fixable just add a [`fix`](/docs/api/checks#fix) property to your check. This function will only run against the package if the result of [`validate`](/docs/api/checks#validate) is falsey.
+To make a check fixable just add a [`fix`](/docs/api/checks#fix) property to your check. This function will only run against a package if the result of [`validate`](/docs/api/checks#validate) is falsey.
 
 Here's an example of a check that will automatically create a `README.md` for a package if it does not exist.
 
@@ -86,6 +111,8 @@ export default defineConfig({
   },
 });
 ```
+
+We provide utilities like [`json`](/docs/api/checks#json), and [`text`](/docs/api/checks#text) to make it easy to read and write files within checks.
 
 ## Customizing messages
 
@@ -161,42 +188,50 @@ The following output will be shown when running the check above:
 
 ## Composing checks
 
-While basic checks go a long way, you may want to pass options to your checks to make them re-usable in a variety of different scenarios.
+Since checks are just functions, you can create checks that accept arguments to make them re-usable in a variety of different scenarios.
 
-Instead of defining checks as an object you can use our [`defineCheck`](/docs/api/checks#definecheck) helper to define checks as functions, allowing you to dynamically pass options to checks.
-
-Here's an example of a configuration that ensures that all packages with the tag `buildable` have `build` and `dev` scripts.
+As an example, below is the source code for our [`hasJsonFile`](/docs/commonality-checks-recommended#has-json-file) utility check.
 
 ```ts filename="commonality.config.ts"
-import { defineConfig, defineCheck } from 'commonality';
+import { defineCheck, json, diff } from 'commonality';
+import isMatch from 'lodash-es/isMatch';
 
-const ensureScript = defineCheck((scriptName: string, value: string) => ({
-  name: 'ensure-script',
-  validate: (ctx) => {
-    const packageJson = json(ctx.package.path, 'package.json').get();
+export const hasJsonFile = defineCheck(
+  (fileName: string, content?: Record<string, unknown>) => {
+    return {
+      name: 'commonality/has-json-file',
+      level: 'error',
+      message: async (ctx) => {
+        const jsonFile = await json(ctx.package.path, fileName).get();
 
-    if (!packageJson) {
-      return false;
-    }
+        if (!jsonFile) return { title: `File "${fileName}" does not exist` };
 
-    return packageJson.scripts && packageJson.scripts[scriptName];
-  },
-  fix: (ctx) => {
-    return json(ctx.package.path, 'package.json').merge({
-      scripts: {
-        [scriptName]: value,
+        if (content && !isMatch(jsonFile, content)) {
+          return {
+            title: `"${fileName}" does not contain expected content`,
+            suggestion: diff(jsonFile, content),
+          };
+        }
+
+        return { title: `${fileName} exists` };
       },
-    });
-  },
-}));
+      validate: async (ctx) => {
+        const jsonFile = await json(ctx.package.path, fileName).get();
 
-export default defineConfig({
-  checks: {
-    buildable: [
-      ensureScript('build', 'tsc'),
-      ensureScript('dev', 'tsc --watch'),
-    ],
+        if (!jsonFile) return false;
+
+        if (!content) return true;
+
+        return isMatch(jsonFile, content);
+      },
+      fix: async (ctx) => {
+        if (!content) return;
+
+        await json(ctx.package.path, fileName).merge(content);
+      },
+    };
   },
-});
+);
+
 ```
 
