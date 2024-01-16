@@ -13,9 +13,12 @@
     "bin.js"
   ],
   "types": "./dist/utilities/index.d.ts",
-  "main": "./dist/utilities/index.js",
+  "main": "./dist/utilities/index.cjs",
   "exports": {
-    ".": "./dist/utilities/index.js"
+    ".": {
+      "import": "./dist/utilities/index.js",
+      "require": "./dist/utilities/index.cjs"
+    }
   },
   "description": "Infinitely scalable front-end ecosystems",
   "repository": {
