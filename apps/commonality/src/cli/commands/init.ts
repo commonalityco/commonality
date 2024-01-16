@@ -5,7 +5,6 @@ import {
   installCommonality,
   getInstallChecks,
   getInstallCommonality,
-  getUseTypeScript,
   getCreateConfig,
   installChecks,
   createConfig,
@@ -154,6 +153,19 @@ export const action = async ({
   }
 };
 
+const safeGetRootDirectory = async () => {
+  try {
+    return await getRootDirectory();
+  } catch {
+    console.log(
+      `${c.bold(
+        '\nUnable to find a lockfile',
+      )}\n\nThis command must be run within a project managed by a JavaScript package manager`,
+    );
+    process.exit(1);
+  }
+};
+
 export const init = command
   .name('init')
   .description('Setup Commonality in your project')
@@ -169,7 +181,7 @@ export const init = command
       installChecks?: boolean;
       verbose?: boolean;
     }) => {
-      const rootDirectory = await getRootDirectory();
+      const rootDirectory = await safeGetRootDirectory();
 
       action({
         rootDirectory,
