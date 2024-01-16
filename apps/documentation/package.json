@@ -11,7 +11,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/commonalityco/commonality/apps/documentation"
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "apps/documentation"
   },
   "license": "MIT",
   "bugs": {

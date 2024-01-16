@@ -52,5 +52,9 @@
     "@tanstack/react-table": "^8.10.1",
     "lucide-react": "^0.299.0"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/ui-conformance"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/ui-conformance"
+  }
 }

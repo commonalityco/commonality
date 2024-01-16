@@ -53,5 +53,9 @@
   "engines": {
     "node": ">=16"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/ui-core"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/ui-core"
+  }
 }

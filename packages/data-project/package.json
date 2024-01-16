@@ -43,5 +43,9 @@
     "yaml": "^2.3.2",
     "zod": "^3.22.4"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/data-project"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/data-project"
+  }
 }

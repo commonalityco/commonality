@@ -44,7 +44,11 @@
     "test": "vitest"
   },
   "types": "./src/index.ts",
-  "repository": "https://github.com/commonalityco/commonality/packages/utils-onboarding",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/utils-onboarding"
+  },
   "dependencies": {
     "@antfu/install-pkg": "^0.3.1",
     "fs-extra": "^11.1.1",

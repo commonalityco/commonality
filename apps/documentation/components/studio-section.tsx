@@ -79,7 +79,7 @@ export function StudioSection() {
             Explore any JavaScript project with a single command
           </p>
           <div className="inline-block px-6">
-            <div className="relative p-px bg-gradient-to-b from-muted-foreground to-muted-foreground/20 rounded-md">
+            <div className="relative p-px bg-gradient-to-t dark:bg-gradient-to-b from-muted-foreground to-muted-foreground/20 rounded-md">
               <CopySnippet className="border-none bg-background">
                 {STUDIO_COMMAND}
               </CopySnippet>

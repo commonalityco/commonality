@@ -37,5 +37,9 @@
     "@commonalityco/utils-core": "workspace:*",
     "fs-extra": "^11.1.1"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/data-tags"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/data-tags"
+  }
 }

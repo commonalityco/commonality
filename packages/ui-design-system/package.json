@@ -69,5 +69,9 @@
     "dev": "tsc --watch",
     "type-check": "tsc --noEmit"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/ui-design-system"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/ui-design-system"
+  }
 }
