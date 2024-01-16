@@ -10,7 +10,7 @@ export const installChecks = async ({
 }): Promise<void> => {
   await installPackage('commonality-checks-recommended@latest', {
     cwd: rootDirectory,
-    silent: verbose === undefined ? true : verbose,
+    silent: verbose === undefined ? true : !verbose,
     additionalArgs: await getAdditionalInstallArgs({ rootDirectory }),
   });
 };
