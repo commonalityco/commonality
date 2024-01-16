@@ -33,5 +33,9 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/types"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/types"
+  }
 }

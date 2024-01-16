@@ -37,5 +37,9 @@
     "dev": "tsc --watch"
   },
   "types": "./src/index.ts",
-  "repository": "https://github.com/commonalityco/commonality/packages/utils-package"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/utils-package"
+  }
 }

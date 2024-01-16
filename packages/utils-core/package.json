@@ -38,5 +38,9 @@
     "@sindresorhus/slugify": "^2.2.1",
     "zod": "^3.22.4"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/utils-core"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/utils-core"
+  }
 }
