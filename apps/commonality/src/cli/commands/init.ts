@@ -29,15 +29,26 @@ const nextStepsText = `\n  ${c.underline.bold(
   'npx commonality studio',
 )}`;
 
+const getUseTypeScript = async (): Promise<boolean> => {
+  const { typescript } = await prompts([
+    {
+      type: 'toggle',
+      name: 'typescript',
+      initial: true,
+      message: `Would you like to use TypeScript?`,
+      active: 'yes',
+      inactive: 'no',
+    },
+  ]);
+
+  return typescript;
+};
+
 export const action = async ({
   rootDirectory,
-  typeScriptFlag,
-  installChecksFlag,
   verbose,
 }: {
   rootDirectory: string;
-  typeScriptFlag?: boolean;
-  installChecksFlag?: boolean;
   verbose?: boolean;
 }) => {
   console.log(
@@ -45,22 +56,6 @@ export const action = async ({
       'Welcome to Commonality!',
     )} \n\n  Let’s get you set up.\n`,
   );
-  const getUseTypeScript = async (): Promise<boolean> => {
-    if (typeScriptFlag !== undefined) return typeScriptFlag;
-
-    const { typescript } = await prompts([
-      {
-        type: 'toggle',
-        name: 'typescript',
-        initial: true,
-        message: `Would you like to use TypeScript?`,
-        active: 'yes',
-        inactive: 'no',
-      },
-    ]);
-
-    return typescript;
-  };
 
   // Prompts
   const shouldInstallCommonality = await getInstallCommonality({
@@ -69,10 +64,7 @@ export const action = async ({
   const shouldCreateConfig = await getCreateConfig({ rootDirectory });
 
   const typeScript = shouldCreateConfig ? await getUseTypeScript() : false;
-  const shouldInstallChecks =
-    installChecksFlag === undefined
-      ? await getInstallChecks({ rootDirectory })
-      : installChecksFlag;
+  const shouldInstallChecks = await getInstallChecks({ rootDirectory });
 
   // Confirmation
   if (
@@ -152,24 +144,11 @@ export const init = command
   .name('init')
   .description('Setup Commonality in your project')
   .option('--verbose', 'Show additional logging output')
-  .option('--typescript', 'Create a TypeScript configuration file')
-  .option(
-    '--install-checks',
-    'Install commonality-checks-recommended if not already installed',
-  )
-  .action(
-    async (options: {
-      typescript?: boolean;
-      installChecks?: boolean;
-      verbose?: boolean;
-    }) => {
-      const rootDirectory = await safeGetRootDirectory();
+  .action(async (options: { verbose?: boolean }) => {
+    const rootDirectory = await safeGetRootDirectory();
 
-      action({
-        rootDirectory,
-        verbose: options.verbose,
-        typeScriptFlag: options.typescript,
-        installChecksFlag: options.installChecks,
-      });
-    },
-  );
+    action({
+      rootDirectory,
+      verbose: options.verbose,
+    });
+  });
