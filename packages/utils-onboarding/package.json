@@ -1,6 +1,7 @@
 {
   "name": "@commonalityco/utils-onboarding",
   "description": "Utilities for initializing Commonality in a project",
+  "private": true,
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
@@ -9,7 +10,7 @@
   "sideEffects": false,
   "version": "0.2.39",
   "publishConfig": {
-    "access": "public",
+    "access": "restricted",
     "exports": {
       ".": "./dist/index.js"
     },
