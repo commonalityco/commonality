@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.42
+
+### Patch Changes
+
+- 0faea77: Fixes an issue where the repository field check was creating an incorrectly formatted repository field
+
 ## 0.2.41
 
 ### Patch Changes

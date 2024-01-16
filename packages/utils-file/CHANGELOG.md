@@ -1,5 +1,13 @@
 # @commonalityco/utils-file
 
+## 0.0.3
+
+### Patch Changes
+
+- 0faea77: Fixes an issue where the repository field check was creating an incorrectly formatted repository field
+- Updated dependencies [0faea77]
+  - @commonalityco/utils-core@0.2.37
+
 ## 0.0.2
 
 ### Patch Changes

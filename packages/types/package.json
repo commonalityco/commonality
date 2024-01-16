@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/types",
   "description": "Shared types for use across all Commonality projects",
-  "version": "0.2.36",
+  "version": "0.2.37",
   "type": "module",
   "publishConfig": {
     "access": "public",
