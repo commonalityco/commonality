@@ -19,15 +19,28 @@ const command = new Command();
 const PROJECT_CONFIG_TS = `commonality.config.ts` as const;
 const PROJECT_CONFIG_JS = `commonality.config.js` as const;
 
-const nextStepsText = `\n  ${c.underline.bold(
-  `Here's what to check out next:`,
-)}\n\n  Codify best practices with checks\n  ${c.dim(
-  'https://www.commonality.co/docs/checks',
-)}\n\n  Structure your dependency graph using constraints\n  ${c.dim(
-  'https://www.commonality.co/docs/constraints',
-)} \n\n  Explore your codebase with Commonality Studio\n  ${c.dim(
-  'npx commonality studio',
-)}`;
+const logNextSteps = ({
+  shouldInstallChecks,
+}: {
+  shouldInstallChecks: boolean;
+}) => {
+  console.log();
+
+  console.log(`  ${c.bold(`You're all set up! Here's what to try next:`)}`);
+
+  if (shouldInstallChecks) {
+    console.log(
+      `\n${c.blue(
+        '  npm exec -- commonality check',
+      )}\n  Try running the checks we've set up for you`,
+    );
+  }
+
+  console.log(`\n  Check out our getting started guide for more info:`);
+  console.log(
+    `  ${c.underline('https://www.commonality.co/docs/getting-started')}\n`,
+  );
+};
 
 const getUseTypeScript = async (): Promise<boolean> => {
   const { typescript } = await prompts([
@@ -73,17 +86,21 @@ export const action = async ({
     !shouldCreateConfig
   ) {
     console.log(c.green(`\n  Your project is already set up with Commonality`));
-    console.log(nextStepsText);
+    logNextSteps({ shouldInstallChecks: true });
     return;
   }
 
   const configFileName = typeScript ? PROJECT_CONFIG_TS : PROJECT_CONFIG_JS;
   // Generation
   try {
+    console.log();
+
     if (shouldInstallCommonality) {
       const commonalitySpinner = ora();
 
-      commonalitySpinner.start('Installing commonality');
+      commonalitySpinner.start(
+        'Installing commonality, this might take a couple of minutes.',
+      );
 
       await installCommonality({ rootDirectory, verbose });
 
@@ -93,7 +110,9 @@ export const action = async ({
     if (shouldInstallChecks) {
       const checksSpinner = ora();
 
-      checksSpinner.start('Installing commonality-checks-recommended');
+      checksSpinner.start(
+        'Installing commonality-checks-recommended, this might take a couple of minutes.',
+      );
 
       await installChecks({ rootDirectory });
 
@@ -114,11 +133,7 @@ export const action = async ({
       configSpinner.succeed(`Created ${configFileName}`);
     }
 
-    console.log();
-
-    console.log(c.green(`  You're all set up!`));
-
-    console.log(nextStepsText);
+    logNextSteps({ shouldInstallChecks });
   } catch (error) {
     if (verbose) {
       console.error(error);
