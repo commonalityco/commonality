@@ -1,5 +1,13 @@
 # @commonalityco/ui-constraints
 
+## 0.2.41
+
+### Patch Changes
+
+- 9458463: Fix issue where graph would reload multiple times on initial page load
+- Updated dependencies [9458463]
+  - @commonalityco/ui-graph@0.2.40
+
 ## 0.2.40
 
 ### Patch Changes

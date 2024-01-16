@@ -1,5 +1,11 @@
 # @commonalityco/snapshot
 
+## 0.2.39
+
+### Patch Changes
+
+- 9458463: Fix issue where graph would reload multiple times on initial page load
+
 ## 0.2.38
 
 ### Patch Changes
