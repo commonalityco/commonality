@@ -19,8 +19,8 @@ function LastUpdateTime() {
 
       socket.on(
         'project-updated',
-        debounce(() => {
-          console.log('project updated');
+        debounce((data) => {
+          console.log(data);
           router.refresh();
 
           setLastUpdated(new Date());

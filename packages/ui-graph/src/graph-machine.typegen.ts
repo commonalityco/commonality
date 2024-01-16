@@ -45,7 +45,7 @@ export interface Typegen0 {
     hideDependencies: 'HIDE_DEPENDENCIES';
     hideDependents: 'HIDE_DEPENDANTS';
     isolate: 'ISOLATE';
-    log: 'NODE_CLICK' | 'UNSELECT';
+    log: 'INITIALIZE' | 'NODE_CLICK' | 'UNSELECT';
     nodeClick: 'NODE_CLICK';
     setHovering: 'SET_HOVERING';
     setInitialElements: 'INITIALIZE';
