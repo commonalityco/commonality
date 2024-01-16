@@ -8,12 +8,15 @@
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
   },
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "scripts": {
-    "build": "tsc --build",
-    "dev": "tsc --watch",
+    "build": "tsup-node --config tsup.config.ts",
+    "dev": "tsup-node --config tsup.config.ts --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",
@@ -31,6 +34,7 @@
     "commonality": "workspace:*",
     "eslint-config-commonality": "workspace:*",
     "mock-fs": "^5.2.0",
+    "tsup": "^8.0.1",
     "typescript": "^5.2.2"
   },
   "dependencies": {
