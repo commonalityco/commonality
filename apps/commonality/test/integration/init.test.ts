@@ -16,14 +16,10 @@ describe.concurrent('init', () => {
     const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
 
-    const initProcess = execa(
-      binPath,
-      ['init', '--typescript', '--install-checks', '--verbose'],
-      {
-        cwd: temporaryPath,
-        stdout: 'pipe',
-      },
-    );
+    const initProcess = execa(binPath, ['init', '--verbose'], {
+      cwd: temporaryPath,
+      stdout: 'pipe',
+    });
 
     let initOutput = '';
     initProcess.stdout?.on('data', (data) => {
