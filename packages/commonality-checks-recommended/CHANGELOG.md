@@ -1,5 +1,12 @@
 # commonality-checks-recommended
 
+## 0.0.21
+
+### Patch Changes
+
+- Updated dependencies [bbca388]
+  - commonality@0.2.44
+
 ## 0.0.20
 
 ### Patch Changes
