@@ -40,8 +40,13 @@ export const action = async ({
   installChecksFlag?: boolean;
   verbose?: boolean;
 }) => {
+  console.log(
+    `\n  ${c.bold.blue(
+      'Welcome to Commonality!',
+    )} \n\n  Let’s get you set up.\n`,
+  );
   const getUseTypeScript = async (): Promise<boolean> => {
-    if (typeScriptFlag) return typeScriptFlag;
+    if (typeScriptFlag !== undefined) return typeScriptFlag;
 
     const { typescript } = await prompts([
       {
@@ -65,7 +70,9 @@ export const action = async ({
 
   const typeScript = shouldCreateConfig ? await getUseTypeScript() : false;
   const shouldInstallChecks =
-    installChecksFlag ?? (await getInstallChecks({ rootDirectory }));
+    installChecksFlag === undefined
+      ? await getInstallChecks({ rootDirectory })
+      : installChecksFlag;
 
   // Confirmation
   if (
@@ -79,37 +86,6 @@ export const action = async ({
   }
 
   const configFileName = typeScript ? PROJECT_CONFIG_TS : PROJECT_CONFIG_JS;
-
-  console.log(`\n  Here are the changes we'll make to your project:\n`);
-
-  if (shouldInstallCommonality) {
-    console.log(`  • Install commonality`);
-  }
-
-  if (shouldCreateConfig) {
-    console.log(`  • Create a ${configFileName} file`);
-  }
-
-  if (shouldInstallChecks) {
-    console.log(`  • Install and set up commonality-checks-recommended`);
-  }
-
-  console.log();
-
-  const response = await prompts([
-    {
-      type: 'confirm',
-      name: 'setup',
-      message: `Would you like to proceed?`,
-      initial: true,
-    },
-  ]);
-
-  if (!response.setup) {
-    console.log('Sounds good, you can always run this again later.');
-    return;
-  }
-
   // Generation
   try {
     if (shouldInstallCommonality) {
@@ -137,10 +113,16 @@ export const action = async ({
 
       configSpinner.start(`Creating ${configFileName}`);
 
-      await createConfig({ rootDirectory, typeScript });
+      await createConfig({
+        rootDirectory,
+        typeScript,
+        includeChecks: shouldInstallChecks,
+      });
 
       configSpinner.succeed(`Created ${configFileName}`);
     }
+
+    console.log();
 
     console.log(c.green(`  You're all set up!`));
 
