@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.43
+
+### Patch Changes
+
+- 00fa1ae: Adds better error message when commonality init is run outside a project
+
 ## 0.2.42
 
 ### Patch Changes
