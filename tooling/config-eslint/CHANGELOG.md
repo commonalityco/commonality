@@ -1,5 +1,11 @@
 # eslint-config-commonality
 
+## 0.0.12
+
+### Patch Changes
+
+- 0faea77: Fixes an issue where the repository field check was creating an incorrectly formatted repository field
+
 ## 0.0.11
 
 ### Patch Changes
