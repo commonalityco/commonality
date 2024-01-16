@@ -1,6 +1,6 @@
 {
   "name": "documentation",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Nextra docs template",
   "private": true,
   "scripts": {
@@ -11,7 +11,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/commonalityco/commonality/apps/documentation"
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "apps/documentation"
   },
   "license": "MIT",
   "bugs": {

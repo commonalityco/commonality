@@ -2,7 +2,7 @@
   "name": "@commonalityco/ui-package",
   "description": "Presentational components to build the Commonality package view",
   "type": "module",
-  "version": "0.2.36",
+  "version": "0.2.37",
   "publishConfig": {
     "access": "public",
     "module": "./dist/index.js",
@@ -49,5 +49,9 @@
     "dev": "tsc --watch"
   },
   "main": "./src/index.ts",
-  "repository": "https://github.com/commonalityco/commonality/packages/ui-package"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/ui-package"
+  }
 }

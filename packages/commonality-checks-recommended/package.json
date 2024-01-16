@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.17",
+  "version": "0.0.18",
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -38,5 +38,9 @@
     "semver": "^7.5.4",
     "validate-npm-package-name": "^5.0.0"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/commonality-checks-recommended"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/commonality-checks-recommended"
+  }
 }

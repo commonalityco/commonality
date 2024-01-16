@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/ui-graph",
-  "version": "0.2.38",
+  "version": "0.2.39",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -55,5 +55,9 @@
     "lodash-es": "^4.17.21",
     "xstate": "^4.38.2"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/ui-graph"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/ui-graph"
+  }
 }

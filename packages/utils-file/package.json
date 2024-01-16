@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/utils-file",
   "description": "Utilities to read and write to the local file system",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -52,5 +52,9 @@
     "pathe": "^1.1.1",
     "strip-ansi": "^7.1.0"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/utils-file"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/utils-file"
+  }
 }

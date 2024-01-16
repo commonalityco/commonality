@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-commonality",
   "description": "The Commonality CLI's ESLint configuration",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "publishConfig": {
     "access": "public"
   },
@@ -23,6 +23,10 @@
   "devDependencies": {
     "typescript": "^5.2.2"
   },
-  "repository": "https://github.com/commonalityco/commonality/tooling/config-eslint",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "tooling/config-eslint"
+  },
   "scripts": {}
 }

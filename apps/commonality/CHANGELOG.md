@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.2.41
+
+### Patch Changes
+
+- 0faea77: Fixes an issue where the repository field check was creating an incorrectly formatted repository field
+- Updated dependencies [0faea77]
+  - @commonalityco/studio@0.2.42
+
 ## 0.2.40
 
 ### Patch Changes

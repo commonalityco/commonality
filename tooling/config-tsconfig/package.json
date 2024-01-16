@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/config-tsconfig",
   "description": "Standard TypeScript configuration for Commonality projects",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "private": true,
   "devDependencies": {
     "typescript": "^5.2.2"
@@ -13,6 +13,10 @@
     "react-library.json",
     "next.json"
   ],
-  "repository": "https://github.com/commonalityco/commonality/tooling/config-tsconfig",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "tooling/config-tsconfig"
+  },
   "scripts": {}
 }

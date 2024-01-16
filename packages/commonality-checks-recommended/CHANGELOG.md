@@ -1,5 +1,13 @@
 # commonality-checks-recommended
 
+## 0.0.18
+
+### Patch Changes
+
+- 0faea77: Fixes an issue where the repository field check was creating an incorrectly formatted repository field
+- Updated dependencies [0faea77]
+  - commonality@0.2.41
+
 ## 0.0.17
 
 ### Patch Changes

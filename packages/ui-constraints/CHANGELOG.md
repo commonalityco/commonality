@@ -1,5 +1,16 @@
 # @commonalityco/ui-constraints
 
+## 0.2.40
+
+### Patch Changes
+
+- 0faea77: Fixes an issue where the repository field check was creating an incorrectly formatted repository field
+- Updated dependencies [0faea77]
+  - @commonalityco/ui-design-system@0.2.39
+  - @commonalityco/utils-package@0.2.37
+  - @commonalityco/ui-graph@0.2.39
+  - @commonalityco/ui-core@0.2.39
+
 ## 0.2.39
 
 ### Patch Changes

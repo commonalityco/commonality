@@ -2,7 +2,7 @@
   "name": "workshop",
   "description": "The Storybook application for developing Commonality UI components",
   "private": true,
-  "version": "1.0.29",
+  "version": "1.0.30",
   "scripts": {
     "dev": "storybook dev -p 6006",
     "lint": "eslint .",
@@ -55,5 +55,9 @@
     "vite": "^4.5.1",
     "webpack": "^5.88.2"
   },
-  "repository": "https://github.com/commonalityco/commonality/apps/workshop"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "apps/workshop"
+  }
 }

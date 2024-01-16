@@ -2,7 +2,7 @@
   "name": "@commonalityco/ui-core",
   "description": "Presentational components used to build Commonality applications",
   "type": "module",
-  "version": "0.2.38",
+  "version": "0.2.39",
   "publishConfig": {
     "access": "public"
   },
@@ -53,5 +53,9 @@
   "engines": {
     "node": ">=16"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/ui-core"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/ui-core"
+  }
 }

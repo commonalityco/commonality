@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/studio",
   "description": "The Next.js application that powers Commonality Studio",
-  "version": "0.2.41",
+  "version": "0.2.42",
   "publishConfig": {
     "access": "public"
   },
@@ -117,5 +117,9 @@
     "xstate": "^4.38.2",
     "zod": "^3.22.4"
   },
-  "repository": "https://github.com/commonalityco/commonality/apps/studio"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "apps/studio"
+  }
 }

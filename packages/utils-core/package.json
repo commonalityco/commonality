@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/utils-core",
-  "version": "0.2.36",
+  "version": "0.2.37",
   "type": "module",
   "description": "Contains the common constants used in all Commonality applications and packages",
   "sideEffects": false,
@@ -38,5 +38,9 @@
     "@sindresorhus/slugify": "^2.2.1",
     "zod": "^3.22.4"
   },
-  "repository": "https://github.com/commonalityco/commonality/packages/utils-core"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/utils-core"
+  }
 }

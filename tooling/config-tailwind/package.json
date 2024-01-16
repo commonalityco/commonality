@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/config-tailwind",
   "description": "TailwindCSS configuration and globals for Commonality projects",
-  "version": "0.2.36",
+  "version": "0.2.37",
   "publishConfig": {
     "access": "public"
   },
@@ -25,6 +25,10 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.2.2"
   },
-  "repository": "https://github.com/commonalityco/commonality/tooling/config-tailwind",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "tooling/config-tailwind"
+  },
   "scripts": {}
 }

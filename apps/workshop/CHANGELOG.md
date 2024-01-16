@@ -1,5 +1,20 @@
 # workshop
 
+## 1.0.30
+
+### Patch Changes
+
+- 0faea77: Fixes an issue where the repository field check was creating an incorrectly formatted repository field
+- Updated dependencies [0faea77]
+  - @commonalityco/ui-design-system@0.2.39
+  - @commonalityco/ui-conformance@0.2.39
+  - @commonalityco/ui-constraints@0.2.40
+  - @commonalityco/ui-package@0.2.37
+  - @commonalityco/utils-core@0.2.37
+  - @commonalityco/ui-graph@0.2.39
+  - @commonalityco/ui-core@0.2.39
+  - @commonalityco/types@0.2.37
+
 ## 1.0.29
 
 ### Patch Changes
