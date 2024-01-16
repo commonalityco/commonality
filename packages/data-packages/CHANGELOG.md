@@ -1,5 +1,12 @@
 # @commonalityco/constraints
 
+## 0.2.39
+
+### Patch Changes
+
+- Updated dependencies [9458463]
+  - @commonalityco/data-project@0.2.39
+
 ## 0.2.38
 
 ### Patch Changes

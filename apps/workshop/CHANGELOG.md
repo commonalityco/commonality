@@ -1,5 +1,13 @@
 # workshop
 
+## 1.0.31
+
+### Patch Changes
+
+- Updated dependencies [9458463]
+  - @commonalityco/ui-constraints@0.2.41
+  - @commonalityco/ui-graph@0.2.40
+
 ## 1.0.30
 
 ### Patch Changes

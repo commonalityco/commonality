@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.43
+
+### Patch Changes
+
+- 9458463: Fix issue where graph would reload multiple times on initial page load
+
 ## 0.2.42
 
 ### Patch Changes

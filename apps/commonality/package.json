@@ -1,6 +1,6 @@
 {
   "name": "commonality",
-  "version": "0.2.41",
+  "version": "0.2.42",
   "bin": {
     "commonality": "./bin.js"
   },
@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@antfu/install-pkg": "^0.3.1",
-    "@commonalityco/studio": "0.2.42",
+    "@commonalityco/studio": "0.2.43",
     "@sindresorhus/slugify": "^2.2.1",
     "chalk": "^5.3.0",
     "commander": "^11.0.0",
