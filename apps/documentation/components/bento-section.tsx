@@ -40,7 +40,7 @@ function CheckCard({
 
 export function BentoSection() {
   return (
-    <div className="py-20 md:py-32 w-full bg-interactive relative px-6 z-10">
+    <div className="py-24 md:py-48 w-full bg-interactive relative px-6 z-10">
       <div className="mx-auto text-center mb-12">
         <h2 className="text-4xl md:text-5xl font-semibold text-primary mb-4 leading-none text-center">
           <Balancer>
@@ -49,8 +49,8 @@ export function BentoSection() {
         </h2>
         <p className="max-w-3xl mx-auto text-muted-foreground text-base md:text-lg font-medium">
           <Balancer>
-            Automate away the tedious maintenance of growing monorepos and
-            package ecosystems.
+            Codify best practices and workflows across an infinite number of
+            packages.
           </Balancer>
         </p>
       </div>
@@ -60,7 +60,7 @@ export function BentoSection() {
           <div className="flex md:items-center order-2 md:order-1">
             <div>
               <p className="font-semibold mb-4 text-3xl text-primary">Checks</p>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-muted-foreground mb-8 font-medium">
                 Scale a consistently amazing developer experience with dynamic
                 conformance checks that are run like tests and shared like lint
                 rules.
