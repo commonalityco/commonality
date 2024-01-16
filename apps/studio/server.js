@@ -49,14 +49,15 @@ const createWebsocketConnection = async (server) => {
     ];
 
     const watcher = chokidar.watch(globsToWatch, {
-      ignored: [/node_modules/, /.next/], // ignore both node_modules and .next directories
+      ignored: [/node_modules/, /.next/, /dist/],
+      ignoreInitial: true,
       persistent: true,
       cwd: rootDirectory,
     });
 
     watcher
       .on('ready', () => {
-        console.log('socket ready');
+        console.log('watching for file changes');
       })
       .on('add', async (path) => {
         socket.emit('project-updated', {

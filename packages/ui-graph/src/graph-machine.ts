@@ -109,6 +109,7 @@ export const graphMachine = createMachine(
               'createRenderGraph',
               'setTheme',
               'setInitialElements',
+              'log',
             ],
           },
         },
@@ -122,6 +123,7 @@ export const graphMachine = createMachine(
               'createRenderGraph',
               'setTheme',
               'setInitialElements',
+              'log',
             ],
           },
           DESTROY: {
@@ -278,7 +280,7 @@ export const graphMachine = createMachine(
       },
       renderGraph: (context) => async (callback) => {
         if (!context.renderGraph || !context.traversalGraph) return;
-
+        console.log('rendering');
         await updateGraphElements({
           renderGraph: context.renderGraph,
           traversalGraph: context.traversalGraph,

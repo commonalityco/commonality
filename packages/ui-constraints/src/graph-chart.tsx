@@ -23,7 +23,7 @@ export const GraphChart = memo(
         <div className={cn('relative z-10 w-full shrink-0 grow', className)}>
           <div
             className={cn(
-              'bg-interactive absolute bottom-0 left-0 right-0 top-0 z-20 flex h-full w-full items-center justify-center transition',
+              'bg-interactive absolute bottom-0 left-0 right-0 top-0 z-20 flex h-full w-full items-center justify-center',
               {
                 'opacity-100': isEmpty,
                 'hidden opacity-0': !isEmpty,
@@ -68,7 +68,7 @@ export const GraphChart = memo(
             id="graph-container"
             ref={reference}
             className={cn(
-              'bg-secondary dark:bg-interactive h-full w-full relative overflow-hidden transition',
+              'bg-secondary dark:bg-interactive h-full w-full relative overflow-hidden',
               {
                 'opacity-0': loading,
                 'opacity-100 ': !loading,
