@@ -9,320 +9,311 @@ describe('extendsRepositoryField', () => {
   });
 
   describe('validate', () => {
-    it('should return true if no repository is specified', async () => {
-      mockFs({
-        'package.json': JSON.stringify({}),
-        packages: {
-          'pkg-a': {
-            'package.json': JSON.stringify({}),
+    describe('when the root repository field is undefined', () => {
+      it('should return true if no repository is specified', async () => {
+        mockFs({
+          'package.json': JSON.stringify({}),
+          packages: {
+            'pkg-a': {
+              'package.json': JSON.stringify({}),
+            },
           },
-        },
-      });
-      const conformer = createTestCheck(extendsRepositoryField(), {
-        workspace: {
-          path: './packages/pkg-a',
-          relativePath: './packages/pkg-a',
-        },
-        rootWorkspace: {
-          path: './',
-          relativePath: './',
-        },
-      });
+        });
+        const conformer = createTestCheck(extendsRepositoryField(), {
+          workspace: {
+            path: './packages/pkg-a',
+            relativePath: './packages/pkg-a',
+          },
+          rootWorkspace: {
+            path: './',
+            relativePath: './',
+          },
+        });
 
-      const result = await conformer.validate();
+        const result = await conformer.validate();
 
-      expect(result).toBe(true);
+        expect(result).toBe(true);
+      });
     });
 
-    it('should return false if the package does not extend the root repository field', async () => {
-      mockFs({
-        'package.json': JSON.stringify({
-          repository: 'https://github.com/npm/cli.git',
-        }),
-        packages: {
-          'pkg-a': {
-            'package.json': JSON.stringify({}),
+    describe('when the root repository field is a string', () => {
+      const rootPackageJson = JSON.stringify({
+        repository: 'https://github.com/npm/cli.git',
+      });
+      it('returns false when the package has no repository field', async () => {
+        mockFs({
+          'package.json': rootPackageJson,
+          packages: {
+            'pkg-a': {
+              'package.json': JSON.stringify({}),
+            },
           },
-        },
+        });
+
+        const conformer = createTestCheck(extendsRepositoryField(), {
+          workspace: {
+            path: './packages/pkg-a',
+            relativePath: './packages/pkg-a',
+          },
+          rootWorkspace: {
+            path: './',
+            relativePath: './',
+          },
+        });
+
+        const result = await conformer.validate();
+
+        expect(result).toBe(false);
       });
 
-      const conformer = createTestCheck(extendsRepositoryField(), {
-        workspace: {
-          path: './packages/pkg-a',
-          relativePath: './packages/pkg-a',
-        },
-        rootWorkspace: {
-          path: './',
-          relativePath: './',
-        },
+      it('returns true when the package has a repository field that extends the root', async () => {
+        mockFs({
+          'package.json': rootPackageJson,
+          packages: {
+            'pkg-a': {
+              'package.json': JSON.stringify({
+                repository: {
+                  type: 'git',
+                  url: 'https://github.com/npm/cli.git',
+                  directory: 'packages/pkg-a',
+                },
+              }),
+            },
+          },
+        });
+
+        const conformer = createTestCheck(extendsRepositoryField(), {
+          workspace: {
+            path: './packages/pkg-a',
+            relativePath: './packages/pkg-a',
+          },
+          rootWorkspace: {
+            path: './',
+            relativePath: './',
+          },
+        });
+
+        const result = await conformer.validate();
+
+        expect(result).toBe(true);
       });
 
-      const result = await conformer.validate();
+      it('returns false when the package incorrectly extends the root repository field', async () => {
+        mockFs({
+          'package.json': rootPackageJson,
+          packages: {
+            'pkg-a': {
+              'package.json': JSON.stringify({
+                repository: {
+                  type: 'gitt',
+                  url: 'https://github.com/npm/clii.git',
+                  directory: 'packages/pkg-b',
+                },
+              }),
+            },
+          },
+        });
 
-      expect(result).toBe(false);
+        const conformer = createTestCheck(extendsRepositoryField(), {
+          workspace: {
+            path: './packages/pkg-a',
+            relativePath: './packages/pkg-a',
+          },
+          rootWorkspace: {
+            path: './',
+            relativePath: './',
+          },
+        });
+
+        const result = await conformer.validate();
+
+        expect(result).toBe(false);
+      });
     });
 
-    it('should return true if the package does extend the root repository field', async () => {
-      mockFs({
-        'package.json': JSON.stringify({
-          repository: 'https://github.com/npm/cli.git',
-        }),
-        packages: {
-          'pkg-a': {
-            'package.json': JSON.stringify({
-              repository: 'https://github.com/npm/cli.git/packages/pkg-a',
-            }),
+    describe('when the root repository field is an object', () => {
+      const rootPackageJson = JSON.stringify({
+        repository: { type: 'git', url: 'https://github.com/npm/cli.git' },
+      });
+
+      it('returns false when the package has no repository field', async () => {
+        mockFs({
+          'package.json': rootPackageJson,
+          packages: {
+            'pkg-a': {
+              'package.json': JSON.stringify({}),
+            },
           },
-        },
-      });
+        });
 
-      const conformer = createTestCheck(extendsRepositoryField(), {
-        workspace: {
-          path: './packages/pkg-a',
-          relativePath: './packages/pkg-a',
-        },
-        rootWorkspace: {
-          path: './',
-          relativePath: './',
-        },
-      });
-
-      const result = await conformer.validate();
-
-      expect(result).toBe(true);
-    });
-
-    it('should return false if the package incorrectly extends the root repository field', async () => {
-      mockFs({
-        'package.json': JSON.stringify({
-          repository: 'https://github.com/npm/cli.git',
-        }),
-        packages: {
-          'pkg-a': {
-            'package.json': JSON.stringify({
-              repository: 'https://github.com/npm/cli.git/packages/pkg-ab',
-            }),
+        const conformer = createTestCheck(extendsRepositoryField(), {
+          workspace: {
+            path: './packages/pkg-a',
+            relativePath: './packages/pkg-a',
           },
-        },
-      });
-
-      const conformer = createTestCheck(extendsRepositoryField(), {
-        workspace: {
-          path: './packages/pkg-a',
-          relativePath: './packages/pkg-a',
-        },
-        rootWorkspace: {
-          path: './',
-          relativePath: './',
-        },
-      });
-
-      const result = await conformer.validate();
-
-      expect(result).toBe(false);
-    });
-
-    it('should return false if the package does not extend the root repository field when it is an object', async () => {
-      mockFs({
-        'package.json': JSON.stringify({
-          repository: {
-            type: 'git',
-            url: 'https://github.com/npm/cli.git',
+          rootWorkspace: {
+            path: './',
+            relativePath: './',
           },
-        }),
-        packages: {
-          'pkg-a': {
-            'package.json': JSON.stringify({}),
+        });
+
+        const result = await conformer.validate();
+
+        expect(result).toBe(false);
+      });
+
+      it('returns true when the package has a repository field that extends the root', async () => {
+        mockFs({
+          'package.json': rootPackageJson,
+          packages: {
+            'pkg-a': {
+              'package.json': JSON.stringify({
+                repository: {
+                  type: 'git',
+                  url: 'https://github.com/npm/cli.git',
+                  directory: 'packages/pkg-a',
+                },
+              }),
+            },
           },
-        },
-      });
+        });
 
-      const conformer = createTestCheck(extendsRepositoryField(), {
-        workspace: {
-          path: './packages/pkg-a',
-          relativePath: './packages/pkg-a',
-        },
-        rootWorkspace: {
-          path: './',
-          relativePath: './',
-        },
-      });
-
-      const result = await conformer.validate();
-
-      expect(result).toBe(false);
-    });
-
-    it('should return true if the package does extend the root repository field when it is an object', async () => {
-      mockFs({
-        'package.json': JSON.stringify({
-          repository: 'https://github.com/npm/cli.git',
-        }),
-        packages: {
-          'pkg-a': {
-            'package.json': JSON.stringify({
-              repository: {
-                type: 'git',
-                url: 'https://github.com/npm/cli.git/packages/pkg-a',
-              },
-            }),
+        const conformer = createTestCheck(extendsRepositoryField(), {
+          workspace: {
+            path: './packages/pkg-a',
+            relativePath: './packages/pkg-a',
           },
-        },
+          rootWorkspace: {
+            path: './',
+            relativePath: './',
+          },
+        });
+
+        const result = await conformer.validate();
+
+        expect(result).toBe(true);
       });
 
-      const conformer = createTestCheck(extendsRepositoryField(), {
-        workspace: {
-          path: './packages/pkg-a',
-          relativePath: './packages/pkg-a',
-        },
-        rootWorkspace: {
-          path: './',
-          relativePath: './',
-        },
+      it('returns false when the package incorrectly extends the root repository field', async () => {
+        mockFs({
+          'package.json': rootPackageJson,
+          packages: {
+            'pkg-a': {
+              'package.json': JSON.stringify({
+                repository: {
+                  type: 'gitt',
+                  url: 'https://github.com/npm/clii.git',
+                  directory: 'packages/pkg-b',
+                },
+              }),
+            },
+          },
+        });
+
+        const conformer = createTestCheck(extendsRepositoryField(), {
+          workspace: {
+            path: './packages/pkg-a',
+            relativePath: './packages/pkg-a',
+          },
+          rootWorkspace: {
+            path: './',
+            relativePath: './',
+          },
+        });
+
+        const result = await conformer.validate();
+
+        expect(result).toBe(false);
       });
-
-      const result = await conformer.validate();
-
-      expect(result).toBe(true);
     });
   });
 
   describe('fix', () => {
-    it('should return the correct config when the root repository is a string and the package repository does not exist', async () => {
-      mockFs({
-        packages: {
-          'pkg-a': {
-            'package.json': JSON.stringify({}),
+    describe('when the root repository field is a string', () => {
+      const rootPackageJson = JSON.stringify({
+        repository: 'https://github.com/npm/cli.git',
+      });
+
+      it('should return the correct config', async () => {
+        mockFs({
+          packages: {
+            'pkg-a': {
+              'package.json': JSON.stringify({}),
+            },
           },
-        },
-        'package.json': JSON.stringify({
-          repository: 'https://github.com/npm/cli.git',
-        }),
-      });
+          'package.json': rootPackageJson,
+        });
 
-      const conformer = createTestCheck(extendsRepositoryField(), {
-        workspace: {
-          path: './packages/pkg-a',
-          relativePath: './packages/pkg-a',
-        },
-        rootWorkspace: {
-          path: './',
-          relativePath: './',
-        },
-      });
+        const conformer = createTestCheck(extendsRepositoryField(), {
+          workspace: {
+            path: './packages/pkg-a',
+            relativePath: './packages/pkg-a',
+          },
+          rootWorkspace: {
+            path: './',
+            relativePath: './',
+          },
+        });
 
-      await conformer.fix();
+        await conformer.fix();
 
-      const result = await json('./', './packages/pkg-a/package.json').get();
+        const result = await json('./', './packages/pkg-a/package.json').get();
 
-      expect(result).toEqual({
-        repository: 'https://github.com/npm/cli.git/packages/pkg-a',
+        expect(result).toEqual({
+          repository: {
+            type: 'git',
+            url: 'https://github.com/npm/cli.git',
+            directory: 'packages/pkg-a',
+          },
+        });
       });
     });
-
-    it('should return the correct config when the root repository is an object and the package repository does not exist', async () => {
-      mockFs({
-        packages: {
-          'pkg-a': {
-            'package.json': JSON.stringify({}),
-          },
-        },
-        'package.json': JSON.stringify({
-          repository: { url: 'https://github.com/npm/cli.git', type: 'git' },
-        }),
-      });
-
-      const conformer = createTestCheck(extendsRepositoryField(), {
-        workspace: {
-          path: './packages/pkg-a',
-          relativePath: './packages/pkg-a',
-        },
-        rootWorkspace: {
-          path: './',
-          relativePath: './',
-        },
-      });
-
-      await conformer.fix();
-
-      const result = await json('./', './packages/pkg-a/package.json').get();
-
-      expect(result).toEqual({
-        repository: 'https://github.com/npm/cli.git/packages/pkg-a',
-      });
-    });
-
-    it('should return the correct config when the root repository is a malformed string and the package repository is an object', async () => {
-      mockFs({
-        packages: {
-          'pkg-a': {
-            'package.json': JSON.stringify({
-              repository: {
-                url: 'https://github.com/npwefwefwefm/cli.git',
-                type: 'git',
-              },
-            }),
-          },
-        },
-        'package.json': JSON.stringify({
-          repository: 'https://github.com/npm/cli.git',
-        }),
-      });
-
-      const conformer = createTestCheck(extendsRepositoryField(), {
-        workspace: {
-          path: './packages/pkg-a',
-          relativePath: './packages/pkg-a',
-        },
-        rootWorkspace: {
-          path: './',
-          relativePath: './',
-        },
-      });
-
-      await conformer.fix();
-
-      const result = await json('./', './packages/pkg-a/package.json').get();
-
-      expect(result).toEqual({
+    describe('when the root repository field is an object', () => {
+      const rootPackageJson = JSON.stringify({
         repository: {
-          url: 'https://github.com/npm/cli.git/packages/pkg-a',
           type: 'git',
+          url: 'https://github.com/npm/cli.git',
         },
       });
-    });
 
-    it('should return the correct config when the root repository is an object and the package repository is a string', async () => {
-      mockFs({
-        packages: {
-          'pkg-a': {
-            'package.json': JSON.stringify({
-              repository: 'https://github.com/npwefwefwefm/cli.git',
-            }),
+      it('should return the correct config', async () => {
+        mockFs({
+          packages: {
+            'pkg-a': {
+              'package.json': JSON.stringify({
+                repository: {
+                  directory: 'packages/pkg-a',
+                  url: 'https://github.com/npwefwefwefm/cli.git',
+                  type: 'git',
+                },
+              }),
+            },
           },
-        },
-        'package.json': JSON.stringify({
-          repository: { url: 'https://github.com/npm/cli.git', type: 'git' },
-        }),
-      });
+          'package.json': rootPackageJson,
+        });
 
-      const conformer = createTestCheck(extendsRepositoryField(), {
-        workspace: {
-          path: './packages/pkg-a',
-          relativePath: './packages/pkg-a',
-        },
-        rootWorkspace: {
-          path: './',
-          relativePath: './',
-        },
-      });
+        const conformer = createTestCheck(extendsRepositoryField(), {
+          workspace: {
+            path: './packages/pkg-a',
+            relativePath: './packages/pkg-a',
+          },
+          rootWorkspace: {
+            path: './',
+            relativePath: './',
+          },
+        });
 
-      await conformer.fix();
+        await conformer.fix();
 
-      const result = await json('./', './packages/pkg-a/package.json').get();
+        const result = await json('./', './packages/pkg-a/package.json').get();
 
-      expect(result).toEqual({
-        repository: 'https://github.com/npm/cli.git/packages/pkg-a',
+        expect(result).toEqual({
+          repository: {
+            type: 'git',
+            url: 'https://github.com/npm/cli.git',
+            directory: 'packages/pkg-a',
+          },
+        });
       });
     });
 
@@ -365,7 +356,11 @@ describe('extendsRepositoryField', () => {
         expect(result.suggestion).toMatchInlineSnapshot(`
           "  Object {
               \\"name\\": \\"foo\\",
-          +   \\"repository\\": \\"https://github.com/npm/cli.git/packages/pkg-a\\",
+          +   \\"repository\\": Object {
+          +     \\"directory\\": \\"packages/pkg-a\\",
+          +     \\"type\\": \\"git\\",
+          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
+          +   },
             }"
         `);
       });
@@ -406,7 +401,17 @@ describe('extendsRepositoryField', () => {
           `Package's repository property must extend the repository property at the root of your project.`,
         );
         expect(result.filePath).toEqual('package.json');
-        expect(result.suggestion).toMatchInlineSnapshot('undefined');
+        expect(result.suggestion).toMatchInlineSnapshot(`
+          "  Object {
+              \\"name\\": \\"foo\\",
+              \\"repository\\": \\"https://github.com/npm/cli.git/packages/pkg-a\\",
+          +   \\"repository\\": Object {
+          +     \\"directory\\": \\"packages/pkg-a\\",
+          +     \\"type\\": \\"git\\",
+          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
+          +   },
+            }"
+        `);
       });
     });
   });

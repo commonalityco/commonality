@@ -1,10 +1,7 @@
 import { defineCheck, diff, json, PackageJson, Workspace } from 'commonality';
 import path from 'node:path';
 import pick from 'lodash-es/pick';
-
-const stripTrailingSlash = (str: string) => {
-  return str.endsWith('/') ? str.slice(0, -1) : str;
-};
+import isMatch from 'lodash-es/isMatch';
 
 const getExpectedProperties = async ({
   rootWorkspace,
@@ -13,7 +10,7 @@ const getExpectedProperties = async ({
   rootWorkspace: Workspace;
   workspace: Workspace;
 }): Promise<
-  { repository: { url: string } } | { repository: string } | undefined
+  { repository: { url: string; directory: string; type: string } } | undefined
 > => {
   const rootPackageJson = await json<PackageJson>(
     rootWorkspace.path,
@@ -35,39 +32,34 @@ const getExpectedProperties = async ({
     }
 
     if (typeof rootPackageJson.repository === 'string') {
-      return rootPackageJson.repository;
+      return new URL(rootPackageJson.repository).toString();
     }
 
     if (typeof rootPackageJson.repository === 'object') {
-      return rootPackageJson.repository.url;
+      return new URL(rootPackageJson.repository.url).toString();
     }
 
     return;
   };
 
-  const rootRepositoryRaw = getRootRepository();
+  const rootRepositoryUrl = getRootRepository();
 
-  if (!rootRepositoryRaw) {
+  if (!rootRepositoryUrl) {
     return;
   }
 
-  const rootRepositoryUrl = stripTrailingSlash(rootRepositoryRaw);
-
+  // Normalize the workspace relative path and remove any leading slashes or backslashes
   const workspacePath = path
     .normalize(workspace.relativePath)
     .replace(/^[/\\]+/, '');
 
-  const isObjectConfig = typeof packageJson.repository === 'object';
-
-  const newConfig = isObjectConfig
-    ? {
-        repository: { url: rootRepositoryUrl + '/' + workspacePath },
-      }
-    : {
-        repository: rootRepositoryUrl + '/' + workspacePath,
-      };
-
-  return newConfig;
+  return {
+    repository: {
+      type: 'git',
+      url: rootRepositoryUrl,
+      directory: workspacePath,
+    },
+  };
 };
 
 export const extendsRepositoryField = defineCheck(() => {
@@ -88,25 +80,14 @@ export const extendsRepositoryField = defineCheck(() => {
         return true;
       }
 
-      const workspacePath = path
-        .normalize(context.package.relativePath)
-        .replace(/^[/\\]+/, '');
+      const expectedProperties = await getExpectedProperties({
+        rootWorkspace: context.rootPackage,
+        workspace: context.package,
+      });
 
-      const expectedUrl = rootPackageJson.repository + '/' + workspacePath;
+      if (!expectedProperties) return true;
 
-      if (typeof rootPackageJson.repository === 'string') {
-        return typeof packageJson.repository === 'string'
-          ? packageJson.repository === expectedUrl
-          : packageJson.repository?.url === expectedUrl;
-      }
-
-      if (typeof rootPackageJson.repository === 'object') {
-        return typeof packageJson.repository === 'string'
-          ? packageJson.repository === expectedUrl
-          : packageJson.repository?.url === expectedUrl;
-      }
-
-      return true;
+      return isMatch(packageJson, expectedProperties);
     },
     fix: async (context) => {
       const newConfig = await getExpectedProperties({
