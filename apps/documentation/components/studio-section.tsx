@@ -33,7 +33,7 @@ const STUDIO_COMMAND = 'npx commonality studio';
 
 export function StudioSection() {
   return (
-    <div className="flex items-center flex-col bg-interactive pt-48 relative">
+    <div className="flex items-center flex-col bg-interactive pt-36 md:pt-52 relative">
       <div className="glow top-[25%] md:top-[12%] bottom-0 left-0 right-0 w-full absolute" />
       <div className="px-6">
         <div className="w-full mx-auto">

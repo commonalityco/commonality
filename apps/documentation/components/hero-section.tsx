@@ -14,7 +14,8 @@ export function HeroSection() {
         <div className="absolute top-0 right-0 bottom-0 left-0 noise z-40" />
         <div className="absolute h-[1300px] -bottom-[500px] left-1/2 -translate-x-1/2 w-[800px] md:w-[1300px] z-[35] glow" />
         <div className="absolute top-0 right-0 bottom-0 left-0 bg-gradient-to-b from-interactive z-30 from-15%" />
-        <Grid className="object-cover object-center h-full rounded-2xl z-20 relative" />
+
+        <Grid className="z-20 object-cover object-center h-full relative left-1/2 -translate-x-1/2" />
 
         <div className="absolute top-0 right-0 bottom-0 left-0 bg-gradient-to-t from-background z-10" />
       </div>
@@ -52,7 +53,7 @@ export function HeroSection() {
         </div>
 
         <div className="flex justify-center grow h-full pointer-events-none relative">
-          <Cube className="z-10 relative max-w-[250px] md:max-w-[400px] min-w-[325px] w-full -mb-16" />
+          <Cube className="z-10 relative max-w-[225px] md:max-w-[400px] md:min-w-[325px] w-full -mb-16" />
         </div>
       </div>
       <HeroFooter className="w-full pointer-events-none absolute left-0 right-0 -bottom-2 pt-1/3 z-[2]" />
