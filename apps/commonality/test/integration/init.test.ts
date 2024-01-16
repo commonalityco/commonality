@@ -127,6 +127,37 @@ const runTest = async ({
 };
 
 describe('init', () => {
+  it('shows an error if run outside a project', async () => {
+    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
+    const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
+
+    const initProcess = execa(
+      binPath,
+      ['init', '--typescript', '--install-checks', '--verbose'],
+      {
+        cwd: temporaryPath,
+        stdout: 'pipe',
+      },
+    );
+
+    let initOutput = '';
+    initProcess.stdout?.on('data', (data) => {
+      console.log({ out: data.toString() });
+      initOutput += stripAnsi(data.toString());
+    });
+    initProcess.stderr?.on('data', (data) => {
+      console.log({ err: data.toString() });
+      initOutput += stripAnsi(data.toString());
+    });
+
+    await vi.waitFor(
+      () => {
+        expect(initOutput).toContain(`Unable to find a lockfile`);
+      },
+      { timeout: 100_000 },
+    );
+  });
+
   it(
     'pnpm - Initializes Commonality in a new project',
     () =>
