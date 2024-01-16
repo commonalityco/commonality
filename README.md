@@ -9,6 +9,12 @@ No wrappers. No lock-in. Open-source.
 [**Overview**](https://www.commonality.co/docs/overview) &nbsp;&nbsp;&nbsp;
 [**Get started**](https://www.commonality.co/docs/getting-started)
 
+Run the command below in an existing project to set up Commonality in seconds
+
+```sh
+npx commonality init
+```
+
 ## Features
 
 Every feature in Commonality is designed to be adopted incrementally. Start with a single package and scale it to an entire organization.
