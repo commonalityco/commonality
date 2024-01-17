@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.44
+
+### Patch Changes
+
+- d719a75: Updates logging information for Studio failures
+
 ## 0.2.43
 
 ### Patch Changes
