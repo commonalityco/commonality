@@ -91,7 +91,7 @@ export const studio = command
       } catch (error) {
         spinner.fail('Failed to start Commonality Studio');
 
-        if (debug) {
+        if (verbose) {
           console.log(error);
         }
       }
