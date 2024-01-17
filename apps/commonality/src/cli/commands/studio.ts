@@ -27,11 +27,15 @@ export const studio = command
     '8888',
   )
   .action(
-    async (options: { debug?: boolean; port?: string; install?: boolean }) => {
+    async (options: {
+      verbose?: boolean;
+      port?: string;
+      install?: boolean;
+    }) => {
       spinner.start();
 
       const preferredPort = Number(options.port);
-      const debug = Boolean(options.debug);
+      const verbose = Boolean(options.verbose);
 
       try {
         await validateProjectStructure({
@@ -61,7 +65,7 @@ export const studio = command
         const { kill } = studio.startStudio({
           port,
           rootDirectory,
-          debug,
+          debug: verbose,
         });
 
         const handleExit = () => {
