@@ -501,6 +501,9 @@ importers:
       react-hook-form:
         specifier: ^7.46.1
         version: 7.49.2(react@18.2.0)
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.5
       server-only:
         specifier: ^0.0.1
         version: 0.0.1

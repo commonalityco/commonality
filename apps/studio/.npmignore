@@ -3,3 +3,4 @@ scripts
 test
 cypress
 .turbo
+.next/cache
