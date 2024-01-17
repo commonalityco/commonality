@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.44
+
+### Patch Changes
+
+- bbca388: Fix issue where configuration wasn't properly created when users chose not to install checks
+
 ## 0.2.43
 
 ### Patch Changes

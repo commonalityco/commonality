@@ -19,43 +19,56 @@ const command = new Command();
 const PROJECT_CONFIG_TS = `commonality.config.ts` as const;
 const PROJECT_CONFIG_JS = `commonality.config.js` as const;
 
-const nextStepsText = `\n  ${c.underline.bold(
-  `Here's what to check out next:`,
-)}\n\n  Codify best practices with checks\n  ${c.dim(
-  'https://www.commonality.co/docs/checks',
-)}\n\n  Structure your dependency graph using constraints\n  ${c.dim(
-  'https://www.commonality.co/docs/constraints',
-)} \n\n  Explore your codebase with Commonality Studio\n  ${c.dim(
-  'npx commonality studio',
-)}`;
+const logNextSteps = ({
+  shouldInstallChecks,
+}: {
+  shouldInstallChecks: boolean;
+}) => {
+  console.log();
+
+  console.log(`  ${c.bold(`You're all set up! Here's what to try next:`)}`);
+
+  if (shouldInstallChecks) {
+    console.log(
+      `\n${c.blue(
+        '  npm exec -- commonality check',
+      )}\n  Try running the checks we've set up for you`,
+    );
+  }
+
+  console.log(`\n  Check out our getting started guide for more info:`);
+  console.log(
+    `  ${c.underline('https://www.commonality.co/docs/getting-started')}\n`,
+  );
+};
+
+const getUseTypeScript = async (): Promise<boolean> => {
+  const { typescript } = await prompts([
+    {
+      type: 'toggle',
+      name: 'typescript',
+      initial: true,
+      message: `Would you like to use TypeScript?`,
+      active: 'yes',
+      inactive: 'no',
+    },
+  ]);
+
+  return typescript;
+};
 
 export const action = async ({
   rootDirectory,
-  typeScriptFlag,
-  installChecksFlag,
   verbose,
 }: {
   rootDirectory: string;
-  typeScriptFlag?: boolean;
-  installChecksFlag?: boolean;
   verbose?: boolean;
 }) => {
-  const getUseTypeScript = async (): Promise<boolean> => {
-    if (typeScriptFlag) return typeScriptFlag;
-
-    const { typescript } = await prompts([
-      {
-        type: 'toggle',
-        name: 'typescript',
-        initial: true,
-        message: `Would you like to use TypeScript?`,
-        active: 'yes',
-        inactive: 'no',
-      },
-    ]);
-
-    return typescript;
-  };
+  console.log(
+    `\n  ${c.bold.blue(
+      'Welcome to Commonality!',
+    )} \n\n  Let’s get you set up.\n`,
+  );
 
   // Prompts
   const shouldInstallCommonality = await getInstallCommonality({
@@ -64,8 +77,7 @@ export const action = async ({
   const shouldCreateConfig = await getCreateConfig({ rootDirectory });
 
   const typeScript = shouldCreateConfig ? await getUseTypeScript() : false;
-  const shouldInstallChecks =
-    installChecksFlag ?? (await getInstallChecks({ rootDirectory }));
+  const shouldInstallChecks = await getInstallChecks({ rootDirectory });
 
   // Confirmation
   if (
@@ -74,48 +86,21 @@ export const action = async ({
     !shouldCreateConfig
   ) {
     console.log(c.green(`\n  Your project is already set up with Commonality`));
-    console.log(nextStepsText);
+    logNextSteps({ shouldInstallChecks: true });
     return;
   }
 
   const configFileName = typeScript ? PROJECT_CONFIG_TS : PROJECT_CONFIG_JS;
-
-  console.log(`\n  Here are the changes we'll make to your project:\n`);
-
-  if (shouldInstallCommonality) {
-    console.log(`  • Install commonality`);
-  }
-
-  if (shouldCreateConfig) {
-    console.log(`  • Create a ${configFileName} file`);
-  }
-
-  if (shouldInstallChecks) {
-    console.log(`  • Install and set up commonality-checks-recommended`);
-  }
-
-  console.log();
-
-  const response = await prompts([
-    {
-      type: 'confirm',
-      name: 'setup',
-      message: `Would you like to proceed?`,
-      initial: true,
-    },
-  ]);
-
-  if (!response.setup) {
-    console.log('Sounds good, you can always run this again later.');
-    return;
-  }
-
   // Generation
   try {
+    console.log();
+
     if (shouldInstallCommonality) {
       const commonalitySpinner = ora();
 
-      commonalitySpinner.start('Installing commonality');
+      commonalitySpinner.start(
+        'Installing commonality, this might take a couple of minutes.',
+      );
 
       await installCommonality({ rootDirectory, verbose });
 
@@ -125,7 +110,9 @@ export const action = async ({
     if (shouldInstallChecks) {
       const checksSpinner = ora();
 
-      checksSpinner.start('Installing commonality-checks-recommended');
+      checksSpinner.start(
+        'Installing commonality-checks-recommended, this might take a couple of minutes.',
+      );
 
       await installChecks({ rootDirectory });
 
@@ -137,14 +124,16 @@ export const action = async ({
 
       configSpinner.start(`Creating ${configFileName}`);
 
-      await createConfig({ rootDirectory, typeScript });
+      await createConfig({
+        rootDirectory,
+        typeScript,
+        includeChecks: shouldInstallChecks,
+      });
 
       configSpinner.succeed(`Created ${configFileName}`);
     }
 
-    console.log(c.green(`  You're all set up!`));
-
-    console.log(nextStepsText);
+    logNextSteps({ shouldInstallChecks });
   } catch (error) {
     if (verbose) {
       console.error(error);
@@ -170,24 +159,11 @@ export const init = command
   .name('init')
   .description('Setup Commonality in your project')
   .option('--verbose', 'Show additional logging output')
-  .option('--typescript', 'Create a TypeScript configuration file')
-  .option(
-    '--install-checks',
-    'Install commonality-checks-recommended if not already installed',
-  )
-  .action(
-    async (options: {
-      typescript?: boolean;
-      installChecks?: boolean;
-      verbose?: boolean;
-    }) => {
-      const rootDirectory = await safeGetRootDirectory();
+  .action(async (options: { verbose?: boolean }) => {
+    const rootDirectory = await safeGetRootDirectory();
 
-      action({
-        rootDirectory,
-        verbose: options.verbose,
-        typeScriptFlag: options.typescript,
-        installChecksFlag: options.installChecks,
-      });
-    },
-  );
+    action({
+      rootDirectory,
+      verbose: options.verbose,
+    });
+  });
