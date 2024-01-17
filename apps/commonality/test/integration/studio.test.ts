@@ -28,7 +28,7 @@ describe.concurrent('studio', () => {
 
       const cliProcess = execa(
         binPath,
-        ['studio', '--debug', '--port', String(preferredPort)],
+        ['studio', '--verbose', '--port', String(preferredPort)],
         {
           cwd: temporaryPath,
           stdout: 'pipe',
@@ -92,7 +92,7 @@ describe.concurrent('studio', () => {
 
       const cliProcess = execa(
         binPath,
-        ['studio', '--debug', '--port', String(preferredPort)],
+        ['studio', '--verbose', '--port', String(preferredPort)],
         {
           cwd: temporaryPath,
           stdout: 'pipe',
@@ -155,7 +155,7 @@ describe.concurrent('studio', () => {
 
       const cliProcess = execa(
         binPath,
-        ['studio', '--debug', '--port', String(preferredPort)],
+        ['studio', '--verbose', '--port', String(preferredPort)],
         {
           cwd: temporaryPath,
           stdout: 'pipe',

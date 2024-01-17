@@ -20,18 +20,22 @@ const spinner = ora('Starting Commonality Studio...');
 export const studio = command
   .name('studio')
   .description('Open Commonality Studio')
-  .option('--debug', 'Show additional logging output')
+  .option('--verbose', 'Show additional logging output')
   .option(
     '--port <port>',
     'The port that Commonality Studio will run on',
     '8888',
   )
   .action(
-    async (options: { debug?: boolean; port?: string; install?: boolean }) => {
+    async (options: {
+      verbose?: boolean;
+      port?: string;
+      install?: boolean;
+    }) => {
       spinner.start();
 
       const preferredPort = Number(options.port);
-      const debug = Boolean(options.debug);
+      const verbose = Boolean(options.verbose);
 
       try {
         await validateProjectStructure({
@@ -61,7 +65,7 @@ export const studio = command
         const { kill } = studio.startStudio({
           port,
           rootDirectory,
-          debug,
+          debug: verbose,
         });
 
         const handleExit = () => {
@@ -85,9 +89,9 @@ export const studio = command
           suffixText: chalk.dim('\n  (press ctrl-c to quit)'),
         });
       } catch (error) {
-        console.log(chalk.red('Failed to start Commonality Studio'));
+        spinner.fail('Failed to start Commonality Studio');
 
-        if (debug) {
+        if (verbose) {
           console.log(error);
         }
       }
