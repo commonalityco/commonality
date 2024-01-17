@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.2.45
+
+### Patch Changes
+
+- d719a75: Updates logging information for Studio failures
+- Updated dependencies [d719a75]
+  - @commonalityco/studio@0.2.44
+
 ## 0.2.44
 
 ### Patch Changes
