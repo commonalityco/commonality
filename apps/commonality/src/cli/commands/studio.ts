@@ -20,7 +20,7 @@ const spinner = ora('Starting Commonality Studio...');
 export const studio = command
   .name('studio')
   .description('Open Commonality Studio')
-  .option('--debug', 'Show additional logging output')
+  .option('--verbose', 'Show additional logging output')
   .option(
     '--port <port>',
     'The port that Commonality Studio will run on',
@@ -85,7 +85,7 @@ export const studio = command
           suffixText: chalk.dim('\n  (press ctrl-c to quit)'),
         });
       } catch (error) {
-        console.log(chalk.red('Failed to start Commonality Studio'));
+        spinner.fail('Failed to start Commonality Studio');
 
         if (debug) {
           console.log(error);

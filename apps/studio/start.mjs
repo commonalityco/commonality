@@ -13,8 +13,8 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
  */
 export const startStudio = ({ port, rootDirectory, debug }) => {
   const serverProcess = execa('node', ['server.js'], {
-    stdout: debug ? 'pipe' : 'ignore',
-    stderr: debug ? 'pipe' : 'ignore',
+    stdout: debug ? 'inherit' : 'ignore',
+    stderr: debug ? 'inherit' : 'ignore',
     cwd: __dirname,
     env: {
       PATH: process.env.PATH,
