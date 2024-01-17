@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.45
+
+### Patch Changes
+
+- 4e64f3e: Fixes issue where missing files prevented Studio from starting up
+
 ## 0.2.44
 
 ### Patch Changes

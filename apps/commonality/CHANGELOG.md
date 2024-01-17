@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.2.46
+
+### Patch Changes
+
+- 4e64f3e: Fixes issue where missing files prevented Studio from starting up
+- Updated dependencies [4e64f3e]
+  - @commonalityco/studio@0.2.45
+
 ## 0.2.45
 
 ### Patch Changes
