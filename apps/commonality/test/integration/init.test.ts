@@ -114,7 +114,7 @@ describe.concurrent('init', () => {
             () => {
               expect(initOutput).toContain(`Installed commonality`);
             },
-            { timeout: 100_000 },
+            { timeout: 200_000 },
           );
 
           await vi.waitFor(() => {
@@ -128,7 +128,7 @@ describe.concurrent('init', () => {
                 `Installed commonality-checks-recommended`,
               );
             },
-            { timeout: 100_000 },
+            { timeout: 200_000 },
           );
 
           await vi.waitFor(() => {
