@@ -11,7 +11,7 @@ const binPath = path.resolve(
   '../../bin.js',
 );
 
-describe.concurrent('init', () => {
+describe('init', () => {
   it('shows an error if run outside a project', async () => {
     const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
@@ -39,7 +39,7 @@ describe.concurrent('init', () => {
     );
   });
 
-  describe.concurrent.each([
+  describe.each([
     {
       packageManager: 'pnpm',
       checkArgs: ['exec', 'commonality', 'check'],
@@ -71,7 +71,9 @@ describe.concurrent('init', () => {
           );
 
           await fs.copy(fixturePath, temporaryPath);
-
+          await execa('corepack', ['install'], {
+            cwd: temporaryPath,
+          });
           const initProcess = execa(binPath, ['init', '--verbose'], {
             cwd: temporaryPath,
             stdout: 'pipe',
@@ -198,6 +200,9 @@ describe.concurrent('init', () => {
           );
 
           await fs.copy(fixturePath, temporaryPath);
+          await execa('corepack', ['install'], {
+            cwd: temporaryPath,
+          });
 
           const initProcess = execa(binPath, ['init', '--verbose'], {
             cwd: temporaryPath,
