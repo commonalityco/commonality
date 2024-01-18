@@ -67,7 +67,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        node-version: [16.x, 17.x, 18.x]
+        node-version: [17.x, 18.x, 20.x]
         os:
           - runner: ubuntu-latest
           - runner: macos-latest
@@ -82,6 +82,12 @@ jobs:
 
       - name: Enable Corepack
         run: corepack enable
+
+      - name: Prepare Yarn
+        run: corepack prepare yarn@3
+
+      - name: Prepare pnpm
+        run: corepack prepare pnpm@8
 
       - name: Prune devDependencies
         run: pnpm prune --prod
