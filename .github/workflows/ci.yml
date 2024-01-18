@@ -83,8 +83,11 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Install package managers
-        run: corepack install --all
+      - name: Prepare Yarn
+        run: corepack prepare yarn@3 --activate
+
+      - name: Prepare pnpm
+        run: corepack prepare pnpm@8 --activate
 
       - name: Prune devDependencies
         run: pnpm prune --prod

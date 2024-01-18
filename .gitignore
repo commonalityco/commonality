@@ -66,3 +66,4 @@ lib
 .tsup
 .turbo
 storybook-static/
+*.tgz
