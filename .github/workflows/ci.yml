@@ -89,8 +89,9 @@ jobs:
       - name: Prepare pnpm
         run: corepack prepare pnpm@8
 
-      - name: Prune devDependencies
-        run: pnpm prune --prod
+      - name: Package
+        run: pnpm pack
+        working-directory: apps/commonality
 
       - name: Integration Test
         run: pnpm -F commonality run test:integration

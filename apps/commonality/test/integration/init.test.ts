@@ -5,16 +5,26 @@ import { execa } from 'execa';
 import stripAnsi from 'strip-ansi';
 import os from 'node:os';
 import fs from 'fs-extra';
+import packageJson from '../../package.json';
 
 const binPath = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '../../bin.js',
 );
 
+const tarballName = `commonalityco-studio-${packageJson.version}.tgz`;
+const tarballPath = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  `../../${tarballName}`,
+);
 describe('init', () => {
   it('shows an error if run outside a project', async () => {
     const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
+
+    await execa('pnpm', ['add', tarballPath], {
+      cwd: temporaryPath,
+    });
 
     const initProcess = execa(binPath, ['init', '--verbose'], {
       cwd: temporaryPath,
@@ -42,22 +52,25 @@ describe('init', () => {
   describe.each([
     {
       packageManager: 'pnpm',
+      installArgs: ['add', tarballPath],
       checkArgs: ['exec', 'commonality', 'check'],
       fixtureName: 'kitchen-sink',
     },
     {
       packageManager: 'yarn',
+      installArgs: ['add', tarballPath],
       checkArgs: ['exec', 'commonality', 'check'],
       fixtureName: 'kitchen-sink-yarn',
     },
     {
       packageManager: 'npm',
+      installArgs: ['install', tarballPath],
       checkArgs: ['exec', '--', 'commonality', 'check'],
       fixtureName: 'kitchen-sink-npm',
     },
   ])(
     'when the package manager is $packageManager',
-    ({ packageManager, fixtureName, checkArgs }) => {
+    ({ packageManager, fixtureName, checkArgs, installArgs }) => {
       it(
         'initializes a new project with TypeScript and checks',
         async () => {
@@ -71,9 +84,15 @@ describe('init', () => {
           );
 
           await fs.copy(fixturePath, temporaryPath);
+
           await execa('corepack', ['install'], {
             cwd: temporaryPath,
           });
+
+          await execa(packageManager, installArgs, {
+            cwd: temporaryPath,
+          });
+
           const initProcess = execa(binPath, ['init', '--verbose'], {
             cwd: temporaryPath,
             stdout: 'pipe',
