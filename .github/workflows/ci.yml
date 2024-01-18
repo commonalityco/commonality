@@ -67,7 +67,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        node-version: [16.x, 17.x, 18.x]
+        node-version: [17.x, 18.x, 20.x]
         os:
           - runner: ubuntu-latest
           - runner: macos-latest
