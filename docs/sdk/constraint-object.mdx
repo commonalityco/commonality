@@ -1,0 +1,22 @@
+Constraints are used to limit which packages can depend on one another.
+
+---
+
+## Properties
+
+### `disallow`
+
+```ts
+"*" | string[]
+```
+
+The `disallow` property accepts a `*` [selector](/selectors) to match all packages or an array of [tags](/tags) to match groups of packages.
+
+### `allow`
+
+```ts
+"*" | string[]
+```
+
+The `allow` property accepts a `*` [selector](/selectors) to match all packages or an array of [tags](/tags) to match groups of packages.
+

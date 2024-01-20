@@ -1,0 +1,13 @@
+export const PackagePaths = ({ defaultPath, defaultRelativePath }) => {
+  return (
+    <Expandable title="package-properties">
+      <ParamField path="path" type="string" default={defaultPath}>
+        A fully qualified path to the package directory
+      </ParamField>
+      <ParamField path="relativePath" type="string" default={defaultRelativePath}>
+        A relative path to the package directory relative to the root of the
+        project
+      </ParamField>
+    </Expandable>
+  );
+};

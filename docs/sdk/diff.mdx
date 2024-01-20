@@ -1,3 +1,7 @@
+---
+title: diff
+---
+
 ```ts
 (source: unknown, target: unknown) => string
 ```
@@ -8,19 +12,22 @@ We use the `jest-diff` utility to generate a diff that highlights values present
 
 Values will be stringified and parsed as lines of text. Lines that appear in `target` but not `source` will appear in red with a `+` prefix.
 
-**Parameters**
+## Parameters
 
-<ResponseField name="source" type="unknown" required>
+<ParamField path="source" type="unknown" required>
   Any value, representing the source of the diff.
-</ResponseField>
+</ParamField>
 
-<ResponseField name="target" type="unknown" required>
+<ParamField path="target" type="unknown" required>
   Any value, representing the target of the diff.
-</ResponseField>
+</ParamField>
+
+
+## Returns
 
 Returns a string representing the diff between `source` and `target`.
 
-**Example**
+## Example
 
 ```ts
 diff('first', 'second');

@@ -1,0 +1,83 @@
+---
+title: defineTestCheck
+---
+import { CheckContext } from '/snippets/check-context.mdx';
+
+```ts
+(check: Check, context?: TestCheckContext) => Check
+```
+
+`createTestCheck` wraps your checks and decorates these functions with sensible defaults for [CheckContext](/sdk/checks#checkcontext) that you can override.
+This cuts down on repetitive boilerplate when writing tests for your checks.
+
+## Parameters
+
+<ParamField path="check" type="Check" required>
+  The [Check](/sdk/check-object) object that you want to test
+</ParamField>
+
+Pass options that will be used as the check's [`CheckContext`](/sdk/checks#checkcontext).
+If a property is not explicitly passed, the check will be passed a default from the table below.
+
+
+<CheckContext defaultPath="./" defaultRelativePath="./">
+  <ParamField path="tags" type="string[]" default={[]}>
+    The tags that you want to test the check with
+  </ParamField>
+  <ParamField path="codeowners" type="string[]" default={[]}>
+    The codeowners that you want to test the check with
+  </ParamField>
+</CheckContext>
+
+## Returns
+
+Returns the original check function, however the `validate`, `fix`, and `message` functions
+will be passed the defaults in `TestCheckContext` rather than requiring that all properties `CheckContext` are explicitly passed when testing check methods.
+
+## Example
+
+```ts
+// Without createTestCheck
+test('validate - returns true when valid', () => {
+  mockFs({
+    'package.json': JSON.stringify({
+      name: 'foo',
+      description: 'bar',
+    }),
+  });
+
+  const check = myCheck();
+  const result = myCheck.validate({
+    package: {
+      path: './',
+      relativePath: './',
+    },
+
+    allPackages: [
+      {
+        path: './',
+        relativePath: './',
+      },
+    ],
+    codeowners: [],
+    tags: [],
+  });
+
+  expect(result).toEqual(true);
+});
+
+// With createTestCheck
+test('validate - returns true when valid', () => {
+  mockFs({
+    'package.json': JSON.stringify({
+      name: 'foo',
+      description: 'bar',
+    }),
+  });
+
+  const check = createTestCheck(myCheck());
+  const result = myCheck.validate();
+
+  expect(result).toEqual(true);
+});
+```

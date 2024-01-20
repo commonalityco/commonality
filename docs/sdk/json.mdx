@@ -1,3 +1,7 @@
+---
+title: json
+---
+
 The `json` utility makes it easier to read and write to JSON files within in your checks.
 
 This utility expects an absolute path to a JSON file and returns an object with methods that help you read and write to any JSON file.
@@ -14,11 +18,11 @@ const packageJson = json<{ name: string; version: string }>(
 
 ---
 
-### `exists`
+## `exists`
 
 Returns a boolean value indicating whether or not the file exists on disk.
 
-**Example**
+### Example
 
 ```ts
 const exists = await json('/path/from/root/package.json').exists();
@@ -29,15 +33,17 @@ console.log(exists);
 
 ---
 
-### `get`
+## `get`
 
 ```ts
 () => Promise<T extends Record<string, unknown> | undefined>
 ```
 
+### Returns
+
 Returns the contents of a JSON file as an object. If the file does not exist or is not valid JSON, `undefined` will be returned.
 
-**Example**
+### Example
 
 ```ts
 const packageJson = await json('/path/from/root/package.json').get();
@@ -51,21 +57,23 @@ console.log(packageJson);
 
 ---
 
-### `contains`
+## `contains`
 
 ```ts
 (value: Record<string, unknown>) => Promise<boolean>
 ```
 
-**Parameters**
+### Parameters
 
 <ResponseField name="value" type="Record<string, unknown>" required>
 An object to check against the JSON file's contents.
 </ResponseField>
 
+### Returns
+
 Returns a boolean value indicating whether or not the object is a subset of the JSON file's contents. If the file does not exist or is not valid JSON, `false` will be returned.
 
-**Example**
+### Example
 
 ```ts
 const containsValue = await json('/path/from/root/package.json').contains({
@@ -78,7 +86,7 @@ console.log(containsValue);
 
 ---
 
-### `set`
+## `set`
 
 ```ts
 (value: Record<string, unknown>) => Promise<void>
@@ -86,13 +94,13 @@ console.log(containsValue);
 
 Overwrites the entire contents of a JSON file with the provided value. If the file does not exist, it will be created.
 
-**Parameters**
+### Parameters
 
 <ResponseField name="value" type="Record<string, unknown>" required>
 An object that will be used to overwrite the JSON file's contents.
 </ResponseField>
 
-**Example**
+### Example
 
 ```ts
 await json('/path/from/root/package.json').set({
@@ -103,7 +111,7 @@ await json('/path/from/root/package.json').set({
 
 ---
 
-### `merge`
+## `merge`
 
 ```ts
 (value: Record<string, unknown>) => Promise<void>
@@ -113,13 +121,13 @@ Merges an object with the contents of a JSON file.
 If the file has the same keys as the passed-in object, the values for those keys will be overwritten.
 If the file does not exist, it will be created.
 
-**Parameters**
+### Parameters
 
 <ResponseField name="value" type="Record<string, unknown>" required>
 An object that will be deeply merged with the JSON file's contents.
 </ResponseField>
 
-**Example**
+### Example
 
 ```ts
 await json('/path/from/root/package.json').merge({
@@ -129,7 +137,7 @@ await json('/path/from/root/package.json').merge({
 
 ---
 
-### `remove`
+## `remove`
 
 ```ts
 (path: string) => Promise<void>
@@ -137,13 +145,13 @@ await json('/path/from/root/package.json').merge({
 
 Removes a property from a JSON file using a lodash style object path.
 
-**Parameters**
+### Parameters
 
 <ResponseField name="path" type="string" required>
 A lodash-style path object that will be used to determine which property to remove.
 </ResponseField>
 
-**Example**
+### Example
 
 ```ts
 await json('/path/from/root/package.json').remove('scripts.dev');
@@ -155,7 +163,7 @@ await json('/path/from/root/package.json').remove(
 
 ---
 
-### `delete`
+## `delete`
 
 ```ts
 () => Promise<void>
@@ -163,7 +171,7 @@ await json('/path/from/root/package.json').remove(
 
 Deletes a JSON file from disk.
 
-**Example**
+### Example
 
 ```ts
 await json('/path/from/root/package.json').delete();

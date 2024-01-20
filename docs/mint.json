@@ -33,6 +33,10 @@
     {
       "name": "SDK Reference",
       "url": "sdk"
+    },
+    {
+      "name": "Recipes",
+      "url": "recipes"
     }
   ],
   "anchors": [
@@ -66,15 +70,44 @@
     },
     {
       "group": "Guides",
-      "pages": ["tags", "selectors", "codeowners", "sharing", "studio"]
+      "pages": [
+        "tags",
+        "selectors",
+        "codeowners",
+        "sharing",
+        "studio",
+        "commonality-checks-recommended"
+      ]
     },
     {
-      "group": "SDK",
-      "pages": ["sdk/checks", "sdk/configuration", "sdk/constraints"]
+      "group": "Configuration",
+      "pages": ["sdk/project-configuration", "sdk/package-configuration"]
+    },
+    {
+      "group": "Objects",
+      "pages": ["sdk/check-object", "sdk/constraint-object"]
     },
     {
       "group": "Utilities",
-      "pages": ["sdk/json", "sdk/text", "sdk/diff"]
+      "pages": [
+        "sdk/json",
+        "sdk/text",
+        "sdk/diff",
+        "sdk/define-check",
+        "sdk/define-test-check"
+      ]
+    },
+    {
+      "group": "Getting started",
+      "pages": ["recipes/introduction", "recipes/commonality"]
+    },
+    {
+      "group": "Tools",
+      "pages": ["recipes/typescript", "recipes/eslint"]
+    },
+    {
+      "group": "Workflows",
+      "pages": ["recipes/domain-boundaries", "recipes/dependency-hierarchy"]
     }
   ],
   "footerSocials": {

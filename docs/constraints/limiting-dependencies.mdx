@@ -8,16 +8,81 @@ Constraints help you maintain a dependency graph that's easy to reason about by 
 Constraints are applied to dependencies where there both the source and target package are in the same workspace.
 This means that constraints cannot be applied to external dependencies.
 
-A constraint can `allow` and `disallow` packages using [selectors](/selectors), however if a dependency matches a `disallow` selector the constraint will fail even if it is allowed by an `allow` filter.
+Constraints are defined as a [constraint object](/sdk/constraint-object) in your [project configuration file](/sdk/project-configuration).
 
-## `allow` vs `disallow`
 
-Commonality provides two different ways to enforce constraints, each with varying degrees of strictness.
+---
 
-### `disallow` matches direct and transitive dependencies
+
+## `allow` constraints
+```ts
+"*" | string[]
+```
+
+`allow` constraints are used to explicitly define which dependencies a package is allowed to have.
+
+<Info>
+`allow` constraints only apply to direct dependencies.
+</Info>
+
+
+### Allow specific direct dependencies
+
+This constraint will only allow direct dependencies that have the `api` or `internal` tag in it's [package configuration](/sdk/package-configuration).
+
+These constraints are most helpful when constructing a hierarchy of packages within your project.
+
+```json
+{
+  "disallow": ["api", "internal"]
+}
+```
+
+### Allow all dependencies
+
+This constraint will allow all direct dependencies.
+This is equivalent to not having a constraint at all but is useful when you want to have the constraint show up in Commonality Studio or the CLI.
+
+```json
+{
+  "disallow": "*"
+}
+```
+
+## `disallow` constraints
+```ts
+"*" | string[]
+```
 `disallow` constraints will evaluate the entire upstream dependency graph for a package.
 If any direct or transitive dependency matches a [selector](/selectors) within the `disallow` array, then the constraint will fail.
 
+These constraints are most helpful when you know ahead of time that a package should never have a dependency on a category of packages.
+
+<Info>
+`disallow` constraints apply to all direct and transitive dependencies.
+</Info>
+
+### Disallow specific direct or transitive dependencies
+This constraint will disallow any upstream dependency that has the `application` tag in it's [package configuration](/sdk/package-configuration).
+
+
+```json
+{
+  "disallow": ["application"]
+}
+```
+
+### Disllow all dependencies
+This constraint will disallow all dependencies.
+
+```json
+{
+  "disallow": "*"
+}
+```
+
+
+### Example
 The following constraint...
 ```ts commonality.config.ts
 import { defineConfig } from 'commonality';
@@ -35,17 +100,10 @@ export default defineConfig({
 
 ![A graph that shows that transitive dependencies are traversed with disallow constraints](/images/disallow-constraint.png)
 
-This is due to the fact that a transient dependency contains the matching `beta` tag.
+This is due to the fact that a transitive dependency contains the matching `beta` tag.
 
-A constraint with the `disallow` property will evaluate the entire upstream dependency graph for a package.
-If any direct or transitive dependency matches a tag filter within the `disallow` array, then the constraint will fail.
+## Precedence
 
-`disallow` constraints should be used when a subset of packages should never have a dependency on another package.
-
-### `allow` only matches direct dependencies
-
-`allow` constraints will only evaluate direct dependencies for a package, transitive dependencies will never be evaluated.
-
-These constraints are most helpful when constructing a hierarchy of packages within your project.
-
+A [constraint object](/sdk/constraint-object) can contain both `allow` and `disallow` constraints.
+When both are present, `disallow` constraints will be evaluated first.
 

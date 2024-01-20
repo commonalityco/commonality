@@ -11,7 +11,7 @@ We've created a command that will quickly get you up and running in an existing 
 This command will:
 
 1. Install `commonality` at the root of your project
-2. Install and configure checks that benefit most multi-package projects from [`commonaity-checks-recommended`](/commonality-checks-recommended) (optional)
+2. Install and configure checks that benefit most multi-package projects from [commonality-checks-recommended](/commonality-checks-recommended) (optional)
 
 ```bash
 npx commonality@latest init
@@ -47,14 +47,19 @@ commonality studio
 
 You can edit a package's tags either by selecting a package in the dependency graph under the "Constraints" view, or by clicking on a package's dropdown button in the "Checks" view.
 
-![](/images/studio-edit-tags.png)
-
-<Tip>
+<Note>
   Editing tags in Commonality Studio will update or create a
-  [`commonality.json`](/sdk/configuration#package-configuration) in package
+  [commonality.json](/sdk/configuration#package-configuration) in package
   directories automatically. This saves you from manually managing many
   configuration files across your monorepo.
-</Tip>
+</Note>
+
+<Frame>
+  <img src="/images/studio-edit-tags.png" />
+</Frame>
+
+
+
 
 With [selectors](/selectors) and checks you can [compose checks](/checks/creating-checks#composing-checks) to enforce different tooling for different types of packages. For example:
 

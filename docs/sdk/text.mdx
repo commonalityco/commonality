@@ -1,3 +1,7 @@
+---
+title: text
+---
+
 The `text` utility makes it easier to read and write to any file within in your checks.
 
 This utility expects an absolute path to a JSON file and returns an object with methods that help you read and write to any file.
@@ -10,7 +14,7 @@ const readme = text('/path/from/root/README.md');
 
 ---
 
-### `exists`
+## `exists`
 
 ```ts
 () => Promise<boolean>
@@ -18,7 +22,7 @@ const readme = text('/path/from/root/README.md');
 
 Returns a boolean value indicating whether or not the file exists on disk.
 
-**Example**
+### Example
 
 ```ts
 const exists = await text('/path/from/root/README.md').exists();
@@ -27,15 +31,17 @@ console.log(exists);
 // true
 ```
 
-### `get`
+## `get`
 
 ```ts
 () => Promise<string[] | undefined>
 ```
 
+### Returns
+
 Returns the contents of a file as an array of strings representing each line. If the file does not exist, `undefined` will be returned.
 
-**Example**
+### Example
 
 ```ts
 const readme = await text('/path/from/root/README.md').get();
@@ -48,21 +54,23 @@ console.log(readme);
 // ]
 ```
 
-### `contains`
+## `contains`
 
 ```ts
 (value: string[]) => Promise<boolean>
 ```
 
-**Parameters**
+### Parameters
 
 <ResponseField name="value" type="string[]" required>
 An array of strings, representing lines of text.
 </ResponseField>
 
+### Returns
+
 Returns a boolean value indicating whether specified lines exist in the file. If the file does not exist, `false` will be returned.
 
-**Example**
+### Example
 
 ````ts
 const containsLines = await text('.npmignore').contains([
@@ -73,7 +81,7 @@ console.log(containsLines);
 // true
 ````
 
-### `set`
+## `set`
 
 ```ts
 (lines: string[]) => Promise<void>
@@ -81,13 +89,13 @@ console.log(containsLines);
 
 Overwrites the entire contents of a file with the provided lines of text. If the file does not exist, it will be created.
 
-**Parameters**
+### Parameters
 
 <ResponseField name="lines" type="string[]" required>
 An array of strings, representing lines of text.
 </ResponseField>
 
-**Example**
+### Example
 
 ```ts
 await text('/path/from/root/README.md').set([
@@ -97,7 +105,7 @@ await text('/path/from/root/README.md').set([
 ]);
 ```
 
-### `remove`
+## `remove`
 
 ```ts
 (lines: string[]) => Promise<void>
@@ -105,19 +113,19 @@ await text('/path/from/root/README.md').set([
 
 Removes lines of text from a file, if they exist. Lines of text that are not included in the array will not be affected.
 
-**Parameters**
+### Parameters
 
 <ResponseField name="lines" type="string[]" required>
 An array of strings, representing lines of text.
 </ResponseField>
 
-**Example**
+### Example
 
 ```ts
 await text('/path/from/root/README.md').remove(['# My Package']);
 ```
 
-### `delete`
+## `delete`
 
 
 
@@ -127,7 +135,7 @@ await text('/path/from/root/README.md').remove(['# My Package']);
 
 Deletes a file from disk.
 
-**Example**
+### Example
 
 ```ts
 await text('/path/from/root/README.md').delete();
