@@ -2,8 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Commonality",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/word-logo-dark.svg",
+    "light": "/word-logo-light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
@@ -39,7 +39,12 @@
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "/overview"
+    },
+    {
+      "name": "Studio",
+      "icon": "display",
+      "url": "/studio"
     }
   ],
   "navigation": [
@@ -61,7 +66,7 @@
     },
     {
       "group": "Guides",
-      "pages": ["tags", "selectors", "codeowners", "sharing"]
+      "pages": ["tags", "selectors", "codeowners", "sharing", "studio"]
     },
     {
       "group": "SDK",
