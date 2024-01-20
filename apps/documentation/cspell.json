@@ -1,0 +1,23 @@
+{
+  "version": "0.2",
+  "ignorePaths": [],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": [
+    "bento",
+    "buildable",
+    "checkcontext",
+    "checkoptions",
+    "Codeowner",
+    "CODEOWNERS",
+    "commonalityco",
+    "corepack",
+    "createtestcheck",
+    "falsey",
+    "myteam",
+    "nextra",
+    "onest"
+  ],
+  "ignoreWords": [],
+  "import": []
+}

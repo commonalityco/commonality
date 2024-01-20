@@ -1,0 +1,16 @@
+import './globals.css';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import {  firaCode, onest } from '../utilities/fonts';
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <div
+      className={`${onest.className} ${firaCode.variable} ${onest.variable}`}
+    >
+      <Component {...pageProps} />
+      <Analytics />
+      <SpeedInsights />
+    </div>
+  );
+}

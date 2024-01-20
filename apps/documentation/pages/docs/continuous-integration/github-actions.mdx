@@ -1,0 +1,120 @@
+import { Tabs, Tab } from 'nextra/components';
+
+# Github Actions
+
+Ensure that you have `commonality` installed as a dependency at the root of your project.
+
+Create a workflow file for Commonality at `.github/workflows/commonality.yml` and add steps to run `commonality check` and `commonality constrain`.
+
+<Tabs items={['npm', 'yarn', 'pnpm']} storageKey="selected-pkg-manager">
+  <Tab>
+    ```yaml copy filename=".github/workflows/commonality.yml"
+    name: Commonality
+
+    on:
+      push:
+        branches: [main]
+      pull_request:
+        branches: [main]
+
+    jobs:
+      validate:
+        name: Validate
+        timeout-minutes: 15
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+
+          - name: Setup Node.js
+            uses: actions/setup-node@v4
+            with:
+              node-version: 20
+              cache: 'npm'
+
+          - name: Install dependencies
+            run: npm install
+
+          - name: Check
+            run: npx commonality check
+
+          - name: Constrain
+            run: npx commonality constrain
+    ````
+
+  </Tab>
+  <Tab>
+    ```yaml copy filename=".github/workflows/commonality.yml"
+    name: Commonality
+
+    on:
+      push:
+        branches: [main]
+      pull_request:
+        branches: [main]
+
+    jobs:
+      validate:
+        name: Validate
+        timeout-minutes: 15
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+
+          - name: Setup Node.js
+            uses: actions/setup-node@v4
+            with:
+              node-version: 20
+              cache: 'yarn'
+
+          - name: Install dependencies
+            run: yarn
+
+          - name: Check
+            run: yarn exec commonality check
+
+          - name: Constrain
+            run: yarn exec commonality constrain
+    ```
+  </Tab>
+  <Tab>
+    ```yaml copy filename=".github/workflows/commonality.yml"
+    name: Commonality
+
+    on:
+      push:
+        branches: [main]
+      pull_request:
+        branches: [main]
+
+    jobs:
+      validate:
+        name: Validate
+        timeout-minutes: 15
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+
+          - name: Setup pnpm
+            uses: pnpm/action-setup@v2
+
+          - name: Setup Node.js
+            uses: actions/setup-node@v4
+            with:
+              node-version: 20
+              cache: 'pnpm'
+
+          - name: Install dependencies
+            run: pnpm install
+
+          - name: Check
+            run: pnpm exec commonality check
+
+          - name: Constrain
+            run: pnpm exec commonality constrain
+    ```
+  </Tab>
+</Tabs>
+

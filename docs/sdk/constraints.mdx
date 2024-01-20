@@ -1,0 +1,61 @@
+# Constraints
+
+Constraints are used to limit which packages can depend on one another.
+
+## Properties
+
+### `disallow`
+
+<Subtext>
+`"*" | string[]{:ts}`
+</Subtext>
+
+Disallow constraints are applied to all direct and transitive dependencies.
+
+#### Disallow all direct and transitive dependencies
+
+Commonality will disallow any direct or indirect dependency
+
+```json
+{
+  "disallow": "*"
+}
+```
+
+#### Allow specific direct and transitive dependencies
+
+Commonality will only allow direct dependencies that have the `api` or `internal` tag in it's [package configuration](/docs/api/configuration#package-configuration).
+
+```json
+{
+  "disallow": ["api", "internal"]
+}
+```
+
+### `allow`
+
+<Subtext>
+`"*" | string[]{:ts}`
+</Subtext>
+
+Constraints may allow all direct dependencies or a list of tags that all direct dependencies must have.
+
+#### Allow all direct dependencies
+
+Commonality will allow all direct dependencies
+
+```json
+{
+  "allow": "*"
+}
+```
+
+#### Allow specific direct dependencies
+
+Commonality will only allow direct dependencies that have the `api` or `internal` tag in its [package configuration](/docs/api/configuration#package-configuration).
+
+```json
+{
+  "allow": ["api", "internal"]
+}
+```

@@ -1,0 +1,642 @@
+import { Callout } from 'nextra/components';
+import { Subtext } from '../../../components/subtext.tsx';
+
+# Checks
+
+Checks are best created using the `defineCheck` function and are passed to the `checks` property in you [project's configuration](/docs/api/configuration#projectconfiguration). This function will
+provide type-safety and intellisense for properties.
+
+```ts
+const check = {
+  name: 'my-team/my-check',
+  validate: () => {},
+  fix: () => {},
+  message: 'My check failed',
+};
+```
+
+## Check properties
+
+### `name`
+
+<Subtext requirementLevel="required">`string`</Subtext>
+
+A unique identifier for the check. This will be
+used to parallelize checks and prevent write conflicts when running fix functions.
+
+<Callout type="info">
+  When creating sharable checks, we recommend using a namespace to prevent
+  naming conflicts.
+</Callout>
+
+```ts import {defineCheck} from 'commonality';
+const hasCodeowner = defineCheck(() => {
+  return {
+    // ...
+    name: 'my-team/ensure-codeowner',
+  };
+});
+```
+
+### `message`
+
+<Subtext requirementLevel="required">
+`"string" | (options: CheckContext) => Message | Promise<Message>{:ts}`
+</Subtext>
+
+You can pass a static string for simple checks or dynamically return a Message with a function that is passed [CheckContext](#checkcontext).
+
+---
+
+### `validate`
+
+<Subtext requirementLevel="required">
+`"string" | (options: CheckContext) => ValidationResult | Promise<ValidationResult>{:ts}`
+</Subtext>
+
+If set to `"error"`, the CLI will exit with a non-zero exit code if the `validate` function returns a falsey value. Default is `"warning"`.
+
+The `validate` function is the primary mechanism for determining if a package is valid or not and will run against all packages in your project.
+A returned truthy value will be considered a `pass`, while a falsy value will mark the check as `warn` or `fail` based on the configured [level](#level).
+
+```ts
+import { defineCheck } from 'commonality';
+
+const hasCodeowner = defineCheck(() => {
+  return {
+    // ...
+    validate: ({ codeowners }) => codeowners.length,
+  };
+});
+```
+
+---
+
+### `fix`
+
+<Subtext>
+`(options: CheckContext) => void | Promise<void>{:ts}`
+</Subtext>
+
+A check's `fix` function will only run on packages that where the check's [validate](#validate) has returned a falsey value. This function should update packages so that they pass the check's [validate](#validate) function.
+
+<Callout type="info">
+  We provide helper utilities like [`json`](#json) and [`text`](#text) to make
+  it easier to read and write to files in `fix` functions.
+</Callout>
+
+```ts
+import { defineCheck, json } from 'commonality';
+
+const ensureTSConfigExtends = defineCheck((base: string) => {
+  return {
+    // ...
+    fix: async (ctx) => {
+      const tsConfig = await json(ctx.package.path, 'tsconfig.json').get();
+
+      if (!tsConfig) {
+        return;
+      }
+
+      await tsConfig.merge({ extends: base });
+    },
+  };
+});
+```
+
+---
+
+### `level`
+
+<Subtext>
+`"warning" | "error"{:ts}`
+</Subtext>
+
+If set to `"error"`, the CLI will exit with a non-zero exit code if this check is ever invalid. Default is `"warning"`.
+
+## Utilities
+
+### `json`
+
+The `json` utility makes it easier to read and write to JSON files within in your checks. The `json` helper expects an absolute path to a JSON file and returns an object with helper methods.
+To get full type-safety on all returned methods you can pass a generic type to the `json` function.
+
+**Example:**
+
+```ts
+import { json } from 'commonality';
+
+const packageJson = json<{ name: string; version: string }>(
+  '/path/from/root/package.json',
+);
+```
+
+---
+
+#### `exists`
+
+`() => Promise<boolean>{:ts}`
+
+**Returns**
+
+Returns a boolean value indicating whether or not the file exists on disk.
+
+**Example**
+
+```ts
+const exists = await json('/path/from/root/package.json').exists();
+
+console.log(exists);
+// true
+```
+
+---
+
+#### `get`
+
+`() => Promise<T extends Record<string, unknown> | undefined>{:ts}`
+
+**Returns**
+
+Returns the contents of a JSON file as an object. If the file does not exist or is not valid JSON, `undefined` will be returned.
+
+**Example**
+
+```ts
+const packageJson = await json('/path/from/root/package.json').get();
+
+console.log(packageJson);
+// {
+//   "name": "my-package",
+//   "version": "1.0.0",
+// }
+```
+
+---
+
+#### `contains`
+
+`(value: Record<string, unknown>) => Promise<boolean>{:ts}`
+
+**Parameters**
+
+`value`
+
+<Subtext requirementLevel="required">
+`Record<string, unknown>{:ts}`
+</Subtext>
+
+An object to check against the JSON file's contents.
+
+**Returns**
+
+Returns a boolean value indicating whether or not the object is a subset of the JSON file's contents. If the file does not exist or is not valid JSON, `false` will be returned.
+
+**Example**
+
+```ts
+const containsValue = await json('/path/from/root/package.json').contains({
+  name: 'my-package',
+});
+
+console.log(containsValue);
+// true
+```
+
+---
+
+#### `set`
+
+`(value: Record<string, unknown>) => Promise<void>{:ts}`
+
+Overwrites the entire contents of a JSON file with the provided value. If the file does not exist, it will be created.
+
+**Parameters**
+
+`value`
+
+<Subtext requirementLevel="required">
+`Record<string, unknown>{:ts}`
+</Subtext>
+
+An object that will be used to overwrite the JSON file's contents.
+
+**Example**
+
+```ts
+await json('/path/from/root/package.json').set({
+  name: 'my-package',
+  version: '1.0.0',
+});
+```
+
+---
+
+#### `merge`
+
+`(value: Record<string, unknown>) => Promise<void>{:ts}`
+
+Merges an object with the contents of a JSON file.
+If the file has the same keys as the passed-in object, the values for those keys will be overwritten.
+If the file does not exist, it will be created.
+
+**Parameters**
+
+`value`
+
+<Subtext requirementLevel="required">
+`Record<string, unknown>{:ts}`
+</Subtext>
+
+An object that will be deeply merged with the JSON file's contents.
+
+**Example**
+
+```ts
+await json('/path/from/root/package.json').merge({
+  private: true,
+});
+```
+
+---
+
+#### `remove`
+
+`(path: string) => Promise<void>{:ts}`
+
+Removes a property from a JSON file using a lodash style object path.
+
+**Parameters**
+
+`path`
+
+<Subtext requirementLevel="required">
+`string{:ts}`
+</Subtext>
+
+A lodash-style path object that will be used to determine which property to remove.
+
+**Example**
+
+```ts
+await json('/path/from/root/package.json').remove('scripts.dev');
+
+await json('/path/from/root/package.json').remove(
+  `dependencies[${dependencyName}]`,
+);
+```
+
+---
+
+#### `delete`
+
+`() => Promise<void>{:ts}`
+
+Deletes a JSON file from disk.
+
+**Example**
+
+```ts
+await json('/path/from/root/package.json').delete();
+```
+
+---
+
+### `text`
+
+The `text` utility makes it easier to read and write to any file within in your checks. The `json` helper expects an absolute path to a JSON file and returns an object with helper methods.
+
+**Example:**
+
+```ts
+import { json } from 'commonality';
+
+const readme = text('/path/from/root/README.md');
+```
+
+---
+
+#### `exists`
+
+`() => Promise<boolean>{:ts}`
+
+**Returns**
+
+Returns a boolean value indicating whether or not the file exists on disk.
+
+**Example**
+
+```ts
+const exists = await text('/path/from/root/README.md').exists();
+
+console.log(exists);
+// true
+```
+
+#### `get`
+
+`() => Promise<string[] | undefined>{:ts}`
+
+**Returns**
+
+Returns the contents of a file as an array of strings representing each line. If the file does not exist, `undefined` will be returned.
+
+**Example**
+
+```ts
+const readme = await text('/path/from/root/README.md').get();
+
+console.log(readme);
+// [
+//   '# My Package',
+//   '',
+//   'This is my package',
+// ]
+```
+
+#### `contains`
+
+`(value: string[]) => Promise<boolean>{:ts}`
+
+**Parameters**
+
+`value`
+
+<Subtext requirementLevel="required">
+`string[]{:ts}`
+</Subtext>
+
+An object that will be deeply merged with the JSON file's contents.
+
+**Returns**
+
+Returns a boolean value indicating whether specified lines exist in the file. If the file does not exist, `false` will be returned.
+
+**Example**
+
+````ts
+const containsValue = await text('/path/from/root/README.json').contains([
+  '```bash',
+  'npm install my-package',
+  '```
+]);
+
+console.log(containsValue);
+// true
+````
+
+#### `set`
+
+`(lines: string[]) => Promise<void>{:ts}`
+
+Overwrites the entire contents of a file with the provided lines of text. If the file does not exist, it will be created.
+
+**Parameters**
+
+`lines`
+
+<Subtext requirementLevel="required">
+`string[]{:ts}`
+</Subtext>
+
+An array of strings, representing lines of text, that will be used to overwrite the file's contents.
+
+**Example**
+
+```ts
+await text('/path/from/root/README.md').set([
+  '# My Package',
+  '',
+  'This is my package',
+]);
+```
+
+#### `remove`
+
+`(lines: string[]) => Promise<void>{:ts}`
+
+Removes lines of text from a file.
+
+**Parameters**
+
+`lines`
+
+<Subtext requirementLevel="required">
+`string[]{:ts}`
+</Subtext>
+
+An array of strings, representing lines of text, that will be removed from the file's contents.
+
+**Example**
+
+```ts
+await text('/path/from/root/README.md').remove(['# My Package']);
+```
+
+#### `delete`
+
+**Type**
+
+`() => Promise<void>{:ts}`
+
+Deletes a file from disk.
+
+**Example**
+
+```ts
+await text('/path/from/root/README.md').delete();
+```
+
+---
+
+### `diff`
+
+`(source: unknown, target: unknown) => string{:ts}`
+
+The `diff` utility makes it easier to provide a helpful `suggestion` for check [messages](#message).
+The `diff` helper expects two objects and returns a string representing the diff between the two objects.
+
+**Parameters**
+
+`source`
+
+<Subtext requirementLevel="required">
+`unknown{:ts}`
+</Subtext>
+
+An array of strings, representing lines of text, that will be removed from the file's contents.
+
+`target`
+
+<Subtext requirementLevel="required">
+`unknown{:ts}`
+</Subtext>
+
+An array of strings, representing lines of text, that will be removed from the file's contents.
+
+**Returns**
+
+A string representing the diff between the two objects.
+Lines that appear in `target` but not `source` will appear in red with a `+` prefix.
+
+**Example**
+
+```ts
+diff('first', 'second');
+//   first
+// + second
+
+diff(
+  { name: 'my-package', version: '1.0.0' },
+  { name: 'my-package', version: '2.0.0' },
+);
+//   Object {
+//     "name": "my-package",
+//     "version": "1.0.0",
+// +   "version": "2.0.0",
+//   }
+```
+
+
+### `defineCheck`
+
+`(check: () => Check) => () => Check{:ts}`
+
+This utility provides type-safety and intellisense for check options.
+Checks are not required to be wrapped with this utility, however doing so will provide a better developer experience and encourage re-usable checks.
+
+**Example:**
+
+```ts
+import { defineCheck } from 'commonality';
+
+const hasCodeowner = defineCheck(() => {
+  return {
+    // ...
+  };
+});
+```
+
+---
+
+### `createTestCheck`
+
+`(check: Check, context?: TestCheckContext) => Check{:ts}`
+
+`createTestCheck` wraps your checks and decorates these functions with sensible defaults for [CheckContext](/docs/api/checks#checkcontext) that you can override.
+This cuts down on repetitive boilerplate when writing tests for your checks.
+
+**Parameters**
+
+`check`
+
+<Subtext requirementLevel="required">
+`Check{:ts}`
+</Subtext>
+A valid [check](/api/checks#check-properties) object
+
+`context`
+
+<Subtext>
+`TestCheckContext{:ts}`
+</Subtext>
+Pass options that will be used as the check's [`CheckContext`](/docs/api/checks#checkcontext).
+If a property is not explicitly passed, the check will be passed a default from the table below.
+
+| Name                  | Default                                   |
+| :-------------------- | :---------------------------------------- |
+| `context.tags`        | `[]{:ts}`                                 |
+| `context.codeowners`  | `[]{:ts}`                                 |
+| `context.package`     | `{relativePath: './', path: './'}{:ts}`   |
+| `context.rootPackage` | `{relativePath: './', path: './'}{:ts}`   |
+| `context.allPackages` | `[{relativePath: './', path: './'}]{:ts}` |
+
+**Returns**
+Returns the original check function, however the `validate`, `fix`, and `message` functions
+will be passed the `TestCheckContext` rather than requiring that `CheckContext` be passed.
+
+**Example**
+
+```ts
+// Without createTestCheck
+test('validate - returns true when valid', () => {
+  mockFs({
+    'package.json': JSON.stringify({
+      name: 'foo',
+      description: 'bar',
+    }),
+  });
+
+  const check = myCheck();
+  const result = myCheck.validate({
+    package: {
+      path: './',
+      relativePath: './',
+    },
+
+    allPackages: [
+      {
+        path: './',
+        relativePath: './',
+      },
+    ],
+    codeowners: [],
+    tags: [],
+  });
+
+  expect(result).toEqual(true);
+});
+
+// With createTestCheck
+test('validate - returns true when valid', () => {
+  mockFs({
+    'package.json': JSON.stringify({
+      name: 'foo',
+      description: 'bar',
+    }),
+  });
+
+  const check = createTestCheck(myCheck());
+  const result = myCheck.validate();
+
+  expect(result).toEqual(true);
+});
+```
+
+---
+
+## Types
+
+### `CheckContext`
+
+The `validate`, `fix`, and `message` functions are all passed a `CheckContext` object that contains metadata about the package the check is being run against.
+The [`codeowners`](/docs/codeowners) and [`tags`](/docs/tags) that correspond to the package are also included.
+
+```ts
+type CheckContext = {
+  package: {
+    path: string;
+    relativePath: string;
+  };
+  allPackages: {
+    path: string;
+    relativePath: string;
+  }[];
+  rootPackage: {
+    path: string;
+    relativePath: string;
+  };
+  codeowners: string[];
+  tags: string[];
+};
+```
+
+### `Message`
+If [`message`](#message) is declared as a function, it must return a [`Message`]() object.
+```ts
+type Message = {
+  text: string;
+  filePath?: string;
+  suggestion?: string;
+};
+```

@@ -1,0 +1,39 @@
+```ts
+(source: unknown, target: unknown) => string
+```
+
+The `diff` utility makes it easier to provide a helpful [suggestion]() for check [messages](#message).
+
+We use the `jest-diff` utility to generate a diff that highlights values present in `target` but not `source`.
+
+Values will be stringified and parsed as lines of text. Lines that appear in `target` but not `source` will appear in red with a `+` prefix.
+
+**Parameters**
+
+<ResponseField name="source" type="unknown" required>
+  Any value, representing the source of the diff.
+</ResponseField>
+
+<ResponseField name="target" type="unknown" required>
+  Any value, representing the target of the diff.
+</ResponseField>
+
+Returns a string representing the diff between `source` and `target`.
+
+**Example**
+
+```ts
+diff('first', 'second');
+//   first
+// + second
+
+diff(
+  { name: 'my-package', version: '1.0.0' },
+  { name: 'my-package', version: '2.0.0' },
+);
+//   Object {
+//     "name": "my-package",
+//     "version": "1.0.0",
+// +   "version": "2.0.0",
+//   }
+```

@@ -1,0 +1,27 @@
+{
+  "overview": "",
+  "installation": "",
+  "getting-started": "Getting Started",
+  "acknowledgements": "",
+
+  "-- Guides": {
+    "type": "separator",
+    "title": "Guides"
+  },
+  "studio": "",
+  "checks": "",
+  "constraints": "",
+  "tags": "",
+  "selectors": "",
+  "codeowners": "",
+  "sharing": "",
+  "continuous-integration": "Continuous Integration",
+
+  "-- Reference": {
+    "type": "separator",
+    "title": "Reference"
+  },
+  "api": "API",
+  "cli": "CLI",
+  "commonality-checks-recommended": "commonality-checks-recommended"
+}

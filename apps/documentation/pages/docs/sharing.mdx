@@ -1,0 +1,45 @@
+import { Callout } from 'nextra/components';
+
+# Sharing
+Commonality makes it easy to utilize checks and workflows created by other teams and the open-source community.
+Share your best practices with the broader community and make an even bigger impact.
+
+
+## Sharing checks
+
+Organizing checks into a package local to your project not only keeps your project configuration file tidy, but also makes them easily sharable.
+
+We recommend exporting checks as named exports from your checks package. This encourages consumers to explicitly import the checks they want to apply to their project.
+
+<Callout type="info">
+If you intend on sharing checks package publicly, we recommend prefixing your package name with `commonality-checks-` to make it more discoverable.
+</Callout>
+
+```ts filename="packages/commonality-checks-myteam/src/index.ts"
+import { defineCheck } from 'commonality';
+
+export const hasScript = defineCheck(() => {
+	return {
+		name: 'my-team/has-script'
+		// ...check definition
+	}
+})
+```
+
+```ts filename="commonality.config.ts"
+import * myTeam from 'commonality-checks-myteam';
+
+export default {
+  checks: {
+	"buildable": [
+		myTeam.hasScript('dev', 'tsc --watch'),
+  	]
+  }
+};
+```
+
+## Sharing configuration
+
+<Callout emoji="🔜">
+Coming soon...
+</Callout>

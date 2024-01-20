@@ -1,0 +1,151 @@
+---
+title: "Testing checks"
+icon: "flask"
+---
+
+For more complex checks you may want to make sure that your validation
+and fix logic is what you would expect it to be.
+
+We recommend using [`mock-fs`](https://github.com/tschaub/mock-fs) along with our [`createTestCheck`](/docs/api/checks#createtestcheck) utility to mock the file system.
+This combination will test your checks end-to-end to ensure that your checks never create unexpected changes.
+
+## Example
+
+```ts packages/checks/ensure-license.ts
+import { createTestCheck, defineCheck, json, diff } from 'commonality';
+
+const ensureLicense = defineCheck((license: string = 'MIT') => {
+  return {
+    name: 'my-team/ensure-license',
+    level: 'error',
+    validate: async (ctx) => {
+      const packageJson = await json(ctx.package.path, 'package.json').get();
+
+      // This check will fail if the package's license does not match the one specified
+      return packageJson.license === license;
+    },
+    fix: async (ctx) => {
+      // We'll want to test that this file gets updated correctly
+      await json(ctx.package.path, 'package.json').merge({
+        license,
+      });
+    },
+    message: async (ctx) => {
+      const packageJson = await json(ctx.package.path, 'package.json').get();
+
+      // Since we return multiple messages we should test for each scenario
+      if (!packageJson || !packageJson.license) {
+        return {
+          title: 'Package.json must have a license',
+          filePath: 'package.json',
+          context: diff(
+            { name: packageJson.name },
+            { name: packageJson.name, license },
+          ),
+        };
+      }
+
+      return {
+        title: `Package.json license must be ${license}`,
+        filePath: 'package.json',
+        context: diff(
+          { name: packageJson.name, license: packageJson.license },
+          { name: packageJson.name, license },
+        ),
+      };
+    },
+  };
+});
+```
+
+```ts filename="packages/checks/ensure-license.test.ts"
+import { ensureLicense } from './ensure-license';
+import { createTestCheck, json } from 'commonality';
+import mockFs from 'mock-fs';
+
+describe('ensureLicense', () => {
+  describe('validate', () => {
+    test('returns false if package.json does not contain a matching license', () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          name: 'my-pkg',
+        }),
+      });
+
+      const check = createTestCheck(ensureLicense('MIT'));
+
+      const result = await check.validate();
+
+      expect(result).toBeFalsey();
+    });
+
+    test('returns true if package.json does contain a matching license', () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          name: 'my-pkg',
+          license: 'MIT',
+        }),
+      });
+
+      const check = createTestCheck(ensureLicense('MIT'));
+
+      const result = await check.validate();
+
+      expect(result).toBeTruthy();
+    });
+  });
+
+  describe('fix', () => {
+    test('updates the package.json file with the correct license', () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          name: 'my-pkg',
+        }),
+      });
+
+      const check = createTestCheck(ensureLicense('MIT'));
+
+      await check.fix();
+
+      // You can re-use our helpers in tests to get the contents of files
+      const packageJson = await json('package.json').get();
+
+      expect(packageJson).toEqual({
+        name: 'my-pkg',
+        license: 'MIT',
+      });
+    });
+  });
+
+  describe('message', () => {
+    test('returns the correct message when there is no package.json', () => {
+      mockFs({});
+
+      const check = createTestCheck(ensureLicense('MIT'));
+
+      const message = await check.message();
+
+      expect(message).toEqual({
+        title: 'Package.json must have a license',
+      });
+    });
+
+    test('returns the correct message when there is a package.json', () => {
+      mockFs({
+        'package.json': JSON.stringify({
+          name: 'my-pkg',
+        }),
+      });
+
+      const check = createTestCheck(ensureLicense('MIT'));
+
+      const message = await check.message();
+
+      expect(message.title).toEqual('Package.json license must be MIT');
+      expect(message.filePath).toEqual('package.json');
+      // We recommend snapshot testing suggestions as the formatting can be tricky to hardcode
+      expect(message.suggestion).toMatchInlineSnapshot();
+    });
+  });
+});
+```

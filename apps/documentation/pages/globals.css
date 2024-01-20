@@ -1,0 +1,42 @@
+@import '@commonalityco/config-tailwind/globals.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  nav {
+    z-index: 100;
+    position: relative;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  .noise {
+    background: url('/white-noise.png');
+  }
+
+  .dark .noise {
+    background: url('/noise.png');
+  }
+
+  .glow {
+    background: radial-gradient(
+      circle closest-side,
+      rgba(125, 211, 252, 0.5),
+      rgba(125, 211, 252, 0.15),
+      transparent
+    );
+  }
+
+  .dark .glow {
+    background: radial-gradient(
+      circle closest-side,
+      rgba(125, 211, 252, 0.6),
+      rgba(56, 189, 248, 0.15),
+      transparent
+    );
+  }
+}

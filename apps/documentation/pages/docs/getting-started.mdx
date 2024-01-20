@@ -1,3 +1,7 @@
+import { Steps, Callout, Cards, Card } from 'nextra/components';
+
+# Getting Started
+
 Commonality is designed to be incrementally adoptable and work alongside your existing workflows.
 
 This guide will get you set up in a few seconds and show you how to leverage Commonality to structure your existing JavaScript projects.
@@ -5,20 +9,20 @@ This guide will get you set up in a few seconds and show you how to leverage Com
 <Steps>
 
 <Step title="Install and initialize Commonality">
+  We've created a command that will quickly get you up and running in an existing JavaScript project.
 
-We've created a command that will quickly get you up and running in an existing JavaScript project.
+  This command will:
 
-This command will:
+  - Install `commonality` at the root of your project
+  - Install and configure checks that benefit most multi-package projects from [`commonaity-checks-recommended`](/docs/commonality-checks-recommended) (optional)
 
-1. Install `commonality` at the root of your project
-2. Install and configure checks that benefit most multi-package projects from [`commonaity-checks-recommended`](/docs/commonality-checks-recommended) (optional)
-
-```bash
-npx commonality@latest init
-```
+  ```bash copy
+  npx commonality@latest init
+  ```
 
 </Step>
-<Step title="Run your first checks">
+
+### Run your first checks
 
 [Checks](http://localhost:3000/docs/checks) ensure that the structure of a package conforms to a set of rules.
 They're just functions so you can compose them together or publish them as you would any other package.
@@ -26,22 +30,21 @@ Checks help you deliver a consistently amazing developer experience across your 
 
 Try running the command below to view the status of the checks we've set up for you.
 
-```bash
+```bash copy
 commonality check
 ```
 
 You'll see the result of the checks run against the packages in your project.
 Checks can also be auto-fixable, making it easy for teams to keep packages in sync with the rules defined in the project configuration.
 
-</Step>
 
-<Step title="Tag your packages">
+### Tag your packages
 
 We've applied these checks to all packages using the `*` [selector](/docs/selectors) but you can selectively apply checks to any subset of packages within your repo using [tags](http://localhost:3000/docs/tags).
 
 Commonality Studio is the best way to create and manage tags for packages, open it by running the command below.
 
-```bash
+```bash copy
 commonality studio
 ```
 
@@ -49,12 +52,11 @@ You can edit a package's tags either by selecting a package in the dependency gr
 
 ![](/studio-edit-tags.png)
 
-<Tip>
-  Editing tags in Commonality Studio will update or create a
-  [`commonality.json`](/docs/api/configuration#package-configuration) in package
-  directories automatically. This saves you from manually managing many
-  configuration files across your monorepo.
-</Tip>
+<Callout type="info">
+  Editing tags in Commonality Studio will update or create a [`commonality.json`](/docs/api/configuration#package-configuration)
+  in package directories automatically. This saves you from manually managing
+  many configuration files across your monorepo.
+</Callout>
 
 With [selectors](/docs/selectors) and checks you can [compose checks](/docs/checks/creating-checks#composing-checks) to enforce different tooling for different types of packages. For example:
 
@@ -62,10 +64,7 @@ With [selectors](/docs/selectors) and checks you can [compose checks](/docs/chec
 - Check that packages with the tag `ui` have a `tsconfig.json` that is configured to handle JSX.
 - Check that packages with the tag `nextjs` have a `next.config.js` that matches a standard config.
 
-</Step>
-
-
-<Step title="Set up constraints">
+### Set up constraints
 
 [Selectors](/docs/selectors) can also be used to apply constraints.
 [Constraints](/docs/constraints) prevent packages from depending on each other in ways that don't make sense but are allowed by your package manager. For example:
@@ -76,7 +75,7 @@ With [selectors](/docs/selectors) and checks you can [compose checks](/docs/chec
 
 [Constraints](/docs/constraints) are defined in your project configuration file and can be used to `allow` and `disallow` packages matching a [selector](/docs/selectors).
 
-```typescript commonality.config.ts
+```ts filename="commonality.config.ts"
 import { defineConfig } from 'commonality';
 import * as recommended from 'commonality-checks-recommended';
 
@@ -107,24 +106,21 @@ export default defineConfig({
 
 You can check ensure that your constraints are valid by running the command below.
 
-```bash
+```bash copy
 commonality constrain
 ```
 
-</Step>
+### Next steps
 
-  <Step title="Next steps">
-    Now that you've learned the basics of checks and constraints you can further customize Commonality to your own workflows
-    by creating custom checks or integrate Commonality into your CI pipeline to prevent regressions.
+Now that you've learned the basics of checks and constraints you can further customize Commonality to your own workflows
+by creating custom checks or integrate Commonality into your CI pipeline to prevent regressions.
 
-    <CardGroup cols={2}>
-      <Card title="Create your first check" href="/docs/checks/creating-checks" icon="check">
-      </Card>
+  <Cards>
+    <Card title="Create your first check" href="/docs/checks/creating-checks">
+    </Card>
 
-      <Card title="Set up CI" href="/" icon="gears">
-      </Card>
+    <Card title="Set up CI" href="/">
+    </Card>
 
-    </CardGroup>
-  </Step>
+  </Cards>
 </Steps>
-

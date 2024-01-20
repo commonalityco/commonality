@@ -1,18 +1,22 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Commonality",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#18181b",
+    "light": "#d4d4d8",
+    "dark": "#18181b",
+    "background": {
+      "light": "#FFFFFF",
+      "dark": "#18181b"
+    },
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#18181b",
+      "to": "#d4d4d8"
     }
   },
   "topbarLinks": [
@@ -22,13 +26,13 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "GitHub",
+    "url": "https://github.com/commonalityco/commonality"
   },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "SDK Reference",
+      "url": "sdk"
     }
   ],
   "anchors": [
@@ -36,51 +40,36 @@
       "name": "Documentation",
       "icon": "book-open-cover",
       "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Getting Started",
+      "pages": ["overview", "installation", "quickstart", "acknowledgements"]
+    },
+    {
+      "group": "Checks",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "checks/creating-checks",
+        "checks/testing-checks",
+        "checks/recipes"
       ]
     },
     {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
+      "group": "Constraints",
+      "pages": ["constraints/limiting-dependencies", "constraints/recipes"]
     },
     {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
+      "group": "Guides",
+      "pages": ["tags", "selectors", "codeowners", "sharing"]
     },
     {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
-      ]
+      "group": "SDK",
+      "pages": ["sdk/checks", "sdk/configuration", "sdk/constraints"]
+    },
+    {
+      "group": "Utilities",
+      "pages": ["sdk/json", "sdk/text", "sdk/diff"]
     }
   ],
   "footerSocials": {

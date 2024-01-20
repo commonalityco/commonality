@@ -1,0 +1,155 @@
+---
+title: "Recipes"
+icon: "scroll"
+---
+
+
+We believe that Commonality's strength lies in the ability to easily create powerful conformance rules.
+While you can enforce almost anything, here are some examples to spark inspiration.
+
+Use the `commonality-checks-recommended` package to quickly create checks that help standardize the workflows and tools you're already using.
+
+### Check that a package has specific NPM scripts
+
+When using a build tool like `turbo`, `nx` or `wireit`, it can be helpful to ensure that all packages have the same scripts defined in their `package.json` files.
+
+```ts commonality.config.ts
+import * as recommended from 'commonality-checks-recommended';
+
+export default defineConfig({
+  checks: {
+    buildable: [
+      recommended.hasJsonFile('package.json', {
+        scripts: {
+          build: 'tsc --build',
+          dev: 'tsc --watch',
+          clean: 'rimraf dist',
+        },
+      }),
+    ],
+  },
+});
+```
+
+### Check that a package extends a specific base config
+
+You might find that your project has groups of packages that require similar configuration.
+Use checks to create ensure they extend a common base configuration or have specific properties.
+
+```ts commonality.config.ts
+import * as recommended from 'commonality-checks-recommended';
+
+export default defineConfig({
+  checks: {
+    ui: [
+      recommended.hasJsonFile('tsconfig.json', {
+        extends: '@tsconfig/react',
+      }),
+      recommended.hasJsonFile('.eslintrc.json', {
+        extends: '@my-team/eslint/react',
+      }),
+    ],
+    next: [
+      recommended.hasJsonFile('tsconfig.json', {
+        extends: '@tsconfig/next',
+      }),
+    ],
+  },
+});
+```
+
+### Check that a package contains a specific file
+
+You can use checks to automate the maintainence of boilerplate files.
+
+```ts commonality.config.ts
+import * as recommended from 'commonality-checks-recommended';
+
+export default defineConfig({
+  checks: {
+    '*': [
+      recommended.hasTextFile('.npmignore', [
+        'node_modules',
+        'dist',
+        'coverage',
+      ]),
+    ],
+  },
+});
+```
+
+### Check that all NPM scripts are defined in your task runner's configuration file
+
+If you're using `turbo`, `wireit`, or `nx` as a task runner you might want to make sure that all your NPM scripts are included in the task runner's configuration file.
+
+This check ensures that all NPM scripts are defined in the `turbo.config.ts` file.
+This example covers:
+
+- Dynamic messages
+- Type-safe read/write utilities for `json` files
+- Checking how files at the root and package-level relate to one another
+
+```ts commonality.config.ts
+type TurboConfig = {
+  pipeline?: Record<string, unknown>;
+};
+
+const hasTurboPipeline = defineCheck(() => {
+  return {
+    name: 'turbo/has-pipeline',
+
+    message: async (ctx) => {
+      // Read turbo.json from the project's root and package.json from the package's root
+      const turboConfig = await json<TurboConfig>(
+        ctx.rootPackage.path,
+        'turbo.json',
+      ).get();
+      const packageJson = await json(ctx.package.path, 'package.json').get();
+
+      const pipelineNames = Object.keys(turboConfig?.pipeline ?? {});
+      const scriptNames = Object.keys(packageJson?.scripts ?? {});
+
+      // Find script names that are defined in package.json but not in turbo.json
+      const missingScriptNames = scriptNames.filter(
+        (name) => !pipelineNames.includes(name),
+      );
+
+      if (missingScriptNames.length > 0) {
+        const title = `Pipelines for scripts ${JSON.stringify(
+          missingScriptNames,
+        )} are not defined in turbo.json`;
+
+        return {
+          title,
+          filePath: 'package.json',
+        };
+      }
+
+      return { title: 'Pipelines for scripts must be defined in turbo.json' };
+    },
+
+    validate: async (ctx) => {
+      // Read turbo.json from the project's root and package.json from the package's root
+      const turboConfig = await json<TurboConfig>(
+        ctx.rootPackage.path,
+        'turbo.json',
+      ).get();
+      const packageJson = await json(ctx.package.path, 'package.json').get();
+
+      if (!turboConfig || !packageJson) return false;
+
+      const pipelineNames = Object.keys(turboConfig?.pipeline ?? {});
+      const scriptNames = Object.keys(packageJson?.scripts ?? {});
+
+      // Return true if all scripts are defined in turbo.json, otherwise return false
+      return scriptNames.every((name) => !pipelineNames.includes(name));
+    },
+  };
+});
+
+export default defineConfig({
+  checks: {
+    '*': [hasTurboPipeline()],
+  },
+});
+```
