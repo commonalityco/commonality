@@ -32,11 +32,11 @@
   "tabs": [
     {
       "name": "SDK Reference",
-      "url": "sdk"
+      "url": "reference"
     },
     {
-      "name": "Recipes",
-      "url": "recipes"
+      "name": "Examples",
+      "url": "examples"
     }
   ],
   "anchors": [
@@ -58,56 +58,52 @@
     },
     {
       "group": "Checks",
-      "pages": [
-        "checks/creating-checks",
-        "checks/testing-checks",
-        "checks/recipes"
-      ]
+      "pages": ["checks/creating-checks", "checks/testing-checks"]
     },
     {
       "group": "Constraints",
-      "pages": ["constraints/limiting-dependencies", "constraints/recipes"]
+      "pages": ["constraints/limiting-dependencies"]
     },
     {
       "group": "Guides",
-      "pages": [
-        "tags",
-        "selectors",
-        "codeowners",
-        "sharing",
-        "studio",
-        "commonality-checks-recommended"
-      ]
+      "pages": ["tags", "selectors", "codeowners", "sharing"]
+    },
+    {
+      "group": "Studio",
+      "pages": ["studio/introduction", "studio/editing-tags"]
     },
     {
       "group": "Configuration",
-      "pages": ["sdk/project-configuration", "sdk/package-configuration"]
+      "pages": [
+        "reference/project-configuration",
+        "reference/package-configuration"
+      ]
     },
     {
       "group": "Objects",
-      "pages": ["sdk/check-object", "sdk/constraint-object"]
+      "pages": ["reference/check-object", "reference/constraint-object"]
     },
     {
       "group": "Utilities",
       "pages": [
-        "sdk/json",
-        "sdk/text",
-        "sdk/diff",
-        "sdk/define-check",
-        "sdk/define-test-check"
+        "reference/json",
+        "reference/text",
+        "reference/diff",
+        "reference/define-check",
+        "reference/define-test-check"
       ]
     },
     {
       "group": "Getting started",
-      "pages": ["recipes/introduction", "recipes/commonality"]
+      "pages": ["examples/introduction", "examples/recommended-checks"]
     },
     {
       "group": "Tools",
-      "pages": ["recipes/typescript", "recipes/eslint"]
+      "pages": ["examples/npm", "examples/typescript", "examples/eslint"]
     },
     {
       "group": "Workflows",
-      "pages": ["recipes/domain-boundaries", "recipes/dependency-hierarchy"]
+      "pages": ["examples/domain-boundaries", "examples/dependency-hierarchy"]
     }
   ],
   "footerSocials": {

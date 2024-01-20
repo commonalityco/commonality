@@ -1,6 +1,6 @@
 import { CheckContext } from '/snippets/check-context.mdx';
 
-Checks are best created using the [defineCheck](/sdk/define-check) utility and are passed to the `checks` property in you [project's configuration](/sdk/configuration#projectconfiguration). This function will
+Checks are best created using the [defineCheck](/reference/define-check) utility and are passed to the `checks` property in you [project's configuration](/reference/project-configuration). This function will
 provide type-safety and intellisense for properties.
 
 ---
@@ -100,7 +100,7 @@ A check's `fix` function will only run on packages that where the check's [valid
 
 This function can be asynchronous.
 
-<Tip> We provide helper utilities like [json](/sdk/json) and [text](/sdk/text) to make it easier to read and write to files in [fix](/sdk/checks#fix) functions.</Tip>
+<Tip> We provide helper utilities like [json](/reference/json) and [text](/reference/text) to make it easier to read and write to files in [fix](/reference/check-object#fix) functions.</Tip>
 
 #### Parameters
 

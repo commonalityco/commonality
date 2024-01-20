@@ -8,7 +8,7 @@ Constraints help you maintain a dependency graph that's easy to reason about by 
 Constraints are applied to dependencies where there both the source and target package are in the same workspace.
 This means that constraints cannot be applied to external dependencies.
 
-Constraints are defined as a [constraint object](/sdk/constraint-object) in your [project configuration file](/sdk/project-configuration).
+Constraints are defined as a [constraint object](/reference/constraint-object) in your [project configuration file](/reference/project-configuration).
 
 
 ---
@@ -28,7 +28,7 @@ Constraints are defined as a [constraint object](/sdk/constraint-object) in your
 
 ### Allow specific direct dependencies
 
-This constraint will only allow direct dependencies that have the `api` or `internal` tag in it's [package configuration](/sdk/package-configuration).
+This constraint will only allow direct dependencies that have the `api` or `internal` tag in it's [package configuration](/reference/package-configuration).
 
 These constraints are most helpful when constructing a hierarchy of packages within your project.
 
@@ -63,7 +63,7 @@ These constraints are most helpful when you know ahead of time that a package sh
 </Info>
 
 ### Disallow specific direct or transitive dependencies
-This constraint will disallow any upstream dependency that has the `application` tag in it's [package configuration](/sdk/package-configuration).
+This constraint will disallow any upstream dependency that has the `application` tag in it's [package configuration](/reference/package-configuration).
 
 
 ```json
@@ -104,6 +104,6 @@ This is due to the fact that a transitive dependency contains the matching `beta
 
 ## Precedence
 
-A [constraint object](/sdk/constraint-object) can contain both `allow` and `disallow` constraints.
+A [constraint object](/reference/constraint-object) can contain both `allow` and `disallow` constraints.
 When both are present, `disallow` constraints will be evaluated first.
 

@@ -1,0 +1,27 @@
+---
+title: "TypeScript"
+---
+
+### Check that a package extends a base tsconfig.json
+
+You might find that your project has groups of packages that require similar configuration.
+Use checks to create ensure they extend a common base configuration or have specific properties.
+
+```ts commonality.config.ts
+import * as recommended from 'commonality-checks-recommended';
+
+export default defineConfig({
+  checks: {
+    ui: [
+      recommended.hasJsonFile('tsconfig.json', {
+        extends: '@tsconfig/react',
+      }),
+    ],
+    next: [
+      recommended.hasJsonFile('tsconfig.json', {
+        extends: '@tsconfig/next',
+      }),
+    ],
+  },
+});
+```

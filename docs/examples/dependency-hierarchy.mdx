@@ -1,7 +1,7 @@
 In larger projects, it can be helpful to create a logical hierarchy for package dependencies.
 This structure can help guide developers toward a clean separation of concerns and help inform where new code should be added.
 
-```ts filename="commonality.config.ts"
+```ts commonality.config.ts
 import { defineConfig } from 'commonality';
 
 export default defineConfig({
@@ -9,14 +9,14 @@ export default defineConfig({
     '*': {
       disallow: ['application'],
     },
-    deployable: {
+    application: {
       allow: ['ui', 'data', 'utility', 'config'],
     },
     ui: {
-      allow: ['utility', 'config'],
+      allow: ['ui', 'utility', 'config'],
     },
     data: {
-      allow: ['utility', 'config'],
+      allow: ['data', 'utility', 'config'],
     },
     utility: {
       allow: ['utility', 'config'],

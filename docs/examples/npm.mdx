@@ -1,0 +1,41 @@
+---
+title: "NPM, Yarn and pnpm"
+---
+
+### Check that a package has specific scripts
+
+```ts commonality.config.ts
+import * as recommended from 'commonality-checks-recommended';
+
+export default defineConfig({
+  checks: {
+    buildable: [
+      recommended.hasJsonFile('package.json', {
+        scripts: {
+          build: 'tsc --build',
+          dev: 'tsc --watch',
+          clean: 'rimraf dist',
+        },
+      }),
+    ],
+  },
+});
+```
+
+### Check that a package has an `.npmignore`
+
+```ts commonality.config.ts
+import * as recommended from 'commonality-checks-recommended';
+
+export default defineConfig({
+  checks: {
+    '*': [
+      recommended.hasTextFile('.npmignore', [
+        'node_modules',
+        'dist',
+        'coverage',
+      ]),
+    ],
+  },
+});
+```
