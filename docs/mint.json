@@ -16,7 +16,7 @@
     },
     "anchors": {
       "from": "#18181b",
-      "to": "#d4d4d8"
+      "to": "#a3a3a3"
     }
   },
   "topbarLinks": [
@@ -43,12 +43,7 @@
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "/overview"
-    },
-    {
-      "name": "Studio",
-      "icon": "display",
-      "url": "/studio"
+      "url": "overview"
     }
   ],
   "navigation": [
