@@ -1,4 +1,4 @@
-Checks are best created using the `defineCheck` function and are passed to the `checks` property in you [project's configuration](/docs/api/configuration#projectconfiguration). This function will
+Checks are best created using the `defineCheck` function and are passed to the `checks` property in you [project's configuration](/sdk/configuration#projectconfiguration). This function will
 provide type-safety and intellisense for properties.
 
 ```ts
@@ -179,7 +179,7 @@ const hasCodeowner = defineCheck(() => {
 
 `(check: Check, context?: TestCheckContext) => Check{:ts}`
 
-`createTestCheck` wraps your checks and decorates these functions with sensible defaults for [CheckContext](/docs/api/checks#checkcontext) that you can override.
+`createTestCheck` wraps your checks and decorates these functions with sensible defaults for [CheckContext](/sdk/checks#checkcontext) that you can override.
 This cuts down on repetitive boilerplate when writing tests for your checks.
 
 **Parameters**
@@ -189,14 +189,14 @@ This cuts down on repetitive boilerplate when writing tests for your checks.
 <Subtext requirementLevel="required">
 `Check{:ts}`
 </Subtext>
-A valid [check](/api/checks#check-properties) object
+A valid [check](/sdk/checks#check-properties) object
 
 `context`
 
 <Subtext>
 `TestCheckContext{:ts}`
 </Subtext>
-Pass options that will be used as the check's [`CheckContext`](/docs/api/checks#checkcontext).
+Pass options that will be used as the check's [`CheckContext`](/sdk/checks#checkcontext).
 If a property is not explicitly passed, the check will be passed a default from the table below.
 
 | Name                  | Default                                   |
@@ -266,7 +266,7 @@ test('validate - returns true when valid', () => {
 ### `CheckContext`
 
 The `validate`, `fix`, and `message` functions are all passed a `CheckContext` object that contains metadata about the package the check is being run against.
-The [`codeowners`](/docs/codeowners) and [`tags`](/docs/tags) that correspond to the package are also included.
+The [`codeowners`](/codeowners) and [`tags`](/tags) that correspond to the package are also included.
 
 ```ts
 type CheckContext = {

@@ -28,7 +28,7 @@ An array of strings, representing lines of text.
 </ResponseField>
 
 
-The `checks` property expects an object whose keys are [selectors](/docs/selectors) and whose value are all the checks to run for packages that match.
+The `checks` property expects an object whose keys are [selectors](/selectors) and whose value are all the checks to run for packages that match.
 
 <Note>Checks will run in the order they are defined.</Note>
 
@@ -54,7 +54,7 @@ export default defineConfig({
 `Record<string, Constraint[]>{:ts}`
 
 
-The `constraints` property expects an object whose keys are [selectors](/docs/selectors) and whose value are all the constraints to run for packages that match.
+The `constraints` property expects an object whose keys are [selectors](/selectors) and whose value are all the constraints to run for packages that match.
 
 ```ts filename="commonality.config.ts"
 import { defineConfig } from 'commonality';

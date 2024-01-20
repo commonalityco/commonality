@@ -11,7 +11,7 @@ We've created a command that will quickly get you up and running in an existing 
 This command will:
 
 1. Install `commonality` at the root of your project
-2. Install and configure checks that benefit most multi-package projects from [`commonaity-checks-recommended`](/docs/commonality-checks-recommended) (optional)
+2. Install and configure checks that benefit most multi-package projects from [`commonaity-checks-recommended`](/commonality-checks-recommended) (optional)
 
 ```bash
 npx commonality@latest init
@@ -20,7 +20,7 @@ npx commonality@latest init
 </Step>
 <Step title="Run your first checks">
 
-[Checks](http://localhost:3000/docs/checks) ensure that the structure of a package conforms to a set of rules.
+Checks ensure that the structure of a package conforms to a set of rules.
 They're just functions so you can compose them together or publish them as you would any other package.
 Checks help you deliver a consistently amazing developer experience across your monorepo or package ecosystem.
 
@@ -37,7 +37,7 @@ Checks can also be auto-fixable, making it easy for teams to keep packages in sy
 
 <Step title="Tag your packages">
 
-We've applied these checks to all packages using the `*` [selector](/docs/selectors) but you can selectively apply checks to any subset of packages within your repo using [tags](http://localhost:3000/docs/tags).
+We've applied these checks to all packages using the `*` [selector](/selectors) but you can selectively apply checks to any subset of packages within your repo using [tags](/tags).
 
 Commonality Studio is the best way to create and manage tags for packages, open it by running the command below.
 
@@ -47,16 +47,16 @@ commonality studio
 
 You can edit a package's tags either by selecting a package in the dependency graph under the "Constraints" view, or by clicking on a package's dropdown button in the "Checks" view.
 
-![](/studio-edit-tags.png)
+![](/images/studio-edit-tags.png)
 
 <Tip>
   Editing tags in Commonality Studio will update or create a
-  [`commonality.json`](/docs/api/configuration#package-configuration) in package
+  [`commonality.json`](/sdk/configuration#package-configuration) in package
   directories automatically. This saves you from manually managing many
   configuration files across your monorepo.
 </Tip>
 
-With [selectors](/docs/selectors) and checks you can [compose checks](/docs/checks/creating-checks#composing-checks) to enforce different tooling for different types of packages. For example:
+With [selectors](/selectors) and checks you can [compose checks](/checks/creating-checks#composing-checks) to enforce different tooling for different types of packages. For example:
 
 - Check that packages with the tag `buildable` have a `build` and `dev` script.
 - Check that packages with the tag `ui` have a `tsconfig.json` that is configured to handle JSX.
@@ -67,14 +67,14 @@ With [selectors](/docs/selectors) and checks you can [compose checks](/docs/chec
 
 <Step title="Set up constraints">
 
-[Selectors](/docs/selectors) can also be used to apply constraints.
-[Constraints](/docs/constraints) prevent packages from depending on each other in ways that don't make sense but are allowed by your package manager. For example:
+[Selectors](/selectors) can also be used to apply constraints.
+[Constraints](/constraints) prevent packages from depending on each other in ways that don't make sense but are allowed by your package manager. For example:
 
 - No package should ever depend on an `application`
 - `data` packages shouldn't depend on `ui` packages
 - `config` packages should only depend on other `config` packages.
 
-[Constraints](/docs/constraints) are defined in your project configuration file and can be used to `allow` and `disallow` packages matching a [selector](/docs/selectors).
+[Constraints](/constraints) are defined in your project configuration file and can be used to `allow` and `disallow` packages matching a [selector](/selectors).
 
 ```typescript commonality.config.ts
 import { defineConfig } from 'commonality';
@@ -98,12 +98,12 @@ export default defineConfig({
 });
 ```
 
-[Constraints](/docs/constraints) can also be used to create otherwise impossible workflows like:
+[Constraints](/constraints) can also be used to create otherwise impossible workflows like:
 
 - Simulating the functionality of private packages within the same monorepo with explicit `shared` tags.
 - Ensuring that applications tagged `high-stability` cannot depend on packages tagged `experimental`.
 
-[Constraints](/docs/constraints) help you maintain a dependency graph that is easy to reason about at scale.
+[Constraints](/constraints) help you maintain a dependency graph that is easy to reason about at scale.
 
 You can check ensure that your constraints are valid by running the command below.
 
@@ -118,7 +118,7 @@ commonality constrain
     by creating custom checks or integrate Commonality into your CI pipeline to prevent regressions.
 
     <CardGroup cols={2}>
-      <Card title="Create your first check" href="/docs/checks/creating-checks" icon="check">
+      <Card title="Create your first check" href="/checks/creating-checks" icon="check">
       </Card>
 
       <Card title="Set up CI" href="/" icon="gears">
