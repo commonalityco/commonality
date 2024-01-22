@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@tanstack/react-table": "^8.10.1",
-    "lucide-react": "^0.299.0"
+    "lucide-react": "^0.314.0"
   },
   "repository": {
     "type": "git",
