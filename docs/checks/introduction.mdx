@@ -1,17 +1,22 @@
-# Checks
+---
+title: "Introduction"
+icon: "box-check"
+---
+
+
 Checks help you scale a consistently amazing developer experience with dynamic conformance checks that are run like tests and shared like lint rules.
 
 Platform teams can roll out checks that deliver a consistent developer experience for an entire organization.
 
 Tooling authors can create checks that enforce best practices for the tools they create for their entire user base.
 
-Checks are designed with the following principles in mind:
+## Why use checks?
 
-1. **Customization without complexity**
+1. **Complex standardization without added complexity**
 
 Quickly create custom checks that validate file existence, file contents, even relationships between different files in your project, with [easy-to-use utilities](http://localhost:3000/docs/api/checks#utilities) that read and write to disk.
 
-2. **Enforce with confidence**
+2. **Easily testable**
 
 No one wants a tool that blocks their workflow with false negatives.
 We provide [testing utilities](/checks/testing-checks) so you can guarantee that checks only fail when you expect them to.
@@ -19,4 +24,33 @@ We provide [testing utilities](/checks/testing-checks) so you can guarantee that
 3. **Sharable by default**
 
 No resolution magic and no new conventions to learn. Checks are just JavaScript functions so you can share them as you would with any other package.
+
+
+
+## Configuring checks
+Checks are defined your [project configuration file](/reference/project-configuration) at the root of your project.
+You can use [selectors](/selectors) to run checks against all the packages in your project or a subset of packages.
+
+<Tip>
+  Leverage the [utility checks](/examples/recommended-checks#utility) from our [commonality-checks-recommended](/examples/recommended-checks) package to quickly get up and running for simple use cases.
+</Tip>
+
+```typescript commonality.config.ts
+import { defineConfig } from 'commonality';
+import * as recommended from 'commonality-checks-recommended';
+
+export default defineConfig({
+  checks: {
+    'buildable': [
+      recommended.hasFile('package.json', {
+        build: 'tsc --build',
+        dev: 'tsc --watch',
+      }),
+    ],
+  },
+});
+```
+
+
+
 

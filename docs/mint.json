@@ -39,13 +39,6 @@
       "url": "examples"
     }
   ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "overview"
-    }
-  ],
   "navigation": [
     {
       "group": "Getting Started",
@@ -53,11 +46,15 @@
     },
     {
       "group": "Checks",
-      "pages": ["checks/creating-checks", "checks/testing-checks"]
+      "pages": [
+        "checks/introduction",
+        "checks/creating-checks",
+        "checks/testing-checks"
+      ]
     },
     {
       "group": "Constraints",
-      "pages": ["constraints/limiting-dependencies"]
+      "pages": ["constraints/introduction"]
     },
     {
       "group": "Guides",
@@ -67,12 +64,18 @@
       "group": "Studio",
       "pages": ["studio/introduction", "studio/editing-tags"]
     },
+
     {
       "group": "Configuration",
       "pages": [
         "reference/project-configuration",
         "reference/package-configuration"
       ]
+    },
+
+    {
+      "group": "CLI",
+      "pages": ["reference/cli"]
     },
     {
       "group": "Objects",

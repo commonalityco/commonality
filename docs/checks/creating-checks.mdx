@@ -1,33 +1,7 @@
 ---
 title: "Creating checks"
-icon: "feather"
+icon: "pencil"
 ---
-
-## Using checks
-
-Checks are defined your [project configuration file](/reference/project-configuration) at the root of your project.
-You can use [selectors](/selectors) to run checks against all the packages in your project or a subset of packages.
-
-<Tip>
-  Leverage the [utility checks](/examples/recommended-checks#utility) from our [commonality-checks-recommended](/examples/recommended-checks) package to quickly get up and running for simple use cases.
-</Tip>
-
-```typescript commonality.config.ts
-import { defineConfig } from 'commonality';
-import * as recommended from 'commonality-checks-recommended';
-
-export default defineConfig({
-  checks: {
-    'buildable': [
-      recommended.hasFile('package.json', {
-        build: 'tsc --build',
-        dev: 'tsc --watch',
-      }),
-    ],
-  },
-});
-```
-
 
 ## Creating your first check
 
@@ -232,4 +206,6 @@ export const hasJsonFile = defineCheck(
 );
 
 ```
+
+
 
