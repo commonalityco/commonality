@@ -1,54 +1,41 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Commonality",
-  "logo": {
-    "dark": "/word-logo-dark.svg",
-    "light": "/word-logo-light.svg",
-    "href": "https://www.commonality.co"
+  "analytics": {
+    "fathom": {
+      "siteId": "QAHUYBDO"
+    }
   },
-  "favicon": "/icon.svg",
   "colors": {
-    "primary": "#18181b",
-    "light": "#d4d4d8",
-    "dark": "#18181b",
-    "background": {
-      "light": "#FFFFFF",
-      "dark": "#18181b"
-    },
     "anchors": {
       "from": "#18181b",
       "to": "#a3a3a3"
-    }
+    },
+    "background": {
+      "dark": "#18181b",
+      "light": "#FFFFFF"
+    },
+    "dark": "#18181b",
+    "light": "#d4d4d8",
+    "primary": "#18181b"
+  },
+  "favicon": "/icon.svg",
+  "feedback": {
+    "suggestEdit": true,
+    "thumbsRating": true
+  },
+  "footerSocials": {
+    "github": "https://github.com/commonalityco/commonality"
+  },
+  "logo": {
+    "dark": "/word-logo-dark.svg",
+    "href": "https://www.commonality.co",
+    "light": "/word-logo-light.svg"
   },
   "metadata": {
-    "title": "Commonality",
-    "description": "Structure JavaScript codebases that scale from one developer to hundreds."
+    "description": "Structure JavaScript codebases that scale from one developer to hundreds.",
+    "title": "Commonality"
   },
-  "feedback": {
-    "thumbsRating": true,
-    "suggestEdit": true
-  },
-  "topbarLinks": [
-    {
-      "name": "Feedback",
-      "url": "https://github.com/commonalityco/commonality/issues/new?title=Feedback&labels=feedback"
-    }
-  ],
-
-  "topbarCtaButton": {
-    "url": "https://github.com/commonalityco/commonality",
-    "type": "github"
-  },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "reference"
-    },
-    {
-      "name": "Examples",
-      "url": "examples"
-    }
-  ],
+  "name": "Commonality",
   "navigation": [
     {
       "group": "Getting Started",
@@ -74,7 +61,6 @@
       "group": "Studio",
       "pages": ["studio/introduction", "studio/editing-tags"]
     },
-
     {
       "group": "Configuration",
       "pages": [
@@ -82,7 +68,6 @@
         "reference/package-configuration"
       ]
     },
-
     {
       "group": "CLI",
       "pages": ["reference/cli"]
@@ -114,7 +99,24 @@
       "pages": ["examples/domain-boundaries", "examples/dependency-hierarchy"]
     }
   ],
-  "footerSocials": {
-    "github": "https://github.com/commonalityco/commonality"
-  }
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "reference"
+    },
+    {
+      "name": "Examples",
+      "url": "examples"
+    }
+  ],
+  "topbarCtaButton": {
+    "type": "github",
+    "url": "https://github.com/commonalityco/commonality"
+  },
+  "topbarLinks": [
+    {
+      "name": "Feedback",
+      "url": "https://github.com/commonalityco/commonality/issues/new?title=Feedback&labels=feedback"
+    }
+  ]
 }
