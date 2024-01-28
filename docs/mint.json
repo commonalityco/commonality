@@ -1,8 +1,8 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "analytics": {
-    "fathom": {
-      "siteId": "QAHUYBDO"
+    "posthog": {
+      "apiKey": "phc_v1TBcRifbyWJDcIJg9QkpcDWCnDGHe4cH5QEso6whqt"
     }
   },
   "colors": {
