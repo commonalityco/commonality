@@ -31,8 +31,8 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "GitHub",
-    "url": "https://github.com/commonalityco/commonality"
+    "url": "https://github.com/commonalityco/commonality",
+    "type": "github"
   },
   "tabs": [
     {
