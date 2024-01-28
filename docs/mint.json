@@ -3,9 +3,10 @@
   "name": "Commonality",
   "logo": {
     "dark": "/word-logo-dark.svg",
-    "light": "/word-logo-light.svg"
+    "light": "/word-logo-light.svg",
+    "href": "https://www.commonality.co"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/icon.svg",
   "colors": {
     "primary": "#18181b",
     "light": "#d4d4d8",
@@ -19,10 +20,14 @@
       "to": "#a3a3a3"
     }
   },
+  "metadata": {
+    "title": "Commonality",
+    "description": "Structure JavaScript codebases that scale from one developer to hundreds."
+  },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Feedback",
+      "url": "https://github.com/commonalityco/commonality/issues/new?title=Feedback&labels=feedback"
     }
   ],
   "topbarCtaButton": {
@@ -31,7 +36,7 @@
   },
   "tabs": [
     {
-      "name": "SDK Reference",
+      "name": "API Reference",
       "url": "reference"
     },
     {
@@ -58,7 +63,7 @@
     },
     {
       "group": "Guides",
-      "pages": ["tags", "selectors", "codeowners", "sharing"]
+      "pages": ["tags", "selectors", "codeowners"]
     },
     {
       "group": "Studio",
@@ -105,8 +110,6 @@
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "github": "https://github.com/commonalityco/commonality"
   }
 }
