@@ -24,12 +24,18 @@
     "title": "Commonality",
     "description": "Structure JavaScript codebases that scale from one developer to hundreds."
   },
+  "feedback": {
+    "thumbsRating": true,
+    "raiseIssue": true,
+    "suggestEdit": true
+  },
   "topbarLinks": [
     {
       "name": "Feedback",
       "url": "https://github.com/commonalityco/commonality/issues/new?title=Feedback&labels=feedback"
     }
   ],
+
   "topbarCtaButton": {
     "url": "https://github.com/commonalityco/commonality",
     "type": "github"
