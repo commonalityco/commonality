@@ -2,7 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "analytics": {
     "posthog": {
-      "apiKey": "phc_v1TBcRifbyWJDcIJg9QkpcDWCnDGHe4cH5QEso6whqt"
+      "apiKey": "phc_v1TBcRifbyWJDcIJg9QkpcDWCnDGHe4cH5QEso6whqt",
+      "apiHost": "https://www.commonality.co/ingest"
     }
   },
   "colors": {
