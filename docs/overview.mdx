@@ -1,28 +1,29 @@
-Modern monorepo tooling unlocks next generation workflows and productivity gains that help you ship faster at a larger scale.
-However, working with large monorepos or package ecosystems can be difficult, and almost everyone has a horror story about working in one.
+It's difficult to structure, maintain, and work in large JavaScript codebases.
 
-We want to change that.
+Modern monorepo tooling has unlocked the ability to reach enterprise scale, but scaling an equally amazing developer experience at scale can be hard.
 
-## What is Commonality?
+*We want to change that.*
 
-Commonality is an open-source tool that helps you structure large [multi-package workspaces](https://vercel.com/vercel-platform/glossary#multi-package-workspace) and package ecosystems.
+## Features
 
+Commonality is an open-source tool to help you structure your codebase for enterprise scale.
 
-### Codify best practices with checks
+We add a few more tools to your belt:
 
-Every package is a possible point of toolchain fragmentation and it can start to feel like playing whack-a-mole to maintain a consistent developer experience.
-[Checks](/checks) allow you to standardize tooling and codify best practices for subsets of packages, without wrapping your tools or creating lock-in.
-
-[Checks](/checks) help you scale a consistently amazing developer experience with dynamic conformance checks that are run like tests and shared like lint rules.
-
-### Structure your dependency graph with constraints
-In workspaces that contain more than a handful of packages there are often unwritten rules for dependencies.
-
-Config packages shouldn't depend on UI libraries.
-
-UI libraries shouldn't depend on applications.
-
-[Constraints](/constraints) help you maintain a dependency graph that's easy to reason about by limiting which packages can depend on each other.
+<CardGroup cols={1}>
+  <Card title="Codify best practices with checks" href="/checks/introduction" icon="box-check">
+    Scale a consistently amazing developer experience with dynamic conformance checks that are run like tests and shared like lint rules.
+  </Card>
+  <Card title="Organize your dependency graph with constraints" icon="diagram-project" href="/constraints/introduction">
+    Structure a dependency graph that’s easy to reason about no matter how many packages are in your project.
+  </Card>
+  <Card title="Categorize packages with tags" icon="tags" href="/tags">
+    Group packages by their purpose, concern, or domain without a tight coupling to directory structure.
+  </Card>
+  <Card title="Navigate ownership with codeowners" icon="users" href="/codeowners">
+    Quickly view which teams or contributors are responsible for packages in your project.
+  </Card>
+</CardGroup>
 
 ## What makes us different?
 
@@ -44,23 +45,3 @@ You'll always have full control over how strongly rules are enforced.
 Every feature in Commonality is designed to be adopted incrementally. You can start using it with a single package and scale it to an entire organization.
 
 Selectively apply [checks](/checks) and [constraints](/constraints) to groups of packages at your own pace. Adopt our rules or incrementally enforce your own best practices as you create them.
-
-## Why now?
-
-There has been a wave of new tooling over the past few years that has made it drastically easier to create and manage many packages within a single repository.
-Tools like `pnpm`, `turbo`, `lerna`, `plop`, and `nx` have been the catalyst for an explosion of growth in JavaScript monorepos.
-
-However, every new package added to a project introduces additional overhead.
-Every `package.json` becomes a possible point of toolchain fragmentation, making it difficult to guarantee a consistent developer experience across a project.
-Dependency graphs can quickly become spaghetti, leading to a debugging nightmare.
-
-Instead of choosing between scale and ease-of-use, Commonality gives you tools that allow you to have both.
-
-## What are your plans for the future?
-
-We believe that building composable software with package-based architecture is the future.
-We want to build tools to make it easier to work with multi-package monorepos at scale and we want those tools to be free and open source.
-
-We also believe that there are new workflows that come with multi-package workspace architecture that make large teams more efficient.
-We plan on building a platform that will automate common workflows when working with package ecosystems.
-That future platform will have distinct features built on a foundation of community and free open source tooling.
