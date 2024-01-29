@@ -3,7 +3,17 @@ title: "Tags"
 icon: "tags"
 ---
 
-Tags are used to selectively apply checks and constraints to packages. Tags allow you to group packages by their purpose, concern, or domain without a tight coupling to directory structure.
+Tags are used to selectively apply [checks](/checks/introduction) and [constraints](/constraints/introduction) to packages.
+
+Tags are defined in a [package configuration](/reference/package-configuration) file located in your package's root directory.
+
+```json commonality.json
+{
+  "tags": ["ui", "buildable", "private", "beta"]
+}
+```
+
+Tags allow you to group packages by their purpose, concern, or domain without a tight coupling to directory structure.
 
 Below are some examples for inspiration but tags can be used to create any grouping that best suits your project.
 
