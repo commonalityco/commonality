@@ -1,12 +1,16 @@
-# Github Actions
+---
+title: "GitHub Actions"
+icon: "github"
+---
 
-Ensure that you have `commonality` installed as a dependency at the root of your project.
+
+Ensure that you have `commonality` installed as a `dependency` at the root of your project.
 
 Create a workflow file for Commonality at `.github/workflows/commonality.yml` and add steps to run `commonality check` and `commonality constrain`.
 
-<Tabs items={['npm', 'yarn', 'pnpm']} storageKey="selected-pkg-manager">
-  <Tab>
-    ```yaml copy filename=".github/workflows/commonality.yml"
+<Tabs>
+  <Tab title="npm">
+    ```yaml .github/workflows/commonality.yml
     name: Commonality
 
     on:
@@ -34,15 +38,15 @@ Create a workflow file for Commonality at `.github/workflows/commonality.yml` an
             run: npm install
 
           - name: Check
-            run: npx commonality check
+            run: npm exec -- commonality check
 
           - name: Constrain
-            run: npx commonality constrain
+            run: npm exec -- commonality constrain
     ````
 
   </Tab>
-  <Tab>
-    ```yaml copy filename=".github/workflows/commonality.yml"
+  <Tab title="yarn">
+    ```yaml .github/workflows/commonality.yml
     name: Commonality
 
     on:
@@ -76,8 +80,8 @@ Create a workflow file for Commonality at `.github/workflows/commonality.yml` an
             run: yarn exec commonality constrain
     ```
   </Tab>
-  <Tab>
-    ```yaml copy filename=".github/workflows/commonality.yml"
+  <Tab title="pnpm">
+    ```yaml .github/workflows/commonality.yml
     name: Commonality
 
     on:

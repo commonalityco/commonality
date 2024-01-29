@@ -51,10 +51,14 @@
     },
     {
       "group": "Constraints",
-      "pages": ["constraints/introduction"]
+      "pages": [
+        "constraints/introduction",
+        "constraints/disallowing-dependencies",
+        "constraints/allowing-dependencies"
+      ]
     },
     {
-      "group": "Guides",
+      "group": "Concepts",
       "pages": ["tags", "selectors", "codeowners"]
     },
     {
@@ -97,6 +101,10 @@
     {
       "group": "Workflows",
       "pages": ["examples/domain-boundaries", "examples/dependency-hierarchy"]
+    },
+    {
+      "group": "CI",
+      "pages": ["continuous-integration/github-actions"]
     }
   ],
   "tabs": [

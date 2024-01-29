@@ -3,106 +3,50 @@ title: "Introduction"
 icon: "diagram-project"
 ---
 
-Constraints help you maintain a dependency graph that's easy to reason about by limiting which packages can depend on each other.
+Constraints prevent packages from depending on each other in ways that don't make sense but are allowed by your package manager.
 
-Constraints are applied to dependencies where there both the source and target package are in the same workspace.
-This means that constraints cannot be applied to external dependencies.
+They help you maintain a dependency graph that’s easy to reason about no matter how many packages are in your project.
 
-Constraints are defined as a [constraint object](/reference/constraint-object) in your [project configuration file](/reference/project-configuration).
+You might want to use constraints to:
 
+- Ensure no package can ever depend on an `application`
+- Ensure `data` packages can't depend on `ui` packages
+- Ensure `config` packages can only depend on other `config` packages.
 
----
+Constraints are defined as a [constraint object](/reference/constraint-object) in your [project configuration](/reference/project-configuration) file and can be used to `allow` and `disallow` packages matching a [selector](/selectors).
 
-
-## `allow` constraints
-```ts
-"*" | string[]
-```
-
-`allow` constraints are used to explicitly define which dependencies a package is allowed to have.
-
-<Info>
-`allow` constraints only apply to direct dependencies.
-</Info>
-
-
-### Allow specific direct dependencies
-
-This constraint will only allow direct dependencies that have the `api` or `internal` tag in it's [package configuration](/reference/package-configuration).
-
-These constraints are most helpful when constructing a hierarchy of packages within your project.
-
-```json
-{
-  "disallow": ["api", "internal"]
-}
-```
-
-### Allow all dependencies
-
-This constraint will allow all direct dependencies.
-This is equivalent to not having a constraint at all but is useful when you want to have the constraint show up in Commonality Studio or the CLI.
-
-```json
-{
-  "disallow": "*"
-}
-```
-
-## `disallow` constraints
-```ts
-"*" | string[]
-```
-`disallow` constraints will evaluate the entire upstream dependency graph for a package.
-If any direct or transitive dependency matches a [selector](/selectors) within the `disallow` array, then the constraint will fail.
-
-These constraints are most helpful when you know ahead of time that a package should never have a dependency on a category of packages.
-
-<Info>
-`disallow` constraints apply to all direct and transitive dependencies.
-</Info>
-
-### Disallow specific direct or transitive dependencies
-This constraint will disallow any upstream dependency that has the `application` tag in it's [package configuration](/reference/package-configuration).
-
-
-```json
-{
-  "disallow": ["application"]
-}
-```
-
-### Disllow all dependencies
-This constraint will disallow all dependencies.
-
-```json
-{
-  "disallow": "*"
-}
-```
-
-
-### Example
-The following constraint...
-```ts commonality.config.ts
+Here's an example of a configuration that enforces the constraints above:
+```typescript commonality.config.ts
 import { defineConfig } from 'commonality';
+import * as recommended from 'commonality-checks-recommended';
 
 export default defineConfig({
+  checks: {
+    // ...
+  },
   constraints: {
-    'high-availability': {
-      disallow: ['beta'],
+    '*': {
+      disallow: ['deployable'],
+    },
+    data: {
+      disallow: ['ui'],
+    },
+    config: {
+      allow: ['config'],
     },
   },
 });
 ```
 
-...will fail for the following dependency graph.
+## Validating constraints
 
-![A graph that shows that transitive dependencies are traversed with disallow constraints](/images/disallow-constraint.png)
+You can check ensure that your constraints are valid by running the [constraint command](/reference/cli#constrain).
 
-This is due to the fact that a transitive dependency contains the matching `beta` tag.
+```bash
+commonality constrain
+```
 
-## Precedence
+## Constraint precedence
 
 A [constraint object](/reference/constraint-object) can contain both `allow` and `disallow` constraints.
 When both are present, `disallow` constraints will be evaluated first.
