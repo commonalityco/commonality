@@ -248,8 +248,8 @@ importers:
         specifier: ^10.17.12
         version: 10.17.12(react-dom@18.2.0)(react@18.2.0)
       lucide-react:
-        specifier: ^0.299.0
-        version: 0.299.0(react@18.2.0)
+        specifier: ^0.316.0
+        version: 0.316.0(react@18.2.0)
       next:
         specifier: 14.0.4
         version: 14.0.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
@@ -466,8 +466,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.299.0
-        version: 0.299.0(react@18.2.0)
+        specifier: ^0.316.0
+        version: 0.316.0(react@18.2.0)
       next-themes:
         specifier: ^0.2.1
         version: 0.2.1(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)
@@ -886,8 +886,8 @@ importers:
         specifier: ^8.10.1
         version: 8.11.0(react-dom@18.2.0)(react@18.2.0)
       lucide-react:
-        specifier: ^0.299.0
-        version: 0.299.0(react@18.2.0)
+        specifier: ^0.316.0
+        version: 0.316.0(react@18.2.0)
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
@@ -950,8 +950,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
-        specifier: ^0.299.0
-        version: 0.299.0(react@18.2.0)
+        specifier: ^0.316.0
+        version: 0.316.0(react@18.2.0)
       react-resizable-panels:
         specifier: ^0.0.54
         version: 0.0.54(react-dom@18.2.0)(react@18.2.0)
@@ -1042,8 +1042,8 @@ importers:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
       lucide-react:
-        specifier: ^0.299.0
-        version: 0.299.0(react@18.2.0)
+        specifier: ^0.316.0
+        version: 0.316.0(react@18.2.0)
       next:
         specifier: 14.0.4
         version: 14.0.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
@@ -1148,8 +1148,8 @@ importers:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
       lucide-react:
-        specifier: ^0.299.0
-        version: 0.299.0(react@18.2.0)
+        specifier: ^0.316.0
+        version: 0.316.0(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -1278,8 +1278,8 @@ importers:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
       lucide-react:
-        specifier: ^0.299.0
-        version: 0.299.0(react@18.2.0)
+        specifier: ^0.316.0
+        version: 0.316.0(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -14639,8 +14639,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lucide-react@0.299.0(react@18.2.0):
-    resolution: {integrity: sha512-59MiDzDzFI/efHhb4n0vGdXelMNwou7JlAFvVS4boA1G/7aYU7garPciYo73CODzkhrhz0JOgdtSTPSe5dMrlQ==}
+  /lucide-react@0.316.0(react@18.2.0):
+    resolution: {integrity: sha512-dTmYX1H4IXsRfVcj/KUxworV6814ApTl7iXaS21AimK2RUEl4j4AfOmqD3VR8phe5V91m4vEJ8tCK4uT1jE5nA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
