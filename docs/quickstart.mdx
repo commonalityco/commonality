@@ -25,22 +25,32 @@ Checks ensure that packages in your project conform to a set of rules.
 Try running the command below to view the status of the checks we've set up for you.
 
 ```bash
-commonality check
+npx commonality check
 ```
 
-You'll see the result of the checks run against the packages in your project.
-Checks can also be auto-fixable, making it easy for teams to keep packages in sync with the rules defined in the project configuration.
+<Frame>
+  <img src="/images/checks.gif" />
+</Frame>
+
+
+You'll see the status of the checks run against all packages in your project.
+
+Checks are also auto-fixable with a single keypress, making it easy to adhere to the best practices your team has created.
+
+
 
 </Step>
 
-<Step title="Tag your packages">
+<Step title="Tag your packages in Commonality Studio">
 
-We've applied these checks to all packages using the `*` [selector](/selectors) but you can selectively apply checks to any subset of packages within your repo using [tags](/tags).
+We've applied these checks to all packages using the `*` [selector](/selectors) in your [project configuration](/reference/project-configuration) but you can selectively apply checks to any subset of packages within your repo using [tags](/tags).
 
-Commonality Studio is the best way to create and manage tags for packages, open it by running the command below.
+Commonality Studio is the best way to create and edit tags for packages within your project.
+
+Open it in any JavaScript project by running the command below:
 
 ```bash
-commonality studio
+npx commonality studio
 ```
 
 You can edit a package's tags either by selecting a package in the dependency graph under the "Constraints" view, or by clicking on a package's dropdown button in the "Checks" view.
@@ -59,7 +69,7 @@ You can edit a package's tags either by selecting a package in the dependency gr
 
 
 
-With [selectors](/selectors) and checks you can [compose checks](/checks/creating-checks#composing-checks) to enforce different tooling for different types of packages. For example:
+With tag [selectors](/selectors) you can enforce different conventions for different types of packages. For example:
 
 - Check that packages with the tag `buildable` have a `build` and `dev` script.
 - Check that packages with the tag `ui` have a `tsconfig.json` that is configured to handle JSX.
@@ -68,7 +78,7 @@ With [selectors](/selectors) and checks you can [compose checks](/checks/creatin
 </Step>
 
 
-<Step title="Set up constraints">
+<Step title="Set up dependency constraints">
 
 [Selectors](/selectors) can also be used to apply constraints.
 [Constraints](/constraints) prevent packages from depending on each other in ways that don't make sense but are allowed by your package manager. For example:
