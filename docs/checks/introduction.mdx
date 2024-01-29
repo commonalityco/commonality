@@ -10,23 +10,6 @@ Platform teams can roll out checks that deliver a consistent developer experienc
 
 Tooling authors can create checks that enforce best practices for the tools they create for their entire user base.
 
-## Why use checks?
-
-1. **Complex standardization without added complexity**
-
-Quickly create custom checks that validate file existence, file contents, even relationships between different files in your project, with [easy-to-use utilities](http://localhost:3000/docs/api/checks#utilities) that read and write to disk.
-
-2. **Easily testable**
-
-No one wants a tool that blocks their workflow with false negatives.
-We provide [testing utilities](/checks/testing-checks) so you can guarantee that checks only fail when you expect them to.
-
-3. **Sharable by default**
-
-No resolution magic and no new conventions to learn. Checks are just JavaScript functions so you can share them as you would with any other package.
-
-
-
 ## Configuring checks
 Checks are defined your [project configuration file](/reference/project-configuration) at the root of your project.
 You can use [selectors](/selectors) to run checks against all the packages in your project or a subset of packages.
@@ -51,6 +34,11 @@ export default defineConfig({
 });
 ```
 
+## Validating checks
+You can view the status of your checks by running the [check command](/reference/cli#check).
 
+```bash
+commonality check
+```
 
 
