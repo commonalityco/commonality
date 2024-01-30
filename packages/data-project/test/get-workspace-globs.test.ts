@@ -1,88 +1,102 @@
 import { PackageManager } from '@commonalityco/utils-core';
 import path from 'node:path';
 import { getWorkspaceGlobs } from '../src/get-workspace-globs';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, test } from 'vitest';
 import { fileURLToPath } from 'node:url';
+import mockFs from 'mock-fs';
 
 describe('getWorkspaceGlobs', () => {
-  describe('when run in an un-initialized project', () => {
-    it('returns the default globs', async () => {
-      const rootDirectory = path.join(
-        path.dirname(fileURLToPath(import.meta.url)),
-        './fixtures',
-        'uninitialized',
-      );
-
-      const config = await getWorkspaceGlobs({
-        rootDirectory,
-        packageManager: PackageManager.PNPM,
-      });
-
-      expect(config).toEqual(['./**']);
-    });
+  afterEach(() => {
+    mockFs.restore();
   });
 
-  describe('when run in an initialized project', () => {
-    describe('when the workspace option exists', () => {
-      const expectedWorkspaceGlobs = ['./packages/**', './apps/**'];
-
-      it(`should return the correct globs for an NPM workspace`, async () => {
-        const rootDirectory = path.join(
-          path.dirname(fileURLToPath(import.meta.url)),
-          './fixtures',
-          'npm-workspace',
-        );
-        const workspaceGlobs = await getWorkspaceGlobs({
-          rootDirectory,
-          packageManager: PackageManager.NPM,
-        });
-
-        expect(workspaceGlobs).toEqual(expectedWorkspaceGlobs);
-      });
-
-      it(`should return the correct globs for a Yarn workspace`, async () => {
-        const rootDirectory = path.join(
-          path.dirname(fileURLToPath(import.meta.url)),
-          './fixtures',
-          'yarn-workspace',
-        );
-        const workspaceGlobs = await getWorkspaceGlobs({
-          rootDirectory,
-          packageManager: PackageManager.YARN,
-        });
-
-        expect(workspaceGlobs).toEqual(expectedWorkspaceGlobs);
-      });
-
-      it(`should return the correct globs for a pnpm workspace`, async () => {
-        const rootDirectory = path.join(
-          path.dirname(fileURLToPath(import.meta.url)),
-          './fixtures',
-          'pnpm-workspace',
-        );
-        const workspaceGlobs = await getWorkspaceGlobs({
-          rootDirectory,
-          packageManager: PackageManager.PNPM,
-        });
-
-        expect(workspaceGlobs).toEqual(expectedWorkspaceGlobs);
-      });
+  test('returns default globs when there is no package manager workspaces or explicit workspaces configured', async () => {
+    mockFs({
+      'package.json': JSON.stringify({}),
     });
 
-    describe('when the workspace option does not exist', () => {
-      it(`should return the default globs`, async () => {
-        const rootDirectory = path.join(
-          path.dirname(fileURLToPath(import.meta.url)),
-          './fixtures',
-          'missing-workspace-globs',
-        );
-        const workspaceGlobs = await getWorkspaceGlobs({
-          rootDirectory,
-          packageManager: PackageManager.PNPM,
-        });
-
-        expect(workspaceGlobs).toEqual(['./**']);
-      });
+    const config = await getWorkspaceGlobs({
+      rootDirectory: './',
+      packageManager: PackageManager.PNPM,
     });
+
+    expect(config).toEqual(['./**']);
+  });
+
+  test('returns the workspaces when set via project configuration', async () => {
+    const rootDirectory = path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './fixtures',
+      'explicit-workspaces',
+    );
+
+    const workspaceGlobs = await getWorkspaceGlobs({
+      rootDirectory,
+      packageManager: PackageManager.PNPM,
+    });
+
+    expect(workspaceGlobs).toEqual(['apps/**', 'packages/**']);
+  });
+
+  test('returns the default globs when set to an empty array via project configuration', async () => {
+    const rootDirectory = path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './fixtures',
+      'empty-workspaces',
+    );
+
+    const workspaceGlobs = await getWorkspaceGlobs({
+      rootDirectory,
+      packageManager: PackageManager.PNPM,
+    });
+
+    expect(workspaceGlobs).toEqual(['./**']);
+  });
+
+  test('returns the workspaces when set with npm', async () => {
+    mockFs({
+      'package.json': JSON.stringify({
+        workspaces: ['apps/**', 'packages/**'],
+      }),
+    });
+
+    const workspaceGlobs = await getWorkspaceGlobs({
+      rootDirectory: './',
+      packageManager: PackageManager.NPM,
+    });
+
+    expect(workspaceGlobs).toEqual(['apps/**', 'packages/**']);
+  });
+
+  test('returns the workspaces when set with yarn', async () => {
+    mockFs({
+      'package.json': JSON.stringify({
+        workspaces: ['apps/**', 'packages/**'],
+      }),
+    });
+
+    const workspaceGlobs = await getWorkspaceGlobs({
+      rootDirectory: './',
+      packageManager: PackageManager.YARN,
+    });
+
+    expect(workspaceGlobs).toEqual(['apps/**', 'packages/**']);
+  });
+
+  test('returns the workspaces when set with pnpm', async () => {
+    mockFs({
+      'pnpm-workspace.yaml': `
+        packages:
+          - 'apps/**'
+          - 'packages/**'
+      `,
+    });
+
+    const workspaceGlobs = await getWorkspaceGlobs({
+      rootDirectory: './',
+      packageManager: PackageManager.PNPM,
+    });
+
+    expect(workspaceGlobs).toEqual(['apps/**', 'packages/**']);
   });
 });

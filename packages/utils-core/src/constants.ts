@@ -84,7 +84,7 @@ const messageSchema = z
 
 const checkSchema = z.object({
   name: z.string(),
-  level: z.union([z.literal('error'), z.literal('warning')]).optional(),
+  level: z.union([z.literal('error'), z.literal('warning')]).default('warning'),
   validate: checkFn,
   fix: checkFn.returns(z.union([z.void(), z.promise(z.void())])).optional(),
   message: z.union([
@@ -93,15 +93,17 @@ const checkSchema = z.object({
   ]),
 });
 
-export const projectConfigSchema = z.object({
-  workspaces: z.array(z.string()),
-  checks: z.record(z.array(checkSchema).default([])).optional().default({}),
-  constraints: z.record(constraintSchema).optional().default({}),
+const defaultProjectConfigSchema = z.object({
+  workspaces: z.array(z.string()).default([]),
+  checks: z.record(z.array(checkSchema).default([])).default({}),
+  constraints: z.record(constraintSchema).default({}),
 });
 
-export type ProjectConfig = z.infer<typeof projectConfigSchema>;
+export const projectConfigSchema = defaultProjectConfigSchema;
 
-export type Check = z.infer<typeof checkSchema>;
+export type ProjectConfig = z.input<typeof projectConfigSchema>;
+
+export type Check = z.input<typeof checkSchema>;
 export type CheckContext = z.infer<typeof checkContextSchema>;
 export type Message = z.infer<typeof messageSchema>;
 

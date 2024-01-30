@@ -30,8 +30,10 @@
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@types/fs-extra": "^11.0.2",
+    "@types/mock-fs": "^4.13.4",
     "@types/node": "^20.10.0",
     "eslint-config-commonality": "workspace:*",
+    "mock-fs": "^5.2.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {

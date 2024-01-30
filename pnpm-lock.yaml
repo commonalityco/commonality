@@ -754,12 +754,18 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.2
         version: 11.0.4
+      '@types/mock-fs':
+        specifier: ^4.13.4
+        version: 4.13.4
       '@types/node':
         specifier: ^20.10.0
         version: 20.10.6
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
+      mock-fs:
+        specifier: ^5.2.0
+        version: 5.2.0
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
