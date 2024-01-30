@@ -101,9 +101,13 @@ const defaultProjectConfigSchema = z.object({
 
 export const projectConfigSchema = defaultProjectConfigSchema;
 
-export type ProjectConfig = z.input<typeof projectConfigSchema>;
+export type ProjectConfigInput = z.input<typeof projectConfigSchema>;
+export type ProjectConfigOutput = z.output<typeof projectConfigSchema>;
 
-export type Check = z.input<typeof checkSchema>;
+export type Check = z.infer<typeof checkSchema>;
+export type CheckInput = z.input<typeof checkSchema>;
+export type CheckOutput = z.output<typeof checkSchema>;
+
 export type CheckContext = z.infer<typeof checkContextSchema>;
 export type Message = z.infer<typeof messageSchema>;
 

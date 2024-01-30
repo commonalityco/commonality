@@ -1,6 +1,9 @@
 import jiti from 'jiti';
 import { findUp } from 'find-up';
-import { projectConfigSchema } from '@commonalityco/utils-core';
+import {
+  ProjectConfigOutput,
+  projectConfigSchema,
+} from '@commonalityco/utils-core';
 import z, { ZodError } from 'zod';
 
 const normalizeZodMessage = (error: unknown): string => {
@@ -22,12 +25,12 @@ const normalizeZodMessage = (error: unknown): string => {
 
 export const getValidatedProjectConfig = (
   config: unknown,
-): z.output<typeof projectConfigSchema> => {
+): ProjectConfigOutput => {
   return projectConfigSchema.parse(config);
 };
 
 export interface ProjectConfigData {
-  config: z.output<typeof projectConfigSchema> | Record<string, never>;
+  config: ProjectConfigOutput | Record<string, never>;
   filepath: string;
   isEmpty?: boolean;
 }

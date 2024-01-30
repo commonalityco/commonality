@@ -1,5 +1,5 @@
-import { ProjectConfig } from '@commonalityco/utils-core';
+import { ProjectConfigInput } from '@commonalityco/utils-core';
 
-export function defineConfig(config: ProjectConfig): ProjectConfig {
+export function defineConfig(config: ProjectConfigInput): ProjectConfigInput {
   return config;
 }

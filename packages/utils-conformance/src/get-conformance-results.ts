@@ -1,7 +1,7 @@
 import { TagsData, CodeownersData, Package } from '@commonalityco/types';
 import {
   Status,
-  ProjectConfig,
+  ProjectConfigOutput,
   Check,
   Message,
 } from '@commonalityco/utils-core';
@@ -143,7 +143,7 @@ export const getConformanceResults = async ({
   rootDirectory,
   codeownersData,
 }: {
-  conformersByPattern: ProjectConfig['checks'];
+  conformersByPattern: ProjectConfigOutput['checks'];
   rootDirectory: string;
   packages: Package[];
   tagsData: TagsData[];
