@@ -79,7 +79,7 @@ describe('getWorkspaceGlobs', () => {
     });
 
     const workspaceGlobs = await getWorkspaceGlobs({
-      rootDirectory: './',
+      rootDirectory: process.cwd(),
       packageManager: PackageManager.YARN,
     });
 
@@ -97,7 +97,7 @@ describe('getWorkspaceGlobs', () => {
     });
 
     const workspaceGlobs = await getWorkspaceGlobs({
-      rootDirectory: './',
+      rootDirectory: process.cwd(),
       packageManager: PackageManager.PNPM,
     });
 
