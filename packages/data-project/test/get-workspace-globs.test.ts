@@ -1,7 +1,7 @@
 import { PackageManager } from '@commonalityco/utils-core';
 import path from 'node:path';
 import { getWorkspaceGlobs } from '../src/get-workspace-globs';
-import { afterEach, describe, expect, it, test } from 'vitest';
+import { afterEach, describe, expect, test } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import mockFs from 'mock-fs';
 
@@ -13,11 +13,12 @@ describe('getWorkspaceGlobs', () => {
   test('returns default globs when there is no package manager workspaces or explicit workspaces configured', async () => {
     mockFs({
       'package.json': JSON.stringify({}),
+      'package-lock.json': JSON.stringify({}),
     });
 
     const config = await getWorkspaceGlobs({
       rootDirectory: './',
-      packageManager: PackageManager.PNPM,
+      packageManager: PackageManager.NPM,
     });
 
     expect(config).toEqual(['./**']);
@@ -58,6 +59,7 @@ describe('getWorkspaceGlobs', () => {
       'package.json': JSON.stringify({
         workspaces: ['apps/**', 'packages/**'],
       }),
+      'package-lock.json': JSON.stringify({}),
     });
 
     const workspaceGlobs = await getWorkspaceGlobs({
@@ -73,6 +75,7 @@ describe('getWorkspaceGlobs', () => {
       'package.json': JSON.stringify({
         workspaces: ['apps/**', 'packages/**'],
       }),
+      'yarn.lock': '',
     });
 
     const workspaceGlobs = await getWorkspaceGlobs({
@@ -85,6 +88,7 @@ describe('getWorkspaceGlobs', () => {
 
   test('returns the workspaces when set with pnpm', async () => {
     mockFs({
+      'pnpm-lock.yaml': '',
       'pnpm-workspace.yaml': `
         packages:
           - 'apps/**'
