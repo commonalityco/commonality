@@ -33,7 +33,6 @@
     "@types/mock-fs": "^4.13.4",
     "@types/node": "^20.10.0",
     "eslint-config-commonality": "workspace:*",
-    "memfs": "^4.6.0",
     "mock-fs": "^5.2.0",
     "typescript": "^5.2.2"
   },
