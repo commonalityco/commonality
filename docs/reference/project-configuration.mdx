@@ -1,0 +1,69 @@
+A project configuration file can be any of the following:
+
+- `commonality.config.ts`
+- `commonality.config.js`
+
+Your project's configuration should be located at the root of your project.
+This should be the same directory where your package manager's lockfile is located.
+
+<Tip>
+  Use the `defineConfig` helper function to get type checking and intellisense
+  for your configuration.
+</Tip>
+
+```ts commonality.config.ts
+import { defineConfig } from 'commonality';
+
+export default defineConfig({
+  // ...
+});
+```
+
+---
+
+## Properties
+
+### `checks`
+
+```ts
+Record<string, Check[]>
+```
+
+The `checks` property expects an object whose keys are [selectors](/selectors) and whose values are [Check objects](/reference/check-object).
+
+<Info>Checks will run in the order they are defined.</Info>
+
+```ts commonality.config.ts
+import { defineConfig } from 'commonality';
+import * as recommended from 'commonality-checks-recommended';
+
+export default defineConfig({
+  checks: {
+    '*': [recommended.hasReadme()],
+    publishable: [recommended.ensureLicense()],
+  },
+});
+```
+
+---
+
+### `constraints`
+
+
+```ts
+Record<string, Constraint[]>
+```
+
+
+The `constraints` property expects an object whose keys are [selectors](/selectors) and whose value are [Constraint objects](/reference/constraint-object).
+
+```ts commonality.config.ts
+import { defineConfig } from 'commonality';
+
+export default defineConfig({
+  constraints: {
+    '*': { disallow: ['deployable'] },
+    config: { allow: ['config'] },
+  },
+});
+```

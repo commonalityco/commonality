@@ -1,0 +1,47 @@
+---
+title: "Disallowing dependencies"
+icon: "square-xmark"
+---
+
+`disallow` constraints will evaluate all **direct and transitive dependencies** for a package.
+
+If any local dependency has [tags](/tags) that match a [selector](/selectors) within the `disallow` array, then the constraint will fail.
+
+## Disallow specific direct or transitive dependencies
+Use a [tag](/tags) as a [selector](/selectors) to disallow subsets of local dependencies.
+
+```json
+{
+  "disallow": ["application"]
+}
+```
+
+## Disllow all dependencies
+Use `*` as a [selector](/selectors) to disallow all local dependencies.
+
+```json
+{
+  "disallow": "*"
+}
+```
+
+
+## Example
+The following constraint...
+```ts commonality.config.ts
+import { defineConfig } from 'commonality';
+
+export default defineConfig({
+  constraints: {
+    'high-availability': {
+      disallow: ['beta'],
+    },
+  },
+});
+```
+
+...will fail for the following dependency graph.
+
+![A graph that shows that transitive dependencies are traversed with disallow constraints](/images/disallow-constraint.png)
+
+This is due to the fact that a transitive dependency contains the matching `beta` tag.

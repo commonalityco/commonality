@@ -1,0 +1,58 @@
+Commonality is designed to be incrementally adoptable and work alongside your existing workflows.
+
+This guide will get you set up in a few seconds and show you how to leverage Commonality to structure your existing JavaScript projects.
+
+<Steps>
+  <Step title="Install Commonality">
+
+  Running the `init` command will quickly get you up and running in any existing JavaScript project.
+
+  This command will:
+
+  1. Install `commonality` at the root of your project
+  2. Install and configure checks that benefit most multi-package projects from [commonality-checks-recommended](/examples/recommended-checks) (optional)
+
+  ```bash
+  npx commonality@latest init
+  ```
+
+  </Step>
+  <Step title="Run your first checks">
+
+  Checks ensure that packages in your project conform to a set of rules.
+
+  Try running the command below to view the status of the checks we've set up for you.
+
+  ```bash
+  npx commonality check
+  ```
+
+  <Frame>
+  <img src="/images/checks.gif" />
+  </Frame>
+
+  You'll see the status of the checks run against all packages in your project.
+
+  Checks are also auto-fixable with a single keypress, making it easy to adhere to the best practices your team has created.
+
+  </Step>
+
+  <Step title="Next steps">
+    Commonality is designed to be incrementally adoptable and work alongside your existing workflows and tools.
+
+    Explore our other features to get even more out of Commonality:
+
+    <CardGroup cols={1}>
+      <Card title="Categorize packages in your project with tags" href="/tags" icon="tags">
+      </Card>
+
+      <Card title="Structure your dependency graph with constraints" href="/constraints/introduction" icon="diagram-project">
+      </Card>
+
+      <Card title="Create checks customized to your workflows and tools" href="/checks/introduction" icon="box-check">
+      </Card>
+
+    </CardGroup>
+
+  </Step>
+</Steps>

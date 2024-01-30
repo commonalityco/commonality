@@ -1,0 +1,19 @@
+Limit packages to a specific business vertical and explicitly tag packages as `shared` to allow their use across teams.
+
+```ts commonality.config.ts
+import { defineConfig } from 'commonality';
+
+export default defineConfig({
+  constraints: {
+    '*': {
+      allow: ['shared'],
+    },
+    commerce: {
+      allow: ['commerce'],
+    },
+    marketing: {
+      allow: ['marketing'],
+    },
+  },
+});
+```

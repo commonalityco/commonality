@@ -60,7 +60,7 @@ export default defineConfig({
       allow: ['ui', 'data', 'utility', 'config', 'application'],
     },
     ui: {
-      allow: ['ui', 'state', 'utility', 'config'],
+      allow: ['ui', 'utility', 'config'],
       disallow: ['application'],
     },
     data: {

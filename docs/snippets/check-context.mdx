@@ -1,0 +1,62 @@
+export const CheckContext = ({
+  defaultPath,
+  defaultRelativePath,
+  children
+}) => (
+  <ParamField path="context" type="CheckContext">
+    An object containing metadata about the package the check is being run against.
+
+    <Expandable title="check-context-properties">
+      {children ?? (
+        <>
+          <ParamField path="tags" type="string[]" default={[]}>
+            The tags that are applied via package configuation to the package being checked
+          </ParamField>
+          <ParamField path="codeowners" type="string[]" default={[]}>
+            The codeowners for the package currently being checked
+          </ParamField>
+        </>
+      )}
+
+      <ParamField path="package" type="PackagePaths">
+        An object containing paths to the root directory of the package being checked.
+        <Expandable title="package-properties">
+          <ParamField path="path" type="string">
+            A fully qualified path to the package directory
+          </ParamField>
+          <ParamField path="relativePath" type="string">
+            A relative path to the package directory relative to the root of the project
+          </ParamField>
+        </Expandable>
+      </ParamField>
+
+
+      <ParamField path="rootPackage" type="PackagePaths">
+        An object containing paths to the root directory of the current project.
+
+        <Expandable title="package-properties">
+          <ParamField path="path" type="string">
+            A fully qualified path to the package directory
+          </ParamField>
+          <ParamField path="relativePath" type="string">
+            A relative path to the package directory relative to the root of the project
+          </ParamField>
+        </Expandable>
+      </ParamField>
+
+      <ParamField path="allPackages" type="PackagePaths[]">
+        An array of objects containing paths to every package directory in the current project.
+        <Expandable title="package-properties">
+          <ParamField path="path" type="string">
+            A fully qualified path to the package directory
+          </ParamField>
+          <ParamField path="relativePath" type="string">
+            A relative path to the package directory relative to the root of the project
+          </ParamField>
+        </Expandable>
+      </ParamField>
+
+    </Expandable>
+
+  </ParamField>
+);

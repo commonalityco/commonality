@@ -1,0 +1,66 @@
+It's difficult to structure, maintain, and work in large JavaScript codebases.
+
+Modern monorepo tooling has unlocked the ability to reach enterprise scale, but scaling an equally amazing developer experience at scale can be hard.
+
+*We want to change that.*
+
+Get started in seconds with our [quickstart guide](/quickstart).
+
+## Features
+
+Commonality is an open-source tool to help you structure your codebase for enterprise scale.
+
+We add a few more tools to your belt:
+
+<CardGroup cols={1}>
+  <Card title="Codify best practices with checks" href="/checks/introduction" icon="box-check">
+    Scale a consistently amazing developer experience with dynamic conformance checks that are run like tests and shared like lint rules.
+  </Card>
+  <Card title="Organize your dependency graph with constraints" icon="diagram-project" href="/constraints/introduction">
+    Structure a dependency graph that’s easy to reason about no matter how many packages are in your project.
+  </Card>
+  <Card title="Categorize packages with tags" icon="tags" href="/tags">
+    Group packages by their purpose, concern, or domain without a tight coupling to directory structure.
+  </Card>
+  <Card title="Navigate ownership with codeowners" icon="users" href="/codeowners">
+    Quickly view which teams or contributors are responsible for packages in your project.
+  </Card>
+</CardGroup>
+
+## Commonality Studio
+View any JavaScript project in Commonality Studio by running the command below:
+```bash
+npx commonality studio
+```
+
+With Commonality Studio you can visualize your project's dependency graph and any constraints you may have created.
+<Frame>
+ <img src="/images/studio-dark.png"/>
+</Frame>
+
+You can also view the tags and codeowners for any package in your project. Get a holistic view of overall conformance health and view the status of checks run on your packages.
+
+<Frame>
+ <img src="/images/studio-checks.png"/>
+</Frame>
+
+## What makes us different?
+
+### Zero lock-in
+
+Commonality helps you scale your existing workflows, not replace them. Choose whatever tools work best for you and we'll help you get the most out of them.
+
+We will never wrap your tools or lock you in to ours. You'll be able to delete Commonality from your project at any point without ever affecting any of your existing tools.
+
+### Strongly opinionated about anything
+
+We make no assumptions about how your monorepo should be structured, which rules should be enforced, or the tools you should use.
+
+Instead, we make it easy to create your own best practices and help you scale them across your project or organization.
+You'll always have full control over how strongly rules are enforced.
+
+### Opt-in by default
+
+Every feature in Commonality is designed to be adopted incrementally. You can start using it with a single package and scale it to an entire organization.
+
+Selectively apply [checks](/checks) and [constraints](/constraints) to groups of packages at your own pace. Adopt our rules or incrementally enforce your own best practices as you create them.
