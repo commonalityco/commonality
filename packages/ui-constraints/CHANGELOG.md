@@ -1,5 +1,12 @@
 # @commonalityco/ui-constraints
 
+## 0.2.42
+
+### Patch Changes
+
+- @commonalityco/ui-core@0.2.39
+- @commonalityco/ui-graph@0.2.41
+
 ## 0.2.41
 
 ### Patch Changes
