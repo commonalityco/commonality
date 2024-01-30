@@ -1,5 +1,5 @@
 import { Dependency, TagsData, ConstraintResult } from '@commonalityco/types';
-import { ProjectConfig } from '@commonalityco/utils-core';
+import { ProjectConfigOutput } from '@commonalityco/utils-core';
 
 const edgeKey = (dep: Dependency) => `${dep.source}|${dep.target}`;
 
@@ -108,7 +108,7 @@ export async function getConstraintResults({
   dependencies = [],
   tagsData = [],
 }: {
-  constraints?: ProjectConfig['constraints'];
+  constraints?: ProjectConfigOutput['constraints'];
   dependencies: Dependency[];
   tagsData: TagsData[];
 }): Promise<ConstraintResult[]> {

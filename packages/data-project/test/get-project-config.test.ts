@@ -7,8 +7,19 @@ import { describe, expect, it, test } from 'vitest';
 import { fileURLToPath } from 'node:url';
 
 describe('getValidatedProjectConfig', () => {
+  test('defaults missing properties', () => {
+    const config = getValidatedProjectConfig({});
+
+    expect(config).toEqual({
+      workspaces: [],
+      checks: {},
+      constraints: {},
+    });
+  });
+
   test('strips out invalid properties', () => {
     const config = getValidatedProjectConfig({
+      workspacees: 1,
       checks: {
         '*': [
           {
@@ -41,6 +52,7 @@ describe('getValidatedProjectConfig', () => {
     });
 
     expect(config).toEqual({
+      workspaces: [],
       checks: {
         '*': [
           {
@@ -48,6 +60,7 @@ describe('getValidatedProjectConfig', () => {
             validate: expect.any(Function),
             fix: expect.any(Function),
             message: 'foo',
+            level: 'warning',
           },
         ],
       },
@@ -86,6 +99,8 @@ describe('getProjectConfig', () => {
     });
   });
 
+  it('returns defaults when the configuration file is empty', () => {});
+
   describe('when run in an initialized project', () => {
     it('should return the parsed project config if the file exists and is valid', async () => {
       const rootDirectory = path.join(
@@ -100,6 +115,7 @@ describe('getProjectConfig', () => {
         isEmpty: false,
         filepath: expect.stringContaining('commonality.config.ts'),
         config: {
+          workspaces: [],
           checks: {},
           constraints: {
             '*': {
