@@ -1,5 +1,13 @@
 # @commonalityco/snapshot
 
+## 0.2.40
+
+### Patch Changes
+
+- 0508b8f: Adds a `workspaces` property to the project configuration file. This will allow you to override your package manager's workspaces. This will also allow integrated monorepos to filter packages without adding a workspaces property to their package manager.
+- Updated dependencies [0508b8f]
+  - @commonalityco/utils-core@0.2.38
+
 ## 0.2.39
 
 ### Patch Changes
