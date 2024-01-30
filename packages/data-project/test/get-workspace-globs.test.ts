@@ -1,23 +1,19 @@
 import { PackageManager } from '@commonalityco/utils-core';
 import path from 'node:path';
 import { getWorkspaceGlobs } from '../src/get-workspace-globs';
-import { afterEach, describe, expect, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { fileURLToPath } from 'node:url';
-import mockFs from 'mock-fs';
 
 describe('getWorkspaceGlobs', () => {
-  afterEach(() => {
-    mockFs.restore();
-  });
-
   test('returns default globs when there is no package manager workspaces or explicit workspaces configured', async () => {
-    mockFs({
-      'package.json': JSON.stringify({}),
-      'package-lock.json': JSON.stringify({}),
-    });
+    const rootDirectory = path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './fixtures',
+      'uninitialized',
+    );
 
     const config = await getWorkspaceGlobs({
-      rootDirectory: './',
+      rootDirectory,
       packageManager: PackageManager.NPM,
     });
 
@@ -55,15 +51,14 @@ describe('getWorkspaceGlobs', () => {
   });
 
   test('returns the workspaces when set with npm', async () => {
-    mockFs({
-      'package.json': JSON.stringify({
-        workspaces: ['apps/**', 'packages/**'],
-      }),
-      'package-lock.json': JSON.stringify({}),
-    });
+    const rootDirectory = path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './fixtures',
+      'npm-workspace',
+    );
 
     const workspaceGlobs = await getWorkspaceGlobs({
-      rootDirectory: './',
+      rootDirectory,
       packageManager: PackageManager.NPM,
     });
 
@@ -71,15 +66,14 @@ describe('getWorkspaceGlobs', () => {
   });
 
   test('returns the workspaces when set with yarn', async () => {
-    mockFs({
-      'package.json': JSON.stringify({
-        workspaces: ['apps/**', 'packages/**'],
-      }),
-      'yarn.lock': '',
-    });
+    const rootDirectory = path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './fixtures',
+      'yarn-workspace',
+    );
 
     const workspaceGlobs = await getWorkspaceGlobs({
-      rootDirectory: process.cwd(),
+      rootDirectory,
       packageManager: PackageManager.YARN,
     });
 
@@ -87,17 +81,14 @@ describe('getWorkspaceGlobs', () => {
   });
 
   test('returns the workspaces when set with pnpm', async () => {
-    mockFs({
-      'pnpm-lock.yaml': '',
-      'pnpm-workspace.yaml': `
-        packages:
-          - 'apps/**'
-          - 'packages/**'
-      `,
-    });
+    const rootDirectory = path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './fixtures',
+      'pnpm-workspace',
+    );
 
     const workspaceGlobs = await getWorkspaceGlobs({
-      rootDirectory: process.cwd(),
+      rootDirectory,
       packageManager: PackageManager.PNPM,
     });
 
