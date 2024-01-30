@@ -92,7 +92,7 @@
     },
     {
       "group": "Getting started",
-      "pages": ["examples/introduction", "examples/recommended-checks"]
+      "pages": ["examples/recommended-checks"]
     },
     {
       "group": "Tools",
