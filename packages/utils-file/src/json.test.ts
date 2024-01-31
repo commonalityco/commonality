@@ -121,11 +121,11 @@ describe('json', () => {
         }),
       });
 
-      await json('./', 'package.json').set({
+      await json('./nested', 'package.json').set({
         scripts: { build: 'npm run build' },
       });
 
-      const result = await json('./', 'package.json').get();
+      const result = await json('./nested', 'package.json').get();
 
       expect(result).toEqual({
         scripts: {

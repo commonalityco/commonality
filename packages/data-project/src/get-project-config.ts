@@ -1,10 +1,11 @@
-import jiti from 'jiti';
 import { findUp } from 'find-up';
 import {
   ProjectConfigOutput,
   projectConfigSchema,
 } from '@commonalityco/utils-core';
-import z, { ZodError } from 'zod';
+import { ZodError } from 'zod';
+import fs from 'fs-extra';
+import path from 'node:path';
 
 const normalizeZodMessage = (error: unknown): string => {
   return (error as ZodError).issues
@@ -35,35 +36,46 @@ export interface ProjectConfigData {
   isEmpty?: boolean;
 }
 
+const readJsonConfig = async (configPath: string) => {
+  try {
+    const jsonConfig = await fs.readJSON(configPath);
+    return jsonConfig;
+  } catch {
+    return;
+  }
+};
+
 export const getProjectConfig = async ({
   rootDirectory,
 }: {
   rootDirectory?: string;
 }): Promise<ProjectConfigData | undefined> => {
-  const configPath = await findUp(
-    ['commonality.config.js', 'commonality.config.ts'],
-    {
-      cwd: rootDirectory,
-      stopAt: rootDirectory,
-    },
-  );
+  const directoryPath = await findUp(['.commonality'], {
+    cwd: rootDirectory,
+    stopAt: rootDirectory,
+    type: 'directory',
+  });
 
-  if (!configPath) {
+  if (!directoryPath) {
+    return;
+  }
+
+  const configPath = path.join(directoryPath, 'config.json');
+
+  const configExists = await fs.exists(configPath);
+
+  if (!configExists) {
     return;
   }
 
   try {
-    const loader = jiti(configPath, { interopDefault: true });
-
-    const result = loader(configPath);
-    const defaultExport = result.default || result;
-
-    const config = getValidatedProjectConfig(defaultExport);
+    const jsonConfig = await readJsonConfig(configPath);
+    const config = getValidatedProjectConfig(jsonConfig);
 
     return {
       config,
       filepath: configPath,
-      isEmpty: !defaultExport,
+      isEmpty: !jsonConfig,
     };
   } catch (error) {
     if (error instanceof ZodError) {

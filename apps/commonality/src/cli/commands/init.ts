@@ -5,19 +5,18 @@ import {
   installCommonality,
   getInstallChecks,
   getInstallCommonality,
-  getCreateConfig,
   installChecks,
   createConfig,
 } from '@commonalityco/utils-onboarding';
-import { getRootDirectory } from '@commonalityco/data-project';
+import {
+  getProjectConfig,
+  getRootDirectory,
+} from '@commonalityco/data-project';
 import console from 'node:console';
 import prompts from 'prompts';
 import c from 'chalk';
 
 const command = new Command();
-
-const PROJECT_CONFIG_TS = `commonality.config.ts` as const;
-const PROJECT_CONFIG_JS = `commonality.config.js` as const;
 
 const logNextSteps = ({
   shouldInstallChecks,
@@ -74,23 +73,18 @@ export const action = async ({
   const shouldInstallCommonality = await getInstallCommonality({
     rootDirectory,
   });
-  const shouldCreateConfig = await getCreateConfig({ rootDirectory });
+  const projectConfig = await getProjectConfig({ rootDirectory });
 
-  const typeScript = shouldCreateConfig ? await getUseTypeScript() : false;
   const shouldInstallChecks = await getInstallChecks({ rootDirectory });
 
   // Confirmation
-  if (
-    !shouldInstallCommonality &&
-    !shouldInstallChecks &&
-    !shouldCreateConfig
-  ) {
+  if (!shouldInstallCommonality && !shouldInstallChecks && !projectConfig) {
     console.log(c.green(`\n  Your project is already set up with Commonality`));
     logNextSteps({ shouldInstallChecks: true });
     return;
   }
 
-  const configFileName = typeScript ? PROJECT_CONFIG_TS : PROJECT_CONFIG_JS;
+  const configFileName = `config.json`;
   // Generation
   try {
     console.log();
@@ -119,14 +113,13 @@ export const action = async ({
       checksSpinner.succeed('Installed commonality-checks-recommended');
     }
 
-    if (shouldCreateConfig) {
+    if (!projectConfig) {
       const configSpinner = ora();
 
       configSpinner.start(`Creating ${configFileName}`);
 
       await createConfig({
         rootDirectory,
-        typeScript,
         includeChecks: shouldInstallChecks,
       });
 

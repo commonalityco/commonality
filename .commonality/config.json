@@ -1,0 +1,58 @@
+{
+  "checks": {
+    "*": [
+      "recommended/has-readme",
+      "recommended/has-codeowner",
+      "recommended/has-valid-package-name",
+      "recommended/has-unique-dependency-types",
+      "recommended/has-sorted-dependencies",
+      "recommended/has-matching-dev-peer-versions",
+      "recommended/has-consistent-external-version",
+      "recommended/extends-repository-field"
+    ],
+    "ui": [
+      "has-scripts",
+      "has-eslint-config",
+      "has-client-ts-config",
+      "has-npm-ignore"
+    ],
+    "state": [
+      "has-scripts",
+      "has-eslint-config",
+      "has-client-ts-config",
+      "has-npm-ignore"
+    ],
+    "data": [
+      "has-scripts",
+      "has-eslint-config",
+      "has-client-ts-config",
+      "has-npm-ignore"
+    ],
+    "utility": [
+      "has-scripts",
+      "has-eslint-config",
+      "has-client-ts-config",
+      "has-npm-ignore"
+    ]
+  },
+  "constraints": {
+    "application": {
+      "allow": ["ui", "data", "utility", "config", "application"]
+    },
+    "ui": {
+      "allow": ["ui", "utility", "config"],
+      "disallow": ["application"]
+    },
+    "data": {
+      "allow": ["data", "utility", "config"],
+      "disallow": ["application"]
+    },
+    "utility": {
+      "allow": ["utility", "config"],
+      "disallow": ["application"]
+    },
+    "config": {
+      "disallow": "*"
+    }
+  }
+}

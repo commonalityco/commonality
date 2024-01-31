@@ -38,7 +38,9 @@ export function json<T extends Record<string, unknown>>(
       ? detectIndent(text).indent || defaultIndent
       : defaultIndent;
 
-    await fs.writeFile(fullPath, JSON.stringify(json, undefined, indent));
+    console.log('hmmm');
+
+    await fs.outputFile(fullPath, JSON.stringify(json, undefined, indent));
   };
 
   const getJson = async (): Promise<T | undefined> => {

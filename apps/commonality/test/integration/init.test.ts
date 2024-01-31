@@ -134,11 +134,11 @@ describe('init', () => {
           );
 
           await vi.waitFor(() => {
-            expect(initOutput).toContain(`Creating commonality.config.ts`);
+            expect(initOutput).toContain(`Creating .commonality/config.json`);
           });
           await vi.waitFor(
             () => {
-              expect(initOutput).toContain(`Created commonality.config.ts`);
+              expect(initOutput).toContain(`Created .commonality/config.json`);
             },
             { timeout: 100_000 },
           );
@@ -148,13 +148,13 @@ describe('init', () => {
           });
 
           const configExists = await fs.exists(
-            path.resolve(temporaryPath, 'commonality.config.ts'),
+            path.resolve(temporaryPath, '.commonality/config.json'),
           );
 
           expect(configExists).toBe(true);
 
           const configContent = await fs.readFile(
-            path.resolve(temporaryPath, 'commonality.config.ts'),
+            path.resolve(temporaryPath, '.commonality/config.json'),
             'utf8',
           );
 

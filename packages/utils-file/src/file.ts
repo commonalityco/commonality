@@ -31,9 +31,11 @@ export function file(filepath: string): File {
       await fs.remove(filepath);
     },
     exists: async () => {
-      const foo = await _exists;
-
-      return foo;
+      try {
+        return await _exists;
+      } catch {
+        return false;
+      }
     },
   } satisfies File;
 }

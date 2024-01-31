@@ -85,9 +85,9 @@ describe('text', () => {
     it('should write lines to text file if it does not exist', async () => {
       mock({});
 
-      await text('./', filename).set(['line1', 'line2', 'line3']);
+      await text('./nested', filename).set(['line1', 'line2', 'line3']);
 
-      const textData = await fs.readFile(filename, 'utf8');
+      const textData = await fs.readFile(`./nested/${filename}`, 'utf8');
 
       expect(textData).toMatchInlineSnapshot(`
         "line1

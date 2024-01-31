@@ -18,7 +18,6 @@ import process from 'node:process';
 import { Logger } from '../utils/logger';
 import { Status } from '@commonalityco/utils-core';
 import { isCI } from 'std-env';
-import fs from 'fs-extra';
 
 const command = new Command();
 

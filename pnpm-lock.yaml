@@ -735,9 +735,6 @@ importers:
       globby:
         specifier: ^13.2.2
         version: 13.2.2
-      jiti:
-        specifier: ^1.21.0
-        version: 1.21.0
       yaml:
         specifier: ^2.3.2
         version: 2.3.4

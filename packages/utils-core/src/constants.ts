@@ -95,7 +95,7 @@ const checkSchema = z.object({
 
 const defaultProjectConfigSchema = z.object({
   workspaces: z.array(z.string()).default([]),
-  checks: z.record(z.array(checkSchema).default([])).default({}),
+  checks: z.record(z.array(z.string()).default([])).default({}),
   constraints: z.record(constraintSchema).default({}),
 });
 
