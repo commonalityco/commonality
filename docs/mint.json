@@ -59,7 +59,7 @@
     },
     {
       "group": "Concepts",
-      "pages": ["tags", "selectors", "codeowners"]
+      "pages": ["tags", "selectors", "codeowners", "workspaces"]
     },
     {
       "group": "Studio",

@@ -25,11 +25,7 @@ export default defineConfig({
 
 ### `checks`
 
-```ts
-Record<string, Check[]>
-```
-
-The `checks` property expects an object whose keys are [selectors](/selectors) and whose values are [Check objects](/reference/check-object).
+An object whose keys are [selectors](/selectors) and whose values are [check objects](/reference/check-object).
 
 <Info>Checks will run in the order they are defined.</Info>
 
@@ -49,13 +45,7 @@ export default defineConfig({
 
 ### `constraints`
 
-
-```ts
-Record<string, Constraint[]>
-```
-
-
-The `constraints` property expects an object whose keys are [selectors](/selectors) and whose value are [Constraint objects](/reference/constraint-object).
+An object whose keys are [selectors](/selectors) and whose value are [constraint objects](/reference/constraint-object).
 
 ```ts commonality.config.ts
 import { defineConfig } from 'commonality';
@@ -67,3 +57,19 @@ export default defineConfig({
   },
 });
 ```
+
+
+---
+
+### `workspaces`
+
+An array of [minimatch](https://github.com/isaacs/minimatch#usage) patterns used to identify which directories should be included when searching for packages.
+
+```ts commonality.config.ts
+import { defineConfig } from 'commonality';
+
+export default defineConfig({
+  workspaces: ['apps/*', 'packages/**', '!**/dist/**'],
+});
+```
+
