@@ -1,8 +1,4 @@
-A project configuration file is a JSON file located at the root of a package's directory. It must be named the following:
-
-- **`commonality.json`**
-
-<Tip>When editing tags in [Commonality Studio](/studio/introduction), we'll automatically update these files for you.</Tip>
+A project configuration file is a `commonality.json` file located at the root of a package directory.
 
 ---
 
@@ -10,11 +6,9 @@ A project configuration file is a JSON file located at the root of a package's d
 
 ### `tags`
 
-```ts
-string[]
-```
+The tags associated with the package. Packages can be selected with tags using [selectors](/selectors) in your [project configuration](/reference/project-configuration).
 
-The tags associated with the package. Packages can be selected with tags using [selectors](/selectors) in the [project configuration](/reference/project-configuration).
+<Tip>When editing tags in [Commonality Studio](/studio/editing-tags), we'll automatically update this property for you.</Tip>
 
 ```json commonality.json
 {

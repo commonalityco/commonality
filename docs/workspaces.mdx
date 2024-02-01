@@ -1,0 +1,58 @@
+---
+title: "Workspaces"
+icon: "boxes-stacked"
+---
+
+Commonality will automatically infer the directories in which to search for packages based on your package manager's workspaces configuration.
+
+<Info>
+  Commonality supports all glob expressions that are supported by [minimatch](https://github.com/isaacs/minimatch#minimatch).
+</Info>
+
+## Automatic configuration
+
+### npm, yarn, and bun
+For these package managers, Commonality will read the [workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) property in the `package.json` at the root of your project.
+
+```json package.json
+{
+  "workspaces": [
+    "apps/*",
+    "packages/**",
+    "!**/dist/**"
+  ]
+}
+```
+
+### pnpm
+
+For pnpm, Commonality will read the [packages](https://pnpm.io/pnpm-workspace_yaml) property in the `pnpm-workspace.yaml` file at the root of your project.
+
+```yaml pnpm-workspace.yaml
+packages:
+  - 'apps/*'
+  - 'packages/**'
+  - '!**/dist/**'
+```
+
+## Manual configuration
+
+Workspaces can also be set manually in the [project configuration](http://localhost:3000/reference/project-configuration#workspaces) file.
+
+This property can be helpful in integrated monorepos where setting workspaces in your package manager's configuration would cause unintended side-effects.
+
+<Info>
+  Setting this property will override the workspaces inferred from your package manager.
+</Info>
+
+```ts commonality.config.ts
+import { defineConfig } from 'commonality';
+
+export default defineConfig({
+  workspaces: [
+    "apps/*",
+    "packages/**",
+    "!**/dist/**"
+  ]
+});
+```
