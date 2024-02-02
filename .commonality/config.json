@@ -13,25 +13,25 @@
     "ui": [
       "has-scripts",
       "has-eslint-config",
-      "has-client-ts-config",
+      "has-client-tsconfig",
       "has-npm-ignore"
     ],
     "state": [
       "has-scripts",
       "has-eslint-config",
-      "has-client-ts-config",
+      "has-client-tsconfig",
       "has-npm-ignore"
     ],
     "data": [
       "has-scripts",
       "has-eslint-config",
-      "has-client-ts-config",
+      "has-client-tsconfig",
       "has-npm-ignore"
     ],
     "utility": [
       "has-scripts",
       "has-eslint-config",
-      "has-client-ts-config",
+      "has-client-tsconfig",
       "has-npm-ignore"
     ]
   },

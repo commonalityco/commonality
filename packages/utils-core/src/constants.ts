@@ -93,16 +93,20 @@ const checkSchema = z.object({
   ]),
 });
 
-const defaultProjectConfigSchema = z.object({
+export const jsonProjectConfigSchema = z.object({
   workspaces: z.array(z.string()).default([]),
   checks: z.record(z.array(z.string()).default([])).default({}),
   constraints: z.record(constraintSchema).default({}),
 });
 
-export const projectConfigSchema = defaultProjectConfigSchema;
+export const projectConfigSchema = z.object({
+  workspaces: z.array(z.string()).default([]),
+  checks: z.record(z.array(checkSchema).default([])).default({}),
+  constraints: z.record(constraintSchema).default({}),
+});
 
-export type ProjectConfigInput = z.input<typeof projectConfigSchema>;
-export type ProjectConfigOutput = z.output<typeof projectConfigSchema>;
+export type JsonProjectConfig = z.input<typeof jsonProjectConfigSchema>;
+export type ProjectConfig = z.output<typeof projectConfigSchema>;
 
 export type Check = z.infer<typeof checkSchema>;
 export type CheckInput = z.input<typeof checkSchema>;

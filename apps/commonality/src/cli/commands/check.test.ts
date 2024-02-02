@@ -3,7 +3,7 @@ import { action as check } from './check.js';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 import process from 'node:process';
 import console from 'node:console';
-import { PackageType, Status } from '@commonalityco/utils-core';
+import { PackageType, Status } from '@commonalityco/utils-core/constants';
 import stripAnsi from 'strip-ansi';
 import prompts from 'prompts';
 
@@ -219,10 +219,10 @@ describe('check', () => {
         ❯ pkg-one (1)
         ✓ pass This package should be cool
         │      /path/package.json
-        │      
+        │
         ❯ pkg-two (1)
         ✓ pass This package should be cool
-        │      
+        │
 
         Packages: 0 failed 0 warnings 2 passed (2)
           Checks: 0 failed 0 warnings 2 passed (2)",
@@ -348,7 +348,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -407,10 +407,10 @@ describe('check', () => {
         │      a
         │      multiline
         │      string
-        │      
+        │
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -492,7 +492,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -578,7 +578,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -660,7 +660,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -723,7 +723,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",

@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import { PackageManager, Lockfile } from '@commonalityco/utils-core';
+import { PackageManager, Lockfile } from '@commonalityco/utils-core/constants';
 
 export const getPackageManager = async ({
   rootDirectory,

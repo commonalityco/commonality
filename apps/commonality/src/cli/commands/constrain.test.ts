@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { reportConstraintResults } from './constrain';
-import { DependencyType } from '@commonalityco/utils-core';
+import { DependencyType } from '@commonalityco/utils-core/constants';
 import stripAnsi from 'strip-ansi';
 import { ConstraintResult } from '@commonalityco/types';
 
@@ -108,7 +108,7 @@ describe('constrain', () => {
       ↳ pass pkg-two prod
       │      Allowed: *
       │      Found:   No tags found
-      │      
+      │
 
       Packages:    0 failed 1 passed (1)
       Constraints: 0 failed 1 passed (1)",
@@ -151,7 +151,7 @@ describe('constrain', () => {
       ↳ fail pkg-two prod
       │      Allowed: #tag-two
       │      Found:   #tag-three
-      │      
+      │
 
       Packages:    1 failed 0 passed (1)
       Constraints: 1 failed 0 passed (1)",
@@ -194,7 +194,7 @@ describe('constrain', () => {
       ↳ fail pkg-two prod
       │      Disallowed: #tag-three
       │      Found:      #tag-three
-      │      
+      │
 
       Packages:    1 failed 0 passed (1)
       Constraints: 1 failed 0 passed (1)",
@@ -237,7 +237,7 @@ describe('constrain', () => {
       ↳ fail pkg-two prod
       │      Disallowed: #tag-three
       │      Found:      #tag-three
-      │      
+      │
 
       Packages:    1 failed 0 passed (1)
       Constraints: 1 failed 0 passed (1)",
@@ -286,7 +286,7 @@ describe('constrain', () => {
       ↳ fail pkg-two prod → pkg-three prod
       │      Disallowed: #tag-three
       │      Found:      #tag-three
-      │      
+      │
 
       Packages:    1 failed 0 passed (1)
       Constraints: 1 failed 0 passed (1)",

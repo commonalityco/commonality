@@ -3,3 +3,4 @@ export * from './get-conformance-results';
 export * from './diff';
 export * from './create-test-check';
 export * from './define-check';
+export * from './get-resolved-checks';

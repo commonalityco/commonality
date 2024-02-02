@@ -1,0 +1,7 @@
+{
+  "name": "kitchen-sink",
+  "dependencies": {
+    "commonality-checks-test": "file:../commonality-checks-test",
+    "@scope/team": "file:../scoped-checks"
+  }
+}

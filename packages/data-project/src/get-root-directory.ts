@@ -1,6 +1,6 @@
 import process from 'node:process';
 import path from 'node:path';
-import { Lockfile } from '@commonalityco/utils-core';
+import { Lockfile } from '@commonalityco/utils-core/constants';
 import { findUp } from 'find-up';
 import { fileURLToPath } from 'node:url';
 

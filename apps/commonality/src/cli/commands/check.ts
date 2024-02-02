@@ -16,8 +16,9 @@ import c from 'chalk';
 import prompts from 'prompts';
 import process from 'node:process';
 import { Logger } from '../utils/logger';
-import { Status } from '@commonalityco/utils-core';
+import { Status } from '@commonalityco/utils-core/constants';
 import { isCI } from 'std-env';
+import { getResolvedChecks } from '@commonalityco/utils-conformance';
 
 const command = new Command();
 
@@ -256,7 +257,7 @@ export const check = command
     const packages = await getPackages({ rootDirectory });
     const tagsData = await getTagsData({ rootDirectory, packages });
     const codeownersData = await getCodeownersData({ rootDirectory, packages });
-
+    const resolvedChecks = await getResolvedChecks(projectConfig);
     return action({
       verbose,
       onFix: (results) => {

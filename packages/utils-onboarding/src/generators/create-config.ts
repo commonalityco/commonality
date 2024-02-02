@@ -1,4 +1,5 @@
-import { json } from '@commonalityco/utils-file/json';
+import fs from 'fs-extra';
+import path from 'pathe';
 
 const configWithChecks = {
   checks: {
@@ -30,7 +31,8 @@ export const createConfig = async ({
 }) => {
   const configFileName = '.commonality/config.json';
 
-  await json(rootDirectory, configFileName).set(
+  await fs.outputJSON(
+    path.join(rootDirectory, configFileName),
     includeChecks ? configWithChecks : configWithoutChecks,
   );
 };

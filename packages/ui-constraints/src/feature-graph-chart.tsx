@@ -8,12 +8,12 @@ import FeatureGraphToolbar from './feature-graph-toolbar';
 import { cn } from '@commonalityco/ui-design-system/cn';
 import debounce from 'lodash-es/debounce';
 import { getElementDefinitions } from '@commonalityco/ui-graph';
-import { ProjectConfigOutput } from '@commonalityco/utils-core';
+import { ProjectConfig } from '@commonalityco/utils-core';
 
 interface GraphProperties {
   packages: Package[];
   results: ConstraintResult[];
-  constraints: ProjectConfigOutput['constraints'];
+  constraints: ProjectConfig['constraints'];
   dependencies: Dependency[];
   theme?: string;
   onPackageClick: (packageName: string) => void;

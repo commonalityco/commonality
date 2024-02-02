@@ -735,6 +735,9 @@ importers:
       globby:
         specifier: ^13.2.2
         version: 13.2.2
+      jiti:
+        specifier: ^1.21.0
+        version: 1.21.0
       yaml:
         specifier: ^2.3.2
         version: 2.3.4
@@ -1240,6 +1243,9 @@ importers:
       jest-diff:
         specifier: ^29.7.0
         version: 29.7.0
+      jiti:
+        specifier: ^1.21.0
+        version: 1.21.0
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1249,6 +1255,9 @@ importers:
       pathe:
         specifier: ^1.1.1
         version: 1.1.1
+      resolve:
+        specifier: ^1.22.8
+        version: 1.22.8
       strip-ansi:
         specifier: ^7.1.0
         version: 7.1.0
@@ -1262,9 +1271,15 @@ importers:
       '@commonalityco/utils-core':
         specifier: workspace:*
         version: link:../utils-core
+      '@types/fs-extra':
+        specifier: ^11.0.2
+        version: 11.0.4
       '@types/lodash-es':
         specifier: ^4.14.198
         version: 4.17.12
+      '@types/resolve':
+        specifier: ^1.20.6
+        version: 1.20.6
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
@@ -1277,6 +1292,21 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
+
+  packages/utils-conformance/local-fixtures/commonality-checks-test: {}
+
+  packages/utils-conformance/local-fixtures/kitchen-sink:
+    dependencies:
+      '@scope/team':
+        specifier: file:../scoped-checks
+        version: file:packages/utils-conformance/local-fixtures/scoped-checks
+      commonality-checks-test:
+        specifier: file:../commonality-checks-test
+        version: file:packages/utils-conformance/local-fixtures/commonality-checks-test
+
+  packages/utils-conformance/local-fixtures/kitchen-sink/packages/pkg-one: {}
+
+  packages/utils-conformance/local-fixtures/scoped-checks: {}
 
   packages/utils-core:
     dependencies:
@@ -16996,3 +17026,13 @@ packages:
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+
+  file:packages/utils-conformance/local-fixtures/commonality-checks-test:
+    resolution: {directory: packages/utils-conformance/local-fixtures/commonality-checks-test, type: directory}
+    name: commonality-checks-test
+    dev: false
+
+  file:packages/utils-conformance/local-fixtures/scoped-checks:
+    resolution: {directory: packages/utils-conformance/local-fixtures/scoped-checks, type: directory}
+    name: '@scope/team'
+    dev: false

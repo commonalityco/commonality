@@ -1,7 +1,7 @@
 import { Package, PackageJson } from '@commonalityco/types';
 import path from 'node:path';
 import fs from 'fs-extra';
-import { PackageType } from '@commonalityco/utils-core';
+import { PackageType } from '@commonalityco/utils-core/constants';
 
 const typeOrder = new Set([
   PackageType.NEXT,

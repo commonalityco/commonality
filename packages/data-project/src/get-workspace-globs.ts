@@ -2,7 +2,7 @@ import path from 'node:path';
 import fs from 'fs-extra';
 import { PackageJson } from '@commonalityco/types';
 import yaml from 'yaml';
-import { PackageManager } from '@commonalityco/utils-core';
+import { PackageManager } from '@commonalityco/utils-core/constants';
 import { getProjectConfig } from './get-project-config';
 
 const defaultWorkspaceGlobs = ['./**'];
