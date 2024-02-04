@@ -1,4 +1,4 @@
-import { extendsRepositoryField } from './extends-repository-field';
+import extendsRepositoryField from './extends-repository-field';
 import { createTestCheck, json } from 'commonality';
 import { describe, it, expect, afterEach } from 'vitest';
 import mockFs from 'mock-fs';
@@ -19,7 +19,7 @@ describe('extendsRepositoryField', () => {
             },
           },
         });
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -50,7 +50,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -82,7 +82,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -114,7 +114,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -146,7 +146,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -178,7 +178,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -210,7 +210,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -244,7 +244,7 @@ describe('extendsRepositoryField', () => {
           'package.json': rootPackageJson,
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -292,7 +292,7 @@ describe('extendsRepositoryField', () => {
           'package.json': rootPackageJson,
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -336,7 +336,7 @@ describe('extendsRepositoryField', () => {
           }),
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -384,7 +384,7 @@ describe('extendsRepositoryField', () => {
           }),
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = createTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',

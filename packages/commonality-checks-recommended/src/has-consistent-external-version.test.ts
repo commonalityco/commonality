@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { hasConsistentExternalVersion } from './has-consistent-external-version';
+import hasConsistentExternalVersion from './has-consistent-external-version';
 import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
@@ -45,7 +45,7 @@ describe('hasConsistentExternalVersion', () => {
         },
       });
 
-      const conformer = createTestCheck(hasConsistentExternalVersion(), {
+      const conformer = createTestCheck(hasConsistentExternalVersion, {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -98,7 +98,7 @@ describe('hasConsistentExternalVersion', () => {
         },
       });
 
-      const conformer = createTestCheck(hasConsistentExternalVersion(), {
+      const conformer = createTestCheck(hasConsistentExternalVersion, {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -153,7 +153,7 @@ describe('hasConsistentExternalVersion', () => {
         },
       });
 
-      const conformer = createTestCheck(hasConsistentExternalVersion(), {
+      const conformer = createTestCheck(hasConsistentExternalVersion, {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -238,7 +238,7 @@ describe('hasConsistentExternalVersion', () => {
         },
       });
 
-      const conformer = createTestCheck(hasConsistentExternalVersion(), {
+      const conformer = createTestCheck(hasConsistentExternalVersion, {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -308,7 +308,7 @@ describe('hasConsistentExternalVersion', () => {
         },
       });
 
-      const conformer = createTestCheck(hasConsistentExternalVersion(), {
+      const conformer = createTestCheck(hasConsistentExternalVersion, {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },

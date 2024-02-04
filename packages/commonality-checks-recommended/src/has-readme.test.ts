@@ -1,5 +1,5 @@
 import { describe, expect, it, afterEach } from 'vitest';
-import { hasReadme } from './has-readme';
+import hasReadme from './has-readme';
 import { createTestCheck, text } from 'commonality';
 import mockFs from 'mock-fs';
 
@@ -14,7 +14,7 @@ describe('hasReadme', () => {
         'README.md': '# Hello',
       });
 
-      const conformer = createTestCheck(hasReadme());
+      const conformer = createTestCheck(hasReadme);
 
       const result = await conformer.validate();
 
@@ -24,7 +24,7 @@ describe('hasReadme', () => {
     it('should return false if README.md does not exist', async () => {
       mockFs({});
 
-      const conformer = createTestCheck(hasReadme());
+      const conformer = createTestCheck(hasReadme);
 
       const result = await conformer.validate();
 
@@ -41,7 +41,7 @@ describe('hasReadme', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasReadme());
+      const conformer = createTestCheck(hasReadme);
 
       await conformer.fix();
 

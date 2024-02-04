@@ -34,25 +34,5 @@
       "has-client-tsconfig",
       "has-npm-ignore"
     ]
-  },
-  "constraints": {
-    "application": {
-      "allow": ["ui", "data", "utility", "config", "application"]
-    },
-    "ui": {
-      "allow": ["ui", "utility", "config"],
-      "disallow": ["application"]
-    },
-    "data": {
-      "allow": ["data", "utility", "config"],
-      "disallow": ["application"]
-    },
-    "utility": {
-      "allow": ["utility", "config"],
-      "disallow": ["application"]
-    },
-    "config": {
-      "disallow": "*"
-    }
   }
 }

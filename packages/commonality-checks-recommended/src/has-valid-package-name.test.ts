@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { hasValidPackageName } from './has-valid-package-name';
+import hasValidPackageName from './has-valid-package-name';
 import { createTestCheck } from 'commonality';
 import mockFs from 'mock-fs';
 
@@ -13,7 +13,7 @@ describe('hasValidPackageName', () => {
       mockFs({
         'package.json': JSON.stringify({}),
       });
-      const conformer = createTestCheck(hasValidPackageName());
+      const conformer = createTestCheck(hasValidPackageName);
 
       const result = await conformer.validate();
 
@@ -27,7 +27,7 @@ describe('hasValidPackageName', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasValidPackageName());
+      const conformer = createTestCheck(hasValidPackageName);
 
       const result = await conformer.validate();
 
@@ -41,7 +41,7 @@ describe('hasValidPackageName', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasValidPackageName());
+      const conformer = createTestCheck(hasValidPackageName);
 
       const result = await conformer.validate();
 

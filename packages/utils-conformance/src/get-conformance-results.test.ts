@@ -1,12 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { getConformanceResults } from './get-conformance-results';
 import { Package, TagsData } from '@commonalityco/types';
-import { PackageType, Status } from '@commonalityco/utils-core';
-import { ProjectConfig } from '@commonalityco/utils-core';
+import { Check, PackageType, Status } from '@commonalityco/utils-core';
 
 describe('getConformanceResults', () => {
   it('should return errors when workspace is not valid and have a level set to error', async () => {
-    const conformersByPattern: ProjectConfig['checks'] = {
+    const conformersByPattern: Record<string, Check[]> = {
       '*': [
         {
           name: 'InvalidWorkspaceConformer',
@@ -43,7 +42,7 @@ describe('getConformanceResults', () => {
   });
 
   it('should return errors when workspace is not valid and do not have a level set', async () => {
-    const conformersByPattern: ProjectConfig['checks'] = {
+    const conformersByPattern: Record<string, Check[]> = {
       '*': [
         {
           name: 'InvalidWorkspaceConformer',
@@ -80,7 +79,7 @@ describe('getConformanceResults', () => {
   });
 
   it('should return valid results when checks are valid', async () => {
-    const conformersByPattern: ProjectConfig['checks'] = {
+    const conformersByPattern: Record<string, Check[]> = {
       '*': [
         {
           name: 'ValidWorkspaceConformer',
@@ -117,7 +116,7 @@ describe('getConformanceResults', () => {
   });
 
   it('should return valid results when checks are valid and there are no tags', async () => {
-    const conformersByPattern: ProjectConfig['checks'] = {
+    const conformersByPattern: Record<string, Check[]> = {
       '*': [
         {
           name: 'ValidWorkspaceConformer',
@@ -154,7 +153,7 @@ describe('getConformanceResults', () => {
   });
 
   it('should handle exceptions during validation', async () => {
-    const conformersByPattern: ProjectConfig['checks'] = {
+    const conformersByPattern: Record<string, Check[]> = {
       '*': [
         {
           name: 'ExceptionConformer',
@@ -192,7 +191,7 @@ describe('getConformanceResults', () => {
   });
 
   it('should handle conformers that target patterns other than *', async () => {
-    const conformersByPattern: ProjectConfig['checks'] = {
+    const conformersByPattern: Record<string, Check[]> = {
       tag1: [
         {
           name: 'Tag1Conformer',
@@ -229,7 +228,7 @@ describe('getConformanceResults', () => {
   });
 
   it('should return correct result when message property is a function', async () => {
-    const conformersByPattern: ProjectConfig['checks'] = {
+    const conformersByPattern: Record<string, Check[]> = {
       '*': [
         {
           name: 'MessageFunctionConformer',

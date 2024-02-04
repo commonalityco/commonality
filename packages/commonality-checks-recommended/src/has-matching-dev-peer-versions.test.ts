@@ -1,4 +1,4 @@
-import { hasMatchingDevPeerVersions } from './has-matching-dev-peer-versions';
+import hasMatchingDevPeerVersions from './has-matching-dev-peer-versions';
 import { describe, it, expect, afterEach } from 'vitest';
 import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
@@ -18,7 +18,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = createTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
@@ -39,7 +39,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = createTestCheck(hasMatchingDevPeerVersions);
         const result = await conformer.validate();
 
         expect(result).toBe(false);
@@ -59,7 +59,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = createTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
@@ -80,7 +80,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = createTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
@@ -101,7 +101,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = createTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
@@ -122,7 +122,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = createTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
@@ -143,7 +143,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = createTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
@@ -163,7 +163,7 @@ describe('hasMatchingDevPeerVersions', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasMatchingDevPeerVersions());
+      const conformer = createTestCheck(hasMatchingDevPeerVersions);
 
       await conformer.fix();
 
@@ -190,7 +190,7 @@ describe('hasMatchingDevPeerVersions', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasMatchingDevPeerVersions());
+      const conformer = createTestCheck(hasMatchingDevPeerVersions);
 
       await conformer.fix();
 
@@ -222,7 +222,7 @@ describe('hasMatchingDevPeerVersions', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasMatchingDevPeerVersions());
+      const conformer = createTestCheck(hasMatchingDevPeerVersions);
 
       const result = await conformer.message();
 
@@ -256,7 +256,7 @@ describe('hasMatchingDevPeerVersions', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasMatchingDevPeerVersions());
+      const conformer = createTestCheck(hasMatchingDevPeerVersions);
 
       const result = await conformer.message();
 
@@ -279,7 +279,7 @@ describe('hasMatchingDevPeerVersions', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasMatchingDevPeerVersions());
+      const conformer = createTestCheck(hasMatchingDevPeerVersions);
 
       const result = await conformer.message();
 

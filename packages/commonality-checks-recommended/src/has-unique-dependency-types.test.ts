@@ -1,4 +1,4 @@
-import { hasUniqueDependencyTypes } from './has-unique-dependency-types';
+import hasUniqueDependencyTypes from './has-unique-dependency-types';
 import { describe, it, expect, afterEach } from 'vitest';
 import { createTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
@@ -17,7 +17,7 @@ describe('hasUniqueDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = createTestCheck(hasUniqueDependencyTypes);
 
       const result = await conformer.validate();
 
@@ -36,7 +36,7 @@ describe('hasUniqueDependencyTypes', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = createTestCheck(hasUniqueDependencyTypes);
       const result = await conformer.validate();
 
       expect(result).toBe(false);
@@ -53,7 +53,7 @@ describe('hasUniqueDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = createTestCheck(hasUniqueDependencyTypes);
       const result = await conformer.validate();
 
       expect(result).toBe(false);
@@ -73,7 +73,7 @@ describe('hasUniqueDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = createTestCheck(hasUniqueDependencyTypes);
       const result = await conformer.validate();
 
       expect(result).toBe(false);
@@ -93,7 +93,7 @@ describe('hasUniqueDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = createTestCheck(hasUniqueDependencyTypes);
 
       await conformer.fix();
 
@@ -120,7 +120,7 @@ describe('hasUniqueDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = createTestCheck(hasUniqueDependencyTypes);
 
       await conformer.fix();
 
@@ -151,7 +151,7 @@ describe('hasUniqueDependencyTypes', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = createTestCheck(hasUniqueDependencyTypes);
 
       await conformer.fix();
 
@@ -187,7 +187,7 @@ describe('hasUniqueDependencyTypes', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = createTestCheck(hasUniqueDependencyTypes);
       const message = await conformer.message();
 
       expect(message.title).toEqual(

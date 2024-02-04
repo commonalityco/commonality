@@ -1,6 +1,7 @@
-import { defineCheck, json, text, PackageJson } from 'commonality';
+import { json, text, PackageJson, Check } from 'commonality';
 
-export const hasReadme = defineCheck(() => ({
+export default {
+  level: 'warning',
   name: 'commonality/has-readme',
 
   validate: async (context) => {
@@ -24,4 +25,4 @@ export const hasReadme = defineCheck(() => ({
   },
 
   message: `Package must have a README.md file`,
-}));
+} satisfies Check;

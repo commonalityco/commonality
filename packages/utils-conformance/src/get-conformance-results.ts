@@ -143,7 +143,7 @@ export const getConformanceResults = async ({
   rootDirectory,
   codeownersData,
 }: {
-  conformersByPattern: ProjectConfig['checks'];
+  conformersByPattern: Record<string, Check[]>;
   rootDirectory: string;
   packages: Package[];
   tagsData: TagsData[];

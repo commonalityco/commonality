@@ -38,8 +38,6 @@ export function json<T extends Record<string, unknown>>(
       ? detectIndent(text).indent || defaultIndent
       : defaultIndent;
 
-    console.log('hmmm');
-
     await fs.outputFile(fullPath, JSON.stringify(json, undefined, indent));
   };
 

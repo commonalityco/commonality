@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { hasCodeowner } from './has-codeowner';
+import hasCodeowner from './has-codeowner';
 import { createTestCheck } from 'commonality';
 
 describe('hasCodeowner', () => {
   describe('validate', () => {
     it('should return false if codeowners are not present', async () => {
-      const conformer = createTestCheck(hasCodeowner(), {
+      const conformer = createTestCheck(hasCodeowner, {
         codeowners: [],
       });
 
@@ -14,7 +14,7 @@ describe('hasCodeowner', () => {
     });
 
     it('should return true if codeowners are present', async () => {
-      const conformer = createTestCheck(hasCodeowner(), {
+      const conformer = createTestCheck(hasCodeowner, {
         codeowners: ['owner-1', 'owner-2'],
       });
 

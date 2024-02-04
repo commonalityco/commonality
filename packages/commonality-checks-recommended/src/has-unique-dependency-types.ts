@@ -1,4 +1,4 @@
-import { defineCheck, diff, json, PackageJson } from 'commonality';
+import { Check, diff, json, PackageJson } from 'commonality';
 
 function getExpectedPackageJson(packageJson: PackageJson) {
   const newPackageJson = JSON.parse(JSON.stringify(packageJson));
@@ -40,62 +40,59 @@ function getExpectedPackageJson(packageJson: PackageJson) {
   return newPackageJson;
 }
 
-export const hasUniqueDependencyTypes = defineCheck(() => {
-  return {
-    name: 'commonality/has-unique-dependency-types',
+export default {
+  name: 'commonality/has-unique-dependency-types',
+  level: 'warning',
+  validate: async (context) => {
+    const packageJson = await json<PackageJson>(
+      context.package.path,
+      'package.json',
+    ).get();
 
-    validate: async (context) => {
-      const packageJson = await json<PackageJson>(
-        context.package.path,
-        'package.json',
-      ).get();
+    if (!packageJson) {
+      return false;
+    }
 
-      if (!packageJson) {
-        return false;
-      }
+    const { dependencies, devDependencies, optionalDependencies } = packageJson;
 
-      const { dependencies, devDependencies, optionalDependencies } =
-        packageJson;
+    const hasUniqueDependencyTypes = Object.keys(dependencies || {}).filter(
+      (dep) =>
+        (devDependencies && devDependencies[dep]) ||
+        (optionalDependencies && optionalDependencies[dep]),
+    );
+    return hasUniqueDependencyTypes.length === 0;
+  },
 
-      const hasUniqueDependencyTypes = Object.keys(dependencies || {}).filter(
-        (dep) =>
-          (devDependencies && devDependencies[dep]) ||
-          (optionalDependencies && optionalDependencies[dep]),
-      );
-      return hasUniqueDependencyTypes.length === 0;
-    },
+  fix: async (context) => {
+    const packageJson = await json<PackageJson>(
+      context.package.path,
+      'package.json',
+    ).get();
 
-    fix: async (context) => {
-      const packageJson = await json<PackageJson>(
-        context.package.path,
-        'package.json',
-      ).get();
+    if (!packageJson) {
+      return;
+    }
 
-      if (!packageJson) {
-        return;
-      }
+    const newPackageJson = getExpectedPackageJson(packageJson);
 
-      const newPackageJson = getExpectedPackageJson(packageJson);
+    await json(context.package.path, 'package.json').set(newPackageJson);
+  },
 
-      await json(context.package.path, 'package.json').set(newPackageJson);
-    },
+  message: async (context) => {
+    const packageJson = await json<PackageJson>(
+      context.package.path,
+      'package.json',
+    ).get();
 
-    message: async (context) => {
-      const packageJson = await json<PackageJson>(
-        context.package.path,
-        'package.json',
-      ).get();
+    if (!packageJson) {
+      return { title: 'Package.json is missing' };
+    }
 
-      if (!packageJson) {
-        return { title: 'Package.json is missing' };
-      }
-
-      return {
-        title:
-          'A dependency should only be in one of dependencies, devDependencies, or optionalDependencies',
-        filePath: 'package.json',
-        suggestion: diff(packageJson, getExpectedPackageJson(packageJson)),
-      };
-    },
-  };
-});
+    return {
+      title:
+        'A dependency should only be in one of dependencies, devDependencies, or optionalDependencies',
+      filePath: 'package.json',
+      suggestion: diff(packageJson, getExpectedPackageJson(packageJson)),
+    };
+  },
+} satisfies Check;

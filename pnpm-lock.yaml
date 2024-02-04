@@ -102,6 +102,9 @@ importers:
       globby:
         specifier: ^13.2.2
         version: 13.2.2
+      import-meta-resolve:
+        specifier: ^4.0.0
+        version: 4.0.0
       jest-diff:
         specifier: ^29.7.0
         version: 29.7.0
@@ -735,9 +738,6 @@ importers:
       globby:
         specifier: ^13.2.2
         version: 13.2.2
-      jiti:
-        specifier: ^1.21.0
-        version: 1.21.0
       yaml:
         specifier: ^2.3.2
         version: 2.3.4
@@ -1243,9 +1243,6 @@ importers:
       jest-diff:
         specifier: ^29.7.0
         version: 29.7.0
-      jiti:
-        specifier: ^1.21.0
-        version: 1.21.0
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1283,30 +1280,18 @@ importers:
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
+      execa:
+        specifier: ^8.0.1
+        version: 8.0.1
+      import-meta-resolve:
+        specifier: ^4.0.0
+        version: 4.0.0
+      jiti:
+        specifier: ^1.21.0
+        version: 1.21.0
       typescript:
         specifier: ^5.2.2
         version: 5.3.3
-
-  packages/utils-conformance/local-fixtures/commonality-checks-test: {}
-
-  packages/utils-conformance/local-fixtures/kitchen-sink:
-    dependencies:
-      '@scope/team':
-        specifier: file:../scoped-checks
-        version: file:packages/utils-conformance/local-fixtures/scoped-checks
-      commonality-checks-test:
-        specifier: file:../commonality-checks-test
-        version: file:packages/utils-conformance/local-fixtures/commonality-checks-test
-
-  packages/utils-conformance/local-fixtures/kitchen-sink/packages/pkg-one: {}
-
-  packages/utils-conformance/local-fixtures/scoped-checks: {}
 
   packages/utils-core:
     dependencies:
@@ -11258,6 +11243,9 @@ packages:
       resolve-cwd: 3.0.0
     dev: true
 
+  /import-meta-resolve@4.0.0:
+    resolution: {integrity: sha512-okYUR7ZQPH+efeuMJGlq4f8ubUgO50kByRPyt/Cy1Io4PSRsPjxME+YlVaCOx+NIToW7hCsZNFJyTPFFKepRSA==}
+
   /imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
     engines: {node: '>=0.8.19'}
@@ -17026,13 +17014,3 @@ packages:
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
-
-  file:packages/utils-conformance/local-fixtures/commonality-checks-test:
-    resolution: {directory: packages/utils-conformance/local-fixtures/commonality-checks-test, type: directory}
-    name: commonality-checks-test
-    dev: false
-
-  file:packages/utils-conformance/local-fixtures/scoped-checks:
-    resolution: {directory: packages/utils-conformance/local-fixtures/scoped-checks, type: directory}
-    name: '@scope/team'
-    dev: false

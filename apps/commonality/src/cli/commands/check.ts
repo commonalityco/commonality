@@ -18,7 +18,7 @@ import process from 'node:process';
 import { Logger } from '../utils/logger';
 import { Status } from '@commonalityco/utils-core/constants';
 import { isCI } from 'std-env';
-import { getResolvedChecks } from '@commonalityco/utils-conformance';
+import { getResolvedChecks } from '@commonalityco/utils-conformance/get-resolved-checks';
 
 const command = new Command();
 
@@ -257,7 +257,18 @@ export const check = command
     const packages = await getPackages({ rootDirectory });
     const tagsData = await getTagsData({ rootDirectory, packages });
     const codeownersData = await getCodeownersData({ rootDirectory, packages });
-    const resolvedChecks = await getResolvedChecks(projectConfig);
+    const checks = getResolvedChecks({
+      projectConfig: projectConfig?.config,
+      rootDirectory,
+    });
+
+    if (checks.unresolved.length > 0) {
+      checksSpinner.stop();
+      for (const unresolved of checks.unresolved) {
+        console.log(c.yellow(`\nCould not resolve check: ${unresolved}`));
+      }
+    }
+
     return action({
       verbose,
       onFix: (results) => {
@@ -271,7 +282,7 @@ export const check = command
       },
       getResults: () => {
         return getConformanceResults({
-          conformersByPattern: projectConfig?.config.checks ?? {},
+          conformersByPattern: checks.resolved ?? {},
           rootDirectory,
           packages,
           tagsData,
