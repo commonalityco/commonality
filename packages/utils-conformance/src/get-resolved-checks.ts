@@ -1,4 +1,7 @@
-import { Check, ProjectConfig } from '@commonalityco/utils-core/constants';
+import {
+  CheckOutput,
+  ProjectConfig,
+} from '@commonalityco/utils-core/constants';
 import path from 'node:path';
 import jiti from 'jiti';
 import fs from 'fs-extra';
@@ -82,7 +85,7 @@ export const getResolvedCheck = ({
 }: {
   checkPath: string;
   rootDirectory: string;
-}): Check | undefined => {
+}): CheckOutput | undefined => {
   try {
     const normalizedFilePath = toRelativePath(checkPath);
     const relativeNormalizedFilePath = getLocalResolvedPath({
@@ -116,7 +119,7 @@ export const getResolvedChecks = ({
   rootDirectory: string;
   projectConfig?: ProjectConfig;
 }): {
-  resolved: Record<string, Check[]> | Record<string, never>;
+  resolved: Record<string, CheckOutput[]> | Record<string, never>;
   unresolved: string[];
 } => {
   if (!projectConfig?.checks) {
@@ -127,7 +130,7 @@ export const getResolvedChecks = ({
   }
 
   const unresolvedPaths: string[] = [];
-  const resolvedChecks: [string, Check[]][] = [];
+  const resolvedChecks: [string, CheckOutput[]][] = [];
 
   for (const [selector, paths] of Object.entries(projectConfig.checks)) {
     if (!paths || paths.length === 0) {
@@ -135,7 +138,7 @@ export const getResolvedChecks = ({
       continue;
     }
 
-    const resolvedCheckList: Check[] = [];
+    const resolvedCheckList: CheckOutput[] = [];
 
     for (const checkPath of paths) {
       const resolvedCheck = getResolvedCheck({ checkPath, rootDirectory });

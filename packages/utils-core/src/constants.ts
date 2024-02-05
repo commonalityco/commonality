@@ -1,4 +1,5 @@
 import z from 'zod';
+import { nanoid } from 'nanoid';
 
 export enum Theme {
   Dark = 'dark',
@@ -83,6 +84,7 @@ export const messageSchema = z
   .strict();
 
 const checkSchema = z.object({
+  id: z.optional(z.string()).default(nanoid),
   name: z.string(),
   level: z.union([z.literal('error'), z.literal('warning')]).default('warning'),
   validate: checkFn.returns(
@@ -104,7 +106,6 @@ export const projectConfigSchema = z.object({
 export type ProjectConfig = z.input<typeof projectConfigSchema>;
 
 export type Check = z.input<typeof checkSchema>;
-export type CheckInput = z.input<typeof checkSchema>;
 export type CheckOutput = z.output<typeof checkSchema>;
 
 export type CheckContext = z.infer<typeof checkContextSchema>;
