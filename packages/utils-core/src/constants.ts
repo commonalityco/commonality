@@ -74,10 +74,10 @@ const constraintSchema = z.union([
   }),
 ]);
 
-const messageSchema = z
+export const messageSchema = z
   .object({
-    title: z.string(),
-    filePath: z.string().optional(),
+    message: z.string().optional(),
+    path: z.string().optional(),
     suggestion: z.string().optional(),
   })
   .strict();
@@ -85,12 +85,14 @@ const messageSchema = z
 const checkSchema = z.object({
   name: z.string(),
   level: z.union([z.literal('error'), z.literal('warning')]).default('warning'),
-  validate: checkFn,
+  validate: checkFn.returns(
+    z.union([
+      z.union([z.boolean(), messageSchema]),
+      z.promise(z.union([z.boolean(), messageSchema])),
+    ]),
+  ),
   fix: checkFn.returns(z.union([z.void(), z.promise(z.void())])).optional(),
-  message: z.union([
-    z.string(),
-    checkFn.returns(z.union([messageSchema, z.promise(messageSchema)])),
-  ]),
+  message: z.string(),
 });
 
 export const projectConfigSchema = z.object({
@@ -101,7 +103,7 @@ export const projectConfigSchema = z.object({
 
 export type ProjectConfig = z.input<typeof projectConfigSchema>;
 
-export type Check = z.infer<typeof checkSchema>;
+export type Check = z.input<typeof checkSchema>;
 export type CheckInput = z.input<typeof checkSchema>;
 export type CheckOutput = z.output<typeof checkSchema>;
 

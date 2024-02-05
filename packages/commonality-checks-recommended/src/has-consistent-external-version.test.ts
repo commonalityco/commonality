@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import hasConsistentExternalVersion from './has-consistent-external-version';
-import { createTestCheck, json } from 'commonality';
+import { defineTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('hasConsistentExternalVersion', () => {
@@ -45,7 +45,7 @@ describe('hasConsistentExternalVersion', () => {
         },
       });
 
-      const conformer = createTestCheck(hasConsistentExternalVersion, {
+      const conformer = defineTestCheck(hasConsistentExternalVersion, {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -98,7 +98,7 @@ describe('hasConsistentExternalVersion', () => {
         },
       });
 
-      const conformer = createTestCheck(hasConsistentExternalVersion, {
+      const conformer = defineTestCheck(hasConsistentExternalVersion, {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -112,7 +112,18 @@ describe('hasConsistentExternalVersion', () => {
 
       const result = await conformer.validate();
 
-      expect(result).toEqual(false);
+      // @ts-expect-error expecting message object
+      expect(result.path).toEqual('package.json');
+      // @ts-expect-error expecting message object
+      expect(result.suggestion).toMatchInlineSnapshot(`
+        "  Object {
+            \\"dependencies\\": Object {
+              \\"package3\\": \\"3.0.0\\",
+        +     \\"package3\\": \\"1.0.0\\",
+            },
+            \\"devDependencies\\": Object {},
+          }"
+      `);
     });
   });
 
@@ -153,7 +164,7 @@ describe('hasConsistentExternalVersion', () => {
         },
       });
 
-      const conformer = createTestCheck(hasConsistentExternalVersion, {
+      const conformer = defineTestCheck(hasConsistentExternalVersion, {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -238,7 +249,7 @@ describe('hasConsistentExternalVersion', () => {
         },
       });
 
-      const conformer = createTestCheck(hasConsistentExternalVersion, {
+      const conformer = defineTestCheck(hasConsistentExternalVersion, {
         allWorkspaces: [
           { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
           { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
@@ -267,71 +278,6 @@ describe('hasConsistentExternalVersion', () => {
         },
         peerDependencies: {},
       });
-    });
-  });
-
-  describe('message', () => {
-    it('should return the correct message', async () => {
-      mockFs({
-        packages: {
-          'pkg-a': {
-            'package.json': JSON.stringify({
-              name: 'pkg-a',
-              dependencies: {
-                'package-b': 'workspace:*',
-                package3: '3.0.0',
-              },
-              devDependencies: {},
-              peerDependencies: {},
-            }),
-          },
-          'pkg-b': {
-            'package.json': JSON.stringify({
-              name: 'pkg-b',
-              dependencies: {
-                package3: '1.0.0',
-              },
-              devDependencies: {},
-              peerDependencies: {},
-            }),
-          },
-          'pkg-c': {
-            'package.json': JSON.stringify({
-              name: 'pkg-c',
-              dependencies: {},
-              devDependencies: {
-                package3: '1.0.0',
-              },
-              peerDependencies: {},
-            }),
-          },
-        },
-      });
-
-      const conformer = createTestCheck(hasConsistentExternalVersion, {
-        allWorkspaces: [
-          { path: './packages/pkg-a', relativePath: './packages/pkg-a' },
-          { path: './packages/pkg-b', relativePath: './packages/pkg-b' },
-          { path: './packages/pkg-c', relativePath: './packages/pkg-c' },
-        ],
-        workspace: {
-          path: './packages/pkg-a',
-          relativePath: './packages/pkg-a',
-        },
-      });
-
-      const result = await conformer.message();
-
-      expect(result.suggestion).toMatchInlineSnapshot(`
-        "  Object {
-            \\"dependencies\\": Object {
-              \\"package-b\\": \\"workspace:*\\",
-              \\"package3\\": \\"3.0.0\\",
-        +     \\"package3\\": \\"1.0.0\\",
-            },
-            \\"devDependencies\\": Object {},
-          }"
-      `);
     });
   });
 });

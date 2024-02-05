@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import hasSortedDependencies from './has-sorted-dependencies';
-import { createTestCheck, json } from 'commonality';
+import { defineTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('hasSortedDependencies', () => {
@@ -18,7 +18,7 @@ describe('hasSortedDependencies', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasSortedDependencies);
+      const conformer = defineTestCheck(hasSortedDependencies);
 
       const result = await conformer.validate();
 
@@ -34,7 +34,7 @@ describe('hasSortedDependencies', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasSortedDependencies);
+      const conformer = defineTestCheck(hasSortedDependencies);
 
       const result = await conformer.validate();
 
@@ -51,7 +51,7 @@ describe('hasSortedDependencies', () => {
           peerDependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
         }),
       });
-      const conformer = createTestCheck(hasSortedDependencies);
+      const conformer = defineTestCheck(hasSortedDependencies);
 
       await conformer.fix();
 
@@ -71,26 +71,6 @@ describe('hasSortedDependencies', () => {
           'b-dep': '1.0.0',
         },
       });
-    });
-  });
-
-  describe('message', () => {
-    it('return the correct message for unsorted dependencies', async () => {
-      mockFs({
-        'package.json': JSON.stringify({
-          dependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
-          devDependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
-          peerDependencies: { 'b-dep': '1.0.0', 'a-dep': '1.0.0' },
-        }),
-      });
-      const conformer = createTestCheck(hasSortedDependencies);
-
-      const result = await conformer.message();
-
-      expect(result.title).toEqual(
-        'Dependencies in package.json must be sorted alphabetically',
-      );
-      expect(result.filePath).toEqual('package.json');
     });
   });
 });

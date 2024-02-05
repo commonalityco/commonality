@@ -14,7 +14,7 @@ describe('runFixes', () => {
         fix: mockFix,
         filter: '#tag-one',
         message: {
-          title: 'test',
+          message: 'test',
         },
         package: {
           name: 'test-package',

@@ -1,6 +1,6 @@
 export {
   diff,
-  createTestCheck,
+  defineTestCheck,
   defineCheck,
 } from '@commonalityco/utils-conformance';
 export { text, json } from '@commonalityco/utils-file';

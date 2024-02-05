@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { hasTextFile } from './has-text-file';
-import { createTestCheck, text } from 'commonality';
+import { defineTestCheck, text } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('hasTextFile', () => {
@@ -12,8 +12,16 @@ describe('hasTextFile', () => {
     it('should return false if text file is not present', async () => {
       mockFs({});
 
-      const check = createTestCheck(hasTextFile('missing.txt'));
-      expect(await check.validate()).toBe(false);
+      const check = defineTestCheck(hasTextFile('missing.txt'));
+
+      const result = await check.validate();
+
+      // @ts-expect-error expecting message object
+      expect(result.message).toEqual(`File "missing.txt" does not exist`);
+      // @ts-expect-error expecting message object
+      expect(result.path).toEqual('missing.txt');
+      // @ts-expect-error expecting message object
+      expect(result.suggestion).toEqual(undefined);
     });
 
     it('should return true if text file is present without content', async () => {
@@ -21,7 +29,7 @@ describe('hasTextFile', () => {
         'existing.txt': ' ',
       });
 
-      const check = createTestCheck(hasTextFile('existing.txt'));
+      const check = defineTestCheck(hasTextFile('existing.txt'));
 
       expect(await check.validate()).toBe(true);
     });
@@ -31,11 +39,23 @@ describe('hasTextFile', () => {
         'existing.txt': 'Hello World',
       });
 
-      const check = createTestCheck(
+      const check = defineTestCheck(
         hasTextFile('existing.txt', ['Hello Universe']),
       );
 
-      expect(await check.validate()).toBe(false);
+      const result = await check.validate();
+
+      // @ts-expect-error expecting message object
+      expect(result.message).toEqual('File does not contain expected content');
+      // @ts-expect-error expecting message object
+      expect(result.path).toEqual('existing.txt');
+      // @ts-expect-error expecting message object
+      expect(result.suggestion).toMatchInlineSnapshot(`
+        "  Array [
+            \\"Hello World\\",
+        +   \\"Hello Universe\\",
+          ]"
+      `);
     });
 
     it('should return true if text file is present and content matches', async () => {
@@ -43,73 +63,10 @@ describe('hasTextFile', () => {
         'existing.txt': 'Hello World',
       });
 
-      const check = createTestCheck(
+      const check = defineTestCheck(
         hasTextFile('existing.txt', ['Hello World']),
       );
       expect(await check.validate()).toBe(true);
-    });
-  });
-
-  describe('message', () => {
-    it('should return "Missing file" message if text file is not present', async () => {
-      mockFs({});
-
-      const check = createTestCheck(hasTextFile('missing.txt'));
-      expect(await check.message()).toMatchInlineSnapshot(`
-        {
-          "suggestion": undefined,
-          "title": "File \\"missing.txt\\" does not exist",
-        }
-      `);
-    });
-
-    it('should return "exists" message if text file is present without content', async () => {
-      mockFs({
-        'existing.txt': ' ',
-      });
-
-      const check = createTestCheck(hasTextFile('existing.txt'));
-      expect(await check.message()).toMatchInlineSnapshot(`
-        {
-          "suggestion": undefined,
-          "title": "existing.txt exists",
-        }
-      `);
-    });
-
-    it('should return "does not contain expected content" message if text file is present but content does not match', async () => {
-      mockFs({
-        'existing.txt': 'Hello World',
-      });
-
-      const check = createTestCheck(
-        hasTextFile('existing.txt', ['Hello Universe']),
-      );
-      expect(await check.message()).toMatchInlineSnapshot(`
-        {
-          "suggestion": "  Array [
-            \\"Hello World\\",
-        +   \\"Hello Universe\\",
-          ]",
-          "title": "\\"existing.txt\\" does not contain expected content",
-        }
-      `);
-    });
-
-    it('should return "exists" message if text file is present and content matches', async () => {
-      mockFs({
-        'existing.txt': 'Hello World',
-      });
-
-      const check = createTestCheck(
-        hasTextFile('existing.txt', ['Hello World']),
-      );
-      expect(await check.message()).toMatchInlineSnapshot(`
-        {
-          "suggestion": undefined,
-          "title": "existing.txt exists",
-        }
-      `);
     });
   });
 
@@ -119,7 +76,7 @@ describe('hasTextFile', () => {
         'existing.txt': 'Hello World',
       });
 
-      const check = createTestCheck(hasTextFile('existing.txt'));
+      const check = defineTestCheck(hasTextFile('existing.txt'));
 
       await check.fix();
 
@@ -133,7 +90,7 @@ describe('hasTextFile', () => {
         'existing.txt': 'Hello World',
       });
 
-      const check = createTestCheck(
+      const check = defineTestCheck(
         hasTextFile('existing.txt', ['Hello Universe']),
       );
       await check.fix();

@@ -1,4 +1,5 @@
 import { Check, diff, json, PackageJson } from 'commonality';
+import isMatch from 'lodash-es/isMatch';
 import semver from 'semver';
 
 const stripWorkspaceProtocol = (value: string) => {
@@ -53,6 +54,7 @@ const getExpectedDevDependencies = (
 export default {
   name: 'commonality/has-matching-dev-peer-versions',
   level: 'warning',
+  message: `Packages with peerDependencies must have matching devDependencies within a valid range`,
   validate: async (context) => {
     const packageJson = await json<PackageJson>(
       context.package.path,
@@ -60,7 +62,30 @@ export default {
     ).get();
 
     if (!packageJson) {
-      return false;
+      return { message: 'package.json is missing' };
+    }
+
+    const expectedDevDependencies = getExpectedDevDependencies(packageJson);
+
+    if (!expectedDevDependencies) {
+      return true;
+    }
+
+    if (
+      !isMatch(packageJson, {
+        devDependencies: expectedDevDependencies,
+      })
+    ) {
+      return {
+        message: title,
+        suggestion: diff(
+          { devDependencies: packageJson.devDependencies },
+          {
+            devDependencies: expectedDevDependencies,
+          },
+        ),
+        path: 'package.json',
+      };
     }
 
     const peerDependencies = packageJson.peerDependencies;
@@ -107,42 +132,5 @@ export default {
     await json(context.package.path, 'package.json').merge({
       devDependencies,
     });
-  },
-  message: async (context) => {
-    const packageJson = await json<PackageJson>(
-      context.package.path,
-      'package.json',
-    ).get();
-
-    if (!packageJson) {
-      return { title: 'Package.json is missing' };
-    }
-
-    const expectedDevDependencies = getExpectedDevDependencies(packageJson);
-
-    if (!expectedDevDependencies) {
-      return { title, filePath: 'package.json' };
-    }
-
-    const source: Partial<PackageJson> = {
-      peerDependencies: packageJson.peerDependencies,
-    };
-    const target: Partial<PackageJson> = {
-      peerDependencies: packageJson.peerDependencies,
-    };
-
-    if (expectedDevDependencies) {
-      target.devDependencies = expectedDevDependencies;
-    }
-
-    if (packageJson.devDependencies) {
-      source.devDependencies = packageJson.devDependencies;
-    }
-
-    return {
-      title,
-      suggestion: diff(source, target),
-      filePath: 'package.json',
-    };
   },
 } satisfies Check;

@@ -7,7 +7,7 @@ import { CheckContext } from '/snippets/check-context.mdx';
 (check: Check, context?: TestCheckContext) => Check
 ```
 
-`createTestCheck` wraps your checks and decorates these functions with sensible defaults for the `CheckContext` that is passed to your [message](/reference/check-object#message), [validate](/reference/check-object#validate) and [fix](/reference/check-object#fix) functions that you can override.
+`defineTestCheck` wraps your checks and decorates these functions with sensible defaults for the `CheckContext` that is passed to your [message](/reference/check-object#message), [validate](/reference/check-object#validate) and [fix](/reference/check-object#fix) functions that you can override.
 This cuts down on repetitive boilerplate when writing tests for your checks.
 
 ## Parameters
@@ -34,7 +34,7 @@ will be passed the defaults in `TestCheckContext` rather than requiring that all
 ## Example
 
 ```ts
-// Without createTestCheck
+// Without defineTestCheck
 test('validate - returns true when valid', () => {
   mockFs({
     'package.json': JSON.stringify({
@@ -63,7 +63,7 @@ test('validate - returns true when valid', () => {
   expect(result).toEqual(true);
 });
 
-// With createTestCheck
+// With defineTestCheck
 test('validate - returns true when valid', () => {
   mockFs({
     'package.json': JSON.stringify({
@@ -72,7 +72,7 @@ test('validate - returns true when valid', () => {
     }),
   });
 
-  const check = createTestCheck(myCheck());
+  const check = defineTestCheck(myCheck());
   const result = myCheck.validate();
 
   expect(result).toEqual(true);

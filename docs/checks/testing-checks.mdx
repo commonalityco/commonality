@@ -12,7 +12,7 @@ This combination will test your checks end-to-end to ensure that your checks nev
 ## Example
 
 ```ts packages/checks/ensure-license.ts
-import { createTestCheck, defineCheck, json, diff } from 'commonality';
+import { defineTestCheck, defineCheck, json, diff } from 'commonality';
 
 const ensureLicense = defineCheck((license: string = 'MIT') => {
   return {
@@ -60,7 +60,7 @@ const ensureLicense = defineCheck((license: string = 'MIT') => {
 
 ```ts filename="packages/checks/ensure-license.test.ts"
 import { ensureLicense } from './ensure-license';
-import { createTestCheck, json } from 'commonality';
+import { defineTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('ensureLicense', () => {
@@ -72,7 +72,7 @@ describe('ensureLicense', () => {
         }),
       });
 
-      const check = createTestCheck(ensureLicense('MIT'));
+      const check = defineTestCheck(ensureLicense('MIT'));
 
       const result = await check.validate();
 
@@ -87,7 +87,7 @@ describe('ensureLicense', () => {
         }),
       });
 
-      const check = createTestCheck(ensureLicense('MIT'));
+      const check = defineTestCheck(ensureLicense('MIT'));
 
       const result = await check.validate();
 
@@ -103,7 +103,7 @@ describe('ensureLicense', () => {
         }),
       });
 
-      const check = createTestCheck(ensureLicense('MIT'));
+      const check = defineTestCheck(ensureLicense('MIT'));
 
       await check.fix();
 
@@ -121,7 +121,7 @@ describe('ensureLicense', () => {
     test('returns the correct message when there is no package.json', () => {
       mockFs({});
 
-      const check = createTestCheck(ensureLicense('MIT'));
+      const check = defineTestCheck(ensureLicense('MIT'));
 
       const message = await check.message();
 
@@ -137,7 +137,7 @@ describe('ensureLicense', () => {
         }),
       });
 
-      const check = createTestCheck(ensureLicense('MIT'));
+      const check = defineTestCheck(ensureLicense('MIT'));
 
       const message = await check.message();
 

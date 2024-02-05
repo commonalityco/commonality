@@ -43,14 +43,16 @@ function getExpectedPackageJson(packageJson: PackageJson) {
 export default {
   name: 'commonality/has-unique-dependency-types',
   level: 'warning',
+  message:
+    'A dependency should only be in one of dependencies, devDependencies, or optionalDependencies',
   validate: async (context) => {
     const packageJson = await json<PackageJson>(
       context.package.path,
       'package.json',
     ).get();
 
-    if (!packageJson) {
-      return false;
+    if (!packageJson && !packageJson) {
+      return { message: 'package.json is missing' };
     }
 
     const { dependencies, devDependencies, optionalDependencies } = packageJson;
@@ -60,7 +62,15 @@ export default {
         (devDependencies && devDependencies[dep]) ||
         (optionalDependencies && optionalDependencies[dep]),
     );
-    return hasUniqueDependencyTypes.length === 0;
+
+    if (hasUniqueDependencyTypes.length > 0) {
+      return {
+        path: 'package.json',
+        suggestion: diff(packageJson, getExpectedPackageJson(packageJson)),
+      };
+    }
+
+    return true;
   },
 
   fix: async (context) => {
@@ -76,23 +86,5 @@ export default {
     const newPackageJson = getExpectedPackageJson(packageJson);
 
     await json(context.package.path, 'package.json').set(newPackageJson);
-  },
-
-  message: async (context) => {
-    const packageJson = await json<PackageJson>(
-      context.package.path,
-      'package.json',
-    ).get();
-
-    if (!packageJson) {
-      return { title: 'Package.json is missing' };
-    }
-
-    return {
-      title:
-        'A dependency should only be in one of dependencies, devDependencies, or optionalDependencies',
-      filePath: 'package.json',
-      suggestion: diff(packageJson, getExpectedPackageJson(packageJson)),
-    };
   },
 } satisfies Check;

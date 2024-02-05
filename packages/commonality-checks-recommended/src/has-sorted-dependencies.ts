@@ -71,10 +71,5 @@ export default {
 
     await json(ctx.package.path, 'package.json').set(expectedPackageJson);
   },
-  message: () => {
-    return {
-      title: 'Dependencies in package.json must be sorted alphabetically',
-      filePath: 'package.json',
-    };
-  },
+  message: 'Dependencies in package.json must be sorted alphabetically',
 } satisfies Check;
