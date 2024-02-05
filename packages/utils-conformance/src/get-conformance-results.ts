@@ -131,12 +131,11 @@ export const getConformanceResults = async ({
               message: merge(
                 {
                   message: conformer.message,
-                  path: pkg.path,
                 },
                 {
                   message: result.message?.message,
                   path: result.message?.path
-                    ? path.resolve(pkg.path, result.message.path)
+                    ? path.join(pkg.path, result.message.path)
                     : undefined,
                   suggestion: result.message?.suggestion,
                 },

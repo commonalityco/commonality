@@ -89,7 +89,7 @@ describe('CheckContent', () => {
       status: Status.Pass,
       message: {
         message: 'This package is cool',
-        filePath: 'path/to/file',
+        path: 'path/to/file',
         suggestion: 'Try this instead',
       },
     };

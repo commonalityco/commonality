@@ -29,7 +29,7 @@ const logNextSteps = ({
   if (shouldInstallChecks) {
     console.log(
       `\n${c.blue(
-        '  npm exec -- commonality check',
+        '  npx commonality check',
       )}\n  Try running the checks we've set up for you`,
     );
   }
