@@ -143,7 +143,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
             {
               name: 'CONFORMER_NAME/TWO',
@@ -155,7 +155,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
           ] satisfies ConformanceResult[];
         },
@@ -191,8 +191,8 @@ describe('check', () => {
                 type: PackageType.NODE,
               },
               message: {
-                title: 'This package should be cool',
-                filePath: 'package.json',
+                message: 'This package should be cool',
+                path: 'package.json',
               },
             },
             {
@@ -205,7 +205,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
           ] satisfies ConformanceResult[];
         },
@@ -219,10 +219,10 @@ describe('check', () => {
         ❯ pkg-one (1)
         ✓ pass This package should be cool
         │      /path/package.json
-        │      
+        │
         ❯ pkg-two (1)
         ✓ pass This package should be cool
-        │      
+        │
 
         Packages: 0 failed 0 warnings 2 passed (2)
           Checks: 0 failed 0 warnings 2 passed (2)",
@@ -248,7 +248,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
             },
             {
               name: 'CONFORMER_NAME/TWO',
@@ -260,7 +260,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
           ];
         },
@@ -285,7 +285,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
             },
             {
               name: 'CONFORMER_NAME/TWO',
@@ -297,7 +297,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
           ];
         },
@@ -322,7 +322,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
             },
             {
               name: 'CONFORMER_NAME/TWO',
@@ -334,7 +334,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
           ];
         },
@@ -348,7 +348,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -373,8 +373,8 @@ describe('check', () => {
                 type: PackageType.NODE,
               },
               message: {
-                title: 'This package should be awesome',
-                filePath: 'package.json',
+                message: 'This package should be awesome',
+                path: 'package.json',
                 suggestion: `I\nam\na\nmultiline\nstring`,
               },
             },
@@ -388,7 +388,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
           ];
         },
@@ -407,10 +407,10 @@ describe('check', () => {
         │      a
         │      multiline
         │      string
-        │      
+        │
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -437,7 +437,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
@@ -450,7 +450,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ])
@@ -465,7 +465,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
@@ -478,7 +478,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ]),
@@ -492,7 +492,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -523,7 +523,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
@@ -536,7 +536,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ])
@@ -551,7 +551,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
@@ -564,7 +564,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ]),
@@ -578,7 +578,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -605,7 +605,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
@@ -618,7 +618,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ])
@@ -633,7 +633,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
@@ -646,7 +646,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ]),
@@ -660,7 +660,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -696,7 +696,7 @@ describe('check', () => {
               version: '1.0.0',
               type: PackageType.NODE,
             },
-            message: { title: 'This package should be awesome' },
+            message: { message: 'This package should be awesome' },
             fix: () => {},
           },
           {
@@ -709,7 +709,7 @@ describe('check', () => {
               version: '1.0.0',
               type: PackageType.NODE,
             },
-            message: { title: 'This package should be cool' },
+            message: { message: 'This package should be cool' },
             fix: () => {},
           },
         ]),
@@ -723,7 +723,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -756,7 +756,7 @@ describe('check', () => {
               version: '1.0.0',
               type: PackageType.NODE,
             },
-            message: { title: 'This package should be awesome' },
+            message: { message: 'This package should be awesome' },
             fix: () => {},
           },
           {
@@ -769,7 +769,7 @@ describe('check', () => {
               version: '1.0.0',
               type: PackageType.NODE,
             },
-            message: { title: 'This package should be cool' },
+            message: { message: 'This package should be cool' },
             fix: () => {},
           },
         ]),

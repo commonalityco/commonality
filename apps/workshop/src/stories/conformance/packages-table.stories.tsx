@@ -178,8 +178,8 @@ export const Basic: Story = {
             name: 'conformance-one',
             filter: 'tag-one',
             message: {
-              title: 'This package should adhere to a certain standard',
-              filePath: 'package.json',
+              message: 'This package should adhere to a certain standard',
+              path: 'package.json',
               suggestion: `
               "  Object {
                   \\"devDependencies\\": Object {
@@ -204,8 +204,8 @@ export const Basic: Story = {
             name: 'conformance-two',
             filter: 'tag-two',
             message: {
-              title: 'This package is bad',
-              filePath: 'package.json',
+              message: 'This package is bad',
+              path: 'package.json',
               suggestion: `
               "  Object {
                   \\"devDependencies\\": Object {

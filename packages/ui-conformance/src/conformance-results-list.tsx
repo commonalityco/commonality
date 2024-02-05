@@ -46,7 +46,7 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
       <div className="grid gap-4 grid-cols-[minmax(0,max-content)_1fr] text-left items-start">
         <div className="flex gap-1 items-center">{getStatusText()}</div>
         <div className="text-left grow shrink basis-auto min-w-0 max-w-full break-words">
-          {result.message.title}
+          {result.message.message}
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@ export function CheckTitle({ result }: { result: ConformanceResult }) {
 export function CheckContent({ result }: { result: ConformanceResult }) {
   return (
     <div className="pl-[50px] space-y-4">
-      {result.message.filePath ? (
+      {result.message.path ? (
         <div>
           <Label className="block text-xs mb-1" id="filepath">
             Filepath
@@ -65,7 +65,7 @@ export function CheckContent({ result }: { result: ConformanceResult }) {
             className="text-muted-foreground font-mono text-xs truncate block"
             aria-labelledby="filepath"
           >
-            {result.message.filePath}
+            {result.message.path}
           </p>
         </div>
       ) : undefined}

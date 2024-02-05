@@ -48,7 +48,7 @@ class ConformLogger extends Logger {
       status = c.yellow('⚠ warn');
     }
 
-    const title = result.message.title;
+    const title = result.message.message;
     1;
     this.output += `\n${status} ${title}`;
   }
@@ -160,9 +160,9 @@ const reportConformanceResults = ({
       if (result.status !== Status.Pass || verbose) {
         logger.addCheckName({ result });
 
-        if (result.message.filePath) {
+        if (result.message.path) {
           logger.addSubText(
-            c.dim(path.join(result.package.path, result.message.filePath)),
+            c.dim(path.join(result.package.path, result.message.path)),
           );
         }
 

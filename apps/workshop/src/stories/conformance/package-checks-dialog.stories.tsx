@@ -39,8 +39,8 @@ export const Checks: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
-          filePath: 'package.json',
+          message: 'test-one',
+          path: 'package.json',
           suggestion: 'package.json',
         },
       },
@@ -55,8 +55,8 @@ export const Checks: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
-          filePath: 'package.json',
+          message: 'test-one',
+          path: 'package.json',
           suggestion: 'package.json',
         },
       },
@@ -71,10 +71,9 @@ export const Checks: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title:
+          message:
             'test-oneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-          filePath:
-            'package.jsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
+          path: 'package.jsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
           suggestion:
             'const foo = "fehfwiuheiufhwihuehufwiuhefwuiehfiuhweiufweiuhfwuhefhwiuhefhwiuehfiwuheifhuwihefiuwheihfwieuhfiwuhefihwiehufiwhehfwiheifhwiuehfiwuhefihuweifuhhiwhefiwuh"',
         },
@@ -90,9 +89,9 @@ export const Checks: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title:
+          message:
             'This package should be correct and it should not have any weird errors or missing files',
-          filePath: 'package.json',
+          path: 'package.json',
           suggestion: 'package.json',
         },
       },
@@ -107,7 +106,7 @@ export const Checks: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
+          message: 'test-one',
         },
       },
     ],

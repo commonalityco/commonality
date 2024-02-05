@@ -56,7 +56,7 @@ describe('PackageChecksDialog', () => {
           path: '/packages/pkg-a',
           type: PackageType.NODE,
         },
-        message: { title: 'This is cool', filePath: '/path/to/file' },
+        message: { message: 'This is cool', path: '/path/to/file' },
       },
     ];
 

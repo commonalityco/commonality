@@ -4,7 +4,7 @@ import { PackageType, Status } from '@commonalityco/utils-core';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
-  title: 'Conformance/AllChecksDialog',
+  message: 'Conformance/AllChecksDialog',
   component: AllChecksDialog,
   tags: ['autodocs'],
   argTypes: {},
@@ -33,8 +33,8 @@ export const Checks: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
-          filePath: 'package.json',
+          message: 'test-one',
+          path: 'package.json',
           suggestion: 'package.json',
         },
       },
@@ -49,8 +49,8 @@ export const Checks: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
-          filePath: 'package.json',
+          message: 'test-one',
+          path: 'package.json',
           suggestion: 'package.json',
         },
       },
@@ -65,10 +65,9 @@ export const Checks: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title:
+          message:
             'test-oneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-          filePath:
-            'package.jsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
+          path: 'package.jsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
           suggestion:
             'const foo = "fehfwiuheiufhwihuehufwiuhefwuiehfiuhweiufweiuhfwuhefhwiuhefhwiuehfiwuheifhuwihefiuwheihfwieuhfiwuhefihwiehufiwhehfwiheifhwiuehfiwuhefihuweifuhhiwhefiwuh"',
         },
@@ -84,8 +83,8 @@ export const Checks: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
-          filePath: 'package.json',
+          message: 'test-one',
+          path: 'package.json',
           suggestion: 'package.json',
         },
       },
@@ -100,7 +99,7 @@ export const Checks: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
+          message: 'test-one',
         },
       },
     ],

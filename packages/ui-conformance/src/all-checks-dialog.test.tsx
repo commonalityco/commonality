@@ -34,7 +34,7 @@ describe('AllChecksDialog', () => {
         },
         filter: 'tag-one',
         message: {
-          title: 'Test message',
+          message: 'Test message',
         },
       },
     ];
@@ -63,7 +63,7 @@ describe('AllChecksDialog', () => {
         },
         filter: 'tag-one',
         message: {
-          title: 'Test message',
+          message: 'Test message',
         },
       },
       {
@@ -78,7 +78,7 @@ describe('AllChecksDialog', () => {
         filter: 'tag-two',
 
         message: {
-          title: 'Test message',
+          message: 'Test message',
         },
       },
     ];
@@ -109,7 +109,7 @@ describe('AllChecksDialog', () => {
         },
         filter: 'tag-one',
         message: {
-          title: 'Test message',
+          message: 'Test message',
         },
       },
     ];
