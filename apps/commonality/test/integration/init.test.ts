@@ -91,15 +91,6 @@ describe('init', () => {
 
           await vi.waitFor(
             () => {
-              expect(initOutput).toContain(`Would you like to use TypeScript?`);
-            },
-            { timeout: 100_000 },
-          );
-
-          initProcess.stdin?.write('\n');
-
-          await vi.waitFor(
-            () => {
               expect(initOutput).toContain(
                 `Would you like to install our recommended checks?`,
               );
