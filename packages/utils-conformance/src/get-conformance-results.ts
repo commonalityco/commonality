@@ -6,6 +6,7 @@ import {
   messageSchema,
 } from '@commonalityco/utils-core';
 import path from 'pathe';
+import { merge } from 'lodash-es';
 
 export type ConformanceResult = {
   name: string;
@@ -127,10 +128,19 @@ export const getConformanceResults = async ({
               name: conformer.name,
               filter: matchingPattern,
               package: pkg,
-              message: result.message ?? {
-                message: conformer.message,
-                path: pkg.path,
-              },
+              message: merge(
+                {
+                  message: conformer.message,
+                  path: pkg.path,
+                },
+                {
+                  message: result.message?.message,
+                  path: result.message?.path
+                    ? path.resolve(pkg.path, result.message.path)
+                    : undefined,
+                  suggestion: result.message?.suggestion,
+                },
+              ),
               fix: conformer.fix,
             };
           }),

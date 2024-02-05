@@ -46,7 +46,9 @@ describe('getConformanceResults', () => {
       '*': [
         {
           name: 'InvalidWorkspaceConformer',
-          validate: () => false,
+          validate: () => ({
+            path: 'package.json',
+          }),
           message: 'Invalid workspace',
           level: 'warning',
         },
@@ -74,6 +76,7 @@ describe('getConformanceResults', () => {
     expect(results).toHaveLength(1);
     expect(results[0].status).toBe(Status.Warn);
     expect(results[0].message.message).toBe('Invalid workspace');
+    expect(results[0].message.path).toBe('/path/to/workspace/package.json');
     expect(results[0].filter).toBe('*');
     expect(results[0].package).toEqual(packages[0]);
   });
