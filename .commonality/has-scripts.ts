@@ -1,6 +1,6 @@
-import * as recommended from 'commonality-checks-recommended';
+import { hasJsonFile } from 'commonality-checks-recommended';
 
-export default recommended.hasJsonFile('package.json', {
+export default hasJsonFile('package.json', {
   scripts: {
     build: 'tsc --build',
     dev: 'tsc --watch',

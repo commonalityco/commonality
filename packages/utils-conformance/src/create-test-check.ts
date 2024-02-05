@@ -1,6 +1,6 @@
 import { Tag, Codeowner, Workspace } from '@commonalityco/types';
 import stripAnsi from 'strip-ansi';
-import { Message, CheckInput, CheckContext } from '@commonalityco/utils-core';
+import { CheckInput, CheckContext } from '@commonalityco/utils-core';
 
 type Awaitable<T> = T | PromiseLike<T>;
 

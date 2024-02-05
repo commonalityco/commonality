@@ -1,6 +1,6 @@
-import * as recommended from 'commonality-checks-recommended';
+import { hasJsonFile } from 'commonality-checks-recommended';
 
-export default recommended.hasJsonFile('.eslintrc.json', {
+export default hasJsonFile('.eslintrc.json', {
   root: true,
   extends: ['commonality'],
 });

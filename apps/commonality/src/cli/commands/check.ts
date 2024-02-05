@@ -161,9 +161,7 @@ const reportConformanceResults = ({
         logger.addCheckName({ result });
 
         if (result.message.path) {
-          logger.addSubText(
-            c.dim(path.join(result.package.path, result.message.path)),
-          );
+          logger.addSubText(c.dim(result.message.path));
         }
 
         if (result.message.suggestion) {

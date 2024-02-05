@@ -13,7 +13,6 @@ import {
   getRootDirectory,
 } from '@commonalityco/data-project';
 import console from 'node:console';
-import prompts from 'prompts';
 import c from 'chalk';
 
 const command = new Command();
@@ -39,21 +38,6 @@ const logNextSteps = ({
   console.log(
     `  ${c.underline('https://www.commonality.co/docs/getting-started')}\n`,
   );
-};
-
-const getUseTypeScript = async (): Promise<boolean> => {
-  const { typescript } = await prompts([
-    {
-      type: 'toggle',
-      name: 'typescript',
-      initial: true,
-      message: `Would you like to use TypeScript?`,
-      active: 'yes',
-      inactive: 'no',
-    },
-  ]);
-
-  return typescript;
 };
 
 export const action = async ({
