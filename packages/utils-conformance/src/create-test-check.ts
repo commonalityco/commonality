@@ -1,6 +1,6 @@
 import { Tag, Codeowner, Workspace } from '@commonalityco/types';
 import stripAnsi from 'strip-ansi';
-import { CheckInput, CheckContext } from '@commonalityco/utils-core';
+import { Check, CheckContext } from '@commonalityco/utils-core';
 
 type Awaitable<T> = T | PromiseLike<T>;
 
@@ -22,7 +22,7 @@ interface TestCheckContext {
   tags?: Tag[];
 }
 
-export function defineTestCheck<T extends CheckInput>(
+export function defineTestCheck<T extends Check>(
   conformer: T,
   options?: TestCheckContext,
 ): TestConformer<T> {
