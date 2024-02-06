@@ -1,6 +1,6 @@
 ---
-title: "Disallowing dependencies"
-icon: "square-xmark"
+title: 'Disallowing dependencies'
+icon: 'square-xmark'
 ---
 
 `disallow` constraints will evaluate all **direct and transitive dependencies** for a package.
@@ -8,6 +8,7 @@ icon: "square-xmark"
 If any local dependency has [tags](/tags) that match a [selector](/selectors) within the `disallow` array, then the constraint will fail.
 
 ## Disallow specific direct or transitive dependencies
+
 Use a [tag](/tags) as a [selector](/selectors) to disallow subsets of local dependencies.
 
 ```json
@@ -17,6 +18,7 @@ Use a [tag](/tags) as a [selector](/selectors) to disallow subsets of local depe
 ```
 
 ## Disllow all dependencies
+
 Use `*` as a [selector](/selectors) to disallow all local dependencies.
 
 ```json
@@ -25,19 +27,18 @@ Use `*` as a [selector](/selectors) to disallow all local dependencies.
 }
 ```
 
-
 ## Example
-The following constraint...
-```ts commonality.config.ts
-import { defineConfig } from 'commonality';
 
-export default defineConfig({
-  constraints: {
-    'high-availability': {
-      disallow: ['beta'],
-    },
-  },
-});
+The following constraint...
+
+```json .commonality/config.json
+{
+  "constraints": {
+    "high-availability": {
+      "disallow": ["beta"]
+    }
+  }
+}
 ```
 
 ...will fail for the following dependency graph.

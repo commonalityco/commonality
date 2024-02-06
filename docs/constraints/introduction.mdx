@@ -1,6 +1,6 @@
 ---
-title: "Introduction"
-icon: "diagram-project"
+title: 'Introduction'
+icon: 'diagram-project'
 ---
 
 Constraints prevent packages from depending on each other in ways that don't make sense but are allowed by your package manager.
@@ -18,31 +18,26 @@ You might want to use constraints to:
 Constraints are defined as a [constraint object](/reference/constraint-object) in your [project configuration](/reference/project-configuration) file and can be used to `allow` and `disallow` packages matching a [selector](/selectors).
 
 Here's an example of a configuration that enforces the constraints above:
-```typescript commonality.config.ts
-import { defineConfig } from 'commonality';
-import * as recommended from 'commonality-checks-recommended';
 
-export default defineConfig({
-  checks: {
-    // ...
-  },
-  constraints: {
-    '*': {
-      disallow: ['deployable'],
+```json .commonality/config.json
+{
+  "constraints": {
+    "*": {
+      "disallow": ["deployable"]
     },
-    data: {
-      disallow: ['ui'],
+    "data": {
+      "disallow": ["ui"]
     },
-    config: {
-      allow: ['config'],
-    },
-  },
-});
+    "config": {
+      "allow": ["config"]
+    }
+  }
+}
 ```
 
 ## Validating constraints
-You can view the status of your constraints by running the [constraint command](/reference/cli#constrain).
 
+You can view the status of your constraints by running the [constraint command](/reference/cli#constrain).
 
 ```bash
 commonality constrain
@@ -52,4 +47,3 @@ commonality constrain
 
 A [constraint object](/reference/constraint-object) can contain both `allow` and `disallow` constraints.
 When both are present, `disallow` constraints will be evaluated first.
-

@@ -1,6 +1,6 @@
 ---
-title: "Selectors"
-icon: "filter"
+title: 'Selectors'
+icon: 'filter'
 ---
 
 Selectors are used apply checks constraints and constraints to subsets of packages in a project and are defined in a [project configuration file](/reference/project-configuration).
@@ -11,26 +11,22 @@ Use the `*` selector to apply constraints and checks to all packages.
 
 **Example check:**
 
-```ts commonality.config.ts
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  checks: {
+```json .commonality/config.json
+{
+  "checks": {
     '*': [recommended.hasReadme()],
   }
-});
+}
 ```
 
 **Example constraint:**
 
-```ts commonality.config.ts
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  constraints: {
-    '*': { disallow: ['deployable'] },
-  },
-});
+```json .commonality/config.json
+{
+  "constraints": {
+    "*": { "disallow": ["deployable"] }
+  }
+}
 ```
 
 ## Select packages with a tag
@@ -39,31 +35,20 @@ Select a tag to apply constraints and checks to a subset of packages.
 
 **Example check:**
 
-```ts commonality.config.ts
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  checks: {
-    'buildable': [
-      recommended.hasJsonFile('package.json', {
-        scripts: {
-          build: 'tsc --build',
-          dev: 'tsc --watch'
-        }
-      })
-    ],
+```json .commonality/config.json
+{
+  "checks": {
+    "buildable": ["has-build-scripts"]
   }
-});
+}
 ```
 
 **Example constraint:**
 
-```ts commonality.config.ts
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  constraints: {
-    config: { disallow: ['application'] },
-  },
-});
+```json .commonality/config.json
+{
+  "constraints": {
+    "config": { "disallow": ["application"] }
+  }
+}
 ```

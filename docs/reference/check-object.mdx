@@ -7,59 +7,15 @@ provide type-safety and intellisense for properties.
 
 ## Properties
 
-### `name`
-
-```
-string
-```
-
-**Required**
-
-A unique identifier for the check. This will be
-used to parallelize checks and prevent write conflicts when running fix functions.
-
-<Info> When creating sharable checks, we recommend using a namespace to prevent naming conflicts. i.e. `@scope/`, `my-team/`</Info>
-
-
 ### `message`
 
-```ts
-string | (context: CheckContext) => Awaitable<Message>
-```
-
 **Required**
 
-This property can either be a string for static messages or a function that returns a `Message` object.
+A string that used the default title for the check in the CLI and Commonality Studio.
 
-#### Parameters
 
-<CheckContext />
-
-#### Returns
-<ResponseField name="message" type="Awaitable<Message>">
-
-The message object contains helpful context about the status of the check that will be shown in the CLI and Commonality Studio
-
-  <Expandable title="package-properties">
-    <ResponseField name="title" type="string" required>
-      The primary message that will be shown for the check in the CLI and Commonality Studio
-    </ResponseField>
-
-    <ResponseField name="filePath" type="string">
-      The path to the file that the message is related to.
-    </ResponseField>
-
-    <ResponseField name="suggestion" type="string">
-      A suggestion for how to fix the issue, helpful
-    </ResponseField>
-  </Expandable>
-</ResponseField>
 
 ### `validate`
-
-```ts
-(context: CheckContext) => Awaitable<ValidationResult>
-```
 
 **Required**
 
@@ -74,28 +30,84 @@ This function can be asynchronous.
 <CheckContext/>
 
 #### Returns
-This function can return any value.
+`validate` can return any value, however, the check will only be valid if the function returns `true`. Any other returned value will set the status of the check to either `warn` or `fail` based on the configured [level](#level).
 
-A returned truthy value will set the status of the check to `pass`.
-
-A falsy value will set the status of the check to either `warn` or `fail` based on the configured [level](#level).
-
+<Tabs>
+<Tab title="TypeScript">
 ```ts
-import { defineCheck } from 'commonality';
+import type { Check } from 'commonality';
 
-const hasCodeowner = defineCheck(() => {
-  return {
-    // Check object...
-    validate: ({ codeowners }) => codeowners.length,
-  };
-});
+export default {
+  message: 'Package has a CODEOWNER',
+  validate: (ctx) => Boolean(ctx.codeowners.length),
+} satisfies Check;
 ```
+</Tab>
+<Tab title="JavaScript">
+```js
+export default {
+  message: 'Package has a CODEOWNER',
+  validate: (ctx) => Boolean(ctx.codeowners.length),
+};
+```
+</Tab>
+</Tabs>
+
+Returning a [message object]() allows you to modify the default message and provide additional context about the status of the check.
+
+<Tabs>
+<Tab title="TypeScript">
+```ts
+import type { Check } from 'commonality';
+import { json, diff } from 'commonality';
+
+export default {
+  message: 'Package has internal config',
+  validate: (ctx) => {
+    // ...validation logic
+
+    if (fileExists) {
+      return {
+        // This message will override the default message
+        message: 'File "internal-config.json" does not exist',
+        // This path will be shown directly underneath the message for quicker debugging
+        path: ctx.package.path,
+        // This will be shown as a suggestion for how to fix the issue
+        suggestion: diff(source, expected)
+      };
+    }
+  },
+} satisfies Check;
+```
+</Tab>
+<Tab title="JavaScript">
+```ts
+import { json, diff } from 'commonality';
+
+export default {
+  message: 'Package has internal config',
+  validate: (ctx) => {
+    // ...validation logic
+
+    if (fileExists) {
+      return {
+        // This message will override the default message
+        message: 'File "internal-config.json" does not exist',
+        // This path will be shown directly underneath the message for quicker debugging
+        path: ctx.package.path,
+        // This will be shown as a suggestion for how to fix the issue
+        suggestion: diff(source, expected)
+      };
+    }
+  },
+}
+```
+</Tab>
+</Tabs>
+
 
 ### `fix`
 
-```
-(context: CheckContext) => Awaitable<void>
-```
 A check's `fix` function will only run on packages that where the check's [validate](#validate) function has returned a falsey value. This function should update packages so that they pass the check's [validate](#validate) function.
 
 This function can be asynchronous.
@@ -106,12 +118,16 @@ This function can be asynchronous.
 
 <CheckContext />
 
-```ts
-import { defineCheck, json } from 'commonality';
 
-const ensureTSConfigExtends = defineCheck((base: string) => {
+<Tabs>
+<Tab title="TypeScript">
+```ts
+import type { Check } from 'commonality';
+import { json } from 'commonality';
+
+export default {
   return {
-    // Check object...
+    //...
     fix: async (ctx) => {
       const tsConfig = await json(ctx.package.path, 'tsconfig.json').get();
 
@@ -122,14 +138,36 @@ const ensureTSConfigExtends = defineCheck((base: string) => {
       await tsConfig.merge({ extends: base });
     },
   };
-});
+} satisfies Check;
 ```
+</Tab>
+<Tab title="JavaScript">
+```ts
+import { json } from 'commonality';
+
+export default {
+  return {
+    //...
+    fix: async (ctx) => {
+      const tsConfig = await json(ctx.package.path, 'tsconfig.json').get();
+
+      if (!tsConfig) {
+        return;
+      }
+
+      await tsConfig.merge({ extends: base });
+    },
+  };
+};
+```
+</Tab>
+</Tabs>
+
+
+
 
 
 
 ### `level`
 
-```ts
-"warning" | "error
-```
 If set to `"error"`, the CLI will exit with a non-zero exit code if this check is ever invalid. Default is `"warning"`.

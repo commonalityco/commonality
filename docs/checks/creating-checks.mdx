@@ -1,43 +1,41 @@
 ---
-title: "Creating checks"
-icon: "screwdriver-wrench"
+title: 'Creating checks'
+icon: 'screwdriver-wrench'
 ---
+
+Checks can created to standardize any existing configuration or workflow.
+Checks can be exported as check objects for simple use cases or as functions that return check objects to make them composable.
 
 ## Creating your first check
 
-All checks have three required properties:
+Checks have two required properties:
 
-1. [**name**](/reference/check-object#name): A unique identifier for the check, we use this to parallelize checks and prevent write collisions.
+1. `message`: The default message that will be shown for the check in the CLI and Commonality Studio
+2. `validate`: A function that returns a boolean or a promise that resolves to a boolean. This function is used to determine if the check passes or fails.
 
-2. [**validate**](/reference/check-object#validate): A function that should return either a truthy or falsey value indicating whether or not the check is valid.
 
-3. [**message**](/reference/check-object#message): A string or function that that provides more context about the check.
+<Tabs>
+<Tab title="TypeScript">
+```ts .commonality/has-codeowner.ts
+import type { Check } from 'commonality';
 
-<Note>
-  You can view all available check properties and more examples in our
-  [reference documentation](/reference/check-object).
-</Note>
-
-Here's an example of a simple check that ensures every package has at least one codeowner.
-
-```ts commonality.config.ts
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  checks: {
-    '*': [
-      {
-        name: 'ensure-codeowner',
-        validate: (ctx) => ctx.codeowners.length > 0,
-        message: 'Packages must have at least one codeowner',
-      },
-    ],
-  },
-});
+export default {
+  message: 'Package has least one codeowner',
+  validate: (ctx) => ctx.codeowners.length > 0,
+} satisfies Check;
 ```
+</Tab>
+<Tab title="JavaScript">
+```js .commonality/has-codeowner.js
+export default {
+  message: 'Package has least one codeowner',
+  validate: (ctx) => ctx.codeowners.length > 0,
+};
+```
+</Tab>
+</Tabs>
 
-While the check above is fairly simple, checks can be made highly dynamic.
-The `validate`, `message`, and `fix` properties for a check can all be functions that are passed context about the package being checked.
+In the check above we're accessing metadata available to the check
 
 ## Auto-fixable checks
 
@@ -48,7 +46,7 @@ To make a check fixable just add a [fix](/reference/check-object#fix) property t
 
 Here's an example of a check that will automatically create a `README.md` for a package if it does not exist.
 
-```ts commonality.config.ts
+```json .commonality/config.json
 import { defineConfig } from 'commonality';
 import { json, text } from 'commonality';
 
@@ -164,7 +162,7 @@ Since checks are just functions, you can create checks that accept arguments to 
 
 As an example, below is the source code for our [hasJsonFile](/examples/recommended-checks#has-json-file) utility check.
 
-```ts commonality.config.ts
+```json .commonality/config.json
 import { defineCheck, json, diff } from 'commonality';
 import isMatch from 'lodash-es/isMatch';
 
@@ -206,6 +204,3 @@ export const hasJsonFile = defineCheck(
 );
 
 ```
-
-
-
