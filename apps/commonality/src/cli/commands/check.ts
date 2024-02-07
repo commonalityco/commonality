@@ -7,7 +7,6 @@ import {
   getProjectConfig,
   getRootDirectory,
 } from '@commonalityco/data-project';
-import path from 'node:path';
 import { getPackages } from '@commonalityco/data-packages';
 import { getTagsData } from '@commonalityco/data-tags';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
