@@ -2,6 +2,7 @@ import {
   CheckOutput,
   ProjectConfig,
 } from '@commonalityco/utils-core/constants';
+import { logger } from '@commonalityco/utils-core/logger';
 import path from 'node:path';
 import jiti from 'jiti';
 import fs from 'fs-extra';
@@ -14,7 +15,8 @@ export const resolveFile = ({ filepath }: { filepath: string }) => {
     const result = loader(filepath);
 
     return result.default || result;
-  } catch {
+  } catch (error){
+    logger.debug(error);
     return;
   }
 };
@@ -47,7 +49,8 @@ const getResolvedPath = ({
         import.meta.url,
       ).toString(),
     );
-  } catch {
+  } catch (error) {
+    logger.debug(error);
     return;
   }
 };

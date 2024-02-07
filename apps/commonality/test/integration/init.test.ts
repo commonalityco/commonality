@@ -59,7 +59,7 @@ describe('init', () => {
     'when the package manager is $packageManager',
     ({ packageManager, fixtureName, checkArgs }) => {
       it(
-        'initializes a new project with TypeScript and checks',
+        'initializes a new project with checks',
         async () => {
           const temporaryDirectoryPath =
             process.env['RUNNER_TEMP'] || os.tmpdir();
@@ -166,7 +166,7 @@ describe('init', () => {
 
           const checkProcess = execa(packageManager, checkArgs, {
             cwd: temporaryPath,
-            stdout: 'pipe',
+            stdout: 'inherit',
           });
 
           let checkOutput = '';
@@ -192,7 +192,7 @@ describe('init', () => {
       );
 
       it(
-        'initializes a new project with JavaScript and no checks',
+        'initializes a new project with no checks',
         async () => {
           const temporaryDirectoryPath =
             process.env['RUNNER_TEMP'] || os.tmpdir();

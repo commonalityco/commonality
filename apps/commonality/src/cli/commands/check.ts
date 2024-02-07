@@ -19,6 +19,7 @@ import { Status } from '@commonalityco/utils-core/constants';
 import { isCI } from 'std-env';
 import { getResolvedChecks } from '@commonalityco/utils-conformance/get-resolved-checks';
 import console from 'node:console';
+import { logger } from '@commonalityco/utils-core/logger';
 
 const command = new Command();
 
@@ -247,7 +248,12 @@ export const check = command
   .name('check')
   .description('Validate that packages pass conformance checks')
   .option('--verbose', 'Show the result of all checks')
-  .action(async ({ verbose }: { verbose: boolean }) => {
+  .option('--debug', 'Show additional logs')
+  .action(async ({ verbose, debug }: { verbose: boolean, debug: boolean }) => {
+    if(debug){
+      logger.level = 'debug'
+    }
+
     checksSpinner.start();
 
     const rootDirectory = await getRootDirectory();

@@ -11,7 +11,8 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
-    "./constants": "./dist/constants.js"
+    "./constants": "./dist/constants.js",
+    "./logger": "./dist/logger.js"
   },
   "license": "MIT",
   "scripts": {
@@ -37,6 +38,7 @@
   "dependencies": {
     "@sindresorhus/slugify": "^2.2.1",
     "nanoid": "^5.0.5",
+    "pino": "^8.17.1",
     "zod": "^3.22.4"
   },
   "repository": {
