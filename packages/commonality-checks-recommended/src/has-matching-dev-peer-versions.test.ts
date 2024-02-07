@@ -1,6 +1,6 @@
-import { hasMatchingDevPeerVersions } from './has-matching-dev-peer-versions';
+import hasMatchingDevPeerVersions from './has-matching-dev-peer-versions';
 import { describe, it, expect, afterEach } from 'vitest';
-import { createTestCheck, json } from 'commonality';
+import { defineTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('hasMatchingDevPeerVersions', () => {
@@ -18,11 +18,27 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = defineTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
-        expect(result).toBe(false);
+        // @ts-expect-error - expecting message object
+        expect(result.message).toEqual(
+          'Packages with peerDependencies must have matching devDependencies within a valid range',
+        );
+        // @ts-expect-error - expecting message object
+        expect(result.path).toEqual('package.json');
+        // @ts-expect-error - expecting message object
+        expect(result.suggestion).toMatchInlineSnapshot(
+          `
+            "  Object {
+                \\"devDependencies\\": undefined,
+            +   \\"devDependencies\\": Object {
+            +     \\"pkg-b\\": \\"^18.0.0\\",
+            +   },
+              }"
+          `,
+        );
       });
     });
 
@@ -39,10 +55,24 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = defineTestCheck(hasMatchingDevPeerVersions);
         const result = await conformer.validate();
 
-        expect(result).toBe(false);
+        // @ts-expect-error - expecting message object
+        expect(result.message).toEqual(
+          'Packages with peerDependencies must have matching devDependencies within a valid range',
+        );
+        // @ts-expect-error - expecting message object
+        expect(result.path).toEqual('package.json');
+        // @ts-expect-error - expecting message object
+        expect(result.suggestion).toMatchInlineSnapshot(`
+          "  Object {
+              \\"devDependencies\\": Object {
+                \\"pkg-b\\": \\"^17.0.2\\",
+          +     \\"pkg-b\\": \\"^18.0.0\\",
+              },
+            }"
+        `);
       });
     });
 
@@ -59,7 +89,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = defineTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
@@ -80,7 +110,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = defineTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
@@ -101,7 +131,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = defineTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
@@ -122,7 +152,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = defineTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
@@ -143,7 +173,7 @@ describe('hasMatchingDevPeerVersions', () => {
             },
           }),
         });
-        const conformer = createTestCheck(hasMatchingDevPeerVersions());
+        const conformer = defineTestCheck(hasMatchingDevPeerVersions);
 
         const result = await conformer.validate();
 
@@ -163,7 +193,7 @@ describe('hasMatchingDevPeerVersions', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasMatchingDevPeerVersions());
+      const conformer = defineTestCheck(hasMatchingDevPeerVersions);
 
       await conformer.fix();
 
@@ -190,7 +220,7 @@ describe('hasMatchingDevPeerVersions', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasMatchingDevPeerVersions());
+      const conformer = defineTestCheck(hasMatchingDevPeerVersions);
 
       await conformer.fix();
 
@@ -205,89 +235,6 @@ describe('hasMatchingDevPeerVersions', () => {
           'pkg-b': '>=18',
         },
       });
-    });
-  });
-
-  describe('message', () => {
-    it('should show the correct message when there is a mismatch', async () => {
-      mockFs({
-        'package.json': JSON.stringify({
-          name: 'pkg-a',
-          devDependencies: {
-            'pkg-b': '^17.0.2',
-          },
-          peerDependencies: {
-            'pkg-b': '>=18',
-          },
-        }),
-      });
-
-      const conformer = createTestCheck(hasMatchingDevPeerVersions());
-
-      const result = await conformer.message();
-
-      expect(result.title).toEqual(
-        'Packages with peerDependencies must have matching devDependencies within a valid range',
-      );
-      expect(result.filePath).toEqual('package.json');
-      expect(result.suggestion).toMatchInlineSnapshot(`
-        "  Object {
-            \\"devDependencies\\": Object {
-              \\"pkg-b\\": \\"^17.0.2\\",
-        +     \\"pkg-b\\": \\"^18.0.0\\",
-            },
-            \\"peerDependencies\\": Object {
-              \\"pkg-b\\": \\">=18\\",
-            },
-          }"
-      `);
-    });
-
-    it('should show the correct message when there is not a mismatch', async () => {
-      mockFs({
-        'package.json': JSON.stringify({
-          name: 'pkg-a',
-          devDependencies: {
-            'pkg-b': '^18.0.2',
-          },
-          peerDependencies: {
-            'pkg-b': '>=18',
-          },
-        }),
-      });
-
-      const conformer = createTestCheck(hasMatchingDevPeerVersions());
-
-      const result = await conformer.message();
-
-      expect(result.title).toEqual(
-        'Packages with peerDependencies must have matching devDependencies within a valid range',
-      );
-      expect(result.filePath).toEqual('package.json');
-      expect(result.suggestion).toMatchInlineSnapshot('undefined');
-    });
-
-    it('should show the correct message when there is not a mismatch and dependencies use the workspace protocol', async () => {
-      mockFs({
-        'package.json': JSON.stringify({
-          name: 'pkg-a',
-          devDependencies: {
-            'pkg-b': 'workspace:*',
-          },
-          peerDependencies: {
-            'pkg-b': 'workspace:*',
-          },
-        }),
-      });
-      const conformer = createTestCheck(hasMatchingDevPeerVersions());
-
-      const result = await conformer.message();
-
-      expect(result.title).toEqual(
-        'Packages with peerDependencies must have matching devDependencies within a valid range',
-      );
-      expect(result.filePath).toEqual('package.json');
-      expect(result.suggestion).toMatchInlineSnapshot('undefined');
     });
   });
 });

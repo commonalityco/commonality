@@ -7,7 +7,6 @@ import {
   getProjectConfig,
   getRootDirectory,
 } from '@commonalityco/data-project';
-import path from 'node:path';
 import { getPackages } from '@commonalityco/data-packages';
 import { getTagsData } from '@commonalityco/data-tags';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
@@ -16,9 +15,11 @@ import c from 'chalk';
 import prompts from 'prompts';
 import process from 'node:process';
 import { Logger } from '../utils/logger';
-import { Status } from '@commonalityco/utils-core';
+import { Status } from '@commonalityco/utils-core/constants';
 import { isCI } from 'std-env';
-import fs from 'fs-extra';
+import { getResolvedChecks } from '@commonalityco/utils-conformance/get-resolved-checks';
+import console from 'node:console';
+import { logger } from '@commonalityco/utils-core/logger';
 
 const command = new Command();
 
@@ -33,7 +34,7 @@ class ConformLogger extends Logger {
     const title = c.bold(`You don't have any checks configured.`);
     const body =
       'Create powerful conformance rules that run like tests and can be shared like lint rules.';
-    const link = 'https://commonality.co/docs/checks';
+    const link = 'https://docs.commonality.co/checks';
 
     this.output += `\n${title}\n\n${body}\n\n${link}`;
   }
@@ -48,8 +49,8 @@ class ConformLogger extends Logger {
       status = c.yellow('⚠ warn');
     }
 
-    const title = result.message.title;
-    1;
+    const title = result.message.message;
+
     this.output += `\n${status} ${title}`;
   }
 }
@@ -160,10 +161,8 @@ const reportConformanceResults = ({
       if (result.status !== Status.Pass || verbose) {
         logger.addCheckName({ result });
 
-        if (result.message.filePath) {
-          logger.addSubText(
-            c.dim(path.join(result.package.path, result.message.filePath)),
-          );
+        if (result.message.path) {
+          logger.addSubText(c.dim(result.message.path));
         }
 
         if (result.message.suggestion) {
@@ -249,7 +248,12 @@ export const check = command
   .name('check')
   .description('Validate that packages pass conformance checks')
   .option('--verbose', 'Show the result of all checks')
-  .action(async ({ verbose }: { verbose: boolean }) => {
+  .option('--debug', 'Show additional logs')
+  .action(async ({ verbose, debug }: { verbose: boolean, debug: boolean }) => {
+    if(debug){
+      logger.level = 'debug'
+    }
+
     checksSpinner.start();
 
     const rootDirectory = await getRootDirectory();
@@ -257,6 +261,17 @@ export const check = command
     const packages = await getPackages({ rootDirectory });
     const tagsData = await getTagsData({ rootDirectory, packages });
     const codeownersData = await getCodeownersData({ rootDirectory, packages });
+    const checks = getResolvedChecks({
+      projectConfig: projectConfig?.config,
+      rootDirectory,
+    });
+
+    if (checks.unresolved.length > 0) {
+      checksSpinner.stop();
+      for (const unresolved of checks.unresolved) {
+        console.log(c.yellow(`\nCould not resolve check: ${unresolved}`));
+      }
+    }
 
     return action({
       verbose,
@@ -271,7 +286,7 @@ export const check = command
       },
       getResults: () => {
         return getConformanceResults({
-          conformersByPattern: projectConfig?.config.checks ?? {},
+          conformersByPattern: checks.resolved ?? {},
           rootDirectory,
           packages,
           tagsData,

@@ -1,4 +1,4 @@
-import { defineCheck, diff, json, PackageJson, Workspace } from 'commonality';
+import { Check, diff, json, PackageJson, Workspace } from 'commonality';
 import path from 'node:path';
 import pick from 'lodash-es/pick';
 import isMatch from 'lodash-es/isMatch';
@@ -62,87 +62,77 @@ const getExpectedProperties = async ({
   };
 };
 
-export const extendsRepositoryField = defineCheck(() => {
-  return {
-    name: 'commonality/extends-repository-field',
-    level: 'error',
-    validate: async (context): Promise<boolean> => {
-      const rootPackageJson = await json<PackageJson>(
-        context.rootPackage.path,
-        'package.json',
-      ).get();
-      const packageJson = await json<PackageJson>(
-        context.package.path,
-        'package.json',
-      ).get();
+export default {
+  level: 'error',
+  message: `Package's repository property must extend the repository property at the root of your project.`,
+  validate: async (context) => {
+    const rootPackageJson = await json<PackageJson>(
+      context.rootPackage.path,
+      'package.json',
+    ).get();
+    const packageJson = await json<PackageJson>(
+      context.package.path,
+      'package.json',
+    ).get();
 
-      if (!rootPackageJson || !rootPackageJson.repository || !packageJson) {
-        return true;
-      }
-
-      const expectedProperties = await getExpectedProperties({
-        rootWorkspace: context.rootPackage,
-        workspace: context.package,
-      });
-
-      if (!expectedProperties) return true;
-
-      return isMatch(packageJson, expectedProperties);
-    },
-    fix: async (context) => {
-      const newConfig = await getExpectedProperties({
-        rootWorkspace: context.rootPackage,
-        workspace: context.package,
-      });
-
-      if (!newConfig) {
-        return;
-      }
-
-      return json(context.package.path, 'package.json').merge(newConfig);
-    },
-
-    message: async (context) => {
-      const newConfig = await getExpectedProperties({
-        rootWorkspace: context.rootPackage,
-        workspace: context.package,
-      });
-
-      const packageJson = await json<PackageJson>(
-        context.package.path,
-        'package.json',
-      ).get();
-
-      if (!packageJson) {
-        return {
-          title: 'Package.json is missing.',
-          filePath: 'package.json',
-          suggestion: 'Create a package.json file in your workspace.',
-        };
-      }
-
-      if (!newConfig) {
-        return {
-          title: 'Repository field is missing.',
-          filePath: 'package.json',
-          suggestion: 'Add a repository field to your root package.json',
-        };
-      }
-
+    if (!rootPackageJson) {
       return {
-        title: `Package's repository property must extend the repository property at the root of your project.`,
-        filePath: 'package.json',
+        message: 'Root package.json is missing.',
+        path: 'package.json',
+        suggestion: 'Create a package.json file at the root of your workspace.',
+      };
+    }
+
+    if (!packageJson) {
+      return {
+        message: 'package.json is missing.',
+        path: 'package.json',
+        suggestion: 'Create a package.json file in your workspace.',
+      };
+    }
+
+    const expectedProperties = await getExpectedProperties({
+      rootWorkspace: context.rootPackage,
+      workspace: context.package,
+    });
+
+    if (!expectedProperties) {
+      return true;
+    }
+
+    if (!expectedProperties) return true;
+
+    const extendsRespository = isMatch(packageJson, expectedProperties);
+
+    if (!extendsRespository) {
+      return {
+        message: `Package's repository property must extend the repository property at the root of your project.`,
+        path: 'package.json',
         suggestion: diff(
           pick(packageJson, ['name', 'repository']),
           pick(
             {
               ...packageJson,
-              ...newConfig,
+              ...expectedProperties,
             },
             ['name', 'repository'],
           ),
         ),
       };
-    },
-  };
-});
+    }
+
+    return true;
+  },
+  fix: async (context) => {
+    const newConfig = await getExpectedProperties({
+      rootWorkspace: context.rootPackage,
+      workspace: context.package,
+    });
+
+    if (!newConfig) {
+      return;
+    }
+
+    return json(context.package.path, 'package.json').merge(newConfig);
+  },
+} satisfies Check;

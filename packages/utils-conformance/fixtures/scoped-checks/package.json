@@ -1,0 +1,6 @@
+{
+  "name": "@scope/team",
+  "exports": {
+    "./has-foo": "./has-foo.js"
+  }
+}

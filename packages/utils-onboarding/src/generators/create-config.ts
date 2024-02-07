@@ -1,48 +1,38 @@
-import { PROJECT_CONFIG_JS, PROJECT_CONFIG_TS } from '../constants/filenames';
-import { text } from '@commonalityco/utils-file/text';
+import fs from 'fs-extra';
+import path from 'pathe';
 
-const linesWithChecks = [
-  `import { defineConfig } from 'commonality';`,
-  `import * as recommended from 'commonality-checks-recommended';`,
-  ``,
-  `export default defineConfig({`,
-  `  checks: {`,
-  `    '*': [`,
-  `      recommended.hasReadme(),`,
-  `      recommended.hasCodeowner(),`,
-  `      recommended.hasValidPackageName(),`,
-  `      recommended.hasUniqueDependencyTypes(),`,
-  `      recommended.hasSortedDependencies(),`,
-  `      recommended.hasMatchingDevPeerVersions(),`,
-  `      recommended.hasConsistentExternalVersion(),`,
-  `      recommended.extendsRepositoryField(),`,
-  `    ],`,
-  `  },`,
-  `  constraints: {},`,
-  `});`,
-];
+const configWithChecks = {
+  checks: {
+    '*': [
+      'recommended/has-readme',
+      'recommended/has-codeowner',
+      'recommended/has-valid-package-name',
+      'recommended/has-unique-dependency-types',
+      'recommended/has-sorted-dependencies',
+      'recommended/has-matching-dev-peer-versions',
+      'recommended/has-consistent-external-version',
+      'recommended/extends-repository-field',
+    ],
+  },
+  constraints: {},
+};
 
-const linesWithoutChecks = [
-  `import { defineConfig } from 'commonality';`,
-  ``,
-  `export default defineConfig({`,
-  `  checks: {},`,
-  `  constraints: {},`,
-  `});`,
-];
+const configWithoutChecks = {
+  checks: {},
+  constraints: {},
+};
 
 export const createConfig = async ({
   rootDirectory,
-  typeScript,
   includeChecks,
 }: {
   rootDirectory: string;
-  typeScript: boolean;
   includeChecks: boolean;
 }) => {
-  const configFileName = typeScript ? PROJECT_CONFIG_TS : PROJECT_CONFIG_JS;
+  const configFileName = './.commonality/config.json';
 
-  await text(rootDirectory, configFileName).set(
-    includeChecks ? linesWithChecks : linesWithoutChecks,
+  await fs.outputJSON(
+    path.resolve(rootDirectory, configFileName),
+    includeChecks ? configWithChecks : configWithoutChecks,
   );
 };

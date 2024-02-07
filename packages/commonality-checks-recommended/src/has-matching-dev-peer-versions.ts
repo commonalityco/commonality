@@ -1,4 +1,5 @@
-import { defineCheck, diff, json, PackageJson } from 'commonality';
+import { Check, diff, json, PackageJson } from 'commonality';
+import isMatch from 'lodash-es/isMatch';
 import semver from 'semver';
 
 const stripWorkspaceProtocol = (value: string) => {
@@ -50,101 +51,85 @@ const getExpectedDevDependencies = (
   return Object.keys(devDependencies).length > 0 ? devDependencies : undefined;
 };
 
-export const hasMatchingDevPeerVersions = defineCheck(() => {
-  return {
-    name: 'commonality/has-matching-dev-peer-versions',
-    level: 'warning',
-    validate: async (context) => {
-      const packageJson = await json<PackageJson>(
-        context.package.path,
-        'package.json',
-      ).get();
+export default {
+  level: 'warning',
+  message: `Packages with peerDependencies must have matching devDependencies within a valid range`,
+  validate: async (context) => {
+    const packageJson = await json<PackageJson>(
+      context.package.path,
+      'package.json',
+    ).get();
 
-      if (!packageJson) {
+    if (!packageJson) {
+      return { message: 'package.json is missing' };
+    }
+
+    const expectedDevDependencies = getExpectedDevDependencies(packageJson);
+
+    if (!expectedDevDependencies) {
+      return true;
+    }
+
+    if (
+      !isMatch(packageJson, {
+        devDependencies: expectedDevDependencies,
+      })
+    ) {
+      return {
+        message: title,
+        suggestion: diff(
+          { devDependencies: packageJson.devDependencies },
+          {
+            devDependencies: expectedDevDependencies,
+          },
+        ),
+        path: 'package.json',
+      };
+    }
+
+    const peerDependencies = packageJson.peerDependencies;
+
+    if (!peerDependencies) {
+      return true;
+    }
+
+    for (const [packageName, value] of Object.entries<string>(
+      peerDependencies,
+    )) {
+      const devDependency = packageJson.devDependencies?.[packageName];
+
+      if (!devDependency) {
         return false;
       }
 
-      const peerDependencies = packageJson.peerDependencies;
+      const cleanedValue = stripWorkspaceProtocol(value);
+      const cleanedDevDependency = stripWorkspaceProtocol(devDependency);
 
-      if (!peerDependencies) {
-        return true;
+      const isSubset = semver.subset(cleanedDevDependency, cleanedValue);
+
+      if (cleanedDevDependency === '*' || isSubset) {
+        continue;
+      } else {
+        return false;
       }
+    }
 
-      for (const [packageName, value] of Object.entries<string>(
-        peerDependencies,
-      )) {
-        const devDependency = packageJson.devDependencies?.[packageName];
+    return true;
+  },
+  fix: async (context) => {
+    const packageJson = await json<PackageJson>(
+      context.package.path,
+      'package.json',
+    ).get();
 
-        if (!devDependency) {
-          return false;
-        }
+    if (!packageJson) {
+      return;
+    }
 
-        const cleanedValue = stripWorkspaceProtocol(value);
-        const cleanedDevDependency = stripWorkspaceProtocol(devDependency);
+    const devDependencies = getExpectedDevDependencies(packageJson);
 
-        const isSubset = semver.subset(cleanedDevDependency, cleanedValue);
-
-        if (cleanedDevDependency === '*' || isSubset) {
-          continue;
-        } else {
-          return false;
-        }
-      }
-
-      return true;
-    },
-    fix: async (context) => {
-      const packageJson = await json<PackageJson>(
-        context.package.path,
-        'package.json',
-      ).get();
-
-      if (!packageJson) {
-        return;
-      }
-
-      const devDependencies = getExpectedDevDependencies(packageJson);
-
-      await json(context.package.path, 'package.json').merge({
-        devDependencies,
-      });
-    },
-    message: async (context) => {
-      const packageJson = await json<PackageJson>(
-        context.package.path,
-        'package.json',
-      ).get();
-
-      if (!packageJson) {
-        return { title: 'Package.json is missing' };
-      }
-
-      const expectedDevDependencies = getExpectedDevDependencies(packageJson);
-
-      if (!expectedDevDependencies) {
-        return { title, filePath: 'package.json' };
-      }
-
-      const source: Partial<PackageJson> = {
-        peerDependencies: packageJson.peerDependencies,
-      };
-      const target: Partial<PackageJson> = {
-        peerDependencies: packageJson.peerDependencies,
-      };
-
-      if (expectedDevDependencies) {
-        target.devDependencies = expectedDevDependencies;
-      }
-
-      if (packageJson.devDependencies) {
-        source.devDependencies = packageJson.devDependencies;
-      }
-
-      return {
-        title,
-        suggestion: diff(source, target),
-        filePath: 'package.json',
-      };
-    },
-  };
-});
+    await json(context.package.path, 'package.json').merge({
+      devDependencies,
+    });
+  },
+} satisfies Check;

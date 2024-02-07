@@ -3,7 +3,7 @@ import { action as check } from './check.js';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 import process from 'node:process';
 import console from 'node:console';
-import { PackageType, Status } from '@commonalityco/utils-core';
+import { PackageType, Status } from '@commonalityco/utils-core/constants';
 import stripAnsi from 'strip-ansi';
 import prompts from 'prompts';
 
@@ -62,7 +62,7 @@ describe('check', () => {
 
         Create powerful conformance rules that run like tests and can be shared like lint rules.
 
-        https://commonality.co/docs/checks",
+        https://docs.commonality.co/checks",
           ],
         ]
       `);
@@ -134,7 +134,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -143,10 +143,10 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -155,7 +155,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
           ] satisfies ConformanceResult[];
         },
@@ -181,7 +181,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -191,12 +191,11 @@ describe('check', () => {
                 type: PackageType.NODE,
               },
               message: {
-                title: 'This package should be cool',
-                filePath: 'package.json',
+                message: 'This package should be cool',
               },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -205,7 +204,9 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: {
+                message: 'This package should be cool',
+              },
             },
           ] satisfies ConformanceResult[];
         },
@@ -218,7 +219,6 @@ describe('check', () => {
             "
         ❯ pkg-one (1)
         ✓ pass This package should be cool
-        │      /path/package.json
         │      
         ❯ pkg-two (1)
         ✓ pass This package should be cool
@@ -239,7 +239,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -248,10 +248,10 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -260,7 +260,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
           ];
         },
@@ -276,7 +276,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -285,10 +285,10 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Fail,
               package: {
@@ -297,7 +297,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
           ];
         },
@@ -313,7 +313,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -322,10 +322,10 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -334,7 +334,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
             },
           ];
         },
@@ -363,7 +363,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -373,13 +373,11 @@ describe('check', () => {
                 type: PackageType.NODE,
               },
               message: {
-                title: 'This package should be awesome',
-                filePath: 'package.json',
-                suggestion: `I\nam\na\nmultiline\nstring`,
+                message: 'This package should be awesome',
               },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -388,7 +386,11 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: {
+                message: 'This package should be cool',
+                path: 'package.json',
+                suggestion: `I\nam\na\nmultiline\nstring`,
+              },
             },
           ];
         },
@@ -401,15 +403,15 @@ describe('check', () => {
             "
         ❯ pkg-one (1)
         ✓ pass This package should be awesome
-        │      /path/package.json
+        │      
+        ❯ pkg-two (1)
+        ⚠ warn This package should be cool
+        │      package.json
         │      I
         │      am
         │      a
         │      multiline
         │      string
-        │      
-        ❯ pkg-two (1)
-        ⚠ warn This package should be cool
         │      
 
         Packages: 0 failed 1 warnings 1 passed (2)
@@ -428,7 +430,7 @@ describe('check', () => {
           .fn()
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -437,11 +439,11 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -450,13 +452,13 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ])
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -465,11 +467,11 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -478,7 +480,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ]),
@@ -497,6 +499,7 @@ describe('check', () => {
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
           ],
+          [],
         ]
       `);
     });
@@ -514,7 +517,7 @@ describe('check', () => {
           .fn()
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -523,11 +526,11 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -536,13 +539,13 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ])
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -551,11 +554,11 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -564,7 +567,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ]),
@@ -583,6 +586,7 @@ describe('check', () => {
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
           ],
+          [],
         ]
       `);
     });
@@ -596,7 +600,7 @@ describe('check', () => {
           .fn()
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -605,11 +609,11 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -618,13 +622,13 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ])
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -633,11 +637,11 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be awesome' },
+              message: { message: 'This package should be awesome' },
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -646,7 +650,7 @@ describe('check', () => {
                 version: '1.0.0',
                 type: PackageType.NODE,
               },
-              message: { title: 'This package should be cool' },
+              message: { message: 'This package should be cool' },
               fix: () => {},
             },
           ]),
@@ -665,6 +669,7 @@ describe('check', () => {
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
           ],
+          [],
           [
             "",
           ],
@@ -687,7 +692,7 @@ describe('check', () => {
         verbose: false,
         getResults: vi.fn().mockResolvedValueOnce([
           {
-            name: 'CONFORMER_NAME/ONE',
+            id: 'CONFORMER_NAME/ONE',
             filter: '*',
             status: Status.Pass,
             package: {
@@ -696,11 +701,11 @@ describe('check', () => {
               version: '1.0.0',
               type: PackageType.NODE,
             },
-            message: { title: 'This package should be awesome' },
+            message: { message: 'This package should be awesome' },
             fix: () => {},
           },
           {
-            name: 'CONFORMER_NAME/TWO',
+            id: 'CONFORMER_NAME/TWO',
             filter: '*',
             status: Status.Warn,
             package: {
@@ -709,7 +714,7 @@ describe('check', () => {
               version: '1.0.0',
               type: PackageType.NODE,
             },
-            message: { title: 'This package should be cool' },
+            message: { message: 'This package should be cool' },
             fix: () => {},
           },
         ]),
@@ -728,6 +733,7 @@ describe('check', () => {
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
           ],
+          [],
           [
             "",
           ],
@@ -747,7 +753,7 @@ describe('check', () => {
         verbose: false,
         getResults: vi.fn().mockResolvedValueOnce([
           {
-            name: 'CONFORMER_NAME/ONE',
+            id: 'CONFORMER_NAME/ONE',
             filter: '*',
             status: Status.Pass,
             package: {
@@ -756,11 +762,11 @@ describe('check', () => {
               version: '1.0.0',
               type: PackageType.NODE,
             },
-            message: { title: 'This package should be awesome' },
+            message: { message: 'This package should be awesome' },
             fix: () => {},
           },
           {
-            name: 'CONFORMER_NAME/TWO',
+            id: 'CONFORMER_NAME/TWO',
             filter: '*',
             status: Status.Warn,
             package: {
@@ -769,7 +775,7 @@ describe('check', () => {
               version: '1.0.0',
               type: PackageType.NODE,
             },
-            message: { title: 'This package should be cool' },
+            message: { message: 'This package should be cool' },
             fix: () => {},
           },
         ]),

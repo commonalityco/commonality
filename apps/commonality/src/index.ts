@@ -1,9 +1,5 @@
-export {
-  diff,
-  createTestCheck,
-  defineCheck,
-} from '@commonalityco/utils-conformance';
+export { diff, defineTestCheck } from '@commonalityco/utils-conformance';
 export { text, json } from '@commonalityco/utils-file';
 
-export { defineConfig } from './define-config.js';
+export { Check, Constraint } from '@commonalityco/utils-core';
 export { PackageJson, Workspace } from '@commonalityco/types';

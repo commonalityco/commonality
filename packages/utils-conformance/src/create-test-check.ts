@@ -1,6 +1,6 @@
 import { Tag, Codeowner, Workspace } from '@commonalityco/types';
 import stripAnsi from 'strip-ansi';
-import { Message, CheckInput, CheckContext } from '@commonalityco/utils-core';
+import { Check, CheckContext } from '@commonalityco/utils-core';
 
 type Awaitable<T> = T | PromiseLike<T>;
 
@@ -22,7 +22,7 @@ interface TestCheckContext {
   tags?: Tag[];
 }
 
-export function createTestCheck<T extends CheckInput>(
+export function defineTestCheck<T extends Check>(
   conformer: T,
   options?: TestCheckContext,
 ): TestConformer<T> {
@@ -45,32 +45,23 @@ export function createTestCheck<T extends CheckInput>(
 
   return {
     ...conformer,
-    validate: () =>
-      conformer.validate({
+    validate: async () => {
+      const validationResult = await conformer.validate({
         ...testFixtures,
-      }),
+      });
+
+      if (typeof validationResult === 'object' && validationResult.suggestion) {
+        validationResult.suggestion = stripAnsi(validationResult.suggestion);
+      }
+
+      return validationResult;
+    },
     fix: conformer.fix
       ? async () =>
           await conformer?.fix?.({
             ...testFixtures,
           })
       : undefined,
-    message:
-      typeof conformer.message === 'string'
-        ? conformer.message
-        : async () => {
-            if (typeof conformer.message === 'string') return;
-
-            const result = await conformer.message({
-              ...testFixtures,
-            });
-
-            return {
-              ...result,
-              suggestion: result.suggestion
-                ? stripAnsi(result.suggestion)
-                : undefined,
-            } satisfies Message;
-          },
+    message: conformer.message,
   } as TestConformer<T>;
 }

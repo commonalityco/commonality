@@ -26,10 +26,10 @@ export const runFixes = async ({
 
   for (const result of conformanceResults) {
     if (result.fix && result.status !== Status.Pass) {
-      if (!groupedResults[result.name]) {
-        groupedResults[result.name] = [];
+      if (!groupedResults[result.id]) {
+        groupedResults[result.id] = [];
       }
-      groupedResults[result.name].push(result);
+      groupedResults[result.id].push(result);
     }
   }
 

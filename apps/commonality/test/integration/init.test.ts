@@ -59,7 +59,7 @@ describe('init', () => {
     'when the package manager is $packageManager',
     ({ packageManager, fixtureName, checkArgs }) => {
       it(
-        'initializes a new project with TypeScript and checks',
+        'initializes a new project with checks',
         async () => {
           const temporaryDirectoryPath =
             process.env['RUNNER_TEMP'] || os.tmpdir();
@@ -88,15 +88,6 @@ describe('init', () => {
             console.log({ err: data.toString() });
             initOutput += stripAnsi(data.toString());
           });
-
-          await vi.waitFor(
-            () => {
-              expect(initOutput).toContain(`Would you like to use TypeScript?`);
-            },
-            { timeout: 100_000 },
-          );
-
-          initProcess.stdin?.write('\n');
 
           await vi.waitFor(
             () => {
@@ -134,11 +125,11 @@ describe('init', () => {
           );
 
           await vi.waitFor(() => {
-            expect(initOutput).toContain(`Creating commonality.config.ts`);
+            expect(initOutput).toContain(`Creating .commonality/config.json`);
           });
           await vi.waitFor(
             () => {
-              expect(initOutput).toContain(`Created commonality.config.ts`);
+              expect(initOutput).toContain(`Created .commonality/config.json`);
             },
             { timeout: 100_000 },
           );
@@ -148,21 +139,34 @@ describe('init', () => {
           });
 
           const configExists = await fs.exists(
-            path.resolve(temporaryPath, 'commonality.config.ts'),
+            path.resolve(temporaryPath, '.commonality/config.json'),
           );
 
           expect(configExists).toBe(true);
 
-          const configContent = await fs.readFile(
-            path.resolve(temporaryPath, 'commonality.config.ts'),
-            'utf8',
+          const configContent = await fs.readJSON(
+            path.resolve(temporaryPath, '.commonality/config.json'),
           );
 
-          expect(configContent).toMatch('commonality-checks-recommended');
+          expect(configContent).toEqual({
+            checks: {
+              '*': [
+                'recommended/has-readme',
+                'recommended/has-codeowner',
+                'recommended/has-valid-package-name',
+                'recommended/has-unique-dependency-types',
+                'recommended/has-sorted-dependencies',
+                'recommended/has-matching-dev-peer-versions',
+                'recommended/has-consistent-external-version',
+                'recommended/extends-repository-field',
+              ],
+            },
+            constraints: {},
+          })
 
           const checkProcess = execa(packageManager, checkArgs, {
             cwd: temporaryPath,
-            stdout: 'pipe',
+            stdout: 'inherit',
           });
 
           let checkOutput = '';
@@ -188,7 +192,7 @@ describe('init', () => {
       );
 
       it(
-        'initializes a new project with JavaScript and no checks',
+        'initializes a new project with no checks',
         async () => {
           const temporaryDirectoryPath =
             process.env['RUNNER_TEMP'] || os.tmpdir();
@@ -221,16 +225,6 @@ describe('init', () => {
 
           await vi.waitFor(
             () => {
-              expect(initOutput).toContain(`Would you like to use TypeScript?`);
-            },
-            { timeout: 100_000 },
-          );
-
-          initProcess.stdin?.write('\u001B[D');
-          initProcess.stdin?.write('\n');
-
-          await vi.waitFor(
-            () => {
               expect(initOutput).toContain(
                 `Would you like to install our recommended checks?`,
               );
@@ -255,11 +249,11 @@ describe('init', () => {
           );
 
           await vi.waitFor(() => {
-            expect(initOutput).toContain(`Creating commonality.config.js`);
+            expect(initOutput).toContain(`Creating .commonality/config.json`);
           });
           await vi.waitFor(
             () => {
-              expect(initOutput).toContain(`Created commonality.config.js`);
+              expect(initOutput).toContain(`Created .commonality/config.json`);
             },
             { timeout: 100_000 },
           );
@@ -269,18 +263,16 @@ describe('init', () => {
           });
 
           const configExists = await fs.exists(
-            path.resolve(temporaryPath, 'commonality.config.js'),
+            path.resolve(temporaryPath, '.commonality/config.json'),
           );
 
           expect(configExists).toBe(true);
 
-          const configContent = await fs.readFile(
-            path.resolve(temporaryPath, 'commonality.config.js'),
-            'utf8',
+          const configContent = await fs.readJSON(
+            path.resolve(temporaryPath, '.commonality/config.json'),
           );
 
-          expect(configContent).toMatch(/checks: {}/);
-          expect(configContent).not.toMatch(`commonality-checks-recommended`);
+        expect(configContent).toEqual({ checks:{}, constraints:{} });
 
           const checkProcess = execa(packageManager, checkArgs, {
             cwd: temporaryPath,

@@ -1,0 +1,6 @@
+{
+  "name": "commonality-checks-test",
+  "exports": {
+    "./has-foo": "./has-foo.js"
+  }
+}

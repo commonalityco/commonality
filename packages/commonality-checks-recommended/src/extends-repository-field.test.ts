@@ -1,5 +1,5 @@
-import { extendsRepositoryField } from './extends-repository-field';
-import { createTestCheck, json } from 'commonality';
+import extendsRepositoryField from './extends-repository-field';
+import { defineTestCheck, json } from 'commonality';
 import { describe, it, expect, afterEach } from 'vitest';
 import mockFs from 'mock-fs';
 
@@ -19,7 +19,7 @@ describe('extendsRepositoryField', () => {
             },
           },
         });
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = defineTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -40,6 +40,7 @@ describe('extendsRepositoryField', () => {
       const rootPackageJson = JSON.stringify({
         repository: 'https://github.com/npm/cli.git',
       });
+
       it('returns false when the package has no repository field', async () => {
         mockFs({
           'package.json': rootPackageJson,
@@ -50,7 +51,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = defineTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -63,7 +64,23 @@ describe('extendsRepositoryField', () => {
 
         const result = await conformer.validate();
 
-        expect(result).toBe(false);
+        // @ts-expect-error expecting message object
+        expect(result.message).toEqual(
+          "Package's repository property must extend the repository property at the root of your project.",
+        );
+        // @ts-expect-error expecting message object
+        expect(result.path).toEqual('package.json');
+        // @ts-expect-error expecting message object
+        expect(result.suggestion).toMatchInlineSnapshot(`
+          "  Object {}
+          + Object {
+          +   \\"repository\\": Object {
+          +     \\"directory\\": \\"packages/pkg-a\\",
+          +     \\"type\\": \\"git\\",
+          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
+          +   },
+          + }"
+        `);
       });
 
       it('returns true when the package has a repository field that extends the root', async () => {
@@ -82,7 +99,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = defineTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -114,7 +131,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = defineTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -127,7 +144,25 @@ describe('extendsRepositoryField', () => {
 
         const result = await conformer.validate();
 
-        expect(result).toBe(false);
+        // @ts-expect-error expecting message object
+        expect(result.message).toEqual(
+          "Package's repository property must extend the repository property at the root of your project.",
+        );
+        // @ts-expect-error expecting message object
+        expect(result.path).toEqual('package.json');
+        // @ts-expect-error expecting message object
+        expect(result.suggestion).toMatchInlineSnapshot(`
+          "  Object {
+              \\"repository\\": Object {
+                \\"directory\\": \\"packages/pkg-b\\",
+                \\"type\\": \\"gitt\\",
+                \\"url\\": \\"https://github.com/npm/clii.git\\",
+          +     \\"directory\\": \\"packages/pkg-a\\",
+          +     \\"type\\": \\"git\\",
+          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
+              },
+            }"
+        `);
       });
     });
 
@@ -146,7 +181,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = defineTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -159,7 +194,23 @@ describe('extendsRepositoryField', () => {
 
         const result = await conformer.validate();
 
-        expect(result).toBe(false);
+        // @ts-expect-error expecting message object
+        expect(result.message).toEqual(
+          `Package's repository property must extend the repository property at the root of your project.`,
+        );
+        // @ts-expect-error expecting message object
+        expect(result.path).toEqual(`package.json`);
+        // @ts-expect-error expecting message object
+        expect(result.suggestion).toMatchInlineSnapshot(`
+          "  Object {}
+          + Object {
+          +   \\"repository\\": Object {
+          +     \\"directory\\": \\"packages/pkg-a\\",
+          +     \\"type\\": \\"git\\",
+          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
+          +   },
+          + }"
+        `);
       });
 
       it('returns true when the package has a repository field that extends the root', async () => {
@@ -178,7 +229,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = defineTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -210,7 +261,7 @@ describe('extendsRepositoryField', () => {
           },
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = defineTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -223,7 +274,25 @@ describe('extendsRepositoryField', () => {
 
         const result = await conformer.validate();
 
-        expect(result).toBe(false);
+        // @ts-expect-error expecting message object
+        expect(result.message).toEqual(
+          `Package's repository property must extend the repository property at the root of your project.`,
+        );
+        // @ts-expect-error expecting message object
+        expect(result.path).toEqual(`package.json`);
+        // @ts-expect-error expecting message object
+        expect(result.suggestion).toMatchInlineSnapshot(`
+          "  Object {
+              \\"repository\\": Object {
+                \\"directory\\": \\"packages/pkg-b\\",
+                \\"type\\": \\"gitt\\",
+                \\"url\\": \\"https://github.com/npm/clii.git\\",
+          +     \\"directory\\": \\"packages/pkg-a\\",
+          +     \\"type\\": \\"git\\",
+          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
+              },
+            }"
+        `);
       });
     });
   });
@@ -244,7 +313,7 @@ describe('extendsRepositoryField', () => {
           'package.json': rootPackageJson,
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = defineTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -268,6 +337,7 @@ describe('extendsRepositoryField', () => {
         });
       });
     });
+
     describe('when the root repository field is an object', () => {
       const rootPackageJson = JSON.stringify({
         repository: {
@@ -292,7 +362,7 @@ describe('extendsRepositoryField', () => {
           'package.json': rootPackageJson,
         });
 
-        const conformer = createTestCheck(extendsRepositoryField(), {
+        const conformer = defineTestCheck(extendsRepositoryField, {
           workspace: {
             path: './packages/pkg-a',
             relativePath: './packages/pkg-a',
@@ -314,104 +384,6 @@ describe('extendsRepositoryField', () => {
             directory: 'packages/pkg-a',
           },
         });
-      });
-    });
-
-    describe('message', () => {
-      it('matches the expected snapshot when repository is missing from package', async () => {
-        mockFs({
-          packages: {
-            'pkg-a': {
-              'package.json': JSON.stringify({
-                name: 'foo',
-              }),
-            },
-          },
-          'package.json': JSON.stringify({
-            name: 'foo',
-            repository: {
-              type: 'git',
-              url: 'https://github.com/npm/cli.git',
-            },
-          }),
-        });
-
-        const conformer = createTestCheck(extendsRepositoryField(), {
-          workspace: {
-            path: './packages/pkg-a',
-            relativePath: './packages/pkg-a',
-          },
-          rootWorkspace: {
-            path: './',
-            relativePath: './',
-          },
-        });
-
-        const result = await conformer.message();
-
-        expect(result.title).toEqual(
-          `Package's repository property must extend the repository property at the root of your project.`,
-        );
-        expect(result.filePath).toEqual('package.json');
-        expect(result.suggestion).toMatchInlineSnapshot(`
-          "  Object {
-              \\"name\\": \\"foo\\",
-          +   \\"repository\\": Object {
-          +     \\"directory\\": \\"packages/pkg-a\\",
-          +     \\"type\\": \\"git\\",
-          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
-          +   },
-            }"
-        `);
-      });
-
-      it('matches the expected snapshot when repository exists in package', async () => {
-        mockFs({
-          packages: {
-            'pkg-a': {
-              'package.json': JSON.stringify({
-                name: 'foo',
-                repository: 'https://github.com/npm/cli.git/packages/pkg-a',
-              }),
-            },
-          },
-          'package.json': JSON.stringify({
-            name: 'foo',
-            repository: {
-              type: 'git',
-              url: 'https://github.com/npm/cli.git',
-            },
-          }),
-        });
-
-        const conformer = createTestCheck(extendsRepositoryField(), {
-          workspace: {
-            path: './packages/pkg-a',
-            relativePath: './packages/pkg-a',
-          },
-          rootWorkspace: {
-            path: './',
-            relativePath: './',
-          },
-        });
-
-        const result = await conformer.message();
-
-        expect(result.title).toEqual(
-          `Package's repository property must extend the repository property at the root of your project.`,
-        );
-        expect(result.filePath).toEqual('package.json');
-        expect(result.suggestion).toMatchInlineSnapshot(`
-          "  Object {
-              \\"name\\": \\"foo\\",
-              \\"repository\\": \\"https://github.com/npm/cli.git/packages/pkg-a\\",
-          +   \\"repository\\": Object {
-          +     \\"directory\\": \\"packages/pkg-a\\",
-          +     \\"type\\": \\"git\\",
-          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
-          +   },
-            }"
-        `);
       });
     });
   });

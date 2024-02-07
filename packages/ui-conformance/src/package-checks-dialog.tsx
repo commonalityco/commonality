@@ -57,7 +57,7 @@ export function PackageChecksDialog({
                     type="multiple"
                     className="w-full overflow-hidden"
                   >
-                    <AccordionItem value={`${result.name}-${index}`}>
+                    <AccordionItem value={`${result.id}-${index}`}>
                       <AccordionTrigger>
                         <CheckTitle result={result} />
                       </AccordionTrigger>

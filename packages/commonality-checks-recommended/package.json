@@ -8,15 +8,20 @@
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
+    ".": "./dist/index.js",
+    "./has-codeowner": "./dist/has-codeowner.js",
+    "./extends-repository-field": "./dist/extends-repository-field.js",
+    "./has-consistent-external-version": "./dist/has-consistent-external-version.js",
+    "./has-matching-dev-peer-versions": "./dist/has-matching-dev-peer-versions.js",
+    "./has-readme": "./dist/has-readme.js",
+    "./has-sorted-dependencies": "./dist/has-sorted-dependencies.js",
+    "./has-unique-dependency-types": "./dist/has-unique-dependency-types.js",
+    "./has-valid-package-name": "./dist/has-valid-package-name.js"
   },
   "main": "./dist/index.cjs",
   "scripts": {
-    "build": "tsup-node --config tsup.config.ts",
-    "dev": "tsup-node --config tsup.config.ts --watch",
+    "build": "tsc --build",
+    "dev": "tsc --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",

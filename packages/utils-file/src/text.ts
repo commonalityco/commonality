@@ -31,7 +31,7 @@ export const text: TextFileCreator = (rootPath, filePath): TextFile => {
   const writeLines = async (lines: string[]) => {
     const text = lines.join('\n');
 
-    await fs.writeFile(fullPath, text);
+    await fs.outputFile(fullPath, text);
   };
 
   return {

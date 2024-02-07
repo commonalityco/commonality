@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { hasJsonFile } from './has-json-file';
-import { createTestCheck, json } from 'commonality';
+import { defineTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('hasJsonFile', () => {
@@ -12,8 +12,12 @@ describe('hasJsonFile', () => {
     it('should return false if json file is not present', async () => {
       mockFs({});
 
-      const check = createTestCheck(hasJsonFile('missing.json'));
-      expect(await check.validate()).toBe(false);
+      const check = defineTestCheck(hasJsonFile('missing.json'));
+
+      const result = await check.validate();
+
+      // @ts-expect-error expecting message object
+      expect(result.message).toEqual(`File "missing.json" does not exist`);
     });
 
     it('should return true if json file is present without content', async () => {
@@ -21,7 +25,7 @@ describe('hasJsonFile', () => {
         'existing.json': JSON.stringify({}),
       });
 
-      const check = createTestCheck(hasJsonFile('existing.json'));
+      const check = defineTestCheck(hasJsonFile('existing.json'));
 
       expect(await check.validate()).toBe(true);
     });
@@ -31,11 +35,23 @@ describe('hasJsonFile', () => {
         'existing.json': JSON.stringify({}),
       });
 
-      const check = createTestCheck(
+      const check = defineTestCheck(
         hasJsonFile('existing.json', { key: 'value' }),
       );
 
-      expect(await check.validate()).toBe(false);
+      const result = await check.validate();
+
+      // @ts-expect-error expecting message object
+      expect(result.message).toEqual(`File does not contain expected content`);
+      // @ts-expect-error expecting message object
+      expect(result.path).toEqual('existing.json');
+      // @ts-expect-error expecting message object
+      expect(result.suggestion).toMatchInlineSnapshot(`
+        "  Object {}
+        + Object {
+        +   \\"key\\": \\"value\\",
+        + }"
+      `);
     });
 
     it('should return true if json file is present and content matches', async () => {
@@ -46,76 +62,10 @@ describe('hasJsonFile', () => {
         }),
       });
 
-      const check = createTestCheck(
+      const check = defineTestCheck(
         hasJsonFile('existing.json', { key: 'value' }),
       );
       expect(await check.validate()).toBe(true);
-    });
-  });
-
-  describe('message', () => {
-    it('should return "Missing file" message if json file is not present', async () => {
-      mockFs({});
-
-      const check = createTestCheck(hasJsonFile('missing.json'));
-      expect(await check.message()).toMatchInlineSnapshot(`
-        {
-          "suggestion": undefined,
-          "title": "File \\"missing.json\\" does not exist",
-        }
-      `);
-    });
-
-    it('should return "exists" message if json file is present without content', async () => {
-      mockFs({
-        'existing.json': JSON.stringify({}),
-      });
-
-      const check = createTestCheck(hasJsonFile('existing.json'));
-      expect(await check.message()).toMatchInlineSnapshot(`
-        {
-          "suggestion": undefined,
-          "title": "existing.json exists",
-        }
-      `);
-    });
-
-    it('should return "does not contain expected content" message if json file is present but content does not match', async () => {
-      mockFs({
-        'existing.json': JSON.stringify({}),
-      });
-
-      const check = createTestCheck(
-        hasJsonFile('existing.json', { key: 'value' }),
-      );
-      expect(await check.message()).toMatchInlineSnapshot(`
-        {
-          "suggestion": "  Object {}
-        + Object {
-        +   \\"key\\": \\"value\\",
-        + }",
-          "title": "\\"existing.json\\" does not contain expected content",
-        }
-      `);
-    });
-
-    it('should return "exists" message if json file is present and content matches', async () => {
-      mockFs({
-        'existing.json': JSON.stringify({
-          key: 'value',
-          otherKey: 'otherValue',
-        }),
-      });
-
-      const check = createTestCheck(
-        hasJsonFile('existing.json', { key: 'value' }),
-      );
-      expect(await check.message()).toMatchInlineSnapshot(`
-        {
-          "suggestion": undefined,
-          "title": "existing.json exists",
-        }
-      `);
     });
   });
 
@@ -125,7 +75,7 @@ describe('hasJsonFile', () => {
         'existing.json': JSON.stringify({ key: 'value' }),
       });
 
-      const check = createTestCheck(hasJsonFile('existing.json'));
+      const check = defineTestCheck(hasJsonFile('existing.json'));
 
       await check.fix();
 
@@ -139,7 +89,7 @@ describe('hasJsonFile', () => {
         'existing.json': JSON.stringify({ foo: 'bar', key: 'old-value' }),
       });
 
-      const check = createTestCheck(
+      const check = defineTestCheck(
         hasJsonFile('existing.json', { key: 'new-value' }),
       );
       await check.fix();

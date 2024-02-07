@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { reportConstraintResults } from './constrain';
-import { DependencyType } from '@commonalityco/utils-core';
+import { DependencyType } from '@commonalityco/utils-core/constants';
 import stripAnsi from 'strip-ansi';
 import { ConstraintResult } from '@commonalityco/types';
 

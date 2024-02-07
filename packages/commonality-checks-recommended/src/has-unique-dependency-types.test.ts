@@ -1,6 +1,6 @@
-import { hasUniqueDependencyTypes } from './has-unique-dependency-types';
+import hasUniqueDependencyTypes from './has-unique-dependency-types';
 import { describe, it, expect, afterEach } from 'vitest';
-import { createTestCheck, json } from 'commonality';
+import { defineTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
 describe('hasUniqueDependencyTypes', () => {
@@ -17,14 +17,14 @@ describe('hasUniqueDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = defineTestCheck(hasUniqueDependencyTypes);
 
       const result = await conformer.validate();
 
       expect(result).toBe(true);
     });
 
-    it('should return false if there is a matching dependency and devDependency', async () => {
+    it('should return a message object if there is a matching dependency and devDependency', async () => {
       mockFs({
         'package.json': JSON.stringify({
           dependencies: {
@@ -36,13 +36,28 @@ describe('hasUniqueDependencyTypes', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = defineTestCheck(hasUniqueDependencyTypes);
       const result = await conformer.validate();
 
-      expect(result).toBe(false);
+      // @ts-expect-error - expecting message object
+      expect(result.message).toEqual(undefined);
+      // @ts-expect-error - expecting message object
+      expect(result.path).toEqual('package.json');
+      // @ts-expect-error - expecting message object
+      expect(result.suggestion).toMatchInlineSnapshot(`
+        "  Object {
+            \\"dependencies\\": Object {
+              \\"pkg-a\\": \\"1.0.0\\",
+            },
+            \\"devDependencies\\": Object {
+              \\"pkg-a\\": \\"1.0.0\\",
+            },
+        +   \\"devDependencies\\": Object {},
+          }"
+      `);
     });
 
-    it('should return false if there is a matching dependency and optionalDependency', async () => {
+    it('should return a message object if there is a matching dependency and optionalDependency', async () => {
       mockFs({
         'package.json': JSON.stringify({
           dependencies: {
@@ -53,13 +68,28 @@ describe('hasUniqueDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = defineTestCheck(hasUniqueDependencyTypes);
       const result = await conformer.validate();
 
-      expect(result).toBe(false);
+      // @ts-expect-error - expecting message object
+      expect(result.message).toEqual(undefined);
+      // @ts-expect-error - expecting message object
+      expect(result.path).toEqual('package.json');
+      // @ts-expect-error - expecting message object
+      expect(result.suggestion).toMatchInlineSnapshot(`
+        "  Object {
+            \\"dependencies\\": Object {
+              \\"pkg-a\\": \\"1.0.0\\",
+            },
+            \\"optionalDependencies\\": Object {
+              \\"pkg-a\\": \\"1.0.0\\",
+            },
+        +   \\"optionalDependencies\\": Object {},
+          }"
+      `);
     });
 
-    it('should return false if there is a matching dependency, optionalDependency, and devDependency', async () => {
+    it('should return a message object if there is a matching dependency, optionalDependency, and devDependency', async () => {
       mockFs({
         'package.json': JSON.stringify({
           dependencies: {
@@ -73,10 +103,28 @@ describe('hasUniqueDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = defineTestCheck(hasUniqueDependencyTypes);
       const result = await conformer.validate();
 
-      expect(result).toBe(false);
+      // @ts-expect-error - expecting message object
+      expect(result.message).toEqual(undefined);
+      // @ts-expect-error - expecting message object
+      expect(result.path).toEqual('package.json');
+      // @ts-expect-error - expecting message object
+      expect(result.suggestion).toMatchInlineSnapshot(`
+        "  Object {
+            \\"dependencies\\": Object {
+              \\"pkg-a\\": \\"1.0.0\\",
+            },
+        +   \\"dependencies\\": Object {},
+            \\"devDependencies\\": Object {
+              \\"pkg-a\\": \\"1.0.0\\",
+            },
+            \\"optionalDependencies\\": Object {
+              \\"pkg-a\\": \\"1.0.0\\",
+            },
+          }"
+      `);
     });
   });
 
@@ -93,7 +141,7 @@ describe('hasUniqueDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = defineTestCheck(hasUniqueDependencyTypes);
 
       await conformer.fix();
 
@@ -120,7 +168,7 @@ describe('hasUniqueDependencyTypes', () => {
           },
         }),
       });
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = defineTestCheck(hasUniqueDependencyTypes);
 
       await conformer.fix();
 
@@ -151,7 +199,7 @@ describe('hasUniqueDependencyTypes', () => {
         }),
       });
 
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
+      const conformer = defineTestCheck(hasUniqueDependencyTypes);
 
       await conformer.fix();
 
@@ -167,50 +215,6 @@ describe('hasUniqueDependencyTypes', () => {
           'pkg-a': '1.0.0',
         },
       });
-    });
-  });
-
-  describe('message', () => {
-    it('should output the correct message', async () => {
-      mockFs({
-        'package.json': JSON.stringify({
-          name: 'pkg-b',
-          dependencies: {
-            'pkg-a': '1.0.0',
-          },
-          devDependencies: {
-            'pkg-a': '1.0.0',
-          },
-          optionalDependencies: {
-            'pkg-a': '1.0.0',
-          },
-        }),
-      });
-
-      const conformer = createTestCheck(hasUniqueDependencyTypes());
-      const message = await conformer.message();
-
-      expect(message.title).toEqual(
-        'A dependency should only be in one of dependencies, devDependencies, or optionalDependencies',
-      );
-      expect(message.filePath).toEqual('package.json');
-      expect(message.suggestion ?? '').toMatchInlineSnapshot(
-        `
-          "  Object {
-              \\"dependencies\\": Object {
-                \\"pkg-a\\": \\"1.0.0\\",
-              },
-          +   \\"dependencies\\": Object {},
-              \\"devDependencies\\": Object {
-                \\"pkg-a\\": \\"1.0.0\\",
-              },
-              \\"name\\": \\"pkg-b\\",
-              \\"optionalDependencies\\": Object {
-                \\"pkg-a\\": \\"1.0.0\\",
-              },
-            }"
-        `,
-      );
     });
   });
 });

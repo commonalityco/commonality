@@ -9,12 +9,12 @@ describe('runFixes', () => {
     const mockFix = vi.fn();
     const conformanceResults: ConformanceResult[] = [
       {
-        name: 'test',
+        id: '123',
         status: Status.Fail,
         fix: mockFix,
         filter: '#tag-one',
         message: {
-          title: 'test',
+          message: 'test',
         },
         package: {
           name: 'test-package',

@@ -8,85 +8,59 @@ describe('create-config', () => {
     mockFs.restore();
   });
 
-  it('creates a commonality.config.ts file when using TypeScript', async () => {
+  it('creates a .commonality/config.json file', async () => {
     mockFs({});
 
     await createConfig({
       rootDirectory: './',
-      typeScript: true,
       includeChecks: true,
     });
 
-    const exists = await fs.exists('./commonality.config.ts');
+    const exists = await fs.exists('.commonality/config.json');
 
     expect(exists).toBe(true);
   });
 
-  it('creates a commonality.config.js file when not using TypeScript', async () => {
+  it('creates a .commonality/config.json file with checks when includeChecks is true', async () => {
     mockFs({});
 
     await createConfig({
       rootDirectory: './',
-      typeScript: false,
       includeChecks: true,
     });
 
-    const exists = await fs.exists('./commonality.config.js');
+    const content = await fs.readJSON('.commonality/config.json');
 
-    expect(exists).toBe(true);
-  });
-
-  it('creates a commonality.config.ts file with checks when includeChecks is true', async () => {
-    mockFs({});
-
-    await createConfig({
-      rootDirectory: './',
-      typeScript: true,
-      includeChecks: true,
+    expect(content).toEqual({
+      checks: {
+        '*': [
+          'recommended/has-readme',
+          'recommended/has-codeowner',
+          'recommended/has-valid-package-name',
+          'recommended/has-unique-dependency-types',
+          'recommended/has-sorted-dependencies',
+          'recommended/has-matching-dev-peer-versions',
+          'recommended/has-consistent-external-version',
+          'recommended/extends-repository-field',
+        ],
+      },
+      constraints: {},
     });
-
-    const content = await fs.readFile('./commonality.config.ts', 'utf8');
-
-    expect(content).toMatchInlineSnapshot(`
-      "import { defineConfig } from 'commonality';
-      import * as recommended from 'commonality-checks-recommended';
-
-      export default defineConfig({
-        checks: {
-          '*': [
-            recommended.hasReadme(),
-            recommended.hasCodeowner(),
-            recommended.hasValidPackageName(),
-            recommended.hasUniqueDependencyTypes(),
-            recommended.hasSortedDependencies(),
-            recommended.hasMatchingDevPeerVersions(),
-            recommended.hasConsistentExternalVersion(),
-            recommended.extendsRepositoryField(),
-          ],
-        },
-        constraints: {},
-      });"
-    `);
   });
 
-  it('creates a commonality.config.ts file without checks when includeChecks is false', async () => {
+  it('creates a .commonality/config.json file without checks when includeChecks is false', async () => {
     mockFs({});
 
     await createConfig({
       rootDirectory: './',
-      typeScript: true,
       includeChecks: false,
     });
 
-    const content = await fs.readFile('./commonality.config.ts', 'utf8');
+    const content = await fs.readJSON('.commonality/config.json');
 
-    expect(content).toMatchInlineSnapshot(`
-      "import { defineConfig } from 'commonality';
-
-      export default defineConfig({
-        checks: {},
-        constraints: {},
-      });"
-    `);
+    expect(content).toEqual({
+      checks: {},
+      constraints: {},
+    });
   });
 });

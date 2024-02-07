@@ -5,7 +5,7 @@ import { ConstraintResult } from '@commonalityco/types';
 import ora from 'ora';
 import c from 'chalk';
 import { Logger } from '../utils/logger.js';
-import { DependencyType } from '@commonalityco/utils-core';
+import { DependencyType } from '@commonalityco/utils-core/constants';
 import {
   getProjectConfig,
   getRootDirectory,

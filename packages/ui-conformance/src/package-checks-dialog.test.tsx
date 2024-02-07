@@ -47,7 +47,7 @@ describe('PackageChecksDialog', () => {
     };
     const results: ConformanceResult[] = [
       {
-        name: 'check-a',
+        id: 'check-a',
         status: Status.Pass,
         filter: 'tag-one',
         package: {
@@ -56,7 +56,7 @@ describe('PackageChecksDialog', () => {
           path: '/packages/pkg-a',
           type: PackageType.NODE,
         },
-        message: { title: 'This is cool', filePath: '/path/to/file' },
+        message: { message: 'This is cool', path: '/path/to/file' },
       },
     ];
 

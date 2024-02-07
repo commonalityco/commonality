@@ -1,17 +1,24 @@
-import { defineCheck, PackageJson, json } from 'commonality';
+import { PackageJson, json, Check } from 'commonality';
 import validateNpmPackageName from 'validate-npm-package-name';
 
-export const hasValidPackageName = defineCheck(() => ({
-  name: 'commonality/has-valid-package-name',
+export default {
   level: 'error',
+  message: 'package.json has a valid name',
   validate: async (context) => {
     const packageJson = await json<PackageJson>(
       context.package.path,
       'package.json',
     ).get();
 
-    if (!packageJson || !packageJson.name) {
-      return false;
+    if (!packageJson) {
+      return { message: 'package.json is missing', path: 'package.json' };
+    }
+
+    if (!packageJson.name) {
+      return {
+        message: 'package.json is missing a name',
+        path: 'package.json',
+      };
     }
 
     const result = validateNpmPackageName(packageJson.name);
@@ -20,33 +27,15 @@ export const hasValidPackageName = defineCheck(() => ({
     const hasWarnings = result.warnings && result.warnings.length > 0;
 
     if (hasErrors || hasWarnings) {
-      return false;
+      return {
+        message: 'Invalid package name',
+        path: 'package.json',
+        suggestion: result.errors
+          ? result.errors.join('\n')
+          : result.warnings?.join('\n'),
+      };
     }
 
     return true;
   },
-  type: 'error',
-  message: async (context) => {
-    const packageJson = await json<PackageJson>(
-      context.package.path,
-      'package.json',
-    ).get();
-
-    if (!packageJson || !packageJson.name) {
-      return {
-        title: 'Package name must be set in package.json',
-        filePath: 'package.json',
-      };
-    }
-
-    const result = validateNpmPackageName(packageJson.name);
-
-    return {
-      title: 'Invalid package name',
-      filePath: 'package.json',
-      suggestion: result.errors
-        ? result.errors.join('\n')
-        : result.warnings?.join('\n'),
-    };
-  },
-}));
+} satisfies Check;

@@ -1,39 +1,32 @@
-import { defineCheck, text, diff } from 'commonality';
+import { text, diff, Check } from 'commonality';
 import isMatch from 'lodash-es/isMatch';
 
-export const hasTextFile = defineCheck(
-  (fileName: string, content?: string[]) => {
-    return {
-      name: 'commonality/has-text-file',
-      level: 'error',
-      message: async (ctx) => {
-        const textFile = await text(ctx.package.path, fileName).get();
+export const hasTextFile = (fileName: string, content?: string[]) => {
+  return {
+    level: 'error',
+    message: `File "${fileName}" must exist`,
+    validate: async (ctx) => {
+      const textFile = await text(ctx.package.path, fileName).get();
 
-        if (!textFile) return { title: `File "${fileName}" does not exist` };
+      if (!textFile)
+        return { message: `File "${fileName}" does not exist`, path: fileName };
 
-        if (content && !isMatch(textFile, content)) {
-          return {
-            title: `"${fileName}" does not contain expected content`,
-            suggestion: diff(textFile, content),
-          };
-        }
+      if (!content) return true;
 
-        return { title: `${fileName} exists` };
-      },
-      validate: async (ctx) => {
-        const textFile = await text(ctx.package.path, fileName).get();
+      if (!isMatch(textFile, content)) {
+        return {
+          message: `File does not contain expected content`,
+          path: fileName,
+          suggestion: diff(textFile, content),
+        };
+      }
 
-        if (!textFile) return false;
+      return true;
+    },
+    fix: async (ctx) => {
+      if (!content) return;
 
-        if (!content) return true;
-
-        return isMatch(textFile, content);
-      },
-      fix: async (ctx) => {
-        if (!content) return;
-
-        await text(ctx.package.path, fileName).add(content);
-      },
-    };
-  },
-);
+      await text(ctx.package.path, fileName).add(content);
+    },
+  } satisfies Check;
+};

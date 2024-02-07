@@ -32,7 +32,7 @@ export const KitchenSink: Story = {
     results: [
       {
         status: Status.Pass,
-        name: 'test-one',
+        id: 'test-one',
         filter: 'filter-one',
         package: {
           name: 'package-one',
@@ -41,14 +41,14 @@ export const KitchenSink: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
-          filePath: 'package.json',
+          message: 'test-one',
+          path: 'package.json',
           suggestion: 'package.json',
         },
       },
       {
         status: Status.Warn,
-        name: 'test-one',
+        id: 'test-one',
         filter: 'filter-two',
         package: {
           name: 'package-three',
@@ -57,14 +57,14 @@ export const KitchenSink: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
-          filePath: 'package.json',
+          message: 'test-one',
+          path: 'package.json',
           suggestion: 'package.json',
         },
       },
       {
         status: Status.Pass,
-        name: 'test-one-two',
+        id: 'test-one-two',
         filter: 'filter-two',
         package: {
           name: 'package-three',
@@ -73,17 +73,16 @@ export const KitchenSink: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title:
+          message:
             'test-oneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
-          filePath:
-            'package.jsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
+          path: 'package.jsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn',
           suggestion:
             'const foo = "fehfwiuheiufhwihuehufwiuhefwuiehfiuhweiufweiuhfwuhefhwiuhefhwiuehfiwuheifhuwihefiuwheihfwieuhfiwuhefihwiehufiwhehfwiheifhwiuehfiwuhefihuweifuhhiwhefiwuh"',
         },
       },
       {
         status: Status.Fail,
-        name: 'test-one',
+        id: 'test-one',
         filter: 'filter-one',
         package: {
           name: 'package-two',
@@ -92,14 +91,14 @@ export const KitchenSink: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
-          filePath: 'package.json',
+          message: 'test-one',
+          path: 'package.json',
           suggestion: 'package.json',
         },
       },
       {
         status: Status.Pass,
-        name: 'test-one/testone',
+        id: 'test-one/testone',
         filter: 'filter-one',
         package: {
           name: 'package-two',
@@ -108,7 +107,7 @@ export const KitchenSink: Story = {
           type: PackageType.NODE,
         },
         message: {
-          title: 'test-one',
+          message: 'test-one',
         },
       },
     ],

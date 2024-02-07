@@ -19,10 +19,10 @@ describe('CheckTitle', () => {
         type: PackageType.NODE,
         version: '1.0.0',
       },
-      name: 'test-name',
+      id: 'test-name',
       filter: 'tag-one',
       status: Status.Pass,
-      message: { title: 'This package is cool' },
+      message: { message: 'This package is cool' },
     };
 
     render(<CheckTitle result={result} />);
@@ -40,10 +40,10 @@ describe('CheckTitle', () => {
         type: PackageType.NODE,
         version: '1.0.0',
       },
-      name: 'test-name',
+      id: 'test-name',
       filter: 'tag-one',
       status: Status.Warn,
-      message: { title: 'This package is cool' },
+      message: { message: 'This package is cool' },
     };
 
     render(<CheckTitle result={result} />);
@@ -61,10 +61,10 @@ describe('CheckTitle', () => {
         type: PackageType.NODE,
         version: '1.0.0',
       },
-      name: 'test-name',
+      id: 'test-name',
       filter: 'tag-one',
       status: Status.Fail,
-      message: { title: 'This package is cool' },
+      message: { message: 'This package is cool' },
     };
 
     render(<CheckTitle result={result} />);
@@ -84,12 +84,12 @@ describe('CheckContent', () => {
         type: PackageType.NODE,
         version: '1.0.0',
       },
-      name: 'test-name',
+      id: 'test-name',
       filter: 'tag-one',
       status: Status.Pass,
       message: {
-        title: 'This package is cool',
-        filePath: 'path/to/file',
+        message: 'This package is cool',
+        path: 'path/to/file',
         suggestion: 'Try this instead',
       },
     };
@@ -156,10 +156,10 @@ describe('ConformanceResults', () => {
           type: PackageType.NODE,
           version: '1.0.0',
         },
-        name: 'test-name',
+        id: 'test-name',
         filter: 'tag-one',
         status: Status.Pass,
-        message: { title: 'This package is cool' },
+        message: { message: 'This package is cool' },
       },
     ] satisfies ConformanceResult[];
 
@@ -181,8 +181,8 @@ describe('ConformanceResults', () => {
         },
         filter: 'tag-one',
         status: Status.Pass,
-        message: { title: 'This package is cool' },
-        name: 'test-name',
+        message: { message: 'This package is cool' },
+        id: 'test-name',
       },
       {
         package: {
@@ -193,8 +193,8 @@ describe('ConformanceResults', () => {
         },
         filter: 'tag-one',
         status: Status.Pass,
-        message: { title: 'This package is also cool' },
-        name: 'test-name-2',
+        message: { message: 'This package is also cool' },
+        id: 'test-name-2',
       },
     ] satisfies ConformanceResult[];
 
@@ -221,8 +221,8 @@ describe('ConformanceResults', () => {
         },
         filter: 'tag-one',
         status: Status.Pass,
-        message: { title: 'This package is cool' },
-        name: 'test-name',
+        message: { message: 'This package is cool' },
+        id: 'test-name',
       },
       {
         package: {
@@ -233,8 +233,8 @@ describe('ConformanceResults', () => {
         },
         filter: 'tag-one',
         status: Status.Pass,
-        message: { title: 'This package is also cool' },
-        name: 'test-name',
+        message: { message: 'This package is also cool' },
+        id: 'test-name',
       },
     ] satisfies ConformanceResult[];
 

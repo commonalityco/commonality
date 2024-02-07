@@ -21,15 +21,7 @@ describe('getValidatedProjectConfig', () => {
     const config = getValidatedProjectConfig({
       workspacees: 1,
       checks: {
-        '*': [
-          {
-            name: 'foo',
-            validate: () => true,
-            fix: () => {},
-            message: 'foo',
-            foo: [],
-          },
-        ],
+        '*': ['foo'],
       },
       constraints: {
         '*': {
@@ -54,15 +46,7 @@ describe('getValidatedProjectConfig', () => {
     expect(config).toEqual({
       workspaces: [],
       checks: {
-        '*': [
-          {
-            name: 'foo',
-            validate: expect.any(Function),
-            fix: expect.any(Function),
-            message: 'foo',
-            level: 'warning',
-          },
-        ],
+        '*': ['foo'],
       },
       constraints: {
         '*': {
@@ -113,7 +97,7 @@ describe('getProjectConfig', () => {
 
       expect(config).toEqual({
         isEmpty: false,
-        filepath: expect.stringContaining('commonality.config.ts'),
+        filepath: expect.stringContaining('.commonality/config.json'),
         config: {
           workspaces: [],
           checks: {},

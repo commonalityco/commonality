@@ -1,61 +1,57 @@
-A project configuration file can be any of the following:
+A project configuration file is a `config.json` file located in the `.commonality` folder at the root of your project.
 
-- `commonality.config.ts`
-- `commonality.config.js`
-
-Your project's configuration should be located at the root of your project.
-This should be the same directory where your package manager's lockfile is located.
-
-<Tip>
-  Use the `defineConfig` helper function to get type checking and intellisense
-  for your configuration.
-</Tip>
-
-```ts commonality.config.ts
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  // ...
-});
+```json .commonality/config.json
+{
+  "checks": {
+    "*": ["has-readme"],
+    "publishable": ["ensure-license"]
+  },
+  "constraints": {
+    "*": { "disallow": ["deployable"] },
+    "config": { "allow": ["config"] }
+  }
+}
 ```
-
----
 
 ## Properties
 
-### `checks`
+### checks
 
-An object whose keys are [selectors](/selectors) and whose values are [check objects](/reference/check-object).
+An object whose keys are [selectors](/selectors) and whose values are paths to [check objects](/reference/check-object).
 
 <Info>Checks will run in the order they are defined.</Info>
 
-```ts commonality.config.ts
-import { defineConfig } from 'commonality';
-import * as recommended from 'commonality-checks-recommended';
+```json .commonality/config.json
+{
+  "checks": {
+    "*": [
+      // Path to a check local to the project
+      "has-readme",
+      "./has-readme",
+      "./linting/eslint-extends-node",
 
-export default defineConfig({
-  checks: {
-    '*': [recommended.hasReadme()],
-    publishable: [recommended.ensureLicense()],
-  },
-});
+      // Path to a custom check exported from a package
+      "@scope/my-team/my-custom-check",
+      "commonality-checks-recommended/sorted-dependencies"
+
+      // Packages prefixed with "commonality-checks-" can use a shorthand
+      "recommended/sorted-dependencies"
+    ],
+  }
+}
 ```
 
----
-
-### `constraints`
+### constraints
 
 An object whose keys are [selectors](/selectors) and whose value are [constraint objects](/reference/constraint-object).
 
-```ts commonality.config.ts
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  constraints: {
-    '*': { disallow: ['deployable'] },
-    config: { allow: ['config'] },
-  },
-});
+```json .commonality/config.json
+{
+  "constraints": {
+    "*": { "disallow": ["deployable"] },
+    "config": { "allow": ["config"] }
+  }
+}
 ```
 
 

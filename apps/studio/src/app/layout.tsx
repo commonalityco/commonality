@@ -6,6 +6,8 @@ import { cookies } from 'next/headers';
 import StudioNavigation from './studio-navigation';
 import { getProjectData } from '@/data/project';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Commonality Studio',
   icons: {

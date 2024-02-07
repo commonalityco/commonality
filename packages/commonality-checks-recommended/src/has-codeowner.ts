@@ -1,9 +1,9 @@
-import { defineCheck } from 'commonality';
+import { Check } from 'commonality';
 
-export const hasCodeowner = defineCheck(() => ({
-  name: 'commonality/has-codeowner',
+export default {
+  level: 'warning',
   validate: async ({ codeowners }) => {
     return codeowners.length > 0;
   },
   message: 'Packages must have a codeowner',
-}));
+} satisfies Check;

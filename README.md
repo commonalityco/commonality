@@ -6,8 +6,8 @@ Commonality helps you structure growing JavaScript monorepos and package ecosyst
 
 No wrappers. No lock-in. Open-source.
 
-[**Overview**](https://www.commonality.co/docs/overview) &nbsp;&nbsp;&nbsp;
-[**Get started**](https://www.commonality.co/docs/getting-started)
+[**Overview**](https://docs.commonality.co/overview) &nbsp;&nbsp;&nbsp;
+[**Get started**](https://docs.commonality.co/quickstart)
 
 Run the command below in an existing project to set up Commonality in seconds
 
@@ -19,19 +19,19 @@ npx commonality init
 
 Every feature in Commonality is designed to be adopted incrementally. Start with a single package and scale it to an entire organization.
 
-[**Checks**](https://www.commonality.co/docs/checks)
+[**Checks**](https://docs.commonality.co/checks)
 
-Scale a consistently amazing developer experience with dynamic conformance checks that are run like tests and shared like lint rules.
+Scale a consistently amazing developer experience with a monorepo linter that can be customized to your standards and existing tools.
 
-[**Constraints**](https://www.commonality.co/docs/constraints)
+[**Constraints**](https://docs.commonality.co/constraints)
 
 Maintain a dependency graph that's easy to reason about by limiting which packages can depend on each other.
 
-[**Tags**](https://www.commonality.co/docs/tags)
+[**Tags**](https://docs.commonality.co/tags)
 
 Group packages by their purpose, concern, or domain without a tight coupling to directory structure. Use tags to selectively apply checks and constraints to packages.
 
-[**Codeowners**](https://www.commonality.co/docs/codeowners)
+[**Codeowners**](https://docs.commonality.co/codeowners)
 
 Correlate ownership rules from a `CODEOWNERS` file to packages in your project.
 
@@ -47,7 +47,7 @@ Explore any JavaScript project with a single command:
 npx commonality studio
 ```
 
-[**Learn more about Commonality Studio**](https://www.commonality.co/docs/studio)
+[**Learn more about Commonality Studio**](https://docs.commonality.co/studio)
 
 ## Author
 

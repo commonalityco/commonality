@@ -1,14 +1,16 @@
 import { TagsData, CodeownersData, Package } from '@commonalityco/types';
 import {
   Status,
-  ProjectConfigOutput,
   Check,
   Message,
+  messageSchema,
+  CheckOutput,
 } from '@commonalityco/utils-core';
 import path from 'pathe';
+import { merge } from 'lodash-es';
 
 export type ConformanceResult = {
-  name: string;
+  id: string;
   filter: string;
   fix?: Check['fix'];
   status: Status;
@@ -36,7 +38,7 @@ const filterPackages = ({
   });
 };
 
-const getStatus = async ({
+const getResult = async ({
   conformer,
   rootDirectory,
   pkg,
@@ -50,7 +52,9 @@ const getStatus = async ({
   tagsMap: Map<string, string[]>;
   codeownersMap: Map<string, string[]>;
   packages: Package[];
-}): Promise<Status> => {
+}): Promise<{ status: Status; message?: Message }> => {
+  const errorStatus = conformer.level === 'error' ? Status.Fail : Status.Warn;
+
   try {
     const result = await conformer.validate({
       package: Object.freeze({
@@ -69,70 +73,18 @@ const getStatus = async ({
       codeowners: codeownersMap.get(pkg.name as string) ?? [],
     });
 
-    if (result) {
-      return Status.Pass;
+    if (result === true) {
+      return { status: Status.Pass };
     } else {
-      return conformer.level === 'error' ? Status.Fail : Status.Warn;
+      const message = messageSchema.parse(result);
+
+      return {
+        status: errorStatus,
+        message,
+      };
     }
   } catch {
-    return Status.Fail;
-  }
-};
-
-export const getMessage = async ({
-  conformer,
-  rootDirectory,
-  pkg,
-  tagsMap,
-  codeownersMap,
-  packages,
-}: {
-  conformer: Check;
-  rootDirectory: string;
-  pkg: Package;
-  tagsMap: Map<string, string[]>;
-  codeownersMap: Map<string, string[]>;
-  packages: Package[];
-}): Promise<Message & { filePath: string }> => {
-  if (typeof conformer.message === 'string') {
-    return { title: conformer.message, filePath: pkg.path };
-  }
-
-  try {
-    const message = await conformer.message({
-      package: Object.freeze({
-        path: path.join(rootDirectory, pkg.path),
-        relativePath: pkg.path,
-      }),
-      allPackages: packages.map((innerPkg) => ({
-        path: path.join(rootDirectory, innerPkg.path),
-        relativePath: innerPkg.path,
-      })),
-      rootPackage: {
-        path: rootDirectory,
-        relativePath: '.',
-      },
-      tags: tagsMap.get(pkg.name as string) ?? [],
-      codeowners: codeownersMap.get(pkg.name as string) ?? [],
-    });
-
-    return {
-      ...message,
-      filePath: message.filePath ?? pkg.path,
-    } satisfies Message;
-  } catch (error) {
-    if (error instanceof Error) {
-      return {
-        title: error.message,
-        filePath: pkg.path,
-        suggestion: error.stack,
-      } satisfies Message;
-    }
-
-    return {
-      title: 'An unknown error occurred while running this conformer',
-      filePath: pkg.path,
-    };
+    return { status: errorStatus };
   }
 };
 
@@ -143,7 +95,7 @@ export const getConformanceResults = async ({
   rootDirectory,
   codeownersData,
 }: {
-  conformersByPattern: ProjectConfigOutput['checks'];
+  conformersByPattern: Record<string, CheckOutput[]>;
   rootDirectory: string;
   packages: Package[];
   tagsData: TagsData[];
@@ -163,16 +115,7 @@ export const getConformanceResults = async ({
         filterPackages({ packages, tagsData, matchingPattern })
           .filter((pkg): pkg is Package => !!pkg)
           .map(async (pkg): Promise<ConformanceResult> => {
-            const status = await getStatus({
-              conformer,
-              rootDirectory,
-              pkg,
-              tagsMap,
-              codeownersMap,
-              packages,
-            });
-
-            const message = await getMessage({
+            const result = await getResult({
               conformer,
               rootDirectory,
               pkg,
@@ -182,11 +125,22 @@ export const getConformanceResults = async ({
             });
 
             return {
-              status,
-              name: conformer.name,
+              status: result.status,
+              id: conformer.id,
               filter: matchingPattern,
               package: pkg,
-              message,
+              message: merge(
+                {
+                  message: conformer.message,
+                },
+                {
+                  message: result.message?.message,
+                  path: result.message?.path
+                    ? path.join(pkg.path, result.message.path)
+                    : undefined,
+                  suggestion: result.message?.suggestion,
+                },
+              ),
               fix: conformer.fix,
             };
           }),

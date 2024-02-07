@@ -45,8 +45,10 @@
       "group": "Checks",
       "pages": [
         "checks/introduction",
+        "checks/configuring-checks",
         "checks/creating-checks",
-        "checks/testing-checks"
+        "checks/testing-checks",
+        "checks/sharing-checks"
       ]
     },
     {
@@ -86,7 +88,6 @@
         "reference/json",
         "reference/text",
         "reference/diff",
-        "reference/define-check",
         "reference/define-test-check"
       ]
     },

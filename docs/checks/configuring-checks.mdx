@@ -1,0 +1,65 @@
+---
+title: 'Configuring checks'
+icon: 'toolbox'
+---
+
+Checks are defined your [project configuration file](/reference/project-configuration).
+You can use [selectors](/selectors) to run checks against all the packages in your project or a subset of packages.
+
+Checks as paths to [check objects](/reference/check-object) that can be defined locally in your project or as exports from a package.
+
+<Info>
+Paths must resolve to a file that has a [check object](/reference/check-object) as it's `default export`
+</Info>
+
+### Checks local to your project
+You can configure paths to files relative to the `.commonality/config.json` file.
+
+<Tip>
+You can omit the `./` prefix when configuring checks local to your project.
+</Tip>
+```json .commonality/config.json
+{
+  "checks": {
+    "buildable": [
+      // Resolves to: .commonality/has-vite-config.{js,ts}
+      "has-vite-config",
+
+      // Resolves to: .commonality/scripts/has-build-scripts.{js,ts}
+      "./scripts/has-build-scripts"
+    ]
+  }
+}
+```
+
+### Checks exported from a package
+You can configure paths that resolve to files exported from a package. We use [import-meta-resolve](https://www.npmjs.com/package/import-meta-resolve) to resolve import paths.
+
+<Tip>
+Packages prefixed with `commonality-checks-` can omit the prefix as a shorthand when configuring checks.
+</Tip>
+
+```json .commonality/config.json
+{
+  "checks": {
+    "buildable": [
+      // Package named: @scope/my-team
+      "@scope/my-team/has-internal-config",
+
+      // Package named: commonality-checks-recommended
+      "commonality-checks-recommended/sorted-dependencies",
+
+      // Package named: commonality-checks-recommended
+      "recommended/sorted-dependencies"
+    ]
+  }
+}
+```
+
+## Validating checks
+
+You can view the status of your checks by running the [check command](/reference/cli#check).
+
+```bash
+commonality check
+```
