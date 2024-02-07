@@ -2,3 +2,94 @@
 title: "Sharing checks"
 icon: "cloud-arrow-up"
 ---
+
+Checks are best shared using packages.
+
+<Tip>
+We recommend prefixing packages intended for open source or community use with `commonality-checks`. This will allow for a shorter path when configuring them in your project configuration.
+</Tip>
+
+## Static checks
+Checks that don't require any configuration can be added to your project by adding the them to directly to your project configuration file.
+
+```ts sorted-dependencies.js
+export default {
+  name: 'sorted-dependencies',
+  message: 'Dependencies must be sorted',
+  validate: () => {
+    // ...validation logic
+  }
+}
+```
+
+
+We recommend exporting static checks as separate entry points in your package.json.
+
+```json package.json
+{
+  "name": "commonality-checks-myname",
+  "exports": {
+    "./has-code": "./has-code.js"
+  }
+}
+```
+
+
+Checks can then be configured using the full package name or shorthand if prefixed with `commonality-checks`.
+
+```json .commonality/config.json
+{
+  "checks": {
+    "*": [
+      "commonality-checks-myname/sorted-dependencies",
+      "myname/sorted-dependencies"
+    ]
+  }
+}
+```
+
+
+
+
+## Composed checks
+Checks that are designed to be configured by the user can be exported as functions.
+```js has-script.js
+export const hasScript = (name, value) => ({
+  name: 'has-script',
+  message: `package.json must have script "${name}" with value "${value}"`,
+  validate: () => {
+    // ...validation logic
+  }
+});
+```
+
+These checks can be exported from as named exports from a single file.
+
+```js index.js
+export * from './has-script.js'
+```
+
+Composed checks can then be exported from package's `main` entry point.
+
+```json package.json
+{
+  "name": "commonality-checks-myname",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  }
+}
+```
+
+Developers can then configure these checks and export them as static checks locally in their projects or as packages to standardize a toolchain across an organization.
+
+```ts .commonality/has-build-script.ts
+import { hasScript }
+
+export default {
+  name: 'has-build-script',
+  message: 'Package must have standard build script',
+  validate
+}
+```
+
