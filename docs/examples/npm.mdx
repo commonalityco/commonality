@@ -4,38 +4,41 @@ title: "NPM, Yarn and pnpm"
 
 ### Check that a package has specific scripts
 
-```json .commonality/config.json
-import * as recommended from 'commonality-checks-recommended';
+```ts .commonality/has-build-scripts.ts
+import { hasJson } from 'commonality-checks-recommended';
 
-export default defineConfig({
-  checks: {
-    buildable: [
-      recommended.hasJsonFile('package.json', {
-        scripts: {
-          build: 'tsc --build',
-          dev: 'tsc --watch',
-          clean: 'rimraf dist',
-        },
-      }),
-    ],
-  },
-});
+export default hasJson('package.json', {
+  scripts: {
+    build: 'tsc --build',
+    dev: 'tsc --watch'
+  }
+})
+```
+
+```json .commonality/config.json
+{
+  "checks": [
+    "buildable": [
+      "has-build-scripts"
+    ]
+  ]
+}
 ```
 
 ### Check that a package has an `.npmignore`
 
-```json .commonality/config.json
-import * as recommended from 'commonality-checks-recommended';
+```ts .commonality/has-npm-ignore.ts
+import { hasText } from 'commonality-checks-recommended';
 
-export default defineConfig({
-  checks: {
-    '*': [
-      recommended.hasTextFile('.npmignore', [
-        'node_modules',
-        'dist',
-        'coverage',
-      ]),
-    ],
-  },
-});
+export default hasText('.npmignore', ["dist"])
+```
+
+```json .commonality/config.json
+{
+  "checks": [
+    "publishable": [
+      "has-npm-ignore"
+    ]
+  ]
+}
 ```

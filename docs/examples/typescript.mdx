@@ -7,21 +7,31 @@ title: "TypeScript"
 You might find that your project has groups of packages that require similar configuration.
 Use checks to create ensure they extend a common base configuration or have specific properties.
 
-```json .commonality/config.json
-import * as recommended from 'commonality-checks-recommended';
+```ts .commonality/extends-tsconfig-next
+import { hasJson } from 'commonality-checks-recommended';
 
-export default defineConfig({
-  checks: {
-    ui: [
-      recommended.hasJsonFile('tsconfig.json', {
-        extends: '@tsconfig/react',
-      }),
+export default hasJson('tsconfig.json', {
+  extends: ["@tsconfig/next"]
+})
+```
+
+```ts .commonality/extends-tsconfig-react
+import { hasJson } from 'commonality-checks-recommended';
+
+export default hasJson('tsconfig.json', {
+  extends: ["@tsconfig/react"]
+})
+```
+
+```json .commonality/config.json
+{
+  "checks": [
+    "ui": [
+      "extends-tsconfig-react"
     ],
-    next: [
-      recommended.hasJsonFile('tsconfig.json', {
-        extends: '@tsconfig/next',
-      }),
-    ],
-  },
-});
+    "application": [
+      "extends-tsconfig-next"
+    ]
+  ]
+}
 ```
