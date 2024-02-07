@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import hasConsistentExternalVersion from './has-consistent-external-version';
+import hasConsistentExternalVersion from './consistent-external-version';
 import { defineTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
-describe('hasConsistentExternalVersion', () => {
+describe('consistent-external-version', () => {
   afterEach(() => {
     mockFs.restore();
   });

@@ -1,9 +1,9 @@
-import hasUniqueDependencyTypes from './has-unique-dependency-types';
+import hasUniqueDependencyTypes from './unique-dependency-types';
 import { describe, it, expect, afterEach } from 'vitest';
 import { defineTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
-describe('hasUniqueDependencyTypes', () => {
+describe('unique-dependency-types', () => {
   afterEach(() => {
     mockFs.restore();
   });

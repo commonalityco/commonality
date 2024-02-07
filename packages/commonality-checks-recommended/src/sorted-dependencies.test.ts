@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import hasSortedDependencies from './has-sorted-dependencies';
+import hasSortedDependencies from './sorted-dependencies';
 import { defineTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
-describe('hasSortedDependencies', () => {
+describe('sorted-dependencies', () => {
   afterEach(() => {
     mockFs.restore();
   });
