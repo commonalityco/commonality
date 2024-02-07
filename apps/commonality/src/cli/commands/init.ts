@@ -36,7 +36,7 @@ const logNextSteps = ({
 
   console.log(`\n  Check out our getting started guide for more info:`);
   console.log(
-    `  ${c.underline('https://www.commonality.co/docs/getting-started')}\n`,
+    `  ${c.underline('https://www.docs.commonality.co/quickstart')}\n`,
   );
 };
 
