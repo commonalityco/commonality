@@ -1,5 +1,13 @@
 # @commonalityco/ui-graph
 
+## 0.2.42
+
+### Patch Changes
+
+- Updated dependencies [65ee18a]
+  - @commonalityco/utils-package@0.2.38
+  - @commonalityco/utils-core@0.2.39
+
 ## 0.2.41
 
 ### Patch Changes
