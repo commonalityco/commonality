@@ -3,7 +3,6 @@ import isMatch from 'lodash-es/isMatch';
 
 export const hasTextFile = (fileName: string, content?: string[]) => {
   return {
-    name: 'commonality/has-text-file',
     level: 'error',
     message: `File "${fileName}" must exist`,
     validate: async (ctx) => {

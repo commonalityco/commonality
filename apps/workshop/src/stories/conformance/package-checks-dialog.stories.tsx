@@ -30,7 +30,7 @@ export const Checks: Story = {
     results: [
       {
         status: Status.Pass,
-        name: 'test-one',
+        id: 'test-one',
         filter: 'filter-one',
         package: {
           name: 'package-one',
@@ -46,7 +46,7 @@ export const Checks: Story = {
       },
       {
         status: Status.Warn,
-        name: 'test-one',
+        id: 'test-one',
         filter: 'filter-two',
         package: {
           name: 'package-three',
@@ -62,7 +62,7 @@ export const Checks: Story = {
       },
       {
         status: Status.Pass,
-        name: 'test-one-two',
+        id: 'test-one-two',
         filter: 'filter-two',
         package: {
           name: 'package-three',
@@ -80,7 +80,7 @@ export const Checks: Story = {
       },
       {
         status: Status.Fail,
-        name: 'test-one',
+        id: 'test-one',
         filter: 'filter-one',
         package: {
           name: 'package-two',
@@ -97,7 +97,7 @@ export const Checks: Story = {
       },
       {
         status: Status.Pass,
-        name: 'test-one/testone',
+        id: 'test-one/testone',
         filter: 'filter-one',
         package: {
           name: 'package-two',

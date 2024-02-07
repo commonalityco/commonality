@@ -4,12 +4,13 @@ import {
   Check,
   Message,
   messageSchema,
+  CheckOutput,
 } from '@commonalityco/utils-core';
 import path from 'pathe';
 import { merge } from 'lodash-es';
 
 export type ConformanceResult = {
-  name: string;
+  id: string;
   filter: string;
   fix?: Check['fix'];
   status: Status;
@@ -94,7 +95,7 @@ export const getConformanceResults = async ({
   rootDirectory,
   codeownersData,
 }: {
-  conformersByPattern: Record<string, Check[]>;
+  conformersByPattern: Record<string, CheckOutput[]>;
   rootDirectory: string;
   packages: Package[];
   tagsData: TagsData[];
@@ -125,7 +126,7 @@ export const getConformanceResults = async ({
 
             return {
               status: result.status,
-              name: conformer.name,
+              id: conformer.id,
               filter: matchingPattern,
               package: pkg,
               message: merge(

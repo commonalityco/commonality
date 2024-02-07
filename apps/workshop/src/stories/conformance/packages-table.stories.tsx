@@ -175,7 +175,7 @@ export const Basic: Story = {
         results: [
           {
             status: Status.Warn,
-            name: 'conformance-one',
+            id: 'conformance-one',
             filter: 'tag-one',
             message: {
               message: 'This package should adhere to a certain standard',
@@ -201,7 +201,7 @@ export const Basic: Story = {
           },
           {
             status: Status.Fail,
-            name: 'conformance-two',
+            id: 'conformance-two',
             filter: 'tag-two',
             message: {
               message: 'This package is bad',

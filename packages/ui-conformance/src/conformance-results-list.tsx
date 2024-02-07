@@ -213,7 +213,7 @@ export function ConformanceResults({
 
               <Accordion type="multiple" className="w-full overflow-hidden">
                 {resultsForPackage.map((result, index) => {
-                  const value = `${result.name}-${index}`;
+                  const value = `${result.id}-${index}`;
 
                   return (
                     <Fragment key={value}>

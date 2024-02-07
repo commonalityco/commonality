@@ -41,7 +41,6 @@ function getExpectedPackageJson(packageJson: PackageJson) {
 }
 
 export default {
-  name: 'commonality/has-unique-dependency-types',
   level: 'warning',
   message:
     'A dependency should only be in one of dependencies, devDependencies, or optionalDependencies',

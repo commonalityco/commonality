@@ -36,5 +36,5 @@ export const getConformanceResultsData = async () => {
     codeownersData,
   });
 
-  return results.sort((a, b) => a.name.localeCompare(b.name));
+  return results
 };

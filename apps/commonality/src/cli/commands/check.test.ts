@@ -134,7 +134,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -146,7 +146,7 @@ describe('check', () => {
               message: { message: 'This package should be cool' },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -181,7 +181,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -195,7 +195,7 @@ describe('check', () => {
               },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -219,10 +219,10 @@ describe('check', () => {
             "
         ❯ pkg-one (1)
         ✓ pass This package should be cool
-        │      
+        │
         ❯ pkg-two (1)
         ✓ pass This package should be cool
-        │      
+        │
 
         Packages: 0 failed 0 warnings 2 passed (2)
           Checks: 0 failed 0 warnings 2 passed (2)",
@@ -239,7 +239,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -251,7 +251,7 @@ describe('check', () => {
               message: { message: 'This package should be awesome' },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -276,7 +276,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -288,7 +288,7 @@ describe('check', () => {
               message: { message: 'This package should be awesome' },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Fail,
               package: {
@@ -313,7 +313,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -325,7 +325,7 @@ describe('check', () => {
               message: { message: 'This package should be awesome' },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -348,7 +348,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -363,7 +363,7 @@ describe('check', () => {
         getResults: async () => {
           return [
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -377,7 +377,7 @@ describe('check', () => {
               },
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -403,7 +403,7 @@ describe('check', () => {
             "
         ❯ pkg-one (1)
         ✓ pass This package should be awesome
-        │      
+        │
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
         │      package.json
@@ -412,7 +412,7 @@ describe('check', () => {
         │      a
         │      multiline
         │      string
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -430,7 +430,7 @@ describe('check', () => {
           .fn()
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -443,7 +443,7 @@ describe('check', () => {
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -458,7 +458,7 @@ describe('check', () => {
           ])
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -471,7 +471,7 @@ describe('check', () => {
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -494,7 +494,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -516,7 +516,7 @@ describe('check', () => {
           .fn()
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -529,7 +529,7 @@ describe('check', () => {
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -544,7 +544,7 @@ describe('check', () => {
           ])
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -557,7 +557,7 @@ describe('check', () => {
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -580,7 +580,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -598,7 +598,7 @@ describe('check', () => {
           .fn()
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -611,7 +611,7 @@ describe('check', () => {
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Warn,
               package: {
@@ -626,7 +626,7 @@ describe('check', () => {
           ])
           .mockResolvedValueOnce([
             {
-              name: 'CONFORMER_NAME/ONE',
+              id: 'CONFORMER_NAME/ONE',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -639,7 +639,7 @@ describe('check', () => {
               fix: () => {},
             },
             {
-              name: 'CONFORMER_NAME/TWO',
+              id: 'CONFORMER_NAME/TWO',
               filter: '*',
               status: Status.Pass,
               package: {
@@ -662,7 +662,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -689,7 +689,7 @@ describe('check', () => {
         verbose: false,
         getResults: vi.fn().mockResolvedValueOnce([
           {
-            name: 'CONFORMER_NAME/ONE',
+            id: 'CONFORMER_NAME/ONE',
             filter: '*',
             status: Status.Pass,
             package: {
@@ -702,7 +702,7 @@ describe('check', () => {
             fix: () => {},
           },
           {
-            name: 'CONFORMER_NAME/TWO',
+            id: 'CONFORMER_NAME/TWO',
             filter: '*',
             status: Status.Warn,
             package: {
@@ -725,7 +725,7 @@ describe('check', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │      
+        │
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -749,7 +749,7 @@ describe('check', () => {
         verbose: false,
         getResults: vi.fn().mockResolvedValueOnce([
           {
-            name: 'CONFORMER_NAME/ONE',
+            id: 'CONFORMER_NAME/ONE',
             filter: '*',
             status: Status.Pass,
             package: {
@@ -762,7 +762,7 @@ describe('check', () => {
             fix: () => {},
           },
           {
-            name: 'CONFORMER_NAME/TWO',
+            id: 'CONFORMER_NAME/TWO',
             filter: '*',
             status: Status.Warn,
             package: {

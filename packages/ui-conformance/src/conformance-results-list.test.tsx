@@ -19,7 +19,7 @@ describe('CheckTitle', () => {
         type: PackageType.NODE,
         version: '1.0.0',
       },
-      name: 'test-name',
+      id: 'test-name',
       filter: 'tag-one',
       status: Status.Pass,
       message: { message: 'This package is cool' },
@@ -40,7 +40,7 @@ describe('CheckTitle', () => {
         type: PackageType.NODE,
         version: '1.0.0',
       },
-      name: 'test-name',
+      id: 'test-name',
       filter: 'tag-one',
       status: Status.Warn,
       message: { message: 'This package is cool' },
@@ -61,7 +61,7 @@ describe('CheckTitle', () => {
         type: PackageType.NODE,
         version: '1.0.0',
       },
-      name: 'test-name',
+      id: 'test-name',
       filter: 'tag-one',
       status: Status.Fail,
       message: { message: 'This package is cool' },
@@ -84,7 +84,7 @@ describe('CheckContent', () => {
         type: PackageType.NODE,
         version: '1.0.0',
       },
-      name: 'test-name',
+      id: 'test-name',
       filter: 'tag-one',
       status: Status.Pass,
       message: {
@@ -156,7 +156,7 @@ describe('ConformanceResults', () => {
           type: PackageType.NODE,
           version: '1.0.0',
         },
-        name: 'test-name',
+        id: 'test-name',
         filter: 'tag-one',
         status: Status.Pass,
         message: { message: 'This package is cool' },
@@ -182,7 +182,7 @@ describe('ConformanceResults', () => {
         filter: 'tag-one',
         status: Status.Pass,
         message: { message: 'This package is cool' },
-        name: 'test-name',
+        id: 'test-name',
       },
       {
         package: {
@@ -194,7 +194,7 @@ describe('ConformanceResults', () => {
         filter: 'tag-one',
         status: Status.Pass,
         message: { message: 'This package is also cool' },
-        name: 'test-name-2',
+        id: 'test-name-2',
       },
     ] satisfies ConformanceResult[];
 
@@ -222,7 +222,7 @@ describe('ConformanceResults', () => {
         filter: 'tag-one',
         status: Status.Pass,
         message: { message: 'This package is cool' },
-        name: 'test-name',
+        id: 'test-name',
       },
       {
         package: {
@@ -234,7 +234,7 @@ describe('ConformanceResults', () => {
         filter: 'tag-one',
         status: Status.Pass,
         message: { message: 'This package is also cool' },
-        name: 'test-name',
+        id: 'test-name',
       },
     ] satisfies ConformanceResult[];
 

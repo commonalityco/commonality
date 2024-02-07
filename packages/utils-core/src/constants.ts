@@ -85,7 +85,6 @@ export const messageSchema = z
 
 const checkSchema = z.object({
   id: z.optional(z.string()).default(nanoid),
-  name: z.string(),
   level: z.union([z.literal('error'), z.literal('warning')]).default('warning'),
   validate: checkFn.returns(
     z.union([

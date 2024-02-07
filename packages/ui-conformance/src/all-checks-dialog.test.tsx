@@ -24,7 +24,7 @@ describe('AllChecksDialog', () => {
   it('renders correctly with results', async () => {
     const results: ConformanceResult[] = [
       {
-        name: 'my-check',
+        id: 'my-check',
         status: Status.Pass,
         package: {
           name: 'test',
@@ -53,7 +53,7 @@ describe('AllChecksDialog', () => {
   it('filters out package names that do not match the search term', async () => {
     const results: ConformanceResult[] = [
       {
-        name: 'my-check-one',
+        id: 'my-check-one',
         status: Status.Pass,
         package: {
           name: 'pkg-a',
@@ -67,7 +67,7 @@ describe('AllChecksDialog', () => {
         },
       },
       {
-        name: 'my-check-two',
+        id: 'my-check-two',
         status: Status.Pass,
         package: {
           name: 'pkg-b',
@@ -99,7 +99,7 @@ describe('AllChecksDialog', () => {
   it('shows no packages match your filters if the search does not match any packages', async () => {
     const results: ConformanceResult[] = [
       {
-        name: 'my-check',
+        id: 'my-check',
         status: Status.Pass,
         package: {
           name: 'pkg-a',

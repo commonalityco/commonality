@@ -15,7 +15,7 @@ All checks have two required properties:
 Checks are run within the context of each package directory.
 In the example below, we're accessing the [context object](/reference/check-object#parameters) that contains metadata about the package to validate that it has a codeowner.
 
-```ts .commonality/has-codeowner.ts
+```typescript .commonality/has-codeowner.ts
 import type { Check } from 'commonality';
 
 export default {
@@ -30,7 +30,7 @@ Commonality provides utilities like [json]() and [text]() that make it easy to r
 
 Below is an example of a check that ensures a package has a `build` script with a value of `tsc --build` in it's `package.json`.
 
-```ts .commonality/has-build-script.ts
+```typescript .commonality/has-build-script.ts
 import type { Check } from 'commonality';
 import { json } from 'commonality';
 

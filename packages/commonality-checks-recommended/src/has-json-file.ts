@@ -6,7 +6,6 @@ export const hasJsonFile = (
   content?: Record<string, unknown>,
 ) => {
   return {
-    name: 'commonality/has-json-file',
     level: 'error',
     message: `File "${fileName}" must exist`,
     validate: async (ctx) => {

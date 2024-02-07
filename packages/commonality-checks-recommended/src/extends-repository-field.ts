@@ -63,7 +63,6 @@ const getExpectedProperties = async ({
 };
 
 export default {
-  name: 'commonality/extends-repository-field',
   level: 'error',
   message: `Package's repository property must extend the repository property at the root of your project.`,
   validate: async (context) => {

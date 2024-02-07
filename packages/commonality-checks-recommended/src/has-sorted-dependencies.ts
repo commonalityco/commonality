@@ -34,7 +34,6 @@ const getExpectedPackageJson = (packageJson: PackageJson) => {
 };
 
 export default {
-  name: 'commonality/has-sorted-dependencies',
   level: 'warning',
   validate: async (ctx) => {
     const packageJson = await json<PackageJson>(

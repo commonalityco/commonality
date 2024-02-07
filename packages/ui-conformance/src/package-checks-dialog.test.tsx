@@ -47,7 +47,7 @@ describe('PackageChecksDialog', () => {
     };
     const results: ConformanceResult[] = [
       {
-        name: 'check-a',
+        id: 'check-a',
         status: Status.Pass,
         filter: 'tag-one',
         package: {

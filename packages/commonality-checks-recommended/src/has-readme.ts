@@ -2,8 +2,7 @@ import { json, text, PackageJson, Check } from 'commonality';
 
 export default {
   level: 'warning',
-  name: 'commonality/has-readme',
-
+  message: `Package must have a README.md file`,
   validate: async (context) => {
     return text(context.package.path, 'README.md').exists();
   },
@@ -23,6 +22,4 @@ export default {
       `> ${packageJson.description}`,
     ]);
   },
-
-  message: `Package must have a README.md file`,
 } satisfies Check;

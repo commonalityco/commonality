@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { getConformanceResults } from './get-conformance-results';
 import { Package, TagsData } from '@commonalityco/types';
-import { Check, PackageType, Status } from '@commonalityco/utils-core';
+import { CheckOutput, PackageType, Status } from '@commonalityco/utils-core';
 
 describe('getConformanceResults', () => {
   it('should return errors when workspace is not valid and have a level set to error', async () => {
-    const conformersByPattern: Record<string, Check[]> = {
+    const conformersByPattern: Record<string, CheckOutput[]> = {
       '*': [
         {
-          name: 'InvalidWorkspaceConformer',
+          id: '123',
           level: 'error',
           validate: () => ({
             path: 'package.json',
@@ -45,10 +45,10 @@ describe('getConformanceResults', () => {
   });
 
   it('should return errors when workspace is not valid and do not have a level set', async () => {
-    const conformersByPattern: Record<string, Check[]> = {
+    const conformersByPattern: Record<string, CheckOutput[]> = {
       '*': [
         {
-          name: 'InvalidWorkspaceConformer',
+          id: '123',
           validate: () => ({
             path: 'package.json',
           }),
@@ -84,11 +84,11 @@ describe('getConformanceResults', () => {
     expect(results[0].package).toEqual(packages[0]);
   });
 
-  it('should return valid results when checks are valid', async () => {
-    const conformersByPattern: Record<string, Check[]> = {
+  it('should return valid results when checkOutputs are valid', async () => {
+    const conformersByPattern: Record<string, CheckOutput[]> = {
       '*': [
         {
-          name: 'ValidWorkspaceConformer',
+          id: '123',
           validate: () => true,
           message: 'Valid workspace',
           level: 'warning',
@@ -122,11 +122,11 @@ describe('getConformanceResults', () => {
     expect(results[0].package).toEqual(packages[0]);
   });
 
-  it('should return valid results when checks are valid and there are no tags', async () => {
-    const conformersByPattern: Record<string, Check[]> = {
+  it('should return valid results when checkOutputs are valid and there are no tags', async () => {
+    const conformersByPattern: Record<string, CheckOutput[]> = {
       '*': [
         {
-          name: 'ValidWorkspaceConformer',
+          id: '123',
           validate: () => true,
           message: 'Valid workspace',
           level: 'warning',
@@ -160,10 +160,10 @@ describe('getConformanceResults', () => {
   });
 
   it('should handle exceptions during validation', async () => {
-    const conformersByPattern: Record<string, Check[]> = {
+    const conformersByPattern: Record<string, CheckOutput[]> = {
       '*': [
         {
-          name: 'ExceptionConformer',
+          id: '123',
           validate: () => {
             throw new Error('Unexpected error');
           },
@@ -198,10 +198,11 @@ describe('getConformanceResults', () => {
   });
 
   it('should handle conformers that target patterns other than *', async () => {
-    const conformersByPattern: Record<string, Check[]> = {
+    const conformersByPattern: Record<string, CheckOutput[]> = {
       tag1: [
         {
-          name: 'Tag1Conformer',
+          
+          id: '123',
           validate: () => true,
           message: 'Valid workspace for tag1',
           level: 'warning',

@@ -58,8 +58,8 @@ const getExpectedPackageJson = async ({
 };
 
 export default {
-  name: 'commonality/has-consistent-external-version',
   level: 'error',
+  message: 'External dependencies must match the most common or highest version',
   validate: async (context) => {
     const packageJson = await json<PackageJson>(
       context.package.path,
@@ -93,7 +93,4 @@ export default {
 
     await json(context.package.path, 'package.json').set(expectedPackageJson);
   },
-
-  message:
-    'External dependencies must match the most common or highest version',
 } satisfies Check;

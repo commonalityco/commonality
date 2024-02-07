@@ -52,7 +52,6 @@ const getExpectedDevDependencies = (
 };
 
 export default {
-  name: 'commonality/has-matching-dev-peer-versions',
   level: 'warning',
   message: `Packages with peerDependencies must have matching devDependencies within a valid range`,
   validate: async (context) => {
