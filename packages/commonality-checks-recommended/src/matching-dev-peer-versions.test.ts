@@ -1,9 +1,9 @@
-import hasMatchingDevPeerVersions from './has-matching-dev-peer-versions';
+import hasMatchingDevPeerVersions from './matching-dev-peer-versions';
 import { describe, it, expect, afterEach } from 'vitest';
 import { defineTestCheck, json } from 'commonality';
 import mockFs from 'mock-fs';
 
-describe('hasMatchingDevPeerVersions', () => {
+describe('matching-dev-peer-versions', () => {
   afterEach(() => {
     mockFs.restore();
   });

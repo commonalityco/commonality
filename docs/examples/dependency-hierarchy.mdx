@@ -2,28 +2,26 @@ In larger projects, it can be helpful to create a logical hierarchy for package 
 This structure can help guide developers toward a clean separation of concerns and help inform where new code should be added.
 
 ```json .commonality/config.json
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  constraints: {
-    '*': {
-      disallow: ['application'],
+{
+  "constraints": {
+    "*": {
+      "disallow": ["application"],
     },
-    application: {
-      allow: ['ui', 'data', 'utility', 'config'],
+    "application": {
+      "allow": ["ui", "data", "utility", "config"],
     },
-    ui: {
-      allow: ['ui', 'utility', 'config'],
+    "ui": {
+      "allow": ["ui", "utility", "config"],
     },
-    data: {
-      allow: ['data', 'utility', 'config'],
+    "data": {
+      "allow": ["data", "utility", "config"],
     },
-    utility: {
-      allow: ['utility', 'config'],
+    "utility": {
+      "allow": ["utility", "config"],
     },
-    config: {
-      disallow: '*',
+    "config": {
+      "disallow": "*",
     },
   },
-});
+}
 ```

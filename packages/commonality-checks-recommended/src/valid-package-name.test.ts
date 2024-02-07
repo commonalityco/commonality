@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import hasValidPackageName from './has-valid-package-name';
+import hasValidPackageName from './valid-package-name';
 import { defineTestCheck } from 'commonality';
 import mockFs from 'mock-fs';
 

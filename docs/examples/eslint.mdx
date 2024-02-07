@@ -7,21 +7,31 @@ title: "ESLint"
 You might find that your project has groups of packages that require similar configuration.
 Use checks to create ensure they extend a common base configuration or have specific properties.
 
-```json .commonality/config.json
-import * as recommended from 'commonality-checks-recommended';
+```ts .commonality/extends-eslint-next
+import { hasJson } from 'commonality-checks-recommended';
 
-export default defineConfig({
-  checks: {
-    ui: [
-      recommended.hasJsonFile('.eslintrc.json', {
-        extends: '@eslint-config/react',
-      }),
+export default hasJson('eslint.json', {
+  extends: ["@eslint-config/next"]
+})
+```
+
+```ts .commonality/extends-eslint-react
+import { hasJson } from 'commonality-checks-recommended';
+
+export default hasJson('eslint.json', {
+  extends: ["@eslint-config/react"]
+})
+```
+
+```json .commonality/config.json
+{
+  "checks": [
+    "ui": [
+      "extends-eslint-react"
     ],
-    next: [
-      recommended.hasJsonFile('.eslintrc.json', {
-        extends: '@eslint-config/next',
-      }),
-    ],
-  },
-});
+    "application": [
+      "extends-eslint-next"
+    ]
+  ]
+}
 ```

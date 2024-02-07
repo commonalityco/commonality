@@ -1,19 +1,17 @@
 Limit packages to a specific business vertical and explicitly tag packages as `shared` to allow their use across teams.
 
 ```json .commonality/config.json
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  constraints: {
-    '*': {
-      allow: ['shared'],
+{
+  "constraints": {
+    "*": {
+      "allow": ["shared"],
     },
-    commerce: {
-      allow: ['commerce'],
+    "commerce": {
+      "allow": ["commerce"],
     },
-    marketing: {
-      allow: ['marketing'],
+    "marketing": {
+      "allow": ["marketing"],
     },
   },
-});
+}
 ```
