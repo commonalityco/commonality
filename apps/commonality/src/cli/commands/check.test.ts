@@ -62,7 +62,7 @@ describe('check', () => {
 
         Create powerful conformance rules that run like tests and can be shared like lint rules.
 
-        https://commonality.co/docs/checks",
+        https://docs.commonality.co/checks",
           ],
         ]
       `);
@@ -499,6 +499,7 @@ describe('check', () => {
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
           ],
+          [],
         ]
       `);
     });
@@ -585,6 +586,7 @@ describe('check', () => {
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
           ],
+          [],
         ]
       `);
     });
@@ -667,6 +669,7 @@ describe('check', () => {
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
           ],
+          [],
           [
             "",
           ],
@@ -730,6 +733,7 @@ describe('check', () => {
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
           ],
+          [],
           [
             "",
           ],

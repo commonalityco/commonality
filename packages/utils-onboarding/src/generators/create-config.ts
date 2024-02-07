@@ -29,10 +29,10 @@ export const createConfig = async ({
   rootDirectory: string;
   includeChecks: boolean;
 }) => {
-  const configFileName = '.commonality/config.json';
+  const configFileName = './.commonality/config.json';
 
   await fs.outputJSON(
-    path.join(rootDirectory, configFileName),
+    path.resolve(rootDirectory, configFileName),
     includeChecks ? configWithChecks : configWithoutChecks,
   );
 };

@@ -18,6 +18,7 @@ import { Logger } from '../utils/logger';
 import { Status } from '@commonalityco/utils-core/constants';
 import { isCI } from 'std-env';
 import { getResolvedChecks } from '@commonalityco/utils-conformance/get-resolved-checks';
+import console from 'node:console';
 
 const command = new Command();
 
@@ -32,7 +33,7 @@ class ConformLogger extends Logger {
     const title = c.bold(`You don't have any checks configured.`);
     const body =
       'Create powerful conformance rules that run like tests and can be shared like lint rules.';
-    const link = 'https://commonality.co/docs/checks';
+    const link = 'https://docs.commonality.co/checks';
 
     this.output += `\n${title}\n\n${body}\n\n${link}`;
   }
@@ -48,7 +49,7 @@ class ConformLogger extends Logger {
     }
 
     const title = result.message.message;
-    1;
+
     this.output += `\n${status} ${title}`;
   }
 }
