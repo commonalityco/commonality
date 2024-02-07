@@ -42,17 +42,17 @@ describe('init', () => {
   describe.each([
     {
       packageManager: 'pnpm',
-      checkArgs: ['exec', 'commonality', 'check'],
+      checkArgs: ['exec', 'commonality', 'check', '--debug'],
       fixtureName: 'kitchen-sink',
     },
     {
       packageManager: 'yarn',
-      checkArgs: ['exec', 'commonality', 'check'],
+      checkArgs: ['exec', 'commonality', 'check', '--debug'],
       fixtureName: 'kitchen-sink-yarn',
     },
     {
       packageManager: 'npm',
-      checkArgs: ['exec', '--', 'commonality', 'check'],
+      checkArgs: ['exec', '--', 'commonality', 'check', '--debug'],
       fixtureName: 'kitchen-sink-npm',
     },
   ])(
@@ -153,11 +153,11 @@ describe('init', () => {
               '*': [
                 'recommended/has-readme',
                 'recommended/has-codeowner',
-                'recommended/has-valid-package-name',
-                'recommended/has-unique-dependency-types',
-                'recommended/has-sorted-dependencies',
-                'recommended/has-matching-dev-peer-versions',
-                'recommended/has-consistent-external-version',
+                'recommended/valid-package-name',
+                'recommended/unique-dependency-types',
+                'recommended/sorted-dependencies',
+                'recommended/matching-dev-peer-versions',
+                'recommended/consistent-external-version',
                 'recommended/extends-repository-field',
               ],
             },
@@ -166,7 +166,7 @@ describe('init', () => {
 
           const checkProcess = execa(packageManager, checkArgs, {
             cwd: temporaryPath,
-            stdout: 'inherit',
+            stdout: 'pipe',
           });
 
           let checkOutput = '';
