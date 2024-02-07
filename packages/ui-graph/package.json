@@ -53,7 +53,7 @@
     "cytoscape-popper": "^2.0.0",
     "localforage": "^1.10.0",
     "lodash-es": "^4.17.21",
-    "xstate": "^4.38.2"
+    "xstate": "^5.6.1"
   },
   "repository": {
     "type": "git",
