@@ -1,6 +1,5 @@
 import { findUp } from 'find-up';
 import {
-  Check,
   ProjectConfig,
   projectConfigSchema,
 } from '@commonalityco/utils-core/constants';

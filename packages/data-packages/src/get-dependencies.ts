@@ -25,7 +25,7 @@ const getPackageJsons = async ({
     workspaceGlobs,
   });
 
-  return Promise.all(
+  const packageJsons = await Promise.all(
     packageDirectories.map(async (directory) => {
       const packageJsonPath = path.join(
         rootDirectory,
@@ -35,20 +35,20 @@ const getPackageJsons = async ({
       const packageJsonExists = await fs.pathExists(packageJsonPath);
 
       if (!packageJsonExists) {
-        throw new Error('No package.json file for directory');
+        return;
       }
 
       const packageJson = fs.readJSONSync(packageJsonPath);
 
       if (!packageJson.name) {
-        throw new Error(
-          `${directory} has a package.json that does not contain a name property`,
-        );
+        return;
       }
 
       return packageJson as PackageJsonWithName;
     }),
   );
+
+  return packageJsons.filter(Boolean) as PackageJsonWithName[];
 };
 
 export const getDependencies = async ({

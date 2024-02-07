@@ -22,12 +22,12 @@ export const getPackages = async ({
   });
 
   if (packageDirectories.length === 0) {
-    return [
-      await getPackage({
-        rootDirectory,
-        directory: '.',
-      }),
-    ];
+    const rootPackage = await getPackage({
+      rootDirectory,
+      directory: '.',
+    });
+
+    return rootPackage ? [rootPackage] : [];
   }
 
   const packageResults = await Promise.all(
@@ -39,5 +39,5 @@ export const getPackages = async ({
     }),
   );
 
-  return packageResults;
+  return packageResults.filter(Boolean) as Package[];
 };

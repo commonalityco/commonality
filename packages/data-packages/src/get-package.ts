@@ -43,20 +43,18 @@ export const getPackage = async ({
 }: {
   rootDirectory: string;
   directory: string;
-}): Promise<Package> => {
+}): Promise<Package | undefined> => {
   const packageJsonPath = path.join(rootDirectory, directory, 'package.json');
   const packageJsonExists = await fs.pathExists(packageJsonPath);
 
   if (!packageJsonExists) {
-    throw new Error('No package.json file for directory');
+    return;
   }
 
   const packageJson = fs.readJSONSync(packageJsonPath) as PackageJson;
 
   if (!packageJson.name) {
-    throw new Error(
-      `${directory} has a package.json that does not contain a name property`,
-    );
+    return;
   }
 
   return {
