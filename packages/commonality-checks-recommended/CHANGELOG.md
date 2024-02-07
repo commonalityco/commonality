@@ -1,5 +1,13 @@
 # commonality-checks-recommended
 
+## 0.0.26
+
+### Patch Changes
+
+- 98e83dc: Update names of exported static checks in the commonality-checks-recommended package
+- Updated dependencies [98e83dc]
+  - commonality@0.2.49
+
 ## 0.0.25
 
 ### Patch Changes

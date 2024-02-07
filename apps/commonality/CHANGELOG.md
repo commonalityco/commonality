@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.49
+
+### Patch Changes
+
+- 98e83dc: Update names of exported static checks in the commonality-checks-recommended package
+
 ## 0.2.48
 
 ### Patch Changes
