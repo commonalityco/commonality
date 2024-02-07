@@ -144,12 +144,25 @@ describe('init', () => {
 
           expect(configExists).toBe(true);
 
-          const configContent = await fs.readFile(
+          const configContent = await fs.readJSON(
             path.resolve(temporaryPath, '.commonality/config.json'),
-            'utf8',
           );
 
-          expect(configContent).toMatch('commonality-checks-recommended');
+          expect(configContent).toEqual({
+            checks: {
+              '*': [
+                'recommended/has-readme',
+                'recommended/has-codeowner',
+                'recommended/has-valid-package-name',
+                'recommended/has-unique-dependency-types',
+                'recommended/has-sorted-dependencies',
+                'recommended/has-matching-dev-peer-versions',
+                'recommended/has-consistent-external-version',
+                'recommended/extends-repository-field',
+              ],
+            },
+            constraints: {},
+          })
 
           const checkProcess = execa(packageManager, checkArgs, {
             cwd: temporaryPath,
@@ -255,13 +268,11 @@ describe('init', () => {
 
           expect(configExists).toBe(true);
 
-          const configContent = await fs.readFile(
+          const configContent = await fs.readJSON(
             path.resolve(temporaryPath, '.commonality/config.json'),
-            'utf8',
           );
 
-          expect(configContent).toMatch(/checks: {}/);
-          expect(configContent).not.toMatch(`commonality-checks-recommended`);
+        expect(configContent).toEqual({ checks:{}, constraints:{} });
 
           const checkProcess = execa(packageManager, checkArgs, {
             cwd: temporaryPath,
