@@ -68,7 +68,7 @@ export const action = async ({
     return;
   }
 
-  const configFileName = `config.json`;
+  const configFileName = `.commonality/config.json`;
   // Generation
   try {
     console.log();
