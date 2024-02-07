@@ -11,7 +11,7 @@ export const getAdditionalInstallArgs = async ({
     if (packageManager === 'pnpm') {
       return ['--workspace-root'];
     }
-    console.log({packageManager})
+
     if (packageManager === 'yarn') {
       return ['--ignore-workspace-root-check'];
     }
