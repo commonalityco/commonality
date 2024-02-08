@@ -1,5 +1,13 @@
 # @commonalityco/constraints
 
+## 0.2.42
+
+### Patch Changes
+
+- 56baf27: Fixes an issue where package.json files with missing "name" properties would cause any command to throw an error. We now ignore these invalid packages and continue with the command while displaying an error.
+- Updated dependencies [56baf27]
+  - @commonalityco/data-project@0.2.42
+
 ## 0.2.41
 
 ### Patch Changes

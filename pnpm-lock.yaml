@@ -76,7 +76,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       '@commonalityco/studio':
-        specifier: 0.2.46
+        specifier: 0.2.47
         version: link:../studio
       '@sindresorhus/slugify':
         specifier: ^2.2.1

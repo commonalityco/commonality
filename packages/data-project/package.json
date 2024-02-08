@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/data-project",
   "description": "Utilities for collecting metadata on the current Commonality project",
-  "version": "0.2.41",
+  "version": "0.2.42",
   "publishConfig": {
     "access": "public",
     "main": "./dist/index.js",
