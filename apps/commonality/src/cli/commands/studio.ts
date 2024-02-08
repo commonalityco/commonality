@@ -8,6 +8,8 @@ import waitOn from 'wait-on';
 import url from 'node:url';
 import { resolveModule } from 'local-pkg';
 import ora from 'ora';
+import boxen from 'boxen';
+import ip from 'ip';
 
 const command = new Command();
 
@@ -32,8 +34,6 @@ export const studio = command
       port?: string;
       install?: boolean;
     }) => {
-      spinner.start();
-
       const preferredPort = Number(options.port);
       const verbose = Boolean(options.verbose);
 
@@ -42,6 +42,9 @@ export const studio = command
           directory: process.cwd(),
           command,
         });
+
+        console.log();
+        spinner.start();
 
         const rootDirectory = await getRootDirectory();
 
@@ -77,17 +80,22 @@ export const studio = command
         process.on('SIGINT', handleExit);
         process.on('SIGTERM', handleExit);
 
-        const url = `http://127.0.0.1:${port}`;
+        const localUrl = `http://localhost:${port}`;
+        const networkUrl = `http://${ip.address()}:${port}`;
 
-        await waitOn({ resources: [url], timeout: 10_000 });
+        await waitOn({ resources: [localUrl], timeout: 10_000 });
 
-        spinner.stopAndPersist({
-          prefixText: `\n  ${chalk.bold.underline(
-            'Welcome to Commonality Studio',
-          )}`,
-          text: `\n\n  Viewable at: ${chalk.blue.bold(url)}`,
-          suffixText: chalk.dim('\n  (press ctrl-c to quit)'),
-        });
+        spinner.stop();
+
+        console.log(
+          boxen(
+            `${chalk.bold.underline('Welcome to Commonality Studio')}` +
+              `\n\nLocal:   ${chalk.blue.bold(localUrl)}` +
+              `\nNetwork: ${chalk.blue.bold(networkUrl)}` +
+              chalk.dim('\n\n(press ctrl-c to quit)'),
+            { padding: 1, borderColor: 'gray' },
+          ),
+        );
       } catch (error) {
         spinner.fail('Failed to start Commonality Studio');
 

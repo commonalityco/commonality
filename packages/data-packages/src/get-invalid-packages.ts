@@ -15,7 +15,7 @@ export const getInvalidPackages = async ({
   rootDirectory,
 }: {
   rootDirectory: string;
-}): Promise<InvalidPackage> => {
+}): Promise<InvalidPackage[]> => {
   const packageManager = await getPackageManager({ rootDirectory });
   const workspaceGlobs = await getWorkspaceGlobs({
     rootDirectory,
@@ -42,10 +42,11 @@ export const getInvalidPackages = async ({
       const packageJson = fs.readJSONSync(packageJsonPath);
 
       if (!packageJson.name) {
-        return;
+        return {
+          path: path.join(directory, 'package.json'),
+          reason: 'Package must have a "name" property.',
+        };
       }
-
-      return packageJson as InvalidPackage;
     }),
   );
 

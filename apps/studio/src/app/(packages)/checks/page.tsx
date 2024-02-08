@@ -15,7 +15,6 @@ import stripAnsi from 'strip-ansi';
 import { ConformanceHeader } from '@commonalityco/ui-conformance';
 
 async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
-  console.log('hello');
   const [packages, tagsData, codeownersData, results] = await Promise.all([
     getPackagesData(),
     getTagsData(),

@@ -1,9 +1,11 @@
-import { getRootPackageName, getPackages } from '@commonalityco/data-packages';
+import { getInvalidPackages } from './../../../../../packages/data-packages/src/get-invalid-packages';
+import { getRootPackageName } from '@commonalityco/data-packages';
 import { getRootDirectory } from '@commonalityco/data-project';
 import chalk from 'chalk';
 import { Command } from 'commander';
 import path from 'node:path';
 import fs from 'fs-extra';
+
 
 export const validateProjectStructure = async ({
   directory,
@@ -54,8 +56,16 @@ export const validateProjectStructure = async ({
   }
 
   try {
-    await getPackages({ rootDirectory });
-  } catch (error) {
-    console.log(error);
+    const invalidPackages = await getInvalidPackages({ rootDirectory });
+
+    for(const pkg of invalidPackages) {
+
+      console.log(
+        chalk.yellow.bold(`\n⚠ ${pkg.path}`) + `\n${pkg.reason}`
+
+      )
+    }
+  } catch {
+    return;
   }
 };
