@@ -13,6 +13,7 @@ import {
 import { getTagsData } from '@commonalityco/data-tags';
 import { getDependencies, getPackages } from '@commonalityco/data-packages';
 import process from 'node:process';
+import { validateProjectStructure } from '../utils/validate-project-structure.js';
 
 const constraintSpinner = ora('Validating constraints...');
 
@@ -231,6 +232,11 @@ export const reportConstraintResults = async ({
 };
 
 const action = async (options: { verbose: boolean }) => {
+  await validateProjectStructure({
+    directory: process.cwd(),
+    command,
+  });
+
   const logger = new ConstrainLogger();
 
   constraintSpinner.start();
