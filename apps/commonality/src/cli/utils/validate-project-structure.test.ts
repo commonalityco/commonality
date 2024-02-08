@@ -14,7 +14,15 @@ import path from 'node:path';
 import fs from 'fs-extra';
 import { fileURLToPath } from 'node:url';
 
+const consoleMock = {
+  log: vi.fn(),
+};
+
 describe('validateProjectStructure', () => {
+  beforeEach(() => {
+    vi.stubGlobal('console', consoleMock);
+  });
+
   afterEach(() => {
     vi.restoreAllMocks();
   });
@@ -155,6 +163,40 @@ describe('validateProjectStructure', () => {
       });
 
       expect(spy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('displays a warning for skipped packages', () => {
+    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
+    const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
+    const fixturePath = path.resolve(
+      path.dirname(fileURLToPath(import.meta.url)),
+      '../../../test/fixtures/kitchen-sink',
+    );
+
+    beforeEach(async () => {
+      await fs.copy(fixturePath, temporaryPath);
+    });
+
+    afterAll(async () => {
+      await fs.remove(temporaryPath);
+    });
+
+    it('does not throw an error', async () => {
+      const command = new Command();
+      const fixturePath = path.resolve(
+        path.dirname(fileURLToPath(import.meta.url)),
+        '../../../test/fixtures/kitchen-sink',
+      );
+
+      await validateProjectStructure({
+        directory: fixturePath,
+        command,
+      });
+
+      expect(consoleMock.log).toHaveBeenCalledWith(
+        expect.stringContaining('⚠ packages/pkg-two/package.json'),
+      );
     });
   });
 
