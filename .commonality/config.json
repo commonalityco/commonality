@@ -3,11 +3,11 @@
     "*": [
       "recommended/has-readme",
       "recommended/has-codeowner",
-      "recommended/has-valid-package-name",
-      "recommended/has-unique-dependency-types",
-      "recommended/has-sorted-dependencies",
-      "recommended/has-matching-dev-peer-versions",
-      "recommended/has-consistent-external-version",
+      "recommended/valid-package-name",
+      "recommended/unique-dependency-types",
+      "recommended/sorted-dependencies",
+      "recommended/matching-dev-peer-versions",
+      "recommended/consistent-external-version",
       "recommended/extends-repository-field"
     ],
     "ui": [

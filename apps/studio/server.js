@@ -10,6 +10,10 @@ const dev = process.env.NODE_ENV !== 'production';
 
 if (!process.env.COMMONALITY_ROOT_DIRECTORY) {
   throw new Error('COMMONALITY_ROOT_DIRECTORY not set');
+} else {
+  process.env.COMMONALITY_ROOT_DIRECTORY = path.resolve(
+    process.env.COMMONALITY_ROOT_DIRECTORY,
+  );
 }
 
 /** @type {string} */

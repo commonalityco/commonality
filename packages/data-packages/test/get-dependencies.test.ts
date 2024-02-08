@@ -6,14 +6,16 @@ import { Dependency } from '@commonalityco/types';
 import { fileURLToPath } from 'node:url';
 
 describe('getDependencies', () => {
-  it('should throw an error if package.json does not contain a name property', async () => {
+  it('should returns an empty array if package.json does not contain a name property', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
       './fixtures',
       'missing-name',
     );
 
-    await expect(getDependencies({ rootDirectory })).rejects.toThrow();
+    const dependencies = await getDependencies({ rootDirectory });
+
+    expect(dependencies).toEqual([]);
   });
 
   it('should return a package object with correct properties that includes all dependencies', async () => {

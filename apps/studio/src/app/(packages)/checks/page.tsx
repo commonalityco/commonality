@@ -12,9 +12,7 @@ import { getTableData } from './get-table-data';
 import { getConformanceResultsData } from '@/data/conformance';
 import omit from 'lodash-es/omit';
 import stripAnsi from 'strip-ansi';
-import { EditConfigButton } from '@/components/edit-config-button';
 import { ConformanceHeader } from '@commonalityco/ui-conformance';
-import { ConformanceResult } from '@commonalityco/utils-conformance';
 
 async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
   const [packages, tagsData, codeownersData, results] = await Promise.all([

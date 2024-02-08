@@ -5,28 +5,34 @@ import { PackageType } from '@commonalityco/utils-core';
 import { fileURLToPath } from 'node:url';
 
 describe('getPackage', () => {
-  it('should throw an error if package.json does not exist', async () => {
+  it('should return undefined if package.json does not exist', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
       './fixtures',
       'missing-json',
     );
 
-    await expect(
-      getPackage({ rootDirectory, directory: 'packages/pkg-one' }),
-    ).rejects.toThrow('No package.json file for directory');
+    const pkg = await getPackage({
+      rootDirectory,
+      directory: 'packages/pkg-one',
+    });
+
+    expect(pkg).toEqual(undefined);
   });
 
-  it('should throw an error if package.json does not contain a name property', async () => {
+  it('should return undefined if package.json does not contain a name property', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
       './fixtures',
       'missing-name',
     );
 
-    await expect(
-      getPackage({ rootDirectory, directory: 'packages/pkg-one' }),
-    ).rejects.toThrow();
+    const pkg = await getPackage({
+      rootDirectory,
+      directory: 'packages/pkg-one',
+    });
+
+    expect(pkg).toEqual(undefined);
   });
 
   it('should return a package object with correct properties that includes all dependencies', async () => {
@@ -36,12 +42,12 @@ describe('getPackage', () => {
       'kitchen-sink',
     );
 
-    const packageObject = await getPackage({
+    const pkg = await getPackage({
       rootDirectory: rootDirectory,
       directory: 'packages/pkg-one',
     });
 
-    expect(packageObject).toEqual({
+    expect(pkg).toEqual({
       name: 'pkg-one',
       description: 'pkg-one description',
       path: 'packages/pkg-one',

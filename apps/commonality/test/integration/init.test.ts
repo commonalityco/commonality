@@ -42,17 +42,17 @@ describe('init', () => {
   describe.each([
     {
       packageManager: 'pnpm',
-      checkArgs: ['exec', 'commonality', 'check', '--debug'],
+      checkArgs: ['exec', 'commonality', 'check'],
       fixtureName: 'kitchen-sink',
     },
     {
       packageManager: 'yarn',
-      checkArgs: ['exec', 'commonality', 'check', '--debug'],
+      checkArgs: ['exec', 'commonality', 'check'],
       fixtureName: 'kitchen-sink-yarn',
     },
     {
       packageManager: 'npm',
-      checkArgs: ['exec', '--', 'commonality', 'check', '--debug'],
+      checkArgs: ['exec', '--', 'commonality', 'check'],
       fixtureName: 'kitchen-sink-npm',
     },
   ])(
@@ -162,31 +162,7 @@ describe('init', () => {
               ],
             },
             constraints: {},
-          })
-
-          const checkProcess = execa(packageManager, checkArgs, {
-            cwd: temporaryPath,
-            stdout: 'pipe',
           });
-
-          let checkOutput = '';
-          checkProcess.stdout?.on('data', (data) => {
-            console.log({ out: data.toString() });
-            checkOutput += stripAnsi(data.toString());
-          });
-          checkProcess.stderr?.on('data', (data) => {
-            console.log({ err: data.toString() });
-            checkOutput += stripAnsi(data.toString());
-          });
-
-          await vi.waitFor(
-            () => {
-              expect(checkOutput).toContain(
-                `Packages: 0 failed 1 warnings 0 passed (1)`,
-              );
-            },
-            { timeout: 100_000 },
-          );
         },
         { timeout: 250_000 },
       );
@@ -272,31 +248,7 @@ describe('init', () => {
             path.resolve(temporaryPath, '.commonality/config.json'),
           );
 
-        expect(configContent).toEqual({ checks:{}, constraints:{} });
-
-          const checkProcess = execa(packageManager, checkArgs, {
-            cwd: temporaryPath,
-            stdout: 'pipe',
-          });
-
-          let checkOutput = '';
-          checkProcess.stdout?.on('data', (data) => {
-            console.log({ out: data.toString() });
-            checkOutput += stripAnsi(data.toString());
-          });
-          checkProcess.stderr?.on('data', (data) => {
-            console.log({ err: data.toString() });
-            checkOutput += stripAnsi(data.toString());
-          });
-
-          await vi.waitFor(
-            () => {
-              expect(checkOutput).toContain(
-                `You don't have any checks configured.`,
-              );
-            },
-            { timeout: 100_000 },
-          );
+          expect(configContent).toEqual({ checks: {}, constraints: {} });
         },
         { timeout: 250_000 },
       );

@@ -1,8 +1,10 @@
 {
-  "constraints": [
-    {
-      "applyTo": "tag-one",
+  "checks": {
+    "*": ["has-name"]
+  },
+  "constraints": {
+    "tag-one": {
       "allow": ["foo"]
     }
-  ]
+  }
 }
