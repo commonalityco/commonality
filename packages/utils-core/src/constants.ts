@@ -62,44 +62,124 @@ const checkFn = z.function().args(checkContextSchema);
 
 const wildcard = z.literal('*');
 
+const allowDescription = `
+An array of tags to match groups of packages or a wildcard to match all packages.
+
+Only direct dependencies matching this selector will be allowed.
+
+Documentation: https://docs.commonality.co/constraints/allowing-dependencies
+`;
+
+const disallowDescription = `
+An array of tags to match groups of packages or a wildcard to match all packages.
+
+All direct and transitive dependencies matching this selector will be disallowed.
+
+Documentation: https://docs.commonality.co/constraints/disallowing-dependencies
+`;
+
 const constraintSchema = z.union([
   z.object({
-    allow: z.union([z.array(z.string()), wildcard]),
-    disallow: z.union([z.array(z.string()), wildcard]),
+    allow: z.union([z.array(z.string()), wildcard]).describe(allowDescription),
+    disallow: z
+      .union([z.array(z.string()), wildcard])
+      .describe(disallowDescription),
   }),
   z.object({
-    allow: z.union([z.array(z.string()), wildcard]),
+    allow: z.union([z.array(z.string()), wildcard]).describe(allowDescription),
   }),
   z.object({
-    disallow: z.union([z.array(z.string()), wildcard]),
+    disallow: z
+      .union([z.array(z.string()), wildcard])
+      .describe(disallowDescription),
   }),
 ]);
 
 export const messageSchema = z
   .object({
-    message: z.string().optional(),
-    path: z.string().optional(),
-    suggestion: z.string().optional(),
+    message: z
+      .string()
+      .optional()
+      .describe(
+        'A string that will be shown as the default title for the check when running the CLI and Commonality Studio.',
+      ),
+    path: z
+      .string()
+      .optional()
+      .describe(
+        `A string representing a path that will be shown directly underneath the check's message.`,
+      ),
+    suggestion: z
+      .string()
+      .optional()
+      .describe(
+        'A string representing a suggestion for how to fix a failed check',
+      ),
   })
-  .strict();
+  .strict()
+  .describe('Schema for messages');
 
 const checkSchema = z.object({
-  id: z.optional(z.string()).default(nanoid),
-  level: z.union([z.literal('error'), z.literal('warning')]).default('warning'),
+  id: z
+    .optional(z.string())
+    .default(nanoid)
+    .describe('A unique identifier for the check'),
+  level: z.union([z.literal('error'), z.literal('warning')]).default('warning')
+    .describe(`
+        A string that can be set to "warning" or "error".
+
+        If set to "error", the CLI will exit with a non-zero exit code if this check is ever invalid. Default is "warning".
+      `),
   validate: checkFn.returns(
     z.union([
       z.union([z.boolean(), messageSchema]),
       z.promise(z.union([z.boolean(), messageSchema])),
     ]),
-  ),
-  fix: checkFn.returns(z.union([z.void(), z.promise(z.void())])).optional(),
-  message: z.string(),
+  ).describe(`
+      The returned value will determine the status of the check.
+
+      If the function returns "true", the check will be set to "pass".
+      If the function returns any other value, the check will be set to "warn" or "fail".
+
+      This function will be run against all packages matching a selector.
+
+      This function can be asynchronous.
+      `),
+  fix: checkFn
+    .returns(z.union([z.void(), z.promise(z.void())]))
+    .optional()
+    .describe('Optional fix function for the check'),
+  message: z
+    .string()
+    .describe(
+      'A string that will be shown as the default title for the check when running the CLI and Commonality Studio.',
+    ),
 });
 
 export const projectConfigSchema = z.object({
-  workspaces: z.array(z.string()).default([]),
-  checks: z.record(z.array(z.string()).default([])).default({}),
-  constraints: z.record(constraintSchema).default({}),
+  $schema: z.string().optional(),
+  workspaces: z
+    .array(z.string())
+    .default([])
+    .describe(
+      'An array of glob patterns used to identify which directories contain packages.',
+    ),
+  checks: z
+    .record(z.array(z.string()).default([]))
+    .default({})
+    .describe(
+      `An object whose keys are selectors and whose values are paths to checks.
+
+Documentation: https://docs.commonality.co/checks/introduction`,
+    ),
+  constraints: z
+    .record(constraintSchema)
+    .default({})
+    .describe(
+      `An object whose keys are selectors and whose values are constraints.
+
+Documentation: https://docs.commonality.co/constraints/introduction`,
+    ),
 });
 
 export type ProjectConfig = z.input<typeof projectConfigSchema>;

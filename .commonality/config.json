@@ -1,4 +1,7 @@
 {
+  "$schema": "http://localhost:3000/schema.json",
+  "workspaces": [],
+  "constraints": {},
   "checks": {
     "*": [
       "recommended/has-readme",

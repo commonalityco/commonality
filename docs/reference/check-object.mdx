@@ -6,15 +6,13 @@ import { CheckContext } from '/snippets/check-context.mdx';
 
 **Required**
 
-A string that used the default title for the check in the CLI and Commonality Studio.
-
-
+A string that will be shown as the default title for the check when running the CLI and Commonality Studio.
 
 ### `validate`
 
 **Required**
 
-The returned value of `validate` will determine the status of the check.
+The validate function is used to set the check's status to `pass`, `warn`, or `fail`.
 
 The `validate` function will be run against all packages matching a [selector](/selectors).
 
@@ -25,7 +23,8 @@ This function can be asynchronous.
 <CheckContext/>
 
 #### Returns
-`validate` can return any value, however, the check will only be valid if the function returns `true`. Any other returned value will set the status of the check to either `warn` or `fail` based on the configured [level](#level).
+If the function returns `true`, the check will be set to `pass`.
+If the function returns any other value, the check will be set to `warn` or `fail` based on the configured [level](#level).
 
 <Tabs>
 <Tab title="TypeScript">
@@ -48,7 +47,7 @@ export default {
 </Tab>
 </Tabs>
 
-Returning a [message object]() allows you to modify the default message and provide additional context about the status of the check.
+Returning a message object allows you to modify the check's default message and provide additional context about the status of the check.
 
 <Tabs>
 <Tab title="TypeScript">
@@ -86,11 +85,11 @@ export default {
 
     if (fileExists) {
       return {
-        // This message will override the default message
+        // A string that will override default message for the check
         message: 'File "internal-config.json" does not exist',
-        // This path will be shown directly underneath the message for quicker debugging
+        // A string representing a path that will be shown directly underneath the check's message.
         path: ctx.package.path,
-        // This will be shown as a suggestion for how to fix the issue
+        // A string representing a suggestion for how to fix a failed check
         suggestion: diff(source, expected)
       };
     }
@@ -164,5 +163,7 @@ export default {
 
 
 ### `level`
+
+A string that can be set to "warning" or "error".
 
 If set to `"error"`, the CLI will exit with a non-zero exit code if this check is ever invalid. Default is `"warning"`.
