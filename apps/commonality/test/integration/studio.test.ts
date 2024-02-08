@@ -56,7 +56,7 @@ describe.concurrent('studio', () => {
       await vi.waitFor(
         () => {
           expect(output).toContain(
-            `Viewable at: http://127.0.0.1:${preferredPort}`,
+            `Local:   http://localhost:${preferredPort}`,
           );
         },
         { timeout: 100_000 },
@@ -119,7 +119,7 @@ describe.concurrent('studio', () => {
       await vi.waitFor(
         () => {
           expect(output).toContain(
-            `Viewable at: http://127.0.0.1:${preferredPort}`,
+            `Local:   http://localhost:${preferredPort}`,
           );
         },
         { timeout: 100_000 },
@@ -182,7 +182,7 @@ describe.concurrent('studio', () => {
       await vi.waitFor(
         () => {
           expect(output).toContain(
-            `Viewable at: http://127.0.0.1:${preferredPort}`,
+            `Local:   http://localhost:${preferredPort}`,
           );
         },
         { timeout: 100_000 },
