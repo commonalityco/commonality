@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.2.50
+
+### Patch Changes
+
+- 56baf27: Fixes an issue where package.json files with missing "name" properties would cause any command to throw an error. We now ignore these invalid packages and continue with the command while displaying an error.
+- Updated dependencies [56baf27]
+  - @commonalityco/studio@0.2.47
+
 ## 0.2.49
 
 ### Patch Changes
