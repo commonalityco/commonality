@@ -12,13 +12,12 @@ const binPath = path.resolve(
   '../../bin.js',
 );
 
-describe.only('check', () => {
+describe('check', () => {
   test(
     'logs the URL to open Commonality Studio in a pnpm monorepo',
     async () => {
       const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
       const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
-      const preferredPort = await getPort();
 
       const fixturePath = path.resolve(
         path.dirname(fileURLToPath(import.meta.url)),
