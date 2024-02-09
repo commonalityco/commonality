@@ -1,5 +1,4 @@
 import z from 'zod';
-import { nanoid } from 'nanoid';
 
 export enum Theme {
   Dark = 'dark',
@@ -45,12 +44,52 @@ export enum Status {
   Warn = 'warn',
 }
 
-const packagePaths = z.object({
+/**
+ * Contains paths to a package within a workspace.
+ */
+type PackagePaths = {
+  /**
+   * The absolute path to the package directory.
+   */
+  path: string;
+  /**
+   * The path to the package directory relative to the root of the workspace.
+   */
+  relativePath: string;
+};
+
+const packagePaths: z.ZodType<PackagePaths> = z.object({
   path: z.string(),
   relativePath: z.string(),
 });
 
-const checkContextSchema = z.object({
+/**
+ * Context provided to checks, containing metadata about the package and its environment.
+ */
+export type CheckContext = {
+  /**
+   * Information about the current package being checked.
+   */
+  package: PackagePaths;
+  /**
+   * An array of all packages in the workspace.
+   */
+  allPackages: PackagePaths[];
+  /**
+   * Information about the root package of the workspace.
+   */
+  rootPackage: PackagePaths;
+  /**
+   * An array of usernames or team names designated as code owners.
+   */
+  codeowners: string[];
+  /**
+   * An array of tags associated with the current package.
+   */
+  tags: string[];
+};
+
+const checkContextSchema: z.ZodType<CheckContext> = z.object({
   package: packagePaths,
   allPackages: z.array(packagePaths),
   rootPackage: packagePaths,
@@ -59,6 +98,129 @@ const checkContextSchema = z.object({
 });
 
 const checkFn = z.function().args(checkContextSchema);
+
+export type Message = {
+  /**
+   * This message will replace the default `message` for your check.
+   */
+  message?: string;
+  /**
+   * The path to the file or directory that the message is referring to.
+   */
+  path?: string;
+  /**
+   * A suggestion for how to fix the issue identified by the check.
+   * It can be used to show how a fix function will modify a file or to suggest manual edits.
+   */
+  suggestion?: string;
+};
+
+export const messageSchema: z.ZodType<Message> = z.object({
+  message: z.string().optional(),
+  path: z.string().optional(),
+  suggestion: z.string().optional(),
+});
+
+/**
+ * Checks are used to automate the validation of package configurations and standards.
+ *
+ * @example
+ * ```typescript
+ * const hasCodeowner: Check = {
+ *   message: 'Package must have at least one codeowner',
+ *   validate: async (ctx) => {
+ *     const hasCodeOwner = ctx.codeowners.length > 0;
+ *
+ *     if (!hasCodeOwner) {
+ *       return {
+ *         message: 'Package must have at least one codeowner',
+ *       };
+ *     }
+ *
+ *     return true;
+ *   }
+ * };
+ * ```
+ */
+export type Check = {
+  id?: string;
+  /**
+   * If set to `"error"`, the CLI will exit with a non-zero exit code if the `validate` function returns a value other than `true`.
+   *
+   * Documentation: https://docs.commonality.co/reference/check-object#level
+   *
+   * @defaultValue "warning"
+   */
+  level?: 'error' | 'warning';
+  /**
+   * The `validate` function is used to set the check's status to `pass`, `warn`, or `fail`.
+   *
+   * - If the function returns `true`, the check will be set to `pass`.
+   * - If the function returns any other value, the check will be set to `warn` or `fail` based on the configured `level`.
+   *
+   * You can also override the check's default message by returning a message object, providing additional context about the failure of the check.
+   *
+   * Documentation: https://docs.commonality.co/reference/check-object#validate
+   *
+   * Example:
+   * ```typescript
+   * validate: async (ctx) => {
+   *   const hasCodeOwner = ctx.codeowners.length > 0;
+   *
+   *   if (!hasCodeOwner) {
+   *     return {
+   *       message: 'Package must have at least one codeowner',
+   *     };
+   *   }
+   *
+   *   return true;
+   * }
+   * ```
+   */
+  validate: (
+    ctx: CheckContext,
+  ) => Promise<boolean | Message> | boolean | Message;
+  /**
+   * An optional function that automatically fixes issues identified by the `validate` function.
+   *
+   * This function will only run on packages where the check's `validate` function has not returned `true`.
+   *
+   * It should update packages so that they pass the check's `validate` function upon re-evaluation.
+   *
+   * Documentation: https://docs.commonality.co/reference/check-object#fix
+   *
+   * Example:
+   * ```typescript
+   * fix: async (ctx) => {
+   *   await json(ctx.package.path, 'package.json').merge({
+   *     scripts: {
+   *       build: 'tsc --build'
+   *     }
+   *   })
+   * }
+   * ```
+   */
+  fix?: (ctx: CheckContext) => Promise<void> | void;
+  /**
+   * An string that will be shown as the default title for the check when running the CLI and Commonality Studio.
+   *
+   * Documentation: https://docs.commonality.co/reference/check-object#message
+   */
+  message: string;
+};
+
+export const checkSchema: z.ZodType<Check> = z.object({
+  id: z.optional(z.string()),
+  level: z.union([z.literal('error'), z.literal('warning')]).default('warning'),
+  validate: checkFn.returns(
+    z.union([
+      z.union([z.boolean(), messageSchema]),
+      z.promise(z.union([z.boolean(), messageSchema])),
+    ]),
+  ),
+  fix: checkFn.returns(z.union([z.void(), z.promise(z.void())])).optional(),
+  message: z.string(),
+});
 
 const wildcard = z.literal('*');
 
@@ -95,67 +257,6 @@ const constraintSchema = z.union([
   }),
 ]);
 
-export const messageSchema = z
-  .object({
-    message: z
-      .string()
-      .optional()
-      .describe(
-        'A string that will be shown as the default title for the check when running the CLI and Commonality Studio.',
-      ),
-    path: z
-      .string()
-      .optional()
-      .describe(
-        `A string representing a path that will be shown directly underneath the check's message.`,
-      ),
-    suggestion: z
-      .string()
-      .optional()
-      .describe(
-        'A string representing a suggestion for how to fix a failed check',
-      ),
-  })
-  .strict()
-  .describe('Schema for messages');
-
-const checkSchema = z.object({
-  id: z
-    .optional(z.string())
-    .default(nanoid)
-    .describe('A unique identifier for the check'),
-  level: z.union([z.literal('error'), z.literal('warning')]).default('warning')
-    .describe(`
-        A string that can be set to "warning" or "error".
-
-        If set to "error", the CLI will exit with a non-zero exit code if this check is ever invalid. Default is "warning".
-      `),
-  validate: checkFn.returns(
-    z.union([
-      z.union([z.boolean(), messageSchema]),
-      z.promise(z.union([z.boolean(), messageSchema])),
-    ]),
-  ).describe(`
-      The returned value will determine the status of the check.
-
-      If the function returns "true", the check will be set to "pass".
-      If the function returns any other value, the check will be set to "warn" or "fail".
-
-      This function will be run against all packages matching a selector.
-
-      This function can be asynchronous.
-      `),
-  fix: checkFn
-    .returns(z.union([z.void(), z.promise(z.void())]))
-    .optional()
-    .describe('Optional fix function for the check'),
-  message: z
-    .string()
-    .describe(
-      'A string that will be shown as the default title for the check when running the CLI and Commonality Studio.',
-    ),
-});
-
 export const projectConfigSchema = z.object({
   $schema: z.string().optional(),
   workspaces: z
@@ -184,10 +285,6 @@ Documentation: https://docs.commonality.co/constraints/introduction`,
 
 export type ProjectConfig = z.input<typeof projectConfigSchema>;
 
-export type Check = z.input<typeof checkSchema>;
 export type CheckOutput = z.output<typeof checkSchema>;
-
-export type CheckContext = z.infer<typeof checkContextSchema>;
-export type Message = z.infer<typeof messageSchema>;
 
 export type Constraint = z.infer<typeof constraintSchema>;

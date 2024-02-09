@@ -2,7 +2,7 @@ import { PackageJson, json, Check } from 'commonality';
 import validateNpmPackageName from 'validate-npm-package-name';
 
 export default {
-  level: 'error',
+  level: 'warning',
   message: 'package.json has a valid name',
   validate: async (context) => {
     const packageJson = await json<PackageJson>(

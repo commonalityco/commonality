@@ -8,6 +8,7 @@ import {
 } from '@commonalityco/utils-core';
 import path from 'pathe';
 import { merge } from 'lodash-es';
+import { nanoid } from 'nanoid';
 
 export type ConformanceResult = {
   id: string;
@@ -126,7 +127,7 @@ export const getConformanceResults = async ({
 
             return {
               status: result.status,
-              id: conformer.id,
+              id: conformer.id ?? nanoid(),
               filter: matchingPattern,
               package: pkg,
               message: merge(

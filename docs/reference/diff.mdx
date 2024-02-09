@@ -3,10 +3,10 @@ title: diff
 ---
 
 ```ts
-(source: unknown, target: unknown) => string
+(source: unknown, target: unknown) => string;
 ```
 
-The `diff` utility makes it easier to provide a helpful [suggestion]() for check [messages](#message).
+The `diff` utility makes it easier to provide a helpful suggestion for check [messages](#message).
 
 We use the `jest-diff` utility to generate a diff that highlights values present in `target` but not `source`.
 
@@ -21,7 +21,6 @@ Values will be stringified and parsed as lines of text. Lines that appear in `ta
 <ParamField path="target" type="unknown" required>
   Any value, representing the target of the diff.
 </ParamField>
-
 
 ## Returns
 

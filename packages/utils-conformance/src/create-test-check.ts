@@ -22,8 +22,33 @@ interface TestCheckContext {
   tags?: Tag[];
 }
 
+/**
+ * Wraps a check and decorates its `validate`, `fix`, and `message` functions with paths that point to the current directory.
+ * This reduces repetitive boilerplate when writing tests for checks by providing a default `CheckContext`.
+ *
+ * Documentation: https://docs.commonality.co/reference/define-test-check
+ *
+ * @param check - The check object to be tested.
+ * @param options - Optional. Overrides for the default `CheckContext`.
+ * @returns The original check function with decorated `validate`, `fix`, and `message` functions.
+ *
+ * @example
+ * test('validate - returns true when valid', () => {
+ *   mockFs({
+ *     'package.json': JSON.stringify({
+ *       name: 'foo',
+ *       description: 'bar',
+ *     }),
+ *   });
+ *
+ *   const check = defineTestCheck(myCheck());
+ *   const result = myCheck.validate();
+ *
+ *   expect(result).toEqual(true);
+ * });
+ */
 export function defineTestCheck<T extends Check>(
-  conformer: T,
+  check: T,
   options?: TestCheckContext,
 ): TestConformer<T> {
   const defaultWorkspace = {
@@ -44,9 +69,9 @@ export function defineTestCheck<T extends Check>(
   } satisfies CheckContext;
 
   return {
-    ...conformer,
+    ...check,
     validate: async () => {
-      const validationResult = await conformer.validate({
+      const validationResult = await check.validate({
         ...testFixtures,
       });
 
@@ -56,12 +81,12 @@ export function defineTestCheck<T extends Check>(
 
       return validationResult;
     },
-    fix: conformer.fix
+    fix: check.fix
       ? async () =>
-          await conformer?.fix?.({
+          await check?.fix?.({
             ...testFixtures,
           })
       : undefined,
-    message: conformer.message,
+    message: check.message,
   } as TestConformer<T>;
 }
