@@ -26,7 +26,7 @@ export default {
 
 ### Checking files
 
-Commonality provides utilities like [json]() and [text]() that make it easy to read and write to files within checks.
+Commonality provides utilities like [json](/reference/json) and [text](/reference/text) that make it easy to read and write to files within checks.
 
 Below is an example of a check that ensures a package has a `build` script with a value of `tsc --build` in it's `package.json`.
 
@@ -74,19 +74,20 @@ export default {
 
     if (packageJson?.scripts?.build !== 'tsc --build') {
       return {
-        message: 'package.json does not have a "build" script with value "tsc --build"',
+        message:
+          'package.json does not have a "build" script with value "tsc --build"',
         path: 'package.json',
         suggestion: diff(
           { scripts: packageJson.scripts },
-          { scripts: { build: 'tsc --build' }
-        })
+          { scripts: { build: 'tsc --build' } },
+        ),
       };
     }
 
-    return true
-  }
+    return true;
+  },
 } satisfies Check;
-````
+```
 
 The [diff](/reference/check-object#diff) utility can be used to suggest file edits needed to pass checks. The `suggestion` property is also useful for showing how a [fix](/reference/check-object#fix) function will modify a file.
 
@@ -114,32 +115,33 @@ Previously, we wrote a lot of code just to validate a single script existed, now
 import type { Check } from 'commonality';
 import { json, diff } from 'commonality';
 
-export const hasScript = (name: string, value: string): Check => ({
-  message: `Package must have a "${name}" script`,
-  validate: async (ctx) => {
-    const packageJson = await json(ctx.package.path, 'package.json').get();
+export const hasScript = (name: string, value: string): Check =>
+  ({
+    message: `Package must have a "${name}" script`,
+    validate: async (ctx) => {
+      const packageJson = await json(ctx.package.path, 'package.json').get();
 
-    if (!packageJson) {
-      return {
-        message: 'package.json does not exist',
-        path: 'package.json',
-      };
-    }
+      if (!packageJson) {
+        return {
+          message: 'package.json does not exist',
+          path: 'package.json',
+        };
+      }
 
-    if (packageJson?.scripts[name] !== value) {
-      return {
-        message: `package.json does not have a "${name}" script with value "${value}"`,
-        path: 'package.json',
-        suggestion: diff(
-          { scripts: packageJson.scripts },
-          { scripts: { [name]: value }
-        })
-      };
-    }
+      if (packageJson?.scripts[name] !== value) {
+        return {
+          message: `package.json does not have a "${name}" script with value "${value}"`,
+          path: 'package.json',
+          suggestion: diff(
+            { scripts: packageJson.scripts },
+            { scripts: { [name]: value } },
+          ),
+        };
+      }
 
-    return true
-  }
-});
+      return true;
+    },
+  }) satisfies Check;
 ```
 
 ## Auto-fixable checks
@@ -155,16 +157,15 @@ Commonality provides utilities like [json](/reference/check-object#json), and [t
 import type { Check } from 'commonality';
 import { json, diff } from 'commonality';
 
-export const hasScript = (name: string, value: string): Check => ({
-  // ...check logic,
-  fix: async (ctx) => {
-    await json(ctx.package.path, 'package.json').merge({
-      scripts: {
-        [name]: value
-      }
-    })
-  }
-});
+export const hasScript = (name: string, value: string): Check =>
+  ({
+    // ...check logic,
+    fix: async (ctx) => {
+      await json(ctx.package.path, 'package.json').merge({
+        scripts: {
+          [name]: value,
+        },
+      });
+    },
+  }) satisfies Check;
 ```
-
-
