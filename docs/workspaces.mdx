@@ -44,10 +44,8 @@ This property can be helpful in integrated monorepos where setting workspaces in
   manager.
 </Info>
 
-```ts commonality.config.ts
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  workspaces: ['apps/*', 'packages/**', '!**/dist/**'],
-});
+```json .commonality/config.json
+{
+  "workspaces": ["apps/*", "packages/**", "!**/dist/**"]
+}
 ```
