@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import path from 'pathe';
 
 const configWithChecks = {
+  $schema: 'https://commonality.co/config.json',
   checks: {
     '*': [
       'recommended/has-readme',
@@ -18,6 +19,7 @@ const configWithChecks = {
 };
 
 const configWithoutChecks = {
+  $schema: 'https://commonality.co/config.json',
   checks: {},
   constraints: {},
 };

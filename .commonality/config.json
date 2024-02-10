@@ -1,4 +1,5 @@
 {
+  "$schema": "https://commonality.co/config.json",
   "checks": {
     "*": [
       "recommended/has-readme",
