@@ -1,5 +1,11 @@
 # @commonalityco/utils-package
 
+## 0.2.43
+
+### Patch Changes
+
+- 4ceed0c: Includes a $schema property for inline documentation for project configuration
+
 ## 0.2.42
 
 ### Patch Changes
