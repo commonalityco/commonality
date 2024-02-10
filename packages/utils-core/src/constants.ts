@@ -263,23 +263,22 @@ export const projectConfigSchema = z.object({
     .array(z.string())
     .default([])
     .describe(
-      'An array of glob patterns used to identify which directories contain packages.',
+      'An array of glob patterns used to identify which directories contain packages.' +
+        `\n\nDocumentation: https://docs.commonality.co/reference/project-configuration#workspaces`,
     ),
   checks: z
     .record(z.array(z.string()).default([]))
     .default({})
     .describe(
-      `An object whose keys are selectors and whose values are paths to checks.
-
-Documentation: https://docs.commonality.co/checks/introduction`,
+      `An object whose keys are selectors and whose values are paths to checks.` +
+        `\n\nDocumentation: https://docs.commonality.co/checks/introduction`,
     ),
   constraints: z
     .record(constraintSchema)
     .default({})
     .describe(
-      `An object whose keys are selectors and whose values are constraints.
-
-Documentation: https://docs.commonality.co/constraints/introduction`,
+      `An object whose keys are selectors and whose values are constraints.` +
+        `\n\nDocumentation: https://docs.commonality.co/constraints/introduction`,
     ),
 });
 

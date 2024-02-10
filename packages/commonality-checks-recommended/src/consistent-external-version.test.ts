@@ -176,7 +176,7 @@ describe('consistent-external-version', () => {
         },
       });
 
-      await conformer.validate;
+      await conformer.fix();
 
       const pkgAResult = await json(
         './',
