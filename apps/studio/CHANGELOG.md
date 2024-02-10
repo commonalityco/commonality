@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.48
+
+### Patch Changes
+
+- 8afb72a: Fixes a bug where codeowner paths would not match a path to a package directory
+
 ## 0.2.47
 
 ### Patch Changes
