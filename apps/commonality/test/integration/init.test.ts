@@ -149,6 +149,7 @@ describe('init', () => {
           );
 
           expect(configContent).toEqual({
+            $schema: 'https://commonality.co/config.json',
             checks: {
               '*': [
                 'recommended/has-readme',
@@ -248,7 +249,11 @@ describe('init', () => {
             path.resolve(temporaryPath, '.commonality/config.json'),
           );
 
-          expect(configContent).toEqual({ checks: {}, constraints: {} });
+          expect(configContent).toEqual({
+            $schema: 'https://commonality.co/config.json',
+            checks: {},
+            constraints: {},
+          });
         },
         { timeout: 250_000 },
       );
