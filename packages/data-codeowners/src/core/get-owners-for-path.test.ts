@@ -1,6 +1,6 @@
 import nodePath from 'node:path';
-import { getCodeowners } from '../src/core/get-codeowners.js';
-import { getOwnersForPath } from '../src/core/get-owners-for-path.js';
+import { getCodeowners } from './get-codeowners.js';
+import { getOwnersForPath } from './get-owners-for-path.js';
 import { describe, test, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 
@@ -30,11 +30,15 @@ describe('get-owners-for-path', () => {
       path: 'apps/github/package.json',
       owners: [],
     },
+    {
+      path: 'build/logs',
+      owners: ['@doctocat'],
+    },
   ])('$path', async ({ path, owners }) => {
     const codeowners = await getCodeowners({
       rootDirectory: nodePath.resolve(
         nodePath.dirname(fileURLToPath(import.meta.url)),
-        './fixtures/github-example',
+        '../../test/fixtures/github-example',
       ),
     });
 

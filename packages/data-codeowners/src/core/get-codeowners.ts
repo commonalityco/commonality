@@ -2,7 +2,6 @@ import fs from 'fs-extra';
 import path from 'node:path';
 
 // Replace single asterisks with a pattern that matches any character except for a slash
-
 const convertPattern = (pattern: string): string => {
   // If the pattern is a lone asterisk, it matches everything
   if (pattern === '*') {

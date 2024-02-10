@@ -1,6 +1,6 @@
 import {
   CheckOutput,
-  ProjectConfig,
+  type ProjectConfig,
 } from '@commonalityco/utils-core/constants';
 import { logger } from '@commonalityco/utils-core/logger';
 import path from 'node:path';
@@ -15,7 +15,7 @@ export const resolveFile = ({ filepath }: { filepath: string }) => {
     const result = loader(filepath);
 
     return result.default || result;
-  } catch (error){
+  } catch (error) {
     logger.debug(error);
     return;
   }

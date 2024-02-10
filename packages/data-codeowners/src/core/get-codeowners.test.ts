@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import path from 'node:path';
-import { getCodeowners } from '../src/core/get-codeowners.js';
+import { getCodeowners } from './get-codeowners.js';
 import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 
@@ -9,7 +9,7 @@ describe('getCodeOwners', () => {
     it('returns an object containing the correct owners for each glob', async () => {
       const rootDirectory = path.resolve(
         path.dirname(fileURLToPath(import.meta.url)),
-        './fixtures/github-example',
+        '../../test/fixtures/github-example',
       );
       const ownership = await getCodeowners({ rootDirectory });
 
@@ -34,7 +34,7 @@ describe('getCodeOwners', () => {
       const ownership = await getCodeowners({
         rootDirectory: path.resolve(
           path.dirname(fileURLToPath(import.meta.url)),
-          './fixtures/simple',
+          '../../test/fixtures/simple',
         ),
       });
 
@@ -50,7 +50,7 @@ describe('getCodeOwners', () => {
       const ownership = await getCodeowners({
         rootDirectory: path.resolve(
           path.dirname(fileURLToPath(import.meta.url)),
-          './fixtures/missing-file',
+          '../../test/fixtures/missing-file',
         ),
       });
 

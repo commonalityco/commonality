@@ -1,4 +1,4 @@
-import { getIsEmail } from '../src/core/get-is-email.js';
+import { getIsEmail } from './get-is-email.js';
 import { describe, test, expect } from 'vitest';
 
 describe('getIsEmail', () => {

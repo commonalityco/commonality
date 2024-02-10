@@ -1,4 +1,4 @@
-import { minimatch } from 'minimatch';
+import micromatch from 'micromatch';
 
 export const getOwnersForPath = ({
   path,
@@ -11,7 +11,7 @@ export const getOwnersForPath = ({
   let matchingPattern: undefined | string = undefined;
 
   for (const pattern of patterns) {
-    const isMatch = minimatch(path, pattern);
+    const isMatch = micromatch.isMatch(path, pattern);
 
     if (isMatch) {
       matchingPattern = pattern;
