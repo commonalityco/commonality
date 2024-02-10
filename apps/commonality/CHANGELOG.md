@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.53
+
+### Patch Changes
+
+- 4ceed0c: Includes a $schema property for inline documentation for project configuration
+
 ## 0.2.52
 
 ### Patch Changes
