@@ -26,7 +26,7 @@ import isMatch from 'lodash-es/isMatch';
 export const hasJsonFile = (
   fileName: string,
   content?: Record<string, unknown>,
-): Check => {
+) => {
   return {
     level: 'error',
     message: `File "${fileName}" must exist`,
@@ -52,5 +52,5 @@ export const hasJsonFile = (
 
       await json(ctx.package.path, fileName).merge(content);
     },
-  };
+  } satisfies Check;
 };

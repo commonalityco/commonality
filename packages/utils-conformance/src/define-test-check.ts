@@ -1,17 +1,14 @@
 import { Tag, Codeowner, Workspace } from '@commonalityco/types';
 import stripAnsi from 'strip-ansi';
-import { Check, CheckContext } from '@commonalityco/utils-core';
+import { Check, CheckContext, Message } from '@commonalityco/utils-core';
 
-type Awaitable<T> = T | PromiseLike<T>;
-
-type FunctionType<T = unknown> = (options: CheckContext) => Awaitable<T>;
-
-type TestConformer<T> = {
-  [P in keyof T]: P extends 'fix' | 'message' | 'validate'
-    ? T[P] extends FunctionType
-      ? () => Promise<ReturnType<T[P]>>
-      : T[P]
-    : T[P];
+export type TestCheck<T extends Check> = T & {
+  validate: () => Promise<boolean | Message> | boolean | Message;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fix?: T['fix'] extends (...args: any[]) => any
+    ? () => void | Promise<void>
+    : never;
+  level?: T['level'] extends 'error' | 'warning' ? T['level'] : 'warning';
 };
 
 interface TestCheckContext {
@@ -50,7 +47,7 @@ interface TestCheckContext {
 export function defineTestCheck<T extends Check>(
   check: T,
   options?: TestCheckContext,
-): TestConformer<T> {
+): TestCheck<T> {
   const defaultWorkspace = {
     path: './',
     relativePath: './',
@@ -88,5 +85,5 @@ export function defineTestCheck<T extends Check>(
           })
       : undefined,
     message: check.message,
-  } as TestConformer<T>;
+  } as TestCheck<T>;
 }

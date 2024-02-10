@@ -65,6 +65,7 @@ describe('hasJsonFile', () => {
       const check = defineTestCheck(
         hasJsonFile('existing.json', { key: 'value' }),
       );
+
       expect(await check.validate()).toBe(true);
     });
   });
