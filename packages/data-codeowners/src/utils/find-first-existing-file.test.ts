@@ -1,4 +1,4 @@
-import { findFirstExistingFile } from '../src/utils/find-first-existing-file.js';
+import { findFirstExistingFile } from './find-first-existing-file.js';
 import path from 'node:path';
 import fs from 'fs-extra';
 import { describe, beforeAll, afterAll, test, expect } from 'vitest';

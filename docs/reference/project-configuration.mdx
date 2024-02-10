@@ -54,12 +54,11 @@ An object whose keys are [selectors](/selectors) and whose value are [constraint
 }
 ```
 
-
 ---
 
 ### `workspaces`
 
-An array of [minimatch](https://github.com/isaacs/minimatch#usage) patterns used to identify which directories should be included when searching for packages.
+An array of [micromatch](https://github.com/micromatch/micromatch) patterns used to identify which directories should be included when searching for packages.
 
 ```ts commonality.config.ts
 import { defineConfig } from 'commonality';
@@ -68,4 +67,3 @@ export default defineConfig({
   workspaces: ['apps/*', 'packages/**', '!**/dist/**'],
 });
 ```
-
