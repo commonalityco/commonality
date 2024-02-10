@@ -1,5 +1,12 @@
 # @commonalityco/cli
 
+## 0.2.51
+
+### Patch Changes
+
+- a4a63fe: Fixes a bug where codeowner paths would not match a path to a package directory
+- ca229a7: Adds inline documentation for all exported utilities
+
 ## 0.2.50
 
 ### Patch Changes

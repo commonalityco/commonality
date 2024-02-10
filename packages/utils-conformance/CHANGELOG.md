@@ -1,5 +1,15 @@
 # @commonalityco/utils-conformance
 
+## 0.2.41
+
+### Patch Changes
+
+- a4a63fe: Fixes a bug where codeowner paths would not match a path to a package directory
+- ca229a7: Adds inline documentation for all exported utilities
+- Updated dependencies [ca229a7]
+- Updated dependencies [ca229a7]
+  - @commonalityco/utils-core@0.2.40
+
 ## 0.2.40
 
 ### Patch Changes

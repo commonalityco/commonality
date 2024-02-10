@@ -1,5 +1,19 @@
 # workshop
 
+## 1.0.34
+
+### Patch Changes
+
+- Updated dependencies [ca229a7]
+- Updated dependencies [ca229a7]
+  - @commonalityco/utils-core@0.2.40
+  - @commonalityco/ui-conformance@0.2.40
+  - @commonalityco/types@0.2.38
+  - @commonalityco/ui-constraints@0.2.44
+  - @commonalityco/ui-core@0.2.39
+  - @commonalityco/ui-graph@0.2.43
+  - @commonalityco/ui-package@0.2.37
+
 ## 1.0.33
 
 ### Patch Changes
