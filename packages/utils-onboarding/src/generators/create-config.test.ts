@@ -32,6 +32,7 @@ describe('create-config', () => {
     const content = await fs.readJSON('.commonality/config.json');
 
     expect(content).toEqual({
+      $schema: 'https://commonality.co/config.json',
       checks: {
         '*': [
           'recommended/has-readme',
@@ -59,6 +60,7 @@ describe('create-config', () => {
     const content = await fs.readJSON('.commonality/config.json');
 
     expect(content).toEqual({
+      $schema: 'https://commonality.co/config.json',
       checks: {},
       constraints: {},
     });
