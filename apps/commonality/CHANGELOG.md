@@ -1,5 +1,12 @@
 # @commonalityco/cli
 
+## 0.2.52
+
+### Patch Changes
+
+- Updated dependencies [8afb72a]
+  - @commonalityco/studio@0.2.48
+
 ## 0.2.51
 
 ### Patch Changes

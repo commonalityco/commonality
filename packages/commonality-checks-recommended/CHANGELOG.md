@@ -1,5 +1,11 @@
 # commonality-checks-recommended
 
+## 0.0.29
+
+### Patch Changes
+
+- commonality@0.2.52
+
 ## 0.0.28
 
 ### Patch Changes
