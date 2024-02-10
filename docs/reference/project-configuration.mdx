@@ -2,6 +2,7 @@ A project configuration file is a `config.json` file located in the `.commonalit
 
 ```json .commonality/config.json
 {
+  "$schema": "https://commonality.co/config.json",
   "checks": {
     "*": ["has-readme"],
     "publishable": ["ensure-license"]
@@ -60,10 +61,8 @@ An object whose keys are [selectors](/selectors) and whose value are [constraint
 
 An array of [micromatch](https://github.com/micromatch/micromatch) patterns used to identify which directories should be included when searching for packages.
 
-```ts commonality.config.ts
-import { defineConfig } from 'commonality';
-
-export default defineConfig({
-  workspaces: ['apps/*', 'packages/**', '!**/dist/**'],
-});
+```json .commonality/config.json
+{
+  "workspaces": ["apps/*", "packages/**", "!**/dist/**"]
+}
 ```
