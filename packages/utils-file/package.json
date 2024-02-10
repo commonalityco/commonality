@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/utils-file",
   "description": "Utilities to read and write to the local file system",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "publishConfig": {
     "access": "public"

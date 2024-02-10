@@ -1,5 +1,11 @@
 # @commonalityco/traverse
 
+## 0.2.39
+
+### Patch Changes
+
+- a4a63fe: Fixes a bug where codeowner paths would not match a path to a package directory
+
 ## 0.2.38
 
 ### Patch Changes

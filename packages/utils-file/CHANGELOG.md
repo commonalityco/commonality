@@ -1,5 +1,14 @@
 # @commonalityco/utils-file
 
+## 0.0.5
+
+### Patch Changes
+
+- ca229a7: Adds inline documentation for all exported utilities
+- Updated dependencies [ca229a7]
+- Updated dependencies [ca229a7]
+  - @commonalityco/utils-core@0.2.40
+
 ## 0.0.4
 
 ### Patch Changes

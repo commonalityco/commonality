@@ -1,5 +1,12 @@
 # @commonalityco/utils-core
 
+## 0.2.40
+
+### Patch Changes
+
+- ca229a7: Adds inline documentation for all exported utilities
+- ca229a7: Adds descriptions to construct a JSON schema
+
 ## 0.2.39
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # commonality-checks-recommended
 
+## 0.0.28
+
+### Patch Changes
+
+- ca229a7: Adds inline documentation for all exported utilities
+- Updated dependencies [a4a63fe]
+- Updated dependencies [ca229a7]
+  - commonality@0.2.51
+
 ## 0.0.27
 
 ### Patch Changes
