@@ -35,7 +35,7 @@ These checks don't require any configuration and can be used directly within you
 
 **Warning** ⚠️
 
-This check ensures that a package has at least one [codeowner](https://www.commonality.co/docs/codeowners) as determined by the `CODEOWNERS` file. It is important to have a codeowner for each package to ensure that there is a responsible person for the maintenance and updates of the package.
+Ensures that a package has at least one [codeowner](https://www.commonality.co/docs/codeowners) as determined by the `CODEOWNERS` file. It is important to have a codeowner for each package to ensure that there is a responsible person for the maintenance and updates of the package.
 
 ```json
 {
@@ -51,7 +51,7 @@ This check ensures that a package has at least one [codeowner](https://www.commo
 
 **Warning** ⚠️
 
-This check ensures that a package has a README.md file.
+Ensures that a package has a README.md file.
 
 **Auto-fix:**
 
@@ -71,7 +71,7 @@ A `README.md` file will be created in the package directory with the title and d
 
 **Error** ❌
 
-This check ensures that the package name in a package's `package.json` file is valid. This will prevent unforeseen issues when publishing packages.
+Ensures that the package name in a package's `package.json` file is valid. This will prevent unforeseen issues when publishing packages.
 
 ```json
 {
@@ -88,7 +88,7 @@ This check ensures that the package name in a package's `package.json` file is v
 
 **Warning** ⚠️
 
-This check ensures that the dependencies in a package's `package.json` file are sorted alphabetically. Some package managers will sort dependencies automatically on dependency installation, sorting ahead of time will decrease the size of diffs.
+Ensures that the dependencies in a package's `package.json` file are sorted alphabetically. Some package managers will sort dependencies automatically on dependency installation, sorting ahead of time will decrease the size of diffs.
 
 **Auto-fix:**
 
@@ -108,7 +108,7 @@ This check ensures that the dependencies in a package's `package.json` file are 
 
 **Error** ❌
 
-This check ensures that the repository field in the package.json of a package extends the repository field at the root of your project. If there is no repository field in your project's root `package.json` then this check will always pass.
+Ensures that the repository field in the package.json of a package extends the repository field at the root of your project. If there is no repository field in your project's root `package.json` then this check will always pass.
 
 **Auto-fix:**
 
@@ -128,7 +128,7 @@ A `repository` field will be added to the package's `package.json` with the corr
 
 **Error** ❌
 
-This check ensures that the external dependencies of a package match the most common or highest version across all packages.
+Ensures that the external dependencies of a package match the most common or highest version across all packages.
 
 **Auto-fix:**
 
@@ -149,7 +149,7 @@ Dependency versions will be updated to match the most common or highest version 
 
 **Warning** ⚠️
 
-This check ensures that a dependency should only be in one of dependencies, devDependencies, or optionalDependencies in the package.json of a package.
+Ensures that a dependency should only be in one of dependencies, devDependencies, or optionalDependencies in the package.json of a package.
 
 **Auto-fix:**
 
@@ -169,7 +169,7 @@ If a dependency is a `dependency` it will be removed from `devDependencies` and 
 
 **Warning** ⚠️
 
-This check ensures that every `peerDependency` is also listed as `devDependency`` with a version range that is a subset of the peerDependency. This will align local development to the experience external consumers will have when installing the package.
+Ensures that every `peerDependency` is also listed as `devDependency`` with a version range that is a subset of the peerDependency. This will align local development to the experience external consumers will have when installing the package.
 
 **Auto-fix:**
 
@@ -195,7 +195,7 @@ Use these checks to create new checks customized to your current conventions and
 
 **Error** ❌
 
-This check ensures that a JSON file exists with the specified content.
+Ensures that a JSON file exists with the specified content.
 
 **Auto-fix:**
 
@@ -226,7 +226,7 @@ export default hasJson('package.json', {
 
 **Error** ❌
 
-This check ensures that a text file exists with the specified content.
+Ensures that a text file exists with the specified content.
 
 **Auto-fix:**
 
