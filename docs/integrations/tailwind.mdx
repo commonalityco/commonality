@@ -1,0 +1,30 @@
+---
+title: 'Tailwind'
+---
+
+### Check that a UI packages have a `tailwind.config.js` file
+
+Make sure that you have a `tailwind.config.js` file for each UI package in your project to enable developer experience.
+
+```ts .commonality/has-tailwind-config.ts
+import { hasTextFile } from 'commonality-checks-recommended';
+
+export default hasTextFile('tailwind.config.js', [
+  "import baseConfig from '@myteam/config-tailwind';",
+  '',
+  'export default {',
+  '  ...baseConfig,',
+  "  content: ['./src/**/*.{js,ts,jsx,tsx}']",
+  '};',
+]);
+```
+
+```json .commonality/config.json
+{
+  "checks": [
+    "ui": [
+      "has-tailwind-config"
+    ]
+  ]
+}
+```

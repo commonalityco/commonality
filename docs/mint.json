@@ -100,7 +100,9 @@
       "pages": [
         "integrations/npm",
         "integrations/typescript",
-        "integrations/eslint"
+        "integrations/eslint",
+        "integrations/tailwind",
+        "integrations/vite"
       ]
     },
     {
