@@ -33,7 +33,7 @@ These checks don't require any configuration and can be used directly within you
 
 ### `recommended/has-codeowner`
 
-**Warning** ⚠️
+⚠️ **Warning**
 
 Ensures that a package has at least one [codeowner](https://www.commonality.co/docs/codeowners) as determined by the `CODEOWNERS` file. It is important to have a codeowner for each package to ensure that there is a responsible person for the maintenance and updates of the package.
 
@@ -49,7 +49,7 @@ Ensures that a package has at least one [codeowner](https://www.commonality.co/d
 
 ### `recommended/has-readme`
 
-**Warning** ⚠️
+⚠️ **Warning**
 
 Ensures that a package has a README.md file.
 
@@ -69,7 +69,7 @@ A `README.md` file will be created in the package directory with the title and d
 
 ### `recommended/valid-package-name`
 
-**Error** ❌
+❌ **Error**
 
 Ensures that the package name in a package's `package.json` file is valid. This will prevent unforeseen issues when publishing packages.
 
@@ -86,7 +86,7 @@ Ensures that the package name in a package's `package.json` file is valid. This 
 
 ### `recommended/sorted-dependencies`
 
-**Warning** ⚠️
+⚠️ **Warning**
 
 Ensures that the dependencies in a package's `package.json` file are sorted alphabetically. Some package managers will sort dependencies automatically on dependency installation, sorting ahead of time will decrease the size of diffs.
 
@@ -106,7 +106,7 @@ Ensures that the dependencies in a package's `package.json` file are sorted alph
 
 ### `recommended/extends-repository-field`
 
-**Error** ❌
+❌ **Error**
 
 Ensures that the repository field in the package.json of a package extends the repository field at the root of your project. If there is no repository field in your project's root `package.json` then this check will always pass.
 
@@ -126,7 +126,7 @@ A `repository` field will be added to the package's `package.json` with the corr
 
 ### `recommended/consistent-external-version`
 
-**Error** ❌
+❌ **Error**
 
 Ensures that the external dependencies of a package match the most common or highest version across all packages.
 
@@ -147,7 +147,7 @@ Dependency versions will be updated to match the most common or highest version 
 
 ### `recommended/unique-dependency-types`
 
-**Warning** ⚠️
+⚠️ **Warning**
 
 Ensures that a dependency should only be in one of dependencies, devDependencies, or optionalDependencies in the package.json of a package.
 
@@ -167,7 +167,7 @@ If a dependency is a `dependency` it will be removed from `devDependencies` and 
 
 ### `recommended/matching-dev-peer-versions`
 
-**Warning** ⚠️
+⚠️ **Warning**
 
 Ensures that every `peerDependency` is also listed as `devDependency`` with a version range that is a subset of the peerDependency. This will align local development to the experience external consumers will have when installing the package.
 
@@ -193,7 +193,7 @@ Use these checks to create new checks customized to your current conventions and
 
 ### `has-json-file`
 
-**Error** ❌
+❌ **Error**
 
 Ensures that a JSON file exists with the specified content.
 
@@ -224,7 +224,7 @@ export default hasJson('package.json', {
 
 ### `has-text-file`
 
-**Error** ❌
+❌ **Error**
 
 Ensures that a text file exists with the specified content.
 
