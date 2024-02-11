@@ -31,7 +31,7 @@ These checks don't require any configuration and can be used directly within you
 
 [**Learn more**](https://docs.commonality.co/checks/sharing-checks#static-checks)
 
-### has-codeowner
+### `recommended/has-codeowner`
 
 **Warning** ⚠️
 
@@ -47,7 +47,7 @@ This check ensures that a package has at least one [codeowner](https://www.commo
 }
 ```
 
-### `has-readme`
+### `recommended/has-readme`
 
 **Warning** ⚠️
 
@@ -67,7 +67,7 @@ A `README.md` file will be created in the package directory with the title and d
 }
 ```
 
-### valid-package-name
+### `recommended/valid-package-name`
 
 **Error** ❌
 
@@ -84,7 +84,7 @@ This check ensures that the package name in a package's `package.json` file is v
 ```
 
 
-### sorted-dependencies
+### `recommended/sorted-dependencies`
 
 **Warning** ⚠️
 
@@ -104,7 +104,7 @@ This check ensures that the dependencies in a package's `package.json` file are 
 }
 ```
 
-### extends-repository-field
+### `recommended/extends-repository-field`
 
 **Error** ❌
 
@@ -124,7 +124,7 @@ A `repository` field will be added to the package's `package.json` with the corr
 }
 ```
 
-### consistent-external-version
+### `recommended/consistent-external-version`
 
 **Error** ❌
 
@@ -145,7 +145,7 @@ Dependency versions will be updated to match the most common or highest version 
 ```
 
 
-### unique-dependency-types
+### `recommended/unique-dependency-types`
 
 **Warning** ⚠️
 
@@ -165,7 +165,7 @@ If a dependency is a `dependency` it will be removed from `devDependencies` and 
 }
 ```
 
-### `matching-dev-peer-versions`
+### `recommended/matching-dev-peer-versions`
 
 **Warning** ⚠️
 
