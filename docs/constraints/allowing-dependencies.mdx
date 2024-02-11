@@ -1,16 +1,17 @@
 ---
-title: "Allowing dependencies"
-icon: "square-check"
+title: 'Allowing dependencies'
+icon: 'square-check'
 ---
 
 `allow` constraints will evaluate **direct dependencies** for a package.
 
 If any local dependency does not have [tags](/tags) that match a [selector](/selectors) within the `allow` array, then the constraint will fail.
 
-`allow` constraints are used to explicitly define which dependencies a package should have. They are helpful for defining a [hierarchy of packages](/examples/dependency-hierarchy) or [creating workflows](/examples/domain-boundaries).
+`allow` constraints are used to explicitly define which dependencies a package should have. They are helpful for defining a [hierarchy of packages](/integrations/dependency-hierarchy) or [creating workflows](/integrations/domain-boundaries).
 
 <Info>
-Unlike `disallow` constraints, `allow` constraints only apply to direct dependencies.
+  Unlike `disallow` constraints, `allow` constraints only apply to direct
+  dependencies.
 </Info>
 
 ## Allow specific direct dependencies
@@ -24,11 +25,13 @@ Use a tag as a selector to allow subsets of local dependencies.
 ```
 
 ## Allow all dependencies
+
 Use `*` as a [selector](/selectors) to allow all local dependencies.
 
-
 <Info>
-This is equivalent to not having a constraint at all but is useful when you want to be explicit and have the constraint show up in Commonality Studio or the CLI.
+  This is equivalent to not having a constraint at all but is useful when you
+  want to be explicit and have the constraint show up in Commonality Studio or
+  the CLI.
 </Info>
 
 ```json

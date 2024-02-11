@@ -1,5 +1,5 @@
 ---
-title: "ESLint"
+title: 'ESLint'
 ---
 
 ### Check that a package extends a base .eslintrc.json
@@ -10,17 +10,17 @@ Use checks to create ensure they extend a common base configuration or have spec
 ```ts .commonality/extends-eslint-next
 import { hasJson } from 'commonality-checks-recommended';
 
-export default hasJson('eslint.json', {
-  extends: ["@eslint-config/next"]
-})
+export default hasJson('.eslintrc.json', {
+  extends: ['@eslint-config/next'],
+});
 ```
 
 ```ts .commonality/extends-eslint-react
 import { hasJson } from 'commonality-checks-recommended';
 
-export default hasJson('eslint.json', {
-  extends: ["@eslint-config/react"]
-})
+export default hasJson('.eslintrc.json', {
+  extends: ['@eslint-config/react'],
+});
 ```
 
 ```json .commonality/config.json
