@@ -1,6 +1,6 @@
 {
   "name": "commonality-checks-recommended",
-  "description": "Commonality's recommended checks.",
+  "description": "Checks that encourage best practices for most multi-package monorepos.",
   "publishConfig": {
     "access": "public"
   },
