@@ -19,7 +19,6 @@ npm install commonality-checks-recommended
       "recommended/has-codeowner",
       "recommended/has-readme",
       "recommended/sorted-dependencies"
-      // ...
     ]
   }
 }
