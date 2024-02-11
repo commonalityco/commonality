@@ -93,15 +93,22 @@
     },
     {
       "group": "Getting started",
-      "pages": ["examples/recommended-checks"]
+      "pages": ["integrations/overview"]
     },
     {
       "group": "Tools",
-      "pages": ["examples/npm", "examples/typescript", "examples/eslint"]
+      "pages": [
+        "integrations/npm",
+        "integrations/typescript",
+        "integrations/eslint"
+      ]
     },
     {
       "group": "Workflows",
-      "pages": ["examples/domain-boundaries", "examples/dependency-hierarchy"]
+      "pages": [
+        "integrations/domain-boundaries",
+        "integrations/dependency-hierarchy"
+      ]
     },
     {
       "group": "CI",
@@ -114,8 +121,8 @@
       "url": "reference"
     },
     {
-      "name": "Examples",
-      "url": "examples"
+      "name": "Integrations",
+      "url": "integrations"
     }
   ],
   "topbarCtaButton": {

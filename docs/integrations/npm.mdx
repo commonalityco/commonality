@@ -1,8 +1,10 @@
 ---
-title: "NPM, Yarn and pnpm"
+title: 'Package Manager'
 ---
 
 ### Check that a package has specific scripts
+
+Helpful when using a task runner or package manager that allows running scripts across many packages.
 
 ```ts .commonality/has-build-scripts.ts
 import { hasJson } from 'commonality-checks-recommended';
@@ -10,9 +12,9 @@ import { hasJson } from 'commonality-checks-recommended';
 export default hasJson('package.json', {
   scripts: {
     build: 'tsc --build',
-    dev: 'tsc --watch'
-  }
-})
+    dev: 'tsc --watch',
+  },
+});
 ```
 
 ```json .commonality/config.json
@@ -27,10 +29,12 @@ export default hasJson('package.json', {
 
 ### Check that a package has an `.npmignore`
 
+Useful to prevent publishing `dist` directories or `*.test.*` files.
+
 ```ts .commonality/has-npm-ignore.ts
 import { hasText } from 'commonality-checks-recommended';
 
-export default hasText('.npmignore', ["dist"])
+export default hasText('.npmignore', ['dist']);
 ```
 
 ```json .commonality/config.json
