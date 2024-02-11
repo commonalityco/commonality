@@ -2,14 +2,16 @@
 title: 'Package Manager'
 ---
 
+Use these checks to make it easier to work with scripts, dependencies, and more.
+
 ### Check that a package has specific scripts
 
 Helpful when using a task runner or package manager that allows running scripts across many packages.
 
 ```ts .commonality/has-build-scripts.ts
-import { hasJson } from 'commonality-checks-recommended';
+import { hasJsonFile } from 'commonality-checks-recommended';
 
-export default hasJson('package.json', {
+export default hasJsonFile('package.json', {
   scripts: {
     build: 'tsc --build',
     dev: 'tsc --watch',

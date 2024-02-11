@@ -1,0 +1,33 @@
+### Check all applications use the same build configuration
+
+```ts .commonality/has-vite-config.ts
+import { hasTextFile } from 'commonality-checks-recommended';
+
+export default hasTextFile('vite.config.js', [
+  "import { defineConfig } from 'vite';",
+  '',
+  'export default defineConfig({',
+  '  server: {',
+  '    port: 3000,',
+  '  },',
+  '  build: {',
+  "    outDir: 'dist',",
+  '  },',
+  '  resolve: {',
+  '    alias: {',
+  "      '@': '/src',",
+  '    },',
+  '  },',
+  '})',
+]);
+```
+
+```json .commonality/config.json
+{
+  "checks": [
+    "application": [
+      "has-vite-config"
+    ]
+  ]
+}
+```

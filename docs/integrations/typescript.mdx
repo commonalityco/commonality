@@ -1,5 +1,5 @@
 ---
-title: "TypeScript"
+title: 'TypeScript'
 ---
 
 ### Check that a package extends a base tsconfig.json
@@ -7,21 +7,25 @@ title: "TypeScript"
 You might find that your project has groups of packages that require similar configuration.
 Use checks to create ensure they extend a common base configuration or have specific properties.
 
-```ts .commonality/extends-tsconfig-next
-import { hasJson } from 'commonality-checks-recommended';
+Create custom checks for your project by using the [commonality-checks-recommended](https://github.com/commonalityco/commonality/tree/main/packages/commonality-checks-recommended) package.
 
-export default hasJson('tsconfig.json', {
-  extends: ["@tsconfig/next"]
-})
+```ts .commonality/extends-tsconfig-next
+import { hasJsonFile } from 'commonality-checks-recommended';
+
+export default hasJsonFile('tsconfig.json', {
+  extends: ['@tsconfig/next'],
+});
 ```
 
 ```ts .commonality/extends-tsconfig-react
-import { hasJson } from 'commonality-checks-recommended';
+import { hasJsonFile } from 'commonality-checks-recommended';
 
-export default hasJson('tsconfig.json', {
-  extends: ["@tsconfig/react"]
-})
+export default hasJsonFile('tsconfig.json', {
+  extends: ['@tsconfig/react'],
+});
 ```
+
+Selectively apply them to groups of packages in your project using [selectors](/selectors).
 
 ```json .commonality/config.json
 {
