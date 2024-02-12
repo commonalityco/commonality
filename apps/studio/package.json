@@ -9,7 +9,7 @@
     "node": ">=18.17.0"
   },
   "scripts": {
-    "dev": "COMMONALITY_ROOT_DIRECTORY='../../../million' NODE_ENV=development node server.js",
+    "dev": "COMMONALITY_ROOT_DIRECTORY='../../' NODE_ENV=development node server.js",
     "build": "next build && pnpm run clean-cache",
     "clean-cache": "rimraf .next/cache",
     "analyze": "ANALYZE=true next build",
@@ -30,6 +30,8 @@
     "dist/"
   ],
   "dependencies": {
+    "@sentry/nextjs": "^7.100.1",
+    "@sentry/utils": "^7.100.1",
     "chokidar": "^3.5.3",
     "execa": "^8.0.1",
     "next": "14.0.4",

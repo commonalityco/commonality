@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/node';
 
 export function initializeTelemetry({ release }: { release: string }): void {
   Sentry.init({
-    dsn: 'https://e9c4356b7d696b95007ea2dc6bb6264a@o99301.ingest.sentry.io/4506735868510208',
+    dsn: 'https://8a8e8495f94ba1a11cfdc8264b2c3695@o503511.ingest.sentry.io/4506736521117696',
 
     tracesSampleRate: 1,
     sampleRate: 1,
