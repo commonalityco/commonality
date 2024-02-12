@@ -12,6 +12,10 @@ const DISABLED_VALUE = 'disabled';
 const release = `commonality@${packageJson.version}`;
 
 export const validateTelemetry = async () => {
+  if (process.env.DO_NOT_TRACK) {
+    return;
+  }
+
   const value = config.get(CONFIG_KEY);
 
   if (value === ENABLED_VALUE) {

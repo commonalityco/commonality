@@ -19,6 +19,15 @@ vi.mock('@commonalityco/telemetry', () => ({
 describe.only('validateTelemetry', () => {
   beforeEach(() => {
     vi.resetAllMocks();
+    vi.unstubAllEnvs();
+  });
+
+  it('does not initialize telemetry if process.env.DO_NOT_TRACK is set', async () => {
+    vi.stubEnv('DO_NOT_TRACK', '1');
+
+    await validateTelemetry();
+
+    expect(telemetry.initializeTelemetry).not.toHaveBeenCalled();
   });
 
   it('initializes telemetry if config value is enabled', async () => {
