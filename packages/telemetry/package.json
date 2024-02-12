@@ -1,0 +1,42 @@
+{
+  "name": "@commonalityco/telemetry",
+  "description": "Utilities for sending telemetry data to Sentry",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": "./dist/index.js"
+    }
+  },
+  "type": "module",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "type-check": "tsc --noEmit",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
+    "@types/node": "^20.10.0",
+    "eslint-config-commonality": "workspace:*",
+    "typescript": "^5.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/commonalityco/commonality",
+    "directory": "packages/data-tags"
+  },
+  "dependencies": {
+    "@sentry/node": "^7.100.1"
+  }
+}

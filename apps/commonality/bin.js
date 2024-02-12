@@ -4,6 +4,7 @@ import updateNotifier from 'update-notifier';
 import fs from 'fs-extra';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import * as Sentry from '@sentry/node';
 
 const packageJsonPath = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
