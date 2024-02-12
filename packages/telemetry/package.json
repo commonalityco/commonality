@@ -34,7 +34,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/commonalityco/commonality",
-    "directory": "packages/data-tags"
+    "directory": "packages/telemetry"
   },
   "dependencies": {
     "@sentry/node": "^7.100.1"
