@@ -4,7 +4,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execa } from 'execa';
 import os from 'node:os';
-import getPort from 'get-port';
 import stripAnsi from 'strip-ansi';
 
 const binPath = path.resolve(
@@ -28,6 +27,9 @@ describe('check', () => {
       const cliProcess = execa(binPath, ['check', '--debug'], {
         cwd: temporaryPath,
         stdout: 'pipe',
+        env: {
+          DO_NOT_TRACK: '1',
+        },
       });
 
       let output = '';

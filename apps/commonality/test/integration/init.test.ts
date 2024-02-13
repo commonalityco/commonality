@@ -19,6 +19,9 @@ describe('init', () => {
     const initProcess = execa(binPath, ['init', '--verbose'], {
       cwd: temporaryPath,
       stdout: 'pipe',
+      env: {
+        DO_NOT_TRACK: '1',
+      },
     });
 
     let initOutput = '';
@@ -77,6 +80,9 @@ describe('init', () => {
           const initProcess = execa(binPath, ['init', '--verbose'], {
             cwd: temporaryPath,
             stdout: 'pipe',
+            env: {
+              DO_NOT_TRACK: '1',
+            },
           });
 
           let initOutput = '';
@@ -188,6 +194,9 @@ describe('init', () => {
           const initProcess = execa(binPath, ['init', '--verbose'], {
             cwd: temporaryPath,
             stdout: 'pipe',
+            env: {
+              DO_NOT_TRACK: '1',
+            },
           });
 
           let initOutput = '';
