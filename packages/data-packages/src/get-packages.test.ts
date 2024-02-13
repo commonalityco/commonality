@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { getPackages } from '../src/get-packages';
+import { getPackages } from './get-packages';
 import { describe, expect, it } from 'vitest';
 import { PackageType } from '@commonalityco/utils-core';
 import { fileURLToPath } from 'node:url';
@@ -8,7 +8,7 @@ describe('getPackages', () => {
   it('should return the root package if the project is not a monorepo', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      './fixtures',
+      '.,/test/fixtures',
       'single-package-repo',
     );
 
@@ -28,7 +28,7 @@ describe('getPackages', () => {
   it('should return an array of packages with internal dependencies excluding the root package', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      './fixtures',
+      '.,/test/fixtures',
       'kitchen-sink',
     );
 
@@ -55,7 +55,7 @@ describe('getPackages', () => {
   it('should throw an error if a lockfile does not exist', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      './fixtures',
+      '.,/test/fixtures',
       'missing-lockfile',
     );
 

@@ -1,6 +1,7 @@
 import prompts from 'prompts';
-import { initializeTelemetry, telemetryStatus } from '@commonalityco/telemetry';
 import packageJson from '../../../package.json';
+import { initializeTelemetry } from './initialize-telemetry';
+import { telemetryStatus } from './telemetry-status';
 
 const release = `commonality@${packageJson.version}`;
 

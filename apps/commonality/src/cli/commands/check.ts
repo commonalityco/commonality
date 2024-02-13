@@ -22,6 +22,7 @@ import console from 'node:console';
 import { logger } from '@commonalityco/utils-core/logger';
 import { validateProjectStructure } from '../utils/validate-project-structure';
 import { validateTelemetry } from '../utils/validate-telemetry';
+import * as Sentry from '@sentry/node';
 
 const command = new Command();
 
@@ -195,7 +196,7 @@ const reportConformanceResults = ({
   logger.write();
 };
 
-export const action = async ({
+export const runChecks = async ({
   verbose,
   getResults,
   onFix = () => Promise.resolve(),
@@ -246,12 +247,14 @@ export const action = async ({
   }
 };
 
-export const check = command
-  .name('check')
-  .description('Validate that packages pass conformance checks')
-  .option('--verbose', 'Show the result of all checks')
-  .option('--debug', 'Show additional logs')
-  .action(async ({ verbose, debug }: { verbose: boolean; debug: boolean }) => {
+const action = async ({
+  verbose,
+  debug,
+}: {
+  verbose: boolean;
+  debug: boolean;
+}) => {
+  Sentry.startSpan({ name: 'check' }, async () => {
     if (debug) {
       logger.level = 'debug';
     }
@@ -281,7 +284,7 @@ export const check = command
       }
     }
 
-    return action({
+    return runChecks({
       verbose,
       onFix: (results) => {
         return runFixes({
@@ -303,3 +306,11 @@ export const check = command
       },
     });
   });
+};
+
+export const check = command
+  .name('check')
+  .description('Validate that packages pass conformance checks')
+  .option('--verbose', 'Show the result of all checks')
+  .option('--debug', 'Show additional logs')
+  .action(action);

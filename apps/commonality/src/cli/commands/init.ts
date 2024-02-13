@@ -14,8 +14,9 @@ import {
 } from '@commonalityco/data-project';
 import console from 'node:console';
 import c from 'chalk';
-import { telemetryStatus } from '@commonalityco/telemetry';
+import { telemetryStatus } from '../utils/telemetry-status';
 import { validateTelemetry } from '../utils/validate-telemetry';
+import * as Sentry from '@sentry/node';
 
 const command = new Command();
 
@@ -49,80 +50,84 @@ export const action = async ({
   rootDirectory: string;
   verbose?: boolean;
 }) => {
-  console.log(
-    `\n  ${c.bold.blue(
-      'Welcome to Commonality!',
-    )} \n\n  Let’s get you set up.\n`,
-  );
+  Sentry.startSpan({ name: 'init' }, async () => {
+    console.log(
+      `\n  ${c.bold.blue(
+        'Welcome to Commonality!',
+      )} \n\n  Let’s get you set up.\n`,
+    );
 
-  // Prompts
-  const shouldInstallCommonality = await getInstallCommonality({
-    rootDirectory,
+    // Prompts
+    const shouldInstallCommonality = await getInstallCommonality({
+      rootDirectory,
+    });
+    const projectConfig = await getProjectConfig({ rootDirectory });
+
+    const shouldInstallChecks = await getInstallChecks({ rootDirectory });
+
+    // Confirmation
+    if (!shouldInstallCommonality && !shouldInstallChecks && !projectConfig) {
+      console.log(
+        c.green(`\n  Your project is already set up with Commonality`),
+      );
+      logNextSteps({ shouldInstallChecks: true });
+      return;
+    }
+
+    const configFileName = `.commonality/config.json`;
+    // Generation
+    try {
+      console.log();
+
+      if (shouldInstallCommonality) {
+        const commonalitySpinner = ora();
+
+        commonalitySpinner.start(
+          'Installing commonality, this might take a couple of minutes.',
+        );
+
+        await installCommonality({ rootDirectory, verbose });
+
+        commonalitySpinner.succeed('Installed commonality');
+      }
+
+      if (telemetryStatus.get() === 'unset') {
+        await validateTelemetry();
+      }
+
+      if (shouldInstallChecks) {
+        const checksSpinner = ora();
+
+        checksSpinner.start(
+          'Installing commonality-checks-recommended, this might take a couple of minutes.',
+        );
+
+        await installChecks({ rootDirectory });
+
+        checksSpinner.succeed('Installed commonality-checks-recommended');
+      }
+
+      if (!projectConfig) {
+        const configSpinner = ora();
+
+        configSpinner.start(`Creating ${configFileName}`);
+
+        await createConfig({
+          rootDirectory,
+          includeChecks: shouldInstallChecks,
+        });
+
+        configSpinner.succeed(`Created ${configFileName}`);
+      }
+
+      logNextSteps({ shouldInstallChecks });
+    } catch (error) {
+      if (verbose) {
+        console.error(error);
+        console.log(c.red(`  Something went wrong, please try again.`));
+      }
+    }
   });
-  const projectConfig = await getProjectConfig({ rootDirectory });
-
-  const shouldInstallChecks = await getInstallChecks({ rootDirectory });
-
-  // Confirmation
-  if (!shouldInstallCommonality && !shouldInstallChecks && !projectConfig) {
-    console.log(c.green(`\n  Your project is already set up with Commonality`));
-    logNextSteps({ shouldInstallChecks: true });
-    return;
-  }
-
-  const configFileName = `.commonality/config.json`;
-  // Generation
-  try {
-    console.log();
-
-    if (shouldInstallCommonality) {
-      const commonalitySpinner = ora();
-
-      commonalitySpinner.start(
-        'Installing commonality, this might take a couple of minutes.',
-      );
-
-      await installCommonality({ rootDirectory, verbose });
-
-      commonalitySpinner.succeed('Installed commonality');
-    }
-
-    if (telemetryStatus.get() === 'unset') {
-      await validateTelemetry();
-    }
-
-    if (shouldInstallChecks) {
-      const checksSpinner = ora();
-
-      checksSpinner.start(
-        'Installing commonality-checks-recommended, this might take a couple of minutes.',
-      );
-
-      await installChecks({ rootDirectory });
-
-      checksSpinner.succeed('Installed commonality-checks-recommended');
-    }
-
-    if (!projectConfig) {
-      const configSpinner = ora();
-
-      configSpinner.start(`Creating ${configFileName}`);
-
-      await createConfig({
-        rootDirectory,
-        includeChecks: shouldInstallChecks,
-      });
-
-      configSpinner.succeed(`Created ${configFileName}`);
-    }
-
-    logNextSteps({ shouldInstallChecks });
-  } catch (error) {
-    if (verbose) {
-      console.error(error);
-      console.log(c.red(`  Something went wrong, please try again.`));
-    }
-  }
 };
 
 const safeGetRootDirectory = async () => {
