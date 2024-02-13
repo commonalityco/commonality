@@ -44,228 +44,219 @@ describe('init', () => {
 
   describe.each([
     {
-      packageManager: 'pnpm',
-      checkArgs: ['exec', 'commonality', 'check'],
       fixtureName: 'kitchen-sink',
     },
     {
-      packageManager: 'yarn',
-      checkArgs: ['exec', 'commonality', 'check'],
       fixtureName: 'kitchen-sink-yarn',
     },
     {
-      packageManager: 'npm',
-      checkArgs: ['exec', '--', 'commonality', 'check'],
       fixtureName: 'kitchen-sink-npm',
     },
-  ])(
-    'when the package manager is $packageManager',
-    ({ packageManager, fixtureName, checkArgs }) => {
-      it(
-        'initializes a new project with checks',
-        async () => {
-          const temporaryDirectoryPath =
-            process.env['RUNNER_TEMP'] || os.tmpdir();
-          const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
+  ])('when the package manager is $packageManager', ({ fixtureName }) => {
+    it(
+      'initializes a new project with checks',
+      async () => {
+        const temporaryDirectoryPath =
+          process.env['RUNNER_TEMP'] || os.tmpdir();
+        const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
 
-          const fixturePath = path.resolve(
-            path.dirname(fileURLToPath(import.meta.url)),
-            `../../test/fixtures/${fixtureName}`,
-          );
+        const fixturePath = path.resolve(
+          path.dirname(fileURLToPath(import.meta.url)),
+          `../../test/fixtures/${fixtureName}`,
+        );
 
-          await fs.copy(fixturePath, temporaryPath);
-          await execa('corepack', ['install'], {
-            cwd: temporaryPath,
-          });
-          const initProcess = execa(binPath, ['init', '--verbose'], {
-            cwd: temporaryPath,
-            stdout: 'pipe',
-            env: {
-              DO_NOT_TRACK: '1',
-            },
-          });
+        await fs.copy(fixturePath, temporaryPath);
+        await execa('corepack', ['install'], {
+          cwd: temporaryPath,
+        });
+        const initProcess = execa(binPath, ['init', '--verbose'], {
+          cwd: temporaryPath,
+          stdout: 'pipe',
+          env: {
+            DO_NOT_TRACK: '1',
+          },
+        });
 
-          let initOutput = '';
-          initProcess.stdout?.on('data', (data) => {
-            console.log({ out: data.toString() });
-            initOutput += stripAnsi(data.toString());
-          });
-          initProcess.stderr?.on('data', (data) => {
-            console.log({ err: data.toString() });
-            initOutput += stripAnsi(data.toString());
-          });
+        let initOutput = '';
+        initProcess.stdout?.on('data', (data) => {
+          console.log({ out: data.toString() });
+          initOutput += stripAnsi(data.toString());
+        });
+        initProcess.stderr?.on('data', (data) => {
+          console.log({ err: data.toString() });
+          initOutput += stripAnsi(data.toString());
+        });
 
-          await vi.waitFor(
-            () => {
-              expect(initOutput).toContain(
-                `Would you like to install our recommended checks?`,
-              );
-            },
-            { timeout: 100_000 },
-          );
-
-          initProcess.stdin?.write('\n');
-
-          await vi.waitFor(() => {
-            expect(initOutput).toContain(`Installing commonality`);
-          });
-          await vi.waitFor(
-            () => {
-              expect(initOutput).toContain(`Installed commonality`);
-            },
-            { timeout: 250_000 },
-          );
-
-          await vi.waitFor(() => {
+        await vi.waitFor(
+          () => {
             expect(initOutput).toContain(
-              `Installing commonality-checks-recommended`,
+              `Would you like to install our recommended checks?`,
             );
-          });
-          await vi.waitFor(
-            () => {
-              expect(initOutput).toContain(
-                `Installed commonality-checks-recommended`,
-              );
-            },
-            { timeout: 250_000 },
+          },
+          { timeout: 100_000 },
+        );
+
+        initProcess.stdin?.write('\n');
+
+        await vi.waitFor(() => {
+          expect(initOutput).toContain(`Installing commonality`);
+        });
+        await vi.waitFor(
+          () => {
+            expect(initOutput).toContain(`Installed commonality`);
+          },
+          { timeout: 250_000 },
+        );
+
+        await vi.waitFor(() => {
+          expect(initOutput).toContain(
+            `Installing commonality-checks-recommended`,
           );
+        });
+        await vi.waitFor(
+          () => {
+            expect(initOutput).toContain(
+              `Installed commonality-checks-recommended`,
+            );
+          },
+          { timeout: 250_000 },
+        );
 
-          await vi.waitFor(() => {
-            expect(initOutput).toContain(`Creating .commonality/config.json`);
-          });
-          await vi.waitFor(
-            () => {
-              expect(initOutput).toContain(`Created .commonality/config.json`);
-            },
-            { timeout: 100_000 },
-          );
+        await vi.waitFor(() => {
+          expect(initOutput).toContain(`Creating .commonality/config.json`);
+        });
+        await vi.waitFor(
+          () => {
+            expect(initOutput).toContain(`Created .commonality/config.json`);
+          },
+          { timeout: 100_000 },
+        );
 
-          await vi.waitFor(() => {
-            expect(initOutput).toContain(`You're all set up!`);
-          });
+        await vi.waitFor(() => {
+          expect(initOutput).toContain(`You're all set up!`);
+        });
 
-          const configExists = await fs.exists(
-            path.resolve(temporaryPath, '.commonality/config.json'),
-          );
+        const configExists = await fs.exists(
+          path.resolve(temporaryPath, '.commonality/config.json'),
+        );
 
-          expect(configExists).toBe(true);
+        expect(configExists).toBe(true);
 
-          const configContent = await fs.readJSON(
-            path.resolve(temporaryPath, '.commonality/config.json'),
-          );
+        const configContent = await fs.readJSON(
+          path.resolve(temporaryPath, '.commonality/config.json'),
+        );
 
-          expect(configContent).toEqual({
-            $schema: 'https://commonality.co/config.json',
-            checks: {
-              '*': [
-                'recommended/has-readme',
-                'recommended/has-codeowner',
-                'recommended/valid-package-name',
-                'recommended/unique-dependency-types',
-                'recommended/sorted-dependencies',
-                'recommended/matching-dev-peer-versions',
-                'recommended/consistent-external-version',
-                'recommended/extends-repository-field',
-              ],
-            },
-            constraints: {},
-          });
-        },
-        { timeout: 250_000 },
-      );
+        expect(configContent).toEqual({
+          $schema: 'https://commonality.co/config.json',
+          checks: {
+            '*': [
+              'recommended/has-readme',
+              'recommended/has-codeowner',
+              'recommended/valid-package-name',
+              'recommended/unique-dependency-types',
+              'recommended/sorted-dependencies',
+              'recommended/matching-dev-peer-versions',
+              'recommended/consistent-external-version',
+              'recommended/extends-repository-field',
+            ],
+          },
+          constraints: {},
+        });
+      },
+      { timeout: 250_000 },
+    );
 
-      it(
-        'initializes a new project with no checks',
-        async () => {
-          const temporaryDirectoryPath =
-            process.env['RUNNER_TEMP'] || os.tmpdir();
-          const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
+    it(
+      'initializes a new project with no checks',
+      async () => {
+        const temporaryDirectoryPath =
+          process.env['RUNNER_TEMP'] || os.tmpdir();
+        const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
 
-          const fixturePath = path.resolve(
-            path.dirname(fileURLToPath(import.meta.url)),
-            `../../test/fixtures/${fixtureName}`,
-          );
+        const fixturePath = path.resolve(
+          path.dirname(fileURLToPath(import.meta.url)),
+          `../../test/fixtures/${fixtureName}`,
+        );
 
-          await fs.copy(fixturePath, temporaryPath);
-          await execa('corepack', ['install'], {
-            cwd: temporaryPath,
-          });
+        await fs.copy(fixturePath, temporaryPath);
+        await execa('corepack', ['install'], {
+          cwd: temporaryPath,
+        });
 
-          const initProcess = execa(binPath, ['init', '--verbose'], {
-            cwd: temporaryPath,
-            stdout: 'pipe',
-            env: {
-              DO_NOT_TRACK: '1',
-            },
-          });
+        const initProcess = execa(binPath, ['init', '--verbose'], {
+          cwd: temporaryPath,
+          stdout: 'pipe',
+          env: {
+            DO_NOT_TRACK: '1',
+          },
+        });
 
-          let initOutput = '';
-          initProcess.stdout?.on('data', (data) => {
-            console.log({ out: data.toString() });
-            initOutput += stripAnsi(data.toString());
-          });
-          initProcess.stderr?.on('data', (data) => {
-            console.log({ err: data.toString() });
-            initOutput += stripAnsi(data.toString());
-          });
+        let initOutput = '';
+        initProcess.stdout?.on('data', (data) => {
+          console.log({ out: data.toString() });
+          initOutput += stripAnsi(data.toString());
+        });
+        initProcess.stderr?.on('data', (data) => {
+          console.log({ err: data.toString() });
+          initOutput += stripAnsi(data.toString());
+        });
 
-          await vi.waitFor(
-            () => {
-              expect(initOutput).toContain(
-                `Would you like to install our recommended checks?`,
-              );
-            },
-            { timeout: 100_000 },
-          );
+        await vi.waitFor(
+          () => {
+            expect(initOutput).toContain(
+              `Would you like to install our recommended checks?`,
+            );
+          },
+          { timeout: 100_000 },
+        );
 
-          initProcess.stdin?.write('\u001B[D');
-          initProcess.stdin?.write('\n');
+        initProcess.stdin?.write('\u001B[D');
+        initProcess.stdin?.write('\n');
 
-          await vi.waitFor(
-            () => {
-              expect(initOutput).toContain(`Installing commonality`);
-            },
-            { timeout: 100_000 },
-          );
-          await vi.waitFor(
-            () => {
-              expect(initOutput).toContain(`Installed commonality`);
-            },
-            { timeout: 250_000 },
-          );
+        await vi.waitFor(
+          () => {
+            expect(initOutput).toContain(`Installing commonality`);
+          },
+          { timeout: 100_000 },
+        );
+        await vi.waitFor(
+          () => {
+            expect(initOutput).toContain(`Installed commonality`);
+          },
+          { timeout: 250_000 },
+        );
 
-          await vi.waitFor(() => {
-            expect(initOutput).toContain(`Creating .commonality/config.json`);
-          });
-          await vi.waitFor(
-            () => {
-              expect(initOutput).toContain(`Created .commonality/config.json`);
-            },
-            { timeout: 100_000 },
-          );
+        await vi.waitFor(() => {
+          expect(initOutput).toContain(`Creating .commonality/config.json`);
+        });
+        await vi.waitFor(
+          () => {
+            expect(initOutput).toContain(`Created .commonality/config.json`);
+          },
+          { timeout: 100_000 },
+        );
 
-          await vi.waitFor(() => {
-            expect(initOutput).toContain(`You're all set up!`);
-          });
+        await vi.waitFor(() => {
+          expect(initOutput).toContain(`You're all set up!`);
+        });
 
-          const configExists = await fs.exists(
-            path.resolve(temporaryPath, '.commonality/config.json'),
-          );
+        const configExists = await fs.exists(
+          path.resolve(temporaryPath, '.commonality/config.json'),
+        );
 
-          expect(configExists).toBe(true);
+        expect(configExists).toBe(true);
 
-          const configContent = await fs.readJSON(
-            path.resolve(temporaryPath, '.commonality/config.json'),
-          );
+        const configContent = await fs.readJSON(
+          path.resolve(temporaryPath, '.commonality/config.json'),
+        );
 
-          expect(configContent).toEqual({
-            $schema: 'https://commonality.co/config.json',
-            checks: {},
-            constraints: {},
-          });
-        },
-        { timeout: 250_000 },
-      );
-    },
-  );
+        expect(configContent).toEqual({
+          $schema: 'https://commonality.co/config.json',
+          checks: {},
+          constraints: {},
+        });
+      },
+      { timeout: 250_000 },
+    );
+  });
 });
