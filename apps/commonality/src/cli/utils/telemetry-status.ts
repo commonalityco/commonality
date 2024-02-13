@@ -1,6 +1,4 @@
-import Conf from 'conf';
-
-const config = new Conf({ projectName: 'commonality' });
+import { configStore } from './config-store';
 
 const CONFIG_KEY = 'telemetry-enabled';
 const ENABLED_VALUE = 'enabled' as const;
@@ -14,7 +12,7 @@ export const telemetryStatus = {
       return 'disabled';
     }
 
-    const value = config.get(CONFIG_KEY);
+    const value = configStore.get(CONFIG_KEY);
 
     if (value === undefined) {
       return 'unset';
@@ -27,5 +25,6 @@ export const telemetryStatus = {
     return DISABLED_VALUE;
   },
 
-  set: (status: 'enabled' | 'disabled'): void => config.set(CONFIG_KEY, status),
+  set: (status: 'enabled' | 'disabled'): void =>
+    configStore.set(CONFIG_KEY, status),
 };
