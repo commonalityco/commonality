@@ -37,6 +37,7 @@
     "directory": "packages/telemetry"
   },
   "dependencies": {
-    "@sentry/node": "^7.100.1"
+    "@sentry/node": "^7.100.1",
+    "conf": "^12.0.0"
   }
 }

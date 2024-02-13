@@ -3,6 +3,7 @@ import { constrain } from './commands/constrain.js';
 import { studio } from './commands/studio.js';
 import { check } from './commands/check.js';
 import { init } from './commands/init.js';
+import { telemetry } from './commands/telemetry.js';
 import packageJson from '../../package.json';
 
 const program = new Command();
@@ -20,5 +21,6 @@ program.addCommand(init);
 program.addCommand(check);
 program.addCommand(constrain);
 program.addCommand(studio);
+program.addCommand(telemetry);
 
 program.parse(process.argv);

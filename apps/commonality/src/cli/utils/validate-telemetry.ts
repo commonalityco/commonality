@@ -1,26 +1,15 @@
-import Conf from 'conf';
 import prompts from 'prompts';
-import { initializeTelemetry } from '@commonalityco/telemetry';
+import { initializeTelemetry, telemetryStatus } from '@commonalityco/telemetry';
 import packageJson from '../../../package.json';
-
-const config = new Conf({ projectName: 'commonality' });
-
-const CONFIG_KEY = 'telemetry-enabled';
-const ENABLED_VALUE = 'enabled';
-const DISABLED_VALUE = 'disabled';
 
 const release = `commonality@${packageJson.version}`;
 
 export const validateTelemetry = async () => {
-  if (process.env.DO_NOT_TRACK) {
-    return;
-  }
+  const status = telemetryStatus.get();
 
-  const value = config.get(CONFIG_KEY);
-
-  if (value === ENABLED_VALUE) {
+  if (status === 'enabled') {
     initializeTelemetry({ release });
-  } else if (value === undefined) {
+  } else if (status === 'unset') {
     const { enable } = await prompts({
       type: 'toggle',
       name: 'enable',
@@ -31,9 +20,9 @@ export const validateTelemetry = async () => {
     if (enable) {
       initializeTelemetry({ release });
 
-      config.set(CONFIG_KEY, ENABLED_VALUE);
+      telemetryStatus.set('enabled');
     } else {
-      config.set(CONFIG_KEY, DISABLED_VALUE);
+      telemetryStatus.set('disabled');
     }
   }
 };

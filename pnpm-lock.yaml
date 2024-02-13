@@ -845,6 +845,9 @@ importers:
       '@sentry/node':
         specifier: ^7.100.1
         version: 7.100.1
+      conf:
+        specifier: ^12.0.0
+        version: 12.0.0
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
