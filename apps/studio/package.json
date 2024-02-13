@@ -79,7 +79,7 @@
     "autoprefixer": "^10.4.16",
     "bufferutil": "^4.0.8",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
+    "clsx": "^2.1.0",
     "cookies-next": "^4.1.0",
     "cypress": "^13.6.4",
     "cytoscape": "^3.26.0",
