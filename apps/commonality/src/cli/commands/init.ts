@@ -14,7 +14,6 @@ import {
 } from '@commonalityco/data-project';
 import console from 'node:console';
 import c from 'chalk';
-import { telemetryStatus } from '../utils/telemetry-status';
 import { validateTelemetry } from '../utils/validate-telemetry';
 import * as Sentry from '@sentry/node';
 
@@ -50,6 +49,8 @@ export const action = async ({
   rootDirectory: string;
   verbose?: boolean;
 }) => {
+  await validateTelemetry();
+
   Sentry.startSpan({ name: 'init' }, async () => {
     console.log(
       `\n  ${c.bold.blue(
@@ -89,10 +90,6 @@ export const action = async ({
         await installCommonality({ rootDirectory, verbose });
 
         commonalitySpinner.succeed('Installed commonality');
-      }
-
-      if (telemetryStatus.get() === 'unset') {
-        await validateTelemetry();
       }
 
       if (shouldInstallChecks) {

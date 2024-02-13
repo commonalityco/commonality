@@ -1,4 +1,22 @@
 import * as Sentry from '@sentry/node';
+import { nanoid } from 'nanoid';
+import { configStore } from './config-store';
+
+const UNIQUE_ID_KEY = 'id';
+
+const setUser = () => {
+  const currentUser = configStore.get(UNIQUE_ID_KEY);
+
+  if (currentUser) {
+    Sentry.setUser({ id: String(currentUser) });
+  }
+
+  const newId = nanoid();
+
+  Sentry.setUser({ id: newId });
+
+  configStore.set(UNIQUE_ID_KEY, newId);
+};
 
 export function initializeTelemetry({ release }: { release: string }): void {
   Sentry.init({
@@ -29,4 +47,6 @@ export function initializeTelemetry({ release }: { release: string }): void {
 
   Sentry.setTag('node', process.version);
   Sentry.setTag('platform', process.platform);
+
+  setUser();
 }

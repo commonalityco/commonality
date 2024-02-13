@@ -254,17 +254,17 @@ const action = async ({
   verbose: boolean;
   debug: boolean;
 }) => {
+  if (debug) {
+    logger.level = 'debug';
+  }
+
+  await validateProjectStructure({
+    directory: process.cwd(),
+    command,
+  });
+  await validateTelemetry();
+
   Sentry.startSpan({ name: 'check' }, async () => {
-    if (debug) {
-      logger.level = 'debug';
-    }
-
-    await validateProjectStructure({
-      directory: process.cwd(),
-      command,
-    });
-    await validateTelemetry();
-
     checksSpinner.start();
 
     const rootDirectory = await getRootDirectory();
