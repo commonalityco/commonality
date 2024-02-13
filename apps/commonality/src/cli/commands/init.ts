@@ -14,6 +14,8 @@ import {
 } from '@commonalityco/data-project';
 import console from 'node:console';
 import c from 'chalk';
+import { telemetryStatus } from '@commonalityco/telemetry';
+import { validateTelemetry } from '../utils/validate-telemetry';
 
 const command = new Command();
 
@@ -83,6 +85,10 @@ export const action = async ({
       await installCommonality({ rootDirectory, verbose });
 
       commonalitySpinner.succeed('Installed commonality');
+    }
+
+    if (telemetryStatus.get() === 'unset') {
+      await validateTelemetry();
     }
 
     if (shouldInstallChecks) {
