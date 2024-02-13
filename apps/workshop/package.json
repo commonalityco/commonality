@@ -28,7 +28,7 @@
     "@commonalityco/config-tailwind": "workspace:*",
     "@commonalityco/config-tsconfig": "workspace:*",
     "@storybook/addon-a11y": "^7.6.7",
-    "@storybook/addon-docs": "^7.4.3",
+    "@storybook/addon-docs": "^7.6.14",
     "@storybook/addon-essentials": "^7.4.3",
     "@storybook/addon-interactions": "^7.4.3",
     "@storybook/addon-links": "^7.4.3",
