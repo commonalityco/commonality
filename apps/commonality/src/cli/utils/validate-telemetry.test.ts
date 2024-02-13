@@ -12,9 +12,16 @@ vi.mock('conf', () => {
   return { default: Conf };
 });
 
-vi.mock('@commonalityco/telemetry', () => ({
-  initializeTelemetry: vi.fn(),
-}));
+vi.mock('@commonalityco/telemetry', async () => {
+  const actual: Record<string, unknown> = await vi.importActual(
+    '@commonalityco/telemetry',
+  );
+
+  return {
+    ...actual,
+    initializeTelemetry: vi.fn(),
+  };
+});
 
 describe('validateTelemetry', () => {
   beforeEach(() => {

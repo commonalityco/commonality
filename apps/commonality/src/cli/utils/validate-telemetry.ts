@@ -7,6 +7,10 @@ const release = `commonality@${packageJson.version}`;
 export const validateTelemetry = async () => {
   const status = telemetryStatus.get();
 
+  if (status === 'disabled') {
+    return;
+  }
+
   if (status === 'enabled') {
     initializeTelemetry({ release });
   } else if (status === 'unset') {
@@ -14,14 +18,17 @@ export const validateTelemetry = async () => {
       type: 'toggle',
       name: 'enable',
       message:
-        'Would you like to enable anonymous telemetry? This will help us fix bugs faster.',
+        'Would you like to help us fix bugs faster and enable anonymous telemetry?',
+      initial: true,
+      active: 'yes',
+      inactive: 'no',
     });
 
-    if (enable) {
+    if (enable === true) {
       initializeTelemetry({ release });
 
       telemetryStatus.set('enabled');
-    } else {
+    } else if (enable === false) {
       telemetryStatus.set('disabled');
     }
   }

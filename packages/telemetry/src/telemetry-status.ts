@@ -10,6 +10,10 @@ type Status = 'enabled' | 'disabled' | 'unset';
 
 export const telemetryStatus = {
   get: (): Status => {
+    if (process.env.DO_NOT_TRACK) {
+      return 'disabled';
+    }
+
     const value = config.get(CONFIG_KEY);
 
     if (value === undefined) {
