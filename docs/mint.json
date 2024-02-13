@@ -76,7 +76,13 @@
     },
     {
       "group": "CLI",
-      "pages": ["reference/cli"]
+      "pages": [
+        "reference/cli",
+        "reference/cli/check",
+        "reference/cli/constrain",
+        "reference/cli/studio",
+        "reference/cli/telemetry"
+      ]
     },
     {
       "group": "Objects",
