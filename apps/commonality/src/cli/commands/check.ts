@@ -21,6 +21,7 @@ import { getResolvedChecks } from '@commonalityco/utils-conformance/get-resolved
 import console from 'node:console';
 import { logger } from '@commonalityco/utils-core/logger';
 import { validateProjectStructure } from '../utils/validate-project-structure';
+import { validateTelemetry } from '../utils/validate-telemetry';
 
 const command = new Command();
 
@@ -259,6 +260,7 @@ export const check = command
       directory: process.cwd(),
       command,
     });
+    await validateTelemetry();
 
     checksSpinner.start();
 

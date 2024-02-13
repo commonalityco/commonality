@@ -1,0 +1,48 @@
+---
+title: telemetry
+---
+
+We collect anonymous error reports in order to fix bugs faster and improve Commonality for all developers.
+This is completely optional and there are several ways to opt-out.
+
+## What we collect
+
+We do not collect any information pertaining to your project's code, or any personal information.
+
+We only collect the following:
+
+- Errors and unhandled promise rejections.
+- The version of `commonality`installed
+- The version of `node` being used
+
+## View telemetry status
+
+View if telemetry data is being sent or not.
+
+```bash
+npx commonality telemetry list
+```
+
+## Disable telemetry
+
+Disable telemetry data from being sent with a terminal command or environment variable.
+
+You can disable telemetry data from being sent by running the command below.
+
+```bash
+npx commonality telemetry disable
+```
+
+You can also disable telemetry data from being sent by setting the [DO_NOT_TRACK](https://consoledonottrack.com/) environment variable.
+
+```bash
+export DO_NOT_TRACK=1
+```
+
+## Enable telemetry
+
+Enable telemetry data to help us fix bugs faster.
+
+```bash
+npx commonality telemetry enable
+```

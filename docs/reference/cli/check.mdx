@@ -1,0 +1,21 @@
+---
+title: check
+---
+
+Run configured checks against the current project. If there are invalid checks that are [fixable](/checks/creating-checks#auto-fixable-checks),
+a prompt will appear asking if you would like to automatically fix them. This prompt will not appear if `process.env.CI` is set to `true` or if Commonality
+detects a CI provider. Process will exit with a status code of `1` if any checks are invalid.
+
+```bash copy
+commonality check
+```
+
+#### Options
+
+##### `--verbose`
+
+Show the status of all checks regardless of status. By default, only invalid checks will be shown. Default is `false`.
+
+```bash copy
+commonality check --verbose
+```

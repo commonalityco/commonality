@@ -10,6 +10,7 @@ import { resolveModule } from 'local-pkg';
 import ora from 'ora';
 import boxen from 'boxen';
 import ip from 'ip';
+import { validateTelemetry } from '../utils/validate-telemetry.js';
 
 const command = new Command();
 
@@ -42,6 +43,7 @@ export const studio = command
           directory: process.cwd(),
           command,
         });
+        await validateTelemetry();
 
         console.log();
         spinner.start();

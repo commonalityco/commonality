@@ -14,6 +14,7 @@ import { getTagsData } from '@commonalityco/data-tags';
 import { getDependencies, getPackages } from '@commonalityco/data-packages';
 import process from 'node:process';
 import { validateProjectStructure } from '../utils/validate-project-structure.js';
+import { validateTelemetry } from '../utils/validate-telemetry.js';
 
 const constraintSpinner = ora('Validating constraints...');
 
@@ -236,6 +237,7 @@ const action = async (options: { verbose: boolean }) => {
     directory: process.cwd(),
     command,
   });
+  await validateTelemetry();
 
   const logger = new ConstrainLogger();
 
