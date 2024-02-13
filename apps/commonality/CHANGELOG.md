@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.55
+
+### Patch Changes
+
+- 39ac4d8: Adds telemetry to each CLI command
+
 ## 0.2.54
 
 ### Patch Changes
