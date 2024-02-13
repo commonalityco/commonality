@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.56
+
+### Patch Changes
+
+- 29c0f5b: Fixes an issue where telemetry was not initialized before profiling
+
 ## 0.2.55
 
 ### Patch Changes
