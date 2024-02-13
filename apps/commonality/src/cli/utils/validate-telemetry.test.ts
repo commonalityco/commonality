@@ -16,7 +16,7 @@ vi.mock('@commonalityco/telemetry', () => ({
   initializeTelemetry: vi.fn(),
 }));
 
-describe.only('validateTelemetry', () => {
+describe('validateTelemetry', () => {
   beforeEach(() => {
     vi.resetAllMocks();
     vi.unstubAllEnvs();
