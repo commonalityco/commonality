@@ -36,17 +36,17 @@ export const studio = command
       port?: string;
       install?: boolean;
     }) => {
+      await validateProjectStructure({
+        directory: process.cwd(),
+        command,
+      });
+      await validateTelemetry();
+
       Sentry.startSpan({ name: 'studio' }, async () => {
         const preferredPort = Number(options.port);
         const verbose = Boolean(options.verbose);
 
         try {
-          await validateProjectStructure({
-            directory: process.cwd(),
-            command,
-          });
-          await validateTelemetry();
-
           console.log();
           spinner.start();
 

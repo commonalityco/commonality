@@ -234,13 +234,13 @@ export const reportConstraintResults = async ({
 };
 
 const action = async (options: { verbose: boolean }) => {
-  Sentry.startSpan({ name: 'constrain' }, async () => {
-    await validateProjectStructure({
-      directory: process.cwd(),
-      command,
-    });
-    await validateTelemetry();
+  await validateProjectStructure({
+    directory: process.cwd(),
+    command,
+  });
+  await validateTelemetry();
 
+  Sentry.startSpan({ name: 'constrain' }, async () => {
     const logger = new ConstrainLogger();
 
     constraintSpinner.start();
