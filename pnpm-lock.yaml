@@ -76,7 +76,7 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       '@commonalityco/studio':
-        specifier: 0.2.48
+        specifier: 0.2.49
         version: link:../studio
       '@sentry/node':
         specifier: ^7.100.1

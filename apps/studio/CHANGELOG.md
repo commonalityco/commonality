@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.49
+
+### Patch Changes
+
+- b27e7a1: Adds anonymous telemetry to commonality and studio. View current telemetry status with `commonality telemetry list`.
+
 ## 0.2.48
 
 ### Patch Changes
