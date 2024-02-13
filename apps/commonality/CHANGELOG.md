@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.2.54
+
+### Patch Changes
+
+- b27e7a1: Adds anonymous telemetry to commonality and studio. View current telemetry status with `commonality telemetry list`.
+- Updated dependencies [b27e7a1]
+  - @commonalityco/studio@0.2.49
+
 ## 0.2.53
 
 ### Patch Changes
