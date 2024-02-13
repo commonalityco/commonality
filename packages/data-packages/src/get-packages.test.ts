@@ -8,7 +8,7 @@ describe('getPackages', () => {
   it('should return the root package if the project is not a monorepo', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      '.,/test/fixtures',
+      '../test/fixtures',
       'single-package-repo',
     );
 
@@ -28,7 +28,7 @@ describe('getPackages', () => {
   it('should return an array of packages with internal dependencies excluding the root package', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      '.,/test/fixtures',
+      '../test/fixtures',
       'kitchen-sink',
     );
 
@@ -55,7 +55,7 @@ describe('getPackages', () => {
   it('should throw an error if a lockfile does not exist', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      '.,/test/fixtures',
+      '../test/fixtures',
       'missing-lockfile',
     );
 

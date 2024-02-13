@@ -8,7 +8,7 @@ describe('getPackage', () => {
   it('should return undefined if package.json does not exist', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      '.,/test/fixtures',
+      '../test/fixtures',
       'missing-json',
     );
 
@@ -23,7 +23,7 @@ describe('getPackage', () => {
   it('should return undefined if package.json does not contain a name property', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      '.,/test/fixtures',
+      '../test/fixtures',
       'missing-name',
     );
 
@@ -38,7 +38,7 @@ describe('getPackage', () => {
   it('should return a package object with correct properties that includes all dependencies', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      '.,/test/fixtures',
+      '../test/fixtures',
       'kitchen-sink',
     );
 

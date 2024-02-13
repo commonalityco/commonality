@@ -7,7 +7,7 @@ describe('getRootPackageName', () => {
   it('returns undefined when the ', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      '.,/test/fixtures',
+      '../test/fixtures',
       'missing-json-root',
     );
 
@@ -17,7 +17,7 @@ describe('getRootPackageName', () => {
   it('should throw an error if package.json does not contain a name property', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      '.,/test/fixtures',
+      '../test/fixtures',
       'missing-name-root',
     );
 
@@ -27,7 +27,7 @@ describe('getRootPackageName', () => {
   it('should return a package object with correct properties', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      '.,/test/fixtures',
+      '../test/fixtures',
       'kitchen-sink',
     );
 

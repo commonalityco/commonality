@@ -219,10 +219,10 @@ describe('runChecks', () => {
             "
         ❯ pkg-one (1)
         ✓ pass This package should be cool
-        │
+        │      
         ❯ pkg-two (1)
         ✓ pass This package should be cool
-        │
+        │      
 
         Packages: 0 failed 0 warnings 2 passed (2)
           Checks: 0 failed 0 warnings 2 passed (2)",
@@ -348,7 +348,7 @@ describe('runChecks', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │
+        │      
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -403,7 +403,7 @@ describe('runChecks', () => {
             "
         ❯ pkg-one (1)
         ✓ pass This package should be awesome
-        │
+        │      
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
         │      package.json
@@ -412,7 +412,7 @@ describe('runChecks', () => {
         │      a
         │      multiline
         │      string
-        │
+        │      
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -494,7 +494,7 @@ describe('runChecks', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │
+        │      
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -581,7 +581,7 @@ describe('runChecks', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │
+        │      
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -664,7 +664,7 @@ describe('runChecks', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │
+        │      
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",
@@ -728,7 +728,7 @@ describe('runChecks', () => {
         ✓ pkg-one (1)
         ❯ pkg-two (1)
         ⚠ warn This package should be cool
-        │
+        │      
 
         Packages: 0 failed 1 warnings 1 passed (2)
           Checks: 0 failed 1 warnings 1 passed (2)",

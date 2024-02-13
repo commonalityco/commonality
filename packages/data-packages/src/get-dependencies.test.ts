@@ -9,7 +9,7 @@ describe('getDependencies', () => {
   it('should returns an empty array if package.json does not contain a name property', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      '.,/test/fixtures',
+      '../test/fixtures',
       'missing-name',
     );
 
@@ -21,7 +21,7 @@ describe('getDependencies', () => {
   it('should return a package object with correct properties that includes all dependencies', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),
-      '.,/test/fixtures',
+      '../test/fixtures',
       'kitchen-sink',
     );
 
