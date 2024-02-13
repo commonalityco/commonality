@@ -147,6 +147,9 @@ importers:
       pino:
         specifier: ^8.17.1
         version: 8.17.1
+      pino-pretty:
+        specifier: ^10.3.0
+        version: 10.3.0
       prompts:
         specifier: ^2.4.2
         version: 2.4.2
@@ -238,9 +241,6 @@ importers:
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
-      pino-pretty:
-        specifier: ^10.3.0
-        version: 10.3.0
       rimraf:
         specifier: ^5.0.5
         version: 5.0.5
