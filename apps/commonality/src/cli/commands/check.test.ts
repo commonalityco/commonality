@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, test, vi } from 'vitest';
-import { action as check } from './check.js';
+import { runChecks } from './check.js';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 import process from 'node:process';
 import console from 'node:console';
@@ -38,7 +38,7 @@ const getConsoleCalls = () => {
     );
 };
 
-describe('check', () => {
+describe('runChecks', () => {
   beforeEach(() => {
     vi.mocked(process.exit).mockReset();
     vi.mocked(console.log).mockReset();
@@ -46,7 +46,7 @@ describe('check', () => {
 
   describe('when there are no results', () => {
     it('should show an empty state message', async () => {
-      await check({
+      await runChecks({
         verbose: false,
         getResults: async () => [],
         onFix: vi.fn(),
@@ -69,7 +69,7 @@ describe('check', () => {
     });
 
     it('output should match snapshot', async () => {
-      await check({
+      await runChecks({
         verbose: false,
         getResults: async () => {
           throw mockError;
@@ -93,7 +93,7 @@ describe('check', () => {
 
   describe('when there is an error getting results', () => {
     it('should exit the process with status code 1', async () => {
-      await check({
+      await runChecks({
         verbose: false,
         getResults: async () => {
           throw mockError;
@@ -105,7 +105,7 @@ describe('check', () => {
     });
 
     it('output should match snapshot', async () => {
-      await check({
+      await runChecks({
         verbose: false,
         getResults: async () => {
           throw mockError;
@@ -129,7 +129,7 @@ describe('check', () => {
 
   describe('when all checks pass', () => {
     test('when verbose is false it should match the snapshot', async () => {
-      await check({
+      await runChecks({
         verbose: false,
         getResults: async () => {
           return [
@@ -176,7 +176,7 @@ describe('check', () => {
     });
 
     test('when verbose is true it should match the snapshot', async () => {
-      await check({
+      await runChecks({
         verbose: true,
         getResults: async () => {
           return [
@@ -234,7 +234,7 @@ describe('check', () => {
 
   describe('when checks fail', () => {
     it('should not call process.exit when there are only warnings', async () => {
-      await check({
+      await runChecks({
         verbose: false,
         getResults: async () => {
           return [
@@ -271,7 +271,7 @@ describe('check', () => {
     });
 
     it('should exit the process with status code 1 when there are failures', async () => {
-      await check({
+      await runChecks({
         verbose: false,
         getResults: async () => {
           return [
@@ -308,7 +308,7 @@ describe('check', () => {
     });
 
     test('when verbose is false it should match the snapshot', async () => {
-      await check({
+      await runChecks({
         verbose: false,
         getResults: async () => {
           return [
@@ -358,7 +358,7 @@ describe('check', () => {
     });
 
     test('when verbose is true it should match the snapshot', async () => {
-      await check({
+      await runChecks({
         verbose: true,
         getResults: async () => {
           return [
@@ -424,7 +424,7 @@ describe('check', () => {
     test('when there are fixes and the user does not choose to run them', async () => {
       prompts.inject([false]);
 
-      await check({
+      await runChecks({
         verbose: false,
         getResults: vi
           .fn()
@@ -511,7 +511,7 @@ describe('check', () => {
         };
       });
 
-      await check({
+      await runChecks({
         verbose: false,
         getResults: vi
           .fn()
@@ -594,7 +594,7 @@ describe('check', () => {
     test('when there are fixes and the user chooses to run them and it is successful', async () => {
       prompts.inject([true]);
 
-      await check({
+      await runChecks({
         verbose: false,
         getResults: vi
           .fn()
@@ -688,7 +688,7 @@ describe('check', () => {
     test('when user chooses to run fixes and it throws it should match the snapshot', async () => {
       prompts.inject([true]);
 
-      await check({
+      await runChecks({
         verbose: false,
         getResults: vi.fn().mockResolvedValueOnce([
           {
@@ -749,7 +749,7 @@ describe('check', () => {
     test('when user chooses to run fixes and it throws it should exit with status code 1', async () => {
       prompts.inject([true]);
 
-      await check({
+      await runChecks({
         verbose: false,
         getResults: vi.fn().mockResolvedValueOnce([
           {

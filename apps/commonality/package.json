@@ -88,7 +88,6 @@
     "@commonalityco/data-packages": "workspace:*",
     "@commonalityco/data-project": "workspace:*",
     "@commonalityco/data-tags": "workspace:*",
-    "@commonalityco/telemetry": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@commonalityco/utils-conformance": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { validateTelemetry } from './validate-telemetry';
 import Conf from 'conf';
 import prompts from 'prompts';
-import * as telemetry from '@commonalityco/telemetry';
+import * as telemetry from './initialize-telemetry';
 
 vi.mock('conf', () => {
   const Conf = vi.fn();
@@ -12,16 +12,9 @@ vi.mock('conf', () => {
   return { default: Conf };
 });
 
-vi.mock('@commonalityco/telemetry', async () => {
-  const actual: Record<string, unknown> = await vi.importActual(
-    '@commonalityco/telemetry',
-  );
-
-  return {
-    ...actual,
-    initializeTelemetry: vi.fn(),
-  };
-});
+vi.mock('./initialize-telemetry.ts', () => ({
+  initializeTelemetry: vi.fn(),
+}));
 
 describe('validateTelemetry', () => {
   beforeEach(() => {

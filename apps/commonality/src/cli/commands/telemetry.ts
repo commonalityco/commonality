@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { telemetryStatus } from '@commonalityco/telemetry';
+import { telemetryStatus } from '../utils/telemetry-status';
 import { validateTelemetry } from '../utils/validate-telemetry';
 
 const command = new Command();
