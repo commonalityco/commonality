@@ -38,6 +38,7 @@
   "dependencies": {
     "@sindresorhus/slugify": "^2.2.1",
     "pino": "^8.17.1",
+    "pino-pretty": "^10.3.0",
     "zod": "^3.22.4"
   },
   "repository": {
