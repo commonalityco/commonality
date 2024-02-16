@@ -9,7 +9,11 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
-    "./create-worker": "./dist/create-worker.js"
+    "./create-worker": "./dist/create-worker.js",
+    "./graph": "./dist/graph.js",
+    "./graph-provider": "./dist/graph-provider.js",
+    "./package/get-edges": "./dist/package/get-edges.js",
+    "./package/get-nodes": "./dist/package/get-nodes.js"
   },
   "license": "MIT",
   "scripts": {
@@ -23,6 +27,8 @@
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
+    "@commonalityco/ui-core": "workspace:*",
+    "@commonalityco/ui-design-system": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-package": "workspace:*",
     "@floating-ui/react": "^0.26.3",
@@ -30,6 +36,7 @@
     "@types/cytoscape": "^3.19.16",
     "@types/cytoscape-dagre": "^2.3.3",
     "@types/cytoscape-popper": "^2.0.4",
+    "@types/dagre": "^0.7.52",
     "@types/lodash-es": "^4.14.198",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.18",
@@ -38,21 +45,26 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.6"
+    "vitest": "^0.34.6",
+    "reactflow": "^11.10.3"
   },
   "peerDependencies": {
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-package": "*",
     "react": ">=18",
-    "react-dom": ">=18"
+    "react-dom": ">=18",
+    "reactflow": "^11.10.3"
   },
   "dependencies": {
     "@xstate/react": "^3.2.2",
     "crypto-js": "^4.2.0",
     "cytoscape-dagre": "^2.5.0",
     "cytoscape-popper": "^2.0.0",
+    "d3-force": "^3.0.0",
+    "dagre": "^0.8.5",
     "localforage": "^1.10.0",
     "lodash-es": "^4.17.21",
+    "lucide-react": "^0.317.0",
     "xstate": "^4.38.2"
   },
   "repository": {

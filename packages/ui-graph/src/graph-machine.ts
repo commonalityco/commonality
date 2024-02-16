@@ -22,10 +22,10 @@ import {
   isolate,
   showDependants,
   showDependencies,
-  createRenderGraph,
-  createTraversalGraph,
-  updateGraphElements,
-} from '@commonalityco/ui-graph';
+} from './actions';
+import { createRenderGraph } from './create-render-graph';
+import { createTraversalGraph } from './create-traversal-graph';
+import { updateGraphElements } from './update-graph-elements';
 
 type Filter =
   | Selector

@@ -19,3 +19,7 @@ export {
 export * from './create-worker';
 export * from './graph-machine';
 export { GraphContext, GraphProvider } from './graph-provider';
+export * from './graph';
+export * from './package/get-edges';
+export * from './package/get-nodes';
+export * from './package/package-toolbar';

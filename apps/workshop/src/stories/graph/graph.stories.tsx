@@ -1,41 +1,28 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { FeatureGraphChart } from '@commonalityco/ui-constraints';
-import { GraphProvider } from '@commonalityco/ui-graph';
+import { Graph } from '@commonalityco/ui-graph';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
-import { ConstraintResult, Dependency, Package } from '@commonalityco/types';
-import { GraphLayoutMain } from '@commonalityco/ui-constraints';
-import GraphWorker from './feature-graph-worker.ts?worker';
-// const newWorker = new Worker(
-//   new URL('./feature-graph-worker.ts', import.meta.url),
-// );
-
-const newWorker = new GraphWorker();
+import { Dependency, Package } from '@commonalityco/types';
+// import GraphWorker from './feature-graph-worker.ts?worker';
+import { getEdges } from '@commonalityco/ui-graph/package/get-edges';
+import { getNodes } from '@commonalityco/ui-graph/package/get-nodes';
+// const newWorker = new GraphWorker();
 
 const meta = {
-  title: 'Constraints/FeatureGraphChart',
-  component: FeatureGraphChart,
+  title: 'Graph/Graph',
+  component: Graph,
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
   },
-  args: {
-    theme: 'light',
-    worker: newWorker,
-  },
+  args: {},
   decorators: [
-    (Story, props) => {
-      return (
-        <div style={{ height: '600px', width: '100%' }}>
-          <GraphProvider>
-            <GraphLayoutMain>
-              <Story {...props} />
-            </GraphLayoutMain>
-          </GraphProvider>
-        </div>
-      );
-    },
+    (Story: StoryObj) => (
+      <div style={{ height: '100vh' }}>
+        <Story />
+      </div>
+    ),
   ],
-} satisfies Meta<typeof FeatureGraphChart>;
+} satisfies Meta<typeof Graph>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -102,6 +89,12 @@ const dependencies = [
     target: '@scope/pkg-c',
   },
   {
+    type: DependencyType.DEVELOPMENT,
+    version: '1.0.0',
+    source: '@scope/pkg-d',
+    target: '@scope/pkg-',
+  },
+  {
     type: DependencyType.PEER,
     version: '1.0.0',
     source: '@scope/pkg-a',
@@ -117,51 +110,14 @@ const dependencies = [
 
 export const Default: Story = {
   args: {
-    packages,
-    dependencies,
-    results: [],
-    constraints: {},
-  },
-};
-
-const results = [
-  {
-    constraint: {
-      allow: ['bar'],
-    },
-    dependencyPath: [
-      {
-        source: '@scope/pkg-a',
-        target: '@scope/pkg-b',
-        type: DependencyType.PRODUCTION,
-        version: '1.0.0',
-      },
-    ],
-    filter: 'foo',
-    isValid: true,
-    foundTags: ['foo', 'bar'],
-  },
-] satisfies ConstraintResult[];
-
-export const ConstraintsAndViolations: Story = {
-  args: {
-    packages,
-    dependencies,
-    constraints: {
-      foo: {
-        allow: ['bar'],
-        disallow: ['baz'],
-      },
-    },
-    results,
-  },
-};
-
-export const Zero: Story = {
-  args: {
-    packages: [],
-    dependencies: [],
-    constraints: {},
-    results: [],
+    nodes: getNodes({
+      packages,
+      dependencies,
+      tagsData: [{ packageName: '@scope/pkg-a', tags: ['tag-a', 'tag-b'] }],
+      codeownersData: [
+        { packageName: '@scope/pkg-a', codeowners: ['@team-a', '@team-b'] },
+      ],
+    }),
+    edges: getEdges(dependencies),
   },
 };

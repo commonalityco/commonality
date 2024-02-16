@@ -14,6 +14,7 @@ async function ChartPage() {
 
   return (
     <StudioChart
+      tagsData={[]}
       dependencies={dependencies}
       results={results}
       packages={packages}

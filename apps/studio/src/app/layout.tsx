@@ -1,3 +1,4 @@
+import 'reactflow/dist/style.css';
 import './globals.css';
 import { clsx } from 'clsx';
 import { firaCode, inter } from '@/constants/fonts';

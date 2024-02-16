@@ -3,7 +3,7 @@ import {
   GraphLayoutMain,
   GraphLayoutRoot,
 } from '@commonalityco/ui-constraints';
-import { GraphProvider } from '@commonalityco/ui-graph';
+import { GraphProvider } from '@commonalityco/ui-graph/graph-provider';
 import StudioGraphHeader from './studio-graph-header';
 
 export default async function RootLayout({

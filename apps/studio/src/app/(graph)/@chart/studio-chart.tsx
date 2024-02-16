@@ -31,7 +31,7 @@ function StudioChart(
     <FeatureGraphChart
       {...props}
       worker={worker}
-      theme={resolvedTheme}
+      theme={resolvedTheme as 'light' | 'dark'}
       onPackageClick={(packageName) =>
         setQuery('package', slugifyPackageName(packageName))
       }

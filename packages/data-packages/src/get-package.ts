@@ -61,7 +61,10 @@ export const getPackage = async ({
     name: packageJson.name,
     description: packageJson.description,
     path: directory,
-    type: getType(packageJson.dependencies),
+    type: getType({
+      ...packageJson.dependencies,
+      ...packageJson.devDependencies,
+    }),
     version: packageJson.version ?? '',
   } satisfies Package;
 };

@@ -1,6 +1,7 @@
 'use client';
 import { createActorContext } from '@xstate/react';
 import { graphMachine } from './graph-machine';
+import { ReactFlowProvider } from 'reactflow';
 
 export const GraphContext: ReturnType<
   typeof createActorContext<typeof graphMachine>
@@ -16,7 +17,7 @@ export const GraphProvider = ({ children }: { children?: React.ReactNode }) => {
         actions: {},
       }}
     >
-      {children}
+      <ReactFlowProvider>{children}</ReactFlowProvider>
     </GraphContext.Provider>
   );
 };
