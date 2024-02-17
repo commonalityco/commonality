@@ -1,8 +1,13 @@
 'use client';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+  ComponentProps,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import ReactFlow, {
   ConnectionLineType,
-  Panel,
   useNodesState,
   useEdgesState,
   Node,
@@ -24,6 +29,7 @@ import { DependencyEdgeData } from './package/get-edges';
 import { PackageNodeData } from './package/get-nodes';
 import { ArrowDownFromLine, ArrowRightFromLine } from 'lucide-react';
 import { Separator } from '@commonalityco/ui-design-system';
+import useAutoLayout from './use-auto-layout';
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -82,11 +88,14 @@ const getLayoutedElements = ({
   return { nodes, edges };
 };
 
-export const Graph = (props: {
-  nodes: Node[];
-  edges: Edge[];
-  theme: 'light' | 'dark';
-}) => {
+export const Graph = (
+  props: {
+    nodes: Node[];
+    edges: Edge[];
+    theme: 'light' | 'dark';
+    children?: React.ReactNode;
+  } & Pick<ComponentProps<typeof ReactFlow>, 'onSelectionChange'>,
+) => {
   const [direction, setDirection] = useState<'TB' | 'LR'>('TB');
 
   const { nodes: layoutedNodes, edges: layoutedEdges } = useMemo(
@@ -102,9 +111,15 @@ export const Graph = (props: {
   const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
 
+  // useAutoLayout({ direction, spacing: [50, 200] });
+
+  useEffect(() => {
+    setNodes(() => layoutedNodes);
+  }, [props.nodes, setNodes]);
+
   const onNodeMouseLeave = useCallback(
     (event: React.MouseEvent, node: Node) => {
-      const connectedEdges = getConnectedEdges([node], edges);
+      // const connectedEdges = getConnectedEdges([node], edges);
 
       setNodes((currentNodes: Node<PackageNodeData>[]) =>
         currentNodes.map((currentNode) => ({
@@ -117,25 +132,18 @@ export const Graph = (props: {
       );
 
       setEdges((currentEdges: Edge<DependencyEdgeData>[]) =>
-        currentEdges.map((currentEdge) =>
-          connectedEdges.some((edge) => edge.id === currentEdge.id)
-            ? {
-                ...currentEdge,
-                data: {
-                  ...currentEdge.data,
-                  active: false,
-                  muted: false,
-                },
-              }
-            : {
-                ...currentEdge,
-                data: {
-                  ...currentEdge.data,
-                  active: false,
-                  muted: false,
-                },
-              },
-        ),
+        currentEdges.map((currentEdge) => {
+          if (!currentEdge.data) return currentEdge;
+
+          return {
+            ...currentEdge,
+            data: {
+              ...currentEdge.data,
+              active: false,
+              muted: false,
+            },
+          };
+        }),
       );
     },
     [edges, setNodes, setEdges],
@@ -149,39 +157,34 @@ export const Graph = (props: {
       const neighbors = [node, ...outgoers, ...incomers];
 
       setNodes((currentNodes: Node<PackageNodeData>[]) =>
-        currentNodes.map((currentNode) =>
-          neighbors.some((neighbor) => neighbor.id === currentNode.id)
-            ? currentNode
-            : {
-                ...currentNode,
-                data: {
-                  ...currentNode.data,
-                  muted: true,
-                },
-              },
-        ),
+        currentNodes.map((currentNode) => ({
+          ...currentNode,
+          data: {
+            ...currentNode.data,
+            muted: !neighbors.some(
+              (neighbor) => neighbor.id === currentNode.id,
+            ),
+          },
+        })),
       );
 
       setEdges((currentEdges: Edge<DependencyEdgeData>[]) =>
-        currentEdges.map((currentEdge) =>
-          connectedEdges.some((edge) => edge.id === currentEdge.id)
-            ? {
-                ...currentEdge,
-                data: {
-                  ...currentEdge.data,
-                  active: true,
-                  muted: false,
-                },
-              }
-            : {
-                ...currentEdge,
-                data: {
-                  ...currentEdge.data,
-                  active: false,
-                  muted: true,
-                },
-              },
-        ),
+        currentEdges.map((currentEdge) => {
+          if (!currentEdge.data) return currentEdge;
+
+          const isActive = connectedEdges.some(
+            (edge) => edge.id === currentEdge.id,
+          );
+
+          return {
+            ...currentEdge,
+            data: {
+              ...currentEdge.data,
+              active: isActive,
+              muted: !isActive,
+            },
+          };
+        }),
       );
     },
     [edges, nodes],
@@ -190,18 +193,21 @@ export const Graph = (props: {
   const onEdgeMouseLeave = useCallback(
     (event: React.MouseEvent, edge: Edge<DependencyEdgeData>) => {
       setEdges((currentEdges) =>
-        currentEdges.map((currentEdge: Edge<DependencyEdgeData>) =>
-          currentEdge.id === edge.id
-            ? {
-                ...currentEdge,
-                style: { strokeWidth: 1 },
-                data: {
-                  ...currentEdge.data,
-                  active: false,
-                },
-              }
-            : currentEdge,
-        ),
+        currentEdges.map((currentEdge: Edge<DependencyEdgeData>) => {
+          if (!currentEdge.data) {
+            return currentEdge;
+          } else if (currentEdge.id === edge.id) {
+            return {
+              ...currentEdge,
+              data: {
+                ...currentEdge.data,
+                active: false,
+              },
+            };
+          } else {
+            return currentEdge;
+          }
+        }),
       );
     },
     [],
@@ -210,18 +216,19 @@ export const Graph = (props: {
   const onEdgeMouseEnter = useCallback(
     (event: React.MouseEvent, edge: Edge<DependencyEdgeData>) => {
       setEdges((currentEdges) =>
-        currentEdges.map((currentEdge: Edge<DependencyEdgeData>) =>
-          currentEdge.id === edge.id
+        currentEdges.map((currentEdge: Edge<DependencyEdgeData>) => {
+          if (!currentEdge.data) return currentEdge;
+
+          return currentEdge.id === edge.id
             ? {
                 ...currentEdge,
-                style: { strokeWidth: 4 },
                 data: {
                   ...currentEdge.data,
                   active: true,
                 },
               }
-            : currentEdge,
-        ),
+            : currentEdge;
+        }),
       );
     },
     [],
@@ -251,12 +258,14 @@ export const Graph = (props: {
       onNodeMouseLeave={onNodeMouseLeave}
       onEdgeMouseEnter={onEdgeMouseEnter}
       onEdgeMouseLeave={onEdgeMouseLeave}
+      onSelectionChange={props.onSelectionChange}
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
       connectionLineType={ConnectionLineType.SmoothStep}
       fitView
       className="bg-interactive"
     >
+      {props.children}
       <Controls showInteractive={false}>
         <Separator orientation="vertical" className="h-6 my-1" />
         <ControlButton onClick={() => onLayout('TB')}>

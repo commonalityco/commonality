@@ -5,6 +5,7 @@ import {
 } from '@commonalityco/ui-constraints';
 import { GraphProvider } from '@commonalityco/ui-graph/graph-provider';
 import StudioGraphHeader from './studio-graph-header';
+import { Provider as JotaiProvider } from 'jotai';
 
 export default async function RootLayout({
   children,
@@ -18,12 +19,14 @@ export default async function RootLayout({
   return (
     <div className="h-full flex flex-col">
       <GraphProvider>
-        <StudioGraphHeader />
-        <GraphLayoutRoot>
-          <GraphLayoutAside>{sidebar}</GraphLayoutAside>
-          <GraphLayoutMain>{chart}</GraphLayoutMain>
-        </GraphLayoutRoot>
-        {children}
+        <JotaiProvider>
+          <StudioGraphHeader />
+          <GraphLayoutRoot>
+            <GraphLayoutAside>{sidebar}</GraphLayoutAside>
+            <GraphLayoutMain>{chart}</GraphLayoutMain>
+          </GraphLayoutRoot>
+          {children}
+        </JotaiProvider>
       </GraphProvider>
     </div>
   );

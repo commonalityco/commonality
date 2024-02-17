@@ -20,7 +20,7 @@
   }
 
   .react-flow__minimap-mask {
-    @apply fill-muted/65;
+    @apply fill-background/70;
   }
 
   .react-flow__minimap-node {

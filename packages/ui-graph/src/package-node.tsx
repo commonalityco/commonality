@@ -38,8 +38,10 @@ export function PackageNode({
           <div className="flex flex-nowrap items-center justify-between">
             <div className="flex flex-nowrap items-center gap-1">
               {data.tags.length > 0 ? (
-                data.tags.map((tag) => (
-                  <Badge variant="outline">{formatTagName(tag)}</Badge>
+                data.tags.map((tag, index) => (
+                  <Badge variant="outline" key={index}>
+                    {formatTagName(tag)}
+                  </Badge>
                 ))
               ) : (
                 <p className="text-xs text-muted-foreground leading-none">

@@ -12,6 +12,8 @@
     "./create-worker": "./dist/create-worker.js",
     "./graph": "./dist/graph.js",
     "./graph-provider": "./dist/graph-provider.js",
+    "./package/package-toolbar": "./dist/package/package-toolbar.js",
+    "./package/zero-state": "./dist/package/zero-state.js",
     "./package/get-edges": "./dist/package/get-edges.js",
     "./package/get-nodes": "./dist/package/get-nodes.js"
   },
@@ -44,9 +46,9 @@
     "eslint-config-commonality": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "reactflow": "^11.10.3",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.6",
-    "reactflow": "^11.10.3"
+    "vitest": "^0.34.6"
   },
   "peerDependencies": {
     "@commonalityco/utils-core": "workspace:*",
@@ -56,6 +58,7 @@
     "reactflow": "^11.10.3"
   },
   "dependencies": {
+    "@dagrejs/dagre": "^1.0.4",
     "@xstate/react": "^3.2.2",
     "crypto-js": "^4.2.0",
     "cytoscape-dagre": "^2.5.0",

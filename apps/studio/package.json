@@ -34,6 +34,7 @@
     "@sentry/utils": "^7.100.1",
     "chokidar": "^3.5.3",
     "execa": "^8.0.1",
+    "jotai": "^2.6.4",
     "next": "14.0.4",
     "reactflow": "^11.10.3",
     "socket.io": "^4.7.2",

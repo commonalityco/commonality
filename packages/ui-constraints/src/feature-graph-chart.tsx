@@ -20,6 +20,7 @@ interface GraphProperties {
   theme?: 'light' | 'dark';
   onPackageClick: (packageName: string) => void;
   worker: Worker;
+  children?: React.ReactNode;
 }
 
 export function FeatureGraphChart({
@@ -29,6 +30,7 @@ export function FeatureGraphChart({
   tagsData,
   theme,
   worker,
+  children,
 }: GraphProperties) {
   // const containerReference = useRef<HTMLDivElement>(null);
 
@@ -118,7 +120,9 @@ export function FeatureGraphChart({
 
   return (
     <>
-      <Graph nodes={nodes} edges={edges} theme={theme ?? 'light'} />
+      <Graph nodes={nodes} edges={edges} theme={theme ?? 'light'}>
+        {children}
+      </Graph>
       {/* <FeatureGraphToolbar />
       <GraphChart
         ref={containerReference}
