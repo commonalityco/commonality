@@ -32,7 +32,7 @@
     "@types/cytoscape-popper": "^2.0.4",
     "@types/lodash-es": "^4.14.198",
     "@types/react": "^18.2.22",
-    "@types/react-dom": "^18.2.18",
+    "@types/react-dom": "^18.2.19",
     "cytoscape": "^3.26.0",
     "eslint-config-commonality": "workspace:*",
     "react": "^18.2.0",
