@@ -29,19 +29,19 @@
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/types": "workspace:*",
-    "@types/fs-extra": "^11.0.2",
+    "@types/fs-extra": "^11.0.4",
     "@types/mock-fs": "^4.13.4",
-    "@types/node": "^20.10.0",
+    "@types/node": "^20.11.19",
     "eslint-config-commonality": "workspace:*",
     "mock-fs": "^5.2.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "@commonalityco/utils-core": "workspace:*",
     "find-up": "^6.3.0",
-    "fs-extra": "^11.1.1",
+    "fs-extra": "^11.2.0",
     "globby": "^13.2.2",
-    "yaml": "^2.3.2",
+    "yaml": "^2.3.4",
     "zod": "^3.22.4"
   },
   "repository": {

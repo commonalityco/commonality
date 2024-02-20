@@ -1,4 +1,3 @@
-'use server';
 import { getCodeownersData } from '@/data/codeowners';
 import { getPackagesData } from '@/data/packages';
 import { getTagsData } from '@/data/tags';
@@ -13,6 +12,8 @@ import { getConformanceResultsData } from '@/data/conformance';
 import omit from 'lodash-es/omit';
 import stripAnsi from 'strip-ansi';
 import { ConformanceHeader } from '@commonalityco/ui-conformance';
+
+export const dynamic = 'force-dynamic';
 
 async function PackagesPage({ searchParams = {} }: { searchParams: unknown }) {
   const [packages, tagsData, codeownersData, results] = await Promise.all([

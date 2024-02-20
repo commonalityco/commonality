@@ -1,4 +1,4 @@
-import 'reactflow/dist/style.css';
+import '@xyflow/react/dist/style.css';
 import './globals.css';
 import { clsx } from 'clsx';
 import { firaCode, inter } from '@/constants/fonts';
@@ -6,8 +6,6 @@ import { Providers } from '@/app/providers';
 import { cookies } from 'next/headers';
 import StudioNavigation from './studio-navigation';
 import { getProjectData } from '@/data/project';
-
-export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'Commonality Studio',

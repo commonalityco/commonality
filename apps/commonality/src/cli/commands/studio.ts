@@ -84,8 +84,8 @@ export const studio = command
           process.on('SIGINT', handleExit);
           process.on('SIGTERM', handleExit);
 
-          const localUrl = `http://localhost:${port}`;
-          const networkUrl = `http://${ip.address()}:${port}`;
+          const localUrl = `http://localhost:${port}/graph`;
+          const networkUrl = `http://${ip.address()}:${port}/graph`;
 
           await waitOn({ resources: [localUrl], timeout: 10_000 });
 

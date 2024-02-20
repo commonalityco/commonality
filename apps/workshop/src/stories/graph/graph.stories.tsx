@@ -2,7 +2,6 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Graph } from '@commonalityco/ui-graph';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
 import { Dependency, Package } from '@commonalityco/types';
-// import GraphWorker from './feature-graph-worker.ts?worker';
 import { getEdges } from '@commonalityco/ui-graph/package/get-edges';
 import { getNodes } from '@commonalityco/ui-graph/package/get-nodes';
 // const newWorker = new GraphWorker();
@@ -114,10 +113,7 @@ export const Default: Story = {
       packages,
       dependencies,
       tagsData: [{ packageName: '@scope/pkg-a', tags: ['tag-a', 'tag-b'] }],
-      codeownersData: [
-        { packageName: '@scope/pkg-a', codeowners: ['@team-a', '@team-b'] },
-      ],
     }),
-    edges: getEdges(dependencies),
+    edges: getEdges({ dependencies, theme: 'light' }),
   },
 };

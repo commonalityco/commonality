@@ -1,12 +1,15 @@
-import { Handle, Position, type NodeProps } from 'reactflow';
+import { Handle, type NodeProps } from '@xyflow/react';
 import { PackageNodeData } from './package/get-nodes';
 import { getIconForPackage } from '@commonalityco/ui-core';
 import { formatTagName } from '@commonalityco/utils-core';
 import { Badge, cn } from '@commonalityco/ui-design-system';
+import { Position } from '@xyflow/system';
 
 export function PackageNode({
   isConnectable,
   data,
+  width,
+  height,
   ...rest
 }: NodeProps<PackageNodeData>) {
   const Icon = getIconForPackage(data.package.type);
@@ -14,9 +17,10 @@ export function PackageNode({
   return (
     <div>
       <div
+        style={{ width, height }}
         className={cn(
-          'border border-border shadow rounded-md py-4 px-4 bg-background w-[300px] h-[90px] block overflow-hidden hover:border-muted-foreground/40 active:border-muted-foreground/80 transition',
-          { 'opacity-10': data.muted },
+          'border border-border shadow rounded-md py-4 px-4 bg-background block overflow-hidden hover:border-muted-foreground/40 active:border-muted-foreground/80 transition duration-100',
+          { 'opacity-10': data.muted, 'opacity-100': !data.muted },
         )}
       >
         {data.input ? (
@@ -28,9 +32,9 @@ export function PackageNode({
         ) : undefined}
         <div className="grid gap-4">
           <div className="flex flex-nowrap items-center justify-between">
-            <div className="flex flex-nowrap items-center gap-2">
-              <Icon className="h-6 w-6" />
-              <p className="text-primary font-semibold text-sm leading-none">
+            <div className="flex flex-nowrap items-center gap-4">
+              <Icon className="h-8 w-8" />
+              <p className="text-primary font-semibold leading-none truncated min-w-0">
                 {data.package.name}
               </p>
             </div>
@@ -39,7 +43,7 @@ export function PackageNode({
             <div className="flex flex-nowrap items-center gap-1">
               {data.tags.length > 0 ? (
                 data.tags.map((tag, index) => (
-                  <Badge variant="outline" key={index}>
+                  <Badge variant="secondary" key={index}>
                     {formatTagName(tag)}
                   </Badge>
                 ))

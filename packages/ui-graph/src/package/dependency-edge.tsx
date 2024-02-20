@@ -4,7 +4,7 @@ import {
   EdgeLabelRenderer,
   EdgeProps,
   getBezierPath,
-} from 'reactflow';
+} from '@xyflow/react';
 import { DependencyEdgeData } from './get-edges';
 import { cn } from '@commonalityco/ui-design-system';
 
@@ -12,12 +12,6 @@ const TEXT_BY_TYPE = {
   [DependencyType.DEVELOPMENT]: 'dev',
   [DependencyType.PEER]: 'peer',
   [DependencyType.PRODUCTION]: 'prod',
-};
-
-const DEPENDENCY_COLOR_BY_TYPE = {
-  [DependencyType.DEVELOPMENT]: '#0284c7',
-  [DependencyType.PEER]: '#7c3aed',
-  [DependencyType.PRODUCTION]: '#059669',
 };
 
 export function DependencyEdge({
@@ -29,7 +23,7 @@ export function DependencyEdge({
   data,
   targetPosition,
   sourcePosition,
-  style,
+  selected,
 }: EdgeProps<DependencyEdgeData>) {
   const [edgePath, labelX, labelY] = getBezierPath({
     targetPosition,
@@ -40,50 +34,32 @@ export function DependencyEdge({
     targetY,
   });
 
-  const getStyle = () => {
-    const defaultStroke = data?.theme === 'light' ? '#d4d4d8' : '#27272a';
-
-    if (data?.muted) {
-      return {
-        ...style,
-        opacity: 0.1,
-        stroke: defaultStroke,
-      };
-    }
-
-    if (data?.active && data.dependency.type) {
-      return {
-        ...style,
-        stroke: DEPENDENCY_COLOR_BY_TYPE[data.dependency.type],
-        transitionProperty: 'stroke',
-        transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-        transitionDuration: '150ms',
-        strokeWidth: 4,
-        opacity: 1,
-      };
-    }
-
-    return {
-      ...style,
-      stroke: defaultStroke,
-      transitionProperty: 'stroke',
-      transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-      transitionDuration: '150ms',
-      strokeWidth: 1,
-      opacity: 1,
-    };
-  };
+  const highlighted = data?.active || selected;
 
   return (
     <>
-      <BaseEdge id={id} path={edgePath} style={getStyle()} />
+      <BaseEdge
+        id={id}
+        path={edgePath}
+        className={cn('transition stroke-1 duration-100', {
+          'stroke-zinc-300 dark:stroke-zinc-800': !highlighted,
+          'opacity-40': data?.muted,
+          'stroke-[3px] opacity-100': highlighted,
+          '!stroke-sky-600':
+            highlighted && data?.dependency.type === DependencyType.DEVELOPMENT,
+          '!stroke-purple-600':
+            highlighted && data?.dependency.type === DependencyType.PEER,
+          '!stroke-emerald-600':
+            highlighted && data?.dependency.type === DependencyType.PRODUCTION,
+        })}
+      />
       <EdgeLabelRenderer>
         <span
           className={cn(
-            'py-1 px-2 font-mono bg-interactive font-semibold transition rounded-md text-xl',
+            'py-1 px-2 font-mono bg-interactive font-semibold transition rounded-md duration-100',
             {
-              'opacity-0': !data?.active,
-              'opacity-100': data?.active,
+              'opacity-0': !highlighted,
+              'opacity-100': highlighted,
             },
           )}
           style={{

@@ -1,0 +1,188 @@
+import {
+  GraphLayoutAside,
+  GraphLayoutMain,
+  GraphLayoutRoot,
+} from '@commonalityco/ui-constraints';
+import React, { Suspense } from 'react';
+
+import StudioSidebar from './studio-sidebar';
+import { getTagsData } from '@/data/tags';
+import { getPackagesData } from '@/data/packages';
+import { getDependenciesData } from '@/data/dependencies';
+import { cookies } from 'next/headers';
+import {
+  GraphEmpty,
+  GraphLoading,
+  getEdges,
+  getNodes,
+} from '@commonalityco/ui-graph';
+import { getElementString } from '@/actions/graph-actions';
+import type { Edge, Node } from '@xyflow/react';
+import { getConnectedEdges } from '@xyflow/system';
+import SuperJSON from 'superjson';
+import * as z from 'zod';
+import { decompressFromEncodedURIComponent } from 'lz-string';
+import { Dependency, Package, TagsData } from '@commonalityco/types';
+import { StudioGraphEmpty } from './studio-graph-empty';
+import { getCodeownersData } from '@/data/codeowners';
+import lazyLoad from 'next/dynamic';
+
+export const dynamic = 'force-dynamic';
+
+const StudioChart = lazyLoad(() => import('./studio-chart'), {
+  ssr: false,
+  loading: () => <GraphLoading />,
+});
+
+async function Sidebar() {
+  const [tagsData, packages, dependencies, codeownersData] = await Promise.all([
+    getTagsData(),
+    getPackagesData(),
+    getDependenciesData(),
+    getCodeownersData(),
+  ]);
+
+  const cookieStore = cookies();
+  const defaultLayoutCookie = cookieStore.get('commonality:sidebar-layout');
+
+  const getDefaultLayout = () => {
+    try {
+      if (defaultLayoutCookie) {
+        const parsedLayout = JSON.parse(defaultLayoutCookie.value);
+        const layoutSchema = z.union([
+          z.tuple([z.number(), z.number(), z.number()]),
+          z.undefined(),
+        ]);
+        return layoutSchema.parse(parsedLayout);
+      }
+    } catch (err) {
+      return undefined;
+    }
+  };
+
+  const defaultLayout = getDefaultLayout();
+
+  return (
+    <StudioSidebar
+      tagsData={tagsData}
+      codeownersData={codeownersData}
+      dependencies={dependencies}
+      packages={packages}
+      defaultLayout={defaultLayout}
+    />
+  );
+}
+
+async function Graph({
+  packages,
+  dependencies,
+  tagsData,
+  filteredPackageNames,
+}: {
+  packages: Package[];
+  dependencies: Dependency[];
+  tagsData: TagsData[];
+  filteredPackageNames?: string[];
+}) {
+  const cookieStore = cookies();
+  const defaultTheme = cookieStore.get('commonality:theme')?.value;
+
+  const nodes = getNodes({
+    packages,
+    dependencies,
+    tagsData,
+  });
+
+  const edges = getEdges({
+    dependencies,
+    theme: 'light',
+  });
+
+  const getShownElements = async () => {
+    const filteredNodes =
+      filteredPackageNames !== undefined
+        ? nodes.filter(
+            (node) =>
+              filteredPackageNames?.some((pkgName) => pkgName === node.id),
+          )
+        : nodes;
+
+    const connectedEdges = getConnectedEdges(filteredNodes, edges);
+
+    const elementString = await getElementString({
+      nodes: filteredNodes,
+      edges: connectedEdges,
+    });
+
+    return SuperJSON.parse<{ nodes: Node[]; edges: Edge[] }>(elementString);
+  };
+
+  const shownElements = await getShownElements();
+
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  // console.log('initial nodes:', initialElements.nodes);
+  console.log('SERVER RENDERING GRAPH');
+  console.log('all nodes:', shownElements.nodes.length);
+
+  if (shownElements.nodes.length === 0)
+    return <StudioGraphEmpty nodes={nodes} edges={edges} />;
+
+  return (
+    <StudioChart
+      tagsData={tagsData}
+      shownNodes={shownElements.nodes}
+      shownEdges={shownElements.edges}
+      allNodes={nodes}
+      allEdges={edges}
+      theme={(defaultTheme as 'light' | 'dark') ?? 'light'}
+      packages={packages}
+    />
+  );
+}
+
+async function GraphPage({
+  searchParams,
+}: {
+  searchParams?: { packages?: string };
+}) {
+  const [tagsData, packages, dependencies] = await Promise.all([
+    getTagsData(),
+    getPackagesData(),
+    getDependenciesData(),
+  ]);
+
+  const getDecodedPackages = (): string[] | undefined => {
+    if (!searchParams?.packages) return;
+
+    try {
+      return JSON.parse(
+        decompressFromEncodedURIComponent(searchParams?.packages),
+      );
+    } catch (err) {
+      return;
+    }
+  };
+
+  return (
+    <GraphLayoutRoot>
+      <GraphLayoutAside>
+        <Suspense>
+          <Sidebar />
+        </Suspense>
+      </GraphLayoutAside>
+      <GraphLayoutMain>
+        <Suspense fallback={<GraphLoading />} key={searchParams?.packages}>
+          <Graph
+            packages={packages}
+            dependencies={dependencies}
+            tagsData={tagsData}
+            filteredPackageNames={getDecodedPackages()}
+          />
+        </Suspense>
+      </GraphLayoutMain>
+    </GraphLayoutRoot>
+  );
+}
+
+export default GraphPage;

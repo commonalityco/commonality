@@ -1,10 +1,5 @@
-import {
-  CodeownersData,
-  Dependency,
-  Package,
-  TagsData,
-} from '@commonalityco/types';
-import { Node } from 'reactflow';
+import { Dependency, Package, TagsData } from '@commonalityco/types';
+import { Node } from '@xyflow/react';
 
 const position = { x: 0, y: 0 };
 
@@ -14,7 +9,6 @@ export type PackageNodeData = {
   output?: Dependency;
   input?: Dependency;
   tags: string[];
-  codeowners: string[];
   muted: boolean;
 };
 
@@ -22,12 +16,10 @@ export const getNodes = ({
   packages,
   dependencies,
   tagsData,
-  codeownersData,
 }: {
   packages: Package[];
   dependencies: Dependency[];
   tagsData: TagsData[];
-  codeownersData: CodeownersData[];
 }): Node<PackageNodeData>[] => {
   return packages.map((pkg) => {
     const input = dependencies.find((dep) => dep.target === pkg.name);
@@ -37,15 +29,11 @@ export const getNodes = ({
       .filter((data) => data.packageName === pkg.name)
       .flatMap((data) => data.tags);
 
-    const codeowners = codeownersData
-      .filter((data) => data.packageName === pkg.name)
-      .flatMap((data) => data.codeowners);
-
     return {
       id: pkg.name,
       type: 'package',
-      width: 300,
-      height: 90,
+      width: 350,
+      height: 100,
       draggable: false,
       data: {
         label: pkg.name,
@@ -53,7 +41,6 @@ export const getNodes = ({
         input,
         output,
         tags,
-        codeowners,
         muted: false,
       },
       connectable: false,

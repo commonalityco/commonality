@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 
 function CatchAllPage() {
-  redirect('/');
+  redirect('/graph');
 }
 
 export default CatchAllPage;

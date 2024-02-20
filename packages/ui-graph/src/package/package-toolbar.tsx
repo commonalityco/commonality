@@ -7,13 +7,9 @@ import {
   TooltipTrigger,
 } from '@commonalityco/ui-design-system';
 import { EyeOff, Focus, Tags } from 'lucide-react';
-import {
-  Position,
-  NodeToolbar,
-  useReactFlow,
-  getIncomers,
-  getOutgoers,
-} from 'reactflow';
+import { NodeToolbar, Node, Edge, OnSelectionChangeFunc } from '@xyflow/react';
+import { DependencyEdgeData, PackageNodeData, useInteractions } from '..';
+import { Position } from '@xyflow/system';
 
 function ToolbarButton({
   children,
@@ -47,54 +43,33 @@ function ToolbarButton({
 
 export function PackageToolbar(props: {
   onEditTags: (packageName: string) => void;
-  nodeIds: string[];
+  selectedNodeIds: string[];
+  nodes: Node<PackageNodeData>[];
+  edges: Edge<DependencyEdgeData>[];
+  direction?: 'TB' | 'LR';
   isVisible?: boolean;
+  onChange: OnSelectionChangeFunc;
 }) {
-  const reactFlow = useReactFlow();
+  const interactions = useInteractions({
+    nodes: props.nodes,
+    edges: props.edges,
+    onChange: props.onChange ?? (() => {}),
+  });
 
-  const onFocus = () => {
-    const nodes = reactFlow.getNodes();
-    const edges = reactFlow.getEdges();
-
-    const selectedNodes = nodes.filter((node) =>
-      props.nodeIds.includes(node.id),
-    );
-
-    if (selectedNodes.length === 0) return;
-
-    const incomers = selectedNodes.flatMap((selectedNode) =>
-      getIncomers(selectedNode, nodes, edges),
-    );
-
-    const outgoers = selectedNodes.flatMap((selectedNode) =>
-      getOutgoers(selectedNode, nodes, edges),
-    );
-
-    const neighbors = [...selectedNodes, ...incomers, ...outgoers];
-
-    reactFlow.setNodes(() => neighbors);
-  };
-
-  const onHide = () => {
-    reactFlow.setNodes((currentNodes) => {
-      return currentNodes.filter((currentNode) =>
-        props.nodeIds.every((nodeId) => nodeId !== currentNode.id),
-      );
-    });
-  };
+  const isVisible = Number(props.selectedNodeIds?.length) > 0;
 
   return (
     <NodeToolbar
-      isVisible={Number(props.nodeIds?.length) > 0}
-      nodeId={props.nodeIds}
+      isVisible={isVisible}
+      nodeId={props.selectedNodeIds}
       position={Position.Bottom}
       className="flex gap-1 bg-background rounded-lg border border-border p-1"
     >
-      {Number(props.nodeIds.length) === 1 ? (
+      {Number(props.selectedNodeIds.length) === 1 ? (
         <>
           <ToolbarButton
             text="Edit tags"
-            onClick={() => props.onEditTags(props.nodeIds[0])}
+            onClick={() => props.onEditTags(props.selectedNodeIds[0])}
           >
             <Tags className="h-4 w-4" />
           </ToolbarButton>
@@ -102,11 +77,17 @@ export function PackageToolbar(props: {
         </>
       ) : undefined}
 
-      <ToolbarButton text="Focus" onClick={onFocus}>
+      <ToolbarButton
+        text="Focus"
+        onClick={() => interactions.focus(props.selectedNodeIds)}
+      >
         <Focus className="h-4 w-4" />
       </ToolbarButton>
 
-      <ToolbarButton text="Hide" onClick={onHide}>
+      <ToolbarButton
+        text="Hide"
+        onClick={() => interactions.hide(props.selectedNodeIds)}
+      >
         <EyeOff className="h-4 w-4" />
       </ToolbarButton>
     </NodeToolbar>

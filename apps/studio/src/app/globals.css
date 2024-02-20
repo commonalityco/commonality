@@ -27,11 +27,7 @@
     @apply fill-muted-foreground;
   }
 
-  .react-flow__controls {
-    @apply m-4 bg-background p-1 rounded-md border border-border flex gap-1 flex-nowrap;
-  }
-
-  .react-flow__controls-button {
-    @apply hover:bg-secondary rounded-md border-none h-6 w-6 hover:fill-primary fill-muted-foreground text-muted-foreground hover:text-primary;
+  .react-flow__nodesselection-rect {
+    @apply bg-muted-foreground/10 border border-muted-foreground;
   }
 }
