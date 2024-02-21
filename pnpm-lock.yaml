@@ -118,8 +118,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       ip:
-        specifier: ^1.1.8
-        version: 1.1.8
+        specifier: ^1.1.9
+        version: 1.1.9
       jest-diff:
         specifier: ^29.7.0
         version: 29.7.0
@@ -11596,8 +11596,8 @@ packages:
     dependencies:
       loose-envify: 1.4.0
 
-  /ip@1.1.8:
-    resolution: {integrity: sha512-PuExPYUiu6qMBQb4l06ecm6T6ujzhmh+MeJcW9wa89PoAz5pvd4zPgN5WJV104mb6S2T1AwNIAaB70JNrLQWhg==}
+  /ip@1.1.9:
+    resolution: {integrity: sha512-cyRxvOEpNHNtchU3Ln9KC/auJgup87llfQpQ+t5ghoC/UhL16SWzbueiCsdTnWmqAWl7LadfuwhlqmtOaqMHdQ==}
     dev: false
 
   /ip@2.0.0:
