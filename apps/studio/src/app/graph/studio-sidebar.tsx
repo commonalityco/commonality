@@ -15,7 +15,7 @@ import {
   TagsData,
 } from '@commonalityco/types';
 import { useTheme } from 'next-themes';
-import { useOnInteraction } from './use-on-interaction';
+import { usePackagesQuery } from './graph-hooks';
 
 function StudioSidebar(props: {
   tagsData: TagsData[];
@@ -27,8 +27,7 @@ function StudioSidebar(props: {
 }) {
   const { resolvedTheme } = useTheme();
   const nodes = useNodes<Node<PackageNodeData>>();
-
-  const onInteraction = useOnInteraction();
+  const { setPackagesQuery } = usePackagesQuery();
 
   const interactions = useInteractions({
     nodes: getNodes({
@@ -40,10 +39,10 @@ function StudioSidebar(props: {
       dependencies: props.dependencies,
       theme: resolvedTheme as 'light' | 'dark',
     }),
-    onChange: onInteraction,
+    onChange: ({ nodes }) => setPackagesQuery(nodes.map((node) => node.id)),
   });
 
-  const visiblePackages = nodes.map((node) => node.data.package);
+  const visiblePackages = nodes.map(({ data }) => data.package);
 
   return (
     <Sidebar

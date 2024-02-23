@@ -1,3 +1,4 @@
+'use client';
 import {
   Button,
   Separator,
@@ -8,8 +9,9 @@ import {
 } from '@commonalityco/ui-design-system';
 import { EyeOff, Focus, Tags } from 'lucide-react';
 import { NodeToolbar, Node, Edge, OnSelectionChangeFunc } from '@xyflow/react';
-import { DependencyEdgeData, PackageNodeData, useInteractions } from '..';
 import { Position } from '@xyflow/system';
+import { DependencyEdgeData, PackageNodeData, useInteractions } from '..';
+import { GraphDirection } from '../types';
 
 function ToolbarButton({
   children,
@@ -46,14 +48,14 @@ export function PackageToolbar(props: {
   selectedNodeIds: string[];
   nodes: Node<PackageNodeData>[];
   edges: Edge<DependencyEdgeData>[];
-  direction?: 'TB' | 'LR';
+  direction?: GraphDirection;
   isVisible?: boolean;
   onChange: OnSelectionChangeFunc;
 }) {
   const interactions = useInteractions({
     nodes: props.nodes,
     edges: props.edges,
-    onChange: props.onChange ?? (() => {}),
+    onChange: props.onChange,
   });
 
   const isVisible = Number(props.selectedNodeIds?.length) > 0;
@@ -63,7 +65,7 @@ export function PackageToolbar(props: {
       isVisible={isVisible}
       nodeId={props.selectedNodeIds}
       position={Position.Bottom}
-      className="flex gap-1 bg-background rounded-lg border border-border p-1"
+      className="flex gap-1 bg-background rounded-lg border border-border p-1 light"
     >
       {Number(props.selectedNodeIds.length) === 1 ? (
         <>

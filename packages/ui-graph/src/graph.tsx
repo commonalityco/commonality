@@ -1,3 +1,4 @@
+'use client';
 import React, { ComponentProps, useCallback } from 'react';
 import {
   ReactFlow,
@@ -12,26 +13,12 @@ import {
   getConnectedEdges,
   getOutgoers,
   getIncomers,
-  useReactFlow,
-  OnSelectionChangeFunc,
 } from '@xyflow/react';
-import dagre from 'dagre';
 import { PackageNode } from './package-node';
 import { DependencyEdge } from './package/dependency-edge';
 import { DependencyEdgeData } from './package/get-edges';
-import {
-  ArrowDownFromLine,
-  ArrowRightFromLine,
-  Maximize,
-  Minus,
-  Plus,
-} from 'lucide-react';
-import { Button, Separator } from '@commonalityco/ui-design-system';
-import { useInteractions } from './use-interactions';
 import { GradientFade } from '@commonalityco/ui-core';
-
-const dagreGraph = new dagre.graphlib.Graph();
-dagreGraph.setDefaultEdgeLabel(() => ({}));
+import { PackageNodeData } from './package/get-nodes';
 
 const nodeTypes = {
   package: PackageNode,
@@ -41,84 +28,30 @@ const edgeTypes = {
   dependency: DependencyEdge,
 };
 
-function ControlBar() {
-  const reactFlow = useReactFlow();
-
-  return (
-    <div className="pb-3 px-3 relative w-full bg-interactive shrink-0 flex gap-1 justify-end">
-      <Button size="icon" variant="ghost" onClick={() => {}}>
-        <ArrowDownFromLine className="h-4 w-4" />
-      </Button>
-      <Button size="icon" variant="ghost" onClick={() => {}}>
-        <ArrowRightFromLine className="h-4 w-4" />
-      </Button>
-      <Separator orientation="vertical" className="h-6 my-1 mx-2" />
-      <Button
-        size="icon"
-        variant="ghost"
-        onClick={() => reactFlow.fitView({ duration: 200 })}
-      >
-        <Maximize className="h-4 w-4" />
-      </Button>
-
-      <Button
-        size="icon"
-        variant="ghost"
-        onClick={() => reactFlow.zoomOut({ duration: 200 })}
-      >
-        <Minus className="h-4 w-4" />
-      </Button>
-      <Button
-        size="icon"
-        variant="ghost"
-        onClick={() => reactFlow.zoomIn({ duration: 200 })}
-      >
-        <Plus className="h-4 w-4" />
-      </Button>
-    </div>
-  );
-}
-
 export const Graph = (
   props: {
+    totalCount: number;
     nodes: Node[];
     edges: Edge[];
     theme: 'light' | 'dark';
     children?: React.ReactNode;
-    initialDirection?: 'TB' | 'LR';
-    onInteraction: OnSelectionChangeFunc;
-    getElements: (options: {
-      nodes: Node[];
-      edges: Edge[];
-      direction: 'TB' | 'LR';
-    }) => Promise<{
-      nodes: Node[];
-      edges: Edge[];
-    }>;
+
+    controlBar?: React.ReactNode;
   } & Pick<ComponentProps<typeof ReactFlow>, 'onSelectionChange'>,
 ) => {
-  const { updateNodeData } = useReactFlow();
-
-  const interactions = useInteractions({
-    nodes: props.nodes,
-    edges: props.edges,
-    onChange: props.onInteraction ?? (() => {}),
-  });
-
   const [nodes, setNodes, onNodesChange] = useNodesState(props.nodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(props.edges);
 
-  // const { isLoading } = useLayout({
-  //   direction: props.initialDirection,
-  //   getElements: props.getElements,
-  // });
-
   const onNodeMouseLeave = useCallback(
     (event: React.MouseEvent, node: Node) => {
-      updateNodeData(node.id, (data) => ({
-        ...data,
-        muted: false,
-      }));
+      setNodes((currentNodes: Node<PackageNodeData>[]) => {
+        return currentNodes.map((currentNode) => {
+          return {
+            ...currentNode,
+            muted: false,
+          };
+        });
+      });
 
       setEdges((currentEdges: Edge<DependencyEdgeData>[]) =>
         currentEdges.map((currentEdge) => {
@@ -145,10 +78,16 @@ export const Graph = (
       const incomers = getIncomers(node, nodes, edges);
       const neighbors = [node, ...outgoers, ...incomers];
 
-      updateNodeData(node.id, (data) => ({
-        ...data,
-        muted: !neighbors.some((neighbor) => neighbor.id === node.id),
-      }));
+      setNodes((currentNodes: Node<PackageNodeData>[]) => {
+        return currentNodes.map((currentNode) => {
+          return currentNode.id === node.id
+            ? {
+                ...currentNode,
+                muted: !neighbors.some((neighbor) => neighbor.id === node.id),
+              }
+            : currentNode;
+        });
+      });
 
       setEdges((currentEdges: Edge<DependencyEdgeData>[]) =>
         currentEdges.map((currentEdge) => {
@@ -219,27 +158,9 @@ export const Graph = (
   return (
     <div className="relative flex flex-col h-full">
       <div className="relative grow w-full">
-        <GradientFade
-          placement="top"
-          className="absolute left-0 right-0 z-20 h-10 from-interactive"
-        />
-        <GradientFade
-          placement="bottom"
-          className="absolute left-0 right-0 z-20 h-10 from-interactive"
-        />
-        <GradientFade
-          placement="left"
-          className="absolute bottom-0 top-0 z-20 w-10 from-interactive"
-        />
-        <GradientFade
-          placement="right"
-          className="absolute bottom-0 top-0 z-20 w-10 from-interactive"
-        />
         <ReactFlow
           nodes={nodes}
           edges={edges}
-          width={700}
-          height={400}
           minZoom={0.1}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
@@ -253,11 +174,25 @@ export const Graph = (
           edgeTypes={edgeTypes}
           connectionLineType={ConnectionLineType.SmoothStep}
           fitView
-          colorMode={props.theme}
           className="bg-interactive"
         >
           {props.children}
-
+          <GradientFade
+            placement="top"
+            className="absolute left-0 right-0 z-20 h-10 from-interactive"
+          />
+          <GradientFade
+            placement="bottom"
+            className="absolute left-0 right-0 z-20 h-10 from-interactive"
+          />
+          <GradientFade
+            placement="left"
+            className="absolute bottom-0 top-0 z-20 w-10 from-interactive"
+          />
+          <GradientFade
+            placement="right"
+            className="absolute bottom-0 top-0 z-20 w-10 from-interactive"
+          />
           <MiniMap nodeStrokeWidth={3} className="z-20" position="top-right" />
 
           <Background
@@ -267,7 +202,7 @@ export const Graph = (
           />
         </ReactFlow>
       </div>
-      <ControlBar />
+      {props.controlBar}
     </div>
   );
 };

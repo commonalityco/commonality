@@ -1,3 +1,4 @@
+'use client';
 import { Button, cn } from '@commonalityco/ui-design-system';
 import { useNodes } from '@xyflow/react';
 import { PackageSearch } from 'lucide-react';

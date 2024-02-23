@@ -7,3 +7,5 @@ export * from './use-interactions';
 export * from './get-elements-with-layout';
 export * from './graph-empty';
 export * from './graph-loading';
+export * from './types';
+export * from './graph-control-bar';

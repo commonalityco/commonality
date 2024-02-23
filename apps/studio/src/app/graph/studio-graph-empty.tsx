@@ -3,7 +3,7 @@
 import { GraphEmpty, useInteractions } from '@commonalityco/ui-graph';
 import { Edge, Node } from '@xyflow/react';
 import React from 'react';
-import { useOnInteraction } from './use-on-interaction';
+import { usePackagesQuery } from './graph-hooks';
 
 export function StudioGraphEmpty({
   nodes,
@@ -12,11 +12,11 @@ export function StudioGraphEmpty({
   nodes: Node[];
   edges: Edge[];
 }) {
-  const onInteractionChange = useOnInteraction();
+  const { setPackagesQuery } = usePackagesQuery();
   const interactions = useInteractions({
     nodes,
     edges,
-    onChange: onInteractionChange,
+    onChange: ({ nodes }) => setPackagesQuery(nodes.map((node) => node.id)),
   });
 
   return <GraphEmpty onShow={interactions.showAll} />;

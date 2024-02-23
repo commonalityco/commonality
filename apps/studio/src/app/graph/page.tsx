@@ -9,25 +9,27 @@ import StudioSidebar from './studio-sidebar';
 import { getTagsData } from '@/data/tags';
 import { getPackagesData } from '@/data/packages';
 import { getDependenciesData } from '@/data/dependencies';
+import { getCodeownersData } from '@/data/codeowners';
+import { getConstraintsData } from '@/data/constraints';
 import { cookies } from 'next/headers';
 import {
-  GraphEmpty,
+  GraphDirection,
   GraphLoading,
   getEdges,
   getNodes,
 } from '@commonalityco/ui-graph';
-import { getElementString } from '@/actions/graph-actions';
-import type { Edge, Node } from '@xyflow/react';
+import { getElements } from '@/actions/graph-actions';
 import { getConnectedEdges } from '@xyflow/system';
-import SuperJSON from 'superjson';
 import * as z from 'zod';
 import { decompressFromEncodedURIComponent } from 'lz-string';
-import { Dependency, Package, TagsData } from '@commonalityco/types';
+import {
+  ConstraintResult,
+  Dependency,
+  Package,
+  TagsData,
+} from '@commonalityco/types';
 import { StudioGraphEmpty } from './studio-graph-empty';
-import { getCodeownersData } from '@/data/codeowners';
 import lazyLoad from 'next/dynamic';
-
-export const dynamic = 'force-dynamic';
 
 const StudioChart = lazyLoad(() => import('./studio-chart'), {
   ssr: false,
@@ -78,11 +80,15 @@ async function Graph({
   dependencies,
   tagsData,
   filteredPackageNames,
+  direction,
+  results,
 }: {
   packages: Package[];
   dependencies: Dependency[];
   tagsData: TagsData[];
   filteredPackageNames?: string[];
+  direction: GraphDirection;
+  results: ConstraintResult[];
 }) {
   const cookieStore = cookies();
   const defaultTheme = cookieStore.get('commonality:theme')?.value;
@@ -101,36 +107,33 @@ async function Graph({
   const getShownElements = async () => {
     const filteredNodes =
       filteredPackageNames !== undefined
-        ? nodes.filter(
-            (node) =>
-              filteredPackageNames?.some((pkgName) => pkgName === node.id),
+        ? nodes.filter((node) =>
+            filteredPackageNames?.some((pkgName) => pkgName === node.id),
           )
         : nodes;
 
     const connectedEdges = getConnectedEdges(filteredNodes, edges);
 
-    const elementString = await getElementString({
+    const elements = await getElements({
       nodes: filteredNodes,
       edges: connectedEdges,
+      direction: direction,
     });
 
-    return SuperJSON.parse<{ nodes: Node[]; edges: Edge[] }>(elementString);
+    return elements;
   };
 
   const shownElements = await getShownElements();
 
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  // console.log('initial nodes:', initialElements.nodes);
-  console.log('SERVER RENDERING GRAPH');
-  console.log('all nodes:', shownElements.nodes.length);
-
-  if (shownElements.nodes.length === 0)
+  if (shownElements.nodes.length === 0) {
     return <StudioGraphEmpty nodes={nodes} edges={edges} />;
+  }
 
   return (
     <StudioChart
+      results={results}
       tagsData={tagsData}
+      dependencies={dependencies}
       shownNodes={shownElements.nodes}
       shownEdges={shownElements.edges}
       allNodes={nodes}
@@ -144,12 +147,13 @@ async function Graph({
 async function GraphPage({
   searchParams,
 }: {
-  searchParams?: { packages?: string };
+  searchParams?: { packages?: string; direction: GraphDirection };
 }) {
-  const [tagsData, packages, dependencies] = await Promise.all([
+  const [tagsData, packages, dependencies, results] = await Promise.all([
     getTagsData(),
     getPackagesData(),
     getDependenciesData(),
+    getConstraintsData(),
   ]);
 
   const getDecodedPackages = (): string[] | undefined => {
@@ -172,8 +176,10 @@ async function GraphPage({
         </Suspense>
       </GraphLayoutAside>
       <GraphLayoutMain>
-        <Suspense fallback={<GraphLoading />} key={searchParams?.packages}>
+        <Suspense>
           <Graph
+            results={results}
+            direction={searchParams?.direction as GraphDirection}
             packages={packages}
             dependencies={dependencies}
             tagsData={tagsData}

@@ -1,15 +1,13 @@
 import { Handle, type NodeProps } from '@xyflow/react';
+import { Position } from '@xyflow/system';
 import { PackageNodeData } from './package/get-nodes';
 import { getIconForPackage } from '@commonalityco/ui-core';
 import { formatTagName } from '@commonalityco/utils-core';
 import { Badge, cn } from '@commonalityco/ui-design-system';
-import { Position } from '@xyflow/system';
 
 export function PackageNode({
   isConnectable,
   data,
-  width,
-  height,
   ...rest
 }: NodeProps<PackageNodeData>) {
   const Icon = getIconForPackage(data.package.type);
@@ -17,7 +15,6 @@ export function PackageNode({
   return (
     <div>
       <div
-        style={{ width, height }}
         className={cn(
           'border border-border shadow rounded-md py-4 px-4 bg-background block overflow-hidden hover:border-muted-foreground/40 active:border-muted-foreground/80 transition duration-100',
           { 'opacity-10': data.muted, 'opacity-100': !data.muted },

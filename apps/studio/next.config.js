@@ -2,25 +2,26 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 module.exports = {
   reactStrictMode: true,
-  // transpilePackages: [
-  //   '@commonalityco/data-codeowners',
-  //   '@commonalityco/data-graph',
-  //   '@commonalityco/data-graph-worker',
-  //   '@commonalityco/data-packages',
-  //   '@commonalityco/data-project',
-  //   '@commonalityco/data-tags',
-  //   // '@commonalityco/ui-constraints',
-  //   '@commonalityco/ui-conformance',
-  //   // '@commonalityco/utils-conformance',
-  //   '@commonalityco/feature-graph',
-  //   '@commonalityco/ui-core',
-  //   '@commonalityco/ui-design-system',
-  //   // '@commonalityco/ui-graph',
-  //   '@commonalityco/ui-package',
-  //   '@commonalityco/utils-core',
-  //   '@commonalityco/utils-graph',
-  //   '@commonalityco/utils-package',
-  // ],
+
+  transpilePackages: [
+    //   '@commonalityco/data-codeowners',
+    //   '@commonalityco/data-graph',
+    //   '@commonalityco/data-graph-worker',
+    //   '@commonalityco/data-packages',
+    //   '@commonalityco/data-project',
+    //   '@commonalityco/data-tags',
+    //   // '@commonalityco/ui-constraints',
+    //   '@commonalityco/ui-conformance',
+    //   // '@commonalityco/utils-conformance',
+    //   '@commonalityco/feature-graph',
+    //   '@commonalityco/ui-core',
+    //   '@commonalityco/ui-design-system',
+    // '@commonalityco/ui-graph',
+    //   '@commonalityco/ui-package',
+    //   '@commonalityco/utils-core',
+    //   '@commonalityco/utils-graph',
+    //   '@commonalityco/utils-package',
+  ],
 };
 // {
 //   // For all available options, see:

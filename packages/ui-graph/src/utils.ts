@@ -1,7 +1,7 @@
 import { Position } from '@xyflow/system';
-import { Direction } from './types';
+import { HandleDirection } from './types';
 
-export function getSourceHandlePosition(direction: Direction) {
+export function getSourceHandlePosition(direction: HandleDirection) {
   switch (direction) {
     case 'TB': {
       return Position.Bottom;
@@ -18,7 +18,7 @@ export function getSourceHandlePosition(direction: Direction) {
   }
 }
 
-export function getTargetHandlePosition(direction: Direction) {
+export function getTargetHandlePosition(direction: HandleDirection) {
   switch (direction) {
     case 'TB': {
       return Position.Top;

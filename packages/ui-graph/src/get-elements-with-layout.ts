@@ -1,22 +1,23 @@
 import dagre from 'dagre';
 import { Edge, Node } from '@xyflow/react';
 import { Position } from '@xyflow/system';
+import { GraphDirection } from './types';
 
 export const getElementsWithLayout = ({
   nodes,
   edges,
-  direction = 'TB',
+  direction = GraphDirection.TopToBottom,
 }: {
   nodes: Node[];
   edges: Edge[];
-  direction?: 'TB' | 'LR';
+  direction?: GraphDirection;
   height?: number;
   width?: number;
 }): { nodes: Node[]; edges: Edge[] } => {
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
 
-  const isHorizontal = direction === 'LR';
+  const isHorizontal = direction === GraphDirection.LeftToRight;
 
   dagreGraph.setGraph({
     rankdir: direction,

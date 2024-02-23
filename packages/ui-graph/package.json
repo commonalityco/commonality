@@ -10,8 +10,9 @@
   "exports": {
     ".": "./dist/index.js",
     "./graph": "./dist/graph.js",
-    "./graph-provider": "./dist/graph-provider.js",
+    "./graph-loading": "./dist/graph-loading.js",
     "./get-elements-with-layout": "./dist/get-elements-with-layout.js",
+    "./graph-provider": "./dist/graph-provider.js",
     "./package/package-toolbar": "./dist/package/package-toolbar.js",
     "./package/zero-state": "./dist/package/zero-state.js",
     "./package/get-edges": "./dist/package/get-edges.js",

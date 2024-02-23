@@ -1,5 +1,5 @@
-import { Dependency, Package } from '@commonalityco/types';
-import type { Edge } from '@xyflow/react';
+import { Dependency } from '@commonalityco/types';
+import { type Edge } from '@xyflow/react';
 import { MarkerType } from '@xyflow/system';
 
 const edgeType = 'dependency';

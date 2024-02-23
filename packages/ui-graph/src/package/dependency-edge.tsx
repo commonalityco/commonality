@@ -44,7 +44,7 @@ export function DependencyEdge({
         className={cn('transition stroke-1 duration-100', {
           'stroke-zinc-300 dark:stroke-zinc-800': !highlighted,
           'opacity-40': data?.muted,
-          'stroke-[3px] opacity-100': highlighted,
+          'stroke-[4px] opacity-100': highlighted,
           '!stroke-sky-600':
             highlighted && data?.dependency.type === DependencyType.DEVELOPMENT,
           '!stroke-purple-600':

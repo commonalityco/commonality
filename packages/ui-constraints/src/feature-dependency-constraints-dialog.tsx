@@ -3,7 +3,7 @@ import { Dependency } from '@commonalityco/types';
 import { DependencyConstraintsDialog } from './dependency-constraints-dialog';
 
 export function FeatureDependencyConstraintsDialog() {
-  return;
+  return <div />;
   // const { send } = GraphContext.useActorRef();
   // const selectedEdge = GraphContext.useSelector(
   //   (state) => state.context.selectedEdge,

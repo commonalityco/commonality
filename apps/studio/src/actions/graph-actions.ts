@@ -1,18 +1,15 @@
 'use server';
-import { getElementsWithLayout } from '@commonalityco/ui-graph';
+import { GraphDirection, getElementsWithLayout } from '@commonalityco/ui-graph';
 import { Edge, Node } from '@xyflow/react';
-import SuperJSON from 'superjson';
 
-export const getElementString = async ({
+export const getElements = async ({
   nodes,
   edges,
-  direction = 'TB',
+  direction,
 }: {
   nodes: Node[];
   edges: Edge[];
-  direction?: 'TB' | 'LR';
-}): Promise<string> => {
-  return SuperJSON.stringify(
-    getElementsWithLayout({ nodes, edges, direction }),
-  );
+  direction?: GraphDirection;
+}): Promise<{ nodes: Node[]; edges: Edge[] }> => {
+  return getElementsWithLayout({ nodes, edges, direction });
 };

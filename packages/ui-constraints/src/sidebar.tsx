@@ -534,8 +534,8 @@ export function Sidebar({
     filteredPackages.length === 0;
 
   return (
-    <div className="bg-background h-full w-full rounded-lg overflow-hidden">
-      <div className="flex h-full flex-col content-start gap-3">
+    <div className="bg-background h-full w-full overflow-hidden">
+      <div className="flex h-full flex-col content-start gap-4">
         <div className="flex flex-nowrap items-center gap-2">
           <Button
             variant="secondary"
