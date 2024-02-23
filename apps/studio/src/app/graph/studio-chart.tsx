@@ -91,44 +91,6 @@ function ActiveDependencyDialog({
   );
 }
 
-function StudioPackageToolbar({
-  packages,
-  allNodes,
-  allEdges,
-}: {
-  packages: Package[];
-  allNodes: Node<PackageNodeData>[];
-  allEdges: Edge<DependencyEdgeData>[];
-}) {
-  const [selectedPackages] = useAtom(selectedPackagesAtom);
-  const setEditingPackage = useSetAtom(editingPackageAtom);
-  const { setPackagesQuery } = usePackagesQuery();
-
-  const onNodesChange = useCallback(
-    ({ nodes }: { nodes: Node<PackageNodeData>[] }) => {
-      debugger;
-      setPackagesQuery(nodes.map((node) => node.id));
-    },
-    [setPackagesQuery],
-  );
-
-  return (
-    <PackageToolbar
-      onChange={onNodesChange}
-      nodes={allNodes}
-      edges={allEdges}
-      selectedNodeIds={selectedPackages.map((pkg) => pkg.name)}
-      onEditTags={(packageName) => {
-        const selectedPkg = packages.find((pkg) => pkg.name === packageName);
-
-        if (!selectedPkg) return;
-
-        setEditingPackage(selectedPkg);
-      }}
-    />
-  );
-}
-
 function StudioControlBar({
   shownCount,
   totalCount,
@@ -219,15 +181,7 @@ function StudioChart({
             edges={shownEdges}
             theme={theme}
             onSelectionChange={onSelectionChange}
-          >
-            <Suspense>
-              <StudioPackageToolbar
-                packages={packages}
-                allEdges={allEdges}
-                allNodes={allNodes}
-              />
-            </Suspense>
-          </Graph>
+          ></Graph>
         </>
       )}
     </AnimatePresence>

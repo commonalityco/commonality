@@ -11,7 +11,7 @@ export const usePackagesQuery = () => {
   const setLoading = useSetAtom(isGraphLoadingAtom);
   const [packagesQuery, setPackagesQueryRaw] = useQueryState(
     'packages',
-    parseAsString.withOptions({ startTransition, shallow: false }),
+    parseAsString.withOptions({ startTransition }),
   );
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export const useDirectionQuery = () => {
     'direction',
     parseAsStringEnum<GraphDirection>(Object.values(GraphDirection))
       .withDefault(GraphDirection.TopToBottom)
-      .withOptions({ startTransition, shallow: false }),
+      .withOptions({ startTransition }),
   );
 
   useEffect(() => {

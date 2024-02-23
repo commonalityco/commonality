@@ -30,6 +30,7 @@ import {
 } from '@commonalityco/types';
 import { StudioGraphEmpty } from './studio-graph-empty';
 import lazyLoad from 'next/dynamic';
+import { StudioPackageToolbar } from './studio-package-toolbar';
 
 const StudioChart = lazyLoad(() => import('./studio-chart'), {
   ssr: false,
@@ -130,17 +131,26 @@ async function Graph({
   }
 
   return (
-    <StudioChart
-      results={results}
-      tagsData={tagsData}
-      dependencies={dependencies}
-      shownNodes={shownElements.nodes}
-      shownEdges={shownElements.edges}
-      allNodes={nodes}
-      allEdges={edges}
-      theme={(defaultTheme as 'light' | 'dark') ?? 'light'}
-      packages={packages}
-    />
+    <>
+      <Suspense fallback={null}>
+        <StudioPackageToolbar
+          packages={packages}
+          allEdges={edges}
+          allNodes={nodes}
+        />
+      </Suspense>
+      <StudioChart
+        results={results}
+        tagsData={tagsData}
+        dependencies={dependencies}
+        shownNodes={shownElements.nodes}
+        shownEdges={shownElements.edges}
+        allNodes={nodes}
+        allEdges={edges}
+        theme={(defaultTheme as 'light' | 'dark') ?? 'light'}
+        packages={packages}
+      />
+    </>
   );
 }
 
@@ -176,7 +186,7 @@ async function GraphPage({
         </Suspense>
       </GraphLayoutAside>
       <GraphLayoutMain>
-        <Suspense>
+        <Suspense key={JSON.stringify(searchParams)}>
           <Graph
             results={results}
             direction={searchParams?.direction as GraphDirection}

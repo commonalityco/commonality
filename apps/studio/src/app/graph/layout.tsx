@@ -1,4 +1,3 @@
-import StudioGraphHeader from './studio-graph-header';
 import { GraphProviders } from './providers';
 
 export default function GraphLayout({
@@ -8,10 +7,7 @@ export default function GraphLayout({
 }) {
   return (
     <div className="h-full flex flex-col">
-      <GraphProviders>
-        <StudioGraphHeader />
-        {children}
-      </GraphProviders>
+      <GraphProviders>{children}</GraphProviders>
     </div>
   );
 }

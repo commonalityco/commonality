@@ -8,7 +8,7 @@ export function GraphLoading() {
         'absolute z-20 left-0 top-0 flex h-full w-full items-center justify-center bg-interactive',
       )}
     >
-      <Loader2 className="text-muted-foreground h-6 w-6 animate-spin" />
+      <Loader2 className="text-muted-foreground h-6 w-6 animate-spin animate-in fade-in" />
     </div>
   );
 }
