@@ -35,8 +35,6 @@ export const Graph = (
     edges: Edge[];
     theme: 'light' | 'dark';
     children?: React.ReactNode;
-
-    controlBar?: React.ReactNode;
   } & Pick<ComponentProps<typeof ReactFlow>, 'onSelectionChange'>,
 ) => {
   const [nodes, setNodes, onNodesChange] = useNodesState(props.nodes);
@@ -156,8 +154,8 @@ export const Graph = (
   );
 
   return (
-    <div className="relative flex flex-col h-full">
-      <div className="relative grow w-full">
+    <div className="relative grow h-full">
+      <div className="relative grow w-full h-full">
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -202,7 +200,6 @@ export const Graph = (
           />
         </ReactFlow>
       </div>
-      {props.controlBar}
     </div>
   );
 };

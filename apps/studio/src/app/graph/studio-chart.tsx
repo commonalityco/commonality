@@ -1,5 +1,4 @@
 'use client';
-import { PackageToolbar } from '@commonalityco/ui-graph/package/package-toolbar';
 import { Graph } from '@commonalityco/ui-graph/graph';
 import { PackageNodeData } from '@commonalityco/ui-graph/package/get-nodes';
 import { DependencyEdgeData } from '@commonalityco/ui-graph/package/get-edges';
@@ -21,16 +20,10 @@ import {
   TagsData,
 } from '@commonalityco/types';
 import { Edge, Node, OnSelectionChangeParams } from '@xyflow/react';
-import { Suspense, useCallback } from 'react';
-import {
-  ControlBar,
-  GraphDirection,
-  GraphLoading,
-} from '@commonalityco/ui-graph';
-import { useDirectionQuery, usePackagesQuery } from './graph-hooks';
+import { useCallback } from 'react';
+import { GraphLoading } from '@commonalityco/ui-graph';
 import { DependencyConstraintsDialog } from '@commonalityco/ui-constraints';
 import { AnimatePresence, motion } from 'framer-motion';
-import { MonitorPlayIcon } from 'lucide-react';
 
 function PackageEditTagsDialog({ tagsData }: { tagsData: TagsData[] }) {
   const [editingPackage, setEditingPackage] = useAtom(editingPackageAtom);
@@ -91,44 +84,15 @@ function ActiveDependencyDialog({
   );
 }
 
-function StudioControlBar({
-  shownCount,
-  totalCount,
-}: {
-  shownCount: number;
-  totalCount: number;
-}) {
-  const { setDirectionQuery } = useDirectionQuery();
-
-  const onDirectionChange = useCallback(
-    (direction: GraphDirection) => {
-      setDirectionQuery(direction);
-    },
-    [setDirectionQuery],
-  );
-
-  return (
-    <ControlBar
-      onDirectionChange={onDirectionChange}
-      shownCount={shownCount}
-      totalCount={totalCount}
-    />
-  );
-}
-
 function StudioChart({
   shownEdges,
   shownNodes,
-  allNodes,
-  allEdges,
   tagsData,
   theme,
   packages,
   dependencies,
   results,
 }: {
-  allNodes: Node<PackageNodeData>[];
-  allEdges: Edge<DependencyEdgeData>[];
   shownNodes: Node<PackageNodeData>[];
   shownEdges: Edge<DependencyEdgeData>[];
   packages: Package[];
@@ -170,18 +134,12 @@ function StudioChart({
             results={results}
           />
           <Graph
-            controlBar={
-              <StudioControlBar
-                shownCount={shownNodes.length}
-                totalCount={allNodes.length}
-              />
-            }
             totalCount={0}
             nodes={shownNodes}
             edges={shownEdges}
             theme={theme}
             onSelectionChange={onSelectionChange}
-          ></Graph>
+          />
         </>
       )}
     </AnimatePresence>

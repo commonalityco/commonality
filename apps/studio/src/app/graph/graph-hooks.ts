@@ -15,7 +15,6 @@ export const usePackagesQuery = () => {
   );
 
   useEffect(() => {
-    console.log({ isLoading });
     setLoading(isLoading);
   }, [isLoading, setLoading]);
 

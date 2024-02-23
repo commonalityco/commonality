@@ -8,15 +8,17 @@ import { Badge, cn } from '@commonalityco/ui-design-system';
 export function PackageNode({
   isConnectable,
   data,
+  width,
+  height,
   ...rest
 }: NodeProps<PackageNodeData>) {
   const Icon = getIconForPackage(data.package.type);
 
   return (
-    <div>
+    <div style={{ height, width }} className="p-2 rounded-lg group">
       <div
         className={cn(
-          'border border-border shadow rounded-md py-4 px-4 bg-background block overflow-hidden hover:border-muted-foreground/40 active:border-muted-foreground/80 transition duration-100',
+          'border border-border shadow-[0_0_0_12px_rgba(0,0,0,0.025)] dark:shadow-[0_0_0_12px_rgba(255,255,255,0.025)] group-hover:shadow-[0_0_0_12px_rgba(0,0,0,0.065)] dark:group-hover:shadow-[0_0_0_12px_rgba(255,255,255,0.065)] rounded-md p-4 bg-background block overflow-hidden group-hover:border-muted-foreground group-active:border-muted-foreground/80 transition duration-100 h-full w-full',
           { 'opacity-10': data.muted, 'opacity-100': !data.muted },
         )}
       >

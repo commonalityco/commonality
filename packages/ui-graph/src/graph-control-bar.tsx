@@ -11,10 +11,12 @@ import {
 } from 'lucide-react';
 
 export function ControlBar({
+  direction,
   onDirectionChange,
   shownCount,
   totalCount,
 }: {
+  direction: GraphDirection;
   onDirectionChange: (direction: GraphDirection) => void;
   shownCount: number;
   totalCount: number;

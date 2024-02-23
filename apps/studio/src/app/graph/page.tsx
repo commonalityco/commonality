@@ -31,6 +31,7 @@ import {
 import { StudioGraphEmpty } from './studio-graph-empty';
 import lazyLoad from 'next/dynamic';
 import { StudioPackageToolbar } from './studio-package-toolbar';
+import { StudioControlBar } from './studio-control-bar';
 
 const StudioChart = lazyLoad(() => import('./studio-chart'), {
   ssr: false,
@@ -131,7 +132,7 @@ async function Graph({
   }
 
   return (
-    <>
+    <div className="flex flex-col h-full">
       <Suspense fallback={null}>
         <StudioPackageToolbar
           packages={packages}
@@ -145,12 +146,17 @@ async function Graph({
         dependencies={dependencies}
         shownNodes={shownElements.nodes}
         shownEdges={shownElements.edges}
-        allNodes={nodes}
-        allEdges={edges}
         theme={(defaultTheme as 'light' | 'dark') ?? 'light'}
         packages={packages}
       />
-    </>
+
+      <Suspense fallback={null}>
+        <StudioControlBar
+          shownCount={shownElements.nodes.length}
+          totalCount={nodes.length}
+        />
+      </Suspense>
+    </div>
   );
 }
 
@@ -181,21 +187,17 @@ async function GraphPage({
   return (
     <GraphLayoutRoot>
       <GraphLayoutAside>
-        <Suspense>
-          <Sidebar />
-        </Suspense>
+        <Sidebar />
       </GraphLayoutAside>
       <GraphLayoutMain>
-        <Suspense key={JSON.stringify(searchParams)}>
-          <Graph
-            results={results}
-            direction={searchParams?.direction as GraphDirection}
-            packages={packages}
-            dependencies={dependencies}
-            tagsData={tagsData}
-            filteredPackageNames={getDecodedPackages()}
-          />
-        </Suspense>
+        <Graph
+          results={results}
+          direction={searchParams?.direction as GraphDirection}
+          packages={packages}
+          dependencies={dependencies}
+          tagsData={tagsData}
+          filteredPackageNames={getDecodedPackages()}
+        />
       </GraphLayoutMain>
     </GraphLayoutRoot>
   );
