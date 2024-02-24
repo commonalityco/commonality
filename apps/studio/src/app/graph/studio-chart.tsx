@@ -123,11 +123,19 @@ function StudioChart({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ delay: 0.5, duration: 0.15 }}
         >
           <GraphLoading />
         </motion.div>
       ) : (
-        <>
+        <motion.div
+          className="h-full w-full"
+          key="graph"
+          transition={{ duration: 0.15 }}
+          initial={{ opacity: 0 }}
+          exit={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           <PackageEditTagsDialog tagsData={tagsData} />
           <ActiveDependencyDialog
             dependencies={dependencies}
@@ -140,7 +148,7 @@ function StudioChart({
             theme={theme}
             onSelectionChange={onSelectionChange}
           />
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   );

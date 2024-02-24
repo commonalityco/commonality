@@ -97,6 +97,7 @@ export {
 } from './table';
 export { Text } from './text';
 export { Toggle, toggleVariants } from './toggle';
+export { ToggleGroup, ToggleGroupItem } from './toggle-group';
 export {
   Tooltip,
   TooltipTrigger,

@@ -9,6 +9,7 @@ export type DependencyEdgeData = {
   theme: 'light' | 'dark';
   active: boolean;
   muted: boolean;
+  forceActive: boolean;
   // weight: number;
 };
 
@@ -29,6 +30,7 @@ export const getEdges = ({
         theme,
         active: false,
         muted: false,
+        forceActive: false,
       },
       type: edgeType,
       markerEnd: {

@@ -34,7 +34,7 @@ export function DependencyEdge({
     targetY,
   });
 
-  const highlighted = data?.active || selected;
+  const highlighted = data?.active || selected || data?.forceActive;
 
   return (
     <>
