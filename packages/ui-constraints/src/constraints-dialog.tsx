@@ -8,12 +8,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  Label,
   ScrollArea,
   cn,
 } from '@commonalityco/ui-design-system';
 import { ComponentProps } from 'react';
-import { Package, Dot } from 'lucide-react';
+import { Package, Dot, ShieldX } from 'lucide-react';
 import { formatTagName } from '@commonalityco/utils-core';
 
 function TagsContainer({
@@ -29,14 +28,11 @@ function TagsContainer({
 
 function ConstraintsTagsContainer({
   tags,
-  foundTags,
+
   labelId,
   allPackagesText,
-  isValid,
 }: {
-  isValid: boolean;
   tags: string[] | '*';
-  foundTags: string[];
   labelId: string;
   allPackagesText: string;
 }) {
@@ -44,21 +40,16 @@ function ConstraintsTagsContainer({
     <div>
       <TagsContainer aria-labelledby={labelId}>
         {tags === '*' ? (
-          <span className="text-success">{allPackagesText}</span>
+          <span>{allPackagesText}</span>
         ) : (
           tags.map((tag) => {
-            const isInFoundTags = foundTags?.includes(tag);
             return (
               <Badge
                 role="tag"
                 aria-label={tag}
                 variant="outline"
                 key={tag}
-                className={cn('truncate inline-block', {
-                  'border-success text-success': isInFoundTags && isValid,
-                  'border-destructive text-destructive':
-                    isInFoundTags && !isValid,
-                })}
+                className={cn('truncate inline-block')}
               >
                 {formatTagName(tag)}
               </Badge>
@@ -80,11 +71,17 @@ export function ConstraintsDialog({
     <Dialog {...props}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Invalid constraint</DialogTitle>
+          <DialogTitle>
+            <div className="flex flex-nowrap items-center gap-4">
+              <div className="h-8 w-8 rounded-md border border-border flex items-center justify-center">
+                <ShieldX className="h-4 w-4 text-destructive" />
+              </div>
+              <span>Invalid constraint</span>
+            </div>
+          </DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[450px]">
-          <div className="flex flex-col gap-4 py-2">
-            <Label>Dependency path</Label>
+          <div className="flex flex-col gap-4 py-0 pl-2">
             <div className="flex flex-col gap-2">
               <div className="grid">
                 {result.dependencyPath.map((path, index) => (
@@ -100,7 +97,7 @@ export function ConstraintsDialog({
                       <Package className="h-4 w-4" /> {path.source}
                     </p>
                     {index === 0 ? (
-                      <div className="grid gap-2 grid-cols-[minmax(min-content,max-content)_1fr] ml-2 my-2 pl-4 items-center border-l border-muted-foreground border-dashed">
+                      <div className="grid gap-4 grid-cols-[minmax(min-content,max-content)_1fr] ml-2 my-4 pl-4 items-center border-l border-muted-foreground border-dashed">
                         {'allow' in result.constraint ? (
                           <>
                             <dt
@@ -110,8 +107,6 @@ export function ConstraintsDialog({
                               Allowed:
                             </dt>
                             <ConstraintsTagsContainer
-                              isValid={result.isValid}
-                              foundTags={result.foundTags || []}
                               tags={result.constraint.allow}
                               labelId="allowed"
                               allPackagesText="All packages"
@@ -127,8 +122,6 @@ export function ConstraintsDialog({
                               Disallowed:
                             </dt>
                             <ConstraintsTagsContainer
-                              isValid={result.isValid}
-                              foundTags={result.foundTags || []}
                               tags={result.constraint.disallow}
                               labelId="disallowed"
                               allPackagesText="All packages"
@@ -137,7 +130,7 @@ export function ConstraintsDialog({
                         ) : undefined}
                       </div>
                     ) : (
-                      <div className="ml-2 h-4 border-l border-muted-foreground border-dashed my-2" />
+                      <div className="ml-2 h-4 border-l border-muted-foreground border-dashed my-4" />
                     )}
 
                     {index + 1 === result.dependencyPath.length ? (
@@ -146,14 +139,12 @@ export function ConstraintsDialog({
                           <Package className="h-4 w-4" />
                           {path.target}
                         </p>
-                        <div className="grid gap-3 grid-cols-[minmax(min-content,max-content)_1fr] ml-2 my-2 pl-4 items-center border-l border-muted-foreground border-dashed">
+                        <div className="grid gap-4 grid-cols-[minmax(min-content,max-content)_1fr] ml-2 my-4 pl-4 items-center border-l border-muted-foreground border-dashed">
                           <dt id="found" className="shrink-0 whitespace-nowrap">
                             Found:
                           </dt>
                           <div className="ml-2 pl-4">
                             <ConstraintsTagsContainer
-                              isValid={result.isValid}
-                              foundTags={result.foundTags || []}
                               tags={result.foundTags || []}
                               labelId="found"
                               allPackagesText="No tags found"

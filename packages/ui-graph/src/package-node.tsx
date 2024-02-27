@@ -29,28 +29,12 @@ export function PackageNode({
           />
         ) : undefined}
 
-        <div className="w-full flex items-center gap-3 flex-nowrap">
-          <Icon className="h-8 w-8 shrink-0" />
+        <div className="w-full flex items-center gap-3 flex-nowrap justify-between">
           <p className="text-primary font-semibold text-lg leading-none truncated truncate min-w-0">
             {data.package.name}
           </p>
+          <Icon className="h-8 w-8 shrink-0" />
         </div>
-
-        {/* <div className="flex flex-nowrap items-center justify-between">
-            <div className="flex flex-nowrap items-center gap-1">
-              {data.tags.length > 0 ? (
-                data.tags.map((tag, index) => (
-                  <Badge variant="secondary" key={index}>
-                    {formatTagName(tag)}
-                  </Badge>
-                ))
-              ) : (
-                <p className="text-xs text-muted-foreground leading-none">
-                  No tags
-                </p>
-              )}
-            </div>
-          </div> */}
 
         {data.output ? (
           <Handle

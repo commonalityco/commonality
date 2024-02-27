@@ -48,11 +48,11 @@ export function DependencyEdge({
             'stroke-zinc-300 dark:stroke-zinc-800': !highlighted,
             'opacity-40': data?.muted,
             'stroke-[2px] opacity-100': highlighted,
+            '!stroke-purple-600':
+              highlighted && data?.dependency.type === DependencyType.PEER,
             '!stroke-sky-600':
               highlighted &&
               data?.dependency.type === DependencyType.DEVELOPMENT,
-            '!stroke-purple-600':
-              highlighted && data?.dependency.type === DependencyType.PEER,
             '!stroke-emerald-600':
               highlighted &&
               data?.dependency.type === DependencyType.PRODUCTION,

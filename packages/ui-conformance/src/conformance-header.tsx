@@ -30,7 +30,7 @@ export function ConformanceHeader({
   return (
     <div className="flex justify-between flex-nowrap items-center">
       <div className="flex gap-4 items-center">
-        <h1 className="font-medium text-2xl leading-none">Checks</h1>
+        <h1 className="font-medium text-2xl leading-none">Packages</h1>
         <p className="text-muted-foreground text-xs">{`${shownCount} of ${totalCount} packages`}</p>
       </div>
       <div className="flex gap-4 flex-nowrap">
