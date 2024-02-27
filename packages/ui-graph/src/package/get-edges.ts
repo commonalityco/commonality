@@ -30,6 +30,7 @@ export const getEdges = ({
       id: `${dependency.source}-${dependency.target}-${dependency.type}`,
       source: dependency.source,
       target: dependency.target,
+      sourceHandle: dependency.type,
       data: {
         results: results.filter((result) =>
           result.dependencyPath.some(

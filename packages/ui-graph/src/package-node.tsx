@@ -3,6 +3,7 @@ import { Position } from '@xyflow/system';
 import { PackageNodeData } from './package/get-nodes';
 import { getIconForPackage } from '@commonalityco/ui-core';
 import { cn } from '@commonalityco/ui-design-system';
+import { DependencyType } from '@commonalityco/utils-core';
 
 export function PackageNode({
   isConnectable,
@@ -37,12 +38,31 @@ export function PackageNode({
         </div>
 
         {data.output ? (
-          <Handle
-            type="source"
-            position={rest.sourcePosition ?? Position.Bottom}
-            id="b"
-            isConnectable={isConnectable}
-          />
+          <>
+            <Handle
+              className={cn({
+                'left-[45%]': rest.sourcePosition === Position.Bottom,
+                'top-[30%]': rest.sourcePosition === Position.Right,
+              })}
+              type="source"
+              id={DependencyType.PRODUCTION}
+              position={rest.sourcePosition ?? Position.Bottom}
+            />
+            <Handle
+              type="source"
+              position={rest.sourcePosition ?? Position.Bottom}
+              id={DependencyType.DEVELOPMENT}
+            />
+            <Handle
+              className={cn({
+                'left-[55%]': rest.sourcePosition === Position.Bottom,
+                'top-[70%]': rest.sourcePosition === Position.Right,
+              })}
+              type="source"
+              position={rest.sourcePosition ?? Position.Bottom}
+              id={DependencyType.PEER}
+            />
+          </>
         ) : undefined}
       </div>
     </div>

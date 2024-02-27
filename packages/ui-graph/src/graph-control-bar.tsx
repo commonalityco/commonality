@@ -17,6 +17,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  cn,
 } from '@commonalityco/ui-design-system';
 import {
   ArrowDownFromLine,
@@ -49,6 +50,16 @@ function ButtonTooltip({
   );
 }
 
+function ColorDot({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn(
+        'h-2 w-2 rounded-full relative border bg-interactive shadow-[0_0_0_2px_hsl(var(--interactive))]',
+        className,
+      )}
+    />
+  );
+}
 function ColorDropdown({
   defaultDependencyTypes = [],
   onHighlightChange,
@@ -99,7 +110,29 @@ function ColorDropdown({
           onClick={() => setIsOpen(true)}
           className="flex gap-2"
         >
-          Color
+          <div className="flex flex-nowrap items-center">
+            <ColorDot
+              className={cn({
+                'bg-emerald-600 border-emerald-600':
+                  checkedDependencyTypes.includes(DependencyType.PRODUCTION),
+              })}
+            />
+
+            <ColorDot
+              className={cn('-mx-0.25 z-10', {
+                'bg-sky-600 border-sky-600': checkedDependencyTypes.includes(
+                  DependencyType.DEVELOPMENT,
+                ),
+              })}
+            />
+            <ColorDot
+              className={cn('z-20', {
+                'bg-purple-600 border-purple-600':
+                  checkedDependencyTypes.includes(DependencyType.PEER),
+              })}
+            />
+          </div>
+          <span>Color</span>
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
