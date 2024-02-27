@@ -3,8 +3,14 @@ import { useReactFlow } from '@xyflow/react';
 import { GraphDirection } from './types';
 import {
   Button,
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
   Separator,
-  Toggle,
   ToggleGroup,
   ToggleGroupItem,
   Tooltip,
@@ -15,11 +21,13 @@ import {
 import {
   ArrowDownFromLine,
   ArrowRightFromLine,
+  ChevronDown,
   Maximize,
   Minus,
-  Palette,
   Plus,
 } from 'lucide-react';
+import { useState } from 'react';
+import { DependencyType } from '@commonalityco/utils-core';
 
 function ButtonTooltip({
   children,
@@ -41,32 +49,104 @@ function ButtonTooltip({
   );
 }
 
-export function ControlBar({
-  direction,
-  onDirectionChange,
-  shownCount,
-  totalCount,
+function ColorDropdown({
+  defaultDependencyTypes = [],
+  onHighlightChange,
 }: {
-  direction: GraphDirection;
-  onDirectionChange: (direction: GraphDirection) => void;
-  shownCount: number;
-  totalCount: number;
+  defaultDependencyTypes?: DependencyType[];
+  onHighlightChange: (dependencyTypes: DependencyType[]) => void;
 }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [checkedDependencyTypes, setCheckedDependencyTypes] = useState<
+    DependencyType[]
+  >(defaultDependencyTypes);
+
   const reactFlow = useReactFlow();
 
-  const onColorChange = (forceColor: boolean) => {
+  const onColorChange = (depedencyType: DependencyType, checked: boolean) => {
+    const newDependencyTypes = checked
+      ? [...checkedDependencyTypes, depedencyType]
+      : checkedDependencyTypes.filter((type) => type !== depedencyType);
+
+    setCheckedDependencyTypes(newDependencyTypes);
+
     reactFlow.setEdges((currentEdges) =>
       currentEdges.map((currentEdge) => {
         return {
           ...currentEdge,
           data: {
             ...currentEdge.data,
-            forceActive: forceColor,
+            activeDependencyTypes: newDependencyTypes,
           },
         };
       }),
     );
+
+    onHighlightChange(newDependencyTypes);
   };
+
+  const dependencyTypeToText = {
+    [DependencyType.PRODUCTION]: 'Production',
+    [DependencyType.DEVELOPMENT]: 'Development',
+    [DependencyType.PEER]: 'Peer',
+  };
+
+  return (
+    <DropdownMenu open={isOpen}>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          onClick={() => setIsOpen(true)}
+          className="flex gap-2"
+        >
+          Color
+          <ChevronDown className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        className="w-56"
+        onInteractOutside={() => setIsOpen(false)}
+        onEscapeKeyDown={() => setIsOpen(false)}
+      >
+        <DropdownMenuLabel>Dependency Type</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {[
+          { type: DependencyType.PRODUCTION, color: 'bg-emerald-600' },
+          { type: DependencyType.DEVELOPMENT, color: 'bg-sky-600' },
+          { type: DependencyType.PEER, color: 'bg-purple-600' },
+        ].map(({ type, color }) => (
+          <DropdownMenuCheckboxItem
+            key={type}
+            checked={checkedDependencyTypes.includes(type)}
+            onCheckedChange={(checked) => onColorChange(type, checked)}
+          >
+            {dependencyTypeToText[type]}
+            <DropdownMenuShortcut>
+              <div className={`h-2 w-2 rounded-full ${color}`} />
+            </DropdownMenuShortcut>
+          </DropdownMenuCheckboxItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+export function ControlBar({
+  defaultDependencyTypes,
+  direction,
+  onDirectionChange,
+  onHighlightChange,
+  shownCount,
+  totalCount,
+}: {
+  defaultDependencyTypes?: DependencyType[];
+  direction: GraphDirection;
+  onHighlightChange: (dependencyTypes: DependencyType[]) => void;
+  onDirectionChange: (direction: GraphDirection) => void;
+  shownCount: number;
+  totalCount: number;
+}) {
+  const reactFlow = useReactFlow();
 
   return (
     <div className="pb-3 px-3 relative w-full bg-interactive shrink-0 flex justify-between">
@@ -76,17 +156,10 @@ export function ControlBar({
         </div>
       </div>
       <div className="flex gap-1">
-        <ButtonTooltip text="Show color">
-          <Toggle
-            aria-label="Show color"
-            onPressedChange={(pressed) => {
-              onColorChange(pressed);
-            }}
-          >
-            <Palette className="h-4 w-4" />
-          </Toggle>
-        </ButtonTooltip>
-
+        <ColorDropdown
+          onHighlightChange={onHighlightChange}
+          defaultDependencyTypes={defaultDependencyTypes}
+        />
         <Separator orientation="vertical" className="h-6 my-1 mx-2" />
 
         <ToggleGroup

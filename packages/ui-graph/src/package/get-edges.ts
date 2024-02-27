@@ -1,4 +1,5 @@
 import { ConstraintResult, Dependency } from '@commonalityco/types';
+import { DependencyType } from '@commonalityco/utils-core';
 import { type Edge } from '@xyflow/react';
 import { MarkerType } from '@xyflow/system';
 
@@ -10,17 +11,19 @@ export type DependencyEdgeData = {
   theme: 'light' | 'dark';
   active: boolean;
   muted: boolean;
-  forceActive: boolean;
+  activeDependencyTypes: DependencyType[];
 };
 
 export const getEdges = ({
   dependencies,
   results = [],
   theme,
+  activeDependencyTypes = [],
 }: {
   dependencies: Dependency[];
   results: ConstraintResult[];
   theme: 'light' | 'dark';
+  activeDependencyTypes: DependencyType[];
 }): Edge<DependencyEdgeData>[] => {
   return dependencies.map((dependency) => {
     return {
@@ -40,7 +43,7 @@ export const getEdges = ({
         theme,
         active: false,
         muted: false,
-        forceActive: false,
+        activeDependencyTypes,
       },
       type: edgeType,
       markerEnd: {

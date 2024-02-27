@@ -33,6 +33,9 @@ import { StudioGraphEmpty } from './studio-graph-empty';
 import lazyLoad from 'next/dynamic';
 import { StudioPackageToolbar } from './studio-package-toolbar';
 import { StudioControlBar } from './studio-control-bar';
+import { highlightParser } from './graph-hooks';
+import { DependencyType } from '@commonalityco/utils-core';
+import { parseAsArrayOf, parseAsStringEnum } from 'nuqs';
 
 const StudioChart = lazyLoad(() => import('./studio-chart'), {
   ssr: false,
@@ -91,6 +94,7 @@ async function Graph({
   filteredPackageNames,
   direction,
   results,
+  activeDependencyTypes,
 }: {
   packages: Package[];
   dependencies: Dependency[];
@@ -98,6 +102,7 @@ async function Graph({
   filteredPackageNames?: string[];
   direction: GraphDirection;
   results: ConstraintResult[];
+  activeDependencyTypes: DependencyType[];
 }) {
   const cookieStore = cookies();
   const defaultTheme = cookieStore.get('commonality:theme')?.value;
@@ -112,6 +117,7 @@ async function Graph({
     results,
     dependencies,
     theme: 'light',
+    activeDependencyTypes,
   });
 
   const getShownElements = async () => {
@@ -170,7 +176,11 @@ async function Graph({
 async function GraphPage({
   searchParams,
 }: {
-  searchParams?: { packages?: string; direction: GraphDirection };
+  searchParams?: {
+    packages?: string;
+    direction: GraphDirection;
+    highlight: DependencyType[];
+  };
 }) {
   const [tagsData, packages, dependencies, results, codeownersData] =
     await Promise.all([
@@ -193,6 +203,10 @@ async function GraphPage({
     }
   };
 
+  const activeDependencyTypes = parseAsArrayOf(
+    parseAsStringEnum<DependencyType>(Object.values(DependencyType)),
+  ).parseServerSide(searchParams?.highlight);
+
   return (
     <GraphLayoutRoot>
       <GraphLayoutAside>
@@ -206,6 +220,9 @@ async function GraphPage({
       </GraphLayoutAside>
       <GraphLayoutMain>
         <Graph
+          activeDependencyTypes={
+            activeDependencyTypes ? activeDependencyTypes : []
+          }
           results={results}
           direction={searchParams?.direction as GraphDirection}
           packages={packages}

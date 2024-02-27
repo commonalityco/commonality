@@ -1,9 +1,15 @@
 'use client';
 import { isGraphLoadingAtom } from '@/atoms/graph';
 import { GraphDirection } from '@commonalityco/ui-graph';
+import { DependencyType } from '@commonalityco/utils-core';
 import { useSetAtom } from 'jotai';
 import { compressToEncodedURIComponent } from 'lz-string';
-import { parseAsString, parseAsStringEnum, useQueryState } from 'nuqs';
+import {
+  parseAsArrayOf,
+  parseAsString,
+  parseAsStringEnum,
+  useQueryState,
+} from 'nuqs';
 import { useEffect, useTransition } from 'react';
 
 export const usePackagesQuery = () => {
@@ -47,4 +53,17 @@ export const useDirectionQuery = () => {
   }, [isLoading, setLoading]);
 
   return { setDirectionQuery, directionQuery };
+};
+
+export const highlightParser = parseAsArrayOf(
+  parseAsStringEnum<DependencyType>(Object.values(DependencyType)),
+);
+
+export const useHighlightQuery = () => {
+  const [highlightQuery, setHighlightQuery] = useQueryState(
+    'highlight',
+    highlightParser,
+  );
+
+  return { setHighlightQuery, highlightQuery };
 };
