@@ -7,15 +7,16 @@ import {
 import { getEdges, useInteractions } from '@commonalityco/ui-graph';
 import { setCookie } from 'cookies-next';
 import { ComponentProps } from 'react';
-import { useNodes, Node } from '@xyflow/react';
 import {
   CodeownersData,
+  ConstraintResult,
   Dependency,
   Package,
   TagsData,
 } from '@commonalityco/types';
 import { useTheme } from 'next-themes';
 import { usePackagesQuery } from './graph-hooks';
+import { decompressFromEncodedURIComponent } from 'lz-string';
 
 function StudioSidebar(props: {
   tagsData: TagsData[];
@@ -24,10 +25,10 @@ function StudioSidebar(props: {
   dependencies: Dependency[];
   onLayout?: ComponentProps<typeof Sidebar>['onLayout'];
   defaultLayout?: ComponentProps<typeof Sidebar>['defaultLayout'];
+  results: ConstraintResult[];
 }) {
   const { resolvedTheme } = useTheme();
-  const nodes = useNodes<Node<PackageNodeData>>();
-  const { setPackagesQuery } = usePackagesQuery();
+  const { packagesQuery, setPackagesQuery } = usePackagesQuery();
 
   const interactions = useInteractions({
     nodes: getNodes({
@@ -38,14 +39,22 @@ function StudioSidebar(props: {
     edges: getEdges({
       dependencies: props.dependencies,
       theme: resolvedTheme as 'light' | 'dark',
+      results: props.results,
     }),
     onChange: ({ nodes }) => setPackagesQuery(nodes.map((node) => node.id)),
   });
 
-  const visiblePackages = nodes.map(({ data }) => data.package);
+  const queryPackages: string[] = packagesQuery
+    ? JSON.parse(decompressFromEncodedURIComponent(packagesQuery))
+    : [];
+
+  const visiblePackages = props.packages.filter((pkg) =>
+    queryPackages.some((queryName) => queryName === pkg.name),
+  );
 
   return (
     <Sidebar
+      results={props.results}
       codeownersData={props.codeownersData}
       onLayout={(sizes) => {
         setCookie('commonality:sidebar-layout', sizes);

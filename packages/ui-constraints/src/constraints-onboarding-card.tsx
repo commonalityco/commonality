@@ -10,11 +10,13 @@ import { ExternalLink, Network } from 'lucide-react';
 
 export function ConstraintsOnboardingCard({
   title = 'Organize your dependency graph',
+  className,
 }: {
   title?: string;
+  className?: string;
 }) {
   return (
-    <Card variant="secondary">
+    <Card variant="secondary" className={className}>
       <CardHeader>
         <div className="bg-background mb-3 flex h-10 w-10 items-center justify-center rounded-full border">
           <div className="bg-secondary rounded-full p-1.5">
@@ -29,9 +31,9 @@ export function ConstraintsOnboardingCard({
         </CardDescription>
       </CardHeader>
       <CardFooter>
-        <Button asChild variant="outline" size="sm">
+        <Button asChild size="sm">
           <a
-            href="https://commonality.co/docs/checks"
+            href="https://docs.commonality.co/constraints"
             target="_blank"
             rel="noopener noreferrer"
           >

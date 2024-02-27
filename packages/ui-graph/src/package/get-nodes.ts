@@ -32,8 +32,8 @@ export const getNodes = ({
     return {
       id: pkg.name,
       type: 'package',
-      width: 350,
-      height: 120,
+      width: 400,
+      height: 68,
       draggable: false,
       data: {
         label: pkg.name,

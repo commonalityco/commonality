@@ -3,7 +3,6 @@ import {
   EditTagsDialog,
   EditTagsDialogContent,
 } from '@/components/edit-tags-dialog';
-import { FeatureDependencyConstraintsDialog } from '@commonalityco/ui-constraints';
 import { Package, TagsData } from '@commonalityco/types';
 import { useState } from 'react';
 
@@ -35,7 +34,6 @@ function StudioGraphOverlays({ tagsData }: { tagsData: TagsData[] }) {
           />
         ) : null}
       </EditTagsDialog>
-      <FeatureDependencyConstraintsDialog />
     </div>
   );
 }

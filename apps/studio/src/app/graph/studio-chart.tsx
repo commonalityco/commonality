@@ -19,10 +19,10 @@ import {
   Package,
   TagsData,
 } from '@commonalityco/types';
-import { Edge, Node, OnSelectionChangeParams } from '@xyflow/react';
+import { Edge, Node, OnSelectionChangeParams, useStore } from '@xyflow/react';
 import { useCallback } from 'react';
-import { GraphLoading } from '@commonalityco/ui-graph';
-import { DependencyConstraintsDialog } from '@commonalityco/ui-constraints';
+import { DependencyDialog, GraphLoading } from '@commonalityco/ui-graph';
+import { ConstraintsDialog } from '@commonalityco/ui-constraints';
 import { AnimatePresence, motion } from 'framer-motion';
 
 function PackageEditTagsDialog({ tagsData }: { tagsData: TagsData[] }) {
@@ -56,31 +56,46 @@ function PackageEditTagsDialog({ tagsData }: { tagsData: TagsData[] }) {
   );
 }
 
-function ActiveDependencyDialog({
-  dependencies,
-  results,
-}: {
-  dependencies: Dependency[];
-  results: ConstraintResult[];
-}) {
+function ActiveDependencyDialog({ results }: { results: ConstraintResult[] }) {
+  const resetSelectedElements = useStore(
+    (state) => state.resetSelectedElements,
+  );
   const [activeDependency, setActiveDependency] = useAtom(activeDependencyAtom);
 
+  const resultsForDependency = results.filter((result) =>
+    result.dependencyPath.some(
+      (depPath) =>
+        depPath.source === activeDependency?.source &&
+        depPath.target === activeDependency?.target,
+    ),
+  );
+  if (resultsForDependency.length > 0) {
+    return (
+      <ConstraintsDialog
+        open
+        onOpenChange={(open: boolean) => {
+          if (!open) {
+            resetSelectedElements();
+            setActiveDependency(null);
+          }
+        }}
+        results={resultsForDependency}
+        dependencies={activeDependency ? [activeDependency] : []}
+      />
+    );
+  }
+
   return (
-    <EditTagsDialog
+    <DependencyDialog
+      dependencies={activeDependency ? [activeDependency] : []}
       open={Boolean(activeDependency)}
       onOpenChange={(open) => {
         if (!open) {
+          resetSelectedElements();
           setActiveDependency(null);
         }
       }}
-    >
-      {activeDependency ? (
-        <DependencyConstraintsDialog
-          dependencies={dependencies}
-          results={results}
-        />
-      ) : null}
-    </EditTagsDialog>
+    />
   );
 }
 
@@ -102,6 +117,7 @@ function StudioChart({
   theme: 'light' | 'dark';
 }) {
   const setSelectedPackages = useSetAtom(selectedPackagesAtom);
+  const setActiveDependency = useSetAtom(activeDependencyAtom);
   const isLoading = useAtomValue(isGraphLoadingAtom);
 
   const onSelectionChange = useCallback(
@@ -137,11 +153,18 @@ function StudioChart({
           animate={{ opacity: 1 }}
         >
           <PackageEditTagsDialog tagsData={tagsData} />
-          <ActiveDependencyDialog
-            dependencies={dependencies}
-            results={results}
-          />
+          <ActiveDependencyDialog results={results} />
           <Graph
+            onEdgeClick={(event, edge) => {
+              const depdendency = dependencies.find(
+                (dep) =>
+                  dep.source === edge.source && dep.target === edge.target,
+              );
+
+              if (!depdendency) return;
+
+              setActiveDependency(depdendency);
+            }}
             totalCount={0}
             nodes={shownNodes}
             edges={shownEdges}

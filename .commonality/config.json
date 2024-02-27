@@ -1,5 +1,10 @@
 {
   "$schema": "https://commonality.co/config.json",
+  "constraints": {
+    "ui": {
+      "disallow": "*"
+    }
+  },
   "checks": {
     "*": [
       "recommended/has-readme",

@@ -23,6 +23,7 @@ import { getConnectedEdges } from '@xyflow/system';
 import * as z from 'zod';
 import { decompressFromEncodedURIComponent } from 'lz-string';
 import {
+  CodeownersData,
   ConstraintResult,
   Dependency,
   Package,
@@ -38,14 +39,19 @@ const StudioChart = lazyLoad(() => import('./studio-chart'), {
   loading: () => <GraphLoading />,
 });
 
-async function Sidebar() {
-  const [tagsData, packages, dependencies, codeownersData] = await Promise.all([
-    getTagsData(),
-    getPackagesData(),
-    getDependenciesData(),
-    getCodeownersData(),
-  ]);
-
+async function Sidebar({
+  results,
+  packages,
+  tagsData,
+  dependencies,
+  codeownersData,
+}: {
+  packages: Package[];
+  dependencies: Dependency[];
+  tagsData: TagsData[];
+  results: ConstraintResult[];
+  codeownersData: CodeownersData[];
+}) {
   const cookieStore = cookies();
   const defaultLayoutCookie = cookieStore.get('commonality:sidebar-layout');
 
@@ -68,6 +74,7 @@ async function Sidebar() {
 
   return (
     <StudioSidebar
+      results={results}
       tagsData={tagsData}
       codeownersData={codeownersData}
       dependencies={dependencies}
@@ -102,6 +109,7 @@ async function Graph({
   });
 
   const edges = getEdges({
+    results,
     dependencies,
     theme: 'light',
   });
@@ -133,13 +141,12 @@ async function Graph({
 
   return (
     <div className="flex flex-col h-full">
-      <Suspense fallback={null}>
-        <StudioPackageToolbar
-          packages={packages}
-          allEdges={edges}
-          allNodes={nodes}
-        />
-      </Suspense>
+      <StudioPackageToolbar
+        packages={packages}
+        allEdges={edges}
+        allNodes={nodes}
+      />
+
       <StudioChart
         results={results}
         tagsData={tagsData}
@@ -165,12 +172,14 @@ async function GraphPage({
 }: {
   searchParams?: { packages?: string; direction: GraphDirection };
 }) {
-  const [tagsData, packages, dependencies, results] = await Promise.all([
-    getTagsData(),
-    getPackagesData(),
-    getDependenciesData(),
-    getConstraintsData(),
-  ]);
+  const [tagsData, packages, dependencies, results, codeownersData] =
+    await Promise.all([
+      getTagsData(),
+      getPackagesData(),
+      getDependenciesData(),
+      getConstraintsData(),
+      getCodeownersData(),
+    ]);
 
   const getDecodedPackages = (): string[] | undefined => {
     if (!searchParams?.packages) return;
@@ -187,7 +196,13 @@ async function GraphPage({
   return (
     <GraphLayoutRoot>
       <GraphLayoutAside>
-        <Sidebar />
+        <Sidebar
+          packages={packages}
+          dependencies={dependencies}
+          tagsData={tagsData}
+          codeownersData={codeownersData}
+          results={results}
+        />
       </GraphLayoutAside>
       <GraphLayoutMain>
         <Graph

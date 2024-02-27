@@ -26,7 +26,10 @@ export const usePackagesQuery = () => {
     setPackagesQueryRaw(compressed);
   };
 
-  return { setPackagesQuery, packagesQuery };
+  return {
+    setPackagesQuery,
+    packagesQuery,
+  };
 };
 
 export const useDirectionQuery = () => {

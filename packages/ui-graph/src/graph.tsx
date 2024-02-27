@@ -35,7 +35,10 @@ export const Graph = (
     edges: Edge[];
     theme: 'light' | 'dark';
     children?: React.ReactNode;
-  } & Pick<ComponentProps<typeof ReactFlow>, 'onSelectionChange'>,
+  } & Pick<
+    ComponentProps<typeof ReactFlow>,
+    'onSelectionChange' | 'onEdgeClick'
+  >,
 ) => {
   const [nodes, setNodes, onNodesChange] = useNodesState(props.nodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(props.edges);
@@ -160,6 +163,7 @@ export const Graph = (
           nodes={nodes}
           edges={edges}
           minZoom={0.1}
+          onEdgeClick={props.onEdgeClick}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onNodeMouseEnter={onNodeMouseEnter}

@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/config-tailwind": "workspace:*",
     "@commonalityco/types": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
@@ -52,6 +53,7 @@
     "@xstate/react": "^3.2.2",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.317.0",
+    "react-minimal-pie-chart": "^8.4.0",
     "react-resizable-panels": "^0.0.54"
   },
   "repository": {

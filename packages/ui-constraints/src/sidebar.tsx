@@ -1,6 +1,11 @@
 'use client';
 import { ComponentProps, useMemo, useState } from 'react';
-import { CodeownersData, Package, TagsData } from '@commonalityco/types';
+import {
+  CodeownersData,
+  ConstraintResult,
+  Package,
+  TagsData,
+} from '@commonalityco/types';
 import {
   Button,
   Input,

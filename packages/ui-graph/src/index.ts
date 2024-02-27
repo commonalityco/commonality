@@ -9,3 +9,4 @@ export * from './graph-empty';
 export * from './graph-loading';
 export * from './types';
 export * from './graph-control-bar';
+export * from './dependency-dialog';
