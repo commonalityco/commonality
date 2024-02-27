@@ -62,14 +62,14 @@ function ActiveDependencyDialog({ results }: { results: ConstraintResult[] }) {
   );
   const [activeDependency, setActiveDependency] = useAtom(activeDependencyAtom);
 
-  const resultsForDependency = results.filter((result) =>
+  const resultForDependency = results.find((result) =>
     result.dependencyPath.some(
       (depPath) =>
         depPath.source === activeDependency?.source &&
         depPath.target === activeDependency?.target,
     ),
   );
-  if (resultsForDependency.length > 0) {
+  if (resultForDependency) {
     return (
       <ConstraintsDialog
         open
@@ -79,8 +79,7 @@ function ActiveDependencyDialog({ results }: { results: ConstraintResult[] }) {
             setActiveDependency(null);
           }
         }}
-        results={resultsForDependency}
-        dependencies={activeDependency ? [activeDependency] : []}
+        result={resultForDependency}
       />
     );
   }

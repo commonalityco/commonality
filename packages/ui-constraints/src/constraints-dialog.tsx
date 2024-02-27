@@ -84,6 +84,7 @@ export function ConstraintsDialog({
         </DialogHeader>
         <ScrollArea className="max-h-[450px]">
           <div className="flex flex-col gap-4 py-2">
+            <Label>Dependency path</Label>
             <div className="flex flex-col gap-2">
               <div className="grid">
                 {result.dependencyPath.map((path, index) => (
@@ -100,29 +101,40 @@ export function ConstraintsDialog({
                     </p>
                     {index === 0 ? (
                       <div className="grid gap-2 grid-cols-[minmax(min-content,max-content)_1fr] ml-2 my-2 pl-4 items-center border-l border-muted-foreground border-dashed">
-                        <dt id="allowed" className="shrink-0 whitespace-nowrap">
-                          Allowed:
-                        </dt>
-                        <ConstraintsTagsContainer
-                          isValid={result.isValid}
-                          foundTags={result.foundTags || []}
-                          tags={result.constraint.allow}
-                          labelId="allowed"
-                          allPackagesText="All packages"
-                        />
-                        <dt
-                          id="disallowed"
-                          className="shrink-0 whitespace-nowrap"
-                        >
-                          Disallowed:
-                        </dt>
-                        <ConstraintsTagsContainer
-                          isValid={result.isValid}
-                          foundTags={result.foundTags || []}
-                          tags={result.constraint.disallow}
-                          labelId="disallowed"
-                          allPackagesText="All packages"
-                        />
+                        {'allow' in result.constraint ? (
+                          <>
+                            <dt
+                              id="allowed"
+                              className="shrink-0 whitespace-nowrap"
+                            >
+                              Allowed:
+                            </dt>
+                            <ConstraintsTagsContainer
+                              isValid={result.isValid}
+                              foundTags={result.foundTags || []}
+                              tags={result.constraint.allow}
+                              labelId="allowed"
+                              allPackagesText="All packages"
+                            />
+                          </>
+                        ) : undefined}
+                        {'disallow' in result.constraint ? (
+                          <>
+                            <dt
+                              id="disallowed"
+                              className="shrink-0 whitespace-nowrap"
+                            >
+                              Disallowed:
+                            </dt>
+                            <ConstraintsTagsContainer
+                              isValid={result.isValid}
+                              foundTags={result.foundTags || []}
+                              tags={result.constraint.disallow}
+                              labelId="disallowed"
+                              allPackagesText="All packages"
+                            />
+                          </>
+                        ) : undefined}
                       </div>
                     ) : (
                       <div className="ml-2 h-4 border-l border-muted-foreground border-dashed my-2" />
