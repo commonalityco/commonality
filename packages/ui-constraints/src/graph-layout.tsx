@@ -33,7 +33,7 @@ export function GraphLayoutAside({
         className,
       )}
     >
-      <div className="h-full w-72 shrink-0">{children}</div>
+      <div className="h-full w-80 shrink-0">{children}</div>
     </div>
   );
 }

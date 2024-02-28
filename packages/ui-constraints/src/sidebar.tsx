@@ -42,14 +42,7 @@ function ShowHideButton({
   onShow: ComponentProps<typeof Button>['onClick'];
 }) {
   return (
-    <div
-      className={cn(
-        'flex shrink-0 transition duration-200 items-center opacity-0 hover:opacity-100',
-        {
-          'opacity-100': visible,
-        },
-      )}
-    >
+    <div className={'flex shrink-0 transition duration-200 items-center'}>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -62,11 +55,10 @@ function ShowHideButton({
             >
               {visible ? (
                 <>
-                  <Eye className="absolute h-4 w-4 opacity-100 transition group-hover:opacity-0" />
-                  <EyeOff className="absolute h-4 w-4 opacity-0 transition group-hover:opacity-100" />
+                  <Eye className="h-4 w-4" />
                 </>
               ) : (
-                <Eye className="h-4 w-4" />
+                <EyeOff className="h-4 w-4 text-muted-foreground" />
               )}
             </Button>
           </TooltipTrigger>
@@ -106,7 +98,7 @@ function FocusButton({
 
 function PackagesFilterSection({
   packages,
-  stripScopeFromPackageNames,
+
   visiblePackages,
   onHide,
   onShow,
@@ -115,7 +107,7 @@ function PackagesFilterSection({
 }: {
   visiblePackages: Package[];
   packages: Package[];
-  stripScopeFromPackageNames?: boolean;
+
   onHide: (packageName: string) => void;
   onShow: (packageName: string) => void;
   onFocus: (packageName: string) => void;
@@ -175,19 +167,16 @@ function PackagesFilterSection({
                 );
 
                 const IconForPackage = getIconForPackage(package_.type);
-                const formattedPackageName = formatPackageName(package_.name, {
-                  stripScope: stripScopeFromPackageNames ?? true,
-                });
 
                 return (
                   <div
                     key={package_.name}
-                    className="mb-1 grid grid-cols-[1fr_auto] items-center justify-start overflow-hidden"
+                    className="mb-1 grid grid-cols-[1fr_auto] items-center justify-start overflow-hidden gap-1"
                   >
                     <div className="flex w-full items-center justify-start gap-2 overflow-hidden">
                       <IconForPackage className="h-4 w-4 shrink-0 grow-0" />
                       <p className="text-foreground my-0 truncate text-left text-sm font-medium">
-                        {formattedPackageName}
+                        {package_.name}
                       </p>
                     </div>
 
@@ -476,7 +465,7 @@ export function Sidebar({
   visiblePackages,
   tagsData,
   codeownersData,
-  stripScopeFromPackageNames,
+
   onHideAll = () => {},
   onShowAll = () => {},
   onTagHide = () => {},
@@ -496,7 +485,7 @@ export function Sidebar({
   packages: Package[];
   codeownersData: CodeownersData[];
   tagsData: TagsData[];
-  stripScopeFromPackageNames?: boolean;
+
   onShowAll?: () => void;
   onHideAll?: () => void;
   onTagHide?: (tag: string) => void;
@@ -584,7 +573,6 @@ export function Sidebar({
             >
               <PackagesFilterSection
                 packages={filteredPackages}
-                stripScopeFromPackageNames={stripScopeFromPackageNames}
                 visiblePackages={visiblePackages}
                 onFocus={onPackageFocus}
                 onHide={onPackageHide}

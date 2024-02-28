@@ -132,7 +132,7 @@ function ColorDropdown({
               })}
             />
           </div>
-          <span>Color</span>
+          <span className="font-mono text-xs">Color</span>
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>

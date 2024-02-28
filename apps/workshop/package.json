@@ -10,7 +10,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@commonalityco/types": "workspace:*",
     "@commonalityco/ui-conformance": "workspace:*",
     "@commonalityco/ui-constraints": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
@@ -25,6 +24,7 @@
     "storybook-addon-variants": "^0.2.0"
   },
   "devDependencies": {
+    "@commonalityco/types": "workspace:*",
     "@commonalityco/config-tailwind": "workspace:*",
     "@commonalityco/config-tsconfig": "workspace:*",
     "@storybook/addon-a11y": "^7.6.17",

@@ -15,7 +15,7 @@ import {
   TagsData,
 } from '@commonalityco/types';
 import { useTheme } from 'next-themes';
-import { usePackagesQuery } from './graph-hooks';
+import { useHighlightQuery, usePackagesQuery } from './graph-hooks';
 import { decompressFromEncodedURIComponent } from 'lz-string';
 
 function StudioSidebar(props: {
@@ -29,6 +29,7 @@ function StudioSidebar(props: {
 }) {
   const { resolvedTheme } = useTheme();
   const { packagesQuery, setPackagesQuery } = usePackagesQuery();
+  const { highlightQuery } = useHighlightQuery();
 
   const interactions = useInteractions({
     nodes: getNodes({
@@ -40,6 +41,7 @@ function StudioSidebar(props: {
       dependencies: props.dependencies,
       theme: resolvedTheme as 'light' | 'dark',
       results: props.results,
+      activeDependencyTypes: highlightQuery ?? [],
     }),
     onChange: ({ nodes }) => setPackagesQuery(nodes.map((node) => node.id)),
   });
@@ -54,7 +56,6 @@ function StudioSidebar(props: {
 
   return (
     <Sidebar
-      results={props.results}
       codeownersData={props.codeownersData}
       onLayout={(sizes) => {
         setCookie('commonality:sidebar-layout', sizes);
