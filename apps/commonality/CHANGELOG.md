@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.2.58
+
+### Patch Changes
+
+- 67dadac: Allow for yarn berry workspaces definition
+- Updated dependencies [67dadac]
+  - @commonalityco/studio@0.2.51
+
 ## 0.2.57
 
 ### Patch Changes

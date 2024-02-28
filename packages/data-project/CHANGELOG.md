@@ -1,5 +1,11 @@
 # @commonalityco/snapshot
 
+## 0.2.45
+
+### Patch Changes
+
+- 67dadac: Allow for yarn berry workspaces definition
+
 ## 0.2.44
 
 ### Patch Changes
