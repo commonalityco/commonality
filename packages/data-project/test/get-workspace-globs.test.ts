@@ -80,6 +80,21 @@ describe('getWorkspaceGlobs', () => {
     expect(workspaceGlobs).toEqual(['apps/**', 'packages/**']);
   });
 
+  test('returns the workspaces when set with yarn berry', async () => {
+    const rootDirectory = path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './fixtures',
+      'yarn-berry-workspace',
+    );
+
+    const workspaceGlobs = await getWorkspaceGlobs({
+      rootDirectory,
+      packageManager: PackageManager.YARN,
+    });
+
+    expect(workspaceGlobs).toEqual(['apps/**', 'packages/**']);
+  });
+
   test('returns the workspaces when set with pnpm', async () => {
     const rootDirectory = path.join(
       path.dirname(fileURLToPath(import.meta.url)),

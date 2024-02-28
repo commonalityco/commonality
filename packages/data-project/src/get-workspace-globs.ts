@@ -39,7 +39,15 @@ export const getWorkspaceGlobs = async ({
         return defaultWorkspaceGlobs;
       }
 
-      return rootPackageJson.workspaces;
+      if (Array.isArray(rootPackageJson.workspaces)) {
+        return rootPackageJson.workspaces;
+      }
+
+      if (Array.isArray(rootPackageJson.workspaces?.packages)) {
+        return rootPackageJson.workspaces.packages;
+      }
+
+      return defaultWorkspaceGlobs;
     }
   }
 

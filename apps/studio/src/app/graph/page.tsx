@@ -33,7 +33,6 @@ import { StudioGraphEmpty } from './studio-graph-empty';
 import lazyLoad from 'next/dynamic';
 import { StudioPackageToolbar } from './studio-package-toolbar';
 import { StudioControlBar } from './studio-control-bar';
-import { highlightParser } from './graph-hooks';
 import { DependencyType } from '@commonalityco/utils-core';
 import { parseAsArrayOf, parseAsStringEnum } from 'nuqs';
 
