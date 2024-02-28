@@ -530,9 +530,6 @@ importers:
 
   apps/workshop:
     dependencies:
-      '@commonalityco/types':
-        specifier: workspace:*
-        version: link:../../packages/types
       '@commonalityco/ui-conformance':
         specifier: workspace:*
         version: link:../../packages/ui-conformance
@@ -576,6 +573,9 @@ importers:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
         version: link:../../tooling/config-tsconfig
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@storybook/addon-a11y':
         specifier: ^7.6.17
         version: 7.6.17
@@ -955,6 +955,9 @@ importers:
         specifier: ^0.0.54
         version: 0.0.54(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
+      '@commonalityco/config-tailwind':
+        specifier: workspace:*
+        version: link:../../tooling/config-tailwind
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
         version: link:../../tooling/config-tsconfig

@@ -44,7 +44,7 @@ export const Graph = (
   const [edges, setEdges, onEdgesChange] = useEdgesState(props.edges);
 
   const onNodeMouseLeave = useCallback(
-    (event: React.MouseEvent, node: Node) => {
+    (_event: React.MouseEvent, _node: Node) => {
       setNodes((currentNodes: Node<PackageNodeData>[]) => {
         return currentNodes.map((currentNode) => {
           return {
@@ -73,7 +73,7 @@ export const Graph = (
   );
 
   const onNodeMouseEnter = useCallback(
-    (event: React.MouseEvent, node: Node) => {
+    (_event: React.MouseEvent, node: Node) => {
       const connectedEdges = getConnectedEdges([node], edges);
       const outgoers = getOutgoers(node, nodes, edges);
       const incomers = getIncomers(node, nodes, edges);
@@ -113,7 +113,7 @@ export const Graph = (
   );
 
   const onEdgeMouseLeave = useCallback(
-    (event: React.MouseEvent, edge: Edge<DependencyEdgeData>) => {
+    (_event: React.MouseEvent, edge: Edge<DependencyEdgeData>) => {
       setEdges((currentEdges) =>
         currentEdges.map((currentEdge: Edge<DependencyEdgeData>) => {
           if (!currentEdge.data) {
@@ -136,7 +136,7 @@ export const Graph = (
   );
 
   const onEdgeMouseEnter = useCallback(
-    (event: React.MouseEvent, edge: Edge<DependencyEdgeData>) => {
+    (_event: React.MouseEvent, edge: Edge<DependencyEdgeData>) => {
       setEdges((currentEdges) =>
         currentEdges.map((currentEdge: Edge<DependencyEdgeData>) => {
           if (!currentEdge.data) return currentEdge;
