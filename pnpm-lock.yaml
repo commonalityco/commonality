@@ -755,12 +755,6 @@ importers:
 
   packages/data-packages:
     dependencies:
-      '@commonalityco/data-project':
-        specifier: workspace:*
-        version: link:../data-project
-      '@commonalityco/utils-core':
-        specifier: workspace:*
-        version: link:../utils-core
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
@@ -768,9 +762,15 @@ importers:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
         version: link:../../tooling/config-tsconfig
+      '@commonalityco/data-project':
+        specifier: workspace:*
+        version: link:../data-project
       '@commonalityco/types':
         specifier: workspace:*
         version: link:../types
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../utils-core
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
