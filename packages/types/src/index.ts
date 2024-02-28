@@ -132,6 +132,6 @@ export type PackageJson = {
   cpu?: Array<string>;
   private?: boolean;
   publishConfig?: Record<string, unknown>;
-  workspaces?: string[];
+  workspaces?: string[] | { packages: string[] };
   [key: string]: unknown;
 };
