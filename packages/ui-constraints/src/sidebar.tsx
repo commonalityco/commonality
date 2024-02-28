@@ -1,36 +1,34 @@
 'use client';
-import { ComponentProps, useMemo, useState } from 'react';
 import { CodeownersData, Package, TagsData } from '@commonalityco/types';
+import { GradientFade, getIconForPackage } from '@commonalityco/ui-core';
 import {
-  Button,
-  Input,
   Badge,
-  Heading,
-  Text,
-  ScrollArea,
-  TooltipProvider,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
+  Button,
   Card,
-  CardHeader,
-  CardTitle,
   CardDescription,
   CardFooter,
-  cn,
+  CardHeader,
+  CardTitle,
+  Heading,
+  Input,
+  ScrollArea,
+  Text,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from '@commonalityco/ui-design-system';
-import { formatPackageName } from '@commonalityco/utils-package';
 import {
   Box,
   ExternalLink,
   Eye,
   EyeOff,
-  Users,
   Focus,
   Tags,
+  Users,
 } from 'lucide-react';
+import { ComponentProps, useMemo, useState } from 'react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
-import { GradientFade, getIconForPackage } from '@commonalityco/ui-core';
 
 function ShowHideButton({
   visible,

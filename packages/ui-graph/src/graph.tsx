@@ -1,23 +1,23 @@
 'use client';
-import React, { ComponentProps, useCallback } from 'react';
+import { GradientFade } from '@commonalityco/ui-core';
 import {
-  ReactFlow,
-  ConnectionLineType,
-  useNodesState,
-  useEdgesState,
-  Node,
-  Edge,
   Background,
   BackgroundVariant,
+  ConnectionLineType,
+  Edge,
   MiniMap,
+  Node,
+  ReactFlow,
   getConnectedEdges,
-  getOutgoers,
   getIncomers,
+  getOutgoers,
+  useEdgesState,
+  useNodesState,
 } from '@xyflow/react';
+import React, { ComponentProps, useCallback } from 'react';
 import { PackageNode } from './package-node';
 import { DependencyEdge } from './package/dependency-edge';
 import { DependencyEdgeData } from './package/get-edges';
-import { GradientFade } from '@commonalityco/ui-core';
 import { PackageNodeData } from './package/get-nodes';
 
 const nodeTypes = {
