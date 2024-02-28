@@ -8,7 +8,7 @@
   },
   "main": "./src/index.ts",
   "sideEffects": false,
-  "version": "0.2.43",
+  "version": "0.2.44",
   "publishConfig": {
     "access": "restricted",
     "exports": {

@@ -1,5 +1,14 @@
 # @commonalityco/ui-core
 
+## 0.2.40
+
+### Patch Changes
+
+- 4f0f69c: Update dependency graph to use @xyflow/react
+- Updated dependencies [4f0f69c]
+  - @commonalityco/ui-design-system@0.2.40
+  - @commonalityco/utils-core@0.2.41
+
 ## 0.2.39
 
 ### Patch Changes

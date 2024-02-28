@@ -1,5 +1,13 @@
 # @commonalityco/snapshot
 
+## 0.2.44
+
+### Patch Changes
+
+- 4f0f69c: Update dependency graph to use @xyflow/react
+- Updated dependencies [4f0f69c]
+  - @commonalityco/utils-core@0.2.41
+
 ## 0.2.43
 
 ### Patch Changes

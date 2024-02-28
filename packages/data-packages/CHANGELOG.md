@@ -1,5 +1,14 @@
 # @commonalityco/constraints
 
+## 0.2.44
+
+### Patch Changes
+
+- 4f0f69c: Update dependency graph to use @xyflow/react
+- Updated dependencies [4f0f69c]
+  - @commonalityco/data-project@0.2.44
+  - @commonalityco/utils-core@0.2.41
+
 ## 0.2.43
 
 ### Patch Changes

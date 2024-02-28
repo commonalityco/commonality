@@ -1,5 +1,13 @@
 # commonality-checks-recommended
 
+## 0.0.34
+
+### Patch Changes
+
+- 4f0f69c: Update dependency graph to use @xyflow/react
+- Updated dependencies [4f0f69c]
+  - commonality@0.2.57
+
 ## 0.0.33
 
 ### Patch Changes

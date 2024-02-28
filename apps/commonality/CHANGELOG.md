@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.2.57
+
+### Patch Changes
+
+- 4f0f69c: Update dependency graph to use @xyflow/react
+- Updated dependencies [4f0f69c]
+  - @commonalityco/studio@0.2.50
+
 ## 0.2.56
 
 ### Patch Changes

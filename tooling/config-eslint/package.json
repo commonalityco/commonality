@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-commonality",
   "description": "The Commonality CLI's ESLint configuration",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "publishConfig": {
     "access": "public"
   },

@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.50
+
+### Patch Changes
+
+- 4f0f69c: Update dependency graph to use @xyflow/react
+
 ## 0.2.49
 
 ### Patch Changes
