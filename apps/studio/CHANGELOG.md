@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.51
+
+### Patch Changes
+
+- 67dadac: Allow for yarn berry workspaces definition
+
 ## 0.2.50
 
 ### Patch Changes

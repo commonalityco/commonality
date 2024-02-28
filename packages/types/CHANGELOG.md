@@ -1,5 +1,11 @@
 # @commonalityco/types
 
+## 0.2.40
+
+### Patch Changes
+
+- 67dadac: Allow for yarn berry workspaces definition
+
 ## 0.2.39
 
 ### Patch Changes
