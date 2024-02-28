@@ -157,7 +157,7 @@ export const Graph = (
   );
 
   return (
-    <div className="relative grow h-full">
+    <div className="relative grow h-full" data-testid="dependency-graph">
       <div className="relative grow w-full h-full">
         <ReactFlow
           nodes={nodes}
