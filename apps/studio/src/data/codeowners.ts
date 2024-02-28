@@ -1,5 +1,4 @@
 'use server';
-import 'server-only';
 import { cache } from 'react';
 import { getCodeownersData as getCodeownersDatas } from '@commonalityco/data-codeowners';
 import { getPackages } from '@commonalityco/data-packages';

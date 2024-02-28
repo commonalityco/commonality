@@ -1,36 +1,34 @@
 'use client';
-import { ComponentProps, useMemo, useState } from 'react';
 import { CodeownersData, Package, TagsData } from '@commonalityco/types';
+import { GradientFade, getIconForPackage } from '@commonalityco/ui-core';
 import {
-  Button,
-  Input,
   Badge,
-  Heading,
-  Text,
-  ScrollArea,
-  TooltipProvider,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
+  Button,
   Card,
-  CardHeader,
-  CardTitle,
   CardDescription,
   CardFooter,
-  cn,
+  CardHeader,
+  CardTitle,
+  Heading,
+  Input,
+  ScrollArea,
+  Text,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from '@commonalityco/ui-design-system';
-import { formatPackageName } from '@commonalityco/utils-package';
 import {
   Box,
   ExternalLink,
   Eye,
   EyeOff,
-  Users,
   Focus,
   Tags,
+  Users,
 } from 'lucide-react';
+import { ComponentProps, useMemo, useState } from 'react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
-import { GradientFade, getIconForPackage } from '@commonalityco/ui-core';
 
 function ShowHideButton({
   visible,
@@ -42,14 +40,7 @@ function ShowHideButton({
   onShow: ComponentProps<typeof Button>['onClick'];
 }) {
   return (
-    <div
-      className={cn(
-        'flex shrink-0 transition duration-200 items-center opacity-0 hover:opacity-100',
-        {
-          'opacity-100': visible,
-        },
-      )}
-    >
+    <div className={'flex shrink-0 transition duration-200 items-center'}>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -62,11 +53,10 @@ function ShowHideButton({
             >
               {visible ? (
                 <>
-                  <Eye className="absolute h-4 w-4 opacity-100 transition group-hover:opacity-0" />
-                  <EyeOff className="absolute h-4 w-4 opacity-0 transition group-hover:opacity-100" />
+                  <Eye className="h-4 w-4" />
                 </>
               ) : (
-                <Eye className="h-4 w-4" />
+                <EyeOff className="h-4 w-4 text-muted-foreground" />
               )}
             </Button>
           </TooltipTrigger>
@@ -106,7 +96,7 @@ function FocusButton({
 
 function PackagesFilterSection({
   packages,
-  stripScopeFromPackageNames,
+
   visiblePackages,
   onHide,
   onShow,
@@ -115,7 +105,7 @@ function PackagesFilterSection({
 }: {
   visiblePackages: Package[];
   packages: Package[];
-  stripScopeFromPackageNames?: boolean;
+
   onHide: (packageName: string) => void;
   onShow: (packageName: string) => void;
   onFocus: (packageName: string) => void;
@@ -175,19 +165,16 @@ function PackagesFilterSection({
                 );
 
                 const IconForPackage = getIconForPackage(package_.type);
-                const formattedPackageName = formatPackageName(package_.name, {
-                  stripScope: stripScopeFromPackageNames ?? true,
-                });
 
                 return (
                   <div
                     key={package_.name}
-                    className="mb-1 grid grid-cols-[1fr_auto] items-center justify-start overflow-hidden"
+                    className="mb-1 grid grid-cols-[1fr_auto] items-center justify-start overflow-hidden gap-1"
                   >
                     <div className="flex w-full items-center justify-start gap-2 overflow-hidden">
                       <IconForPackage className="h-4 w-4 shrink-0 grow-0" />
                       <p className="text-foreground my-0 truncate text-left text-sm font-medium">
-                        {formattedPackageName}
+                        {package_.name}
                       </p>
                     </div>
 
@@ -476,7 +463,7 @@ export function Sidebar({
   visiblePackages,
   tagsData,
   codeownersData,
-  stripScopeFromPackageNames,
+
   onHideAll = () => {},
   onShowAll = () => {},
   onTagHide = () => {},
@@ -496,18 +483,18 @@ export function Sidebar({
   packages: Package[];
   codeownersData: CodeownersData[];
   tagsData: TagsData[];
-  stripScopeFromPackageNames?: boolean;
-  onShowAll: () => void;
-  onHideAll: () => void;
-  onTagHide: (tag: string) => void;
-  onTagShow: (tag: string) => void;
-  onTagFocus: (tag: string) => void;
-  onTeamHide: (team: string) => void;
-  onTeamShow: (team: string) => void;
-  onTeamFocus: (team: string) => void;
-  onPackageHide: (packageName: string) => void;
-  onPackageShow: (packageName: string) => void;
-  onPackageFocus: (packageName: string) => void;
+
+  onShowAll?: () => void;
+  onHideAll?: () => void;
+  onTagHide?: (tag: string) => void;
+  onTagShow?: (tag: string) => void;
+  onTagFocus?: (tag: string) => void;
+  onTeamHide?: (team: string) => void;
+  onTeamShow?: (team: string) => void;
+  onTeamFocus?: (team: string) => void;
+  onPackageHide?: (packageName: string) => void;
+  onPackageShow?: (packageName: string) => void;
+  onPackageFocus?: (packageName: string) => void;
   onLayout?: ComponentProps<typeof PanelGroup>['onLayout'];
   defaultLayout?: [number, number, number];
   initialSearch?: string;
@@ -534,8 +521,8 @@ export function Sidebar({
     filteredPackages.length === 0;
 
   return (
-    <div className="bg-background h-full w-full rounded-lg overflow-hidden">
-      <div className="flex h-full flex-col content-start gap-3">
+    <div className="bg-background h-full w-full overflow-hidden">
+      <div className="flex h-full flex-col content-start gap-4">
         <div className="flex flex-nowrap items-center gap-2">
           <Button
             variant="secondary"
@@ -584,7 +571,6 @@ export function Sidebar({
             >
               <PackagesFilterSection
                 packages={filteredPackages}
-                stripScopeFromPackageNames={stripScopeFromPackageNames}
                 visiblePackages={visiblePackages}
                 onFocus={onPackageFocus}
                 onHide={onPackageHide}

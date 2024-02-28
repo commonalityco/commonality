@@ -29,16 +29,16 @@
     "@commonalityco/ui-design-system": "workspace:*",
     "@commonalityco/utils-conformance": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
-    "@floating-ui/react": "^0.26.3",
-    "@testing-library/jest-dom": "^6.1.3",
-    "@testing-library/react": "^14.0.0",
+    "@floating-ui/react": "^0.26.9",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
-    "@types/react": "^18.2.22",
+    "@types/react": "^18.2.57",
     "eslint-config-commonality": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "resize-observer-polyfill": "^1.5.1",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.3",
     "vitest": "^0.34.6"
   },
   "peerDependencies": {
@@ -49,7 +49,7 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@tanstack/react-table": "^8.10.1",
+    "@tanstack/react-table": "^8.12.0",
     "lucide-react": "^0.317.0"
   },
   "repository": {

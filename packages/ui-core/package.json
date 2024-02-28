@@ -22,15 +22,15 @@
     "@commonalityco/config-tsconfig": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
-    "@types/react": "^18.2.22",
+    "@types/react": "^18.2.57",
     "eslint-config-commonality": "workspace:*",
     "lucide-react": "^0.317.0",
     "next": "14.0.4",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tailwindcss": "^3.3.3",
-    "typescript": "^5.2.2"
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
   },
   "license": "MIT",
   "peerDependencies": {

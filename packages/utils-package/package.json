@@ -19,11 +19,11 @@
   "license": "MIT",
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
-    "@types/react": "^18.2.22",
+    "@types/react": "^18.2.57",
     "eslint-config-commonality": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   },
   "peerDependencies": {
     "react": ">=18",

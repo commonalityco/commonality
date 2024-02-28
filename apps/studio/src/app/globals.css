@@ -13,3 +13,21 @@
     @apply border-border;
   }
 }
+
+@layer components {
+  .react-flow__minimap {
+    @apply bg-interactive rounded-md border border-muted-foreground/25 overflow-hidden shadow;
+  }
+
+  .react-flow__minimap-mask {
+    @apply fill-muted-foreground opacity-[0.09];
+  }
+
+  .react-flow__minimap-node {
+    @apply fill-muted-foreground;
+  }
+
+  .react-flow__nodesselection-rect {
+    @apply bg-muted-foreground/10 border border-muted-foreground;
+  }
+}

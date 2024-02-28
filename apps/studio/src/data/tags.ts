@@ -1,5 +1,4 @@
 'use server';
-import 'server-only';
 import { cache } from 'react';
 import { getTagsData as getTagsDatas } from '@commonalityco/data-tags';
 import { getPackages } from '@commonalityco/data-packages';

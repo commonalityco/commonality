@@ -99,19 +99,19 @@ function StudioNavigation({
         <div className="flex space-x-2">
           <NavigationButton
             className="flex gap-2 items-center"
-            href="/"
-            active={pathname === '/'}
+            href="/graph"
+            active={pathname === '/graph'}
           >
             <Network className="h-4 w-4" />
-            <span>Constraints</span>
+            <span>Graph</span>
           </NavigationButton>
           <NavigationButton
             className="flex gap-2 items-center"
-            href="/checks"
-            active={pathname === '/checks'}
+            href="/packages"
+            active={pathname === '/packages'}
           >
             <PackageCheck className="h-4 w-4" />
-            <span>Checks</span>
+            <span>Packages</span>
           </NavigationButton>
         </div>
         <LastUpdateTime />

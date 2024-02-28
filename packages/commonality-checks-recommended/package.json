@@ -32,19 +32,19 @@
   },
   "devDependencies": {
     "@commonalityco/config-tsconfig": "workspace:*",
-    "@types/lodash-es": "^4.14.198",
+    "@types/lodash-es": "^4.17.12",
     "@types/mock-fs": "^4.13.4",
-    "@types/semver": "^7.5.6",
+    "@types/semver": "^7.5.7",
     "@types/validate-npm-package-name": "^4.0.2",
     "commonality": "workspace:*",
     "eslint-config-commonality": "workspace:*",
     "mock-fs": "^5.2.0",
-    "tsup": "^8.0.1",
-    "typescript": "^5.2.2"
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
-    "semver": "^7.5.4",
+    "semver": "^7.6.0",
     "validate-npm-package-name": "^5.0.0"
   },
   "repository": {

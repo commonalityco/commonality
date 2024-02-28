@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 const baseConfig = require('@commonalityco/config-tailwind');
 
 const getPkgPattern = (pkgName) => {
@@ -17,5 +17,6 @@ module.exports = {
     getPkgPattern('@commonalityco/ui-design-system'),
     getPkgPattern('@commonalityco/ui-package'),
     getPkgPattern('@commonalityco/ui-core'),
+    getPkgPattern('@commonalityco/ui-graph'),
   ],
 };

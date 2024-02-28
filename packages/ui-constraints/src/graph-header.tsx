@@ -1,17 +1,13 @@
+'use client';
 import { ConstraintResult } from '@commonalityco/types';
 import { cn } from '@commonalityco/ui-design-system';
-import { Check, X } from 'lucide-react';
 import { useState } from 'react';
 import { AllConstraintsDialog } from './all-constraints-dialog';
 
-function GraphHeader({
-  totalCount,
-  shownCount,
+export function GraphHeader({
   results,
   children,
 }: {
-  totalCount: number;
-  shownCount: number;
   results: ConstraintResult[];
   children?: React.ReactNode;
 }) {
@@ -22,10 +18,7 @@ function GraphHeader({
   return (
     <div className="flex px-6 py-4 justify-between">
       <div className="flex gap-4 items-center">
-        <h1 className="font-medium text-2xl leading-none">Constraints</h1>
-        {totalCount > 0 ? (
-          <p className="text-muted-foreground text-xs animate-in fade-in">{`${shownCount} of ${totalCount} packages`}</p>
-        ) : undefined}
+        <h1 className="font-medium text-2xl leading-none">Graph</h1>
       </div>
       <div className="flex gap-2 flex-nowrap">
         <div className="flex gap-4 flex-nowrap mr-3">
@@ -66,5 +59,3 @@ function GraphHeader({
     </div>
   );
 }
-
-export default GraphHeader;

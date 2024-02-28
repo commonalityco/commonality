@@ -1,5 +1,4 @@
 'use server';
-import 'server-only';
 import { getPackageManager } from '@commonalityco/data-project/get-package-manager';
 import { getRootPackageName } from '@commonalityco/data-packages';
 import { getProjectConfig } from '@commonalityco/data-project';
