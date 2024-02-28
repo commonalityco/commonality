@@ -4,9 +4,8 @@ import { DependencyType, PackageType } from '@commonalityco/utils-core';
 import { Dependency, Package } from '@commonalityco/types';
 import { getEdges } from '@commonalityco/ui-graph/package/get-edges';
 import { getNodes } from '@commonalityco/ui-graph/package/get-nodes';
-// const newWorker = new GraphWorker();
 
-const meta = {
+const meta: Meta<typeof Graph> = {
   title: 'Graph/Graph',
   component: Graph,
   tags: ['autodocs'],
@@ -15,13 +14,13 @@ const meta = {
   },
   args: {},
   decorators: [
-    (Story: StoryObj) => (
+    (Story) => (
       <div style={{ height: '100vh' }}>
         <Story />
       </div>
     ),
   ],
-} satisfies Meta<typeof Graph>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -107,13 +106,18 @@ const dependencies = [
   },
 ] satisfies Dependency[];
 
-export const Default: Story = {
+export const Default = {
   args: {
     nodes: getNodes({
       packages,
       dependencies,
       tagsData: [{ packageName: '@scope/pkg-a', tags: ['tag-a', 'tag-b'] }],
     }),
-    edges: getEdges({ dependencies, theme: 'light' }),
+    edges: getEdges({
+      dependencies,
+      theme: 'light',
+      activeDependencyTypes: [],
+      results: [],
+    }),
   },
-};
+} satisfies Story;

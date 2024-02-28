@@ -1,19 +1,21 @@
 'use server';
-import 'server-only';
 import openEditor from 'open-editor';
 import path from 'node:path';
 import { getProjectData } from '@/data/project';
 import fs from 'fs-extra';
 
 export async function openEditorAction(filePath: string) {
-  const fullPath = path.join(process.env.COMMONALITY_ROOT_DIRECTORY, filePath);
+  const fullPath = path.join(
+    process.env.COMMONALITY_ROOT_DIRECTORY ?? './',
+    filePath,
+  );
 
   await openEditor([{ file: fullPath }]);
 }
 
 export async function openPackageJson(packageDirectory: string) {
   const fullPath = path.join(
-    process.env.COMMONALITY_ROOT_DIRECTORY,
+    process.env.COMMONALITY_ROOT_DIRECTORY ?? './',
     packageDirectory,
     'package.json',
   );
@@ -23,7 +25,7 @@ export async function openPackageJson(packageDirectory: string) {
 
 export async function openPackageConfig(packageDirectory: string) {
   const fullPath = path.join(
-    process.env.COMMONALITY_ROOT_DIRECTORY,
+    process.env.COMMONALITY_ROOT_DIRECTORY ?? './',
     packageDirectory,
     'commonality.json',
   );

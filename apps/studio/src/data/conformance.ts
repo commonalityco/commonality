@@ -1,5 +1,4 @@
 'use server';
-import 'server-only';
 import { getProjectConfig } from '@commonalityco/data-project';
 import { getPackagesData } from './packages';
 import { getTagsData } from '@commonalityco/data-tags';
@@ -36,5 +35,5 @@ export const getConformanceResultsData = async () => {
     codeownersData,
   });
 
-  return results
+  return results;
 };

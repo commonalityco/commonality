@@ -15,7 +15,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@commonalityco/ui-design-system/dropdown-menu';
 import { Button, DialogTrigger } from '@commonalityco/ui-design-system';

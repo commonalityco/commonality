@@ -13,7 +13,7 @@ const mocks = vi.hoisted(() => {
   };
 });
 
-vi.mock('../../../actions/editor.ts', () => {
+vi.mock('@/actions/editor.ts', () => {
   return {
     openPackageJson: mocks.openPackageJson,
   };

@@ -1,5 +1,4 @@
 'use server';
-import 'server-only';
 import { getPackages } from '@commonalityco/data-packages';
 
 export const preload = () => {
