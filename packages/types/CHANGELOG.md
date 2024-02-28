@@ -1,5 +1,13 @@
 # @commonalityco/types
 
+## 0.2.39
+
+### Patch Changes
+
+- 4f0f69c: Update dependency graph to use @xyflow/react
+- Updated dependencies [4f0f69c]
+  - @commonalityco/utils-core@0.2.41
+
 ## 0.2.38
 
 ### Patch Changes

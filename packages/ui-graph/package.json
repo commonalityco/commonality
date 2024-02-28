@@ -1,6 +1,6 @@
 {
   "name": "@commonalityco/ui-graph",
-  "version": "0.2.43",
+  "version": "0.2.44",
   "type": "module",
   "publishConfig": {
     "access": "public"

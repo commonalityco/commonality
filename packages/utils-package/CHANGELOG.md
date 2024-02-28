@@ -1,5 +1,11 @@
 # @commonalityco/utils-package
 
+## 0.2.39
+
+### Patch Changes
+
+- 4f0f69c: Update dependency graph to use @xyflow/react
+
 ## 0.2.38
 
 ### Patch Changes

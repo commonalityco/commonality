@@ -1,5 +1,11 @@
 # eslint-config-commonality
 
+## 0.0.13
+
+### Patch Changes
+
+- 4f0f69c: Update dependency graph to use @xyflow/react
+
 ## 0.0.12
 
 ### Patch Changes
