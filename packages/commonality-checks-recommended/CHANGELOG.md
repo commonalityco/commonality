@@ -1,5 +1,12 @@
 # commonality-checks-recommended
 
+## 0.0.36
+
+### Patch Changes
+
+- Updated dependencies [7ba2c80]
+  - commonality@0.2.59
+
 ## 0.0.35
 
 ### Patch Changes

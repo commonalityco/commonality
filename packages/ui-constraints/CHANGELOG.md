@@ -1,5 +1,15 @@
 # @commonalityco/ui-constraints
 
+## 0.2.46
+
+### Patch Changes
+
+- 7ba2c80: Make graph more responsive
+- Updated dependencies [7ba2c80]
+  - @commonalityco/ui-design-system@0.2.41
+  - @commonalityco/ui-graph@0.2.45
+  - @commonalityco/ui-core@0.2.41
+
 ## 0.2.45
 
 ### Patch Changes

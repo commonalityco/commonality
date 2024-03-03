@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.2.59
+
+### Patch Changes
+
+- 7ba2c80: Make graph more responsive
+- Updated dependencies [7ba2c80]
+  - @commonalityco/studio@0.2.52
+
 ## 0.2.58
 
 ### Patch Changes

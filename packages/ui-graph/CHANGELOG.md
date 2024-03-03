@@ -1,5 +1,11 @@
 # @commonalityco/ui-graph
 
+## 0.2.45
+
+### Patch Changes
+
+- 7ba2c80: Make graph more responsive
+
 ## 0.2.44
 
 ### Patch Changes
