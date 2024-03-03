@@ -1,3 +1,4 @@
+@import '@xyflow/react/dist/style.css';
 @import '@commonalityco/config-tailwind/globals.css';
 
 @tailwind base;

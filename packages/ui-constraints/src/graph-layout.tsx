@@ -10,7 +10,7 @@ export function GraphLayoutRoot({
   return (
     <main
       className={cn(
-        'relative grid h-full max-h-screen min-h-0 w-full grid-cols-[auto_1fr] items-stretch overflow-hidden',
+        'relative grid h-full max-h-screen min-h-0 w-full grid-cols-1 md:grid-cols-[auto_1fr] items-stretch overflow-hidden',
         className,
       )}
     >
@@ -29,7 +29,7 @@ export function GraphLayoutAside({
   return (
     <div
       className={cn(
-        'h-full overflow-hidden shrink-0 pl-6 py-4 pr-4 border-r',
+        'h-full overflow-hidden shrink-0 pl-6 py-4 pr-4 border-r hidden md:block',
         className,
       )}
     >

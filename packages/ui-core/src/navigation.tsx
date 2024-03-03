@@ -10,7 +10,7 @@ export function Navigation({ children, className }: NavigationProperties) {
   return (
     <div
       className={cn(
-        'relative flex pt-4 pb-2 w-full shrink-0 items-center justify-between px-6',
+        'relative flex pt-4 pb-2 w-full shrink-0 items-center justify-between px-4',
         className,
       )}
     >

@@ -54,7 +54,7 @@ function ColorDot({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'h-2 w-2 rounded-full relative border bg-interactive shadow-[0_0_0_2px_hsl(var(--interactive))]',
+        'h-2 w-2 rounded-full relative border border-muted-foreground/50 bg-interactive shadow-[0_0_0_2px_hsl(var(--interactive))]',
         className,
       )}
     />
@@ -183,12 +183,12 @@ export function ControlBar({
 
   return (
     <div className="pb-3 px-3 relative w-full bg-interactive shrink-0 flex justify-between">
-      <div className="h-full flex items-center pl-2">
+      <div className="h-full flex items-center pl-2 shrink-0">
         <div className="text-xs text-primary font-mono leading-none font-medium font-muted-foreground">
           {`${shownCount} of ${totalCount}`}
         </div>
       </div>
-      <div className="flex gap-1">
+      <div className="flex gap-1 justify-between">
         <ColorDropdown
           onHighlightChange={onHighlightChange}
           defaultDependencyTypes={defaultDependencyTypes}
@@ -202,21 +202,20 @@ export function ControlBar({
             onDirectionChange(direction)
           }
         >
-          <ButtonTooltip text="Align top to bottom">
-            <ToggleGroupItem
-              value={GraphDirection.TopToBottom}
-              aria-label="Align top to bottom"
-            >
-              <ArrowDownFromLine className="h-4 w-4" />
-            </ToggleGroupItem>
-          </ButtonTooltip>
-
           <ButtonTooltip text="Align left to right">
             <ToggleGroupItem
               value={GraphDirection.LeftToRight}
               aria-label="Align left to right"
             >
               <ArrowRightFromLine className="h-4 w-4" />
+            </ToggleGroupItem>
+          </ButtonTooltip>
+          <ButtonTooltip text="Align top to bottom">
+            <ToggleGroupItem
+              value={GraphDirection.TopToBottom}
+              aria-label="Align top to bottom"
+            >
+              <ArrowDownFromLine className="h-4 w-4" />
             </ToggleGroupItem>
           </ButtonTooltip>
         </ToggleGroup>
@@ -234,24 +233,29 @@ export function ControlBar({
           </Button>
         </ButtonTooltip>
 
-        <ButtonTooltip text="Zoom out">
-          <Button
-            size="icon"
-            variant="ghost"
-            onClick={() => reactFlow.zoomOut({ duration: 200 })}
-          >
-            <Minus className="h-4 w-4" />
-          </Button>
-        </ButtonTooltip>
-        <ButtonTooltip text="Zoom in">
-          <Button
-            size="icon"
-            variant="ghost"
-            onClick={() => reactFlow.zoomIn({ duration: 200 })}
-          >
-            <Plus className="h-4 w-4" />
-          </Button>
-        </ButtonTooltip>
+        <div className="hidden md:block">
+          <ButtonTooltip text="Zoom out">
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => reactFlow.zoomOut({ duration: 200 })}
+            >
+              <Minus className="h-4 w-4" />
+            </Button>
+          </ButtonTooltip>
+        </div>
+
+        <div className="hidden md:block">
+          <ButtonTooltip text="Zoom in">
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => reactFlow.zoomIn({ duration: 200 })}
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </ButtonTooltip>
+        </div>
       </div>
     </div>
   );

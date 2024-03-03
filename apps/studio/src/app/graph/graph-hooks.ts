@@ -44,7 +44,7 @@ export const useDirectionQuery = () => {
   const [directionQuery, setDirectionQuery] = useQueryState(
     'direction',
     parseAsStringEnum<GraphDirection>(Object.values(GraphDirection))
-      .withDefault(GraphDirection.TopToBottom)
+      .withDefault(GraphDirection.LeftToRight)
       .withOptions({ startTransition }),
   );
 
