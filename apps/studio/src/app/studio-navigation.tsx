@@ -53,9 +53,8 @@ function StudioNavigation({
             <Link href="/">
               <NavigationLogo />
             </Link>
-            <p className="font-bold uppercase tracking-widest">Studio</p>
             <Divider className="fill-muted-foreground" />
-            <PackageManagerIcon />
+            <PackageManagerIcon className="h-6 w-6" />
             <h1 className="text-base font-semibold text-foreground">{title}</h1>
           </div>
           <div className="flex items-center">
@@ -64,7 +63,7 @@ function StudioNavigation({
                 href="https://github.com/commonalityco/commonality/issues/new?title=Feedback+for+%22Commonality+Studio%22&labels=feedback"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex gap-2 items-center flex-nowrap"
+                className="gap-2 items-center flex-nowrap hidden md:flex"
               >
                 Feedback
                 <ExternalLink className="h-4 w-4 shrink-0" />
@@ -75,7 +74,7 @@ function StudioNavigation({
                 href="https://commonality.co/docs/overview"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex gap-2 items-center flex-nowrap"
+                className="hidden md:flex gap-2 items-center flex-nowrap"
               >
                 Documentation
                 <ExternalLink className="h-4 w-4 shrink-0" />
@@ -83,7 +82,7 @@ function StudioNavigation({
             </Button>
 
             <ThemeButton
-              className="mr-4"
+              className="md:mr-4"
               defaultTheme={defaultTheme}
               onThemeChange={(theme) => {
                 setCookie(COOKIE_KEY, theme);
@@ -91,7 +90,7 @@ function StudioNavigation({
               }}
             />
 
-            <EditConfigButton />
+            <EditConfigButton className="hidden md:flex" />
           </div>
         </div>
       </Navigation>

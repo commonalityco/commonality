@@ -107,3 +107,4 @@ export {
 export { HoverCard, HoverCardTrigger, HoverCardContent } from './hover-card';
 export { Toaster, toast } from './toast';
 export { cn } from './cn';
+export { useMediaQuery } from './use-media-query';

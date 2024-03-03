@@ -463,7 +463,6 @@ export function Sidebar({
   visiblePackages,
   tagsData,
   codeownersData,
-
   onHideAll = () => {},
   onShowAll = () => {},
   onTagHide = () => {},

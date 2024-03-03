@@ -160,6 +160,7 @@ export const Graph = (
     <div className="relative grow h-full" data-testid="dependency-graph">
       <div className="relative grow w-full h-full">
         <ReactFlow
+          id="graph"
           nodes={nodes}
           edges={edges}
           minZoom={0.1}
@@ -195,7 +196,11 @@ export const Graph = (
             placement="right"
             className="absolute bottom-0 top-0 z-20 w-10 from-interactive"
           />
-          <MiniMap nodeStrokeWidth={3} className="z-20" position="top-right" />
+          <MiniMap
+            nodeStrokeWidth={3}
+            className="z-20 origin-top-right scale-50 md:scale-100"
+            position="top-right"
+          />
 
           <Background
             className="bg-interactive"

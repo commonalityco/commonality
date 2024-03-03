@@ -4,7 +4,6 @@ import {
   GraphLayoutRoot,
 } from '@commonalityco/ui-constraints';
 import React, { Suspense } from 'react';
-
 import StudioSidebar from './studio-sidebar';
 import { getTagsData } from '@/data/tags';
 import { getPackagesData } from '@/data/packages';
