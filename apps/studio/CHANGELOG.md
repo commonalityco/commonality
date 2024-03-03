@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.52
+
+### Patch Changes
+
+- 7ba2c80: Make graph more responsive
+
 ## 0.2.51
 
 ### Patch Changes
