@@ -27,9 +27,6 @@ describe('check', () => {
       const cliProcess = execa(binPath, ['check', '--debug'], {
         cwd: temporaryPath,
         stdout: 'pipe',
-        env: {
-          DO_NOT_TRACK: '1',
-        },
       });
 
       let output = '';

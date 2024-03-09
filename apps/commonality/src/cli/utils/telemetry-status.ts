@@ -1,4 +1,5 @@
 import { configStore } from './config-store';
+import { isCI } from 'std-env';
 
 const CONFIG_KEY = 'telemetry-enabled';
 const ENABLED_VALUE = 'enabled' as const;
@@ -8,7 +9,7 @@ type Status = 'enabled' | 'disabled' | 'unset';
 
 export const telemetryStatus = {
   get: (): Status => {
-    if (process.env.DO_NOT_TRACK) {
+    if (process.env.DO_NOT_TRACK || isCI) {
       return 'disabled';
     }
 
