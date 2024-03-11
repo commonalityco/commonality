@@ -30,8 +30,6 @@
     "dist/"
   ],
   "dependencies": {
-    "@sentry/nextjs": "^7.102.1",
-    "@sentry/utils": "^7.102.1",
     "@xyflow/react": "12.0.0-next.9",
     "@xyflow/system": "^0.0.17",
     "chokidar": "^3.6.0",

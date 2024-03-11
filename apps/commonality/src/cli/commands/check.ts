@@ -21,8 +21,6 @@ import { getResolvedChecks } from '@commonalityco/utils-conformance/get-resolved
 import console from 'node:console';
 import { logger } from '@commonalityco/utils-core/logger';
 import { validateProjectStructure } from '../utils/validate-project-structure';
-import { validateTelemetry } from '../utils/validate-telemetry';
-import * as Sentry from '@sentry/node';
 
 const command = new Command();
 
@@ -262,49 +260,46 @@ const action = async ({
     directory: process.cwd(),
     command,
   });
-  await validateTelemetry();
 
-  Sentry.startSpan({ name: 'check' }, async () => {
-    checksSpinner.start();
+  checksSpinner.start();
 
-    const rootDirectory = await getRootDirectory();
-    const projectConfig = await getProjectConfig({ rootDirectory });
-    const packages = await getPackages({ rootDirectory });
-    const tagsData = await getTagsData({ rootDirectory, packages });
-    const codeownersData = await getCodeownersData({ rootDirectory, packages });
-    const checks = getResolvedChecks({
-      projectConfig: projectConfig?.config,
-      rootDirectory,
-    });
+  const rootDirectory = await getRootDirectory();
+  const projectConfig = await getProjectConfig({ rootDirectory });
+  const packages = await getPackages({ rootDirectory });
+  const tagsData = await getTagsData({ rootDirectory, packages });
+  const codeownersData = await getCodeownersData({ rootDirectory, packages });
+  const checks = getResolvedChecks({
+    projectConfig: projectConfig?.config,
+    rootDirectory,
+  });
 
-    if (checks.unresolved.length > 0) {
-      checksSpinner.stop();
-      for (const unresolved of checks.unresolved) {
-        console.log(c.yellow(`\nCould not resolve check: ${unresolved}`));
-      }
+  if (checks.unresolved.length > 0) {
+    checksSpinner.stop();
+    for (const unresolved of checks.unresolved) {
+      console.log(c.yellow(`\nCould not resolve check: ${unresolved}`));
     }
+  }
 
-    return runChecks({
-      verbose,
-      onFix: (results) => {
-        return runFixes({
-          conformanceResults: results,
-          allPackages: packages,
-          rootDirectory,
-          tagsData,
-          codeownersData,
-        });
-      },
-      getResults: () => {
-        return getConformanceResults({
-          conformersByPattern: checks.resolved ?? {},
-          rootDirectory,
-          packages,
-          tagsData,
-          codeownersData,
-        });
-      },
-    });
+  return runChecks({
+    verbose,
+    onFix: (results) => {
+      return runFixes({
+        conformanceResults: results,
+        allPackages: packages,
+        rootDirectory,
+        tagsData,
+        codeownersData,
+      });
+    },
+    getResults: () => {
+      return getConformanceResults({
+        conformersByPattern: checks.resolved ?? {},
+        rootDirectory,
+        packages,
+        tagsData,
+        codeownersData,
+      });
+    },
   });
 };
 
