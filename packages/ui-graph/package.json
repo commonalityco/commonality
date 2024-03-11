@@ -72,7 +72,7 @@
     "localforage": "^1.10.0",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.317.0",
-    "xstate": "^4.38.3"
+    "xstate": "^5.9.1"
   },
   "repository": {
     "type": "git",

@@ -403,7 +403,7 @@ importers:
         version: 3.6.0(vite@4.5.2)
       '@xstate/react':
         specifier: ^3.2.2
-        version: 3.2.2(@types/react@18.2.57)(react@18.2.0)(xstate@4.38.3)
+        version: 3.2.2(@types/react@18.2.57)(react@18.2.0)(xstate@5.9.1)
       autoprefixer:
         specifier: ^10.4.17
         version: 10.4.17(postcss@8.4.35)
@@ -513,8 +513,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       xstate:
-        specifier: ^4.38.3
-        version: 4.38.3
+        specifier: ^5.9.1
+        version: 5.9.1
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -932,7 +932,7 @@ importers:
     dependencies:
       '@xstate/react':
         specifier: ^3.2.2
-        version: 3.2.2(@types/react@18.2.57)(react@18.2.0)(xstate@4.38.3)
+        version: 3.2.2(@types/react@18.2.57)(react@18.2.0)(xstate@5.9.1)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1166,7 +1166,7 @@ importers:
         version: 1.0.4
       '@xstate/react':
         specifier: ^3.2.2
-        version: 3.2.2(@types/react@18.2.57)(react@18.2.0)(xstate@4.38.3)
+        version: 3.2.2(@types/react@18.2.57)(react@18.2.0)(xstate@5.9.1)
       crypto-js:
         specifier: ^4.2.0
         version: 4.2.0
@@ -1195,8 +1195,8 @@ importers:
         specifier: ^0.317.0
         version: 0.317.0(react@18.2.0)
       xstate:
-        specifier: ^4.38.3
-        version: 4.38.3
+        specifier: ^5.9.1
+        version: 5.9.1
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*
@@ -7777,7 +7777,7 @@ packages:
       '@xtuc/long': 4.2.2
     dev: true
 
-  /@xstate/react@3.2.2(@types/react@18.2.57)(react@18.2.0)(xstate@4.38.3):
+  /@xstate/react@3.2.2(@types/react@18.2.57)(react@18.2.0)(xstate@5.9.1):
     resolution: {integrity: sha512-feghXWLedyq8JeL13yda3XnHPZKwYDN5HPBLykpLeuNpr9178tQd2/3d0NrH6gSd0sG5mLuLeuD+ck830fgzLQ==}
     peerDependencies:
       '@xstate/fsm': ^2.0.0
@@ -7792,7 +7792,7 @@ packages:
       react: 18.2.0
       use-isomorphic-layout-effect: 1.1.2(@types/react@18.2.57)(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
-      xstate: 4.38.3
+      xstate: 5.9.1
     transitivePeerDependencies:
       - '@types/react'
 
@@ -17439,8 +17439,8 @@ packages:
     engines: {node: '>=0.4.0'}
     dev: false
 
-  /xstate@4.38.3:
-    resolution: {integrity: sha512-SH7nAaaPQx57dx6qvfcIgqKRXIh4L0A1iYEqim4s1u7c9VoCgzZc+63FY90AKU4ZzOC2cfJzTnpO4zK7fCUzzw==}
+  /xstate@5.9.1:
+    resolution: {integrity: sha512-85edx7iMqRJSRlEPevDwc98EWDYUlT5zEQ54AXuRVR+G76gFbcVTAUdtAeqOVxy8zYnUr9FBB5114iK6enljjw==}
 
   /xtend@4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
