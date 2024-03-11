@@ -80,8 +80,7 @@
         "reference/cli",
         "reference/cli/check",
         "reference/cli/constrain",
-        "reference/cli/studio",
-        "reference/cli/telemetry"
+        "reference/cli/studio"
       ]
     },
     {
