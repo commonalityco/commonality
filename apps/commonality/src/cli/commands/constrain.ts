@@ -14,8 +14,6 @@ import { getTagsData } from '@commonalityco/data-tags';
 import { getDependencies, getPackages } from '@commonalityco/data-packages';
 import process from 'node:process';
 import { validateProjectStructure } from '../utils/validate-project-structure.js';
-import { validateTelemetry } from '../utils/validate-telemetry.js';
-import * as Sentry from '@sentry/node';
 
 const constraintSpinner = ora('Validating constraints...');
 
@@ -238,39 +236,36 @@ const action = async (options: { verbose: boolean }) => {
     directory: process.cwd(),
     command,
   });
-  await validateTelemetry();
 
-  Sentry.startSpan({ name: 'constrain' }, async () => {
-    const logger = new ConstrainLogger();
+  const logger = new ConstrainLogger();
 
-    constraintSpinner.start();
+  constraintSpinner.start();
 
-    const rootDirectory = await getRootDirectory();
+  const rootDirectory = await getRootDirectory();
 
-    const _projectConfig = getProjectConfig({ rootDirectory });
-    const _dependencies = getDependencies({ rootDirectory });
+  const _projectConfig = getProjectConfig({ rootDirectory });
+  const _dependencies = getDependencies({ rootDirectory });
 
-    const packages = await getPackages({ rootDirectory });
+  const packages = await getPackages({ rootDirectory });
 
-    const _tagsData = getTagsData({ rootDirectory, packages });
+  const _tagsData = getTagsData({ rootDirectory, packages });
 
-    const projectConfig = await _projectConfig;
-    const dependencies = await _dependencies;
-    const tagsData = await _tagsData;
+  const projectConfig = await _projectConfig;
+  const dependencies = await _dependencies;
+  const tagsData = await _tagsData;
 
-    const results = await getConstraintResults({
-      dependencies,
-      constraints: projectConfig?.config.constraints,
-      tagsData,
-    });
+  const results = await getConstraintResults({
+    dependencies,
+    constraints: projectConfig?.config.constraints,
+    tagsData,
+  });
 
-    constraintSpinner.stop();
+  constraintSpinner.stop();
 
-    await reportConstraintResults({
-      results,
-      verbose: options.verbose,
-      logger,
-    });
+  await reportConstraintResults({
+    results,
+    verbose: options.verbose,
+    logger,
   });
 };
 

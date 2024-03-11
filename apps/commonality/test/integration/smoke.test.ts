@@ -26,9 +26,6 @@ describe('smoke', () => {
     const cliProcess = execa(binPath, {
       cwd: temporaryPath,
       stdout: 'pipe',
-      env: {
-        DO_NOT_TRACK: '1',
-      },
     });
 
     let output = '';

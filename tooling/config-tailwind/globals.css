@@ -24,7 +24,7 @@
   --secondary: 240 4.8% 95.9%;
   --secondary-foreground: 240 3.7% 15.9%;
 
-  --interactive: 0 0% 98%;
+  --interactive: 0 0% 100%;
   --interactive-foreground: 240 3.7% 15.9%;
 
   --accent: 240 4.8% 95.9%;
@@ -45,7 +45,7 @@
 }
 
 .dark {
-  --background: 240 5.9% 10%;
+  --background: 240 10% 3.92%;
   --foreground: 0 0% 98%;
 
   --muted: 240 3.7% 12.5%;

@@ -32,9 +32,6 @@ describe.concurrent('studio', () => {
         {
           cwd: temporaryPath,
           stdout: 'pipe',
-          env: {
-            DO_NOT_TRACK: '1',
-          },
         },
       );
 
@@ -99,9 +96,6 @@ describe.concurrent('studio', () => {
         {
           cwd: temporaryPath,
           stdout: 'pipe',
-          env: {
-            DO_NOT_TRACK: '1',
-          },
         },
       );
 
@@ -165,9 +159,6 @@ describe.concurrent('studio', () => {
         {
           cwd: temporaryPath,
           stdout: 'pipe',
-          env: {
-            DO_NOT_TRACK: '1',
-          },
         },
       );
 
