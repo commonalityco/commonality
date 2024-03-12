@@ -85,7 +85,7 @@
     "cookies-next": "^4.1.1",
     "cypress": "^13.6.5",
     "cytoscape": "^3.28.1",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.4.0",
     "eslint-config-next": "^14.1.0",
     "fs-extra": "^11.2.0",
     "get-port": "^7.0.0",
