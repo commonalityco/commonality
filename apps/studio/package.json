@@ -9,7 +9,7 @@
     "node": ">=18.17.0"
   },
   "scripts": {
-    "dev": "COMMONALITY_ROOT_DIRECTORY='../../../pawelblaszczyk.dev' NODE_ENV=development node server.js --turbo",
+    "dev": "COMMONALITY_ROOT_DIRECTORY='../../' NODE_ENV=development node server.js --turbo",
     "build": "next build && pnpm run clean-cache",
     "clean-cache": "rimraf .next/cache",
     "analyze": "ANALYZE=true next build",
