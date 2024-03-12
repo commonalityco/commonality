@@ -51,17 +51,17 @@ export function DependencyEdge({
             'stroke-zinc-300 dark:stroke-zinc-800': !highlighted,
             'stroke-[2px] opacity-100': highlighted,
             'opacity-20': data?.muted,
-            '!stroke-purple-700 dark:!stroke-purple-500':
+            'stroke-purple-700 dark:stroke-purple-500':
               highlighted && data?.dependency.type === DependencyType.PEER,
-            '!stroke-sky-700 dark:!stroke-sky-500':
+            'stroke-sky-700 dark:stroke-sky-500':
               highlighted &&
               data?.dependency.type === DependencyType.DEVELOPMENT,
-            '!stroke-emerald-700 dark:!stroke-emerald-500':
+            'stroke-emerald-700 dark:stroke-emerald-500':
               highlighted &&
               data?.dependency.type === DependencyType.PRODUCTION,
           },
           {
-            '!stroke-red-600': data?.results.length,
+            'stroke-red-600': data?.results.some((result) => !result.isValid),
           },
         )}
       />
@@ -78,7 +78,7 @@ export function DependencyEdge({
             'opacity-20': highlighted && data?.muted,
           })}
         >
-          {data?.results.length ? (
+          {data?.results.some((result) => !result.isValid) ? (
             <span className="flex flex-nowrap items-center gap-1 rounded-full border-2 border-red-600 bg-red-100 px-2 py-0.5 font-mono font-semibold leading-none text-red-900 dark:bg-red-900 dark:text-red-100">
               <span>
                 <ShieldX className="h-4 w-4" />
@@ -93,10 +93,10 @@ export function DependencyEdge({
                   'border-2 border-sky-700 bg-sky-100 text-sky-900 dark:border-sky-500 dark:bg-sky-900 dark:text-sky-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.DEVELOPMENT,
-                  'border-2 border-purple-700 bg-purple-100 text-purple-900 dark:border-sky-500 dark:bg-purple-900 dark:text-purple-100':
+                  'border-2 border-purple-700 bg-purple-100 text-purple-900 dark:border-purple-500 dark:bg-purple-900 dark:text-purple-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.PEER,
-                  'border-2 border-emerald-700 bg-emerald-100 text-emerald-900 dark:border-sky-500 dark:bg-emerald-900 dark:text-emerald-100':
+                  'border-2 border-emerald-700 bg-emerald-100 text-emerald-900 dark:border-emerald-500 dark:bg-emerald-900 dark:text-emerald-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.PRODUCTION,
                 },
