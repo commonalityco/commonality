@@ -29,7 +29,6 @@
     "@commonalityco/ui-graph": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-package": "workspace:*",
-    "@floating-ui/react": "^0.26.9",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
@@ -44,16 +43,12 @@
   "peerDependencies": {
     "@commonalityco/ui-core": "*",
     "@commonalityco/ui-design-system": "*",
-    "@commonalityco/ui-graph": "workspace:*",
-    "@commonalityco/utils-package": "*",
     "react": ">=18",
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@xstate/react": "^3.2.2",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.317.0",
-    "react-minimal-pie-chart": "^8.4.0",
     "react-resizable-panels": "^0.0.54"
   },
   "repository": {
