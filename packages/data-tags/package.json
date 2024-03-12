@@ -33,7 +33,6 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@commonalityco/data-project": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "fs-extra": "^11.2.0"
   },
