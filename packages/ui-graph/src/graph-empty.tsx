@@ -9,8 +9,8 @@ export function GraphEmpty({ onShow }: { onShow: () => void }) {
   return (
     <div
       className={cn(
-        'absolute top-0 left-0 right-0 bottom-0 bg-red-500 z-20 transition bg-interactive flex items-center justify-center',
-        { 'opacity-0 pointer-events-none': nodes.length },
+        'bg-interactive bg-background absolute bottom-0 left-0 right-0 top-0 z-20 flex items-center justify-center transition',
+        { 'pointer-events-none opacity-0': nodes.length },
         { 'opacity-100': nodes.length === 0 },
       )}
     >

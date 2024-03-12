@@ -12,7 +12,7 @@ import {
   cn,
 } from '@commonalityco/ui-design-system';
 import { DependencyType } from '@commonalityco/utils-core';
-import { CornerDownRight } from 'lucide-react';
+import { CornerDownRight, Network } from 'lucide-react';
 import { ComponentProps } from 'react';
 
 const TextByType = {
@@ -22,58 +22,77 @@ const TextByType = {
 };
 
 export function DependencyDialog({
-  dependencies,
+  dependency,
   ...props
 }: ComponentProps<typeof Dialog> & {
-  dependencies: Dependency[];
+  dependency: Dependency;
 }) {
   return (
     <Dialog {...props}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            <div className="grid gap-1">
-              <p className="truncate leading-6">{dependencies[0]?.source}</p>
-              <div className="flex flex-nowrap items-center space-x-2 overflow-hidden">
-                <CornerDownRight className="h-4 w-4 min-w-0 shrink-0" />
-                <p className="truncate min-w-0 leading-6">
-                  {dependencies[0]?.target}
-                </p>
+            <div className="flex flex-nowrap items-center gap-4">
+              <div
+                className={cn(
+                  'flex h-8 w-8 items-center justify-center rounded-md border',
+                  {
+                    'border-purple-700 bg-purple-100 dark:border-purple-500 dark:bg-purple-900':
+                      dependency.type === DependencyType.PEER,
+                    'border-sky-700 bg-sky-100 dark:border-sky-500 dark:bg-sky-900':
+                      dependency.type === DependencyType.DEVELOPMENT,
+                    'border-emerald-700 bg-emerald-100 dark:border-emerald-500 dark:bg-emerald-900':
+                      dependency.type === DependencyType.PRODUCTION,
+                  },
+                )}
+              >
+                <Network
+                  className={cn('h-4 w-4', {
+                    'text-purple-700 dark:text-purple-100':
+                      dependency.type === DependencyType.PEER,
+                    'text-sky-700 dark:text-sky-100':
+                      dependency.type === DependencyType.DEVELOPMENT,
+                    'text-emerald-700 dark:text-emerald-100':
+                      dependency.type === DependencyType.PRODUCTION,
+                  })}
+                />
               </div>
+              <span>Dependency</span>
             </div>
           </DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[450px]">
-          <div className="flex flex-col gap-4 py-2">
-            {dependencies.map((dependency) => {
-              const key = `${dependency.source}-${dependency.target}-${dependency.type}`;
+          <div className="flex flex-col gap-4 pb-2">
+            <div>
+              <Label className="mb-2 block">Type</Label>
+              <div
+                className={cn('inline-block rounded-full border px-2 py-0.5', {
+                  'border-purple-700 bg-purple-100 dark:border-purple-500 dark:bg-purple-900':
+                    dependency.type === DependencyType.PEER,
+                  'border-sky-700 bg-sky-100 dark:border-sky-500 dark:bg-sky-900':
+                    dependency.type === DependencyType.DEVELOPMENT,
+                  'border-emerald-700 bg-emerald-100 dark:border-emerald-500 dark:bg-emerald-900':
+                    dependency.type === DependencyType.PRODUCTION,
+                })}
+              >
+                <p className="flex items-center gap-2 font-mono text-xs font-medium">
+                  <span>{TextByType[dependency.type]}</span>
+                </p>
+              </div>
+            </div>
+            <div>
+              <Label>Source</Label>
+              <p>{dependency.source}</p>
+            </div>
+            <div>
+              <Label>Target</Label>
+              <p>{dependency.target}</p>
+            </div>
 
-              return (
-                <div key={key} className="grid gap-4">
-                  <div>
-                    <Label className="block mb-2">Type</Label>
-
-                    <p className="font-mono flex items-center gap-2">
-                      <span
-                        className={cn('inline-block w-2 h-2 rounded-full', {
-                          'bg-sky-600':
-                            dependency.type === DependencyType.DEVELOPMENT,
-                          'bg-purple-600':
-                            dependency.type === DependencyType.PEER,
-                          'bg-emerald-600':
-                            dependency.type === DependencyType.PRODUCTION,
-                        })}
-                      />
-                      <span>{TextByType[dependency.type]}</span>
-                    </p>
-                  </div>
-                  <div>
-                    <Label className="block mb-2">Version</Label>
-                    <p className="font-mono">{dependency.version}</p>
-                  </div>
-                </div>
-              );
-            })}
+            <div>
+              <Label>Version</Label>
+              <p>{dependency.version}</p>
+            </div>
           </div>
         </ScrollArea>
         <DialogFooter>

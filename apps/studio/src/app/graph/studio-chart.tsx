@@ -69,6 +69,9 @@ function ActiveDependencyDialog({ results }: { results: ConstraintResult[] }) {
         depPath.target === activeDependency?.target,
     ),
   );
+
+  if (!activeDependency) return;
+
   if (resultForDependency) {
     return (
       <ConstraintsDialog
@@ -86,7 +89,7 @@ function ActiveDependencyDialog({ results }: { results: ConstraintResult[] }) {
 
   return (
     <DependencyDialog
-      dependencies={activeDependency ? [activeDependency] : []}
+      dependency={activeDependency}
       open={Boolean(activeDependency)}
       onOpenChange={(open) => {
         if (!open) {
