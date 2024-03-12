@@ -39,11 +39,8 @@
     "lz-string": "^1.5.0",
     "next": "14.0.4",
     "nuqs": "^1.17.0",
-    "query-string": "^8.2.0",
     "socket.io": "^4.7.4",
-    "socket.io-client": "^4.7.4",
-    "superjson": "^2.2.1",
-    "wait-on": "^7.2.0"
+    "socket.io-client": "^4.7.4"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",

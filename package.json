@@ -22,7 +22,8 @@
     "test:watch": "vitest run --watch",
     "test": "vitest run",
     "type-check": "turbo run type-check --cache-dir=.turbo",
-    "unlink-all": "ts-node scripts/unlink-all.ts"
+    "unlink-all": "ts-node scripts/unlink-all.ts",
+    "knip": "knip"
   },
   "keywords": [],
   "author": "",
@@ -49,6 +50,7 @@
     "vitest": "^0.34.6"
   },
   "devDependencies": {
-    "@commonalityco/studio": "workspace:^"
+    "@commonalityco/studio": "workspace:^",
+    "knip": "^5.0.4"
   }
 }
