@@ -8,7 +8,7 @@ import {
 } from '@commonalityco/ui-design-system';
 import { MinusIcon, PlusIcon, Maximize } from 'lucide-react';
 
-export interface GraphToolbarProperties {
+interface GraphToolbarProperties {
   onZoomIn?: () => void;
   onZoomOut?: () => void;
   onFit?: () => void;
@@ -20,10 +20,10 @@ export function GraphToolbar({
   onFit = () => {},
 }: GraphToolbarProperties) {
   return (
-    <div className="absolute top-0 left-0 right-0 z-20 flex w-full px-3 pt-3">
+    <div className="absolute left-0 right-0 top-0 z-20 flex w-full px-3 pt-3">
       <div className="grow" />
       <div className="flex items-center gap-1 ">
-        <div className="flex gap-1 shadow-interactive">
+        <div className="shadow-interactive flex gap-1">
           <TooltipProvider>
             <Tooltip delayDuration={200}>
               <TooltipTrigger asChild>

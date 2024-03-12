@@ -23,16 +23,6 @@ export async function openPackageJson(packageDirectory: string) {
   await openEditor([{ file: fullPath }]);
 }
 
-export async function openPackageConfig(packageDirectory: string) {
-  const fullPath = path.join(
-    process.env.COMMONALITY_ROOT_DIRECTORY ?? './',
-    packageDirectory,
-    'commonality.json',
-  );
-
-  await openEditor([{ file: fullPath }]);
-}
-
 export async function openProjectConfig() {
   const projectConfig = await getProjectData();
 

@@ -51,7 +51,7 @@ export function ActionButton({
           onEdit={() => setTagsOpen(false)}
         />
       </EditTagsDialog>
-      <div className="flex flex-nowrap gap-2 justify-end">
+      <div className="flex flex-nowrap justify-end gap-2">
         <PackageChecksDialog
           results={results}
           pkg={pkg}
@@ -107,7 +107,7 @@ export function StudioTagsCell<T extends ColumnData>({
         <Button
           variant="ghost"
           onClick={() => setOpen(true)}
-          className="p-0 m-0 h-auto bg-tranparent hover:bg-transparent"
+          className="bg-tranparent m-0 h-auto p-0 hover:bg-transparent"
         >
           <TagsCell {...rest} onAddTags={() => setOpen(true)} />
         </Button>
@@ -118,7 +118,7 @@ export function StudioTagsCell<T extends ColumnData>({
   );
 }
 
-export type StudioColumnData = ColumnData;
+type StudioColumnData = ColumnData;
 
 interface PackagesTableProps
   extends Omit<
