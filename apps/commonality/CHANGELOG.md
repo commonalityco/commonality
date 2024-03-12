@@ -1,5 +1,14 @@
 # @commonalityco/cli
 
+## 0.2.60
+
+### Patch Changes
+
+- 4ea105d: removes telemetry for CLI and Studio
+- Updated dependencies [c064bff]
+- Updated dependencies [4ea105d]
+  - @commonalityco/studio@0.2.53
+
 ## 0.2.59
 
 ### Patch Changes

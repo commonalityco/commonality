@@ -1,5 +1,11 @@
 # @commonalityco/ui-graph
 
+## 0.2.46
+
+### Patch Changes
+
+- c064bff: updates dependency dialog and fixes constraints in studio
+
 ## 0.2.45
 
 ### Patch Changes

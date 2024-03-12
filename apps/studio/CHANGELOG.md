@@ -1,5 +1,12 @@
 # @commonalityco/dashboard
 
+## 0.2.53
+
+### Patch Changes
+
+- c064bff: updates dependency dialog and fixes constraints in studio
+- 4ea105d: removes telemetry for CLI and Studio
+
 ## 0.2.52
 
 ### Patch Changes

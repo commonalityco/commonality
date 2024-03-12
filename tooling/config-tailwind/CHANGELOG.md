@@ -1,5 +1,11 @@
 # @commonalityco/config-tailwind
 
+## 0.2.39
+
+### Patch Changes
+
+- 4ea105d: removes telemetry for CLI and Studio
+
 ## 0.2.38
 
 ### Patch Changes
