@@ -46,22 +46,22 @@ export function DependencyEdge({
         id={id}
         path={edgePath}
         className={cn(
-          'transition stroke-1 duration-100',
+          'stroke-1 transition duration-100',
           {
             'stroke-zinc-300 dark:stroke-zinc-800': !highlighted,
             'stroke-[2px] opacity-100': highlighted,
             'opacity-20': data?.muted,
-            '!stroke-purple-600':
+            'stroke-purple-700 dark:stroke-purple-500':
               highlighted && data?.dependency.type === DependencyType.PEER,
-            '!stroke-sky-600':
+            'stroke-sky-700 dark:stroke-sky-500':
               highlighted &&
               data?.dependency.type === DependencyType.DEVELOPMENT,
-            '!stroke-emerald-600':
+            'stroke-emerald-700 dark:stroke-emerald-500':
               highlighted &&
               data?.dependency.type === DependencyType.PRODUCTION,
           },
           {
-            '!stroke-red-600': data?.results.length,
+            'stroke-red-600': data?.results.some((result) => !result.isValid),
           },
         )}
       />
@@ -78,25 +78,25 @@ export function DependencyEdge({
             'opacity-20': highlighted && data?.muted,
           })}
         >
-          {data?.results.length ? (
-            <span className="py-0.5 px-2 font-mono font-semibold rounded-full bg-red-100 text-red-900 dark:text-red-100 dark:bg-red-900 border-2 border-red-600 leading-none flex flex-nowrap gap-1 items-center">
+          {data?.results.some((result) => !result.isValid) ? (
+            <span className="flex flex-nowrap items-center gap-1 rounded-full border-2 border-red-600 bg-red-100 px-2 py-0.5 font-mono font-semibold leading-none text-red-900 dark:bg-red-900 dark:text-red-100">
               <span>
-                <ShieldX className="w-4 h-4" />
+                <ShieldX className="h-4 w-4" />
               </span>
               <span>{data?.results.length}</span>
             </span>
           ) : (
             <span
               className={cn(
-                'py-0.5 px-2 font-mono font-semibold rounded-full leading-none',
+                'rounded-full px-2 py-0.5 font-mono font-semibold leading-none',
                 {
-                  'bg-sky-100 text-sky-900 dark:text-sky-100 dark:bg-sky-900 border-2 border-sky-600':
+                  'border-2 border-sky-700 bg-sky-100 text-sky-900 dark:border-sky-500 dark:bg-sky-900 dark:text-sky-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.DEVELOPMENT,
-                  'bg-purple-100 text-purple-900 dark:text-purple-100 dark:bg-purple-900 border-2 border-purple-600':
+                  'border-2 border-purple-700 bg-purple-100 text-purple-900 dark:border-purple-500 dark:bg-purple-900 dark:text-purple-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.PEER,
-                  'bg-emerald-100 text-emerald-900 dark:text-emerald-100 dark:bg-emerald-900 border-2 border-emerald-600':
+                  'border-2 border-emerald-700 bg-emerald-100 text-emerald-900 dark:border-emerald-500 dark:bg-emerald-900 dark:text-emerald-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.PRODUCTION,
                 },

@@ -157,8 +157,8 @@ export const Graph = (
   );
 
   return (
-    <div className="relative grow h-full" data-testid="dependency-graph">
-      <div className="relative grow w-full h-full">
+    <div className="relative h-full grow" data-testid="dependency-graph">
+      <div className="relative h-full w-full grow">
         <ReactFlow
           id="graph"
           nodes={nodes}
@@ -182,19 +182,19 @@ export const Graph = (
           {props.children}
           <GradientFade
             placement="top"
-            className="absolute left-0 right-0 z-20 h-10 from-interactive"
+            className="from-interactive absolute left-0 right-0 z-20 h-10"
           />
           <GradientFade
             placement="bottom"
-            className="absolute left-0 right-0 z-20 h-10 from-interactive"
+            className="from-interactive absolute left-0 right-0 z-20 h-10"
           />
           <GradientFade
             placement="left"
-            className="absolute bottom-0 top-0 z-20 w-10 from-interactive"
+            className="from-interactive absolute bottom-0 top-0 z-20 w-10"
           />
           <GradientFade
             placement="right"
-            className="absolute bottom-0 top-0 z-20 w-10 from-interactive"
+            className="from-interactive absolute bottom-0 top-0 z-20 w-10"
           />
           <MiniMap
             nodeStrokeWidth={3}

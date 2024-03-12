@@ -65,7 +65,7 @@ export function PackageToolbar(props: {
       isVisible={isVisible}
       nodeId={props.selectedNodeIds}
       position={Position.Bottom}
-      className="flex gap-1 bg-background rounded-lg border border-border p-1 light"
+      className="bg-background border-border light flex gap-1 rounded-lg border p-1"
     >
       {Number(props.selectedNodeIds.length) === 1 ? (
         <>
@@ -75,7 +75,7 @@ export function PackageToolbar(props: {
           >
             <Tags className="h-4 w-4" />
           </ToolbarButton>
-          <Separator orientation="vertical" className="h-7 my-1" />
+          <Separator orientation="vertical" className="my-1 h-7" />
         </>
       ) : undefined}
 

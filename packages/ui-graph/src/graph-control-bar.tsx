@@ -54,7 +54,7 @@ function ColorDot({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'h-2 w-2 rounded-full relative border border-muted-foreground/50 bg-interactive shadow-[0_0_0_2px_hsl(var(--interactive))]',
+        'border-muted-foreground/50 bg-interactive relative h-2 w-2 rounded-full border shadow-[0_0_0_2px_hsl(var(--interactive))]',
         className,
       )}
     />
@@ -113,21 +113,21 @@ function ColorDropdown({
           <div className="flex flex-nowrap items-center">
             <ColorDot
               className={cn({
-                'bg-emerald-600 border-emerald-600':
+                'border-emerald-600 bg-emerald-600':
                   checkedDependencyTypes.includes(DependencyType.PRODUCTION),
               })}
             />
 
             <ColorDot
               className={cn('-mx-0.25 z-10', {
-                'bg-sky-600 border-sky-600': checkedDependencyTypes.includes(
+                'border-sky-600 bg-sky-600': checkedDependencyTypes.includes(
                   DependencyType.DEVELOPMENT,
                 ),
               })}
             />
             <ColorDot
               className={cn('z-20', {
-                'bg-purple-600 border-purple-600':
+                'border-purple-600 bg-purple-600':
                   checkedDependencyTypes.includes(DependencyType.PEER),
               })}
             />
@@ -182,18 +182,18 @@ export function ControlBar({
   const reactFlow = useReactFlow();
 
   return (
-    <div className="pb-3 px-3 relative w-full bg-interactive shrink-0 flex justify-between">
-      <div className="h-full flex items-center pl-2 shrink-0">
-        <div className="text-xs text-primary font-mono leading-none font-medium font-muted-foreground">
+    <div className="bg-interactive relative flex w-full shrink-0 justify-between px-3 pb-3">
+      <div className="flex h-full shrink-0 items-center pl-2">
+        <div className="text-primary font-muted-foreground font-mono text-xs font-medium leading-none">
           {`${shownCount} of ${totalCount}`}
         </div>
       </div>
-      <div className="flex gap-1 justify-between">
+      <div className="flex justify-between gap-1">
         <ColorDropdown
           onHighlightChange={onHighlightChange}
           defaultDependencyTypes={defaultDependencyTypes}
         />
-        <Separator orientation="vertical" className="h-6 my-1 mx-2" />
+        <Separator orientation="vertical" className="mx-2 my-1 h-6" />
 
         <ToggleGroup
           type="single"
@@ -220,7 +220,7 @@ export function ControlBar({
           </ButtonTooltip>
         </ToggleGroup>
 
-        <Separator orientation="vertical" className="h-6 my-1 mx-2" />
+        <Separator orientation="vertical" className="mx-2 my-1 h-6" />
 
         <ButtonTooltip text="Fit view">
           <Button

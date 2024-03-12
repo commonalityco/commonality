@@ -1,6 +1,4 @@
 {
-    "root": true,
-    "extends": [
-        "commonality"
-    ]
+  "root": true,
+  "extends": ["commonality"]
 }
