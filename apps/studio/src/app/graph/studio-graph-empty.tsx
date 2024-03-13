@@ -1,9 +1,9 @@
 'use client';
 
+import { usePackagesQuery } from '@commonalityco/feature-graph/query-hooks';
 import { GraphEmpty, useInteractions } from '@commonalityco/ui-graph';
 import { Edge, Node } from '@xyflow/react';
 import React from 'react';
-import { usePackagesQuery } from './graph-hooks';
 
 export function StudioGraphEmpty({
   nodes,
@@ -12,7 +12,9 @@ export function StudioGraphEmpty({
   nodes: Node[];
   edges: Edge[];
 }) {
-  const { setPackagesQuery } = usePackagesQuery();
+  const [_packagesQuery, setPackagesQuery] = usePackagesQuery({
+    packages: nodes.map((node) => node.data),
+  });
   const interactions = useInteractions({
     nodes,
     edges,

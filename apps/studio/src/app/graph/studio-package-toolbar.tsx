@@ -8,9 +8,10 @@ import {
 } from '@commonalityco/ui-graph';
 import { Node, Edge } from '@xyflow/react';
 import { useAtom, useSetAtom } from 'jotai';
-import { usePackagesQuery } from './graph-hooks';
+
 import { useCallback } from 'react';
 import { editingPackageAtom, selectedPackagesAtom } from '@/atoms/graph';
+import { usePackagesQuery } from '@commonalityco/feature-graph/query-hooks';
 
 export function StudioPackageToolbar({
   packages,
@@ -23,7 +24,7 @@ export function StudioPackageToolbar({
 }) {
   const [selectedPackages] = useAtom(selectedPackagesAtom);
   const setEditingPackage = useSetAtom(editingPackageAtom);
-  const { setPackagesQuery } = usePackagesQuery();
+  const [_packagesQuery, setPackagesQuery] = usePackagesQuery({ packages });
 
   const onNodesChange = useCallback(
     ({ nodes }: { nodes: Node<PackageNodeData>[] }) => {

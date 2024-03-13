@@ -30,6 +30,7 @@
     "dist/"
   ],
   "dependencies": {
+    "@commonalityco/feature-graph": "workspace:*",
     "@xyflow/react": "12.0.0-next.9",
     "@xyflow/system": "^0.0.17",
     "chokidar": "^3.6.0",

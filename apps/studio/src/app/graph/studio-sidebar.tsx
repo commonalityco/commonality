@@ -1,9 +1,6 @@
 'use client';
 import { Sidebar } from '@commonalityco/ui-constraints';
-import {
-  PackageNodeData,
-  getNodes,
-} from '@commonalityco/ui-graph/package/get-nodes';
+import { getNodes } from '@commonalityco/ui-graph/package/get-nodes';
 import { getEdges, useInteractions } from '@commonalityco/ui-graph';
 import { setCookie } from 'cookies-next';
 import { ComponentProps } from 'react';
@@ -15,8 +12,10 @@ import {
   TagsData,
 } from '@commonalityco/types';
 import { useTheme } from 'next-themes';
-import { useHighlightQuery, usePackagesQuery } from './graph-hooks';
-import { decompressFromEncodedURIComponent } from 'lz-string';
+import {
+  useColorQuery,
+  usePackagesQuery,
+} from '@commonalityco/feature-graph/query-hooks';
 
 function StudioSidebar(props: {
   tagsData: TagsData[];
@@ -28,8 +27,10 @@ function StudioSidebar(props: {
   results: ConstraintResult[];
 }) {
   const { resolvedTheme } = useTheme();
-  const { packagesQuery, setPackagesQuery } = usePackagesQuery();
-  const { highlightQuery } = useHighlightQuery();
+  const [packagesQuery, setPackagesQuery] = usePackagesQuery({
+    packages: props.packages,
+  });
+  const [highlightQuery] = useColorQuery();
 
   const interactions = useInteractions({
     nodes: getNodes({
@@ -46,12 +47,8 @@ function StudioSidebar(props: {
     onChange: ({ nodes }) => setPackagesQuery(nodes.map((node) => node.id)),
   });
 
-  const queryPackages: string[] = packagesQuery
-    ? JSON.parse(decompressFromEncodedURIComponent(packagesQuery))
-    : [];
-
   const visiblePackages = props.packages.filter((pkg) =>
-    queryPackages.some((queryName) => queryName === pkg.name),
+    packagesQuery.some((queryName) => queryName === pkg.name),
   );
 
   return (

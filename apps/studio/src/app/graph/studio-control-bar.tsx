@@ -1,9 +1,12 @@
 'use client';
 import { ControlBar, GraphDirection } from '@commonalityco/ui-graph';
-import { useDirectionQuery, useHighlightQuery } from './graph-hooks';
 import { useCallback } from 'react';
 import { isGraphLoadingAtom } from '@/atoms/graph';
 import { useAtomValue } from 'jotai';
+import {
+  useColorQuery,
+  useDirectionQuery,
+} from '@commonalityco/feature-graph/query-hooks';
 
 export function StudioControlBar({
   shownCount,
@@ -12,8 +15,9 @@ export function StudioControlBar({
   shownCount: number;
   totalCount: number;
 }) {
-  const { directionQuery, setDirectionQuery } = useDirectionQuery();
-  const { highlightQuery, setHighlightQuery } = useHighlightQuery();
+  const [directionQuery, setDirectionQuery] = useDirectionQuery();
+  const [highlightQuery, setHighlightQuery] = useColorQuery();
+
   const isLoading = useAtomValue(isGraphLoadingAtom);
 
   const onDirectionChange = useCallback(

@@ -34,6 +34,11 @@ import { StudioPackageToolbar } from './studio-package-toolbar';
 import { StudioControlBar } from './studio-control-bar';
 import { DependencyType } from '@commonalityco/utils-core';
 import { parseAsArrayOf, parseAsStringEnum } from 'nuqs';
+import {
+  colorParser,
+  directionParser,
+  packagesParser,
+} from '@commonalityco/feature-graph/query-parsers';
 
 const StudioChart = lazyLoad(() => import('./studio-chart'), {
   ssr: false,
@@ -144,7 +149,7 @@ async function Graph({
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       <StudioPackageToolbar
         packages={packages}
         allEdges={edges}
@@ -161,12 +166,10 @@ async function Graph({
         packages={packages}
       />
 
-      <Suspense fallback={null}>
-        <StudioControlBar
-          shownCount={shownElements.nodes.length}
-          totalCount={nodes.length}
-        />
-      </Suspense>
+      <StudioControlBar
+        shownCount={shownElements.nodes.length}
+        totalCount={nodes.length}
+      />
     </div>
   );
 }
@@ -177,7 +180,7 @@ async function GraphPage({
   searchParams?: {
     packages?: string;
     direction: GraphDirection;
-    highlight: DependencyType[];
+    color: DependencyType[];
   };
 }) {
   const [tagsData, packages, dependencies, results, codeownersData] =
@@ -189,21 +192,11 @@ async function GraphPage({
       getCodeownersData(),
     ]);
 
-  const getDecodedPackages = (): string[] | undefined => {
-    if (!searchParams?.packages) return;
-
-    try {
-      return JSON.parse(
-        decompressFromEncodedURIComponent(searchParams?.packages),
-      );
-    } catch (err) {
-      return;
-    }
-  };
-
-  const activeDependencyTypes = parseAsArrayOf(
-    parseAsStringEnum<DependencyType>(Object.values(DependencyType)),
-  ).parseServerSide(searchParams?.highlight);
+  const packagesQuery = packagesParser.parseServerSide(searchParams?.packages);
+  const colorQuery = colorParser.parseServerSide(searchParams?.color);
+  const directionQuery = directionParser.parseServerSide(
+    searchParams?.direction,
+  );
 
   return (
     <GraphLayoutRoot>
@@ -218,15 +211,13 @@ async function GraphPage({
       </GraphLayoutAside>
       <GraphLayoutMain>
         <Graph
-          activeDependencyTypes={
-            activeDependencyTypes ? activeDependencyTypes : []
-          }
+          activeDependencyTypes={colorQuery ?? []}
           results={results}
-          direction={searchParams?.direction as GraphDirection}
+          direction={directionQuery ?? GraphDirection.LeftToRight}
           packages={packages}
           dependencies={dependencies}
           tagsData={tagsData}
-          filteredPackageNames={getDecodedPackages()}
+          filteredPackageNames={packagesQuery ?? []}
         />
       </GraphLayoutMain>
     </GraphLayoutRoot>

@@ -256,6 +256,9 @@ importers:
 
   apps/studio:
     dependencies:
+      '@commonalityco/feature-graph':
+        specifier: workspace:*
+        version: link:../../packages/feature-graph
       '@xyflow/react':
         specifier: 12.0.0-next.9
         version: 12.0.0-next.9(@types/react@18.2.57)(react-dom@18.2.0)(react@18.2.0)
@@ -836,6 +839,76 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
+
+  packages/feature-graph:
+    dependencies:
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
+      lucide-react:
+        specifier: ^0.317.0
+        version: 0.317.0(react@18.2.0)
+      react-resizable-panels:
+        specifier: ^0.0.54
+        version: 0.0.54(react-dom@18.2.0)(react@18.2.0)
+    devDependencies:
+      '@commonalityco/config-tailwind':
+        specifier: workspace:*
+        version: link:../../tooling/config-tailwind
+      '@commonalityco/config-tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/config-tsconfig
+      '@commonalityco/types':
+        specifier: workspace:*
+        version: link:../types
+      '@commonalityco/ui-core':
+        specifier: workspace:*
+        version: link:../ui-core
+      '@commonalityco/ui-design-system':
+        specifier: workspace:*
+        version: link:../ui-design-system
+      '@commonalityco/ui-graph':
+        specifier: workspace:*
+        version: link:../ui-graph
+      '@commonalityco/utils-core':
+        specifier: workspace:*
+        version: link:../utils-core
+      '@testing-library/jest-dom':
+        specifier: ^6.4.2
+        version: 6.4.2(jest@29.7.0)(vitest@0.34.6)
+      '@testing-library/react':
+        specifier: ^14.2.1
+        version: 14.2.1(react-dom@18.2.0)(react@18.2.0)
+      '@testing-library/user-event':
+        specifier: ^14.5.2
+        version: 14.5.2(@testing-library/dom@9.3.4)
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
+      '@types/react':
+        specifier: ^18.2.57
+        version: 18.2.57
+      eslint-config-commonality:
+        specifier: workspace:*
+        version: link:../../tooling/config-eslint
+      lz-string:
+        specifier: ^1.5.0
+        version: 1.5.0
+      nuqs:
+        specifier: ^1.17.0
+        version: 1.17.0(next@14.0.4)
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.2.0(react@18.2.0)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+      vitest:
+        specifier: ^0.34.6
+        version: 0.34.6
 
   packages/types:
     devDependencies:
@@ -13619,7 +13692,6 @@ packages:
 
   /mitt@3.0.1:
     resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
-    dev: false
 
   /mixme@0.5.10:
     resolution: {integrity: sha512-5H76ANWinB1H3twpJ6JY8uvAtpmFvHNArpilJAjXRKXSDDLPIMoZArw5SH0q9z+lLs8IrMw7Q2VWpWimFKFT1Q==}
@@ -13918,7 +13990,6 @@ packages:
     dependencies:
       mitt: 3.0.1
       next: 14.0.4(@babel/core@7.23.9)(react-dom@18.2.0)(react@18.2.0)
-    dev: false
 
   /nwsapi@2.2.7:
     resolution: {integrity: sha512-ub5E4+FBPKwAZx0UwIQOjYWGHTEq5sPqHQNRN8Z9e4A7u3Tj1weLJsL59yH9vmvqEtBHaOmT6cYQKIZOxp35FQ==}
