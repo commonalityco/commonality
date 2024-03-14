@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-null */
 import { Dependency, Package } from '@commonalityco/types';
 import { atom } from 'jotai';
 
