@@ -54,7 +54,7 @@ function ColorDot({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'border-muted-foreground/50 bg-interactive relative h-2 w-2 rounded-full border shadow-[0_0_0_2px_hsl(var(--interactive))]',
+        'border-muted-foreground/50 bg-muted relative h-2 w-2 rounded-full border shadow-[0_0_0_2px_hsl(var(--muted))]',
         className,
       )}
     />
@@ -132,7 +132,7 @@ function ColorDropdown({
               })}
             />
           </div>
-          <span className="font-mono text-xs">Color</span>
+          <span className="font-mono text-xs">Dependencies</span>
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
@@ -169,92 +169,85 @@ export function ControlBar({
   direction,
   onDirectionChange,
   onHighlightChange,
-  shownCount,
-  totalCount,
 }: {
   defaultDependencyTypes?: DependencyType[];
   direction: GraphDirection;
   onHighlightChange: (dependencyTypes: DependencyType[]) => void;
   onDirectionChange: (direction: GraphDirection) => void;
-  shownCount: number;
-  totalCount: number;
 }) {
   const reactFlow = useReactFlow();
 
   return (
-    <div className="bg-interactive relative flex w-full shrink-0 justify-between px-3 pb-3">
-      <div className="flex h-full shrink-0 items-center pl-2">
-        <div className="text-primary font-muted-foreground font-mono text-xs font-medium leading-none">
-          {`${shownCount} of ${totalCount}`}
-        </div>
-      </div>
-      <div className="flex justify-between gap-1">
-        <ColorDropdown
-          onHighlightChange={onHighlightChange}
-          defaultDependencyTypes={defaultDependencyTypes}
-        />
-        <Separator orientation="vertical" className="mx-2 my-1 h-6" />
+    <div className="bg-secondary dark:bg-background flex flex-row justify-end px-3 pb-3">
+      <div className="bg-background relative inline-block flex w-auto grow-0 justify-between rounded-md border p-1">
+        <div className="flex justify-between gap-1">
+          <ColorDropdown
+            onHighlightChange={onHighlightChange}
+            defaultDependencyTypes={defaultDependencyTypes}
+          />
+          <Separator orientation="vertical" className="my-1 h-6" />
 
-        <ToggleGroup
-          type="single"
-          value={direction}
-          onValueChange={(direction: GraphDirection) =>
-            onDirectionChange(direction)
-          }
-        >
-          <ButtonTooltip text="Align left to right">
-            <ToggleGroupItem
-              value={GraphDirection.LeftToRight}
-              aria-label="Align left to right"
-            >
-              <ArrowRightFromLine className="h-4 w-4" />
-            </ToggleGroupItem>
-          </ButtonTooltip>
-          <ButtonTooltip text="Align top to bottom">
-            <ToggleGroupItem
-              value={GraphDirection.TopToBottom}
-              aria-label="Align top to bottom"
-            >
-              <ArrowDownFromLine className="h-4 w-4" />
-            </ToggleGroupItem>
-          </ButtonTooltip>
-        </ToggleGroup>
-
-        <Separator orientation="vertical" className="mx-2 my-1 h-6" />
-
-        <ButtonTooltip text="Fit view">
-          <Button
-            aria-label="Fit view"
-            size="icon"
-            variant="ghost"
-            onClick={() => reactFlow.fitView({ duration: 200 })}
+          <ToggleGroup
+            type="single"
+            value={direction}
+            onValueChange={(direction: GraphDirection) =>
+              onDirectionChange(direction)
+            }
           >
-            <Maximize className="h-4 w-4" />
-          </Button>
-        </ButtonTooltip>
+            <ButtonTooltip text="Align left to right">
+              <ToggleGroupItem
+                value={GraphDirection.LeftToRight}
+                aria-label="Align left to right"
+              >
+                <ArrowRightFromLine className="h-4 w-4" />
+              </ToggleGroupItem>
+            </ButtonTooltip>
+            <ButtonTooltip text="Align top to bottom">
+              <ToggleGroupItem
+                value={GraphDirection.TopToBottom}
+                aria-label="Align top to bottom"
+              >
+                <ArrowDownFromLine className="h-4 w-4" />
+              </ToggleGroupItem>
+            </ButtonTooltip>
+          </ToggleGroup>
 
-        <div className="hidden md:block">
-          <ButtonTooltip text="Zoom out">
+          <Separator orientation="vertical" className="my-1 h-6" />
+
+          <ButtonTooltip text="Fit view">
             <Button
+              aria-label="Fit view"
               size="icon"
               variant="ghost"
-              onClick={() => reactFlow.zoomOut({ duration: 200 })}
+              onClick={() => reactFlow.fitView({ duration: 200 })}
             >
-              <Minus className="h-4 w-4" />
+              <Maximize className="h-4 w-4" />
             </Button>
           </ButtonTooltip>
-        </div>
 
-        <div className="hidden md:block">
-          <ButtonTooltip text="Zoom in">
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={() => reactFlow.zoomIn({ duration: 200 })}
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          </ButtonTooltip>
+          <div className="hidden md:block">
+            <ButtonTooltip text="Zoom out">
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() => reactFlow.zoomOut({ duration: 200 })}
+              >
+                <Minus className="h-4 w-4" />
+              </Button>
+            </ButtonTooltip>
+          </div>
+
+          <div className="hidden md:block">
+            <ButtonTooltip text="Zoom in">
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() => reactFlow.zoomIn({ duration: 200 })}
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            </ButtonTooltip>
+          </div>
         </div>
       </div>
     </div>

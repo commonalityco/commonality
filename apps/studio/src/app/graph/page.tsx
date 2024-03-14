@@ -155,16 +155,17 @@ async function Graph({
         allEdges={edges}
         allNodes={nodes}
       />
-
-      <StudioChart
-        results={results}
-        tagsData={tagsData}
-        dependencies={dependencies}
-        shownNodes={shownElements.nodes}
-        shownEdges={shownElements.edges}
-        theme={(defaultTheme as 'light' | 'dark') ?? 'light'}
-        packages={packages}
-      />
+      <Suspense key={JSON.stringify({ shownElements, direction })}>
+        <StudioChart
+          results={results}
+          tagsData={tagsData}
+          dependencies={dependencies}
+          shownNodes={shownElements.nodes}
+          shownEdges={shownElements.edges}
+          theme={(defaultTheme as 'light' | 'dark') ?? 'light'}
+          packages={packages}
+        />
+      </Suspense>
 
       <StudioControlBar
         shownCount={shownElements.nodes.length}

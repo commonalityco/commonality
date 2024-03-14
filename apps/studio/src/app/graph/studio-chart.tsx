@@ -23,7 +23,6 @@ import { Edge, Node, OnSelectionChangeParams, useStore } from '@xyflow/react';
 import { useCallback } from 'react';
 import { DependencyDialog, GraphLoading } from '@commonalityco/ui-graph';
 import { ConstraintsDialog } from '@commonalityco/ui-constraints';
-import { AnimatePresence, motion } from 'framer-motion';
 
 function PackageEditTagsDialog({ tagsData }: { tagsData: TagsData[] }) {
   const [editingPackage, setEditingPackage] = useAtom(editingPackageAtom);
@@ -134,48 +133,26 @@ function StudioChart({
   );
 
   return (
-    <AnimatePresence>
-      {isLoading ? (
-        <motion.div
-          key="loading"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ delay: 0.5, duration: 0.15 }}
-        >
-          <GraphLoading />
-        </motion.div>
-      ) : (
-        <motion.div
-          className="h-full w-full"
-          key="graph"
-          transition={{ duration: 0.15 }}
-          initial={{ opacity: 0 }}
-          exit={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <PackageEditTagsDialog tagsData={tagsData} />
-          <ActiveDependencyDialog results={results} />
-          <Graph
-            onEdgeClick={(event, edge) => {
-              const depdendency = dependencies.find(
-                (dep) =>
-                  dep.source === edge.source && dep.target === edge.target,
-              );
+    <>
+      <PackageEditTagsDialog tagsData={tagsData} />
+      <ActiveDependencyDialog results={results} />
+      <Graph
+        onEdgeClick={(event, edge) => {
+          const depdendency = dependencies.find(
+            (dep) => dep.source === edge.source && dep.target === edge.target,
+          );
 
-              if (!depdendency) return;
+          if (!depdendency) return;
 
-              setActiveDependency(depdendency);
-            }}
-            totalCount={0}
-            nodes={shownNodes}
-            edges={shownEdges}
-            theme={theme}
-            onSelectionChange={onSelectionChange}
-          />
-        </motion.div>
-      )}
-    </AnimatePresence>
+          setActiveDependency(depdendency);
+        }}
+        totalCount={0}
+        nodes={shownNodes}
+        edges={shownEdges}
+        theme={theme}
+        onSelectionChange={onSelectionChange}
+      />
+    </>
   );
 }
 

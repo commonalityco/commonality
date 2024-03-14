@@ -177,24 +177,24 @@ export const Graph = (
           edgeTypes={edgeTypes}
           connectionLineType={ConnectionLineType.SmoothStep}
           fitView
-          className="bg-interactive"
+          className="bg-secondary dark:bg-background"
         >
           {props.children}
           <GradientFade
             placement="top"
-            className="from-interactive absolute left-0 right-0 z-20 h-10"
+            className="from-secondary absolute left-0 right-0 z-20 h-10"
           />
           <GradientFade
             placement="bottom"
-            className="from-interactive absolute left-0 right-0 z-20 h-10"
+            className="from-secondary absolute left-0 right-0 z-20 h-10"
           />
           <GradientFade
             placement="left"
-            className="from-interactive absolute bottom-0 top-0 z-20 w-10"
+            className="from-secondary absolute bottom-0 top-0 z-20 w-10"
           />
           <GradientFade
             placement="right"
-            className="from-interactive absolute bottom-0 top-0 z-20 w-10"
+            className="from-secondary absolute bottom-0 top-0 z-20 w-10"
           />
           <MiniMap
             nodeStrokeWidth={3}
@@ -203,7 +203,6 @@ export const Graph = (
           />
 
           <Background
-            className="bg-interactive"
             color={props.theme === 'light' ? '#71717a' : '#52525b'}
             variant={BackgroundVariant.Dots}
           />
