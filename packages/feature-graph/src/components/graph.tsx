@@ -7,6 +7,7 @@ import {
   Edge,
   MiniMap,
   Node,
+  OnSelectionChangeParams,
   ReactFlow,
   getConnectedEdges,
   getIncomers,
@@ -14,11 +15,17 @@ import {
   useEdgesState,
   useNodesState,
 } from '@xyflow/react';
-import React, { ComponentProps, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { PackageNode } from './package-node';
-import { DependencyEdge } from './package/dependency-edge';
-import { DependencyEdgeData } from './package/get-edges';
-import { PackageNodeData } from './package/get-nodes';
+import { DependencyEdge } from './dependency-edge';
+import { DependencyEdgeData } from '../utilities/get-edges';
+import { PackageNodeData } from '../utilities/get-nodes';
+import { useSetAtom } from 'jotai';
+import {
+  activeDependencyAtom,
+  selectedPackagesAtom,
+} from '../atoms/graph-atoms';
+import { Dependency, Package } from '@commonalityco/types';
 
 const nodeTypes = {
   package: PackageNode,
@@ -28,20 +35,35 @@ const edgeTypes = {
   dependency: DependencyEdge,
 };
 
-export const Graph = (
-  props: {
-    totalCount: number;
-    nodes: Node[];
-    edges: Edge[];
-    theme: 'light' | 'dark';
-    children?: React.ReactNode;
-  } & Pick<
-    ComponentProps<typeof ReactFlow>,
-    'onSelectionChange' | 'onEdgeClick'
-  >,
-) => {
-  const [nodes, setNodes, onNodesChange] = useNodesState(props.nodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(props.edges);
+export const Graph = ({
+  dependencies,
+  packages,
+  nodes,
+  edges,
+  theme,
+}: {
+  dependencies: Dependency[];
+  packages: Package[];
+  nodes: Node[];
+  edges: Edge[];
+  theme: 'light' | 'dark';
+}) => {
+  const [controlledNodes, setNodes, onNodesChange] = useNodesState(nodes);
+  const [controlledEdges, setEdges, onEdgesChange] = useEdgesState(edges);
+
+  const setSelectedPackages = useSetAtom(selectedPackagesAtom);
+  const setActiveDependency = useSetAtom(activeDependencyAtom);
+
+  const onSelectionChange = useCallback(
+    ({ nodes }: OnSelectionChangeParams) => {
+      const selectedPackages = nodes
+        .map((node) => packages.find((pkg) => pkg.name === node.id))
+        .filter(Boolean) as Package[];
+
+      setSelectedPackages(selectedPackages);
+    },
+    [setSelectedPackages, packages],
+  );
 
   const onNodeMouseLeave = useCallback(
     (_event: React.MouseEvent, _node: Node) => {
@@ -156,22 +178,35 @@ export const Graph = (
     [],
   );
 
+  const onEdgeClick = useCallback(
+    (event: React.MouseEvent<Element, MouseEvent>, edge: Edge) => {
+      const depdendency = dependencies.find(
+        (dep) => dep.source === edge.source && dep.target === edge.target,
+      );
+
+      if (!depdendency) return;
+
+      setActiveDependency(depdendency);
+    },
+    [dependencies],
+  );
+
   return (
     <div className="relative h-full grow" data-testid="dependency-graph">
       <div className="relative h-full w-full grow">
         <ReactFlow
           id="graph"
-          nodes={nodes}
-          edges={edges}
+          nodes={controlledNodes}
+          edges={controlledEdges}
           minZoom={0.1}
-          onEdgeClick={props.onEdgeClick}
+          onEdgeClick={onEdgeClick}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onNodeMouseEnter={onNodeMouseEnter}
           onNodeMouseLeave={onNodeMouseLeave}
           onEdgeMouseEnter={onEdgeMouseEnter}
           onEdgeMouseLeave={onEdgeMouseLeave}
-          onSelectionChange={props.onSelectionChange}
+          onSelectionChange={onSelectionChange}
           nodeTypes={nodeTypes}
           proOptions={{ hideAttribution: true }}
           edgeTypes={edgeTypes}
@@ -179,22 +214,21 @@ export const Graph = (
           fitView
           className="bg-secondary dark:bg-background"
         >
-          {props.children}
           <GradientFade
             placement="top"
-            className="from-secondary absolute left-0 right-0 z-20 h-10"
+            className="from-secondary dark:from-background absolute left-0 right-0 z-20 h-10"
           />
           <GradientFade
             placement="bottom"
-            className="from-secondary absolute left-0 right-0 z-20 h-10"
+            className="from-secondary dark:from-background absolute left-0 right-0 z-20 h-10"
           />
           <GradientFade
             placement="left"
-            className="from-secondary absolute bottom-0 top-0 z-20 w-10"
+            className="from-secondary dark:from-background absolute bottom-0 top-0 z-20 w-10"
           />
           <GradientFade
             placement="right"
-            className="from-secondary absolute bottom-0 top-0 z-20 w-10"
+            className="from-secondary dark:from-background absolute bottom-0 top-0 z-20 w-10"
           />
           <MiniMap
             nodeStrokeWidth={3}
@@ -203,7 +237,7 @@ export const Graph = (
           />
 
           <Background
-            color={props.theme === 'light' ? '#71717a' : '#52525b'}
+            color={theme === 'light' ? '#71717a' : '#52525b'}
             variant={BackgroundVariant.Dots}
           />
         </ReactFlow>

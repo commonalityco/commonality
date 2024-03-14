@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "@commonalityco/feature-graph": "workspace:*",
-    "@xyflow/react": "12.0.0-next.9",
+    "@xyflow/react": "12.0.0-next.11",
     "@xyflow/system": "^0.0.17",
     "chokidar": "^3.6.0",
     "execa": "^8.0.1",
@@ -57,7 +57,7 @@
     "@commonalityco/ui-constraints": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
-    "@commonalityco/ui-graph": "workspace:*",
+    "@commonalityco/feature-graph": "workspace:*",
     "@commonalityco/ui-package": "workspace:*",
     "@commonalityco/utils-conformance": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",

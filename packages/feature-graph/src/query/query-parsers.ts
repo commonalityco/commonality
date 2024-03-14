@@ -2,7 +2,7 @@ import {
   decompressFromEncodedURIComponent,
   compressToEncodedURIComponent,
 } from 'lz-string';
-import { GraphDirection } from '@commonalityco/ui-graph';
+import { GraphDirection } from '../utilities/types';
 import { DependencyType } from '@commonalityco/utils-core';
 import {
   ParserBuilder,

@@ -1,6 +1,6 @@
 'use client';
 import { useReactFlow } from '@xyflow/react';
-import { GraphDirection } from './types';
+import { GraphDirection } from '../utilities/types';
 import {
   Button,
   DropdownMenu,
@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { DependencyType } from '@commonalityco/utils-core';
+import { useDirectionQuery, useColorQuery } from '../query/query-hooks';
 
 function ButtonTooltip({
   children,
@@ -164,17 +165,9 @@ function ColorDropdown({
   );
 }
 
-export function ControlBar({
-  defaultDependencyTypes,
-  direction,
-  onDirectionChange,
-  onHighlightChange,
-}: {
-  defaultDependencyTypes?: DependencyType[];
-  direction: GraphDirection;
-  onHighlightChange: (dependencyTypes: DependencyType[]) => void;
-  onDirectionChange: (direction: GraphDirection) => void;
-}) {
+export function GraphControlBar() {
+  const [directionQuery, setDirectionQuery] = useDirectionQuery();
+  const [highlightQuery, setHighlightQuery] = useColorQuery();
   const reactFlow = useReactFlow();
 
   return (
@@ -182,16 +175,16 @@ export function ControlBar({
       <div className="bg-background relative inline-block flex w-auto grow-0 justify-between rounded-md border p-1">
         <div className="flex justify-between gap-1">
           <ColorDropdown
-            onHighlightChange={onHighlightChange}
-            defaultDependencyTypes={defaultDependencyTypes}
+            onHighlightChange={setHighlightQuery}
+            defaultDependencyTypes={highlightQuery}
           />
           <Separator orientation="vertical" className="my-1 h-6" />
 
           <ToggleGroup
             type="single"
-            value={direction}
+            value={directionQuery}
             onValueChange={(direction: GraphDirection) =>
-              onDirectionChange(direction)
+              setDirectionQuery(direction)
             }
           >
             <ButtonTooltip text="Align left to right">

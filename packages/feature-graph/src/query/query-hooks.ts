@@ -1,7 +1,6 @@
 import { useQueryState } from 'nuqs';
 import { colorParser, directionParser, packagesParser } from './query-parsers';
-import { Package } from '@commonalityco/types';
-import { GraphDirection } from '@commonalityco/ui-graph';
+import { GraphDirection } from '../utilities/types';
 import { DependencyType } from '@commonalityco/utils-core';
 
 export const useDirectionQuery = () => {
@@ -22,11 +21,9 @@ export const useColorQuery = () => {
   );
 };
 
-export const usePackagesQuery = ({ packages }: { packages: Package[] }) => {
+export const usePackagesQuery = () => {
   return useQueryState(
     'packages',
-    packagesParser
-      .withDefault(packages.map((p) => p.name))
-      .withOptions({ shallow: false }),
+    packagesParser.withOptions({ shallow: false }),
   );
 };

@@ -4,7 +4,7 @@ module.exports = {
     '@commonalityco/ui-design-system',
     '@commonalityco/ui-package',
     '@commonalityco/ui-core',
-    '@commonalityco/ui-graph',
+    '@commonalityco/feature-graph',
     '@commonalityco/ui-conformance',
     '@commonalityco/ui-constraints',
   ],

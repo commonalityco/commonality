@@ -8,10 +8,11 @@ import {
   TooltipTrigger,
 } from '@commonalityco/ui-design-system';
 import { EyeOff, Focus, Tags } from 'lucide-react';
-import { NodeToolbar, Node, Edge, OnSelectionChangeFunc } from '@xyflow/react';
+import { NodeToolbar } from '@xyflow/react';
 import { Position } from '@xyflow/system';
-import { DependencyEdgeData, PackageNodeData, useInteractions } from '..';
-import { GraphDirection } from '../types';
+import { useAtom, useSetAtom } from 'jotai';
+import { editingPackageAtom, selectedPackagesAtom } from '../atoms/graph-atoms';
+import { useInteractions } from '../context/interaction-context';
 
 function ToolbarButton({
   children,
@@ -43,35 +44,26 @@ function ToolbarButton({
   );
 }
 
-export function PackageToolbar(props: {
-  onEditTags: (packageName: string) => void;
-  selectedNodeIds: string[];
-  nodes: Node<PackageNodeData>[];
-  edges: Edge<DependencyEdgeData>[];
-  direction?: GraphDirection;
-  isVisible?: boolean;
-  onChange: OnSelectionChangeFunc;
-}) {
-  const interactions = useInteractions({
-    nodes: props.nodes,
-    edges: props.edges,
-    onChange: props.onChange,
-  });
+export function PackageToolbar() {
+  const [selectedPackages] = useAtom(selectedPackagesAtom);
+  const setEditingPackage = useSetAtom(editingPackageAtom);
+  const interactions = useInteractions();
 
-  const isVisible = Number(props.selectedNodeIds?.length) > 0;
+  const isVisible = Number(selectedPackages?.length) > 0;
+  const selectedNodeIds = selectedPackages.map((pkg) => pkg.name);
 
   return (
     <NodeToolbar
       isVisible={isVisible}
-      nodeId={props.selectedNodeIds}
+      nodeId={selectedPackages.map((pkg) => pkg.name)}
       position={Position.Bottom}
       className="bg-background border-border light flex gap-1 rounded-lg border p-1"
     >
-      {Number(props.selectedNodeIds.length) === 1 ? (
+      {selectedPackages.length === 1 ? (
         <>
           <ToolbarButton
             text="Edit tags"
-            onClick={() => props.onEditTags(props.selectedNodeIds[0])}
+            onClick={() => setEditingPackage(selectedPackages[0])}
           >
             <Tags className="h-4 w-4" />
           </ToolbarButton>
@@ -81,14 +73,14 @@ export function PackageToolbar(props: {
 
       <ToolbarButton
         text="Focus"
-        onClick={() => interactions.focus(props.selectedNodeIds)}
+        onClick={() => interactions.focus(selectedNodeIds)}
       >
         <Focus className="h-4 w-4" />
       </ToolbarButton>
 
       <ToolbarButton
         text="Hide"
-        onClick={() => interactions.hide(props.selectedNodeIds)}
+        onClick={() => interactions.hide(selectedNodeIds)}
       >
         <EyeOff className="h-4 w-4" />
       </ToolbarButton>

@@ -1,6 +1,6 @@
 import { Handle, type NodeProps } from '@xyflow/react';
 import { Position } from '@xyflow/system';
-import { PackageNodeData } from './package/get-nodes';
+import { PackageNodeData } from '../utilities/get-nodes';
 import { getIconForPackage } from '@commonalityco/ui-core';
 import { cn } from '@commonalityco/ui-design-system';
 import { DependencyType } from '@commonalityco/utils-core';
@@ -15,10 +15,10 @@ export function PackageNode({
   const Icon = getIconForPackage(data.package.type);
 
   return (
-    <div style={{ height, width }} className="py-2 rounded-lg group w-full">
+    <div style={{ height, width }} className="group w-full rounded-lg py-2">
       <div
         className={cn(
-          'w-full border border-muted-foreground/20 shadow-[0_0_0_12px_rgba(0,0,0,0.025)] dark:shadow-[0_0_0_12px_rgba(255,255,255,0.025)] group-hover:shadow-[0_0_0_12px_rgba(0,0,0,0.065)] dark:group-hover:shadow-[0_0_0_12px_rgba(255,255,255,0.065)] rounded-md py-2 px-4 bg-muted block overflow-hidden group-hover:border-muted-foreground/60 group-active:border-muted-foreground/100 transition duration-100 h-full w-full',
+          'border-muted-foreground/20 bg-muted group-hover:border-muted-foreground/60 group-active:border-muted-foreground/100 block h-full w-full w-full overflow-hidden rounded-md border px-4 py-2 shadow-[0_0_0_12px_rgba(0,0,0,0.025)] transition duration-100 group-hover:shadow-[0_0_0_12px_rgba(0,0,0,0.065)] dark:shadow-[0_0_0_12px_rgba(255,255,255,0.025)] dark:group-hover:shadow-[0_0_0_12px_rgba(255,255,255,0.065)]',
           { 'opacity-10': data.muted, 'opacity-100': !data.muted },
         )}
       >
@@ -30,8 +30,8 @@ export function PackageNode({
           />
         ) : undefined}
 
-        <div className="w-full flex items-center gap-3 flex-nowrap justify-between">
-          <p className="text-primary font-semibold text-lg leading-none truncated truncate min-w-0">
+        <div className="flex w-full flex-nowrap items-center justify-between gap-3">
+          <p className="text-primary truncated min-w-0 truncate text-lg font-semibold leading-none">
             {data.package.name}
           </p>
           <Icon className="h-8 w-8 shrink-0" />

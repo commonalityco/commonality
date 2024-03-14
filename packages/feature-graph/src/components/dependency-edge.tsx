@@ -5,7 +5,7 @@ import {
   EdgeProps,
   getBezierPath,
 } from '@xyflow/react';
-import { DependencyEdgeData } from './get-edges';
+import { DependencyEdgeData } from '../utilities/get-edges';
 import { cn } from '@commonalityco/ui-design-system';
 import { ShieldX } from 'lucide-react';
 
@@ -48,20 +48,20 @@ export function DependencyEdge({
         className={cn(
           'stroke-1 transition duration-100',
           {
-            'stroke-zinc-300 dark:stroke-zinc-800': !highlighted,
+            '!stroke-zinc-300 dark:!stroke-zinc-800': !highlighted,
             'stroke-[2px] opacity-100': highlighted,
             'opacity-20': data?.muted,
-            'stroke-purple-700 dark:stroke-purple-500':
+            '!stroke-purple-700 dark:!stroke-purple-500':
               highlighted && data?.dependency.type === DependencyType.PEER,
-            'stroke-sky-700 dark:stroke-sky-500':
+            '!stroke-sky-700 dark:!stroke-sky-500':
               highlighted &&
               data?.dependency.type === DependencyType.DEVELOPMENT,
-            'stroke-emerald-700 dark:stroke-emerald-500':
+            '!stroke-emerald-700 dark:!stroke-emerald-500':
               highlighted &&
               data?.dependency.type === DependencyType.PRODUCTION,
           },
           {
-            'stroke-red-600': data?.results.some((result) => !result.isValid),
+            '!stroke-red-600': data?.results.some((result) => !result.isValid),
           },
         )}
       />

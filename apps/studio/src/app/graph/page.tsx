@@ -1,10 +1,4 @@
-import {
-  GraphLayoutAside,
-  GraphLayoutMain,
-  GraphLayoutRoot,
-} from '@commonalityco/ui-constraints';
 import React, { Suspense } from 'react';
-import StudioSidebar from './studio-sidebar';
 import { getTagsData } from '@/data/tags';
 import { getPackagesData } from '@/data/packages';
 import { getDependenciesData } from '@/data/dependencies';
@@ -12,54 +6,49 @@ import { getCodeownersData } from '@/data/codeowners';
 import { getConstraintsData } from '@/data/constraints';
 import { cookies } from 'next/headers';
 import {
+  ActiveDependencyDialog,
+  Graph,
+  GraphControlBar,
   GraphDirection,
-  GraphLoading,
+  GraphFilterSidebar,
+  GraphProviders,
   getEdges,
   getNodes,
-} from '@commonalityco/ui-graph';
-import { getElements } from '@/actions/graph-actions';
-import { getConnectedEdges } from '@xyflow/system';
+  GraphLayoutAside,
+  GraphLayoutMain,
+  GraphLayoutRoot,
+  getElementsWithLayout,
+  GraphEmpty,
+} from '@commonalityco/feature-graph';
 import * as z from 'zod';
-import { decompressFromEncodedURIComponent } from 'lz-string';
-import {
-  CodeownersData,
-  ConstraintResult,
-  Dependency,
-  Package,
-  TagsData,
-} from '@commonalityco/types';
-import { StudioGraphEmpty } from './studio-graph-empty';
-import lazyLoad from 'next/dynamic';
-import { StudioPackageToolbar } from './studio-package-toolbar';
-import { StudioControlBar } from './studio-control-bar';
-import { DependencyType } from '@commonalityco/utils-core';
-import { parseAsArrayOf, parseAsStringEnum } from 'nuqs';
+import { DependencyType, Theme } from '@commonalityco/utils-core';
 import {
   colorParser,
   directionParser,
   packagesParser,
 } from '@commonalityco/feature-graph/query-parsers';
+import { PackageToolbar } from '@commonalityco/feature-graph/package-toolbar';
+import {
+  getConnectedEdges,
+  getNodesBounds,
+  getViewportForBounds,
+} from '@xyflow/system';
 
-const StudioChart = lazyLoad(() => import('./studio-chart'), {
-  ssr: false,
-  loading: () => <GraphLoading />,
-});
-
-async function Sidebar({
-  results,
-  packages,
-  tagsData,
-  dependencies,
-  codeownersData,
+async function GraphPage({
+  searchParams,
 }: {
-  packages: Package[];
-  dependencies: Dependency[];
-  tagsData: TagsData[];
-  results: ConstraintResult[];
-  codeownersData: CodeownersData[];
+  searchParams?: {
+    packages?: string;
+    direction: GraphDirection;
+    color: DependencyType[];
+  };
 }) {
   const cookieStore = cookies();
   const defaultLayoutCookie = cookieStore.get('commonality:sidebar-layout');
+  const defaultTheme = cookieStore.get('commonality:theme')?.value as
+    | Theme.Light
+    | Theme.Dark
+    | undefined;
 
   const getDefaultLayout = () => {
     try {
@@ -78,112 +67,6 @@ async function Sidebar({
 
   const defaultLayout = getDefaultLayout();
 
-  return (
-    <StudioSidebar
-      results={results}
-      tagsData={tagsData}
-      codeownersData={codeownersData}
-      dependencies={dependencies}
-      packages={packages}
-      defaultLayout={defaultLayout}
-    />
-  );
-}
-
-async function Graph({
-  packages,
-  dependencies,
-  tagsData,
-  filteredPackageNames,
-  direction,
-  results,
-  activeDependencyTypes,
-}: {
-  packages: Package[];
-  dependencies: Dependency[];
-  tagsData: TagsData[];
-  filteredPackageNames?: string[];
-  direction: GraphDirection;
-  results: ConstraintResult[];
-  activeDependencyTypes: DependencyType[];
-}) {
-  const cookieStore = cookies();
-  const defaultTheme = cookieStore.get('commonality:theme')?.value;
-
-  const nodes = getNodes({
-    packages,
-    dependencies,
-    tagsData,
-  });
-
-  const edges = getEdges({
-    results,
-    dependencies,
-    theme: 'light',
-    activeDependencyTypes,
-  });
-
-  const getShownElements = async () => {
-    const filteredNodes =
-      filteredPackageNames !== undefined
-        ? nodes.filter((node) =>
-            filteredPackageNames?.some((pkgName) => pkgName === node.id),
-          )
-        : nodes;
-
-    const connectedEdges = getConnectedEdges(filteredNodes, edges);
-
-    const elements = await getElements({
-      nodes: filteredNodes,
-      edges: connectedEdges,
-      direction: direction,
-    });
-
-    return elements;
-  };
-
-  const shownElements = await getShownElements();
-
-  if (shownElements.nodes.length === 0) {
-    return <StudioGraphEmpty nodes={nodes} edges={edges} />;
-  }
-
-  return (
-    <div className="flex h-full flex-col">
-      <StudioPackageToolbar
-        packages={packages}
-        allEdges={edges}
-        allNodes={nodes}
-      />
-      <Suspense key={JSON.stringify({ shownElements, direction })}>
-        <StudioChart
-          results={results}
-          tagsData={tagsData}
-          dependencies={dependencies}
-          shownNodes={shownElements.nodes}
-          shownEdges={shownElements.edges}
-          theme={(defaultTheme as 'light' | 'dark') ?? 'light'}
-          packages={packages}
-        />
-      </Suspense>
-
-      <StudioControlBar
-        shownCount={shownElements.nodes.length}
-        totalCount={nodes.length}
-      />
-    </div>
-  );
-}
-
-async function GraphPage({
-  searchParams,
-}: {
-  searchParams?: {
-    packages?: string;
-    direction: GraphDirection;
-    color: DependencyType[];
-  };
-}) {
   const [tagsData, packages, dependencies, results, codeownersData] =
     await Promise.all([
       getTagsData(),
@@ -199,29 +82,78 @@ async function GraphPage({
     searchParams?.direction,
   );
 
+  const allNodes = getNodes({
+    packages,
+    dependencies,
+    tagsData,
+  });
+
+  const allEdges = getEdges({
+    results,
+    dependencies,
+    theme: defaultTheme ?? Theme.Light,
+    activeDependencyTypes: colorQuery ?? [DependencyType.PRODUCTION],
+  });
+
+  const getShownElements = async () => {
+    const filteredNodes =
+      packagesQuery !== undefined
+        ? allNodes.filter((node) =>
+            packagesQuery?.some((pkgName) => pkgName === node.id),
+          )
+        : allNodes;
+
+    const connectedEdges = getConnectedEdges(filteredNodes, allEdges);
+
+    const elements = getElementsWithLayout({
+      nodes: filteredNodes,
+      edges: connectedEdges,
+      direction: directionQuery ?? GraphDirection.LeftToRight,
+    });
+
+    return elements;
+  };
+
+  const shownElements = await getShownElements();
+
   return (
-    <GraphLayoutRoot>
-      <GraphLayoutAside>
-        <Sidebar
-          packages={packages}
-          dependencies={dependencies}
-          tagsData={tagsData}
-          codeownersData={codeownersData}
-          results={results}
-        />
-      </GraphLayoutAside>
-      <GraphLayoutMain>
-        <Graph
-          activeDependencyTypes={colorQuery ?? []}
-          results={results}
-          direction={directionQuery ?? GraphDirection.LeftToRight}
-          packages={packages}
-          dependencies={dependencies}
-          tagsData={tagsData}
-          filteredPackageNames={packagesQuery ?? []}
-        />
-      </GraphLayoutMain>
-    </GraphLayoutRoot>
+    <GraphProviders
+      allNodes={allNodes}
+      allEdges={allEdges}
+      defaultEdges={shownElements.edges}
+      defaultNodes={shownElements.nodes}
+    >
+      <GraphLayoutRoot>
+        <GraphLayoutAside>
+          <GraphFilterSidebar
+            tagsData={tagsData}
+            codeownersData={codeownersData}
+            packages={packages}
+            defaultLayout={defaultLayout}
+          />
+        </GraphLayoutAside>
+        <GraphLayoutMain>
+          {shownElements.nodes.length === 0 ? (
+            <GraphEmpty />
+          ) : (
+            <>
+              <PackageToolbar />
+              <ActiveDependencyDialog results={results} />
+              <Suspense key={JSON.stringify({ packagesQuery, directionQuery })}>
+                <Graph
+                  dependencies={dependencies}
+                  packages={packages}
+                  nodes={shownElements.nodes}
+                  edges={shownElements.edges}
+                  theme={(defaultTheme as 'light' | 'dark') ?? 'light'}
+                />
+              </Suspense>
+              <GraphControlBar />
+            </>
+          )}
+        </GraphLayoutMain>
+      </GraphLayoutRoot>
+    </GraphProviders>
   );
 }
 

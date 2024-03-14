@@ -9,8 +9,9 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
-    "./query-parsers": "./dist/query-parsers.js",
-    "./query-hooks": "./dist/query-hooks.js"
+    "./query-parsers": "./dist/query/query-parsers.js",
+    "./package-toolbar": "./dist/components/package-toolbar.js",
+    "./graph-control-bar": "./dist/components/graph-control-bar.js"
   },
   "license": "MIT",
   "scripts": {
@@ -27,11 +28,11 @@
     "@commonalityco/types": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
-    "@commonalityco/ui-graph": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
+    "@types/dagre": "^0.7.52",
     "@types/lodash-es": "^4.17.12",
     "@types/react": "^18.2.57",
     "eslint-config-commonality": "workspace:*",
@@ -45,11 +46,15 @@
   "peerDependencies": {
     "@commonalityco/ui-core": "*",
     "@commonalityco/ui-design-system": "*",
-    "@commonalityco/ui-graph": "*",
     "react": ">=18",
     "react-dom": ">=18"
   },
   "dependencies": {
+    "@xyflow/react": "12.0.0-next.11",
+    "@xyflow/system": "^0.0.17",
+    "cookies-next": "^4.1.1",
+    "dagre": "^0.8.5",
+    "jotai": "^2.6.5",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.317.0",
     "react-resizable-panels": "^0.0.54"

@@ -55,7 +55,7 @@ function StudioNavigation({
             </Link>
             <Divider className="fill-muted-foreground" />
             <PackageManagerIcon className="h-6 w-6" />
-            <h1 className="text-base font-semibold text-foreground">{title}</h1>
+            <h1 className="text-foreground text-base font-semibold">{title}</h1>
           </div>
           <div className="flex items-center">
             <Button asChild variant="link">
@@ -63,7 +63,7 @@ function StudioNavigation({
                 href="https://github.com/commonalityco/commonality/issues/new?title=Feedback+for+%22Commonality+Studio%22&labels=feedback"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="gap-2 items-center flex-nowrap hidden md:flex"
+                className="hidden flex-nowrap items-center gap-2 md:flex"
               >
                 Feedback
                 <ExternalLink className="h-4 w-4 shrink-0" />
@@ -74,7 +74,7 @@ function StudioNavigation({
                 href="https://commonality.co/docs/overview"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden md:flex gap-2 items-center flex-nowrap"
+                className="hidden flex-nowrap items-center gap-2 md:flex"
               >
                 Documentation
                 <ExternalLink className="h-4 w-4 shrink-0" />
@@ -94,10 +94,10 @@ function StudioNavigation({
           </div>
         </div>
       </Navigation>
-      <div className="px-6 border-b flex justify-between items-center">
+      <div className="flex items-center justify-between border-b px-4">
         <div className="flex space-x-2">
           <NavigationButton
-            className="flex gap-2 items-center"
+            className="flex items-center gap-2"
             href="/graph"
             active={pathname === '/graph'}
           >
@@ -105,7 +105,7 @@ function StudioNavigation({
             <span>Graph</span>
           </NavigationButton>
           <NavigationButton
-            className="flex gap-2 items-center"
+            className="flex items-center gap-2"
             href="/packages"
             active={pathname === '/packages'}
           >

@@ -11,9 +11,7 @@ export const getElementsWithLayout = ({
   nodes: Node[];
   edges: Edge[];
   direction?: GraphDirection;
-  height?: number;
-  width?: number;
-}): { nodes: Node[]; edges: Edge[] } => {
+}): { nodes: Node[]; edges: Edge[]; height?: number; width?: number } => {
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
 
@@ -51,7 +49,11 @@ export const getElementsWithLayout = ({
     continue;
   }
 
+  const graph = dagreGraph.graph();
+
   return {
+    height: graph.height,
+    width: graph.width,
     nodes,
     edges,
   };

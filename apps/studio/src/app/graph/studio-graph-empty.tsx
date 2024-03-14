@@ -1,6 +1,6 @@
 'use client';
 
-import { usePackagesQuery } from '@commonalityco/feature-graph/query-hooks';
+import { usePackagesQuery } from '../../../../../packages/feature-graph/dist/query/query-hooks';
 import { GraphEmpty, useInteractions } from '@commonalityco/ui-graph';
 import { Edge, Node } from '@xyflow/react';
 import React from 'react';
