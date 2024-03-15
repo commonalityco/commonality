@@ -323,9 +323,6 @@ importers:
       '@commonalityco/ui-conformance':
         specifier: workspace:*
         version: link:../../packages/ui-conformance
-      '@commonalityco/ui-constraints':
-        specifier: workspace:*
-        version: link:../../packages/ui-constraints
       '@commonalityco/ui-core':
         specifier: workspace:*
         version: link:../../packages/ui-core
@@ -515,9 +512,6 @@ importers:
       '@commonalityco/ui-conformance':
         specifier: workspace:*
         version: link:../../packages/ui-conformance
-      '@commonalityco/ui-constraints':
-        specifier: workspace:*
-        version: link:../../packages/ui-constraints
       '@commonalityco/ui-core':
         specifier: workspace:*
         version: link:../../packages/ui-core
@@ -851,9 +845,6 @@ importers:
       dagre:
         specifier: ^0.8.5
         version: 0.8.5
-      jotai:
-        specifier: ^2.6.5
-        version: 2.6.5(@types/react@18.2.57)(react@18.2.0)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -903,6 +894,9 @@ importers:
       eslint-config-commonality:
         specifier: workspace:*
         version: link:../../tooling/config-eslint
+      jotai:
+        specifier: ^2.6.5
+        version: 2.6.5(@types/react@18.2.57)(react@18.2.0)
       lz-string:
         specifier: ^1.5.0
         version: 1.5.0
@@ -991,67 +985,6 @@ importers:
       resize-observer-polyfill:
         specifier: ^1.5.1
         version: 1.5.1
-      typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
-      vitest:
-        specifier: ^0.34.6
-        version: 0.34.6
-
-  packages/ui-constraints:
-    dependencies:
-      lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
-      lucide-react:
-        specifier: ^0.317.0
-        version: 0.317.0(react@18.2.0)
-      react-resizable-panels:
-        specifier: ^0.0.54
-        version: 0.0.54(react-dom@18.2.0)(react@18.2.0)
-    devDependencies:
-      '@commonalityco/config-tailwind':
-        specifier: workspace:*
-        version: link:../../tooling/config-tailwind
-      '@commonalityco/config-tsconfig':
-        specifier: workspace:*
-        version: link:../../tooling/config-tsconfig
-      '@commonalityco/types':
-        specifier: workspace:*
-        version: link:../types
-      '@commonalityco/ui-core':
-        specifier: workspace:*
-        version: link:../ui-core
-      '@commonalityco/ui-design-system':
-        specifier: workspace:*
-        version: link:../ui-design-system
-      '@commonalityco/utils-core':
-        specifier: workspace:*
-        version: link:../utils-core
-      '@testing-library/jest-dom':
-        specifier: ^6.4.2
-        version: 6.4.2(jest@29.7.0)(vitest@0.34.6)
-      '@testing-library/react':
-        specifier: ^14.2.1
-        version: 14.2.1(react-dom@18.2.0)(react@18.2.0)
-      '@testing-library/user-event':
-        specifier: ^14.5.2
-        version: 14.5.2(@testing-library/dom@9.3.4)
-      '@types/lodash-es':
-        specifier: ^4.17.12
-        version: 4.17.12
-      '@types/react':
-        specifier: ^18.2.57
-        version: 18.2.57
-      eslint-config-commonality:
-        specifier: workspace:*
-        version: link:../../tooling/config-eslint
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -12845,7 +12778,6 @@ packages:
     dependencies:
       '@types/react': 18.2.57
       react: 18.2.0
-    dev: false
 
   /joycon@3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
@@ -15146,6 +15078,7 @@ packages:
   /react-remove-scroll-bar@2.3.5(@types/react@18.2.57)(react@18.2.0):
     resolution: {integrity: sha512-3cqjOqg6s0XbOjWvmasmqHch+RLxIEk2r/70rzGXuz3iIGQsQheEQyqYCBb5EECoD01Vo2SIbDqW4paLeLTASw==}
     engines: {node: '>=10'}
+    deprecated: please update to the following version as this contains a bug (https://github.com/theKashey/react-remove-scroll-bar/issues/57)
     peerDependencies:
       '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0

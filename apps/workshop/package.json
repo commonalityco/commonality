@@ -10,11 +10,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@commonalityco/feature-graph": "workspace:*",
     "@commonalityco/ui-conformance": "workspace:*",
-    "@commonalityco/ui-constraints": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
-    "@commonalityco/feature-graph": "workspace:*",
     "@commonalityco/ui-package": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "next": "14.0.4",
@@ -24,9 +23,9 @@
     "storybook-addon-variants": "^0.2.0"
   },
   "devDependencies": {
-    "@commonalityco/types": "workspace:*",
     "@commonalityco/config-tailwind": "workspace:*",
     "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/types": "workspace:*",
     "@storybook/addon-a11y": "^7.6.17",
     "@storybook/addon-docs": "^7.6.17",
     "@storybook/addon-essentials": "^7.6.17",

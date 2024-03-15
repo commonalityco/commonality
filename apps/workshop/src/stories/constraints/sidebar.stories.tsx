@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Sidebar } from '@commonalityco/ui-constraints';
+import { GraphFilterSidebar } from '@commonalityco/feature-graph';
 import { Package } from '@commonalityco/types';
 import { PackageType } from '@commonalityco/utils-core';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
-  title: 'Constraints/Sidebar',
-  component: Sidebar,
+  title: 'Constraints/GraphFilterSidebar',
+  component: GraphFilterSidebar,
   tags: ['autodocs'],
   argTypes: {},
   decorators: [
@@ -16,7 +16,7 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof Sidebar>;
+} satisfies Meta<typeof GraphFilterSidebar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -58,7 +58,6 @@ const pkgFive = {
 
 export const KitchenSink: Story = {
   args: {
-    visiblePackages: [pkgOne, pkgTwo, pkgThree],
     packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
     tagsData: [
       { packageName: '@scope/one', tags: ['tag-one', 'tag-two'] },
@@ -102,7 +101,7 @@ export const KitchenSink: Story = {
 export const ZeroPackages: Story = {
   args: {
     initialSearch: 'tag',
-    visiblePackages: [],
+
     packages: [],
     tagsData: [],
     codeownersData: [],
@@ -112,7 +111,7 @@ export const ZeroPackages: Story = {
 export const ZeroTags: Story = {
   args: {
     initialSearch: '@scope',
-    visiblePackages: [pkgOne, pkgTwo, pkgThree],
+
     packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
     tagsData: [],
     codeownersData: [
@@ -143,7 +142,7 @@ export const ZeroTags: Story = {
 export const ZeroCodeowners: Story = {
   args: {
     initialSearch: 'tag',
-    visiblePackages: [pkgOne, pkgTwo, pkgThree],
+
     packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
     tagsData: [
       { packageName: '@scope/one', tags: ['tag-one', 'tag-two'] },
@@ -180,7 +179,7 @@ export const ZeroCodeowners: Story = {
 export const ZeroItems: Story = {
   args: {
     initialSearch: 'zzzzzz',
-    visiblePackages: [],
+
     packages: [],
     tagsData: [],
     codeownersData: [],
@@ -189,7 +188,6 @@ export const ZeroItems: Story = {
 
 export const EmptyPackages: Story = {
   args: {
-    visiblePackages: [],
     packages: [],
     tagsData: [],
     codeownersData: [],
@@ -198,7 +196,6 @@ export const EmptyPackages: Story = {
 
 export const EmptyTags: Story = {
   args: {
-    visiblePackages: [pkgOne, pkgTwo, pkgThree],
     packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
     tagsData: [],
     codeownersData: [
@@ -228,7 +225,6 @@ export const EmptyTags: Story = {
 
 export const EmptyCodeowners: Story = {
   args: {
-    visiblePackages: [pkgOne, pkgTwo, pkgThree],
     packages: [pkgOne, pkgTwo, pkgThree, pkgFour, pkgFive],
     tagsData: [
       { packageName: '@scope/one', tags: ['tag-one', 'tag-two'] },
@@ -264,7 +260,6 @@ export const EmptyCodeowners: Story = {
 
 export const EmptyItems: Story = {
   args: {
-    visiblePackages: [],
     packages: [],
     tagsData: [],
     codeownersData: [],

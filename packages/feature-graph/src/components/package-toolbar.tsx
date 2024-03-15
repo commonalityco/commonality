@@ -1,20 +1,19 @@
 'use client';
 import {
   Button,
-  Separator,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@commonalityco/ui-design-system';
-import { EyeOff, Focus, Tags } from 'lucide-react';
+import { EyeOff, Focus } from 'lucide-react';
 import { NodeToolbar } from '@xyflow/react';
 import { Position } from '@xyflow/system';
-import { useAtom, useSetAtom } from 'jotai';
-import { editingPackageAtom, selectedPackagesAtom } from '../atoms/graph-atoms';
+import { useAtom } from 'jotai';
+import { selectedPackagesAtom } from '../atoms/graph-atoms';
 import { useInteractions } from '../context/interaction-context';
 
-function ToolbarButton({
+export function ToolbarButton({
   children,
   text,
   onClick,
@@ -44,9 +43,8 @@ function ToolbarButton({
   );
 }
 
-export function PackageToolbar() {
+export function PackageToolbar({ children }: { children: React.ReactNode }) {
   const [selectedPackages] = useAtom(selectedPackagesAtom);
-  const setEditingPackage = useSetAtom(editingPackageAtom);
   const interactions = useInteractions();
 
   const isVisible = Number(selectedPackages?.length) > 0;
@@ -59,18 +57,6 @@ export function PackageToolbar() {
       position={Position.Bottom}
       className="bg-background border-border light flex gap-1 rounded-lg border p-1"
     >
-      {selectedPackages.length === 1 ? (
-        <>
-          <ToolbarButton
-            text="Edit tags"
-            onClick={() => setEditingPackage(selectedPackages[0])}
-          >
-            <Tags className="h-4 w-4" />
-          </ToolbarButton>
-          <Separator orientation="vertical" className="my-1 h-7" />
-        </>
-      ) : undefined}
-
       <ToolbarButton
         text="Focus"
         onClick={() => interactions.focus(selectedNodeIds)}
@@ -84,6 +70,7 @@ export function PackageToolbar() {
       >
         <EyeOff className="h-4 w-4" />
       </ToolbarButton>
+      {children}
     </NodeToolbar>
   );
 }

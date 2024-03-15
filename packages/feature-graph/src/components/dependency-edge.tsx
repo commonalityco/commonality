@@ -1,6 +1,7 @@
 import { DependencyType } from '@commonalityco/utils-core';
 import {
   BaseEdge,
+  Edge,
   EdgeLabelRenderer,
   EdgeProps,
   getBezierPath,
@@ -25,7 +26,7 @@ export function DependencyEdge({
   targetPosition,
   sourcePosition,
   selected,
-}: EdgeProps<DependencyEdgeData>) {
+}: EdgeProps<Edge<DependencyEdgeData>>) {
   const [edgePath, labelX, labelY] = getBezierPath({
     targetPosition,
     sourcePosition,

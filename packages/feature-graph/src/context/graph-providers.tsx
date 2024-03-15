@@ -1,5 +1,4 @@
 'use client';
-import { Provider as JotaiProvider } from 'jotai';
 import { Edge, Node, ReactFlowProvider } from '@xyflow/react';
 import { GraphInteractionProvider } from './interaction-context';
 
@@ -23,11 +22,9 @@ export function GraphProviders({
       defaultNodes={defaultNodes}
       defaultEdges={defaultEdges}
     >
-      <JotaiProvider>
-        <GraphInteractionProvider allNodes={allNodes} allEdges={allEdges}>
-          {children}
-        </GraphInteractionProvider>
-      </JotaiProvider>
+      <GraphInteractionProvider allNodes={allNodes} allEdges={allEdges}>
+        {children}
+      </GraphInteractionProvider>
     </ReactFlowProvider>
   );
 }

@@ -21,28 +21,31 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { setTagsAction } from '@/actions/metadata';
-import { Package } from '@commonalityco/types';
+import { useAtom, useAtomValue } from 'jotai';
+import { editingPackageAtom } from '@/atoms/graph-atoms';
+import { useRouter } from 'next/navigation';
+import { TagsData } from '@commonalityco/types';
 
 const formSchema = z.object({
   tags: z.array(z.object({ label: z.string(), value: z.string() })),
 });
 
-export function EditTagsDialogContent({
-  pkg,
-  tags,
-  existingTags,
-  onEdit,
-}: {
-  pkg: Package;
-  tags: string[];
-  existingTags: string[];
-  onEdit?: () => void;
-}) {
+export function EditTagsDialogContent({ tagsData }: { tagsData: TagsData[] }) {
+  const router = useRouter();
+
+  const editingPackage = useAtomValue(editingPackageAtom);
+
   const [isPending, startTransition] = useTransition();
+
+  const allTags = [...new Set(tagsData.map((data) => data.tags).flat())];
+  const pkgTags = tagsData.find(
+    (data) => data.packageName === editingPackage?.name,
+  )?.tags;
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      tags: existingTags.map((existingTag) => ({
+      tags: pkgTags?.map((existingTag) => ({
         value: existingTag,
         label: formatTagName(existingTag),
       })),
@@ -50,17 +53,24 @@ export function EditTagsDialogContent({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    if (!editingPackage) return;
+
     const newTags = values.tags.map((item) => item.value);
 
     startTransition(async () => {
-      const configPath = await setTagsAction({ pkg, tags: newTags });
-      onEdit?.();
+      const configPath = await setTagsAction({
+        pkg: editingPackage,
+        tags: newTags,
+      });
+      router.refresh();
 
       toast.success('Tags updated', {
         description: configPath,
       });
     });
   }
+
+  if (!editingPackage) return;
 
   return (
     <>
@@ -73,8 +83,10 @@ export function EditTagsDialogContent({
               commonality.json
             </span>
             file for{' '}
-            <span className="text-foreground font-medium">{pkg.name}</span> with
-            the tags you select.
+            <span className="text-foreground font-medium">
+              {editingPackage.name}
+            </span>{' '}
+            with the tags you select.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -97,7 +109,7 @@ export function EditTagsDialogContent({
                       value={value}
                       onChange={onChange}
                       name={name}
-                      options={tags.map((tag) => ({
+                      options={allTags.map((tag) => ({
                         label: formatTagName(tag),
                         value: tag,
                       }))}
@@ -121,5 +133,19 @@ export function EditTagsDialog({
   children,
   ...rest
 }: ComponentProps<typeof Dialog>) {
-  return <Dialog {...rest}>{children}</Dialog>;
+  const [editingPackage, setEditingPackage] = useAtom(editingPackageAtom);
+
+  return (
+    <Dialog
+      {...rest}
+      open={Boolean(editingPackage)}
+      onOpenChange={(open) => {
+        if (!open) {
+          setEditingPackage(null);
+        }
+      }}
+    >
+      {children}
+    </Dialog>
+  );
 }

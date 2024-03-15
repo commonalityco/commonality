@@ -1,8 +1,6 @@
 'use client';
-import React, { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
 import { usePackagesQuery } from '../query/query-hooks';
-import { PackageNodeData } from '../utilities/get-nodes';
-import { DependencyEdgeData } from '../utilities/get-edges';
 import { Node, Edge, getIncomers, getOutgoers } from '@xyflow/react';
 
 interface InteractionContextType {
@@ -31,8 +29,8 @@ export function useInteractions() {
 
 interface GraphInteractionProviderProps {
   children: ReactNode;
-  allNodes: Node<PackageNodeData>[];
-  allEdges: Edge<DependencyEdgeData>[];
+  allNodes: Node[];
+  allEdges: Edge[];
 }
 
 export const GraphInteractionProvider = ({

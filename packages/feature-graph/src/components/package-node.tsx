@@ -1,4 +1,4 @@
-import { Handle, type NodeProps } from '@xyflow/react';
+import { Handle, Node, type NodeProps } from '@xyflow/react';
 import { Position } from '@xyflow/system';
 import { PackageNodeData } from '../utilities/get-nodes';
 import { getIconForPackage } from '@commonalityco/ui-core';
@@ -11,7 +11,7 @@ export function PackageNode({
   width,
   height,
   ...rest
-}: NodeProps<PackageNodeData>) {
+}: NodeProps<Node<PackageNodeData>>) {
   const Icon = getIconForPackage(data.package.type);
 
   return (

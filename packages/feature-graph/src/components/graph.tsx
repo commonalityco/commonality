@@ -67,7 +67,7 @@ export const Graph = ({
 
   const onNodeMouseLeave = useCallback(
     (_event: React.MouseEvent, _node: Node) => {
-      setNodes((currentNodes: Node<PackageNodeData>[]) => {
+      setNodes((currentNodes) => {
         return currentNodes.map((currentNode) => {
           return {
             ...currentNode,
@@ -76,7 +76,7 @@ export const Graph = ({
         });
       });
 
-      setEdges((currentEdges: Edge<DependencyEdgeData>[]) =>
+      setEdges((currentEdges) =>
         currentEdges.map((currentEdge) => {
           if (!currentEdge.data) return currentEdge;
 
@@ -101,7 +101,7 @@ export const Graph = ({
       const incomers = getIncomers(node, nodes, edges);
       const neighbors = [node, ...outgoers, ...incomers];
 
-      setNodes((currentNodes: Node<PackageNodeData>[]) => {
+      setNodes((currentNodes) => {
         return currentNodes.map((currentNode) => {
           return currentNode.id === node.id
             ? {
@@ -112,7 +112,7 @@ export const Graph = ({
         });
       });
 
-      setEdges((currentEdges: Edge<DependencyEdgeData>[]) =>
+      setEdges((currentEdges) =>
         currentEdges.map((currentEdge) => {
           if (!currentEdge.data) return currentEdge;
 
@@ -135,9 +135,9 @@ export const Graph = ({
   );
 
   const onEdgeMouseLeave = useCallback(
-    (_event: React.MouseEvent, edge: Edge<DependencyEdgeData>) => {
+    (_event: React.MouseEvent, edge: Edge) => {
       setEdges((currentEdges) =>
-        currentEdges.map((currentEdge: Edge<DependencyEdgeData>) => {
+        currentEdges.map((currentEdge: Edge) => {
           if (!currentEdge.data) {
             return currentEdge;
           } else if (currentEdge.id === edge.id) {
@@ -158,9 +158,9 @@ export const Graph = ({
   );
 
   const onEdgeMouseEnter = useCallback(
-    (_event: React.MouseEvent, edge: Edge<DependencyEdgeData>) => {
+    (_event: React.MouseEvent, edge: Edge) => {
       setEdges((currentEdges) =>
-        currentEdges.map((currentEdge: Edge<DependencyEdgeData>) => {
+        currentEdges.map((currentEdge) => {
           if (!currentEdge.data) return currentEdge;
 
           return currentEdge.id === edge.id

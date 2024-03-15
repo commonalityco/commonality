@@ -6,7 +6,6 @@ module.exports = {
     '@commonalityco/ui-core',
     '@commonalityco/feature-graph',
     '@commonalityco/ui-conformance',
-    '@commonalityco/ui-constraints',
   ],
   async redirects() {
     return [

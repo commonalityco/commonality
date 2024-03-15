@@ -33,6 +33,7 @@ import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { useInteractions } from '../context/interaction-context';
 import { usePackagesQuery } from '../query/query-hooks';
 import { setCookie } from 'cookies-next';
+import { COOKIE_FILTER_SIDEBAR } from '../constants/cookie-names';
 
 function ShowHideButton({
   visible,
@@ -150,9 +151,7 @@ function PackagesFilterSection({
 
   return (
     <>
-      <Heading as="p" size="sm">
-        Packages
-      </Heading>
+      <Label>Packages</Label>
 
       <div className="relative overflow-hidden">
         <ScrollArea className="relative h-full">
@@ -271,9 +270,7 @@ function TagsFilterSection({
 
   return (
     <>
-      <Heading as="p" size="sm">
-        Tags
-      </Heading>
+      <Label>Tags</Label>
       <ScrollArea className="@sm:display-none h-full">
         <GradientFade className="h-3" placement="top" />
         {allTags.length > 0
@@ -396,9 +393,7 @@ function CodeownersFilterSection({
 
   return (
     <>
-      <Heading as="p" size="sm">
-        Codeowners
-      </Heading>
+      <Label>Codeowners</Label>
       <ScrollArea className="@sm:display-none h-full overflow-hidden">
         <GradientFade className="h-3" placement="top" />
         {allOwners.length > 0
@@ -455,7 +450,7 @@ function CodeownersFilterSection({
 function ResizeBar() {
   return (
     <PanelResizeHandle className="group relative h-4">
-      <div className="bg-border absolute bottom-0 left-0 right-0 top-0 m-auto h-px rounded-full transition-all group-data-[resize-handle-active=pointer]:h-1.5" />
+      <div className="bg-border group-data-[resize-handle-active=pointer]:bg-muted-foreground group-hover:bg-muted-foreground/50 absolute bottom-0 left-0 right-0 top-0 m-auto h-px rounded-full transition-all group-hover:h-0.5 group-data-[resize-handle-active=pointer]:h-0.5" />
     </PanelResizeHandle>
   );
 }
@@ -503,7 +498,7 @@ export function GraphFilterSidebar({
   return (
     <div className="bg-background h-full w-full overflow-hidden">
       <div className="mb-3 flex items-center justify-between">
-        <Label>Filters</Label>
+        <Label className="font-medium">Filters</Label>
         <p className="text-muted-foreground text-xs">
           <span>{visiblePackages.length}</span>
           <span className="px-1">of</span>
@@ -551,7 +546,7 @@ export function GraphFilterSidebar({
             direction="vertical"
             autoSaveId="graph-sidebar"
             onLayout={(sizes) => {
-              setCookie('commonality:sidebar-layout', sizes);
+              setCookie(COOKIE_FILTER_SIDEBAR, sizes);
             }}
           >
             <Panel

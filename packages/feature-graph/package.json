@@ -36,6 +36,7 @@
     "@types/lodash-es": "^4.17.12",
     "@types/react": "^18.2.57",
     "eslint-config-commonality": "workspace:*",
+    "jotai": "^2.6.5",
     "lz-string": "^1.5.0",
     "nuqs": "^1.17.0",
     "react": "^18.2.0",
@@ -46,6 +47,7 @@
   "peerDependencies": {
     "@commonalityco/ui-core": "*",
     "@commonalityco/ui-design-system": "*",
+    "jotai": "^2",
     "react": ">=18",
     "react-dom": ">=18"
   },
@@ -54,7 +56,6 @@
     "@xyflow/system": "^0.0.17",
     "cookies-next": "^4.1.1",
     "dagre": "^0.8.5",
-    "jotai": "^2.6.5",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.317.0",
     "react-resizable-panels": "^0.0.54"
@@ -62,6 +63,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/commonalityco/commonality",
-    "directory": "packages/ui-constraints"
+    "directory": "packages/feature-graph"
   }
 }

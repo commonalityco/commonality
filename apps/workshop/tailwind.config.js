@@ -12,7 +12,6 @@ module.exports = {
   ...baseConfig,
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
-    getPkgPattern('@commonalityco/ui-constraints'),
     getPkgPattern('@commonalityco/ui-conformance'),
     getPkgPattern('@commonalityco/ui-design-system'),
     getPkgPattern('@commonalityco/ui-package'),

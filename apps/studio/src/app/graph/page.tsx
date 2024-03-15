@@ -7,7 +7,6 @@ import { getConstraintsData } from '@/data/constraints';
 import { cookies } from 'next/headers';
 import {
   ActiveDependencyDialog,
-  Graph,
   GraphControlBar,
   GraphDirection,
   GraphFilterSidebar,
@@ -19,6 +18,9 @@ import {
   GraphLayoutRoot,
   getElementsWithLayout,
   GraphEmpty,
+  COOKIE_FILTER_SIDEBAR,
+  COOKIE_GRAPH_LAYOUT_ONE,
+  COOKIE_GRAPH_LAYOUT_TWO,
 } from '@commonalityco/feature-graph';
 import * as z from 'zod';
 import { DependencyType, Theme } from '@commonalityco/utils-core';
@@ -27,12 +29,14 @@ import {
   directionParser,
   packagesParser,
 } from '@commonalityco/feature-graph/query-parsers';
-import { PackageToolbar } from '@commonalityco/feature-graph/package-toolbar';
+import { getConnectedEdges } from '@xyflow/system';
+import LazyGraph from './lazy-graph';
 import {
-  getConnectedEdges,
-  getNodesBounds,
-  getViewportForBounds,
-} from '@xyflow/system';
+  EditTagsDialog,
+  EditTagsDialogContent,
+} from '@/components/edit-tags-dialog';
+import { Provider } from 'jotai';
+import LocalPackageToolbar from './local-package-toolbar';
 
 async function GraphPage({
   searchParams,
@@ -44,7 +48,10 @@ async function GraphPage({
   };
 }) {
   const cookieStore = cookies();
-  const defaultLayoutCookie = cookieStore.get('commonality:sidebar-layout');
+  const defaultLayoutCookie = cookieStore.get(COOKIE_FILTER_SIDEBAR);
+  const graphLayoutOne = cookieStore.get(COOKIE_GRAPH_LAYOUT_ONE);
+  const graphLayoutTwo = cookieStore.get(COOKIE_GRAPH_LAYOUT_TWO);
+
   const defaultTheme = cookieStore.get('commonality:theme')?.value as
     | Theme.Light
     | Theme.Dark
@@ -97,7 +104,7 @@ async function GraphPage({
 
   const getShownElements = async () => {
     const filteredNodes =
-      packagesQuery !== undefined
+      packagesQuery !== null
         ? allNodes.filter((node) =>
             packagesQuery?.some((pkgName) => pkgName === node.id),
           )
@@ -117,43 +124,62 @@ async function GraphPage({
   const shownElements = await getShownElements();
 
   return (
-    <GraphProviders
-      allNodes={allNodes}
-      allEdges={allEdges}
-      defaultEdges={shownElements.edges}
-      defaultNodes={shownElements.nodes}
-    >
-      <GraphLayoutRoot>
-        <GraphLayoutAside>
-          <GraphFilterSidebar
-            tagsData={tagsData}
-            codeownersData={codeownersData}
-            packages={packages}
-            defaultLayout={defaultLayout}
-          />
-        </GraphLayoutAside>
-        <GraphLayoutMain>
-          {shownElements.nodes.length === 0 ? (
-            <GraphEmpty />
-          ) : (
-            <>
-              <PackageToolbar />
-              <ActiveDependencyDialog results={results} />
-              <Suspense key={JSON.stringify({ packagesQuery, directionQuery })}>
-                <Graph
-                  dependencies={dependencies}
-                  packages={packages}
-                  nodes={shownElements.nodes}
-                  edges={shownElements.edges}
-                  theme={(defaultTheme as 'light' | 'dark') ?? 'light'}
-                />
-              </Suspense>
-              <GraphControlBar />
-            </>
-          )}
-        </GraphLayoutMain>
-      </GraphLayoutRoot>
-    </GraphProviders>
+    <Provider>
+      <GraphProviders
+        allNodes={allNodes}
+        allEdges={allEdges}
+        defaultEdges={shownElements.edges}
+        defaultNodes={shownElements.nodes}
+      >
+        <EditTagsDialog>
+          <EditTagsDialogContent tagsData={tagsData} />
+        </EditTagsDialog>
+        <GraphLayoutRoot>
+          <GraphLayoutAside
+            defaultSize={
+              graphLayoutOne?.value
+                ? JSON.parse(String(graphLayoutOne.value))
+                : undefined
+            }
+          >
+            <GraphFilterSidebar
+              tagsData={tagsData}
+              codeownersData={codeownersData}
+              packages={packages}
+              defaultLayout={defaultLayout}
+            />
+          </GraphLayoutAside>
+          <GraphLayoutMain
+            defaultSize={
+              graphLayoutTwo?.value
+                ? JSON.parse(String(graphLayoutTwo.value))
+                : undefined
+            }
+          >
+            {shownElements.nodes.length === 0 ? (
+              <GraphEmpty />
+            ) : (
+              <>
+                <LocalPackageToolbar />
+                <ActiveDependencyDialog results={results} />
+                <Suspense
+                  key={JSON.stringify({ packagesQuery, directionQuery })}
+                >
+                  <LazyGraph
+                    dependencies={dependencies}
+                    packages={packages}
+                    nodes={shownElements.nodes}
+                    edges={shownElements.edges}
+                    theme={(defaultTheme as 'light' | 'dark') ?? 'light'}
+                  />
+                  <GraphControlBar />
+                </Suspense>
+              </>
+            )}
+          </GraphLayoutMain>
+        </GraphLayoutRoot>
+      </GraphProviders>
+    </Provider>
   );
 }
 
