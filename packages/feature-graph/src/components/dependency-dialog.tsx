@@ -37,11 +37,11 @@ export function DependencyDialog({
                 className={cn(
                   'flex h-8 w-8 items-center justify-center rounded-md border',
                   {
-                    'border-purple-700 bg-purple-100 dark:border-purple-500 dark:bg-purple-900':
+                    'border-purple-700 bg-purple-100 dark:border-purple-600 dark:bg-purple-900':
                       dependency.type === DependencyType.PEER,
-                    'border-sky-700 bg-sky-100 dark:border-sky-500 dark:bg-sky-900':
+                    'border-sky-700 bg-sky-100 dark:border-sky-600 dark:bg-sky-900':
                       dependency.type === DependencyType.DEVELOPMENT,
-                    'border-emerald-700 bg-emerald-100 dark:border-emerald-500 dark:bg-emerald-900':
+                    'border-emerald-700 bg-emerald-100 dark:border-emerald-600 dark:bg-emerald-900':
                       dependency.type === DependencyType.PRODUCTION,
                   },
                 )}
@@ -67,11 +67,11 @@ export function DependencyDialog({
               <Label className="mb-2 block">Type</Label>
               <div
                 className={cn('inline-block rounded-full border px-2 py-0.5', {
-                  'border-purple-700 bg-purple-100 dark:border-purple-500 dark:bg-purple-900':
+                  'border-purple-700 bg-purple-100 dark:border-purple-600 dark:bg-purple-900':
                     dependency.type === DependencyType.PEER,
-                  'border-sky-700 bg-sky-100 dark:border-sky-500 dark:bg-sky-900':
+                  'border-sky-700 bg-sky-100 dark:border-sky-600 dark:bg-sky-900':
                     dependency.type === DependencyType.DEVELOPMENT,
-                  'border-emerald-700 bg-emerald-100 dark:border-emerald-500 dark:bg-emerald-900':
+                  'border-emerald-700 bg-emerald-100 dark:border-emerald-600 dark:bg-emerald-900':
                     dependency.type === DependencyType.PRODUCTION,
                 })}
               >

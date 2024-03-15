@@ -236,10 +236,7 @@ export const Graph = ({
             position="top-right"
           />
 
-          <Background
-            color={theme === 'light' ? '#71717a' : '#52525b'}
-            variant={BackgroundVariant.Dots}
-          />
+          <Background variant={BackgroundVariant.Dots} />
         </ReactFlow>
       </div>
     </div>

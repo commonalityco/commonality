@@ -52,12 +52,12 @@ export function DependencyEdge({
             '!stroke-zinc-300 dark:!stroke-zinc-800': !highlighted,
             'stroke-[2px] opacity-100': highlighted,
             'opacity-20': data?.muted,
-            '!stroke-purple-700 dark:!stroke-purple-500':
+            '!stroke-purple-700 dark:!stroke-purple-600':
               highlighted && data?.dependency.type === DependencyType.PEER,
-            '!stroke-sky-700 dark:!stroke-sky-500':
+            '!stroke-sky-700 dark:!stroke-sky-600':
               highlighted &&
               data?.dependency.type === DependencyType.DEVELOPMENT,
-            '!stroke-emerald-700 dark:!stroke-emerald-500':
+            '!stroke-emerald-700 dark:!stroke-emerald-600':
               highlighted &&
               data?.dependency.type === DependencyType.PRODUCTION,
           },
@@ -91,13 +91,13 @@ export function DependencyEdge({
               className={cn(
                 'rounded-full px-2 py-0.5 font-mono font-semibold leading-none',
                 {
-                  'border-2 border-sky-700 bg-sky-100 text-sky-900 dark:border-sky-500 dark:bg-sky-900 dark:text-sky-100':
+                  'border-2 border-sky-700 bg-sky-100 text-sky-900 dark:border-sky-600 dark:bg-sky-900 dark:text-sky-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.DEVELOPMENT,
-                  'border-2 border-purple-700 bg-purple-100 text-purple-900 dark:border-purple-500 dark:bg-purple-900 dark:text-purple-100':
+                  'border-2 border-purple-700 bg-purple-100 text-purple-900 dark:border-purple-600 dark:bg-purple-900 dark:text-purple-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.PEER,
-                  'border-2 border-emerald-700 bg-emerald-100 text-emerald-900 dark:border-emerald-500 dark:bg-emerald-900 dark:text-emerald-100':
+                  'border-2 border-emerald-700 bg-emerald-100 text-emerald-900 dark:border-emerald-600 dark:bg-emerald-900 dark:text-emerald-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.PRODUCTION,
                 },

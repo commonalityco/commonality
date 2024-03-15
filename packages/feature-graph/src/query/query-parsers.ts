@@ -8,6 +8,7 @@ import {
   ParserBuilder,
   createParser,
   parseAsArrayOf,
+  parseAsBoolean,
   parseAsStringEnum,
 } from 'nuqs';
 
@@ -26,3 +27,5 @@ export const packagesParser: ParserBuilder<string[]> = createParser({
   parse: (input) => JSON.parse(decompressFromEncodedURIComponent(input)),
   serialize: (input) => compressToEncodedURIComponent(JSON.stringify(input)),
 });
+
+export const hideFiltersParser = parseAsBoolean.withDefault(false);

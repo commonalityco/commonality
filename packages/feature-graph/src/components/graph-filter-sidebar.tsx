@@ -20,6 +20,7 @@ import {
   TooltipTrigger,
 } from '@commonalityco/ui-design-system';
 import {
+  ArrowLeftToLine,
   Box,
   ExternalLink,
   Eye,
@@ -31,7 +32,7 @@ import {
 import { ComponentProps, useMemo, useState } from 'react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { useInteractions } from '../context/interaction-context';
-import { usePackagesQuery } from '../query/query-hooks';
+import { useHideFiltersQuery, usePackagesQuery } from '../query/query-hooks';
 import { setCookie } from 'cookies-next';
 import { COOKIE_FILTER_SIDEBAR } from '../constants/cookie-names';
 
@@ -470,6 +471,7 @@ export function GraphFilterSidebar({
 }) {
   const interactions = useInteractions();
   const [packagesQuery] = usePackagesQuery();
+
   const [search, setSearch] = useState(initialSearch);
 
   const visiblePackages = packagesQuery
@@ -496,141 +498,143 @@ export function GraphFilterSidebar({
     filteredPackages.length === 0;
 
   return (
-    <div className="bg-background h-full w-full overflow-hidden">
-      <div className="mb-3 flex items-center justify-between">
-        <Label className="font-medium">Filters</Label>
-        <p className="text-muted-foreground text-xs">
-          <span>{visiblePackages.length}</span>
-          <span className="px-1">of</span>
-          <span>{packages.length}</span>
-        </p>
-      </div>
-      <div className="flex h-full flex-col content-start gap-4">
-        <div className="flex flex-nowrap items-center gap-2">
-          <Button
-            variant="secondary"
-            className="w-full"
-            disabled={packages.length === 0}
-            onClick={() => interactions.showAll()}
-          >
-            <div className="flex items-center gap-2">
-              <Eye className="h-4 w-4" />
-              Show all
-            </div>
-          </Button>
-          <Button
-            variant="secondary"
-            className="w-full"
-            disabled={packages.length === 0}
-            onClick={() => interactions.hideAll()}
-          >
-            <div className="flex items-center gap-2">
-              <EyeOff className="h-4 w-4" />
-              Hide all
-            </div>
-          </Button>
+    <div className="relative h-full w-full">
+      <div className="bg-background h-full w-full overflow-hidden">
+        <div className="mb-3 flex items-center justify-between">
+          <Label className="font-semibold">Filters</Label>
+          <p className="text-muted-foreground text-xs">
+            <span>{visiblePackages.length}</span>
+            <span className="px-1">of</span>
+            <span>{packages.length}</span>
+          </p>
         </div>
-        <Input
-          className="shrink-0"
-          placeholder="Search"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        />
-
-        {noMatchingItems && search ? (
-          <div className="py-6 text-center">
-            <Text use="help">No matches found</Text>
+        <div className="flex h-full flex-col content-start gap-4">
+          <div className="flex flex-nowrap items-center gap-2">
+            <Button
+              variant="secondary"
+              className="w-full"
+              disabled={packages.length === 0}
+              onClick={() => interactions.showAll()}
+            >
+              <div className="flex items-center gap-2">
+                <Eye className="h-4 w-4" />
+                Show all
+              </div>
+            </Button>
+            <Button
+              variant="secondary"
+              className="w-full"
+              disabled={packages.length === 0}
+              onClick={() => interactions.hideAll()}
+            >
+              <div className="flex items-center gap-2">
+                <EyeOff className="h-4 w-4" />
+                Hide all
+              </div>
+            </Button>
           </div>
-        ) : (
-          <PanelGroup
-            direction="vertical"
-            autoSaveId="graph-sidebar"
-            onLayout={(sizes) => {
-              setCookie(COOKIE_FILTER_SIDEBAR, sizes);
-            }}
-          >
-            <Panel
-              defaultSize={defaultLayout?.[0] ?? 34}
-              minSize={5}
-              className="grid content-start"
+          <Input
+            className="shrink-0"
+            placeholder="Search"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+
+          {noMatchingItems && search ? (
+            <div className="py-6 text-center">
+              <Text use="help">No matches found</Text>
+            </div>
+          ) : (
+            <PanelGroup
+              direction="vertical"
+              autoSaveId="graph-sidebar"
+              onLayout={(sizes) => {
+                setCookie(COOKIE_FILTER_SIDEBAR, sizes);
+              }}
             >
-              <PackagesFilterSection
-                packages={filteredPackages}
-                visiblePackages={visiblePackages}
-                onFocus={(packageName) => interactions.focus([packageName])}
-                onHide={(packageName) => interactions.hide([packageName])}
-                onShow={(packageName) => interactions.show([packageName])}
-                search={search}
-              />
-            </Panel>
-            <ResizeBar />
-            <Panel
-              defaultSize={defaultLayout?.[1] ?? 33}
-              minSize={5}
-              className="grid content-start"
-            >
-              <TagsFilterSection
-                tagData={filteredTags}
-                visiblePackages={visiblePackages}
-                onFocus={(tag) => {
-                  const packageNames = tagsData
-                    .filter((data) => data.tags.includes(tag))
-                    .map((data) => data.packageName);
+              <Panel
+                defaultSize={defaultLayout?.[0] ?? 34}
+                minSize={5}
+                className="grid content-start"
+              >
+                <PackagesFilterSection
+                  packages={filteredPackages}
+                  visiblePackages={visiblePackages}
+                  onFocus={(packageName) => interactions.focus([packageName])}
+                  onHide={(packageName) => interactions.hide([packageName])}
+                  onShow={(packageName) => interactions.show([packageName])}
+                  search={search}
+                />
+              </Panel>
+              <ResizeBar />
+              <Panel
+                defaultSize={defaultLayout?.[1] ?? 33}
+                minSize={5}
+                className="grid content-start"
+              >
+                <TagsFilterSection
+                  tagData={filteredTags}
+                  visiblePackages={visiblePackages}
+                  onFocus={(tag) => {
+                    const packageNames = tagsData
+                      .filter((data) => data.tags.includes(tag))
+                      .map((data) => data.packageName);
 
-                  interactions.focus(packageNames);
-                }}
-                onHide={(tag) => {
-                  const packageNames = tagsData
-                    .filter((data) => data.tags.includes(tag))
-                    .map((data) => data.packageName);
+                    interactions.focus(packageNames);
+                  }}
+                  onHide={(tag) => {
+                    const packageNames = tagsData
+                      .filter((data) => data.tags.includes(tag))
+                      .map((data) => data.packageName);
 
-                  interactions.hide(packageNames);
-                }}
-                onShow={(tag) => {
-                  const packageNames = tagsData
-                    .filter((data) => data.tags.includes(tag))
-                    .map((data) => data.packageName);
+                    interactions.hide(packageNames);
+                  }}
+                  onShow={(tag) => {
+                    const packageNames = tagsData
+                      .filter((data) => data.tags.includes(tag))
+                      .map((data) => data.packageName);
 
-                  interactions.show(packageNames);
-                }}
-                search={search}
-              />
-            </Panel>
-            <ResizeBar />
-            <Panel
-              defaultSize={defaultLayout?.[2] ?? 33}
-              minSize={5}
-              className="grid content-start"
-            >
-              <CodeownersFilterSection
-                ownerData={filteredOwners}
-                visiblePackages={visiblePackages}
-                onFocus={(codeowner) => {
-                  const packageNames = codeownersData
-                    .filter((data) => data.codeowners.includes(codeowner))
-                    .map((pkg) => pkg.packageName);
+                    interactions.show(packageNames);
+                  }}
+                  search={search}
+                />
+              </Panel>
+              <ResizeBar />
+              <Panel
+                defaultSize={defaultLayout?.[2] ?? 33}
+                minSize={5}
+                className="grid content-start"
+              >
+                <CodeownersFilterSection
+                  ownerData={filteredOwners}
+                  visiblePackages={visiblePackages}
+                  onFocus={(codeowner) => {
+                    const packageNames = codeownersData
+                      .filter((data) => data.codeowners.includes(codeowner))
+                      .map((pkg) => pkg.packageName);
 
-                  interactions.focus(packageNames);
-                }}
-                onHide={(codeowner) => {
-                  const packageNames = codeownersData
-                    .filter((data) => data.codeowners.includes(codeowner))
-                    .map((pkg) => pkg.packageName);
+                    interactions.focus(packageNames);
+                  }}
+                  onHide={(codeowner) => {
+                    const packageNames = codeownersData
+                      .filter((data) => data.codeowners.includes(codeowner))
+                      .map((pkg) => pkg.packageName);
 
-                  interactions.hide(packageNames);
-                }}
-                onShow={(codeowner) => {
-                  const packageNames = codeownersData
-                    .filter((data) => data.codeowners.includes(codeowner))
-                    .map((pkg) => pkg.packageName);
+                    interactions.hide(packageNames);
+                  }}
+                  onShow={(codeowner) => {
+                    const packageNames = codeownersData
+                      .filter((data) => data.codeowners.includes(codeowner))
+                      .map((pkg) => pkg.packageName);
 
-                  interactions.show(packageNames);
-                }}
-                search={search}
-              />
-            </Panel>
-          </PanelGroup>
-        )}
+                    interactions.show(packageNames);
+                  }}
+                  search={search}
+                />
+              </Panel>
+            </PanelGroup>
+          )}
+        </div>
       </div>
     </div>
   );
