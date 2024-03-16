@@ -12,7 +12,7 @@ import {
   cn,
 } from '@commonalityco/ui-design-system';
 import { DependencyType } from '@commonalityco/utils-core';
-import { CornerDownRight, Network } from 'lucide-react';
+import { Network } from 'lucide-react';
 import { ComponentProps } from 'react';
 
 const TextByType = {
@@ -33,29 +33,8 @@ export function DependencyDialog({
         <DialogHeader>
           <DialogTitle>
             <div className="flex flex-nowrap items-center gap-4">
-              <div
-                className={cn(
-                  'flex h-8 w-8 items-center justify-center rounded-md border',
-                  {
-                    'border-purple-700 bg-purple-100 dark:border-purple-600 dark:bg-purple-900':
-                      dependency.type === DependencyType.PEER,
-                    'border-sky-700 bg-sky-100 dark:border-sky-600 dark:bg-sky-900':
-                      dependency.type === DependencyType.DEVELOPMENT,
-                    'border-emerald-700 bg-emerald-100 dark:border-emerald-600 dark:bg-emerald-900':
-                      dependency.type === DependencyType.PRODUCTION,
-                  },
-                )}
-              >
-                <Network
-                  className={cn('h-4 w-4', {
-                    'text-purple-700 dark:text-purple-100':
-                      dependency.type === DependencyType.PEER,
-                    'text-sky-700 dark:text-sky-100':
-                      dependency.type === DependencyType.DEVELOPMENT,
-                    'text-emerald-700 dark:text-emerald-100':
-                      dependency.type === DependencyType.PRODUCTION,
-                  })}
-                />
+              <div className="flex h-8 w-8 items-center justify-center rounded-md border">
+                <Network className="h-4 w-4" />
               </div>
               <span>Dependency</span>
             </div>

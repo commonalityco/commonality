@@ -35,5 +35,18 @@
       "has-client-tsconfig",
       "has-npm-ignore"
     ]
+  },
+  "constraints": {
+    "application": {
+      "allow": [
+        "feature",
+        "ui",
+        "state",
+        "data",
+        "utility",
+        "config",
+        "application"
+      ]
+    }
   }
 }

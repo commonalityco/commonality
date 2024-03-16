@@ -39,3 +39,10 @@ export const useHideFiltersQuery = () => {
     hideFiltersParser.withOptions({ shallow: false }),
   );
 };
+
+export const useHideContextQuery = () => {
+  return useQueryState(
+    'hideContext',
+    hideFiltersParser.withOptions({ shallow: false }),
+  );
+};

@@ -22,10 +22,11 @@ import { DependencyEdgeData } from '../utilities/get-edges';
 import { PackageNodeData } from '../utilities/get-nodes';
 import { useSetAtom } from 'jotai';
 import {
-  activeDependencyAtom,
+  selectedDependenciesAtom,
   selectedPackagesAtom,
 } from '../atoms/graph-atoms';
 import { Dependency, Package } from '@commonalityco/types';
+import { EdgeBase } from '@xyflow/system';
 
 const nodeTypes = {
   package: PackageNode,
@@ -52,17 +53,29 @@ export const Graph = ({
   const [controlledEdges, setEdges, onEdgesChange] = useEdgesState(edges);
 
   const setSelectedPackages = useSetAtom(selectedPackagesAtom);
-  const setActiveDependency = useSetAtom(activeDependencyAtom);
+  const setSelectedDependencies = useSetAtom(selectedDependenciesAtom);
 
   const onSelectionChange = useCallback(
-    ({ nodes }: OnSelectionChangeParams) => {
+    ({ nodes, edges }: OnSelectionChangeParams) => {
       const selectedPackages = nodes
         .map((node) => packages.find((pkg) => pkg.name === node.id))
         .filter(Boolean) as Package[];
 
+      const selectedDependencies = edges
+        .map((edge) => {
+          return dependencies.find(
+            (dep) =>
+              dep.source === edge.source &&
+              dep.target === edge.target &&
+              dep.type === edge.data?.dependency?.type,
+          );
+        })
+        .filter(Boolean) as Dependency[];
+
       setSelectedPackages(selectedPackages);
+      setSelectedDependencies(selectedDependencies);
     },
-    [setSelectedPackages, packages],
+    [setSelectedPackages, setSelectedDependencies, packages, dependencies],
   );
 
   const onNodeMouseLeave = useCallback(
@@ -185,8 +198,6 @@ export const Graph = ({
       );
 
       if (!depdendency) return;
-
-      setActiveDependency(depdendency);
     },
     [dependencies],
   );

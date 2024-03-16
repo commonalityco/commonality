@@ -6,14 +6,13 @@ import { getCodeownersData } from '@/data/codeowners';
 import { getConstraintsData } from '@/data/constraints';
 import { cookies } from 'next/headers';
 import {
-  ActiveDependencyDialog,
   GraphControlBar,
   GraphDirection,
   GraphFilterSidebar,
   GraphProviders,
   getEdges,
   getNodes,
-  GraphLayoutAside,
+  GraphLayoutLeftSidebar,
   GraphLayoutMain,
   GraphLayoutRoot,
   getElementsWithLayout,
@@ -21,6 +20,9 @@ import {
   COOKIE_FILTER_SIDEBAR,
   COOKIE_GRAPH_LAYOUT_ONE,
   COOKIE_GRAPH_LAYOUT_TWO,
+  GraphLayoutRightSidebar,
+  GraphContextSidebar,
+  COOKIE_GRAPH_LAYOUT_THREE,
 } from '@commonalityco/feature-graph';
 import * as z from 'zod';
 import { DependencyType, Theme } from '@commonalityco/utils-core';
@@ -37,6 +39,7 @@ import {
 } from '@/components/edit-tags-dialog';
 import { Provider } from 'jotai';
 import LocalPackageToolbar from './local-package-toolbar';
+import { getConformanceResultsData } from '@/data/conformance';
 
 async function GraphPage({
   searchParams,
@@ -51,6 +54,7 @@ async function GraphPage({
   const defaultLayoutCookie = cookieStore.get(COOKIE_FILTER_SIDEBAR);
   const graphLayoutOne = cookieStore.get(COOKIE_GRAPH_LAYOUT_ONE);
   const graphLayoutTwo = cookieStore.get(COOKIE_GRAPH_LAYOUT_TWO);
+  const graphLayoutThree = cookieStore.get(COOKIE_GRAPH_LAYOUT_THREE);
 
   const defaultTheme = cookieStore.get('commonality:theme')?.value as
     | Theme.Light
@@ -74,14 +78,21 @@ async function GraphPage({
 
   const defaultLayout = getDefaultLayout();
 
-  const [tagsData, packages, dependencies, results, codeownersData] =
-    await Promise.all([
-      getTagsData(),
-      getPackagesData(),
-      getDependenciesData(),
-      getConstraintsData(),
-      getCodeownersData(),
-    ]);
+  const [
+    tagsData,
+    packages,
+    dependencies,
+    results,
+    codeownersData,
+    checkResults,
+  ] = await Promise.all([
+    getTagsData(),
+    getPackagesData(),
+    getDependenciesData(),
+    getConstraintsData(),
+    getCodeownersData(),
+    getConformanceResultsData(),
+  ]);
 
   const packagesQuery = packagesParser.parseServerSide(searchParams?.packages);
   const colorQuery = colorParser.parseServerSide(searchParams?.color);
@@ -123,6 +134,18 @@ async function GraphPage({
 
   const shownElements = await getShownElements();
 
+  const parseLayoutValue = (value: string | undefined) => {
+    if (!value) {
+      return undefined;
+    }
+
+    try {
+      JSON.parse(value);
+    } catch {
+      return undefined;
+    }
+  };
+
   return (
     <Provider>
       <GraphProviders
@@ -135,12 +158,8 @@ async function GraphPage({
           <EditTagsDialogContent tagsData={tagsData} />
         </EditTagsDialog>
         <GraphLayoutRoot>
-          <GraphLayoutAside
-            defaultSize={
-              graphLayoutOne?.value
-                ? JSON.parse(String(graphLayoutOne.value))
-                : undefined
-            }
+          <GraphLayoutLeftSidebar
+            defaultSize={parseLayoutValue(graphLayoutOne?.value)}
           >
             <GraphFilterSidebar
               tagsData={tagsData}
@@ -148,20 +167,15 @@ async function GraphPage({
               packages={packages}
               defaultLayout={defaultLayout}
             />
-          </GraphLayoutAside>
+          </GraphLayoutLeftSidebar>
           <GraphLayoutMain
-            defaultSize={
-              graphLayoutTwo?.value
-                ? JSON.parse(String(graphLayoutTwo.value))
-                : undefined
-            }
+            defaultSize={parseLayoutValue(graphLayoutTwo?.value)}
           >
             {shownElements.nodes.length === 0 ? (
               <GraphEmpty />
             ) : (
               <>
                 <LocalPackageToolbar />
-                <ActiveDependencyDialog results={results} />
                 <Suspense
                   key={JSON.stringify({ packagesQuery, directionQuery })}
                 >
@@ -177,6 +191,16 @@ async function GraphPage({
               </>
             )}
           </GraphLayoutMain>
+          <GraphLayoutRightSidebar
+            defaultSize={parseLayoutValue(graphLayoutThree?.value)}
+          >
+            <GraphContextSidebar
+              tagsData={tagsData}
+              codeownersData={codeownersData}
+              constraintResults={results}
+              checkResults={checkResults}
+            />
+          </GraphLayoutRightSidebar>
         </GraphLayoutRoot>
       </GraphProviders>
     </Provider>

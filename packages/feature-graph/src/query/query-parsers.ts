@@ -29,3 +29,4 @@ export const packagesParser: ParserBuilder<string[]> = createParser({
 });
 
 export const hideFiltersParser = parseAsBoolean.withDefault(false);
+export const hideContextParser = parseAsBoolean.withDefault(false);

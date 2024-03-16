@@ -5,8 +5,9 @@ import { setCookie } from 'cookies-next';
 import {
   COOKIE_GRAPH_LAYOUT_ONE,
   COOKIE_GRAPH_LAYOUT_TWO,
+  COOKIE_GRAPH_LAYOUT_THREE,
 } from '../constants/cookie-names';
-import { useHideFiltersQuery } from '../query/query-hooks';
+import { useHideContextQuery, useHideFiltersQuery } from '../query/query-hooks';
 import {
   Button,
   Tooltip,
@@ -15,7 +16,6 @@ import {
   TooltipTrigger,
 } from '@commonalityco/ui-design-system';
 import { ArrowLeftToLine, ArrowRightToLine } from 'lucide-react';
-import { forwardRef } from 'react';
 
 export function GraphLayoutRoot({
   children,
@@ -35,6 +35,10 @@ export function GraphLayoutRoot({
         if (sizes[1]) {
           setCookie(COOKIE_GRAPH_LAYOUT_TWO, sizes[1]);
         }
+
+        if (sizes[2]) {
+          setCookie(COOKIE_GRAPH_LAYOUT_THREE, sizes[2]);
+        }
       }}
       direction="horizontal"
       className={cn(
@@ -47,7 +51,7 @@ export function GraphLayoutRoot({
   );
 }
 
-export function GraphLayoutAside({
+export function GraphLayoutLeftSidebar({
   children,
   className,
   defaultSize,
@@ -61,15 +65,15 @@ export function GraphLayoutAside({
   if (hideFiltersQuery) {
     return;
   }
-
   return (
     <>
       <Panel
+        key="left-sidebar"
         order={1}
         defaultSize={defaultSize}
         minSize={15}
         className={cn(
-          'relative z-20 hidden h-full shrink-0 grow-0 py-4 pl-4 md:block',
+          'relative z-20 hidden h-full shrink-0 grow-0 py-4 pl-4 pr-1 md:block',
           className,
         )}
       >
@@ -78,6 +82,41 @@ export function GraphLayoutAside({
       <PanelResizeHandle className="group relative z-10 h-full w-4">
         <div className="bg-border group-data-[resize-handle-active=pointer]:bg-muted-foreground group-hover:bg-muted-foreground/50 absolute bottom-0 right-0 top-0 m-auto w-px transition-all group-hover:w-0.5 group-data-[resize-handle-active=pointer]:w-0.5" />
       </PanelResizeHandle>
+    </>
+  );
+}
+
+export function GraphLayoutRightSidebar({
+  children,
+  className,
+  defaultSize,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+  defaultSize: number;
+}) {
+  const [hideContextQuery] = useHideContextQuery();
+
+  if (hideContextQuery) {
+    return;
+  }
+
+  return (
+    <>
+      <PanelResizeHandle className="group relative z-10 h-full w-4">
+        <div className="bg-border group-data-[resize-handle-active=pointer]:bg-muted-foreground group-hover:bg-muted-foreground/50 absolute bottom-0 left-0 top-0 m-auto w-px transition-all group-hover:w-0.5 group-data-[resize-handle-active=pointer]:w-0.5" />
+      </PanelResizeHandle>
+      <Panel
+        order={3}
+        defaultSize={defaultSize}
+        minSize={15}
+        className={cn(
+          'relative z-20 hidden h-full shrink-0 grow-0 md:block',
+          className,
+        )}
+      >
+        <div className="h-full shrink-0">{children}</div>
+      </Panel>
     </>
   );
 }
@@ -92,10 +131,12 @@ export function GraphLayoutMain({
   defaultSize: number;
 }) {
   const [hideFiltersQuery, setHideFiltersQuery] = useHideFiltersQuery();
+  const [hideContextQuery, setHideContextQuery] = useHideContextQuery();
 
   return (
     <Panel
       order={2}
+      minSize={45}
       defaultSize={defaultSize}
       className="align-stretch relative flex h-full w-full grow overflow-hidden"
     >
@@ -129,6 +170,27 @@ export function GraphLayoutMain({
       >
         {children}
       </div>
+      <TooltipProvider>
+        <Tooltip delayDuration={300}>
+          <TooltipTrigger asChild>
+            <Button
+              size="icon"
+              variant="outline"
+              className="absolute bottom-0 right-4 top-0 z-10 my-auto"
+              onClick={() => setHideContextQuery(!hideContextQuery)}
+            >
+              {hideContextQuery ? (
+                <ArrowLeftToLine className="h-4 w-4" />
+              ) : (
+                <ArrowRightToLine className="h-4 w-4" />
+              )}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="left">
+            {hideContextQuery ? 'Show filters' : 'Hide filters'}
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
     </Panel>
   );
 }

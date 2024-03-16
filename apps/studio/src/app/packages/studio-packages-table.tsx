@@ -24,18 +24,18 @@ import {
   EditTagsDialog,
   EditTagsDialogContent,
 } from '@/components/edit-tags-dialog';
-import { Package } from '@commonalityco/types';
+import { Package, TagsData } from '@commonalityco/types';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 
 export function ActionButton({
   existingTags,
-  tags,
+  tagsData,
   pkg,
   results,
 }: {
   pkg: Package;
   existingTags: string[];
-  tags: string[];
+  tagsData: TagsData[];
   results: ConformanceResult[];
 }) {
   const [tagsOpen, setTagsOpen] = useState(false);
@@ -44,12 +44,7 @@ export function ActionButton({
   return (
     <>
       <EditTagsDialog open={tagsOpen} onOpenChange={setTagsOpen}>
-        <EditTagsDialogContent
-          tags={tags}
-          existingTags={existingTags}
-          pkg={pkg}
-          onEdit={() => setTagsOpen(false)}
-        />
+        <EditTagsDialogContent tagsData={tagsData} />
       </EditTagsDialog>
       <div className="flex flex-nowrap justify-end gap-2">
         <PackageChecksDialog
@@ -87,21 +82,18 @@ export function ActionButton({
 }
 
 export function StudioTagsCell<T extends ColumnData>({
-  tags,
+  tagsData,
   ...rest
-}: Omit<ComponentProps<typeof TagsCell<T>>, 'onAddTags'> & { tags: string[] }) {
+}: Omit<ComponentProps<typeof TagsCell<T>>, 'onAddTags'> & {
+  tagsData: TagsData[];
+}) {
   const [open, setOpen] = useState(false);
   const data = rest.row.original;
 
   return (
     <>
       <EditTagsDialog open={open} onOpenChange={setOpen}>
-        <EditTagsDialogContent
-          tags={tags}
-          existingTags={data.tags}
-          pkg={data.package}
-          onEdit={() => setOpen(false)}
-        />
+        <EditTagsDialogContent tagsData={tagsData} />
       </EditTagsDialog>
       {data.tags.length > 0 ? (
         <Button

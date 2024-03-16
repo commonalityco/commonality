@@ -845,6 +845,9 @@ importers:
       dagre:
         specifier: ^0.8.5
         version: 0.8.5
+      framer-motion:
+        specifier: ^11.0.5
+        version: 11.0.5(react-dom@18.2.0)(react@18.2.0)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -870,6 +873,9 @@ importers:
       '@commonalityco/ui-design-system':
         specifier: workspace:*
         version: link:../ui-design-system
+      '@commonalityco/utils-conformance':
+        specifier: workspace:*
+        version: link:../utils-conformance
       '@commonalityco/utils-core':
         specifier: workspace:*
         version: link:../utils-core

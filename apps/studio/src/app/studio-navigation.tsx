@@ -47,7 +47,7 @@ function StudioNavigation({
 
   return (
     <div>
-      <Navigation>
+      <Navigation className="border-b py-2">
         <div className="flex w-full items-center">
           <div className="flex grow items-center space-x-2">
             <Link href="/">
@@ -82,39 +82,16 @@ function StudioNavigation({
             </Button>
 
             <ThemeButton
-              className="md:mr-4"
+              // className="md:mr-4"
               defaultTheme={defaultTheme}
               onThemeChange={(theme) => {
                 setCookie(COOKIE_KEY, theme);
                 setTheme(theme);
               }}
             />
-
-            <EditConfigButton className="hidden md:flex" />
           </div>
         </div>
       </Navigation>
-      <div className="flex items-center justify-between border-b px-4">
-        <div className="flex space-x-2">
-          <NavigationButton
-            className="flex items-center gap-2"
-            href="/graph"
-            active={pathname === '/graph'}
-          >
-            <Network className="h-4 w-4" />
-            <span>Graph</span>
-          </NavigationButton>
-          <NavigationButton
-            className="flex items-center gap-2"
-            href="/packages"
-            active={pathname === '/packages'}
-          >
-            <PackageCheck className="h-4 w-4" />
-            <span>Packages</span>
-          </NavigationButton>
-        </div>
-        <LastUpdateTime />
-      </div>
     </div>
   );
 }

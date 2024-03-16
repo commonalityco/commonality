@@ -2,7 +2,7 @@
 import { Dependency, Package } from '@commonalityco/types';
 import { atom } from 'jotai';
 
-export const activeDependencyAtom = atom<Dependency | null>(null);
+export const selectedDependenciesAtom = atom<Dependency[]>([]);
 
 export const selectedPackagesAtom = atom<Package[]>([]);
 

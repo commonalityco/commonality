@@ -28,6 +28,7 @@
     "@commonalityco/types": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
+    "@commonalityco/utils-conformance": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
@@ -41,7 +42,7 @@
     "nuqs": "^1.17.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "typescript": "^5.3.3",
+    "typescript": "^5.4.2",
     "vitest": "^0.34.6"
   },
   "peerDependencies": {
@@ -56,6 +57,7 @@
     "@xyflow/system": "^0.0.17",
     "cookies-next": "^4.1.1",
     "dagre": "^0.8.5",
+    "framer-motion": "^11.0.5",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.317.0",
     "react-resizable-panels": "^0.0.54"

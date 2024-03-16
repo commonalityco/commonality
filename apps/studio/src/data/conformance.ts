@@ -7,7 +7,7 @@ import {
   getResolvedChecks,
 } from '@commonalityco/utils-conformance';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
-
+import { omit } from 'lodash-es';
 export const getConformanceResultsData = async () => {
   const packages = await getPackagesData();
   const projectConfig = await getProjectConfig({
@@ -35,5 +35,9 @@ export const getConformanceResultsData = async () => {
     codeownersData,
   });
 
-  return results;
+  return results.map(({ fix, ...result }) => {
+    return {
+      ...result,
+    };
+  });
 };

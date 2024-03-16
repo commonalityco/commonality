@@ -171,8 +171,8 @@ export function GraphControlBar() {
   const reactFlow = useReactFlow();
 
   return (
-    <div className="bg-secondary dark:bg-background flex flex-row justify-end px-3 pb-3">
-      <div className="bg-background relative inline-block flex w-auto grow-0 justify-between rounded-md border p-1">
+    <div className="bg-secondary dark:bg-background flex flex-row justify-center px-3 pb-3">
+      <div className="bg-background py relative flex w-auto grow-0 justify-between rounded-lg border p-1">
         <div className="flex justify-between gap-1">
           <ColorDropdown
             onHighlightChange={setHighlightQuery}

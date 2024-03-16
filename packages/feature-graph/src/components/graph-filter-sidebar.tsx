@@ -152,7 +152,7 @@ function PackagesFilterSection({
 
   return (
     <>
-      <Label>Packages</Label>
+      <p className="text-xs font-medium">Packages</p>
 
       <div className="relative overflow-hidden">
         <ScrollArea className="relative h-full">
@@ -271,7 +271,7 @@ function TagsFilterSection({
 
   return (
     <>
-      <Label>Tags</Label>
+      <p className="text-xs font-medium">Tags</p>
       <ScrollArea className="@sm:display-none h-full">
         <GradientFade className="h-3" placement="top" />
         {allTags.length > 0
@@ -394,7 +394,7 @@ function CodeownersFilterSection({
 
   return (
     <>
-      <Label>Codeowners</Label>
+      <p className="text-xs font-medium">Codeowners</p>
       <ScrollArea className="@sm:display-none h-full overflow-hidden">
         <GradientFade className="h-3" placement="top" />
         {allOwners.length > 0
