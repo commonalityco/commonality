@@ -1095,8 +1095,8 @@ importers:
         specifier: ^5.8.0
         version: 5.8.0(@types/react@18.2.57)(react-dom@18.2.0)(react@18.2.0)
       sonner:
-        specifier: ^1.4.0
-        version: 1.4.0(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^1.4.3
+        version: 1.4.3(react-dom@18.2.0)(react@18.2.0)
       tailwind-merge:
         specifier: ^1.14.0
         version: 1.14.0
@@ -15952,8 +15952,8 @@ packages:
     dependencies:
       atomic-sleep: 1.0.0
 
-  /sonner@1.4.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-nvkTsIuOmi9e5Wz5If8ldasJjZNVfwiXYijBi2dbijvTQnQppvMcXTFNxL/NUFWlI2yJ1JX7TREDsg+gYm9WyA==}
+  /sonner@1.4.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-SArYlHbkjqRuLiR0iGY2ZSr09oOrxw081ZZkQPfXrs8aZQLIBOLOdzTYxGJB5yIZ7qL56UEPmrX1YqbODwG0Lw==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
