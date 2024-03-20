@@ -26,6 +26,7 @@ export function DependencyEdge({
   targetPosition,
   sourcePosition,
   selected,
+  ...props
 }: EdgeProps<Edge<DependencyEdgeData>>) {
   const [edgePath, labelX, labelY] = getBezierPath({
     targetPosition,
@@ -44,10 +45,11 @@ export function DependencyEdge({
   return (
     <>
       <BaseEdge
+        {...props}
         id={id}
         path={edgePath}
         className={cn(
-          'stroke-1 transition duration-100',
+          'stroke-1 transition duration-300',
           {
             '!stroke-zinc-300 dark:!stroke-zinc-800': !highlighted,
             'stroke-[2px] opacity-100': highlighted,
@@ -91,13 +93,13 @@ export function DependencyEdge({
               className={cn(
                 'rounded-full px-2 py-0.5 font-mono font-semibold leading-none',
                 {
-                  'border-2 border-sky-700 bg-sky-100 text-sky-900 dark:border-sky-600 dark:bg-sky-900 dark:text-sky-100':
+                  'border-2 border-sky-700 bg-sky-100 text-sky-900 dark:border-sky-600 dark:bg-sky-950 dark:text-sky-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.DEVELOPMENT,
-                  'border-2 border-purple-700 bg-purple-100 text-purple-900 dark:border-purple-600 dark:bg-purple-900 dark:text-purple-100':
+                  'border-2 border-purple-700 bg-purple-100 text-purple-900 dark:border-purple-600 dark:bg-purple-950 dark:text-purple-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.PEER,
-                  'border-2 border-emerald-700 bg-emerald-100 text-emerald-900 dark:border-emerald-600 dark:bg-emerald-900 dark:text-emerald-100':
+                  'border-2 border-emerald-700 bg-emerald-100 text-emerald-900 dark:border-emerald-600 dark:bg-emerald-950 dark:text-emerald-100':
                     highlighted &&
                     data?.dependency.type === DependencyType.PRODUCTION,
                 },

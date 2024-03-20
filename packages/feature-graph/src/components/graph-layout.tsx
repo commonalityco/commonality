@@ -15,7 +15,59 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@commonalityco/ui-design-system';
-import { ArrowLeftToLine, ArrowRightToLine } from 'lucide-react';
+
+import React from 'react';
+
+const CollapseButton = ({
+  className,
+  onClick,
+  openDirection,
+  open,
+}: {
+  className?: string;
+  onClick: () => void;
+  open: boolean;
+  openDirection?: 'left' | 'right';
+}) => {
+  return (
+    <TooltipTrigger
+      className={cn(
+        'group flex h-[72px] w-8 items-center justify-center',
+        className,
+      )}
+      onClick={onClick}
+    >
+      <div className="flex h-7 w-6 flex-col items-center">
+        <div
+          className={cn(
+            'bg-muted-foreground group-hover:bg-primary h-5 w-1 translate-y-[2.5px] rounded-full transition-all',
+            {
+              'group-hover:rotate-[30deg]': openDirection === 'left',
+              'group-hover:rotate-[-30deg]': openDirection === 'right',
+            },
+            {
+              'group-hover:rotate-[-30deg]': openDirection === 'left' && open,
+              'group-hover:rotate-[30deg]': openDirection === 'right' && open,
+            },
+          )}
+        />
+        <div
+          className={cn(
+            'bg-muted-foreground group-hover:bg-primary h-5 w-1 -translate-y-[2.5px] rounded-full transition-all',
+            {
+              'group-hover:rotate-[-30deg]': openDirection === 'left',
+              'group-hover:rotate-[30deg]': openDirection === 'right',
+            },
+            {
+              'group-hover:rotate-[30deg]': openDirection === 'left' && open,
+              'group-hover:rotate-[-30deg]': openDirection === 'right' && open,
+            },
+          )}
+        />
+      </div>
+    </TooltipTrigger>
+  );
+};
 
 export function GraphLayoutRoot({
   children,
@@ -142,20 +194,13 @@ export function GraphLayoutMain({
     >
       <TooltipProvider>
         <Tooltip delayDuration={300}>
-          <TooltipTrigger asChild>
-            <Button
-              size="icon"
-              variant="outline"
-              className="absolute bottom-0 left-4 top-0 z-10 my-auto"
-              onClick={() => setHideFiltersQuery(!hideFiltersQuery)}
-            >
-              {hideFiltersQuery ? (
-                <ArrowRightToLine className="h-4 w-4" />
-              ) : (
-                <ArrowLeftToLine className="h-4 w-4" />
-              )}
-            </Button>
-          </TooltipTrigger>
+          <CollapseButton
+            open={!hideFiltersQuery}
+            openDirection="right"
+            className="absolute bottom-0 left-0 top-0 z-10 my-auto"
+            onClick={() => setHideFiltersQuery(!hideFiltersQuery)}
+          />
+
           <TooltipContent side="right">
             {hideFiltersQuery ? 'Show filters' : 'Hide filters'}
           </TooltipContent>
@@ -172,22 +217,15 @@ export function GraphLayoutMain({
       </div>
       <TooltipProvider>
         <Tooltip delayDuration={300}>
-          <TooltipTrigger asChild>
-            <Button
-              size="icon"
-              variant="outline"
-              className="absolute bottom-0 right-4 top-0 z-10 my-auto"
-              onClick={() => setHideContextQuery(!hideContextQuery)}
-            >
-              {hideContextQuery ? (
-                <ArrowLeftToLine className="h-4 w-4" />
-              ) : (
-                <ArrowRightToLine className="h-4 w-4" />
-              )}
-            </Button>
-          </TooltipTrigger>
+          <CollapseButton
+            open={!hideContextQuery}
+            openDirection="left"
+            className="absolute bottom-0 right-0 top-0 z-10 my-auto"
+            onClick={() => setHideContextQuery(!hideContextQuery)}
+          />
+
           <TooltipContent side="left">
-            {hideContextQuery ? 'Show filters' : 'Hide filters'}
+            {hideContextQuery ? 'Show context' : 'Hide context'}
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

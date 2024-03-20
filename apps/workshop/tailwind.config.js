@@ -11,6 +11,7 @@ const getPkgPattern = (pkgName) => {
 module.exports = {
   ...baseConfig,
   content: [
+    './node_modules/@tremor/**/*.{js,ts,jsx,tsx}',
     './src/**/*.{js,ts,jsx,tsx}',
     getPkgPattern('@commonalityco/ui-conformance'),
     getPkgPattern('@commonalityco/ui-design-system'),

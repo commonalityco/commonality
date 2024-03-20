@@ -14,32 +14,35 @@ import {
   Form,
   DialogDescription,
   toast,
+  DialogTrigger,
 } from '@commonalityco/ui-design-system';
 import { formatTagName } from '@commonalityco/utils-core';
-import React, { ComponentProps, useTransition } from 'react';
+import React, { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { setTagsAction } from '@/actions/metadata';
-import { useAtom, useAtomValue } from 'jotai';
-import { editingPackageAtom } from '@/atoms/graph-atoms';
+import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { TagsData } from '@commonalityco/types';
+import { selectedPackagesAtom } from '@commonalityco/feature-graph';
+import { Tags } from 'lucide-react';
 
 const formSchema = z.object({
   tags: z.array(z.object({ label: z.string(), value: z.string() })),
 });
 
-export function EditTagsDialogContent({ tagsData }: { tagsData: TagsData[] }) {
+function EditTagsDialogContent({ tagsData }: { tagsData: TagsData[] }) {
   const router = useRouter();
 
-  const editingPackage = useAtomValue(editingPackageAtom);
+  const selectedPackages = useAtomValue(selectedPackagesAtom);
+  const selectedPackage = selectedPackages[0];
 
   const [isPending, startTransition] = useTransition();
 
   const allTags = [...new Set(tagsData.map((data) => data.tags).flat())];
   const pkgTags = tagsData.find(
-    (data) => data.packageName === editingPackage?.name,
+    (data) => data.packageName === selectedPackage?.name,
   )?.tags;
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,13 +56,13 @@ export function EditTagsDialogContent({ tagsData }: { tagsData: TagsData[] }) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    if (!editingPackage) return;
+    if (!selectedPackage) return;
 
     const newTags = values.tags.map((item) => item.value);
 
     startTransition(async () => {
       const configPath = await setTagsAction({
-        pkg: editingPackage,
+        pkg: selectedPackage,
         tags: newTags,
       });
       router.refresh();
@@ -70,7 +73,7 @@ export function EditTagsDialogContent({ tagsData }: { tagsData: TagsData[] }) {
     });
   }
 
-  if (!editingPackage) return;
+  if (!selectedPackage) return;
 
   return (
     <>
@@ -84,7 +87,7 @@ export function EditTagsDialogContent({ tagsData }: { tagsData: TagsData[] }) {
             </span>
             file for{' '}
             <span className="text-foreground font-medium">
-              {editingPackage.name}
+              {selectedPackage.name}
             </span>{' '}
             with the tags you select.
           </DialogDescription>
@@ -129,23 +132,16 @@ export function EditTagsDialogContent({ tagsData }: { tagsData: TagsData[] }) {
   );
 }
 
-export function EditTagsDialog({
-  children,
-  ...rest
-}: ComponentProps<typeof Dialog>) {
-  const [editingPackage, setEditingPackage] = useAtom(editingPackageAtom);
-
+export function EditTagsButton({ tagsData }: { tagsData: TagsData[] }) {
   return (
-    <Dialog
-      {...rest}
-      open={Boolean(editingPackage)}
-      onOpenChange={(open) => {
-        if (!open) {
-          setEditingPackage(null);
-        }
-      }}
-    >
-      {children}
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button size="sm" variant="outline">
+          <Tags className="mr-1 h-4 w-4" />
+          Edit tags
+        </Button>
+      </DialogTrigger>
+      <EditTagsDialogContent tagsData={tagsData} />
     </Dialog>
   );
 }

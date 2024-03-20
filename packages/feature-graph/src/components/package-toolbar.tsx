@@ -23,10 +23,11 @@ export function ToolbarButton({
   onClick?: () => void;
 }) {
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={250}>
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
+            className="text-white hover:bg-zinc-600 dark:text-zinc-500 dark:hover:bg-zinc-200"
             size="icon"
             variant="ghost"
             aria-label={text}
@@ -43,7 +44,7 @@ export function ToolbarButton({
   );
 }
 
-export function PackageToolbar({ children }: { children: React.ReactNode }) {
+export function PackageToolbar() {
   const [selectedPackages] = useAtom(selectedPackagesAtom);
   const interactions = useInteractions();
 
@@ -55,7 +56,7 @@ export function PackageToolbar({ children }: { children: React.ReactNode }) {
       isVisible={isVisible}
       nodeId={selectedPackages.map((pkg) => pkg.name)}
       position={Position.Bottom}
-      className="bg-background border-border light flex gap-1 rounded-lg border p-1"
+      className="bg-primary light flex gap-1 rounded-lg p-1"
     >
       <ToolbarButton
         text="Focus"
@@ -70,7 +71,6 @@ export function PackageToolbar({ children }: { children: React.ReactNode }) {
       >
         <EyeOff className="h-4 w-4" />
       </ToolbarButton>
-      {children}
     </NodeToolbar>
   );
 }

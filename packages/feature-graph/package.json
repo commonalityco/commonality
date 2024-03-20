@@ -1,5 +1,6 @@
 {
   "name": "@commonalityco/feature-graph",
+  "description": "UI primitives for building the Commonality Studio graph",
   "version": "0.0.0",
   "type": "module",
   "publishConfig": {
@@ -53,6 +54,9 @@
     "react-dom": ">=18"
   },
   "dependencies": {
+    "@nivo/pie": "^0.85.1",
+    "@tanstack/react-table": "^8.13.2",
+    "@tremor/react": "^3.14.1",
     "@xyflow/react": "12.0.0-next.11",
     "@xyflow/system": "^0.0.17",
     "cookies-next": "^4.1.1",

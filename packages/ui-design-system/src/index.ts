@@ -90,7 +90,6 @@ export {
   TableBody,
   TableFooter,
   TableHead,
-  TableHeadSortButton,
   TableRow,
   TableCell,
   TableCaption,

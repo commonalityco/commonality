@@ -20,7 +20,6 @@ import {
   TooltipTrigger,
 } from '@commonalityco/ui-design-system';
 import {
-  ArrowLeftToLine,
   Box,
   ExternalLink,
   Eye,
@@ -32,7 +31,7 @@ import {
 import { ComponentProps, useMemo, useState } from 'react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { useInteractions } from '../context/interaction-context';
-import { useHideFiltersQuery, usePackagesQuery } from '../query/query-hooks';
+import { usePackagesQuery } from '../query/query-hooks';
 import { setCookie } from 'cookies-next';
 import { COOKIE_FILTER_SIDEBAR } from '../constants/cookie-names';
 
@@ -152,7 +151,14 @@ function PackagesFilterSection({
 
   return (
     <>
-      <p className="text-xs font-medium">Packages</p>
+      <div className="flex flex-nowrap items-center justify-between">
+        <p className="text-xs font-medium">Packages</p>
+        <p className="text-muted-foreground text-xs">
+          <span>{visiblePackages.length}</span>
+          <span className="px-1">of</span>
+          <span>{packages.length}</span>
+        </p>
+      </div>
 
       <div className="relative overflow-hidden">
         <ScrollArea className="relative h-full">
@@ -233,6 +239,22 @@ function TagsFilterSection({
     return uniqueTags.sort((a, b) => a.localeCompare(b));
   }, [tagData]);
 
+  const visibleTagCount = useMemo(() => {
+    const visibleTags = new Set();
+    for (const package_ of visiblePackages || []) {
+      for (const data of tagData) {
+        if (data.packageName === package_.name) {
+          for (const tag of data.tags) {
+            if (allTags.includes(tag)) {
+              visibleTags.add(tag);
+            }
+          }
+        }
+      }
+    }
+    return visibleTags.size;
+  }, [visiblePackages, tagData, allTags]);
+
   const getPlaceholder = () => {
     if (search) {
       return <Text use="help">No matching tags</Text>;
@@ -271,7 +293,14 @@ function TagsFilterSection({
 
   return (
     <>
-      <p className="text-xs font-medium">Tags</p>
+      <div className="flex flex-nowrap items-center justify-between">
+        <p className="text-xs font-medium">Tags</p>
+        <p className="text-muted-foreground text-xs">
+          <span>{visibleTagCount}</span>
+          <span className="px-1">of</span>
+          <span>{allTags.length}</span>
+        </p>
+      </div>
       <ScrollArea className="@sm:display-none h-full">
         <GradientFade className="h-3" placement="top" />
         {allTags.length > 0
@@ -300,7 +329,9 @@ function TagsFilterSection({
                       <Badge
                         variant="secondary"
                         className="inline-block min-w-0 max-w-full truncate"
-                      >{`#${tag}`}</Badge>
+                      >
+                        {tag}
+                      </Badge>
                     </div>
                   </div>
 
@@ -356,6 +387,22 @@ function CodeownersFilterSection({
     return uniqueOwners.sort((a, b) => a.localeCompare(b));
   }, [ownerData]);
 
+  const visibleOwners = useMemo(() => {
+    const visibleOwners = new Set();
+    for (const package_ of visiblePackages || []) {
+      for (const data of ownerData) {
+        if (data.packageName === package_.name) {
+          for (const owner of data.codeowners) {
+            if (allOwners.includes(owner)) {
+              visibleOwners.add(owner);
+            }
+          }
+        }
+      }
+    }
+    return visibleOwners.size;
+  }, [visiblePackages, ownerData, allOwners]);
+
   const getPlaceholder = () => {
     if (search) {
       return <Text use="help">No matching codeowners</Text>;
@@ -394,7 +441,14 @@ function CodeownersFilterSection({
 
   return (
     <>
-      <p className="text-xs font-medium">Codeowners</p>
+      <div className="flex flex-nowrap items-center justify-between">
+        <p className="text-xs font-medium">Codeowners</p>
+        <p className="text-muted-foreground text-xs">
+          <span>{visibleOwners}</span>
+          <span className="px-1">of</span>
+          <span>{allOwners.length}</span>
+        </p>
+      </div>
       <ScrollArea className="@sm:display-none h-full overflow-hidden">
         <GradientFade className="h-3" placement="top" />
         {allOwners.length > 0
@@ -500,14 +554,6 @@ export function GraphFilterSidebar({
   return (
     <div className="relative h-full w-full">
       <div className="bg-background h-full w-full overflow-hidden">
-        <div className="mb-3 flex items-center justify-between">
-          <Label className="font-semibold">Filters</Label>
-          <p className="text-muted-foreground text-xs">
-            <span>{visiblePackages.length}</span>
-            <span className="px-1">of</span>
-            <span>{packages.length}</span>
-          </p>
-        </div>
         <div className="flex h-full flex-col content-start gap-4">
           <div className="flex flex-nowrap items-center gap-2">
             <Button

@@ -49,6 +49,8 @@ export const getEdges = ({
       type: edgeType,
       markerEnd: {
         type: MarkerType.ArrowClosed,
+        width: 20,
+        height: 20,
       },
     } satisfies Edge<DependencyEdgeData>;
   });

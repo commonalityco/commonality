@@ -10,6 +10,10 @@ export * from './components/graph-layout';
 export * from './components/graph-empty';
 export * from './components/graph-context-sidebar';
 
+export * from './components/dependency-context';
+export * from './components/package-context';
+export * from './components/project-context';
+
 export * from './utilities/types';
 export * from './utilities/get-elements-with-layout';
 export * from './utilities/get-nodes';

@@ -7,7 +7,14 @@ import {
   getResolvedChecks,
 } from '@commonalityco/utils-conformance';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
-import { omit } from 'lodash-es';
+import { Status } from '@commonalityco/utils-core';
+
+const StatusSortValue = {
+  [Status.Pass]: 2,
+  [Status.Warn]: 1,
+  [Status.Fail]: 0,
+};
+
 export const getConformanceResultsData = async () => {
   const packages = await getPackagesData();
   const projectConfig = await getProjectConfig({

@@ -89,6 +89,12 @@ const getResult = async ({
   }
 };
 
+const StatusSortValue = {
+  [Status.Pass]: 2,
+  [Status.Warn]: 1,
+  [Status.Fail]: 0,
+};
+
 export const getConformanceResults = async ({
   conformersByPattern,
   packages,
@@ -110,7 +116,7 @@ export const getConformanceResults = async ({
     codeownersData.map((data) => [data.packageName, data.codeowners]),
   );
 
-  return await Promise.all(
+  const results = await Promise.all(
     filters.flatMap((matchingPattern) =>
       conformersByPattern[matchingPattern].flatMap((conformer) =>
         filterPackages({ packages, tagsData, matchingPattern })
@@ -148,4 +154,11 @@ export const getConformanceResults = async ({
       ),
     ),
   );
+
+  return results.sort((a, b) => {
+    const statusAValue = StatusSortValue[a.status];
+    const statusBValue = StatusSortValue[b.status];
+
+    return statusAValue - statusBValue;
+  });
 };

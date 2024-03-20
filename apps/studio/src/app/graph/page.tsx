@@ -23,9 +23,14 @@ import {
   GraphLayoutRightSidebar,
   GraphContextSidebar,
   COOKIE_GRAPH_LAYOUT_THREE,
+  PackageToolbar,
 } from '@commonalityco/feature-graph';
 import * as z from 'zod';
-import { DependencyType, Theme } from '@commonalityco/utils-core';
+import {
+  DependencyType,
+  Theme,
+  numberSafeParse,
+} from '@commonalityco/utils-core';
 import {
   colorParser,
   directionParser,
@@ -33,13 +38,10 @@ import {
 } from '@commonalityco/feature-graph/query-parsers';
 import { getConnectedEdges } from '@xyflow/system';
 import LazyGraph from './lazy-graph';
-import {
-  EditTagsDialog,
-  EditTagsDialogContent,
-} from '@/components/edit-tags-dialog';
+import { EditTagsButton } from '@/components/edit-tags-dialog';
 import { Provider } from 'jotai';
-import LocalPackageToolbar from './local-package-toolbar';
 import { getConformanceResultsData } from '@/data/conformance';
+import { getProjectData } from '@/data/project';
 
 async function GraphPage({
   searchParams,
@@ -85,6 +87,7 @@ async function GraphPage({
     results,
     codeownersData,
     checkResults,
+    project,
   ] = await Promise.all([
     getTagsData(),
     getPackagesData(),
@@ -92,6 +95,7 @@ async function GraphPage({
     getConstraintsData(),
     getCodeownersData(),
     getConformanceResultsData(),
+    getProjectData(),
   ]);
 
   const packagesQuery = packagesParser.parseServerSide(searchParams?.packages);
@@ -134,17 +138,9 @@ async function GraphPage({
 
   const shownElements = await getShownElements();
 
-  const parseLayoutValue = (value: string | undefined) => {
-    if (!value) {
-      return undefined;
-    }
-
-    try {
-      JSON.parse(value);
-    } catch {
-      return undefined;
-    }
-  };
+  const leftSidebarDefaultSize = numberSafeParse(graphLayoutOne?.value);
+  const rightSidebarDefaultSize = numberSafeParse(graphLayoutThree?.value);
+  const mainDefaultSize = numberSafeParse(graphLayoutTwo?.value);
 
   return (
     <Provider>
@@ -154,13 +150,8 @@ async function GraphPage({
         defaultEdges={shownElements.edges}
         defaultNodes={shownElements.nodes}
       >
-        <EditTagsDialog>
-          <EditTagsDialogContent tagsData={tagsData} />
-        </EditTagsDialog>
         <GraphLayoutRoot>
-          <GraphLayoutLeftSidebar
-            defaultSize={parseLayoutValue(graphLayoutOne?.value)}
-          >
+          <GraphLayoutLeftSidebar defaultSize={leftSidebarDefaultSize}>
             <GraphFilterSidebar
               tagsData={tagsData}
               codeownersData={codeownersData}
@@ -168,14 +159,12 @@ async function GraphPage({
               defaultLayout={defaultLayout}
             />
           </GraphLayoutLeftSidebar>
-          <GraphLayoutMain
-            defaultSize={parseLayoutValue(graphLayoutTwo?.value)}
-          >
+          <GraphLayoutMain defaultSize={mainDefaultSize ?? 45}>
             {shownElements.nodes.length === 0 ? (
               <GraphEmpty />
             ) : (
               <>
-                <LocalPackageToolbar />
+                <PackageToolbar />
                 <Suspense
                   key={JSON.stringify({ packagesQuery, directionQuery })}
                 >
@@ -191,14 +180,15 @@ async function GraphPage({
               </>
             )}
           </GraphLayoutMain>
-          <GraphLayoutRightSidebar
-            defaultSize={parseLayoutValue(graphLayoutThree?.value)}
-          >
+          <GraphLayoutRightSidebar defaultSize={rightSidebarDefaultSize}>
             <GraphContextSidebar
+              projectName={project.name}
+              packageManager={project.packageManager}
               tagsData={tagsData}
               codeownersData={codeownersData}
               constraintResults={results}
               checkResults={checkResults}
+              packageHeaderContent={<EditTagsButton tagsData={tagsData} />}
             />
           </GraphLayoutRightSidebar>
         </GraphLayoutRoot>

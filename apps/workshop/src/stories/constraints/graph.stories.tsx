@@ -1,12 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { Graph } from '@commonalityco/ui-graph';
 import { DependencyType, PackageType } from '@commonalityco/utils-core';
 import { Dependency, Package } from '@commonalityco/types';
-import { getEdges } from '@commonalityco/ui-graph/package/get-edges';
-import { getNodes } from '@commonalityco/ui-graph/package/get-nodes';
+import { getEdges, getNodes, Graph } from '@commonalityco/feature-graph';
 
 const meta: Meta<typeof Graph> = {
-  title: 'Graph/Graph',
+  title: 'Graph',
   component: Graph,
   tags: ['autodocs'],
   parameters: {

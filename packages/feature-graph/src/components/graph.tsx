@@ -67,7 +67,7 @@ export const Graph = ({
             (dep) =>
               dep.source === edge.source &&
               dep.target === edge.target &&
-              dep.type === edge.data?.dependency?.type,
+              dep.type === (edge.data?.dependency as Dependency)?.type,
           );
         })
         .filter(Boolean) as Dependency[];
@@ -207,6 +207,7 @@ export const Graph = ({
       <div className="relative h-full w-full grow">
         <ReactFlow
           id="graph"
+          panOnScroll
           nodes={controlledNodes}
           edges={controlledEdges}
           minZoom={0.1}
@@ -247,7 +248,12 @@ export const Graph = ({
             position="top-right"
           />
 
-          <Background variant={BackgroundVariant.Dots} />
+          <Background
+            variant={BackgroundVariant.Dots}
+            size={1}
+            // gap={3}
+            // offset={1000}
+          />
         </ReactFlow>
       </div>
     </div>

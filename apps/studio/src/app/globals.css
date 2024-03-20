@@ -33,6 +33,6 @@
   }
 
   .react-flow__background-pattern.dots {
-    @apply fill-zinc-500 dark:fill-zinc-600;
+    @apply fill-zinc-500 dark:fill-zinc-500/75;
   }
 }
