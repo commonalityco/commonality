@@ -151,7 +151,7 @@ async function GraphPage({
         defaultNodes={shownElements.nodes}
       >
         <GraphLayoutRoot>
-          <GraphLayoutLeftSidebar defaultSize={leftSidebarDefaultSize}>
+          <GraphLayoutLeftSidebar defaultSize={leftSidebarDefaultSize as any}>
             <GraphFilterSidebar
               tagsData={tagsData}
               codeownersData={codeownersData}
@@ -180,8 +180,9 @@ async function GraphPage({
               </>
             )}
           </GraphLayoutMain>
-          <GraphLayoutRightSidebar defaultSize={rightSidebarDefaultSize}>
+          <GraphLayoutRightSidebar defaultSize={rightSidebarDefaultSize as any}>
             <GraphContextSidebar
+              packages={packages}
               projectName={project.name}
               packageManager={project.packageManager}
               tagsData={tagsData}

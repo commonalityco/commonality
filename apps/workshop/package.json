@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@commonalityco/feature-graph": "workspace:*",
-    "@commonalityco/ui-conformance": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
     "@commonalityco/ui-package": "workspace:*",

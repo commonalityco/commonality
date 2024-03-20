@@ -13,7 +13,6 @@ module.exports = {
   content: [
     './node_modules/@tremor/**/*.{js,ts,jsx,tsx}',
     './src/**/*.{js,ts,jsx,tsx}',
-    getPkgPattern('@commonalityco/ui-conformance'),
     getPkgPattern('@commonalityco/ui-design-system'),
     getPkgPattern('@commonalityco/ui-package'),
     getPkgPattern('@commonalityco/ui-core'),

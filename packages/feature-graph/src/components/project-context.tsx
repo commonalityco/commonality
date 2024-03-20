@@ -12,6 +12,7 @@ import {
   cn,
   Badge,
   Separator,
+  ScrollArea,
 } from '@commonalityco/ui-design-system';
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 import { PackageManager, Status } from '@commonalityco/utils-core';
@@ -260,10 +261,10 @@ export function ProjectContext({
     checkFailCount === total;
 
   return (
-    <div className="@container py-4 pr-4">
+    <div className="@container flex flex-col py-4">
       <PackageManagerIcon className="mb-2 h-8 w-8" />
       <p className="min-w-0 pb-2 text-xl font-semibold">{projectName}</p>
-      <Separator className="mb-4 mt-4" />
+      <ScrollArea className="pr-4"></ScrollArea>
       <Label className="mb-4 inline-block">Constraints</Label>
       <div className="grid grid-cols-2 gap-4 pr-4">
         <Card className="flex grow flex-row items-center justify-start px-4 py-2 shadow-none">
