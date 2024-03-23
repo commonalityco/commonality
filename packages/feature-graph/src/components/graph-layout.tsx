@@ -1,22 +1,21 @@
 'use client';
 import { cn } from '@commonalityco/ui-design-system/cn';
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import {
+  ImperativePanelHandle,
+  Panel,
+  PanelGroup,
+  PanelResizeHandle,
+} from 'react-resizable-panels';
 import { setCookie } from 'cookies-next';
+import { COOKIE_GRAPH_LAYOUT } from '../constants/cookie-names';
 import {
-  COOKIE_GRAPH_LAYOUT_ONE,
-  COOKIE_GRAPH_LAYOUT_TWO,
-  COOKIE_GRAPH_LAYOUT_THREE,
-} from '../constants/cookie-names';
-import { useHideContextQuery, useHideFiltersQuery } from '../query/query-hooks';
-import {
-  Button,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@commonalityco/ui-design-system';
 
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
 const CollapseButton = ({
   className,
@@ -80,17 +79,7 @@ export function GraphLayoutRoot({
     <PanelGroup
       autoSaveId="graph-layout"
       onLayout={(sizes) => {
-        if (sizes[0]) {
-          setCookie(COOKIE_GRAPH_LAYOUT_ONE, sizes[0]);
-        }
-
-        if (sizes[1]) {
-          setCookie(COOKIE_GRAPH_LAYOUT_TWO, sizes[1]);
-        }
-
-        if (sizes[2]) {
-          setCookie(COOKIE_GRAPH_LAYOUT_THREE, sizes[2]);
-        }
+        setCookie(COOKIE_GRAPH_LAYOUT, sizes);
       }}
       direction="horizontal"
       className={cn(
@@ -112,28 +101,54 @@ export function GraphLayoutLeftSidebar({
   className?: string;
   defaultSize: number;
 }) {
-  const [hideFiltersQuery] = useHideFiltersQuery();
+  const [collapsed, setCollapsed] = useState(Boolean(defaultSize));
+  const panel = useRef<ImperativePanelHandle>(null);
 
-  if (hideFiltersQuery) {
-    return;
-  }
   return (
     <>
       <Panel
-        key="left-sidebar"
+        ref={panel}
+        collapsedSize={0}
+        collapsible
+        onResize={() => setCollapsed(false)}
+        onCollapse={() => setCollapsed(true)}
+        id="left-sidebar"
         order={1}
         defaultSize={defaultSize}
-        minSize={15}
+        minSize={20}
         className={cn(
-          'relative z-20 hidden h-full shrink-0 grow-0 py-4 pl-4 pr-1 md:block',
+          'relative z-20 hidden h-full shrink-0 grow-0 md:block',
           className,
         )}
       >
         <div className="h-full shrink-0">{children}</div>
       </Panel>
-      <PanelResizeHandle className="group relative z-10 h-full w-4">
-        <div className="bg-border group-data-[resize-handle-active=pointer]:bg-muted-foreground group-hover:bg-muted-foreground/50 absolute bottom-0 right-0 top-0 m-auto w-px transition-all group-hover:w-0.5 group-data-[resize-handle-active=pointer]:w-0.5" />
-      </PanelResizeHandle>
+      <div className="relative z-20 h-full w-4">
+        <PanelResizeHandle className="group relative z-10 h-full w-4">
+          <div className="bg-border group-data-[resize-handle-active=pointer]:bg-muted-foreground group-hover:bg-muted-foreground/50 absolute bottom-0 right-0 top-0 m-auto w-px transition-all group-hover:w-0.5 group-data-[resize-handle-active=pointer]:w-0.5" />
+        </PanelResizeHandle>
+        <TooltipProvider>
+          <Tooltip delayDuration={300}>
+            <CollapseButton
+              open={collapsed}
+              openDirection="left"
+              className="absolute -right-8 bottom-0 top-0 z-10 my-auto"
+              onClick={() => {
+                if (collapsed) {
+                  panel.current?.expand();
+                } else {
+                  panel.current?.collapse();
+                }
+                setCollapsed(!collapsed);
+              }}
+            />
+
+            <TooltipContent side="right">
+              {collapsed ? 'Show filters' : 'Hide filters'}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
     </>
   );
 }
@@ -147,23 +162,49 @@ export function GraphLayoutRightSidebar({
   className?: string;
   defaultSize: number;
 }) {
-  const [hideContextQuery] = useHideContextQuery();
-
-  if (hideContextQuery) {
-    return;
-  }
+  const panel = useRef<ImperativePanelHandle>(null);
+  const [collapsed, setCollapsed] = useState(Boolean(defaultSize));
 
   return (
     <>
-      <PanelResizeHandle className="group relative z-10 h-full w-4">
-        <div className="bg-border group-data-[resize-handle-active=pointer]:bg-muted-foreground group-hover:bg-muted-foreground/50 absolute bottom-0 left-0 top-0 m-auto w-px transition-all group-hover:w-0.5 group-data-[resize-handle-active=pointer]:w-0.5" />
-      </PanelResizeHandle>
+      <div className="relative z-20 h-full w-4">
+        <PanelResizeHandle className="group relative z-10 h-full w-4">
+          <div className="bg-border group-data-[resize-handle-active=pointer]:bg-muted-foreground group-hover:bg-muted-foreground/50 absolute bottom-0 left-0 top-0 m-auto w-px transition-all group-hover:w-0.5 group-data-[resize-handle-active=pointer]:w-0.5" />
+        </PanelResizeHandle>
+        <TooltipProvider>
+          <Tooltip delayDuration={300}>
+            <CollapseButton
+              open={collapsed}
+              openDirection="right"
+              className="absolute -left-8 bottom-0 top-0 z-10 my-auto"
+              onClick={() => {
+                if (collapsed) {
+                  panel.current?.expand();
+                } else {
+                  panel.current?.collapse();
+                }
+                setCollapsed(!collapsed);
+              }}
+            />
+
+            <TooltipContent side="left">
+              {collapsed ? 'Show context' : 'Hide context'}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
       <Panel
+        collapsedSize={0}
+        onResize={() => setCollapsed(false)}
+        onCollapse={() => setCollapsed(true)}
+        ref={panel}
+        id="context"
+        collapsible
         order={3}
         defaultSize={defaultSize}
-        minSize={15}
+        minSize={20}
         className={cn(
-          'relative z-20 hidden h-full shrink-0 grow-0 md:block',
+          'relative z-20 hidden h-full shrink-0 grow-0 overflow-visible md:block',
           className,
         )}
       >
@@ -182,30 +223,13 @@ export function GraphLayoutMain({
   className?: string;
   defaultSize: number;
 }) {
-  const [hideFiltersQuery, setHideFiltersQuery] = useHideFiltersQuery();
-  const [hideContextQuery, setHideContextQuery] = useHideContextQuery();
-
   return (
     <Panel
       order={2}
-      minSize={45}
+      minSize={30}
       defaultSize={defaultSize}
       className="align-stretch relative flex h-full w-full grow overflow-hidden"
     >
-      <TooltipProvider>
-        <Tooltip delayDuration={300}>
-          <CollapseButton
-            open={!hideFiltersQuery}
-            openDirection="right"
-            className="absolute bottom-0 left-0 top-0 z-10 my-auto"
-            onClick={() => setHideFiltersQuery(!hideFiltersQuery)}
-          />
-
-          <TooltipContent side="right">
-            {hideFiltersQuery ? 'Show filters' : 'Hide filters'}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
       <div
         className={cn(
           'bg-interactive relative flex h-full w-full flex-col overflow-hidden',
@@ -215,20 +239,6 @@ export function GraphLayoutMain({
       >
         {children}
       </div>
-      <TooltipProvider>
-        <Tooltip delayDuration={300}>
-          <CollapseButton
-            open={!hideContextQuery}
-            openDirection="left"
-            className="absolute bottom-0 right-0 top-0 z-10 my-auto"
-            onClick={() => setHideContextQuery(!hideContextQuery)}
-          />
-
-          <TooltipContent side="left">
-            {hideContextQuery ? 'Show context' : 'Hide context'}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
     </Panel>
   );
 }

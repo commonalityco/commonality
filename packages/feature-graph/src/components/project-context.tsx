@@ -17,7 +17,13 @@ import {
 import { ConformanceResult } from '@commonalityco/utils-conformance';
 import { PackageManager, Status } from '@commonalityco/utils-core';
 import { ResponsivePie } from '@nivo/pie';
-import { BunLogo, NpmLogo, PnpmLogo, YarnLogo } from '@commonalityco/ui-core';
+import {
+  BunLogo,
+  GradientFade,
+  NpmLogo,
+  PnpmLogo,
+  YarnLogo,
+} from '@commonalityco/ui-core';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -32,6 +38,12 @@ import {
 } from '@tanstack/react-table';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
+
+const StatusSortValue = {
+  [Status.Pass]: 2,
+  [Status.Warn]: 1,
+  [Status.Fail]: 0,
+};
 
 const IconByPackageManager = {
   [PackageManager.NPM]: NpmLogo,
@@ -54,7 +66,7 @@ const columns: ColumnDef<ConformanceResult>[] = [
           className="text-muted-foreground hover:text-primary px-0 hover:no-underline"
         >
           Status
-          {isSorted === 'asc' ? (
+          {!isSorted || isSorted === 'asc' ? (
             <ChevronDown className="ml-2 h-4 w-4" />
           ) : (
             <ChevronUp className="ml-2 h-4 w-4" />
@@ -76,6 +88,14 @@ const columns: ColumnDef<ConformanceResult>[] = [
           {status}
         </div>
       );
+    },
+    sortingFn: (rowA, rowB) => {
+      const statusA = rowA.original.status;
+      const statusB = rowB.original.status;
+      const statusAValue = StatusSortValue[statusA];
+      const statusBValue = StatusSortValue[statusB];
+
+      return statusAValue - statusBValue;
     },
   },
   {
@@ -261,103 +281,108 @@ export function ProjectContext({
     checkFailCount === total;
 
   return (
-    <div className="@container flex flex-col py-4">
+    <div className="@container flex h-full flex-col pt-4">
       <PackageManagerIcon className="mb-2 h-8 w-8" />
-      <p className="min-w-0 pb-2 text-xl font-semibold">{projectName}</p>
-      <ScrollArea className="pr-4"></ScrollArea>
-      <Label className="mb-4 inline-block">Constraints</Label>
-      <div className="grid grid-cols-2 gap-4 pr-4">
-        <Card className="flex grow flex-row items-center justify-start px-4 py-2 shadow-none">
-          <Label className="inline-block grow">Valid</Label>
-          <p
-            className={cn('text-right text-2xl font-semibold', {
-              'text-success': constraintPassCount > 0,
-              'text-muted-foreground': constraintPassCount === 0,
-            })}
-          >
-            {constraintPassCount}
-          </p>
-        </Card>
-        <Card className="flex grow flex-row items-center justify-start px-4 py-2 shadow-none">
-          <Label className="inline-block grow">Invalid</Label>
-          <p
-            className={cn('text-right text-2xl font-semibold', {
-              'text-destructive': constraintFailCount > 0,
-              'text-muted-foreground': constraintFailCount === 0,
-            })}
-          >
-            {constraintFailCount}
-          </p>
-        </Card>
-      </div>
-      <Separator className="my-4" />
-      <Label className="mb-4 inline-block">Checks</Label>
-      <div className="grid gap-4 pr-4">
-        <Card className="col-span-2 flex flex-row items-center justify-start shadow-none">
-          <div className="grow px-4 py-2">
-            <Label className="mb-1 inline-block">Conformance</Label>
-            <p className="text-muted-foreground">
-              {checkCount > 0 ? `${checkCount} checks` : 'No checks configured'}
+      <p className="min-w-0 text-xl font-semibold">{projectName}</p>
+      <ScrollArea className="h-full pr-4">
+        <GradientFade placement="top" className="z-50" />
+        <Label className="mb-4 inline-block">Constraints</Label>
+        <div className="grid grid-cols-2 gap-4">
+          <Card className="flex grow flex-row items-center justify-start px-4 py-2 shadow-none">
+            <Label className="inline-block grow">Valid</Label>
+            <p
+              className={cn('text-right text-2xl font-semibold', {
+                'text-success': constraintPassCount > 0,
+                'text-muted-foreground': constraintPassCount === 0,
+              })}
+            >
+              {constraintPassCount}
             </p>
-          </div>
-          <div className="flex flex-nowrap items-center gap-2">
-            <p className="text-2xl font-semibold">{`${score}%`}</p>
-            <div className="h-16 w-16 p-3">
-              <ResponsivePie
-                isInteractive={false}
-                innerRadius={0.8}
-                padAngle={isTotalCount ? 0 : 3}
-                cornerRadius={6}
-                enableArcLabels={false}
-                enableArcLinkLabels={false}
-                colors={{ datum: 'data.color' }}
-                data={[
-                  {
-                    id: 'fail',
-                    value: checkFailCount,
-                    color: 'hsl(var(--destructive))',
-                  },
-                  {
-                    id: 'warn',
-                    value: checkWarnCount,
-                    color: 'hsl(var(--warning))',
-                  },
-                  {
-                    id: 'pass',
-                    value: checkPassCount,
-                    color: 'hsl(var(--success))',
-                  },
-                ]}
-              />
+          </Card>
+          <Card className="flex grow flex-row items-center justify-start px-4 py-2 shadow-none">
+            <Label className="inline-block grow">Invalid</Label>
+            <p
+              className={cn('text-right text-2xl font-semibold', {
+                'text-destructive': constraintFailCount > 0,
+                'text-muted-foreground': constraintFailCount === 0,
+              })}
+            >
+              {constraintFailCount}
+            </p>
+          </Card>
+        </div>
+        <Separator className="my-4" />
+        <Label className="mb-4 inline-block">Checks</Label>
+        <div className="grid gap-4">
+          <Card className="col-span-2 flex flex-row items-center justify-start shadow-none">
+            <div className="grow px-4 py-2">
+              <Label className="mb-1 inline-block">Conformance</Label>
+              <p className="text-muted-foreground">
+                {checkCount > 0
+                  ? `${checkCount} checks`
+                  : 'No checks configured'}
+              </p>
             </div>
-          </div>
-        </Card>
+            <div className="flex flex-nowrap items-center gap-2">
+              <p className="text-2xl font-semibold">{`${score}%`}</p>
+              <div className="h-16 w-16 p-3">
+                <ResponsivePie
+                  isInteractive={false}
+                  innerRadius={0.8}
+                  padAngle={isTotalCount ? 0 : 3}
+                  cornerRadius={6}
+                  enableArcLabels={false}
+                  enableArcLinkLabels={false}
+                  colors={{ datum: 'data.color' }}
+                  data={[
+                    {
+                      id: 'fail',
+                      value: checkFailCount,
+                      color: 'hsl(var(--destructive))',
+                    },
+                    {
+                      id: 'warn',
+                      value: checkWarnCount,
+                      color: 'hsl(var(--warning))',
+                    },
+                    {
+                      id: 'pass',
+                      value: checkPassCount,
+                      color: 'hsl(var(--success))',
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+          </Card>
 
-        <Card className="flex grow flex-row items-center justify-start px-4 py-2 shadow-none">
-          <Label className="inline-block grow">Warnings</Label>
-          <p
-            className={cn('text-right text-2xl font-semibold', {
-              'text-warning': checkWarnCount > 0,
-              'text-muted-foreground': checkWarnCount === 0,
-            })}
-          >
-            {checkWarnCount}
-          </p>
-        </Card>
-        <Card className="flex grow flex-row items-center justify-start px-4 py-2 shadow-none">
-          <Label className="inline-block grow">Failures</Label>
-          <p
-            className={cn('text-right text-2xl font-semibold', {
-              'text-destructive': checkFailCount > 0,
-              'text-muted-foreground': checkFailCount === 0,
-            })}
-          >
-            {checkFailCount}
-          </p>
-        </Card>
+          <Card className="flex grow flex-row items-center justify-start px-4 py-2 shadow-none">
+            <Label className="inline-block grow">Warnings</Label>
+            <p
+              className={cn('text-right text-2xl font-semibold', {
+                'text-warning': checkWarnCount > 0,
+                'text-muted-foreground': checkWarnCount === 0,
+              })}
+            >
+              {checkWarnCount}
+            </p>
+          </Card>
+          <Card className="flex grow flex-row items-center justify-start px-4 py-2 shadow-none">
+            <Label className="inline-block grow">Failures</Label>
+            <p
+              className={cn('text-right text-2xl font-semibold', {
+                'text-destructive': checkFailCount > 0,
+                'text-muted-foreground': checkFailCount === 0,
+              })}
+            >
+              {checkFailCount}
+            </p>
+          </Card>
 
-        <ProjectConformanceTable data={checkResults} />
-      </div>
+          <ProjectConformanceTable data={checkResults} />
+        </div>
+        <GradientFade placement="bottom" className="z-50" />
+      </ScrollArea>
     </div>
   );
 }

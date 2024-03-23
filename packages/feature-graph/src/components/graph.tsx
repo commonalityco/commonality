@@ -18,15 +18,12 @@ import {
 import React, { useCallback } from 'react';
 import { PackageNode } from './package-node';
 import { DependencyEdge } from './dependency-edge';
-import { DependencyEdgeData } from '../utilities/get-edges';
-import { PackageNodeData } from '../utilities/get-nodes';
 import { useSetAtom } from 'jotai';
 import {
   selectedDependenciesAtom,
   selectedPackagesAtom,
 } from '../atoms/graph-atoms';
 import { Dependency, Package } from '@commonalityco/types';
-import { EdgeBase } from '@xyflow/system';
 
 const nodeTypes = {
   package: PackageNode,

@@ -129,7 +129,7 @@ export function DependencyContext({
         </div>
       </div>
       <ScrollArea className="h-full pr-4">
-        <GradientFade placement="top" className="h-4" />
+        <GradientFade placement="top" />
         <div className="grid grid-cols-[auto_1fr] gap-4">
           <Label className="leading-1.5 text-muted-foreground">Version</Label>
           <p>{dependency.version}</p>
@@ -225,7 +225,7 @@ export function DependencyContext({
                         </Tooltip>
                       </TooltipProvider>
                     </div>
-                    <Separator className="my-4" />
+                    <Separator className="my-6" />
                     <div className="flex flex-col gap-2">
                       <p className="text-xs font-semibold">Dependency path</p>
 
@@ -321,7 +321,7 @@ export function DependencyContext({
         ) : (
           <ConstraintsOnboardingCard />
         )}
-        <GradientFade placement="bottom" className="h-4" />
+        <GradientFade placement="bottom" />
       </ScrollArea>
     </div>
   );

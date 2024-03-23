@@ -136,7 +136,7 @@ function PackagesFilterSection({
         <CardFooter>
           <Button asChild variant="outline" size="sm">
             <a
-              href="https://commonality.co/docs/packages"
+              href="https://docs.commonality.co/packages"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -278,7 +278,7 @@ function TagsFilterSection({
         <CardFooter>
           <Button asChild variant="outline" size="sm">
             <a
-              href="https://commonality.co/docs/tags"
+              href="https://docs.commonality.co/tags"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -426,7 +426,7 @@ function CodeownersFilterSection({
         <CardFooter>
           <Button asChild variant="outline" size="sm">
             <a
-              href="https://commonality.co/docs/codeowners"
+              href="https://docs.commonality.co/codeowners"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -552,7 +552,7 @@ export function GraphFilterSidebar({
     filteredPackages.length === 0;
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full py-4 pl-4">
       <div className="bg-background h-full w-full overflow-hidden">
         <div className="flex h-full flex-col content-start gap-4">
           <div className="flex flex-nowrap items-center gap-2">

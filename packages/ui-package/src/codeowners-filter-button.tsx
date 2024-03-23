@@ -37,9 +37,9 @@ export function CodeownersFilterButton({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="justify-between shrink-0 w-56">
-          <div className="flex gap-2 items-center">
-            <Users className="h-4 w-4 text-muted-foreground" />
+        <Button variant="outline" className="w-56 shrink-0 justify-between">
+          <div className="flex items-center gap-2">
+            <Users className="text-muted-foreground h-4 w-4" />
             <span>Codeowners</span>
             <Badge
               variant="outline"
@@ -75,18 +75,18 @@ export function CodeownersFilterButton({
               </div>
             </div>
 
-            <p className="font-medium mb-1">Assign ownership</p>
+            <p className="mb-1 font-medium">Assign ownership</p>
             <p className="text-muted-foreground text-xs">
               Create a <span className="font-mono">CODEOWNERS</span> file to
               assign ownership of packages in your project
             </p>
 
-            <Button asChild variant="secondary" className="w-full mt-3">
+            <Button asChild variant="secondary" className="mt-3 w-full">
               <a
                 className="space-x-1"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://commonality.co/docs/codeowners"
+                href="https://docs.commonality.co/codeowners"
               >
                 <span>Learn more</span>
                 <ExternalLink className="h-3 w-3" />

@@ -35,7 +35,7 @@ export async function openProjectConfig() {
     );
 
     const fileContent =
-      "import { defineConfig } from 'commonality';\n\nexport default defineConfig({\n  // Add checks and constraints here\n  // Check out https://commonality.co/docs/get-started to get started.\n});\n";
+      "import { defineConfig } from 'commonality';\n\nexport default defineConfig({\n  // Add checks and constraints here\n  // Check out https://docs.commonality.co/quickstart to get started.\n});\n";
 
     await fs.outputFile(defaultPath, fileContent);
 

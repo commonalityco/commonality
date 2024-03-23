@@ -279,10 +279,10 @@ export function PackageContext({
         <Icon className="h-8 w-8" />
         {headerContent}
       </div>
-      <p className="min-w-0 pb-2 text-xl font-semibold">{pkg.name}</p>
+      <p className="min-w-0 text-xl font-semibold">{pkg.name}</p>
       <ScrollArea className="h-full pr-4">
-        <GradientFade placement="top" className="h-4" />
-        <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-6">
+        <GradientFade placement="top" />
+        <div className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-4">
           <Label className="leading-1.5 text-muted-foreground">
             Description
           </Label>
@@ -410,7 +410,7 @@ export function PackageContext({
             <CardFooter>
               <Button asChild variant="outline" size="sm">
                 <a
-                  href="https://commonality.co/docs/checks"
+                  href="https://docs.commonality.co/checks"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -421,7 +421,7 @@ export function PackageContext({
             </CardFooter>
           </Card>
         )}
-        <GradientFade placement="bottom" className="h-4" />
+        <GradientFade placement="bottom" />
       </ScrollArea>
     </div>
   );

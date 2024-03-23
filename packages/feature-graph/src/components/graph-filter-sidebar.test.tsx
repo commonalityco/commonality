@@ -117,7 +117,7 @@ describe('<GraphFilterSidebar/>', () => {
 
         expect(link).toBeTruthy();
         expect(link.getAttribute('href')).toEqual(
-          'https://commonality.co/docs/tags',
+          'https://docs.commonality.co/tags',
         );
       });
     });

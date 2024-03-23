@@ -40,9 +40,9 @@ export function TagsFilterButton({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="justify-between shrink-0 w-56">
-          <div className="flex gap-2 items-center">
-            <Tags className="h-4 w-4 text-muted-foreground" />
+        <Button variant="outline" className="w-56 shrink-0 justify-between">
+          <div className="flex items-center gap-2">
+            <Tags className="text-muted-foreground h-4 w-4" />
             <span>Tags</span>
             <Badge
               variant="outline"
@@ -76,18 +76,18 @@ export function TagsFilterButton({
               </div>
             </div>
 
-            <p className="font-medium mb-1">Get started with tags</p>
+            <p className="mb-1 font-medium">Get started with tags</p>
             <p className="text-muted-foreground text-xs">
               Add tags to a package to enforce dependency constraints and
               categorize packages in your ecosystem.
             </p>
 
-            <Button asChild variant="secondary" className="w-full mt-3">
+            <Button asChild variant="secondary" className="mt-3 w-full">
               <a
                 className="space-x-1"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://commonality.co/docs/tags"
+                href="https://docs.commonality.co/tags"
               >
                 <span>Learn more</span>
                 <ExternalLink className="h-3 w-3" />

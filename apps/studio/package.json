@@ -94,7 +94,6 @@
     "open-editor": "^4.1.1",
     "path-browserify": "^1.0.1",
     "pino": "^8.19.0",
-    "pino-pretty": "^10.3.1",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",

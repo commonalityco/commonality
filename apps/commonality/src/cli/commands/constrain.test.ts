@@ -108,7 +108,7 @@ describe('constrain', () => {
       ↳ pass pkg-two prod
       │      Allowed: *
       │      Found:   No tags found
-      │      
+      │
 
       Packages:    0 failed 1 passed (1)
       Constraints: 0 failed 1 passed (1)",
@@ -151,7 +151,7 @@ describe('constrain', () => {
       ↳ fail pkg-two prod
       │      Allowed: #tag-two
       │      Found:   #tag-three
-      │      
+      │
 
       Packages:    1 failed 0 passed (1)
       Constraints: 1 failed 0 passed (1)",
@@ -194,7 +194,7 @@ describe('constrain', () => {
       ↳ fail pkg-two prod
       │      Disallowed: #tag-three
       │      Found:      #tag-three
-      │      
+      │
 
       Packages:    1 failed 0 passed (1)
       Constraints: 1 failed 0 passed (1)",
@@ -237,7 +237,7 @@ describe('constrain', () => {
       ↳ fail pkg-two prod
       │      Disallowed: #tag-three
       │      Found:      #tag-three
-      │      
+      │
 
       Packages:    1 failed 0 passed (1)
       Constraints: 1 failed 0 passed (1)",
@@ -286,7 +286,7 @@ describe('constrain', () => {
       ↳ fail pkg-two prod → pkg-three prod
       │      Disallowed: #tag-three
       │      Found:      #tag-three
-      │      
+      │
 
       Packages:    1 failed 0 passed (1)
       Constraints: 1 failed 0 passed (1)",
@@ -312,7 +312,7 @@ describe('constrain', () => {
 
       Prevent endless dependency debugging by limiting the which packages can depend on each other.
 
-      https://commonality.co/docs/constraints",
+      https://docs.commonality.co/constraints",
         ],
       ]
     `);

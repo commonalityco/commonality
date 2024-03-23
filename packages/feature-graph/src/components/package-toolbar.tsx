@@ -45,7 +45,7 @@ export function ToolbarButton({
 }
 
 export function PackageToolbar() {
-  const [selectedPackages] = useAtom(selectedPackagesAtom);
+  const [selectedPackages, setSelectedPackages] = useAtom(selectedPackagesAtom);
   const interactions = useInteractions();
 
   const isVisible = Number(selectedPackages?.length) > 0;
@@ -60,14 +60,20 @@ export function PackageToolbar() {
     >
       <ToolbarButton
         text="Focus"
-        onClick={() => interactions.focus(selectedNodeIds)}
+        onClick={() => {
+          interactions.focus(selectedNodeIds);
+          setSelectedPackages([]);
+        }}
       >
         <Focus className="h-4 w-4" />
       </ToolbarButton>
 
       <ToolbarButton
         text="Hide"
-        onClick={() => interactions.hide(selectedNodeIds)}
+        onClick={() => {
+          interactions.hide(selectedNodeIds);
+          setSelectedPackages([]);
+        }}
       >
         <EyeOff className="h-4 w-4" />
       </ToolbarButton>

@@ -18,12 +18,10 @@ import {
   getElementsWithLayout,
   GraphEmpty,
   COOKIE_FILTER_SIDEBAR,
-  COOKIE_GRAPH_LAYOUT_ONE,
-  COOKIE_GRAPH_LAYOUT_TWO,
   GraphLayoutRightSidebar,
   GraphContextSidebar,
-  COOKIE_GRAPH_LAYOUT_THREE,
   PackageToolbar,
+  COOKIE_GRAPH_LAYOUT,
 } from '@commonalityco/feature-graph';
 import * as z from 'zod';
 import {
@@ -42,6 +40,41 @@ import { EditTagsButton } from '@/components/edit-tags-dialog';
 import { Provider } from 'jotai';
 import { getConformanceResultsData } from '@/data/conformance';
 import { getProjectData } from '@/data/project';
+import { unstable_cache } from 'next/cache';
+
+const getSnapshot = unstable_cache(
+  async () => {
+    const [
+      tagsData,
+      packages,
+      dependencies,
+      results,
+      codeownersData,
+      checkResults,
+      project,
+    ] = await Promise.all([
+      getTagsData(),
+      getPackagesData(),
+      getDependenciesData(),
+      getConstraintsData(),
+      getCodeownersData(),
+      getConformanceResultsData(),
+      getProjectData(),
+    ]);
+
+    return {
+      tagsData,
+      packages,
+      dependencies,
+      results,
+      codeownersData,
+      checkResults,
+      project,
+    };
+  },
+  [],
+  { revalidate: false },
+);
 
 async function GraphPage({
   searchParams,
@@ -54,10 +87,7 @@ async function GraphPage({
 }) {
   const cookieStore = cookies();
   const defaultLayoutCookie = cookieStore.get(COOKIE_FILTER_SIDEBAR);
-  const graphLayoutOne = cookieStore.get(COOKIE_GRAPH_LAYOUT_ONE);
-  const graphLayoutTwo = cookieStore.get(COOKIE_GRAPH_LAYOUT_TWO);
-  const graphLayoutThree = cookieStore.get(COOKIE_GRAPH_LAYOUT_THREE);
-
+  const graphLayout = cookieStore.get(COOKIE_GRAPH_LAYOUT);
   const defaultTheme = cookieStore.get('commonality:theme')?.value as
     | Theme.Light
     | Theme.Dark
@@ -80,7 +110,7 @@ async function GraphPage({
 
   const defaultLayout = getDefaultLayout();
 
-  const [
+  const {
     tagsData,
     packages,
     dependencies,
@@ -88,15 +118,7 @@ async function GraphPage({
     codeownersData,
     checkResults,
     project,
-  ] = await Promise.all([
-    getTagsData(),
-    getPackagesData(),
-    getDependenciesData(),
-    getConstraintsData(),
-    getCodeownersData(),
-    getConformanceResultsData(),
-    getProjectData(),
-  ]);
+  } = await getSnapshot();
 
   const packagesQuery = packagesParser.parseServerSide(searchParams?.packages);
   const colorQuery = colorParser.parseServerSide(searchParams?.color);
@@ -117,7 +139,7 @@ async function GraphPage({
     activeDependencyTypes: colorQuery ?? [DependencyType.PRODUCTION],
   });
 
-  const getShownElements = async () => {
+  const getShownElements = () => {
     const filteredNodes =
       packagesQuery !== null
         ? allNodes.filter((node) =>
@@ -136,11 +158,9 @@ async function GraphPage({
     return elements;
   };
 
-  const shownElements = await getShownElements();
+  const shownElements = getShownElements();
 
-  const leftSidebarDefaultSize = numberSafeParse(graphLayoutOne?.value);
-  const rightSidebarDefaultSize = numberSafeParse(graphLayoutThree?.value);
-  const mainDefaultSize = numberSafeParse(graphLayoutTwo?.value);
+  const parsedGraphLayout = JSON.parse(graphLayout?.value ?? '[]');
 
   return (
     <Provider>
@@ -151,7 +171,7 @@ async function GraphPage({
         defaultNodes={shownElements.nodes}
       >
         <GraphLayoutRoot>
-          <GraphLayoutLeftSidebar defaultSize={leftSidebarDefaultSize as any}>
+          <GraphLayoutLeftSidebar defaultSize={parsedGraphLayout[0] ?? 0}>
             <GraphFilterSidebar
               tagsData={tagsData}
               codeownersData={codeownersData}
@@ -159,7 +179,7 @@ async function GraphPage({
               defaultLayout={defaultLayout}
             />
           </GraphLayoutLeftSidebar>
-          <GraphLayoutMain defaultSize={mainDefaultSize ?? 45}>
+          <GraphLayoutMain defaultSize={parsedGraphLayout[1]}>
             {shownElements.nodes.length === 0 ? (
               <GraphEmpty />
             ) : (
@@ -180,7 +200,7 @@ async function GraphPage({
               </>
             )}
           </GraphLayoutMain>
-          <GraphLayoutRightSidebar defaultSize={rightSidebarDefaultSize as any}>
+          <GraphLayoutRightSidebar defaultSize={parsedGraphLayout[2] ?? 0}>
             <GraphContextSidebar
               packages={packages}
               projectName={project.name}

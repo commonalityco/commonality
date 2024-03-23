@@ -71,7 +71,7 @@ function StudioNavigation({
             </Button>
             <Button asChild variant="link">
               <Link
-                href="https://commonality.co/docs/overview"
+                href="https://docs.commonality.co/overview"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hidden flex-nowrap items-center gap-2 md:flex"
