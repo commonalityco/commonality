@@ -247,7 +247,7 @@ export function PackageContext({
   checkResults: ConformanceResult[];
   codeownersData: CodeownersData[];
   tagsData: TagsData[];
-  headerContent: React.ReactNode;
+  headerContent?: React.ReactNode;
 }) {
   const packageResults = checkResults.filter(
     (result) => result.package.name === pkg.name,
