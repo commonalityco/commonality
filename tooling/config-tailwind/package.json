@@ -14,9 +14,6 @@
   "engines": {
     "node": ">=14.6"
   },
-  "peerDependencies": {
-    "tailwindcss": "^3"
-  },
   "dependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.10",
