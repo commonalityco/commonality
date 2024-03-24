@@ -1,5 +1,12 @@
 # workshop
 
+## 1.0.39
+
+### Patch Changes
+
+- Updated dependencies [bfddcb3]
+  - @commonalityco/feature-graph@0.1.0
+
 ## 1.0.38
 
 ### Patch Changes
