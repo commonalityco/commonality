@@ -1,5 +1,14 @@
 # @commonalityco/constraints
 
+## 0.2.46
+
+### Patch Changes
+
+- 5b8761b: Update layout of graph and deprecate packages
+- Updated dependencies [5b8761b]
+  - @commonalityco/utils-core@0.2.42
+  - @commonalityco/data-project@0.2.46
+
 ## 0.2.45
 
 ### Patch Changes
