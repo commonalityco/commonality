@@ -14,12 +14,8 @@
   "engines": {
     "node": ">=14.6"
   },
-  "peerDependencies": {
-    "@tailwindcss/typography": "^0.5.9",
-    "tailwindcss": "^3.3.3",
-    "tailwindcss-animate": "^1.0.6"
-  },
-  "devDependencies": {
+  "dependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.10",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",

@@ -33,10 +33,10 @@
     "@commonalityco/utils-core": "workspace:*"
   },
   "devDependencies": {
-    "@commonalityco/data-project": "workspace:*",
-    "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/data-project": "workspace:*",
     "@commonalityco/types": "workspace:*",
+    "@commonalityco/utils-core": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.11.20",
     "eslint-config-commonality": "workspace:*",

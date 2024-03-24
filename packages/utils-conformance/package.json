@@ -14,6 +14,7 @@
   "exports": {
     ".": "./dist/index.js",
     "./get-conformance-results": "./dist/get-conformance-results.js",
+    "./get-conformance-score": "./dist/get-conformance-score.js",
     "./get-status-for-results": "./dist/get-status-for-results.js",
     "./get-resolved-checks": "./dist/get-resolved-checks.js",
     "./run-fixes": "./dist/run-fixes.js"

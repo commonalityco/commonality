@@ -7,6 +7,13 @@ import {
   getResolvedChecks,
 } from '@commonalityco/utils-conformance';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
+import { Status } from '@commonalityco/utils-core';
+
+const StatusSortValue = {
+  [Status.Pass]: 2,
+  [Status.Warn]: 1,
+  [Status.Fail]: 0,
+};
 
 export const getConformanceResultsData = async () => {
   const packages = await getPackagesData();
@@ -35,5 +42,9 @@ export const getConformanceResultsData = async () => {
     codeownersData,
   });
 
-  return results;
+  return results.map(({ fix, ...result }) => {
+    return {
+      ...result,
+    };
+  });
 };

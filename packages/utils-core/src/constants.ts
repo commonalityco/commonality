@@ -1,3 +1,4 @@
+import { describe } from 'vitest';
 import z from 'zod';
 
 export enum Theme {

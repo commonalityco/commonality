@@ -5,5 +5,5 @@ export const formatTagName = (tagName: string) => {
     return 'All packages';
   }
 
-  return `#${slugifyTagName(tagName)}`;
+  return slugifyTagName(tagName);
 };

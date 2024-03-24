@@ -312,7 +312,7 @@ describe('constrain', () => {
 
       Prevent endless dependency debugging by limiting the which packages can depend on each other.
 
-      https://commonality.co/docs/constraints",
+      https://docs.commonality.co/constraints",
         ],
       ]
     `);

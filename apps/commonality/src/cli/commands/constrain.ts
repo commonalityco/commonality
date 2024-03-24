@@ -27,7 +27,7 @@ class ConstrainLogger extends Logger {
   addEmptyMessage() {
     const title = c.bold(`You don't have any constraints configured.`);
     const body = `Prevent endless dependency debugging by limiting the which packages can depend on each other.`;
-    const link = 'https://commonality.co/docs/constraints';
+    const link = 'https://docs.commonality.co/constraints';
 
     this.output += `\n${title}\n\n${body}\n\n${link}`;
   }
