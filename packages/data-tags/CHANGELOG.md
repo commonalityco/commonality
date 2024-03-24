@@ -1,5 +1,12 @@
 # @commonalityco/snapshot
 
+## 0.2.47
+
+### Patch Changes
+
+- Updated dependencies [5b8761b]
+  - @commonalityco/utils-core@0.2.42
+
 ## 0.2.46
 
 ### Patch Changes

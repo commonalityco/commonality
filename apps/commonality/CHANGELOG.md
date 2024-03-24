@@ -1,5 +1,13 @@
 # @commonalityco/cli
 
+## 0.2.61
+
+### Patch Changes
+
+- 5b8761b: Update layout of graph and deprecate packages
+- Updated dependencies [5b8761b]
+  - @commonalityco/studio@0.2.54
+
 ## 0.2.60
 
 ### Patch Changes

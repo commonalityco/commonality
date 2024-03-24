@@ -1,5 +1,11 @@
 # @commonalityco/ui-design-system
 
+## 0.2.42
+
+### Patch Changes
+
+- 5b8761b: Update layout of graph and deprecate packages
+
 ## 0.2.41
 
 ### Patch Changes

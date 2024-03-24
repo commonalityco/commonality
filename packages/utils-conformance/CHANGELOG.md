@@ -1,5 +1,13 @@
 # @commonalityco/utils-conformance
 
+## 0.2.43
+
+### Patch Changes
+
+- 5b8761b: Update layout of graph and deprecate packages
+- Updated dependencies [5b8761b]
+  - @commonalityco/utils-core@0.2.42
+
 ## 0.2.42
 
 ### Patch Changes

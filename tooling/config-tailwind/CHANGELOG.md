@@ -1,5 +1,11 @@
 # @commonalityco/config-tailwind
 
+## 0.2.40
+
+### Patch Changes
+
+- 5b8761b: Update layout of graph and deprecate packages
+
 ## 0.2.39
 
 ### Patch Changes

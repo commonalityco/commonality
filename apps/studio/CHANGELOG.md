@@ -1,5 +1,13 @@
 # @commonalityco/dashboard
 
+## 0.2.54
+
+### Patch Changes
+
+- 5b8761b: Update layout of graph and deprecate packages
+- Updated dependencies [5b8761b]
+  - @commonalityco/feature-graph@0.0.1
+
 ## 0.2.53
 
 ### Patch Changes
