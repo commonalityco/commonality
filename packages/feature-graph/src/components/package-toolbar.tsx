@@ -56,7 +56,7 @@ export function PackageToolbar() {
       isVisible={isVisible}
       nodeId={selectedPackages.map((pkg) => pkg.name)}
       position={Position.Bottom}
-      className="bg-primary light flex gap-1 rounded-lg p-1"
+      className="bg-primary light flex origin-top gap-1 rounded-lg p-1"
     >
       <ToolbarButton
         text="Focus"

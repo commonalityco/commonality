@@ -101,7 +101,7 @@ export function GraphLayoutLeftSidebar({
   className?: string;
   defaultSize: number;
 }) {
-  const [collapsed, setCollapsed] = useState(Boolean(defaultSize));
+  const [collapsed, setCollapsed] = useState(!defaultSize);
   const panel = useRef<ImperativePanelHandle>(null);
 
   return (
@@ -110,8 +110,9 @@ export function GraphLayoutLeftSidebar({
         ref={panel}
         collapsedSize={0}
         collapsible
-        onResize={() => setCollapsed(false)}
-        onCollapse={() => setCollapsed(true)}
+        onCollapse={(collapse) => {
+          setCollapsed(collapse);
+        }}
         id="left-sidebar"
         order={1}
         defaultSize={defaultSize}
@@ -163,7 +164,7 @@ export function GraphLayoutRightSidebar({
   defaultSize: number;
 }) {
   const panel = useRef<ImperativePanelHandle>(null);
-  const [collapsed, setCollapsed] = useState(Boolean(defaultSize));
+  const [collapsed, setCollapsed] = useState(!defaultSize);
 
   return (
     <>
@@ -180,10 +181,11 @@ export function GraphLayoutRightSidebar({
               onClick={() => {
                 if (collapsed) {
                   panel.current?.expand();
+                  setCollapsed(false);
                 } else {
                   panel.current?.collapse();
+                  setCollapsed(true);
                 }
-                setCollapsed(!collapsed);
               }}
             />
 
@@ -195,8 +197,9 @@ export function GraphLayoutRightSidebar({
       </div>
       <Panel
         collapsedSize={0}
-        onResize={() => setCollapsed(false)}
-        onCollapse={() => setCollapsed(true)}
+        onCollapse={(collapse) => {
+          setCollapsed(collapse);
+        }}
         ref={panel}
         id="context"
         collapsible

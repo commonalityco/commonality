@@ -10,6 +10,7 @@ export function PackageNode({
   data,
   width,
   height,
+  selected,
   ...rest
 }: NodeProps<Node<PackageNodeData>>) {
   const Icon = getIconForPackage(data.package.type);
@@ -18,8 +19,15 @@ export function PackageNode({
     <div style={{ height, width }} className="group w-full rounded-lg py-2">
       <div
         className={cn(
-          'border-muted-foreground/20 bg-muted group-hover:border-muted-foreground/60 group-active:border-muted-foreground/100 block h-full w-full w-full overflow-hidden rounded-md border px-4 py-2 shadow-[0_0_0_12px_rgba(0,0,0,0.025)] transition duration-100 group-hover:shadow-[0_0_0_12px_rgba(0,0,0,0.065)] dark:shadow-[0_0_0_12px_rgba(255,255,255,0.025)] dark:group-hover:shadow-[0_0_0_12px_rgba(255,255,255,0.065)]',
-          { 'opacity-10': data.muted, 'opacity-100': !data.muted },
+          'bg-muted group-active:border-muted-foreground/100 block h-full w-full overflow-hidden rounded-md border px-4 py-2 shadow-[0_0_0_12px_rgba(0,0,0,0.025)] transition duration-300 dark:shadow-[0_0_0_12px_rgba(255,255,255,0.025)]',
+          {
+            'opacity-10': data.muted,
+            'opacity-100': !data.muted,
+            'border-muted-foreground shadow-[0_0_0_12px_rgba(0,0,0,0.065)] dark:shadow-[0_0_0_12px_rgba(255,255,255,0.065)]':
+              selected,
+            'border-muted-foreground/20 group-hover:border-muted-foreground/60 group-hover:shadow-[0_0_0_12px_rgba(0,0,0,0.065)] dark:group-hover:shadow-[0_0_0_12px_rgba(255,255,255,0.065)]':
+              !selected,
+          },
         )}
       >
         {data.input ? (
