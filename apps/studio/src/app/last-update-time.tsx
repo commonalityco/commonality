@@ -20,7 +20,6 @@ function LastUpdateTime() {
       socket.on(
         'project-updated',
         debounce((data) => {
-          debugger;
           router.refresh();
 
           setLastUpdated(new Date());
@@ -47,7 +46,7 @@ function LastUpdateTime() {
   }, [count]);
 
   return (
-    <div className="text-muted-foreground text-xs animate-in fade-in truncate pb-2">
+    <div className="text-muted-foreground animate-in fade-in truncate pr-4 text-xs">
       {`Last updated ${formatRelative(new Date(), lastUpdated)}`}
     </div>
   );

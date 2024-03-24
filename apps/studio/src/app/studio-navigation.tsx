@@ -10,14 +10,11 @@ import { useTheme } from 'next-themes';
 import { Button } from '@commonalityco/ui-design-system';
 import Link from 'next/link';
 import { setCookie } from 'cookies-next';
-import { NavigationButton } from '@commonalityco/ui-core';
-import { ExternalLink, Network, PackageCheck } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { ExternalLink } from 'lucide-react';
 import { PackageManager } from '@commonalityco/utils-core';
 import { NpmLogo, PnpmLogo, YarnLogo } from '@commonalityco/ui-core';
 
 import dynamic from 'next/dynamic';
-import { EditConfigButton } from '@/components/edit-config-button';
 
 const LastUpdateTime = dynamic(() => import('./last-update-time'), {
   ssr: false,
@@ -43,7 +40,6 @@ function StudioNavigation({
 }) {
   const { setTheme } = useTheme();
   const PackageManagerIcon = IconByPackageManager[packageManager];
-  const pathname = usePathname();
 
   return (
     <div>
@@ -58,6 +54,7 @@ function StudioNavigation({
             <h1 className="text-foreground text-base font-semibold">{title}</h1>
           </div>
           <div className="flex items-center">
+            <LastUpdateTime />
             <Button asChild variant="link">
               <Link
                 href="https://github.com/commonalityco/commonality/issues/new?title=Feedback+for+%22Commonality+Studio%22&labels=feedback"

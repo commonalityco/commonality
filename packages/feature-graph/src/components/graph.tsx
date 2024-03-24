@@ -245,12 +245,7 @@ export const Graph = ({
             position="top-right"
           />
 
-          <Background
-            variant={BackgroundVariant.Dots}
-            size={1}
-            // gap={3}
-            // offset={1000}
-          />
+          <Background variant={BackgroundVariant.Dots} size={1} />
         </ReactFlow>
       </div>
     </div>
