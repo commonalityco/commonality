@@ -4,9 +4,11 @@
 import { GraphFilterSidebar } from './graph-filter-sidebar';
 import { render, screen } from '@testing-library/react';
 import { ComponentPropsWithoutRef } from 'react';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Package } from '@commonalityco/types';
 import { PackageType } from '@commonalityco/utils-core';
+import { GraphInteractionProvider } from '../context/interaction-context';
+import * as queryHooks from '../query/query-hooks';
 
 const renderSidebar = (properties: {
   initialSearch: ComponentPropsWithoutRef<
@@ -18,7 +20,11 @@ const renderSidebar = (properties: {
     typeof GraphFilterSidebar
   >['codeownersData'];
 }) => {
-  render(<GraphFilterSidebar {...properties} />);
+  render(
+    <GraphInteractionProvider allNodes={[]} allEdges={[]}>
+      <GraphFilterSidebar {...properties} />
+    </GraphInteractionProvider>,
+  );
 };
 
 const packageOne = {
@@ -59,6 +65,10 @@ const packageFive = {
 };
 
 describe('<GraphFilterSidebar/>', () => {
+  beforeEach(() => {
+    vi.spyOn(queryHooks, 'usePackagesQuery').mockReturnValue([[], vi.fn()]);
+  });
+
   describe('when there is no search', () => {
     const initialSearch = undefined;
 

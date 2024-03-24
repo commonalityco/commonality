@@ -13,7 +13,6 @@
     "@commonalityco/feature-graph": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
-    "@commonalityco/ui-package": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@storybook/test": "^8.0.0",
     "@tremor/react": "^3.14.1",

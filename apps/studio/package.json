@@ -55,7 +55,6 @@
     "@commonalityco/types": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
-    "@commonalityco/ui-package": "workspace:*",
     "@commonalityco/utils-conformance": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-package": "workspace:*",
