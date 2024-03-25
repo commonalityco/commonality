@@ -253,9 +253,6 @@ importers:
 
   apps/studio:
     dependencies:
-      '@commonalityco/feature-graph':
-        specifier: workspace:*
-        version: link:../../packages/feature-graph
       '@xyflow/react':
         specifier: 12.0.0-next.11
         version: 12.0.0-next.11(@types/react@18.2.66)(react-dom@18.2.0)(react@18.2.0)
@@ -314,6 +311,9 @@ importers:
       '@commonalityco/data-tags':
         specifier: workspace:*
         version: link:../../packages/data-tags
+      '@commonalityco/feature-graph':
+        specifier: workspace:*
+        version: link:../../packages/feature-graph
       '@commonalityco/types':
         specifier: workspace:*
         version: link:../../packages/types
