@@ -1,5 +1,11 @@
 # @commonalityco/dashboard
 
+## 0.2.57
+
+### Patch Changes
+
+- ce1791f: fix studio versioning
+
 ## 0.2.55
 
 ### Patch Changes
