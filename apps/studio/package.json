@@ -30,7 +30,6 @@
     "dist/"
   ],
   "dependencies": {
-    "@commonalityco/feature-graph": "workspace:*",
     "@xyflow/react": "12.0.0-next.11",
     "@xyflow/system": "^0.0.17",
     "chokidar": "^3.6.0",
@@ -46,6 +45,7 @@
   "devDependencies": {
     "@babel/core": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
+    "@commonalityco/feature-graph": "workspace:*",
     "@commonalityco/config-tailwind": "workspace:*",
     "@commonalityco/data-codeowners": "workspace:*",
     "@commonalityco/data-constraints": "workspace:*",
