@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/studio",
   "description": "The Next.js application that powers Commonality Studio",
-  "version": "0.2.55",
+  "version": "0.2.56",
   "publishConfig": {
     "access": "public"
   },
@@ -30,7 +30,6 @@
     "dist/"
   ],
   "dependencies": {
-    "@commonalityco/feature-graph": "workspace:*",
     "@xyflow/react": "12.0.0-next.11",
     "@xyflow/system": "^0.0.17",
     "chokidar": "^3.6.0",
@@ -55,6 +54,7 @@
     "@commonalityco/types": "workspace:*",
     "@commonalityco/ui-core": "workspace:*",
     "@commonalityco/ui-design-system": "workspace:*",
+    "@commonalityco/feature-graph": "workspace:*",
     "@commonalityco/utils-conformance": "workspace:*",
     "@commonalityco/utils-core": "workspace:*",
     "@commonalityco/utils-package": "workspace:*",
