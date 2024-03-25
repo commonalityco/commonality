@@ -1,5 +1,11 @@
 # @commonalityco/cli
 
+## 0.2.62
+
+### Patch Changes
+
+- @commonalityco/studio@0.2.55
+
 ## 0.2.61
 
 ### Patch Changes

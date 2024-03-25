@@ -1,5 +1,11 @@
 # @commonalityco/feature-graph
 
+## 0.1.0
+
+### Minor Changes
+
+- bfddcb3: release feature-graph
+
 ## 0.0.1
 
 ### Patch Changes

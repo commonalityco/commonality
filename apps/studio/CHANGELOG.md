@@ -1,5 +1,12 @@
 # @commonalityco/dashboard
 
+## 0.2.55
+
+### Patch Changes
+
+- Updated dependencies [bfddcb3]
+  - @commonalityco/feature-graph@0.1.0
+
 ## 0.2.54
 
 ### Patch Changes
