@@ -33,7 +33,7 @@
     "@commonalityco/config-tsconfig": "workspace:*",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
-    "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/coverage-v8": "^1.4.0",
     "commonality": "workspace:*",
     "commonality-checks-recommended": "workspace:*",
     "eslint": "^8.56.0",
@@ -47,7 +47,7 @@
     "ts-node": "^10.9.2",
     "turbo": "^1.12.4",
     "typescript": "^5.4.2",
-    "vitest": "^0.34.6"
+    "vitest": "^1.4.0"
   },
   "devDependencies": {
     "@commonalityco/studio": "workspace:^",
