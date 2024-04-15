@@ -82,7 +82,7 @@
     "cookies-next": "^4.1.1",
     "cypress": "^13.6.5",
     "date-fns": "^2.30.0",
-    "eslint-config-next": "^14.1.0",
+    "eslint-config-next": "^14.2.1",
     "fs-extra": "^11.2.0",
     "get-port": "^7.0.0",
     "jest": "^29.7.0",
