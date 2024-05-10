@@ -25,7 +25,7 @@
     "@types/react": "^18.2.57",
     "eslint-config-commonality": "workspace:*",
     "lucide-react": "^0.317.0",
-    "next": "14.0.4",
+    "next": "14.1.1",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -37,7 +37,7 @@
     "@commonalityco/ui-design-system": "*",
     "@commonalityco/utils-core": "*",
     "lucide-react": "^0.x",
-    "next": "14.0.4",
+    "next": "14.1.1",
     "next-themes": "^0.x",
     "react": ">=18",
     "react-dom": ">=18"
