@@ -43,7 +43,7 @@
     "cmdk": "^0.2.1",
     "react-hook-form": "^7.50.1",
     "react-select": "^5.8.0",
-    "sonner": "^1.4.0",
+    "sonner": "^1.5.0",
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
