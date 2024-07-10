@@ -66,5 +66,7 @@ export const getPackage = async ({
       ...packageJson.devDependencies,
     }),
     version: packageJson.version ?? '',
+    churn: 0.3,
+    complexity: 0.3,
   } satisfies Package;
 };

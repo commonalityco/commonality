@@ -1,7 +1,7 @@
 {
   "name": "@commonalityco/monorepo",
   "version": "0.0.1",
-  "packageManager": "pnpm@8.15.3",
+  "packageManager": "pnpm@9.3.0",
   "description": "",
   "repository": "https://github.com/commonalityco/commonality",
   "contributors": [
@@ -19,8 +19,8 @@
     "lint": "turbo run lint --cache-dir=.turbo",
     "prepare": "husky install",
     "test:integration": "CI=true turbo run test:integration",
-    "test:watch": "vitest run --watch",
-    "test": "vitest run",
+    "test:watch": "turbo watch test --cache-dir=.turbo",
+    "test": "turbo run test --cache-dir=.turbo",
     "type-check": "turbo run type-check --cache-dir=.turbo",
     "unlink-all": "ts-node scripts/unlink-all.ts",
     "knip": "knip"
@@ -29,28 +29,25 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@changesets/cli": "^2.27.1",
+    "@changesets/cli": "^2.27.7",
     "@commonalityco/config-tsconfig": "workspace:*",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
-    "@vitest/coverage-v8": "^0.34.6",
     "commonality": "workspace:*",
     "commonality-checks-recommended": "workspace:*",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "eslint-config-commonality": "workspace:*",
-    "eslint-plugin-unused-imports": "^3.1.0",
+    "eslint-plugin-unused-imports": "^3.2.0",
     "execa": "^8.0.1",
     "husky": "^8.0.3",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.2.5",
-    "prettier-plugin-tailwindcss": "^0.5.11",
+    "prettier": "^3.3.2",
+    "prettier-plugin-tailwindcss": "^0.5.14",
     "ts-node": "^10.9.2",
-    "turbo": "^1.12.4",
-    "typescript": "^5.4.2",
-    "vitest": "^0.34.6"
-  },
-  "devDependencies": {
+    "turbo": "2.0.6",
+    "typescript": "^5.5.3",
     "@commonalityco/studio": "workspace:^",
-    "knip": "^5.0.4"
+    "knip": "^5.25.1",
+    "pkg-pr-new": "^0.0.15"
   }
 }
