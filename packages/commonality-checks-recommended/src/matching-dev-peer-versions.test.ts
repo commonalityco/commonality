@@ -31,13 +31,13 @@ describe('matching-dev-peer-versions', () => {
         // @ts-expect-error - expecting message object
         expect(result.suggestion).toMatchInlineSnapshot(
           `
-          "  Object {
-              "devDependencies": undefined,
-          +   "devDependencies": Object {
-          +     "pkg-b": "^18.0.0",
-          +   },
-            }"
-        `,
+            "  Object {
+                "devDependencies": undefined,
+            +   "devDependencies": Object {
+            +     "pkg-b": "^18.0.0",
+            +   },
+              }"
+          `,
         );
       });
     });
