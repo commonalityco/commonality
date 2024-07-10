@@ -29,6 +29,8 @@ export const KitchenSink: Story = {
         description:
           'This is an example package and the description is very long. It is so long that it will wrap to the next line.',
         version: '1.0.0',
+        churn: 0,
+        complexity: 0,
       }}
       checkResults={[
         {
@@ -41,6 +43,8 @@ export const KitchenSink: Story = {
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
+            churn: 0,
+            complexity: 0,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -56,6 +60,8 @@ export const KitchenSink: Story = {
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
+            churn: 0,
+            complexity: 0,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -71,6 +77,8 @@ export const KitchenSink: Story = {
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
+            churn: 0,
+            complexity: 0,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -86,6 +94,8 @@ export const KitchenSink: Story = {
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
+            churn: 0,
+            complexity: 0,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -101,6 +111,8 @@ export const KitchenSink: Story = {
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
+            churn: 0,
+            complexity: 0,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -122,6 +134,8 @@ export const AllPassing: Story = {
         name: 'example-package',
         description: 'This is an example package',
         version: '1.0.0',
+        churn: 0,
+        complexity: 0,
       }}
       checkResults={[
         {
@@ -134,6 +148,8 @@ export const AllPassing: Story = {
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
+            churn: 0,
+            complexity: 0,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -155,6 +171,8 @@ export const Empty: Story = {
         name: 'example-package',
         description: 'This is an example package',
         version: '1.0.0',
+        churn: 0,
+        complexity: 0,
       }}
       checkResults={[]}
     />

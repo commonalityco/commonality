@@ -29,6 +29,8 @@ const pkgOne = {
   version: '1.0.0',
   description: 'This is package A',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const pkgTwo = {
@@ -37,6 +39,8 @@ const pkgTwo = {
   version: '1.0.0',
   description: 'This is package B',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const pkgThree = {
@@ -45,6 +49,8 @@ const pkgThree = {
   version: '1.0.0',
   description: 'This is package C',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const pkgFour = {
@@ -53,6 +59,8 @@ const pkgFour = {
   version: '1.0.0',
   description: 'This is package D',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const pkgFive = {
@@ -61,6 +69,8 @@ const pkgFive = {
   version: '1.0.0',
   description: 'This is package E',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const packages = [

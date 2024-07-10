@@ -44,6 +44,8 @@ export const KitchenSink: Story = {
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
+            churn: 0,
+            complexity: 0,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -59,6 +61,8 @@ export const KitchenSink: Story = {
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
+            churn: 0,
+            complexity: 0,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -74,6 +78,8 @@ export const KitchenSink: Story = {
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
+            churn: 0,
+            complexity: 0,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -89,6 +95,8 @@ export const KitchenSink: Story = {
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
+            churn: 0,
+            complexity: 0,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -104,6 +112,8 @@ export const KitchenSink: Story = {
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
+            churn: 0,
+            complexity: 0,
           },
           message: {
             message: 'This rule makes sure that the package is valid',

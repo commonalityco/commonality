@@ -26,6 +26,8 @@ const pkgOne = {
   name: `@scope/one`,
   version: '1.0.0',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const pkgTwo = {
@@ -33,6 +35,8 @@ const pkgTwo = {
   name: `@scope/two`,
   version: '1.0.0',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const pkgThree = {
@@ -40,6 +44,8 @@ const pkgThree = {
   name: `@scope/three`,
   version: '1.0.0',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const pkgFour = {
@@ -47,6 +53,8 @@ const pkgFour = {
   name: `@scope/four`,
   version: '1.0.0',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const pkgFive = {
@@ -54,6 +62,8 @@ const pkgFive = {
   name: `@scope/five-looooooooooooooonnnnnngggggggg`,
   version: '1.0.0',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 export const KitchenSink: Story = {
