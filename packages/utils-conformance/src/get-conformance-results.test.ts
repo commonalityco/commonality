@@ -24,6 +24,8 @@ describe('getConformanceResults', () => {
         name: 'pkg-a',
         version: '1.0.0',
         type: PackageType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -64,6 +66,8 @@ describe('getConformanceResults', () => {
         name: 'pkg-a',
         version: '1.0.0',
         type: PackageType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -102,6 +106,8 @@ describe('getConformanceResults', () => {
         name: 'pkg-a',
         version: '1.0.0',
         type: PackageType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -140,6 +146,8 @@ describe('getConformanceResults', () => {
         name: 'pkg-a',
         version: '1.0.0',
         type: PackageType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
       },
     ];
     const tagsData: TagsData[] = [];
@@ -179,6 +187,8 @@ describe('getConformanceResults', () => {
         name: 'pkg-a',
         version: '1.0.0',
         type: PackageType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -201,7 +211,6 @@ describe('getConformanceResults', () => {
     const conformersByPattern: Record<string, CheckOutput[]> = {
       tag1: [
         {
-          
           id: '123',
           validate: () => true,
           message: 'Valid workspace for tag1',
@@ -216,6 +225,8 @@ describe('getConformanceResults', () => {
         name: 'pkg-a',
         version: '1.0.0',
         type: PackageType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['tag1'] }];
