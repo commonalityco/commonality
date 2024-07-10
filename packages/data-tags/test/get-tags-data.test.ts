@@ -19,18 +19,24 @@ describe('getTagsData', () => {
           path: 'packages/pkg-one',
           version: '0.0.0',
           type: PackageType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
         {
           name: 'pkg-two',
           path: 'packages/pkg-two',
           version: '0.0.0',
           type: PackageType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
         {
           name: 'pkg-three',
           path: 'packages/pkg-three',
           version: '0.0.0',
           type: PackageType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
       ] satisfies Package[];
 
@@ -61,18 +67,24 @@ describe('getTagsData', () => {
           path: 'packages/pkg-one',
           version: '0.0.0',
           type: PackageType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
         {
           name: 'pkg-two',
           path: 'packages/pkg-two',
           version: '0.0.0',
           type: PackageType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
         {
           name: 'pkg-three',
           path: 'packages/pkg-three',
           version: '0.0.0',
           type: PackageType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
       ] satisfies Package[];
 

@@ -52,8 +52,8 @@ describe('hasTextFile', () => {
       // @ts-expect-error expecting message object
       expect(result.suggestion).toMatchInlineSnapshot(`
         "  Array [
-            \\"Hello World\\",
-        +   \\"Hello Universe\\",
+            "Hello World",
+        +   "Hello Universe",
           ]"
       `);
     });

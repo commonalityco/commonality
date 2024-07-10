@@ -117,11 +117,11 @@ describe('consistent-external-version', () => {
       // @ts-expect-error expecting message object
       expect(result.suggestion).toMatchInlineSnapshot(`
         "  Object {
-            \\"dependencies\\": Object {
-              \\"package3\\": \\"3.0.0\\",
-        +     \\"package3\\": \\"1.0.0\\",
+            "dependencies": Object {
+              "package3": "3.0.0",
+        +     "package3": "1.0.0",
             },
-            \\"devDependencies\\": Object {},
+            "devDependencies": Object {},
           }"
       `);
     });
