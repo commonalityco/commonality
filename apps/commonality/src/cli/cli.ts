@@ -1,7 +1,5 @@
 import { Command } from 'commander';
-import { constrain } from './commands/constrain.js';
 import { studio } from './commands/studio.js';
-import { check } from './commands/check.js';
 import { init } from './commands/init.js';
 import packageJson from '../../package.json';
 
@@ -17,8 +15,6 @@ program
   .version(packageJson.version);
 
 program.addCommand(init);
-program.addCommand(check);
-program.addCommand(constrain);
 program.addCommand(studio);
 
 program.parse(process.argv);
