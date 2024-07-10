@@ -89,7 +89,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -128,7 +128,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -167,7 +167,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -206,7 +206,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -247,7 +247,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -263,7 +263,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -304,7 +304,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -320,7 +320,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -361,7 +361,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -408,7 +408,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -424,7 +424,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-c',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -465,7 +465,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -524,19 +524,19 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
           {
             source: 'pkg-b',
             target: 'pkg-c',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
           {
             source: 'pkg-c',
             target: 'pkg-d',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -553,19 +553,19 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'development',
+            type: DependencyType.DEVELOPMENT,
             version: '1.0.0',
           },
           {
             source: 'pkg-b',
             target: 'pkg-c',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
           {
             source: 'pkg-c',
             target: 'pkg-d',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -605,7 +605,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -645,7 +645,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -685,7 +685,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-a',
             target: 'pkg-b',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -774,7 +774,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-one',
             target: 'pkg-two',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -790,7 +790,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-one',
             target: 'pkg-three',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -806,7 +806,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-one',
             target: 'pkg-four',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -822,7 +822,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-four',
             target: 'pkg-six',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],
@@ -838,7 +838,7 @@ describe('get-constraint-results', () => {
           {
             source: 'pkg-three',
             target: 'pkg-one',
-            type: 'production',
+            type: DependencyType.PRODUCTION,
             version: '1.0.0',
           },
         ],

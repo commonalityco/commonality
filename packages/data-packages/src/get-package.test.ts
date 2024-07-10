@@ -53,6 +53,8 @@ describe('getPackage', () => {
       path: 'packages/pkg-one',
       type: PackageType.NODE,
       version: '1.0.0',
+      churn: 0.3,
+      complexity: 0.3,
     });
   });
 });

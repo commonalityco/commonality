@@ -21,6 +21,8 @@ describe('getPackages', () => {
         description: 'root description',
         path: '.',
         type: PackageType.NODE,
+        churn: 0.3,
+        complexity: 0.3,
       },
     ]);
   });
@@ -41,6 +43,8 @@ describe('getPackages', () => {
         description: 'pkg-one description',
         path: 'packages/pkg-one',
         type: PackageType.NODE,
+        churn: 0.3,
+        complexity: 0.3,
       },
       {
         name: 'pkg-two',
@@ -48,6 +52,8 @@ describe('getPackages', () => {
         description: 'pkg-two description',
         path: 'packages/pkg-two',
         type: PackageType.NODE,
+        churn: 0.3,
+        complexity: 0.3,
       },
     ]);
   });
