@@ -700,6 +700,9 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.5.3
+      vitest:
+        specifier: ^2.0.2
+        version: 2.0.2(@types/node@20.14.10)(jsdom@20.0.3)(terser@5.27.2)
 
   packages/data-packages:
     dependencies:
