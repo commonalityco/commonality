@@ -21,6 +21,8 @@ describe('runFixes', () => {
           path: 'path/to/test-package',
           type: PackageType.NODE,
           version: '1.0.0',
+          churn: 0.5,
+          complexity: 0.5,
         },
       },
     ];
@@ -30,6 +32,8 @@ describe('runFixes', () => {
         path: 'path/to/test-package',
         type: PackageType.NODE,
         version: '1.0.0',
+        churn: 0.5,
+        complexity: 0.5,
       },
     ];
     const rootDirectory = 'root/directory';
