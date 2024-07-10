@@ -34,7 +34,8 @@
     "@types/node": "^20.11.20",
     "eslint-config-commonality": "workspace:*",
     "mock-fs": "^5.2.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vitest": "^2.0.2"
   },
   "dependencies": {
     "@commonalityco/utils-core": "workspace:*",
