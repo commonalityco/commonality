@@ -1265,6 +1265,9 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.5.3
+      vitest:
+        specifier: ^0.34.6
+        version: 0.34.6(jsdom@20.0.3)(playwright@1.41.2)(terser@5.27.2)
 
   packages/utils-package:
     devDependencies:
