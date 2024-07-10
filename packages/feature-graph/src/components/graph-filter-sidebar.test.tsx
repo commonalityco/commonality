@@ -32,6 +32,8 @@ const packageOne = {
   name: `@scope/one`,
   version: '1.0.0',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const packageTwo = {
@@ -39,6 +41,8 @@ const packageTwo = {
   name: `@scope/two`,
   version: '1.0.0',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const packageThree = {
@@ -46,6 +50,8 @@ const packageThree = {
   name: `@scope/three`,
   version: '1.0.0',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const packageFour = {
@@ -53,16 +59,18 @@ const packageFour = {
   name: `@scope/four`,
   version: '1.0.0',
   type: PackageType.NODE,
+  churn: 0,
+  complexity: 0,
 } satisfies Package;
 
 const packageFive = {
   path: `/path/to/package-five-looooooooooooooonnnnnngggggggg`,
   name: `@scope/five-looooooooooooooonnnnnngggggggg`,
   version: '1.0.0',
-  tags: ['tag-five'],
-  owners: ['@team-five'],
   type: PackageType.NODE,
-};
+  churn: 0,
+  complexity: 0,
+} satisfies Package;
 
 describe('<GraphFilterSidebar/>', () => {
   beforeEach(() => {
