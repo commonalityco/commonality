@@ -31,6 +31,7 @@
   "dependencies": {
     "@changesets/cli": "^2.27.7",
     "@commonalityco/config-tsconfig": "workspace:*",
+    "@commonalityco/studio": "workspace:^",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "commonality": "workspace:*",
@@ -40,14 +41,14 @@
     "eslint-plugin-unused-imports": "^3.2.0",
     "execa": "^8.0.1",
     "husky": "^8.0.3",
+    "knip": "^5.25.1",
     "npm-run-all": "^4.1.5",
+    "pkg-pr-new": "^0.0.15",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "ts-node": "^10.9.2",
     "turbo": "2.0.6",
     "typescript": "^5.5.3",
-    "@commonalityco/studio": "workspace:^",
-    "knip": "^5.25.1",
-    "pkg-pr-new": "^0.0.15"
+    "vitest": "^2.0.2"
   }
 }
