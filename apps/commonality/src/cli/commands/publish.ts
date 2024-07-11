@@ -48,8 +48,16 @@ export const publish = command
     'The API URL to publish to',
     process.env.COMMONALITY_API_URL ?? 'http://app.commonality.co/api/publish',
   )
-  .requiredOption('--project <projectId>', 'The project ID to publish to')
-  .requiredOption('--key <publishKey>', 'The publish key to publish with')
+  .requiredOption(
+    '--project <projectId>',
+    'The project ID to publish to',
+    process.env.COMMONALITY_PROJECT_ID,
+  )
+  .requiredOption(
+    '--key <publishKey>',
+    'The publish key to publish with',
+    process.env.COMMONALITY_PUBLISH_KEY,
+  )
   .action(async (options) => {
     publishSpinner.start('Publishing snapshot...');
 
