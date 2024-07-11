@@ -81,8 +81,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0
       '@commonalityco/studio':
-        specifier: '*'
-        version: 0.2.57(@types/react@18.2.66)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: workspace:*
+        version: link:../studio
       '@sindresorhus/slugify':
         specifier: ^2.2.1
         version: 2.2.1
@@ -254,7 +254,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
 
   apps/studio:
     dependencies:
@@ -489,7 +489,7 @@ importers:
         version: 4.3.1(typescript@5.5.3)(vite@5.3.3(@types/node@20.14.9)(terser@5.27.2))
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
       which-collection:
         specifier: ^1.0.1
         version: 1.0.1
@@ -696,7 +696,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
 
   packages/data-constraints:
     devDependencies:
@@ -751,7 +751,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
 
   packages/data-project:
     dependencies:
@@ -800,7 +800,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
 
   packages/data-tags:
     dependencies:
@@ -831,7 +831,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
 
   packages/feature-graph:
     dependencies:
@@ -2102,10 +2102,6 @@ packages:
   '@colors/colors@1.5.0':
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
-
-  '@commonalityco/studio@0.2.57':
-    resolution: {integrity: sha512-7PSDDY8zipLREmuNNaOfS7+zslWaNKwBQaUHHQp2J17yBIQ5QPkAQM66bhtbMFFzvNgf4v8zEpKoiDr/EY9lrw==}
-    engines: {node: '>=18.17.0'}
 
   '@commonalityco/studio@https://pkg.pr.new/commonalityco/commonality/@commonalityco/studio@380':
     resolution: {tarball: https://pkg.pr.new/commonalityco/commonality/@commonalityco/studio@380}
@@ -11307,32 +11303,6 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@commonalityco/studio@0.2.57(@types/react@18.2.66)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      '@xyflow/react': 12.0.0-next.11(@types/react@18.2.66)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      '@xyflow/system': 0.0.17
-      chokidar: 3.6.0
-      execa: 8.0.1
-      framer-motion: 11.0.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      jotai: 2.6.5(@types/react@18.2.66)(react@18.2.0)
-      lz-string: 1.5.0
-      next: 14.0.4(@babel/core@7.24.7)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
-      nuqs: 1.17.0(next@14.0.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
-      socket.io: 4.7.4(bufferutil@4.0.8)(utf-8-validate@6.0.3)
-      socket.io-client: 4.7.4(bufferutil@4.0.8)(utf-8-validate@6.0.3)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@opentelemetry/api'
-      - '@types/react'
-      - babel-plugin-macros
-      - bufferutil
-      - immer
-      - react
-      - react-dom
-      - sass
-      - supports-color
-      - utf-8-validate
-
   '@commonalityco/studio@https://pkg.pr.new/commonalityco/commonality/@commonalityco/studio@380(@types/react@18.2.66)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@xyflow/react': 12.0.0-next.11(@types/react@18.2.66)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -14120,7 +14090,7 @@ snapshots:
     optionalDependencies:
       '@jest/globals': 29.7.0
       jest: 29.7.0(@types/node@20.14.9)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.5))(@types/node@20.14.9)(typescript@5.5.3))
-      vitest: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
+      vitest: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
 
   '@testing-library/react@14.2.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
@@ -20963,7 +20933,7 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2):
+  vitest@2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.2
