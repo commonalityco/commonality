@@ -15,8 +15,8 @@ importers:
         specifier: workspace:*
         version: link:tooling/config-tsconfig
       '@commonalityco/studio':
-        specifier: workspace:^
-        version: link:apps/studio
+        specifier: https://pkg.pr.new/commonalityco/commonality/@commonalityco/studio@380
+        version: https://pkg.pr.new/commonalityco/commonality/@commonalityco/studio@380(@types/react@18.2.66)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.21.0
         version: 6.21.0(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.3))(eslint@8.57.0)(typescript@5.5.3)
@@ -24,8 +24,8 @@ importers:
         specifier: ^6.21.0
         version: 6.21.0(eslint@8.57.0)(typescript@5.5.3)
       commonality:
-        specifier: workspace:*
-        version: link:apps/commonality
+        specifier: https://pkg.pr.new/commonalityco/commonality@380
+        version: https://pkg.pr.new/commonalityco/commonality@380
       commonality-checks-recommended:
         specifier: workspace:*
         version: link:packages/commonality-checks-recommended
@@ -77,6 +77,9 @@ importers:
       '@antfu/install-pkg':
         specifier: ^0.3.1
         version: 0.3.1
+      '@clack/prompts':
+        specifier: ^0.7.0
+        version: 0.7.0
       '@commonalityco/studio':
         specifier: '*'
         version: 0.2.57(@types/react@18.2.66)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -125,6 +128,9 @@ importers:
       jiti:
         specifier: ^1.21.0
         version: 1.21.6
+      ky:
+        specifier: ^1.4.0
+        version: 1.4.0
       local-pkg:
         specifier: ^0.5.0
         version: 0.5.0
@@ -165,7 +171,7 @@ importers:
         specifier: ^2.3.4
         version: 2.3.4
       zod:
-        specifier: ^3.22.4
+        specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
       '@commonalityco/config-tsconfig':
@@ -248,7 +254,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
 
   apps/studio:
     dependencies:
@@ -483,7 +489,7 @@ importers:
         version: 4.3.1(typescript@5.5.3)(vite@5.3.3(@types/node@20.14.9)(terser@5.27.2))
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
       which-collection:
         specifier: ^1.0.1
         version: 1.0.1
@@ -690,7 +696,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
 
   packages/data-constraints:
     devDependencies:
@@ -745,7 +751,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
 
   packages/data-project:
     dependencies:
@@ -794,7 +800,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
 
   packages/data-tags:
     dependencies:
@@ -825,7 +831,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: ^2.0.2
-        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
+        version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
 
   packages/feature-graph:
     dependencies:
@@ -2085,12 +2091,25 @@ packages:
   '@changesets/write@0.3.1':
     resolution: {integrity: sha512-SyGtMXzH3qFqlHKcvFY2eX+6b0NGiFcNav8AFsYwy5l8hejOeoeTDemu5Yjmke2V5jpzY+pBvM0vCCQ3gdZpfw==}
 
+  '@clack/core@0.3.4':
+    resolution: {integrity: sha512-H4hxZDXgHtWTwV3RAVenqcC4VbJZNegbBjlPvzOzCouXtS2y3sDvlO3IsbrPNWuLWPPlYVYPghQdSF64683Ldw==}
+
+  '@clack/prompts@0.7.0':
+    resolution: {integrity: sha512-0MhX9/B4iL6Re04jPrttDm+BsP8y6mS7byuv0BvXgdXhbV5PdlsHt55dvNsuBCPZ7xq1oTAOOuotR9NFbQyMSA==}
+    bundledDependencies:
+      - is-unicode-supported
+
   '@colors/colors@1.5.0':
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
   '@commonalityco/studio@0.2.57':
     resolution: {integrity: sha512-7PSDDY8zipLREmuNNaOfS7+zslWaNKwBQaUHHQp2J17yBIQ5QPkAQM66bhtbMFFzvNgf4v8zEpKoiDr/EY9lrw==}
+    engines: {node: '>=18.17.0'}
+
+  '@commonalityco/studio@https://pkg.pr.new/commonalityco/commonality/@commonalityco/studio@380':
+    resolution: {tarball: https://pkg.pr.new/commonalityco/commonality/@commonalityco/studio@380}
+    version: 0.2.57
     engines: {node: '>=18.17.0'}
 
   '@cspotcode/source-map-support@0.8.1':
@@ -5581,6 +5600,12 @@ packages:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
     engines: {node: '>=4.0.0'}
 
+  commonality@https://pkg.pr.new/commonalityco/commonality@380:
+    resolution: {tarball: https://pkg.pr.new/commonalityco/commonality@380}
+    version: 0.2.63
+    engines: {node: '>=18.17.0'}
+    hasBin: true
+
   commondir@1.0.1:
     resolution: {integrity: sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==}
 
@@ -7569,6 +7594,10 @@ packages:
     peerDependencies:
       '@types/node': '>=18'
       typescript: '>=5.0.4'
+
+  ky@1.4.0:
+    resolution: {integrity: sha512-tPhhoGUiEiU/WXR4rt8klIoLdnTtyu+9jVKHd/wauEjYud32jyn63mzKWQweaQrHWxBQtYoVtdcEnYX1LosnFQ==}
+    engines: {node: '>=18'}
 
   language-subtag-registry@0.3.22:
     resolution: {integrity: sha512-tN0MCzyWnoz/4nHS6uxdlFWoUZT7ABptwKPQ52Ea7URk6vll88bWBVhodtnlfEuCcKWNGoc+uGbw1cwa9IKh/w==}
@@ -11264,10 +11293,47 @@ snapshots:
       human-id: 1.0.2
       prettier: 2.8.8
 
+  '@clack/core@0.3.4':
+    dependencies:
+      picocolors: 1.0.1
+      sisteransi: 1.0.5
+
+  '@clack/prompts@0.7.0':
+    dependencies:
+      '@clack/core': 0.3.4
+      picocolors: 1.0.1
+      sisteransi: 1.0.5
+
   '@colors/colors@1.5.0':
     optional: true
 
   '@commonalityco/studio@0.2.57(@types/react@18.2.66)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@xyflow/react': 12.0.0-next.11(@types/react@18.2.66)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@xyflow/system': 0.0.17
+      chokidar: 3.6.0
+      execa: 8.0.1
+      framer-motion: 11.0.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      jotai: 2.6.5(@types/react@18.2.66)(react@18.2.0)
+      lz-string: 1.5.0
+      next: 14.0.4(@babel/core@7.24.7)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      nuqs: 1.17.0(next@14.0.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
+      socket.io: 4.7.4(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+      socket.io-client: 4.7.4(bufferutil@4.0.8)(utf-8-validate@6.0.3)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@opentelemetry/api'
+      - '@types/react'
+      - babel-plugin-macros
+      - bufferutil
+      - immer
+      - react
+      - react-dom
+      - sass
+      - supports-color
+      - utf-8-validate
+
+  '@commonalityco/studio@https://pkg.pr.new/commonalityco/commonality/@commonalityco/studio@380(@types/react@18.2.66)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@xyflow/react': 12.0.0-next.11(@types/react@18.2.66)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@xyflow/system': 0.0.17
@@ -14054,7 +14120,7 @@ snapshots:
     optionalDependencies:
       '@jest/globals': 29.7.0
       jest: 29.7.0(@types/node@20.14.9)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.5))(@types/node@20.14.9)(typescript@5.5.3))
-      vitest: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
+      vitest: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2)
 
   '@testing-library/react@14.2.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
@@ -15506,6 +15572,42 @@ snapshots:
   commander@7.2.0: {}
 
   common-tags@1.8.2: {}
+
+  commonality@https://pkg.pr.new/commonalityco/commonality@380:
+    dependencies:
+      '@antfu/install-pkg': 0.3.1
+      '@commonalityco/studio': link:apps/studio
+      '@sindresorhus/slugify': 2.2.1
+      boxen: 7.1.1
+      chalk: 5.3.0
+      commander: 11.1.0
+      conf: 12.0.0
+      configstore: 6.0.0
+      detect-indent: 7.0.1
+      find-up: 6.3.0
+      fs-extra: 11.2.0
+      get-port: 7.0.0
+      globby: 13.2.2
+      import-meta-resolve: 4.0.0
+      ip: 1.1.9
+      jest-diff: 29.7.0
+      jiti: 1.21.6
+      local-pkg: 0.5.0
+      lodash-es: 4.17.21
+      micromatch: 4.0.7
+      nanoid: 5.0.6
+      ora: 7.0.1
+      pathe: 1.1.2
+      pino: 8.19.0
+      prompts: 2.4.2
+      std-env: 3.7.0
+      strip-ansi: 7.1.0
+      update-notifier: 7.0.0
+      wait-on: 7.2.0(debug@4.3.4)
+      yaml: 2.3.4
+      zod: 3.23.8
+    transitivePeerDependencies:
+      - debug
 
   commondir@1.0.1: {}
 
@@ -18167,6 +18269,8 @@ snapshots:
       typescript: 5.5.3
       zod: 3.23.8
       zod-validation-error: 3.3.0(zod@3.23.8)
+
+  ky@1.4.0: {}
 
   language-subtag-registry@0.3.22: {}
 
@@ -20859,7 +20963,7 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2):
+  vitest@2.0.2(@types/node@20.14.9)(jsdom@20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3))(terser@5.27.2):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.2

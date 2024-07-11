@@ -31,10 +31,10 @@
   "dependencies": {
     "@changesets/cli": "^2.27.7",
     "@commonalityco/config-tsconfig": "workspace:*",
-    "@commonalityco/studio": "workspace:^",
+    "@commonalityco/studio": "https://pkg.pr.new/commonalityco/commonality/@commonalityco/studio@380",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
-    "commonality": "workspace:*",
+    "commonality": "https://pkg.pr.new/commonalityco/commonality@380",
     "commonality-checks-recommended": "workspace:*",
     "eslint": "^8.57.0",
     "eslint-config-commonality": "workspace:*",
