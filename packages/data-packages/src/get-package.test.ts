@@ -55,6 +55,8 @@ describe('getPackage', () => {
       version: '1.0.0',
       churn: 0.3,
       complexity: 0.3,
+      license: 'MIT',
+      private: true,
     });
   });
 });

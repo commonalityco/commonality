@@ -57,11 +57,20 @@ export const getPackage = async ({
     return;
   }
 
-  const isPrivate =
-    packageJson.private === true ||
-    (packageJson.publishConfig !== undefined &&
-      packageJson.publishConfig.access === 'restricted') ||
-    false;
+  const getIsPrivate = () => {
+    if (packageJson.private === true) {
+      return true;
+    }
+    if (packageJson.publishConfig?.access === 'restricted') {
+      return true;
+    }
+    if (packageJson?.name?.startsWith('@')) {
+      // Scoped packages default to private
+      return packageJson.private !== false;
+    }
+    // Unscoped packages default to public
+    return packageJson.private ?? false;
+  };
 
   return {
     name: packageJson.name,
@@ -75,6 +84,6 @@ export const getPackage = async ({
     churn: 0.3,
     complexity: 0.3,
     license: packageJson.license,
-    private: isPrivate,
+    private: getIsPrivate(),
   } satisfies Package;
 };

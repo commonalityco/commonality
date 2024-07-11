@@ -2,8 +2,10 @@
   "name": "pkg-one",
   "description": "pkg-one description",
   "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
   "dependencies": {
-    "pkg-two": "1.0.0",
+    "@scope/pkg-two": "1.0.0",
     "external-dep": "1.0.0"
   }
 }

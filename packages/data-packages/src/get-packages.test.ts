@@ -23,6 +23,8 @@ describe('getPackages', () => {
         type: PackageType.NODE,
         churn: 0.3,
         complexity: 0.3,
+        license: undefined,
+        private: false,
       },
     ]);
   });
@@ -45,15 +47,19 @@ describe('getPackages', () => {
         type: PackageType.NODE,
         churn: 0.3,
         complexity: 0.3,
+        license: 'MIT',
+        private: true,
       },
       {
-        name: 'pkg-two',
+        name: '@scope/pkg-two',
         version: '1.0.0',
         description: 'pkg-two description',
         path: 'packages/pkg-two',
         type: PackageType.NODE,
         churn: 0.3,
         complexity: 0.3,
+        license: undefined,
+        private: true,
       },
     ]);
   });
