@@ -43,7 +43,7 @@
     "postbuild": "tsc --emitDeclarationOnly --declaration",
     "lint": "eslint ./src --fix",
     "test": "vitest",
-    "test:integration": "vitest --config=vite.integration.config.ts",
+    "test:integration": "vitest --config=vitest.integration.config.ts",
     "type-check": "tsc --noEmit",
     "lint:fix": "eslint . --fix"
   },
