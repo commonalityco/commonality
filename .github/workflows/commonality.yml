@@ -1,0 +1,32 @@
+name: Commonality
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  publish:
+    name: Publish Commonality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Publish Commonality
+        run: pnpm exec commonality publish
+        env:
+          COMMONALITY_PROJECT_ID: ${{ secrets.COMMONALITY_PROJECT_ID }}
+          COMMONALITY_PUBLISH_KEY: ${{ secrets.COMMONALITY_PUBLISH_KEY }}
