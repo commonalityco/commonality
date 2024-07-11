@@ -46,6 +46,7 @@ export const KitchenSink: Story = {
             version: '1.0.0',
             churn: 0,
             complexity: 0,
+            private: false,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -63,6 +64,7 @@ export const KitchenSink: Story = {
             version: '1.0.0',
             churn: 0,
             complexity: 0,
+            private: false,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -80,6 +82,7 @@ export const KitchenSink: Story = {
             version: '1.0.0',
             churn: 0,
             complexity: 0,
+            private: false,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -97,6 +100,7 @@ export const KitchenSink: Story = {
             version: '1.0.0',
             churn: 0,
             complexity: 0,
+            private: false,
           },
           message: {
             message: 'This rule makes sure that the package is valid',
@@ -114,6 +118,7 @@ export const KitchenSink: Story = {
             version: '1.0.0',
             churn: 0,
             complexity: 0,
+            private: false,
           },
           message: {
             message: 'This rule makes sure that the package is valid',

@@ -64,6 +64,8 @@ export type Package = {
   version: string;
   churn: number;
   complexity: number;
+  license?: string;
+  private: boolean;
 };
 
 export type Workspace = {

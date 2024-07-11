@@ -27,6 +27,8 @@ export const createSnapshotSchema = z.object({
       type: z.enum(['REACT', 'NODE', 'NEXT']),
       churn: z.number(),
       complexity: z.number(),
+      license: z.string().optional(),
+      private: z.boolean(),
     }),
   ),
   dependencies: z.array(

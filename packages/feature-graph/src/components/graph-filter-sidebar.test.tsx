@@ -34,6 +34,7 @@ const packageOne = {
   type: PackageType.NODE,
   churn: 0,
   complexity: 0,
+  private: false,
 } satisfies Package;
 
 const packageTwo = {
@@ -43,6 +44,7 @@ const packageTwo = {
   type: PackageType.NODE,
   churn: 0,
   complexity: 0,
+  private: false,
 } satisfies Package;
 
 const packageThree = {
@@ -52,6 +54,7 @@ const packageThree = {
   type: PackageType.NODE,
   churn: 0,
   complexity: 0,
+  private: false,
 } satisfies Package;
 
 const packageFour = {
@@ -61,6 +64,7 @@ const packageFour = {
   type: PackageType.NODE,
   churn: 0,
   complexity: 0,
+  private: false,
 } satisfies Package;
 
 const packageFive = {
@@ -70,6 +74,7 @@ const packageFive = {
   type: PackageType.NODE,
   churn: 0,
   complexity: 0,
+  private: false,
 } satisfies Package;
 
 describe('<GraphFilterSidebar/>', () => {

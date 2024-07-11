@@ -57,6 +57,12 @@ export const getPackage = async ({
     return;
   }
 
+  const isPrivate =
+    packageJson.private === true ||
+    (packageJson.publishConfig !== undefined &&
+      packageJson.publishConfig.access === 'restricted') ||
+    false;
+
   return {
     name: packageJson.name,
     description: packageJson.description,
@@ -68,5 +74,7 @@ export const getPackage = async ({
     version: packageJson.version ?? '',
     churn: 0.3,
     complexity: 0.3,
+    license: packageJson.license,
+    private: isPrivate,
   } satisfies Package;
 };

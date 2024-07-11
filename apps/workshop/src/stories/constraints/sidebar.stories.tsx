@@ -28,6 +28,7 @@ const pkgOne = {
   type: PackageType.NODE,
   churn: 0,
   complexity: 0,
+  private: false,
 } satisfies Package;
 
 const pkgTwo = {
@@ -37,6 +38,7 @@ const pkgTwo = {
   type: PackageType.NODE,
   churn: 0,
   complexity: 0,
+  private: false,
 } satisfies Package;
 
 const pkgThree = {
@@ -46,6 +48,7 @@ const pkgThree = {
   type: PackageType.NODE,
   churn: 0,
   complexity: 0,
+  private: false,
 } satisfies Package;
 
 const pkgFour = {
@@ -55,6 +58,7 @@ const pkgFour = {
   type: PackageType.NODE,
   churn: 0,
   complexity: 0,
+  private: false,
 } satisfies Package;
 
 const pkgFive = {
@@ -64,6 +68,7 @@ const pkgFive = {
   type: PackageType.NODE,
   churn: 0,
   complexity: 0,
+  private: false,
 } satisfies Package;
 
 export const KitchenSink: Story = {
