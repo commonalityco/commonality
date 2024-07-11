@@ -21,4 +21,4 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - run: pnpx pkg-pr-new publish './apps/commonality' './apps/studio'
+      - run: pnpx pkg-pr-new publish --pnpm './apps/commonality' './apps/studio'
