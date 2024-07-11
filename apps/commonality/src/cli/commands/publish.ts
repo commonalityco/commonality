@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-process-exit */
 import { getRootDirectory } from '@commonalityco/data-project';
 import { getCodeownersData } from './../../../../../packages/data-codeowners/src/get-codeowners-data';
 import { Command } from 'commander';
@@ -59,49 +60,58 @@ export const publish = command
     process.env.COMMONALITY_PUBLISH_KEY,
   )
   .action(async (options) => {
-    publishSpinner.start('Publishing snapshot...');
-
-    const { api, project, key } = options;
-
-    const rootDirectory = await getRootDirectory();
-    const blocks = await getPackages({ rootDirectory });
-
-    const codeowners = await getCodeownersData({
-      rootDirectory,
-      packages: blocks,
-    });
-    const dependencies = await getDependencies({ rootDirectory });
-    const data = {
-      publishKey: key,
-      projectId: project,
-      codeowners,
-      blocks,
-      dependencies,
-    };
-
-    const result = createSnapshotSchema.safeParse(data);
-
-    if (!result.success) {
-      publishSpinner.stop('Failed to publish snapshot');
-      prompts.log.error('Invalid snapshot data: ' + result.error);
-      return;
-    }
-
     try {
-      const response = await ky
-        .post(api, {
-          json: result.data,
-        })
-        .json<{ message: string }>();
+      publishSpinner.start('Publishing snapshot...');
 
-      publishSpinner.stop(response.message);
-    } catch (error) {
-      if (error instanceof HTTPError) {
-        const errorJson = (await error.response.json()) as { message: string };
+      const { api, project, key } = options;
+
+      const rootDirectory = await getRootDirectory();
+      const blocks = await getPackages({ rootDirectory });
+
+      const codeowners = await getCodeownersData({
+        rootDirectory,
+        packages: blocks,
+      });
+      const dependencies = await getDependencies({ rootDirectory });
+      const data = {
+        publishKey: key,
+        projectId: project,
+        codeowners,
+        blocks,
+        dependencies,
+      };
+
+      const result = createSnapshotSchema.safeParse(data);
+
+      if (!result.success) {
         publishSpinner.stop('Failed to publish snapshot');
-        prompts.log.error(errorJson.message);
-      } else {
-        publishSpinner.stop('Failed to publish snapshot');
+        prompts.log.error('Invalid snapshot data: ' + result.error);
+        return;
       }
+
+      try {
+        const response = await ky
+          .post(api, {
+            json: result.data,
+          })
+          .json<{ message: string }>();
+
+        publishSpinner.stop(response.message);
+      } catch (error) {
+        if (error instanceof HTTPError) {
+          const errorJson = (await error.response.json()) as {
+            message: string;
+          };
+          publishSpinner.stop('Failed to publish snapshot');
+          prompts.log.error(errorJson.message);
+        } else {
+          publishSpinner.stop('Failed to publish snapshot');
+        }
+
+        process.exit(1);
+      }
+    } catch {
+      publishSpinner.stop('Failed to publish snapshot');
+      process.exit(1);
     }
   });
