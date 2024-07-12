@@ -12,8 +12,12 @@ const binPath = path.resolve(
 );
 
 describe('smoke', () => {
+  const temporaryDirectoryPath = path.join(
+    process.env['RUNNER_TEMP'] || os.tmpdir(),
+    'smoke-',
+  );
+
   it('shows the default help information', async () => {
-    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
 
     const fixturePath = path.resolve(

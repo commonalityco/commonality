@@ -1,5 +1,4 @@
 import { Command } from 'commander';
-import { init } from './commands/init.js';
 import { publish } from './commands/publish.js';
 import packageJson from '../../package.json';
 
@@ -14,6 +13,5 @@ program
   .description('Build bigger with the tools you already love')
   .version(packageJson.version);
 
-program.addCommand(init);
 program.addCommand(publish);
 program.parse(process.argv);
