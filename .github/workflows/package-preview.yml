@@ -21,4 +21,4 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - run: pnpx pkg-pr-new publish --pnpm './apps/commonality' './packages/ui-core' './packages/utils-core'
+      - run: pnpx pkg-pr-new publish --pnpm './apps/commonality' './packages/utils-core'

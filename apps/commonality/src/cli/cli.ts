@@ -1,5 +1,4 @@
 import { Command } from 'commander';
-import { studio } from './commands/studio.js';
 import { init } from './commands/init.js';
 import { publish } from './commands/publish.js';
 import packageJson from '../../package.json';
@@ -17,6 +16,4 @@ program
 
 program.addCommand(init);
 program.addCommand(publish);
-program.addCommand(studio);
-
 program.parse(process.argv);
