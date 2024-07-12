@@ -1,4 +1,4 @@
-import { slugifyPackageName } from '../src/slugify-package-name';
+import { slugifyPackageName } from '../src/slugify-package-name.js';
 import { describe, test, expect } from 'vitest';
 
 describe('when the package name has a scope', () => {
