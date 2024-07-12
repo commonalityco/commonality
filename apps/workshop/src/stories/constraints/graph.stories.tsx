@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { DependencyType, PackageType } from '@commonalityco/utils-core';
+import { DependencyType, BlockType } from '@commonalityco/utils-core';
 import { Dependency, Package } from '@commonalityco/types';
 import { getEdges, getNodes, Graph } from '@commonalityco/feature-graph';
 
@@ -28,7 +28,7 @@ const pkgOne = {
   path: 'packages/pkg-a',
   version: '1.0.0',
   description: 'This is package A',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -39,7 +39,7 @@ const pkgTwo = {
   path: 'packages/pkg-b',
   version: '1.0.0',
   description: 'This is package B',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -50,7 +50,7 @@ const pkgThree = {
   path: 'packages/pkg-c',
   version: '1.0.0',
   description: 'This is package C',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -61,7 +61,7 @@ const pkgFour = {
   path: 'packages/pkg-d',
   version: '1.0.0',
   description: 'This is package D',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -72,7 +72,7 @@ const pkgFive = {
   path: 'packages/pkg-e',
   version: '1.0.0',
   description: 'This is package E',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { getConformanceResults } from './get-conformance-results';
 import { Package, TagsData } from '@commonalityco/types';
-import { CheckOutput, PackageType, Status } from '@commonalityco/utils-core';
+import { CheckOutput, BlockType, Status } from '@commonalityco/utils-core';
 
 describe('getConformanceResults', () => {
   it('should return errors when workspace is not valid and have a level set to error', async () => {
@@ -23,7 +23,7 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
         private: false,
@@ -66,7 +66,7 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
         private: false,
@@ -107,7 +107,7 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
         private: false,
@@ -148,7 +148,7 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
         private: false,
@@ -190,7 +190,7 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
         private: false,
@@ -229,7 +229,7 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
         private: false,

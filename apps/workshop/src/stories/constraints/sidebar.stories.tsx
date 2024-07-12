@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { GraphFilterSidebar } from '@commonalityco/feature-graph';
 import { Package } from '@commonalityco/types';
-import { PackageType } from '@commonalityco/utils-core';
+import { BlockType } from '@commonalityco/utils-core';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
@@ -25,7 +25,7 @@ const pkgOne = {
   path: `/path/to/package-one`,
   name: `@scope/one`,
   version: '1.0.0',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -35,7 +35,7 @@ const pkgTwo = {
   path: `/path/to/package-two`,
   name: `@scope/two`,
   version: '1.0.0',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -45,7 +45,7 @@ const pkgThree = {
   path: `/path/to/package-three`,
   name: `@scope/three`,
   version: '1.0.0',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -55,7 +55,7 @@ const pkgFour = {
   path: `/path/to/package-four`,
   name: `@scope/four`,
   version: '1.0.0',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -65,7 +65,7 @@ const pkgFive = {
   path: `/path/to/package-five-looooooooooooooonnnnnngggggggg`,
   name: `@scope/five-looooooooooooooonnnnnngggggggg`,
   version: '1.0.0',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,

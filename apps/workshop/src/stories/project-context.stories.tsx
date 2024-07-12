@@ -4,7 +4,7 @@ import { PackageContext, ProjectContext } from '@commonalityco/feature-graph';
 import {
   DependencyType,
   PackageManager,
-  PackageType,
+  BlockType,
   Status,
 } from '@commonalityco/utils-core';
 
@@ -40,7 +40,7 @@ export const KitchenSink: Story = {
           status: Status.Pass,
           package: {
             path: '/path/to/package',
-            type: PackageType.NODE,
+            type: BlockType.NODE,
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
@@ -58,7 +58,7 @@ export const KitchenSink: Story = {
           status: Status.Pass,
           package: {
             path: '/path/to/package',
-            type: PackageType.NODE,
+            type: BlockType.NODE,
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
@@ -76,7 +76,7 @@ export const KitchenSink: Story = {
           status: Status.Warn,
           package: {
             path: '/path/to/package',
-            type: PackageType.NODE,
+            type: BlockType.NODE,
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
@@ -94,7 +94,7 @@ export const KitchenSink: Story = {
           status: Status.Warn,
           package: {
             path: '/path/to/package',
-            type: PackageType.NODE,
+            type: BlockType.NODE,
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
@@ -112,7 +112,7 @@ export const KitchenSink: Story = {
           status: Status.Fail,
           package: {
             path: '/path/to/package',
-            type: PackageType.NODE,
+            type: BlockType.NODE,
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',

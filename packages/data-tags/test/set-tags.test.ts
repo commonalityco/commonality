@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { setTags } from '../src/set-tags';
 import { fileURLToPath } from 'node:url';
-import { PackageType } from '@commonalityco/utils-core';
+import { BlockType } from '@commonalityco/utils-core';
 
 describe('setTags', () => {
   const temporaryDirectoryPath = path.join(
@@ -33,7 +33,7 @@ describe('setTags', () => {
         pkg: {
           name: 'pkg-one',
           path: './packages/pkg-one',
-          type: PackageType.NEXT,
+          type: BlockType.NEXT,
           version: '1.0.0',
         },
         tags: ['tag-one'],
@@ -52,7 +52,7 @@ describe('setTags', () => {
         pkg: {
           name: 'pkg-one',
           path: './packages/pkg-one',
-          type: PackageType.NEXT,
+          type: BlockType.NEXT,
           version: '1.0.0',
           churn: 0.5,
           complexity: 0.5,
@@ -87,7 +87,7 @@ describe('setTags', () => {
         pkg: {
           name: 'pkg-one',
           path: './packages/pkg-one',
-          type: PackageType.NEXT,
+          type: BlockType.NEXT,
           version: '1.0.0',
         },
         tags: ['tag-one', 'new-tag'],

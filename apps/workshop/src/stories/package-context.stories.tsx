@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { PackageContext } from '@commonalityco/feature-graph';
-import { DependencyType, PackageType, Status } from '@commonalityco/utils-core';
+import { DependencyType, BlockType, Status } from '@commonalityco/utils-core';
 
 const meta: Meta<typeof PackageContext> = {
   component: PackageContext,
@@ -24,7 +24,7 @@ export const KitchenSink: Story = {
       tagsData={[{ packageName: 'example-package', tags: ['tag1', 'tag2'] }]}
       pkg={{
         path: '/path/to/package',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
         name: 'example-package',
         description:
           'This is an example package and the description is very long. It is so long that it will wrap to the next line.',
@@ -40,7 +40,7 @@ export const KitchenSink: Story = {
           status: Status.Pass,
           package: {
             path: '/path/to/package',
-            type: PackageType.NODE,
+            type: BlockType.NODE,
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
@@ -58,7 +58,7 @@ export const KitchenSink: Story = {
           status: Status.Pass,
           package: {
             path: '/path/to/package',
-            type: PackageType.NODE,
+            type: BlockType.NODE,
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
@@ -76,7 +76,7 @@ export const KitchenSink: Story = {
           status: Status.Warn,
           package: {
             path: '/path/to/package',
-            type: PackageType.NODE,
+            type: BlockType.NODE,
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
@@ -94,7 +94,7 @@ export const KitchenSink: Story = {
           status: Status.Warn,
           package: {
             path: '/path/to/package',
-            type: PackageType.NODE,
+            type: BlockType.NODE,
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
@@ -112,7 +112,7 @@ export const KitchenSink: Story = {
           status: Status.Fail,
           package: {
             path: '/path/to/package',
-            type: PackageType.NODE,
+            type: BlockType.NODE,
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
@@ -136,7 +136,7 @@ export const AllPassing: Story = {
       tagsData={[]}
       pkg={{
         path: '/path/to/package',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
         name: 'example-package',
         description: 'This is an example package',
         version: '1.0.0',
@@ -151,7 +151,7 @@ export const AllPassing: Story = {
           status: Status.Pass,
           package: {
             path: '/path/to/package',
-            type: PackageType.NODE,
+            type: BlockType.NODE,
             name: 'example-package',
             description: 'This is an example package',
             version: '1.0.0',
@@ -175,7 +175,7 @@ export const Empty: Story = {
       tagsData={[]}
       pkg={{
         path: '/path/to/package',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
         name: 'example-package',
         description: 'This is an example package',
         version: '1.0.0',

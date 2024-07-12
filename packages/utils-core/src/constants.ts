@@ -1,4 +1,3 @@
-import { describe } from 'vitest';
 import z from 'zod';
 
 export enum Theme {
@@ -20,7 +19,7 @@ export enum DependencyType {
   PRODUCTION = 'PRODUCTION',
 }
 
-export enum PackageType {
+export enum BlockType {
   NODE = 'NODE',
   REACT = 'REACT',
   NEXT = 'NEXT',

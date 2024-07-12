@@ -1,7 +1,7 @@
 import {
   DependencyType,
   AllPackagesWildcard,
-  PackageType,
+  BlockType,
 } from '@commonalityco/utils-core';
 
 export type Constraint =
@@ -58,7 +58,7 @@ export type TagsData = { packageName: string; tags: Tag[] };
 
 export type Package = {
   path: string;
-  type: PackageType;
+  type: BlockType;
   name: string;
   description?: string;
   version: string;

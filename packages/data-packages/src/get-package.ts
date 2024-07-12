@@ -1,27 +1,23 @@
 import { Package, PackageJson } from '@commonalityco/types';
 import path from 'node:path';
 import fs from 'fs-extra';
-import { PackageType } from '@commonalityco/utils-core/constants';
+import { BlockType } from '@commonalityco/utils-core/constants';
 
-const typeOrder = new Set([
-  PackageType.NEXT,
-  PackageType.REACT,
-  PackageType.NODE,
-]);
+const typeOrder = new Set([BlockType.NEXT, BlockType.REACT, BlockType.NODE]);
 
 const DepNamesByPackageType = {
-  [PackageType.REACT]: 'react',
-  [PackageType.NEXT]: 'next',
+  [BlockType.REACT]: 'react',
+  [BlockType.NEXT]: 'next',
 };
 
 const getType = (dependencies?: Record<string, string>) => {
   if (!dependencies) {
-    return PackageType.NODE;
+    return BlockType.NODE;
   }
 
   for (const type of typeOrder) {
-    if (type === PackageType.NODE) {
-      return PackageType.NODE;
+    if (type === BlockType.NODE) {
+      return BlockType.NODE;
     }
 
     const depName = DepNamesByPackageType[type];
@@ -34,7 +30,7 @@ const getType = (dependencies?: Record<string, string>) => {
     return type;
   }
 
-  return PackageType.NODE;
+  return BlockType.NODE;
 };
 
 export const getPackage = async ({

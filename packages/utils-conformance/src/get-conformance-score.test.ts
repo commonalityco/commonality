@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { getConformanceScore } from './get-conformance-score';
 import { ConformanceResult } from './get-conformance-results';
-import { PackageType, Status } from '@commonalityco/utils-core';
+import { BlockType, Status } from '@commonalityco/utils-core';
 
 describe('getConformanceScore', () => {
   it('should return 100 for all passing items', () => {
@@ -12,7 +12,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package1',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -27,7 +27,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package2',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -42,7 +42,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package3',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -63,7 +63,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package1',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -78,7 +78,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package2',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -93,7 +93,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package3',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -114,7 +114,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package1',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -129,7 +129,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package2',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -144,7 +144,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package3',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -165,7 +165,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package1',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -180,7 +180,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package2',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -195,7 +195,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package3',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -221,7 +221,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package1',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -236,7 +236,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package2',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,
@@ -251,7 +251,7 @@ describe('getConformanceScore', () => {
         package: {
           name: 'package3',
           version: '1.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           path: '/path',
           churn: 0.5,
           complexity: 0.5,

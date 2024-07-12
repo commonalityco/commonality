@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react';
 import { ComponentPropsWithoutRef } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Package } from '@commonalityco/types';
-import { PackageType } from '@commonalityco/utils-core';
+import { BlockType } from '@commonalityco/utils-core';
 import { GraphInteractionProvider } from '../context/interaction-context';
 import * as queryHooks from '../query/query-hooks';
 
@@ -31,7 +31,7 @@ const packageOne = {
   path: `/path/to/package-one`,
   name: `@scope/one`,
   version: '1.0.0',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -41,7 +41,7 @@ const packageTwo = {
   path: `/path/to/package-two`,
   name: `@scope/two`,
   version: '1.0.0',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -51,7 +51,7 @@ const packageThree = {
   path: `/path/to/package-three`,
   name: `@scope/three`,
   version: '1.0.0',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -61,7 +61,7 @@ const packageFour = {
   path: `/path/to/package-four`,
   name: `@scope/four`,
   version: '1.0.0',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
@@ -71,7 +71,7 @@ const packageFive = {
   path: `/path/to/package-five-looooooooooooooonnnnnngggggggg`,
   name: `@scope/five-looooooooooooooonnnnnngggggggg`,
   version: '1.0.0',
-  type: PackageType.NODE,
+  type: BlockType.NODE,
   churn: 0,
   complexity: 0,
   private: false,
