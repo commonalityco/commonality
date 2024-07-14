@@ -56,7 +56,7 @@ describe('getPackage', () => {
       churn: 0.3,
       complexity: 0.3,
       license: 'MIT',
-      private: true,
+      privacy: 'PRIVATE',
     });
   });
 });
