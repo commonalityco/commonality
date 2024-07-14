@@ -36,3 +36,5 @@ export const createSnapshotSchema = z.object({
     }),
   ),
 });
+
+export type CreateSnapshotSchema = z.infer<typeof createSnapshotSchema>;

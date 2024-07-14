@@ -2,7 +2,10 @@
 import { getRootDirectory } from '@commonalityco/data-project';
 import { getCodeownersData } from '@commonalityco/data-codeowners';
 import { Command } from 'commander';
-import { createSnapshotSchema } from '@commonalityco/utils-core';
+import {
+  createSnapshotSchema,
+  CreateSnapshotSchema as CreateSnapshotSchemaType,
+} from '@commonalityco/utils-core';
 import { getDependencies, getPackages } from '@commonalityco/data-packages';
 import ky, { HTTPError } from 'ky';
 import * as prompts from '@clack/prompts';
@@ -18,7 +21,8 @@ export const publish = command
   .option(
     '--api <apiUrl>',
     'The API URL to publish to',
-    process.env.COMMONALITY_API_URL ?? 'http://app.commonality.co/api/publish',
+    process.env.COMMONALITY_API_URL ??
+      'http://app.commonality.co/api/v1/publish',
   )
   .requiredOption(
     '--project <projectId>',
@@ -50,7 +54,7 @@ export const publish = command
         codeowners,
         blocks,
         dependencies,
-      };
+      } satisfies CreateSnapshotSchemaType;
 
       const result = createSnapshotSchema.safeParse(data);
 
