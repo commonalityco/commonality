@@ -26,7 +26,7 @@ describe('getConformanceResults', () => {
         type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
-        private: false,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -69,7 +69,7 @@ describe('getConformanceResults', () => {
         type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
-        private: false,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -110,7 +110,7 @@ describe('getConformanceResults', () => {
         type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
-        private: false,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -151,7 +151,7 @@ describe('getConformanceResults', () => {
         type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
-        private: false,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [];
@@ -193,7 +193,7 @@ describe('getConformanceResults', () => {
         type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
-        private: false,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -232,7 +232,7 @@ describe('getConformanceResults', () => {
         type: BlockType.NODE,
         churn: 0.5,
         complexity: 0.5,
-        private: false,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['tag1'] }];

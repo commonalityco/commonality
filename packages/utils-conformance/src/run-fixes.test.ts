@@ -23,7 +23,7 @@ describe('runFixes', () => {
           version: '1.0.0',
           churn: 0.5,
           complexity: 0.5,
-          private: false,
+          privacy: 'PRIVATE',
         },
       },
     ];
@@ -35,7 +35,7 @@ describe('runFixes', () => {
         version: '1.0.0',
         churn: 0.5,
         complexity: 0.5,
-        private: false,
+        privacy: 'PRIVATE',
       },
     ];
     const rootDirectory = 'root/directory';

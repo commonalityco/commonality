@@ -1,44 +1,13 @@
 /* eslint-disable unicorn/no-process-exit */
 import { getRootDirectory } from '@commonalityco/data-project';
-import { getCodeownersData } from './../../../../../packages/data-codeowners/src/get-codeowners-data';
+import { getCodeownersData } from '@commonalityco/data-codeowners';
 import { Command } from 'commander';
-import { z } from 'zod';
+import { createSnapshotSchema } from '@commonalityco/utils-core';
 import { getDependencies, getPackages } from '@commonalityco/data-packages';
 import ky, { HTTPError } from 'ky';
 import * as prompts from '@clack/prompts';
 
 const command = new Command();
-
-export const createSnapshotSchema = z.object({
-  publishKey: z.string(),
-  projectId: z.string(),
-  codeowners: z.array(
-    z.object({
-      packageName: z.string(),
-      codeowners: z.array(z.string()),
-    }),
-  ),
-  blocks: z.array(
-    z.object({
-      name: z.string(),
-      description: z.string().optional(),
-      path: z.string(),
-      version: z.string(),
-      type: z.enum(['REACT', 'NODE', 'NEXT']),
-      churn: z.number(),
-      complexity: z.number(),
-      license: z.string().optional(),
-      private: z.boolean(),
-    }),
-  ),
-  dependencies: z.array(
-    z.object({
-      source: z.string(),
-      target: z.string(),
-      type: z.enum(['PRODUCTION', 'DEVELOPMENT', 'PEER']),
-    }),
-  ),
-});
 
 const publishSpinner = prompts.spinner();
 

@@ -2,6 +2,7 @@ import { Package, PackageJson } from '@commonalityco/types';
 import path from 'node:path';
 import fs from 'fs-extra';
 import { BlockType } from '@commonalityco/utils-core/constants';
+import { privacyEnum } from '@commonalityco/utils-core';
 
 const typeOrder = new Set([BlockType.NEXT, BlockType.REACT, BlockType.NODE]);
 
@@ -53,19 +54,23 @@ export const getPackage = async ({
     return;
   }
 
-  const getIsPrivate = () => {
+  const getPrivacy = () => {
     if (packageJson.private === true) {
-      return true;
+      return privacyEnum.enum.PRIVATE;
     }
     if (packageJson.publishConfig?.access === 'restricted') {
-      return true;
+      return privacyEnum.enum.PRIVATE;
     }
     if (packageJson?.name?.startsWith('@')) {
       // Scoped packages default to private
-      return packageJson.private !== false;
+      return packageJson.private === false
+        ? privacyEnum.enum.PUBLIC
+        : privacyEnum.enum.PRIVATE;
     }
     // Unscoped packages default to public
-    return packageJson.private ?? false;
+    return packageJson.private
+      ? privacyEnum.enum.PRIVATE
+      : privacyEnum.enum.PUBLIC;
   };
 
   return {
@@ -80,6 +85,6 @@ export const getPackage = async ({
     churn: 0.3,
     complexity: 0.3,
     license: packageJson.license,
-    private: getIsPrivate(),
+    privacy: getPrivacy(),
   } satisfies Package;
 };

@@ -469,6 +469,10 @@ importers:
         version: 2.0.2(@types/node@20.14.9)(jsdom@20.0.3)(terser@5.27.2)
 
   packages/types:
+    dependencies:
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@commonalityco/config-tsconfig':
         specifier: workspace:*

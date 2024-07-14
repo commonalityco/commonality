@@ -3,6 +3,9 @@ import {
   AllPackagesWildcard,
   BlockType,
 } from '@commonalityco/utils-core';
+import { z } from 'zod';
+
+export const privacyEnum = z.enum(['PUBLIC', 'PRIVATE']);
 
 export type Constraint =
   | {
@@ -65,7 +68,7 @@ export type Package = {
   churn: number;
   complexity: number;
   license?: string;
-  private: boolean;
+  privacy: z.infer<typeof privacyEnum>;
 };
 
 export type Workspace = {

@@ -24,7 +24,7 @@ describe('getPackages', () => {
         churn: 0.3,
         complexity: 0.3,
         license: undefined,
-        private: false,
+        privacy: 'PUBLIC',
       },
     ]);
   });
@@ -48,7 +48,7 @@ describe('getPackages', () => {
         churn: 0.3,
         complexity: 0.3,
         license: 'MIT',
-        private: true,
+        privacy: 'PRIVATE',
       },
       {
         name: '@scope/pkg-two',
@@ -59,7 +59,7 @@ describe('getPackages', () => {
         churn: 0.3,
         complexity: 0.3,
         license: undefined,
-        private: true,
+        privacy: 'PRIVATE',
       },
     ]);
   });
