@@ -54,6 +54,7 @@ export const publish = command
         codeowners,
         blocks,
         dependencies,
+        gitBranch: '',
       } satisfies CreateSnapshotSchemaType;
 
       const result = createSnapshotSchema.safeParse(data);

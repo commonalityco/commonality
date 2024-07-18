@@ -7,6 +7,7 @@ export const dependencyTypeEnum = z.enum(['PRODUCTION', 'DEVELOPMENT', 'PEER']);
 export const blockType = z.enum(['REACT', 'NODE', 'NEXT']);
 
 export const createSnapshotSchema = z.object({
+  gitBranch: z.string(),
   publishKey: z.string(),
   projectId: z.string(),
   codeowners: z.array(
