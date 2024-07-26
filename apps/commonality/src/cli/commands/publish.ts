@@ -9,6 +9,7 @@ import {
 import { getDependencies, getPackages } from '@commonalityco/data-packages';
 import ky, { HTTPError } from 'ky';
 import * as prompts from '@clack/prompts';
+import gitBranch from 'git-branch';
 
 const command = new Command();
 
@@ -22,7 +23,7 @@ export const publish = command
     '--api <apiUrl>',
     'The API URL to publish to',
     process.env.COMMONALITY_API_URL ??
-      'http://app.commonality.co/api/v1/publish',
+      'https://app.commonality.co/api/v1/publish',
   )
   .requiredOption(
     '--project <projectId>',
@@ -38,7 +39,7 @@ export const publish = command
     try {
       publishSpinner.start('Publishing snapshot...');
 
-      const { api, project, key } = options;
+      const { api, project, key, verbose } = options;
 
       const rootDirectory = await getRootDirectory();
       const blocks = await getPackages({ rootDirectory });
@@ -48,18 +49,23 @@ export const publish = command
         packages: blocks,
       });
       const dependencies = await getDependencies({ rootDirectory });
+
       const data = {
         publishKey: key,
         projectId: project,
         codeowners,
         blocks,
         dependencies,
-        gitBranch: '',
+        gitBranch: await gitBranch(),
       } satisfies CreateSnapshotSchemaType;
 
       const result = createSnapshotSchema.safeParse(data);
 
       if (!result.success) {
+        if (verbose) {
+          console.error(result.error);
+        }
+
         publishSpinner.stop('Failed to publish snapshot');
         prompts.log.error('Invalid snapshot data: ' + result.error);
         return;
@@ -78,15 +84,28 @@ export const publish = command
           const errorJson = (await error.response.json()) as {
             message: string;
           };
+
+          if (verbose) {
+            console.error(error);
+          }
+
           publishSpinner.stop('Failed to publish snapshot');
           prompts.log.error(errorJson.message);
         } else {
+          if (verbose) {
+            console.error(error);
+          }
+
           publishSpinner.stop('Failed to publish snapshot');
         }
 
         process.exit(1);
       }
-    } catch {
+    } catch (error) {
+      if (options.verbose) {
+        console.error(error);
+      }
+
       publishSpinner.stop('Failed to publish snapshot');
       process.exit(1);
     }
