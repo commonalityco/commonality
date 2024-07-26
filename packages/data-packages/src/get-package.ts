@@ -1,27 +1,24 @@
 import { Package, PackageJson } from '@commonalityco/types';
 import path from 'node:path';
 import fs from 'fs-extra';
-import { PackageType } from '@commonalityco/utils-core/constants';
+import { BlockType } from '@commonalityco/utils-core/constants';
+import { privacyEnum } from '@commonalityco/utils-core';
 
-const typeOrder = new Set([
-  PackageType.NEXT,
-  PackageType.REACT,
-  PackageType.NODE,
-]);
+const typeOrder = new Set([BlockType.NEXT, BlockType.REACT, BlockType.NODE]);
 
 const DepNamesByPackageType = {
-  [PackageType.REACT]: 'react',
-  [PackageType.NEXT]: 'next',
+  [BlockType.REACT]: 'react',
+  [BlockType.NEXT]: 'next',
 };
 
 const getType = (dependencies?: Record<string, string>) => {
   if (!dependencies) {
-    return PackageType.NODE;
+    return BlockType.NODE;
   }
 
   for (const type of typeOrder) {
-    if (type === PackageType.NODE) {
-      return PackageType.NODE;
+    if (type === BlockType.NODE) {
+      return BlockType.NODE;
     }
 
     const depName = DepNamesByPackageType[type];
@@ -34,7 +31,7 @@ const getType = (dependencies?: Record<string, string>) => {
     return type;
   }
 
-  return PackageType.NODE;
+  return BlockType.NODE;
 };
 
 export const getPackage = async ({
@@ -57,6 +54,25 @@ export const getPackage = async ({
     return;
   }
 
+  const getPrivacy = () => {
+    if (packageJson.private === true) {
+      return privacyEnum.enum.PRIVATE;
+    }
+    if (packageJson.publishConfig?.access === 'restricted') {
+      return privacyEnum.enum.PRIVATE;
+    }
+    if (packageJson?.name?.startsWith('@')) {
+      // Scoped packages default to private
+      return packageJson.private === false
+        ? privacyEnum.enum.PUBLIC
+        : privacyEnum.enum.PRIVATE;
+    }
+    // Unscoped packages default to public
+    return packageJson.private
+      ? privacyEnum.enum.PRIVATE
+      : privacyEnum.enum.PUBLIC;
+  };
+
   return {
     name: packageJson.name,
     description: packageJson.description,
@@ -66,5 +82,9 @@ export const getPackage = async ({
       ...packageJson.devDependencies,
     }),
     version: packageJson.version ?? '',
+    churn: 0.3,
+    complexity: 0.3,
+    license: packageJson.license,
+    privacy: getPrivacy(),
   } satisfies Package;
 };

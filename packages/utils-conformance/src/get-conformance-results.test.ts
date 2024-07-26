@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { getConformanceResults } from './get-conformance-results';
 import { Package, TagsData } from '@commonalityco/types';
-import { CheckOutput, PackageType, Status } from '@commonalityco/utils-core';
+import { CheckOutput, BlockType, Status } from '@commonalityco/utils-core';
 
 describe('getConformanceResults', () => {
   it('should return errors when workspace is not valid and have a level set to error', async () => {
@@ -23,7 +23,10 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -63,7 +66,10 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -101,7 +107,10 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -139,7 +148,10 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [];
@@ -178,7 +190,10 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['*'] }];
@@ -201,7 +216,6 @@ describe('getConformanceResults', () => {
     const conformersByPattern: Record<string, CheckOutput[]> = {
       tag1: [
         {
-          
           id: '123',
           validate: () => true,
           message: 'Valid workspace for tag1',
@@ -215,7 +229,10 @@ describe('getConformanceResults', () => {
         path: '/path/to/workspace',
         name: 'pkg-a',
         version: '1.0.0',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
+        churn: 0.5,
+        complexity: 0.5,
+        privacy: 'PUBLIC',
       },
     ];
     const tagsData: TagsData[] = [{ packageName: 'pkg-a', tags: ['tag1'] }];

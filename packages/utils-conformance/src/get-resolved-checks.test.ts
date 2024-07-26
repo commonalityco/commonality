@@ -32,70 +32,67 @@ describe('toRelativePath', () => {
   });
 });
 
-describe(
-  'getResolvedChecks',
-  () => {
-    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
-    const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
+describe('getResolvedChecks', { timeout: 200_000 }, () => {
+  const temporaryDirectoryPath = path.join(
+    process.env['RUNNER_TEMP'] || os.tmpdir(),
+    'get-resolved-checks-',
+  );
 
-    afterAll(async () => {
-      await fs.remove(temporaryPath);
-    });
+  const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
 
-    const kitchenSinkPath = path.resolve(
-      path.dirname(fileURLToPath(import.meta.url)),
-      '../fixtures/kitchen-sink',
-    );
+  afterAll(async () => {
+    await fs.remove(temporaryPath);
+  });
 
-    test(
-      'should correctly resolve all path types',
-      async () => {
-        await fs.copy(
-          kitchenSinkPath,
-          path.join(temporaryPath, 'kitchen-sink'),
-        );
+  const kitchenSinkPath = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    '../fixtures/kitchen-sink',
+  );
 
-        await fs.copy(
-          path.resolve(
-            path.dirname(fileURLToPath(import.meta.url)),
-            '../fixtures/commonality-checks-test',
-          ),
-          path.join(temporaryPath, 'commonality-checks-test'),
-        );
+  test(
+    'should correctly resolve all path types',
+    { timeout: 200_000 },
+    async () => {
+      await fs.copy(kitchenSinkPath, path.join(temporaryPath, 'kitchen-sink'));
 
-        await fs.copy(
-          path.resolve(
-            path.dirname(fileURLToPath(import.meta.url)),
-            '../fixtures/scoped-checks',
-          ),
-          path.join(temporaryPath, 'scoped-checks'),
-        );
+      await fs.copy(
+        path.resolve(
+          path.dirname(fileURLToPath(import.meta.url)),
+          '../fixtures/commonality-checks-test',
+        ),
+        path.join(temporaryPath, 'commonality-checks-test'),
+      );
 
-        await execa('pnpm', ['install'], {
-          cwd: path.join(temporaryPath, 'kitchen-sink'),
-        });
+      await fs.copy(
+        path.resolve(
+          path.dirname(fileURLToPath(import.meta.url)),
+          '../fixtures/scoped-checks',
+        ),
+        path.join(temporaryPath, 'scoped-checks'),
+      );
 
-        const result = getResolvedChecks({
-          projectConfig: {
-            checks: {
-              '*': ['has-foo', 'test/has-foo', '@scope/team/has-foo', 'foo'],
-            },
+      await execa('pnpm', ['install'], {
+        cwd: path.join(temporaryPath, 'kitchen-sink'),
+      });
+
+      const result = getResolvedChecks({
+        projectConfig: {
+          checks: {
+            '*': ['has-foo', 'test/has-foo', '@scope/team/has-foo', 'foo'],
           },
-          rootDirectory: path.join(temporaryPath, 'kitchen-sink'),
-        });
+        },
+        rootDirectory: path.join(temporaryPath, 'kitchen-sink'),
+      });
 
-        expect(result.resolved).toEqual({
-          '*': [
-            { name: 'local-test' },
-            { name: 'prefix-test' },
-            { name: 'scoped-test' },
-          ],
-        });
+      expect(result.resolved).toEqual({
+        '*': [
+          { name: 'local-test' },
+          { name: 'prefix-test' },
+          { name: 'scoped-test' },
+        ],
+      });
 
-        expect(result.unresolved).toEqual(['foo']);
-      },
-      { timeout: 200_000 },
-    );
-  },
-  { timeout: 200_000 },
-);
+      expect(result.unresolved).toEqual(['foo']);
+    },
+  );
+});

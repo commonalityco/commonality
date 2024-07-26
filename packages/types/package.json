@@ -37,5 +37,8 @@
     "type": "git",
     "url": "https://github.com/commonalityco/commonality",
     "directory": "packages/types"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
   }
 }

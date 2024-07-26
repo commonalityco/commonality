@@ -1,8 +1,15 @@
 import {
   DependencyType,
   AllPackagesWildcard,
-  PackageType,
+  BlockType,
 } from '@commonalityco/utils-core';
+import { z } from 'zod';
+
+export const privacyEnum = z.enum(['PUBLIC', 'PRIVATE']);
+
+export const dependencyTypeEnum = z.enum(['PRODUCTION', 'DEVELOPMENT', 'PEER']);
+
+export const blockTypeEnum = z.enum(['REACT', 'NODE', 'NEXT']);
 
 export type Constraint =
   | {
@@ -56,12 +63,30 @@ export type Tag = string;
 
 export type TagsData = { packageName: string; tags: Tag[] };
 
+const blockSchema = z.object({
+  path: z.string(),
+  type: blockTypeEnum,
+  name: z.string(),
+  description: z.string().optional(),
+  version: z.string(),
+  churn: z.number(),
+  complexity: z.number(),
+  license: z.string().optional(),
+  privacy: privacyEnum,
+});
+
+export type Block = z.infer<typeof blockSchema>;
+
 export type Package = {
   path: string;
-  type: PackageType;
+  type: BlockType;
   name: string;
   description?: string;
   version: string;
+  churn: number;
+  complexity: number;
+  license?: string;
+  privacy: z.infer<typeof privacyEnum>;
 };
 
 export type Workspace = {

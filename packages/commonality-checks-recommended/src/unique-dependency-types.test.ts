@@ -46,13 +46,13 @@ describe('unique-dependency-types', () => {
       // @ts-expect-error - expecting message object
       expect(result.suggestion).toMatchInlineSnapshot(`
         "  Object {
-            \\"dependencies\\": Object {
-              \\"pkg-a\\": \\"1.0.0\\",
+            "dependencies": Object {
+              "pkg-a": "1.0.0",
             },
-            \\"devDependencies\\": Object {
-              \\"pkg-a\\": \\"1.0.0\\",
+            "devDependencies": Object {
+              "pkg-a": "1.0.0",
             },
-        +   \\"devDependencies\\": Object {},
+        +   "devDependencies": Object {},
           }"
       `);
     });
@@ -78,13 +78,13 @@ describe('unique-dependency-types', () => {
       // @ts-expect-error - expecting message object
       expect(result.suggestion).toMatchInlineSnapshot(`
         "  Object {
-            \\"dependencies\\": Object {
-              \\"pkg-a\\": \\"1.0.0\\",
+            "dependencies": Object {
+              "pkg-a": "1.0.0",
             },
-            \\"optionalDependencies\\": Object {
-              \\"pkg-a\\": \\"1.0.0\\",
+            "optionalDependencies": Object {
+              "pkg-a": "1.0.0",
             },
-        +   \\"optionalDependencies\\": Object {},
+        +   "optionalDependencies": Object {},
           }"
       `);
     });
@@ -113,15 +113,15 @@ describe('unique-dependency-types', () => {
       // @ts-expect-error - expecting message object
       expect(result.suggestion).toMatchInlineSnapshot(`
         "  Object {
-            \\"dependencies\\": Object {
-              \\"pkg-a\\": \\"1.0.0\\",
+            "dependencies": Object {
+              "pkg-a": "1.0.0",
             },
-        +   \\"dependencies\\": Object {},
-            \\"devDependencies\\": Object {
-              \\"pkg-a\\": \\"1.0.0\\",
+        +   "dependencies": Object {},
+            "devDependencies": Object {
+              "pkg-a": "1.0.0",
             },
-            \\"optionalDependencies\\": Object {
-              \\"pkg-a\\": \\"1.0.0\\",
+            "optionalDependencies": Object {
+              "pkg-a": "1.0.0",
             },
           }"
       `);

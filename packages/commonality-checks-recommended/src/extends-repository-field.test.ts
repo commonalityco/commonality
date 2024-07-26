@@ -74,10 +74,10 @@ describe('extendsRepositoryField', () => {
         expect(result.suggestion).toMatchInlineSnapshot(`
           "  Object {}
           + Object {
-          +   \\"repository\\": Object {
-          +     \\"directory\\": \\"packages/pkg-a\\",
-          +     \\"type\\": \\"git\\",
-          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
+          +   "repository": Object {
+          +     "directory": "packages/pkg-a",
+          +     "type": "git",
+          +     "url": "https://github.com/npm/cli.git",
           +   },
           + }"
         `);
@@ -153,13 +153,13 @@ describe('extendsRepositoryField', () => {
         // @ts-expect-error expecting message object
         expect(result.suggestion).toMatchInlineSnapshot(`
           "  Object {
-              \\"repository\\": Object {
-                \\"directory\\": \\"packages/pkg-b\\",
-                \\"type\\": \\"gitt\\",
-                \\"url\\": \\"https://github.com/npm/clii.git\\",
-          +     \\"directory\\": \\"packages/pkg-a\\",
-          +     \\"type\\": \\"git\\",
-          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
+              "repository": Object {
+                "directory": "packages/pkg-b",
+                "type": "gitt",
+                "url": "https://github.com/npm/clii.git",
+          +     "directory": "packages/pkg-a",
+          +     "type": "git",
+          +     "url": "https://github.com/npm/cli.git",
               },
             }"
         `);
@@ -204,10 +204,10 @@ describe('extendsRepositoryField', () => {
         expect(result.suggestion).toMatchInlineSnapshot(`
           "  Object {}
           + Object {
-          +   \\"repository\\": Object {
-          +     \\"directory\\": \\"packages/pkg-a\\",
-          +     \\"type\\": \\"git\\",
-          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
+          +   "repository": Object {
+          +     "directory": "packages/pkg-a",
+          +     "type": "git",
+          +     "url": "https://github.com/npm/cli.git",
           +   },
           + }"
         `);
@@ -283,13 +283,13 @@ describe('extendsRepositoryField', () => {
         // @ts-expect-error expecting message object
         expect(result.suggestion).toMatchInlineSnapshot(`
           "  Object {
-              \\"repository\\": Object {
-                \\"directory\\": \\"packages/pkg-b\\",
-                \\"type\\": \\"gitt\\",
-                \\"url\\": \\"https://github.com/npm/clii.git\\",
-          +     \\"directory\\": \\"packages/pkg-a\\",
-          +     \\"type\\": \\"git\\",
-          +     \\"url\\": \\"https://github.com/npm/cli.git\\",
+              "repository": Object {
+                "directory": "packages/pkg-b",
+                "type": "gitt",
+                "url": "https://github.com/npm/clii.git",
+          +     "directory": "packages/pkg-a",
+          +     "type": "git",
+          +     "url": "https://github.com/npm/cli.git",
               },
             }"
         `);

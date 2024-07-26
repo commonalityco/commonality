@@ -32,7 +32,7 @@ describe('getDependencies', () => {
     const expectedDependencies = [
       {
         source: 'pkg-one',
-        target: 'pkg-two',
+        target: '@scope/pkg-two',
         type: DependencyType.PRODUCTION,
         version: '1.0.0',
       },

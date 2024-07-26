@@ -19,6 +19,11 @@ const consoleMock = {
 };
 
 describe('validateProjectStructure', () => {
+  const temporaryDirectoryPath = path.join(
+    process.env['RUNNER_TEMP'] || os.tmpdir(),
+    'validate-project-structure-',
+  );
+
   beforeEach(() => {
     vi.stubGlobal('console', consoleMock);
   });
@@ -28,7 +33,6 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when there is no lockfile', () => {
-    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
@@ -62,7 +66,6 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when there is no root package', () => {
-    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
@@ -98,7 +101,6 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when there is an invalid root package.json', () => {
-    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
@@ -134,7 +136,6 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when running at the root of a valid project', () => {
-    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
@@ -167,7 +168,6 @@ describe('validateProjectStructure', () => {
   });
 
   describe('displays a warning for skipped packages', () => {
-    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
@@ -201,7 +201,6 @@ describe('validateProjectStructure', () => {
   });
 
   describe('when running within a sub-directory of a valid project', () => {
-    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = fs.mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),

@@ -1,8 +1,5 @@
 import { Command } from 'commander';
-import { constrain } from './commands/constrain.js';
-import { studio } from './commands/studio.js';
-import { check } from './commands/check.js';
-import { init } from './commands/init.js';
+import { publish } from './commands/publish.js';
 import packageJson from '../../package.json';
 
 const program = new Command();
@@ -16,9 +13,5 @@ program
   .description('Build bigger with the tools you already love')
   .version(packageJson.version);
 
-program.addCommand(init);
-program.addCommand(check);
-program.addCommand(constrain);
-program.addCommand(studio);
-
+program.addCommand(publish);
 program.parse(process.argv);

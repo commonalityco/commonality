@@ -49,7 +49,7 @@ describe('hasJsonFile', () => {
       expect(result.suggestion).toMatchInlineSnapshot(`
         "  Object {}
         + Object {
-        +   \\"key\\": \\"value\\",
+        +   "key": "value",
         + }"
       `);
     });

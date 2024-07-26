@@ -2,7 +2,7 @@ import { Package, TagsData } from '@commonalityco/types';
 import path from 'node:path';
 import { describe, test, expect } from 'vitest';
 import { getTagsData } from '../src/get-tags-data.js';
-import { PackageType } from '@commonalityco/utils-core';
+import { BlockType } from '@commonalityco/utils-core';
 import { fileURLToPath } from 'node:url';
 
 describe('getTagsData', () => {
@@ -18,19 +18,25 @@ describe('getTagsData', () => {
           name: 'pkg-one',
           path: 'packages/pkg-one',
           version: '0.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
         {
           name: 'pkg-two',
           path: 'packages/pkg-two',
           version: '0.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
         {
           name: 'pkg-three',
           path: 'packages/pkg-three',
           version: '0.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
       ] satisfies Package[];
 
@@ -60,19 +66,25 @@ describe('getTagsData', () => {
           name: 'pkg-one',
           path: 'packages/pkg-one',
           version: '0.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
         {
           name: 'pkg-two',
           path: 'packages/pkg-two',
           version: '0.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
         {
           name: 'pkg-three',
           path: 'packages/pkg-three',
           version: '0.0.0',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
+          churn: 0.3,
+          complexity: 0.3,
         },
       ] satisfies Package[];
 

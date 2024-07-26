@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { runFixes } from './run-fixes';
 import { Package, TagsData, CodeownersData } from '@commonalityco/types';
-import { PackageType, Status } from '@commonalityco/utils-core';
+import { BlockType, Status } from '@commonalityco/utils-core';
 import { ConformanceResult } from './get-conformance-results';
 
 describe('runFixes', () => {
@@ -19,8 +19,11 @@ describe('runFixes', () => {
         package: {
           name: 'test-package',
           path: 'path/to/test-package',
-          type: PackageType.NODE,
+          type: BlockType.NODE,
           version: '1.0.0',
+          churn: 0.5,
+          complexity: 0.5,
+          privacy: 'PRIVATE',
         },
       },
     ];
@@ -28,8 +31,11 @@ describe('runFixes', () => {
       {
         name: 'test-package',
         path: 'path/to/test-package',
-        type: PackageType.NODE,
+        type: BlockType.NODE,
         version: '1.0.0',
+        churn: 0.5,
+        complexity: 0.5,
+        privacy: 'PRIVATE',
       },
     ];
     const rootDirectory = 'root/directory';

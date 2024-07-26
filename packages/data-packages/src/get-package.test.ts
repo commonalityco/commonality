@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { getPackage } from './get-package';
 import path from 'node:path';
-import { PackageType } from '@commonalityco/utils-core';
+import { BlockType } from '@commonalityco/utils-core';
 import { fileURLToPath } from 'node:url';
 
 describe('getPackage', () => {
@@ -51,8 +51,12 @@ describe('getPackage', () => {
       name: 'pkg-one',
       description: 'pkg-one description',
       path: 'packages/pkg-one',
-      type: PackageType.NODE,
+      type: BlockType.NODE,
       version: '1.0.0',
+      churn: 0.3,
+      complexity: 0.3,
+      license: 'MIT',
+      privacy: 'PRIVATE',
     });
   });
 });

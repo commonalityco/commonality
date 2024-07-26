@@ -2,26 +2,34 @@ name: Commonality
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-env:
-  FORCE_COLOR: 1
+    branches:
+      - '*'
 
 jobs:
-  validate:
-    timeout-minutes: 10
+  publish:
+    name: Publish Commonality
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup
-        uses: ./.github/actions/setup
+      - name: Enable Corepack
+        run: corepack enable
 
-      - name: Check
-        run: pnpm exec commonality check
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
-      - name: Constrain
-        run: pnpm exec commonality constrain
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish Commonality
+        run: pnpm exec commonality publish
+        env:
+          COMMONALITY_PROJECT_ID: ${{ secrets.COMMONALITY_PROJECT_ID }}
+          COMMONALITY_PUBLISH_KEY: ${{ secrets.COMMONALITY_PUBLISH_KEY }}

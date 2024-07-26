@@ -4,11 +4,15 @@ import os from 'node:os';
 import path from 'node:path';
 import { setTags } from '../src/set-tags';
 import { fileURLToPath } from 'node:url';
-import { PackageType } from '@commonalityco/utils-core';
+import { BlockType } from '@commonalityco/utils-core';
 
 describe('setTags', () => {
+  const temporaryDirectoryPath = path.join(
+    process.env['RUNNER_TEMP'] || os.tmpdir(),
+    'set-tags-',
+  );
+
   describe('when setting tags for a package with no configuration file', () => {
-    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = mkdtempSync(temporaryDirectoryPath);
     const emptyFixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
@@ -29,7 +33,7 @@ describe('setTags', () => {
         pkg: {
           name: 'pkg-one',
           path: './packages/pkg-one',
-          type: PackageType.NEXT,
+          type: BlockType.NEXT,
           version: '1.0.0',
         },
         tags: ['tag-one'],
@@ -48,8 +52,10 @@ describe('setTags', () => {
         pkg: {
           name: 'pkg-one',
           path: './packages/pkg-one',
-          type: PackageType.NEXT,
+          type: BlockType.NEXT,
           version: '1.0.0',
+          churn: 0.5,
+          complexity: 0.5,
         },
         tags: ['tag-one'],
       });
@@ -61,7 +67,6 @@ describe('setTags', () => {
   });
 
   describe('when setting tags for a package with existing tags', () => {
-    const temporaryDirectoryPath = process.env['RUNNER_TEMP'] || os.tmpdir();
     const temporaryPath = mkdtempSync(temporaryDirectoryPath);
     const fixturePath = path.resolve(
       path.dirname(fileURLToPath(import.meta.url)),
@@ -82,7 +87,7 @@ describe('setTags', () => {
         pkg: {
           name: 'pkg-one',
           path: './packages/pkg-one',
-          type: PackageType.NEXT,
+          type: BlockType.NEXT,
           version: '1.0.0',
         },
         tags: ['tag-one', 'new-tag'],
